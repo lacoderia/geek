@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  details: MyText
+  references: MyText
+  background: MyText
+  calendar_preference_id: 1
+  bank_account_id: 1
+
+two:
+  details: MyText
+  references: MyText
+  background: MyText
+  calendar_preference_id: 1
+  bank_account_id: 1

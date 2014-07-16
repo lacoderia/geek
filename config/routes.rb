@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :students
+
+  resources :tutors
+
   resources :roles
 
   devise_for :users, :controllers => {:registrations => "users/registrations", :sessions => 'users/sessions', :omniauth_callbacks => "users/omniauth_callbacks"}
