@@ -1,0 +1,299 @@
+/*
+*
+*
+*
+*/
+
+$color-dark-gray: #808184;
+$color-light-gray: #A6A8AB;
+$color-dark-blue: #264A96;
+$color-light-blue: #79AADB;
+$color-dark-green: #2BA780;
+$color-light-green: #91C9AC;
+$color-dark-orange: #F07423;
+$color-medium-orange: #FAAE40;
+$color-light-orange: #FFD495;
+$color-dark-brown: #726659;
+$color-light-brown: #C1B49A;
+$color-dark-red: #EC2227;
+$color-light-red: #F05E5E;
+$color-dark-yellow: #F9D605;
+$color-light-yellow: #FFF496;
+
+$screen-sm-min: 768px;
+$screen-md-min: 992px;
+$screen-lg-min: 1200px;
+
+
+// Gotham Extra Light
+@font-face {
+  font-family: 'Gotham';
+  src: url("/assets/GothamNarrow-XLight.otf") format("opentype");
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gotham';
+  src: url("/assets/GothamNarrow-XLightItalic.otf") format("opentype");
+  font-weight: 100;
+  font-style: italic;
+}
+
+// Gotham Thin
+@font-face {
+  font-family: 'Gotham';
+  src: url("/assets/GothamNarrow-Thin.otf") format("opentype");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gotham';
+  src: url("/assets/GothamNarrow-ThinItalic.otf") format("opentype");
+  font-weight: 200;
+  font-style: italic;
+}
+
+// Gotham Light
+@font-face {
+  font-family: 'Gotham';
+  src: url("/assets/GothamNarrow-Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gotham';
+  src: url("/assets/GothamNarrow-LightItalic.otf") format("opentype");
+  font-weight: 300;
+  font-style: italic;
+}
+
+// Gotham Book
+@font-face {
+  font-family: 'Gotham';
+  src: url("/assets/GothamNarrow-Book.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gotham';
+  src: url("/assets/GothamNarrow-BookItalic.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+}
+
+// Gotham Medium
+@font-face {
+  font-family: 'Gotham';
+  src: url("/assets/GothamNarrow-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gotham';
+  src: url("/assets/GothamNarrow-MediumItalic.otf") format("opentype");
+  font-weight: 500;
+  font-style: italic;
+}
+
+// Gotham Bold
+@font-face {
+  font-family: 'Gotham';
+  src: url("/assets/GothamNarrow-Bold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gotham';
+  src: url("/assets/GothamNarrow-BoldItalic.otf") format("opentype");
+  font-weight: 600;
+  font-style: italic;
+}
+
+// Gotham Black
+@font-face {
+  font-family: 'Gotham';
+  src: url("/assets/GothamNarrow-Black.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gotham';
+  src: url("/assets/GothamNarrow-BlackItalic.otf") format("opentype");
+  font-weight: 700;
+  font-style: italic;
+}
+
+// Gotham Ultra
+@font-face {
+  font-family: 'Gotham';
+  src: url("/assets/GothamNarrow-Ultra.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gotham';
+  src: url("/assets/GothamNarrow-UltraItalic.otf") format("opentype");
+  font-weight: 700;
+  font-style: italic;
+}
+
+// Typewriter Serial
+@font-face {
+  font-family: 'Typewriter';
+  src: url("/assets/Typewriter-Serial-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+body{
+  font-family: 'Gotham';
+}
+
+.bgcolor-light-green{
+  background-color: $color-light-green;
+}
+
+.bgcolor-light-blue{
+  background-color: $color-light-blue;
+}
+
+.bgcolor-light-gray{
+  background-color: $color-light-gray;
+}
+
+.green-separator{
+  height: 12px;
+  margin-bottom: 0.5em;
+}
+
+.landing-logo{
+  display: inline-block;
+  margin: 0px;
+  padding: 0px;
+
+  img{
+    width: 100%;
+  }
+}
+
+.navbar{
+
+  h1{
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .navigation{
+    font-size: 19px;
+    text-align: right;
+
+    ul{
+      display: inline-block;
+      vertical-align: top;
+
+      li{
+        background-color: rgba(166,168,171,0.1);
+        display: inline-block;
+        margin: 1em 0px;
+        vertical-align: top;
+
+        a{
+          display: inline-block;
+          padding: 0.3em 1.3em;
+        }
+      }
+
+      li:first-child{
+        border-radius: 50px 0px 0px 50px;
+      }
+
+      li:last-child{
+        border-radius: 0px 50px 50px 0px;
+      }
+    }
+  }
+}
+
+
+/*:
+
+$color-dark-yellow: #F9D605;
+$color-light-yellow: #FFF496;*/
+
+
+.text-color-black{
+  color: black;
+}
+
+.text-color-dark-blue{
+  color: $color-dark-blue;
+}
+
+.text-color-dark-brown{
+  color: $color-dark-brown;
+}
+
+.text-color-dark-gray{
+  color: $color-dark-gray;
+}
+
+.text-color-dark-green{
+  color: $color-dark-green;
+}
+
+.text-color-dark-orange{
+  color: $color-dark-orange;
+}
+
+.text-color-dark-red{
+  color: $color-dark-red;
+}
+
+.text-color-dark-yellow{
+  color: $color-dark-yellow;
+}
+
+.text-color-light-blue{
+  color: $color-light-blue;
+}
+
+.text-color-light-brown{
+  color: $color-light-brown;
+}
+
+.text-color-light-gray{
+  color: $color-light-gray;
+}
+
+.text-color-light-green{
+  color: $color-light-green;
+}
+
+.text-color-light-orange{
+  color: $color-light-orange;
+}
+
+.text-color-light-red{
+  color: $color-light-red;
+}
+
+.text-color-medium-orange{
+  color: $color-medium-orange;
+}
+
+.text-color-light-yellow{
+  color: $color-light-yellow;
+}
+
+.text-color-white{
+  color: white;
+}
+

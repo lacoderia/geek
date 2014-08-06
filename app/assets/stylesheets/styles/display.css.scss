@@ -1,0 +1,202 @@
+// Place all the styles related to the display controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+footer{
+  color: $color-light-blue;
+  font-family: "Gotham";
+  font-size: 10px;
+  font-weight: 400;
+  padding: 4.5em 0em;
+  vertical-align: middle;
+
+  img{
+    max-width: 38px;
+    width: 100%;
+  }
+}
+
+.section-benefits{
+  box-sizing: border-box;
+  font-family: 'Gotham';
+  margin: 0px auto;
+  max-width: 1170px;
+  padding: 2.5em;
+
+  .benefit{
+    color: white;
+    padding: 0em 2em;
+
+    h3{
+      font-family: 'Typewriter';
+      font-size: 19px;
+    }
+
+    p{
+      font-size: 16px;
+      font-weight: 400;
+    }
+  }
+}
+
+.section-how-it-works{
+  box-sizing: border-box;
+  font-size: 19px;
+  margin: 0px auto;
+  max-width: 1170px;
+  padding: 2.5em;
+
+  .row{
+    max-width: 1200px;
+  }
+
+  span.number{
+    border: 2px solid white;
+    border-radius: 50px;
+    box-sizing: border-box;
+    display: inline-block;
+    font-size: 10px;
+    height: 20px;
+    margin: -2px 5px 0px 0px;
+    padding: 0.2em;
+    text-align: center;
+    vertical-align: middle;
+    width: 20px;
+  }
+
+  span.title{
+    box-sizing: border-box;
+    display: inline-block;
+    text-transform: uppercase;
+    vertical-align: middle;
+  }
+
+}
+
+.section-categories{
+  font-size: 0px;
+  text-align: center;
+
+  a{
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+  }
+
+  img{
+    display: block;
+    margin: 0px auto;
+    max-width: 130px;
+    width: 100%;
+  }
+
+  span{
+    display: block;
+    margin: 0px auto;
+    width: 100%;
+  }
+
+  .category{
+    background-color: rgba(166,168,171,0.1);
+    font-family: 'Gotham';
+    font-size: 19px;
+    font-weight: 500;
+
+    a{
+      padding: 5.5em 1em 3.5em;
+    }
+
+    a:hover{
+      text-decoration: none;
+    }
+
+    .category-title{
+      color: $color-dark-gray;
+      display: block;
+      font-size: 16px;
+      margin-top: 2em;
+      text-transform: uppercase;
+    }
+  }
+
+  .category:hover{
+    background-color: rgba(166,168,171,0.6);
+
+  }
+
+}
+
+.section-search{
+  background-color: rgba(166,168,171,0.1);
+  border-radius: 10px 10px 0px 0px;
+  box-sizing: border-box;
+  margin-top: 1em;
+  padding: 4em;
+
+  h2{
+    color: $color-dark-red;
+    font-family: 'Typewriter';
+    font-size: 60px;
+    margin: 0em 0em 0em 5em;
+  }
+
+  h3{
+    color: $color-light-green;
+    font-family: 'Typewriter';
+    font-size: 50px;
+    margin: 0em 0em 1em 6em;
+  }
+
+  form{
+    display: inline-block;
+    margin: 0em 0em 1em 6em;
+
+    input, select, button{
+      background: #e9e9e9; /* Old browsers */
+      background: -moz-linear-gradient(top,  #e9e9e9 0%, #ededed 50%, #f4f4f4 100%); /* FF3.6+ */
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e9e9e9), color-stop(50%,#ededed), color-stop(100%,#f4f4f4)); /* Chrome,Safari4+ */
+      background: -webkit-linear-gradient(top,  #e9e9e9 0%,#ededed 50%,#f4f4f4 100%); /* Chrome10+,Safari5.1+ */
+      background: -o-linear-gradient(top,  #e9e9e9 0%,#ededed 50%,#f4f4f4 100%); /* Opera 11.10+ */
+      background: -ms-linear-gradient(top,  #e9e9e9 0%,#ededed 50%,#f4f4f4 100%); /* IE10+ */
+      background: linear-gradient(to bottom,  #e9e9e9 0%,#ededed 50%,#f4f4f4 100%); /* W3C */
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e9e9e9', endColorstr='#f4f4f4',GradientType=0 ); /* IE6-9 */
+      border: 1px solid $color-light-gray;
+      border-radius: 10px;
+      box-shadow: 3px 4px 10px 0px rgba(50, 50, 50, 0.55);
+      color: $color-light-gray;
+      font-family: "gotham";
+      font-weight: 300;
+      padding: 0.5em 0.5em;
+    }
+
+    .course{
+      width: 200px;
+    }
+
+    .county{
+
+    }
+  }
+
+}
+
+@media (min-width: $screen-sm-min) {
+  .section-categories{
+    font-size: 0px;
+    text-align: center;
+
+    .category{
+      display: inline-block;
+      font-size: 19px;
+      margin-right: 0.62%;
+      padding: 0px;
+      width: 19.5%;
+    }
+
+    .category:last-child{
+      margin-right: 0px;
+    }
+
+  }
+}
+
