@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  resources :states
+
+  resources :cities
+
+  resources :postal_codes
+
+  resources :counties
+
   resources :students
 
   resources :tutors

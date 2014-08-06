@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @postal_code.code %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @postal_code.state_id %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @postal_code.city_id %>
+</p>
+
+<%= link_to 'Edit', edit_postal_code_path(@postal_code) %> |
+<%= link_to 'Back', postal_codes_path %>
