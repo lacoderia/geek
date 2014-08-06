@@ -24,6 +24,7 @@
 *.*~
 *~
 /.idea
+Gemfile.lock
 
 .DS_Store
 # /config/environments/development.rb
