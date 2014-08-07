@@ -19,7 +19,9 @@ $color-dark-red: #EC2227;
 $color-light-red: #F05E5E;
 $color-dark-yellow: #F9D605;
 $color-light-yellow: #FFF496;
+$color-input-bgcolor: #f4f4f4;
 
+$screen-xs-min: 460px;
 $screen-sm-min: 768px;
 $screen-md-min: 992px;
 $screen-lg-min: 1200px;
@@ -186,6 +188,8 @@ body{
 
 .navbar{
 
+  margin-bottom: 0px;
+
   h1{
     display: inline-block;
     vertical-align: top;
@@ -297,3 +301,9 @@ $color-light-yellow: #FFF496;*/
   color: white;
 }
 
+
+@media (min-width: $screen-sm-min) {
+  .navbar{
+    margin-bottom: 20px;
+  }
+}
