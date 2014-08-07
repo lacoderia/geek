@@ -7,7 +7,7 @@ footer{
   font-family: "Gotham";
   font-size: 10px;
   font-weight: 400;
-  padding: 4.5em 0em;
+  padding: 2.5em 0em;
   vertical-align: middle;
 
   img{
@@ -25,7 +25,7 @@ footer{
 
   .benefit{
     color: white;
-    padding: 0em 2em;
+    padding: 0em;
 
     h3{
       font-family: 'Typewriter';
@@ -41,10 +41,11 @@ footer{
 
 .section-how-it-works{
   box-sizing: border-box;
-  font-size: 19px;
+  font-size: 22px;
   margin: 0px auto;
   max-width: 1170px;
-  padding: 2.5em;
+  padding: 2em 1em 0em;
+  text-align: center;
 
   .row{
     max-width: 1200px;
@@ -54,19 +55,20 @@ footer{
     border: 2px solid white;
     border-radius: 50px;
     box-sizing: border-box;
-    display: inline-block;
-    font-size: 10px;
-    height: 20px;
-    margin: -2px 5px 0px 0px;
+    display: block;
+    font-size: 20px;
+    height: 40px;
+    margin: -2px auto 0.8em;
     padding: 0.2em;
     text-align: center;
     vertical-align: middle;
-    width: 20px;
+    width: 40px;
   }
 
   span.title{
     box-sizing: border-box;
     display: inline-block;
+    margin-bottom: 2em;
     text-transform: uppercase;
     vertical-align: middle;
   }
@@ -75,7 +77,7 @@ footer{
 
 .section-categories{
   font-size: 0px;
-  text-align: center;
+  text-align: left;
 
   a{
     display: inline-block;
@@ -96,14 +98,26 @@ footer{
     width: 100%;
   }
 
+  .category:nth-child(odd){
+    margin-right: 2%;
+  }
+
+  .category:last-child{
+    margin-bottom: 0%;
+  }
+
   .category{
     background-color: rgba(166,168,171,0.1);
+    display: inline-block;
     font-family: 'Gotham';
     font-size: 19px;
     font-weight: 500;
+    margin-bottom: 2%;
+    text-align: center;
+    width: 49%;
 
     a{
-      padding: 5.5em 1em 3.5em;
+      padding: 1.5em 1em 1em;
     }
 
     a:hover{
@@ -114,7 +128,7 @@ footer{
       color: $color-dark-gray;
       display: block;
       font-size: 16px;
-      margin-top: 2em;
+      margin-top: 1em;
       text-transform: uppercase;
     }
   }
@@ -130,32 +144,32 @@ footer{
   background-color: rgba(166,168,171,0.1);
   border-radius: 10px 10px 0px 0px;
   box-sizing: border-box;
-  margin-top: 1em;
+  margin-top: 0em;
   padding-top: 2em;
 
   > div{
-    display: inline-block;
-    vertical-align: top;
-    width: 75%;
+    display: block;
+    text-align: center;
   }
 
   h2{
     color: $color-dark-red;
     font-family: 'Typewriter';
-    font-size: 60px;
-    margin: 0.5em 0em 0em 1em;
+    font-size: 45px;
+    margin: 0em 1em;
   }
 
   h3{
     color: $color-light-green;
     font-family: 'Typewriter';
-    font-size: 50px;
-    margin: 0em 0em 0.5em 2em;
+    font-size: 30px;
+    margin: 0em 1em;
   }
 
   form{
-    display: inline-block;
-    margin: 0em 0em 1em 7em;
+    display: block;
+    margin: 0em auto;
+    padding: 2em;
 
     input, select, button{
       background: $color-input-bgcolor;
@@ -163,12 +177,16 @@ footer{
       border-radius: 10px;
       box-shadow: 3px 4px 10px 0px rgba(50, 50, 50, 0.55);
       color: $color-light-gray;
+      display: block;
       font-family: "gotham";
       font-weight: 400;
 
     }
 
     button{
+      color: $color-dark-blue;
+      display: block;
+      margin: 0em auto 1em;
       padding: 0.8em 1.5em;
       width: 150px;
     }
@@ -193,51 +211,266 @@ footer{
     .county{
       appearance: none;
       background: $color-input-bgcolor url('/assets/site/arrow-down.png') no-repeat;
-      background-position: 220px 15px;
-      border: 1px solid $color-light-gray;
-      border-radius: 10px;
-      box-shadow: 3px 4px 10px 0px rgba(50, 50, 50, 0.55);
-      color: $color-light-gray;
+      background-position: 96% 15px;
       font-family: "gotham";
       font-weight: 400;
+      margin: 0em auto 1em;
       padding: 0.7em 1.5em;
-      width: 250px;
+      width: 100%;
     }
 
     .course{
       appearance: field;
+      margin: 0em auto 1em;
       padding: 0.8em 1.5em;
-      width: 250px;
+      width: 100%;
     }
   }
 
   .search-image{
-    bottom: -27px;
-    display: inline-block;
-    left: 40px;
-    max-width: 260px;
-    position: relative;
-    vertical-align: top;
+    display: block;
+    margin: 0px auto -10px;
+    max-width: 100px;
     width: 100%;
   }
 
 }
 
 @media (min-width: $screen-sm-min) {
+  footer{
+    padding: 4.5em 0em;
+  }
+
+  .section-benefits{
+    padding: 2.5em;
+
+    .benefit{
+      padding: 0em 2em;
+    }
+  }
+
   .section-categories{
     font-size: 0px;
     text-align: center;
 
+    .category:nth-child(odd){
+      margin-right: 0.62%;
+    }
+
     .category{
       display: inline-block;
       font-size: 19px;
-      margin-right: 0.62%;
+      margin: 0% 0.62% 0% 0%;
       padding: 0px;
       width: 19.5%;
+
+      a{
+        padding: 5.5em 1em 3.5em;
+      }
+
+      a:hover{
+        text-decoration: none;
+      }
     }
 
     .category:last-child{
       margin-right: 0px;
+    }
+  }
+
+  .section-search{
+
+    h2{
+      font-size: 60px;
+      margin: 0.5em 0em 0em;
+    }
+
+    h3{
+      font-size: 50px;
+      margin: 0em 0em 0.5em;
+    }
+
+    > div{
+      display: block;
+    }
+
+    form{
+      display: block;
+      padding: 0px;
+
+      input, select, button{
+        display: inline-block;
+      }
+
+      button{
+        display: block;
+        padding: 0.8em 1.5em;
+        width: 150px;
+      }
+
+      .county{
+        padding: 0.7em 1.5em;
+        width: 250px;
+      }
+
+      .course{
+        padding: 0.8em 1.5em;
+        width: 250px;
+      }
+    }
+
+    .search-image{
+      bottom: -16px;
+      display: inline-block;
+      left: 40px;
+      margin-bottom: 0px;
+      max-width: 150px;
+      position: relative;
+      vertical-align: top;
+      width: 100%;
+    }
+
+  }
+
+}
+
+@media (min-width: $screen-md-min) {
+  .section-search{
+    margin-top: 1em;
+
+    > div{
+      display: inline-block;
+      vertical-align: top;
+      text-align: left;
+      width: 70%;
+    }
+
+    form{
+      display: inline-block;
+      margin: 0em 0em 1em 7em;
+      padding: 0em;
+
+      input, select, button{
+        display: inline-block;
+
+      }
+
+      button{
+        display: inline-block;
+        padding: 0.8em 1.5em;
+        width: 150px;
+      }
+
+      .county{
+        padding: 0.7em 1.5em;
+        width: 250px;
+      }
+
+      .course{
+        padding: 0.8em 1.5em;
+        width: 250px;
+      }
+    }
+  }
+
+  .section-how-it-works{
+    box-sizing: border-box;
+    font-size: 19px;
+    margin: 0px auto;
+    max-width: 1170px;
+    padding: 2.5em;
+
+    .row{
+      max-width: 1200px;
+    }
+
+    span.number{
+      border: 2px solid white;
+      border-radius: 50px;
+      box-sizing: border-box;
+      display: inline-block;
+      font-size: 10px;
+      height: 20px;
+      margin: -2px 5px 0px 0px;
+      padding: 0.2em;
+      text-align: center;
+      vertical-align: middle;
+      width: 20px;
+    }
+
+    span.title{
+      box-sizing: border-box;
+      display: inline-block;
+      margin-bottom: 0em;
+      text-transform: uppercase;
+      vertical-align: middle;
+    }
+
+  }
+
+  .section-search{
+    margin-top: 1em;
+
+    h2{
+      font-size: 60px;
+      margin: 0.5em 0em 0em 1em;
+    }
+
+    h3{
+      font-size: 50px;
+      margin: 0em 0em 0.5em 2em;
+    }
+
+    > div{
+      display: inline-block;
+      vertical-align: top;
+      text-align: left;
+      width: 70%;
+    }
+
+    form{
+      display: inline-block;
+      margin: 0em 0em 1em 7em;
+      padding: 0em;
+
+      button{
+        padding: 0.8em 1.5em;
+        width: 150px;
+      }
+
+      .county{
+        padding: 0.7em 1.5em;
+        width: 250px;
+      }
+
+      .course{
+        padding: 0.8em 1.5em;
+        width: 250px;
+      }
+    }
+  }
+}
+
+@media (min-width: $screen-lg-min) {
+  .section-search{
+
+    > div{
+      width: 75%;
+    }
+
+    form{
+      display: inline-block;
+    }
+
+    .search-image{
+      bottom: -27px;
+      display: inline-block;
+      left: 40px;
+      margin-bottom: 0px;
+      max-width: 260px;
+      position: relative;
+      vertical-align: top;
+      width: 100%;
     }
 
   }
