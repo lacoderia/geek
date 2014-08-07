@@ -24,12 +24,16 @@
     <%= f.text_area :background %>
   </div>
   <div class="field">
-    <%= f.label :calendar_preference_id %><br>
-    <%= f.number_field :calendar_preference_id %>
+    <%= f.label :preference_id %><br>
+    <%= f.number_field :preference_id %>
   </div>
   <div class="field">
     <%= f.label :bank_account_id %><br>
     <%= f.number_field :bank_account_id %>
+  </div>
+	<div class="field">
+    <%= f.label :calendar_id %><br>
+    <%= f.text_field :calendar_id %>
   </div>
   <div class="actions">
     <%= f.submit %>

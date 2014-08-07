@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  openpay_id: MyString
+  alias: MyString
+  holder_name: MyString
+  clabe: MyString
+  bank_name: MyString
+  bank_code: MyString
+  creation_date: 2014-08-06 18:26:03
+
+two:
+  openpay_id: MyString
+  alias: MyString
+  holder_name: MyString
+  clabe: MyString
+  bank_name: MyString
+  bank_code: MyString
+  creation_date: 2014-08-06 18:26:03

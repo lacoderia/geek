@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  description: MyString
+  line1: MyString
+  line2: MyString
+  county_id: 1
+
+two:
+  description: MyString
+  line1: MyString
+  line2: MyString
+  county_id: 1

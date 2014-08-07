@@ -1,4 +1,22 @@
 Rails.application.routes.draw do
+  resources :appointment_statuses
+
+  resources :appointments
+
+  resources :messages
+
+  resources :reviews
+
+  resources :bank_accounts
+
+  resources :categories
+
+  resources :purchases
+
+  resources :addresses
+
+  resources :banks
+
   resources :states
 
   resources :cities

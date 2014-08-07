@@ -16,13 +16,18 @@
 </p>
 
 <p>
-  <strong>Calendar preference:</strong>
-  <%= @tutor.calendar_preference_id %>
+  <strong>Preference:</strong>
+  <%= @tutor.preference_id %>
 </p>
 
 <p>
   <strong>Bank account:</strong>
   <%= @tutor.bank_account_id %>
+</p>
+
+<p>
+  <strong>Calendar id:</strong>
+  <%= @tutor.calendar_id %>
 </p>
 
 <%= link_to 'Edit', edit_tutor_path(@tutor) %> |

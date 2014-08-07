@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Openpay:</strong>
+  <%= @bank_account.openpay_id %>
+</p>
+
+<p>
+  <strong>Alias:</strong>
+  <%= @bank_account.alias %>
+</p>
+
+<p>
+  <strong>Holder name:</strong>
+  <%= @bank_account.holder_name %>
+</p>
+
+<p>
+  <strong>Clabe:</strong>
+  <%= @bank_account.clabe %>
+</p>
+
+<p>
+  <strong>Bank name:</strong>
+  <%= @bank_account.bank_name %>
+</p>
+
+<p>
+  <strong>Bank code:</strong>
+  <%= @bank_account.bank_code %>
+</p>
+
+<p>
+  <strong>Creation date:</strong>
+  <%= @bank_account.creation_date %>
+</p>
+
+<%= link_to 'Edit', edit_bank_account_path(@bank_account) %> |
+<%= link_to 'Back', bank_accounts_path %>

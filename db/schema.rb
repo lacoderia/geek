@@ -11,7 +11,69 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140806181824) do
+ActiveRecord::Schema.define(version: 20140807000727) do
+
+  create_table "addresses", force: true do |t|
+    t.string   "description"
+    t.string   "line1"
+    t.string   "line2"
+    t.integer  "county_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "addresses_users", id: false, force: true do |t|
+    t.integer "address_id"
+    t.integer "user_id"
+  end
+
+  create_table "appointment_statuses", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "appointments", force: true do |t|
+    t.integer  "appointment_status_id"
+    t.integer  "student_id"
+    t.integer  "tutor_id"
+    t.datetime "date"
+    t.text     "details"
+    t.integer  "address_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "bank_accounts", force: true do |t|
+    t.string   "openpay_id"
+    t.string   "alias"
+    t.string   "holder_name"
+    t.string   "clabe"
+    t.string   "bank_name"
+    t.string   "bank_code"
+    t.datetime "creation_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "banks", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "categories", force: true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.integer  "category_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "categories_tutors", id: false, force: true do |t|
+    t.integer "category_id"
+    t.integer "tutor_id"
+  end
 
   create_table "cities", force: true do |t|
     t.string   "name"
@@ -26,10 +88,57 @@ ActiveRecord::Schema.define(version: 20140806181824) do
     t.datetime "updated_at"
   end
 
+  create_table "counties_tutors", id: false, force: true do |t|
+    t.integer "county_id"
+    t.integer "tutor_id"
+  end
+
+  create_table "messages", force: true do |t|
+    t.integer  "sender_id"
+    t.integer  "recipient_id"
+    t.text     "text"
+    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "postal_codes", force: true do |t|
     t.string   "code"
     t.integer  "state_id"
     t.integer  "city_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "purchases", force: true do |t|
+    t.string   "openpay_id"
+    t.string   "description"
+    t.string   "authorization"
+    t.string   "transaction_type"
+    t.string   "operation_type"
+    t.string   "method"
+    t.string   "creation_date"
+    t.string   "order_id"
+    t.string   "status"
+    t.float    "amount"
+    t.string   "error_message"
+    t.string   "customer_id"
+    t.string   "currency"
+    t.boolean  "is_card"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "purchases_students", id: false, force: true do |t|
+    t.integer "purchase_id"
+    t.integer "student_id"
+  end
+
+  create_table "reviews", force: true do |t|
+    t.integer  "student_id"
+    t.integer  "tutor_id"
+    t.float    "grade"
+    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -62,8 +171,9 @@ ActiveRecord::Schema.define(version: 20140806181824) do
     t.text     "details"
     t.text     "references"
     t.text     "background"
-    t.integer  "calendar_preference_id"
+    t.integer  "preference_id"
     t.integer  "bank_account_id"
+    t.string   "calendar_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

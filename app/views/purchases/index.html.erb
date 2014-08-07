@@ -1,0 +1,51 @@
+<h1>Listing purchases</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Openpay</th>
+      <th>Description</th>
+      <th>Authorization</th>
+      <th>Transaction type</th>
+      <th>Operation type</th>
+      <th>Method</th>
+      <th>Creation date</th>
+      <th>Order</th>
+      <th>Status</th>
+      <th>Amount</th>
+      <th>Error message</th>
+      <th>Customer</th>
+      <th>Currency</th>
+      <th>Is card</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @purchases.each do |purchase| %>
+      <tr>
+        <td><%= purchase.openpay_id %></td>
+        <td><%= purchase.description %></td>
+        <td><%= purchase.authorization %></td>
+        <td><%= purchase.transaction_type %></td>
+        <td><%= purchase.operation_type %></td>
+        <td><%= purchase.method %></td>
+        <td><%= purchase.creation_date %></td>
+        <td><%= purchase.order_id %></td>
+        <td><%= purchase.status %></td>
+        <td><%= purchase.amount %></td>
+        <td><%= purchase.error_message %></td>
+        <td><%= purchase.customer_id %></td>
+        <td><%= purchase.currency %></td>
+        <td><%= purchase.is_card %></td>
+        <td><%= link_to 'Show', purchase %></td>
+        <td><%= link_to 'Edit', edit_purchase_path(purchase) %></td>
+        <td><%= link_to 'Destroy', purchase, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Purchase', new_purchase_path %>

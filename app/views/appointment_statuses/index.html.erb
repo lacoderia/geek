@@ -1,0 +1,25 @@
+<h1>Listing appointment_statuses</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @appointment_statuses.each do |appointment_status| %>
+      <tr>
+        <td><%= appointment_status.name %></td>
+        <td><%= link_to 'Show', appointment_status %></td>
+        <td><%= link_to 'Edit', edit_appointment_status_path(appointment_status) %></td>
+        <td><%= link_to 'Destroy', appointment_status, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Appointment status', new_appointment_status_path %>

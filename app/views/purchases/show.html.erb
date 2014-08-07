@@ -1,0 +1,74 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Openpay:</strong>
+  <%= @purchase.openpay_id %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @purchase.description %>
+</p>
+
+<p>
+  <strong>Authorization:</strong>
+  <%= @purchase.authorization %>
+</p>
+
+<p>
+  <strong>Transaction type:</strong>
+  <%= @purchase.transaction_type %>
+</p>
+
+<p>
+  <strong>Operation type:</strong>
+  <%= @purchase.operation_type %>
+</p>
+
+<p>
+  <strong>Method:</strong>
+  <%= @purchase.method %>
+</p>
+
+<p>
+  <strong>Creation date:</strong>
+  <%= @purchase.creation_date %>
+</p>
+
+<p>
+  <strong>Order:</strong>
+  <%= @purchase.order_id %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @purchase.status %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @purchase.amount %>
+</p>
+
+<p>
+  <strong>Error message:</strong>
+  <%= @purchase.error_message %>
+</p>
+
+<p>
+  <strong>Customer:</strong>
+  <%= @purchase.customer_id %>
+</p>
+
+<p>
+  <strong>Currency:</strong>
+  <%= @purchase.currency %>
+</p>
+
+<p>
+  <strong>Is card:</strong>
+  <%= @purchase.is_card %>
+</p>
+
+<%= link_to 'Edit', edit_purchase_path(@purchase) %> |
+<%= link_to 'Back', purchases_path %>

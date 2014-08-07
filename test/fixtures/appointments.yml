@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  appointment_status_id: 1
+  student_id: 1
+  tutor_id: 1
+  date: 2014-08-06 19:03:51
+  details: MyText
+  address_id: 1
+
+two:
+  appointment_status_id: 1
+  student_id: 1
+  tutor_id: 1
+  date: 2014-08-06 19:03:51
+  details: MyText
+  address_id: 1

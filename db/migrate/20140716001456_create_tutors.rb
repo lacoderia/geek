@@ -4,8 +4,9 @@ class CreateTutors < ActiveRecord::Migration
       t.text :details
       t.text :references
       t.text :background
-      t.integer :calendar_preference_id
+      t.integer :preference_id
       t.integer :bank_account_id
+      t.string :calendar_id
 
       t.timestamps
     end
