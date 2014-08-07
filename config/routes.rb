@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :availabilities
+
+  resources :preferences
+
   resources :appointment_statuses
 
   resources :appointments

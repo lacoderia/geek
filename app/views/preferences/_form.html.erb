@@ -1,0 +1,53 @@
+<%= form_for(@preference) do |f| %>
+  <% if @preference.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@preference.errors.count, "error") %> prohibited this preference from being saved:</h2>
+
+      <ul>
+      <% @preference.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :monday %><br>
+    <%= f.check_box :monday %>
+  </div>
+  <div class="field">
+    <%= f.label :tuesday %><br>
+    <%= f.check_box :tuesday %>
+  </div>
+  <div class="field">
+    <%= f.label :wednesday %><br>
+    <%= f.check_box :wednesday %>
+  </div>
+  <div class="field">
+    <%= f.label :thursday %><br>
+    <%= f.check_box :thursday %>
+  </div>
+  <div class="field">
+    <%= f.label :friday %><br>
+    <%= f.check_box :friday %>
+  </div>
+  <div class="field">
+    <%= f.label :saturday %><br>
+    <%= f.check_box :saturday %>
+  </div>
+  <div class="field">
+    <%= f.label :sunday %><br>
+    <%= f.check_box :sunday %>
+  </div>
+  <div class="field">
+    <%= f.label :online %><br>
+    <%= f.check_box :online %>
+  </div>
+  <div class="field">
+    <%= f.label :only_office %><br>
+    <%= f.check_box :only_office %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
