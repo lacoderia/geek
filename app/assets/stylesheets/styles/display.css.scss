@@ -131,51 +131,94 @@ footer{
   border-radius: 10px 10px 0px 0px;
   box-sizing: border-box;
   margin-top: 1em;
-  padding: 4em;
+  padding-top: 2em;
+
+  > div{
+    display: inline-block;
+    vertical-align: top;
+    width: 75%;
+  }
 
   h2{
     color: $color-dark-red;
     font-family: 'Typewriter';
     font-size: 60px;
-    margin: 0em 0em 0em 5em;
+    margin: 0.5em 0em 0em 1em;
   }
 
   h3{
     color: $color-light-green;
     font-family: 'Typewriter';
     font-size: 50px;
-    margin: 0em 0em 1em 6em;
+    margin: 0em 0em 0.5em 2em;
   }
 
   form{
     display: inline-block;
-    margin: 0em 0em 1em 6em;
+    margin: 0em 0em 1em 7em;
 
     input, select, button{
-      background: #e9e9e9; /* Old browsers */
-      background: -moz-linear-gradient(top,  #e9e9e9 0%, #ededed 50%, #f4f4f4 100%); /* FF3.6+ */
-      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e9e9e9), color-stop(50%,#ededed), color-stop(100%,#f4f4f4)); /* Chrome,Safari4+ */
-      background: -webkit-linear-gradient(top,  #e9e9e9 0%,#ededed 50%,#f4f4f4 100%); /* Chrome10+,Safari5.1+ */
-      background: -o-linear-gradient(top,  #e9e9e9 0%,#ededed 50%,#f4f4f4 100%); /* Opera 11.10+ */
-      background: -ms-linear-gradient(top,  #e9e9e9 0%,#ededed 50%,#f4f4f4 100%); /* IE10+ */
-      background: linear-gradient(to bottom,  #e9e9e9 0%,#ededed 50%,#f4f4f4 100%); /* W3C */
-      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e9e9e9', endColorstr='#f4f4f4',GradientType=0 ); /* IE6-9 */
+      background: $color-input-bgcolor;
       border: 1px solid $color-light-gray;
       border-radius: 10px;
       box-shadow: 3px 4px 10px 0px rgba(50, 50, 50, 0.55);
       color: $color-light-gray;
       font-family: "gotham";
-      font-weight: 300;
-      padding: 0.5em 0.5em;
+      font-weight: 400;
+
     }
 
-    .course{
-      width: 200px;
+    button{
+      padding: 0.8em 1.5em;
+      width: 150px;
+    }
+
+    button:hover{
+      background-color: rgba(166, 168, 171, 0.2);
+    }
+
+    input:hover{
+      background-color: rgba(166, 168, 171, 0.2);
+    }
+
+    input:focus{
+      background-color: rgba(166, 168, 171, 0.3);
+    }
+
+    select:hover{
+      background-color: rgba(166, 168, 171, 0.2);
+      cursor: pointer;
     }
 
     .county{
-
+      appearance: none;
+      background: $color-input-bgcolor url('/assets/site/arrow-down.png') no-repeat;
+      background-position: 220px 15px;
+      border: 1px solid $color-light-gray;
+      border-radius: 10px;
+      box-shadow: 3px 4px 10px 0px rgba(50, 50, 50, 0.55);
+      color: $color-light-gray;
+      font-family: "gotham";
+      font-weight: 400;
+      padding: 0.7em 1.5em;
+      width: 250px;
     }
+
+    .course{
+      appearance: field;
+      padding: 0.8em 1.5em;
+      width: 250px;
+    }
+  }
+
+  .search-image{
+    bottom: -27px;
+    display: inline-block;
+    left: 40px;
+    max-width: 260px;
+    position: relative;
+    vertical-align: top;
+    width: 100%;
   }
 
 }
@@ -197,6 +240,32 @@ footer{
       margin-right: 0px;
     }
 
+  }
+}
+
+@-moz-document url-prefix(){
+
+  .moz-county-wrapper{
+    background: $color-input-bgcolor url('/assets/site/arrow-down.png') no-repeat;
+    background-position: 220px 15px;
+    border: 1px solid $color-light-gray;
+    border-radius: 10px;
+    box-shadow: 3px 4px 10px 0px rgba(50, 50, 50, 0.55);
+    color: $color-light-gray;
+    display: inline-block;
+    font-family: "gotham";
+    font-weight: 400;
+    padding: 0em;
+    width: 250px;
+
+    .county{
+      appearance: window !important;
+    }
+  }
+
+  .moz-county-wrapper:hover{
+    background-color: rgba(166, 168, 171, 0.2);
+    cursor: pointer;
   }
 }
 
