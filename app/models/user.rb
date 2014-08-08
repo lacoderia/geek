@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
   
   has_and_belongs_to_many :roles
+	has_and_belongs_to_many :addresses
 
   def self.find_for_facebook_oauth(auth, signed_in_resource = nil)
 		user = User.where(:email => auth.info.email).first

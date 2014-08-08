@@ -26,7 +26,7 @@ gem 'devise'
 gem 'cancan'
 gem 'omniauth-facebook'
 #gem 'omniauth-twitter'
-#gem 'omniauth-google-oauth2'
+gem 'omniauth-google-oauth2'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -53,4 +53,3 @@ gem 'bootstrap-sass', '~> 3.2.0'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-

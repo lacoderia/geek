@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140807000727) do
+ActiveRecord::Schema.define(version: 20140807213355) do
 
   create_table "addresses", force: true do |t|
     t.string   "description"
@@ -44,6 +44,14 @@ ActiveRecord::Schema.define(version: 20140807000727) do
     t.datetime "updated_at"
   end
 
+  create_table "availabilities", force: true do |t|
+    t.datetime "start"
+    t.datetime "end"
+    t.integer  "tutor_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "bank_accounts", force: true do |t|
     t.string   "openpay_id"
     t.string   "alias"
@@ -66,6 +74,7 @@ ActiveRecord::Schema.define(version: 20140807000727) do
     t.string   "name"
     t.string   "description"
     t.integer  "category_id"
+    t.string   "picture_url"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -106,6 +115,20 @@ ActiveRecord::Schema.define(version: 20140807000727) do
     t.string   "code"
     t.integer  "state_id"
     t.integer  "city_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "preferences", force: true do |t|
+    t.boolean  "monday"
+    t.boolean  "tuesday"
+    t.boolean  "wednesday"
+    t.boolean  "thursday"
+    t.boolean  "friday"
+    t.boolean  "saturday"
+    t.boolean  "sunday"
+    t.boolean  "online"
+    t.boolean  "only_office"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
