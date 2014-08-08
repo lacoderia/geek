@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
 
-  acts_as_superclass
+  actable
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
