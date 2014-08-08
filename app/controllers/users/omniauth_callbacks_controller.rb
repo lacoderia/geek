@@ -11,6 +11,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 		end
 	end
 
+	def google_oauth2
+		logger.info "google"
+	end
+
 	def auth_hash
 		request.env["omniauth.auth"]
 	end
