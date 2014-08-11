@@ -40,9 +40,9 @@ user_tutor = User.create(first_name: 'Ramiro', last_name: 'Tutor', email: 'ramir
 
 student = Student.create(credits: 10.0, openpay_id: "999999", user: user_student)
 
-preference = Preference.create(monday: true, tuesday: true, wednesday: false, thursday: false, friday: true, saturday: true, sunday: true, online: false, only_office: true)
+preference = Preference.create(monday_start: Time.now, monday_end: Time.now + 1.hour, tuesday_start: Time.now, tuesday_end: Time.now + 1.hour, wednesday_start: Time.now, wednesday_end: Time.now + 1.hour, thursday_start: Time.now, thursday_end: Time.now + 1.hour, friday_start: Time.now, friday_end: Time.now + 1.hour, saturday_start: Time.now, saturday_end: Time.now + 1.hour, sunday_start: Time.now, sunday_end: Time.now + 1.hour, online: false, only_office: true)
 bank_account = BankAccount.create(openpay_id: "3123123", alias: "bank account tutor", holder_name: "Ramiro Tutor", clabe: "234234234234", bank_code: "BMX", bank_name: "BANAMEX", creation_date: Time.now)
-tutor = Tutor.create(details: "tutor details", references: "tutor references", background: "tutor background", preference_id: preference.id ,bank_account_id: bank_account.id, calendar_id: "232342af", user: user_tutor)
+tutor = Tutor.create(details: "tutor details", references: "tutor references", background: "tutor background", preference_id: preference.id ,bank_account_id: bank_account.id, calendar_id: "232342af", user: user_tutor, tier1_rate: 20, tier2_rate: 18, tier3_rate: 15)
 
 Review.create(student_id: student.id, tutor_id: tutor.id, grade: 10, description: "abcdefg")
 
