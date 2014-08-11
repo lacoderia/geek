@@ -7,6 +7,9 @@ class CreateTutors < ActiveRecord::Migration
       t.integer :preference_id
       t.integer :bank_account_id
       t.string :calendar_id
+			t.float :tier1_rate
+			t.float :tier2_rate
+			t.float :tier3_rate
 
       t.timestamps
     end
