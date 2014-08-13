@@ -48,13 +48,11 @@ Review.create(student_id: student.id, tutor_id: tutor.id, grade: 10, description
 
 Availability.create(tutor_id: tutor.id, start: Time.now, end: Time.now)
 
-cat_academico = Category.create(name: "Académico", description: "matematicas", picture_url: "")
-cat_matematicas = Category.create(name: "Matemáticas", description: "mate, ciencias, geografía, etc", category_id: cat_academico.id, picture_url: "")
-
-cat_lenguas = Category.create(name: "Lenguas", description: "inglés, francés, español, etc", picture_url: "")
-cat_artes = Category.create(name: "Artes", description: "guitarra, pintura, fotografía, etc", picture_url: "")
-cat_computacion = Category.create(name: "Computación", description: "Computación", picture_url: "")
-cat_examenes = Category.create(name: "Exámenes", description: "SAT's, GRE, GMAT, exámenes de admisión, etc", picture_url: "")
+cat_academico = Category.create(name: "Académico", description: "Matemáticas, ciencias, geografía, etc", picture_url: "/assets/site/cat-academico.png")
+cat_lenguas = Category.create(name: "Lenguas", description: "Inglés, francés, español, etc", picture_url: "/assets/site/cat-lenguas.png")
+cat_artes = Category.create(name: "Artes", description: "Guitarra, pintura, fotografía, etc", picture_url: "/assets/site/cat-artes.png")
+cat_computacion = Category.create(name: "Computación", description: "Computación", picture_url: "/assets/site/cat-computacion.png")
+cat_examenes = Category.create(name: "Exámenes", description: "SAT's, GRE, GMAT, exámenes de admisión, etc", picture_url: "/assets/site/cat-examenes.png")
 
 tutor.categories << cat_academico
 tutor.categories << cat_matematicas

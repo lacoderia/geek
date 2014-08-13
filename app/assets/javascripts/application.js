@@ -14,5 +14,8 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require modernizr-2.6.2.min 
-//= require prefixfree.min
+//= require base/modernizr-2.6.2.min.js
+//= require base/prefixfree.min.js
+//= require lib/angular.min
+//= require lib/angular-resource.min
+//= require scripts/app

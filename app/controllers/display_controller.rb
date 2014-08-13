@@ -2,6 +2,9 @@ class DisplayController < ApplicationController
 
   def index
 
+    #Get categories catalog
+    @categories = Category.all
+
   end
 
 	def complete_registration

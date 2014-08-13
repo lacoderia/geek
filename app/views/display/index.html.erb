@@ -1,17 +1,23 @@
-<header class="container">
+<header class="container" ng-controller="PruebaController">
   <div class="row navbar">
-    <h1 class="col-lg-2 col-md-2 col-sm-1">
-      <a href="#" title="Geek"><img src="/assets/site/geek-logo.png"></a>
+    <h1 class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
+      <a href="#" title="Geek">
+        <img src="/assets/site/geek-logo.png" class="hidden-xs">
+        <span class="hidden-lg hidden-md hidden-sm">geek</span>
+    </a>
     </h1>
-    <nav class="navigation col-lg-10 col-md-10 hidden-sm hidden-xs" role="navigation">
-      <div>
-        <ul>
+    <nav class="navigation col-lg-10 col-md-10 col-sm-9 col-xs-9" role="navigation">
+        <ul class="hidden-xs">
           <li><a href="#" title="¿Quieres dar clases en geek?" class="text-color-dark-blue">¿Quieres dar clases en geek?</a></li>
           <li><a href="#" title="¿Quieres dar clases en geek?">Ingresa</a></li>
           <li><a href="#" title="¿Quieres dar clases en geek?">Registrate</a></li>
           <li><a href="#" title="¿Quieres dar clases en geek?" class="text-color-light-blue">English/Español</a></li>
         </ul>
-      </div>
+      <ul class="hidden-md hidden-lg hidden-sm">
+        <li><a href="#" title="¿Quieres dar clases en geek?" class="text-color-dark-blue">¿Tutor?</a></li>
+        <li><a href="#" title="¿Quieres dar clases en geek?">Ingresa</a></li>
+        <li><a href="#" title="¿Quieres dar clases en geek?">Registrate</a></li>
+      </ul>
     </nav>
   </div>
 </header>
@@ -20,22 +26,17 @@
   <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <div class="bgcolor-light-gray section-search">
-        <img src="/assets/site/geek.png" alt="Geek" class="search-image hidden-xs hidden-sm">
+        <img src="/assets/site/geek.png" alt="Geek" class="search-image hidden-xs">
         <div>
           <h2>geek</h2>
           <h3>¿Qué quieres aprender?</h3>
           <form>
             <input type="text" class="course" placeholder="Me interesaría aprender...">
-              <span class="moz-county-wrapper">
-                  <select class="county">
-                    <option>Tu colonia</option>
-                    <option>Condesa</option>
-                  </select>
-              </span>
+            <input type="text" class="county" placeholder="En la zona de...">
             <button>Buscar</button>
           </form>
         </div>
-        <img src="/assets/site/geek.png" alt="Geek" class="search-image hidden-lg hidden-md">
+        <img src="/assets/site/geek.png" alt="Geek" class="search-image hidden-lg hidden-md hidden-sm">
       </div>
     </div>
   </div>
@@ -57,36 +58,15 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 section-categories">
+      <% @categories.each do |category| %>
       <div class="category">
-        <a href="#" title="Académico">
-          <img src="/assets/site/cat-academico.png" alt="Categoría Académico">
-          <span class="category-title">Académico</span>
+        <a href="#" title="<%= category.description %>">
+          <img src="<%= category.picture_url %>" alt="<%= category.name %>">
+          <span class="category-title"><%= category.name %></span>
         </a>
+        <div class="clearfix"></div>
       </div>
-      <div class="category">
-        <a href="#" title="Lenguas">
-          <img src="/assets/site/cat-lenguas.png" alt="Categoría Académico">
-          <span class="category-title">Lenguas</span>
-        </a>
-      </div>
-      <div class="category">
-        <a href="#" title="Artes">
-          <img src="/assets/site/cat-artes.png" alt="Categoría Académico">
-          <span class="category-title">Artes</span>
-        </a>
-      </div>
-      <div class="category">
-        <a href="#" title="Computación">
-          <img src="/assets/site/cat-computacion.png" alt="Categoría Académico">
-          <span class="category-title">Computación</span>
-        </a>
-      </div>
-      <div class="category">
-        <a href="#" title="Exámenes">
-          <img src="/assets/site/cat-examenes.png" alt="Categoría Académico">
-          <span class="category-title">Exámenes</span>
-        </a>
-      </div>
+      <% end %>
     </div>
   </div>
 </div>
@@ -121,6 +101,9 @@
 <footer>
   <div class="container">
     <div class="row">
+      <div class="col-xs-12 hidden-lg hidden-md hidden-sm language">
+        <a href="#" title="¿Quieres dar clases en geek?" class="text-color-light-blue">English/Español</a>
+      </div>
       <div class="col-lg-6 col-md-6">© Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla risus mauris, eleifend vel vehicula ac.</div>
       <div class="col-lg-4 col-md-4"></div>
       <div class="col-lg-2 col-md-2">

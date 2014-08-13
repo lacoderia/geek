@@ -191,27 +191,35 @@ body{
   margin-bottom: 0px;
 
   h1{
+    color: $color-dark-red;
     display: inline-block;
+    font-family: 'Typewriter';
     vertical-align: top;
   }
 
+  a span{
+    color: $color-dark-red;
+  }
+
   .navigation{
-    font-size: 19px;
+    display: inline-block;
+    font-size: 16px;
     text-align: right;
 
     ul{
       display: inline-block;
       vertical-align: top;
+      padding-left: 0px;
 
       li{
         background-color: rgba(166,168,171,0.1);
         display: inline-block;
-        margin: 1em 0px;
+        margin: 0.4em 0px 0px;
         vertical-align: top;
 
         a{
           display: inline-block;
-          padding: 0.3em 1.3em;
+          padding: 0.2em 0.3em;
         }
       }
 
@@ -305,5 +313,50 @@ $color-light-yellow: #FFF496;*/
 @media (min-width: $screen-sm-min) {
   .navbar{
     margin-bottom: 20px;
+
+    .navigation{
+      font-size: 16px;
+      ul{
+
+        li{
+          display: inline-block;
+          margin: 1em 0px;
+          vertical-align: top;
+
+          a{
+            display: inline-block;
+            padding: 0.6em 0.6em;
+          }
+        }
+
+        li:first-child{
+          border-radius: 50px 0px 0px 50px;
+        }
+
+        li:last-child{
+          border-radius: 0px 50px 50px 0px;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: $screen-md-min) {
+  .navbar{
+
+    .navigation{
+      font-size: 19px;
+
+      ul{
+
+        li{
+
+          a{
+            display: inline-block;
+            padding: 0.3em 1.5em;
+          }
+        }
+      }
+    }
   }
 }

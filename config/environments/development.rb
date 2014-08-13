@@ -1,13 +1,16 @@
 Rails.application.configure do
 
-  ENV['FACEBOOK_APP_KEY'] = ""
-  ENV['FACEBOOK_APP_SECRET'] = ""
+  ENV['FACEBOOK_APP_KEY'] = "217482014974292"
+  ENV['FACEBOOK_APP_SECRET'] = "ad20e3cb040cede5aa69a70b8872feee"
 
   ENV['ADDRESS'] = ""
   ENV['HOST'] = ""
   ENV['DOMAIN_NAME'] = ""
   ENV['MAIL_USERNAME'] = ""
   ENV['MAIL_PASSWORD'] = ""
+
+  ENV['GOOGLE_CLIENT_ID'] = "387343070369-2mctkqbrhlph8hs724p4ufj19qerhgea.apps.googleusercontent.com"
+  ENV['GOOGLE_CLIENT_SECRET'] = "bcKjkLgdSTexn18dCBNNN9xd"
 
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -60,6 +63,7 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = false
 
+  config.assets.precompile += %w( scripts/controller/pruebaCtrl.js )
 
 
 end
