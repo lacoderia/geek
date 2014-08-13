@@ -43,6 +43,12 @@ Rails.application.routes.draw do
   end
   resources :users
 
+  get "complete_registration" => "display#complete_registration", :as => :complete_registration
+  
+	get "home_student" => "display#home_student", :as => :home_student
+  
+	get "home_tutor" => "display#home_tutor", :as => :home_tutor
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
