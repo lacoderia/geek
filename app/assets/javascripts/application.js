@@ -18,4 +18,7 @@
 //= require base/prefixfree.min.js
 //= require lib/angular.min
 //= require lib/angular-resource.min
+//= require lib/angular-cookies.min
 //= require scripts/app
+//= require lib/angular/angular-translate.min
+//= require scripts/controller/rootCtrl

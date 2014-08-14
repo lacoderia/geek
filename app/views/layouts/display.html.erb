@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" ng-app="Geek">
+<html lang="es">
 <head>
   <title>Geek</title>
   <meta charset="utf-8" />
@@ -10,10 +10,10 @@
   <%= yield :head_script %>
   <%= csrf_meta_tags %>
 </head>
+
 <body>
 
   <%= yield %>
-  <%= javascript_include_tag 'scripts/controller/pruebaCtrl' %>
-
+  <%= javascript_include_tag 'scripts/display' %>
 </body>
 </html>
