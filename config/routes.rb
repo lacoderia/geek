@@ -49,7 +49,7 @@ Rails.application.routes.draw do
   
 	get "home_tutor" => "display#home_tutor", :as => :home_tutor
 
-	get "find_county" => "counties#find_by_name", :as => :find_county
+	get "counties_all" => "counties#find_for_autocomplete", :as => :find_for_autocomplete
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

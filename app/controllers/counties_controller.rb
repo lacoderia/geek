@@ -61,12 +61,9 @@ class CountiesController < ApplicationController
     end
   end
 
-	#Para el autocomplete
-	def find_by_name
-		@counties = County.where("name like '%#{params[:name]}%'")
-		respond_to do |format|
-			format.json { render json: @counties }
-		end
+	#Para autocomplete
+	def find_for_autocomplete 
+		@counties = County.all
 	end
 
   private

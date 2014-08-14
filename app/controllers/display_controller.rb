@@ -4,6 +4,7 @@ class DisplayController < ApplicationController
 
     #Get categories catalog
     @categories = Category.all
+		@counties = County.all
 
   end
 

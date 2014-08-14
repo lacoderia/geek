@@ -1,3 +1,10 @@
+<% content_for :head_style do %>
+  <%= stylesheet_link_tag 'autocomplete' %>
+<% end %>
+<% content_for :head_script do %>
+  <%= javascript_include_tag 'zjquery-ui', 'autocomplete' %>
+<% end %>
+
 <header class="container">
   <div class="row navbar">
     <h1 class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
@@ -22,7 +29,7 @@
           <h3>¿Qué quieres aprender?</h3>
           <form>
             <input type="text" class="course" placeholder="Me interesaría aprender...">
-            <input type="text" class="county" placeholder="En la zona de...">
+            <input id="tags" type="text" class="county" placeholder="En la zona de...">
             <button>Buscar</button>
           </form>
         </div>

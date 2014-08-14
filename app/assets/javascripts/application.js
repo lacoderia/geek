@@ -21,4 +21,5 @@
 //= require lib/angular-cookies.min
 //= require scripts/app
 //= require lib/angular/angular-translate.min
+//= require scripts/services/countiesService
 //= require scripts/controller/rootCtrl
