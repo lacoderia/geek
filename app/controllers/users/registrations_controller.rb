@@ -1,4 +1,10 @@
 class Users::RegistrationsController < Devise::RegistrationsController
+	
+	#APIs para el calendario
+	require 'google/api_client'
+	require 'google/api_client/client_secrets'
+	require 'google/api_client/auth/file_storage'
+
   before_filter :update_sanitized_params, if: :devise_controller?
 
   def update_sanitized_params
@@ -22,7 +28,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
         	format.json { render :show, status: :created, location: @user }
 				else
 					#crear calendario
-					Tutor.create(user: @user)
+					client = Google::APIClient.new
+					client.authorization.access_token = @user.token
+					service = client.discovered_api('calendar', 'v3')
+					result = client.execute(:api_method => service.calendars.insert, :parameters => {}, :body => JSON.dump('summary' => 'Geek'), :headers => {'Content-Type' => 'application/json'})
+					calendar_id = JSON.parse(result.response.env.body)["id"]
+
+					Tutor.create(user: @user, calendar_id: calendar_id)
 					sign_in @user
 					format.html { redirect_to home_tutor_url }
         	format.json { render :show, status: :created, location: @user }
