@@ -5,6 +5,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 		if @user
 			flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Facebook"
 			sign_in @user
+			#@user.update_attribute(:token, auth_hash.credentials.token)
 			if @user.role? :student
 				redirect_to home_student_url
 			else
@@ -18,6 +19,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
 	def google_oauth2
 		@user = User.find_by_email(auth_hash.info.email)
+		logger.info("AUTH HASH #{auth_hash.to_yaml}")
 		if @user
 			flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Google"
 			sign_in @user

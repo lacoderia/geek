@@ -8,7 +8,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   before_filter :update_sanitized_params, if: :devise_controller?
 
   def update_sanitized_params
-    devise_parameter_sanitizer.for(:sign_up) {|u| u.permit(:first_name, :last_name, :email, :password, :password_confirmation, :uid, :token, :role_ids)}
+    devise_parameter_sanitizer.for(:sign_up) {|u| u.permit(:first_name, :last_name, :email, :password, :password_confirmation, :uid, :token, :refresh_token, :role_ids)}
     devise_parameter_sanitizer.for(:account_update) {|u| u.permit(:first_name, :last_name, :email, :password, :password_confirmation, :current_password)}
   end
 
@@ -54,7 +54,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:uid, :first_name, :last_name, :token, :email, :role_ids, :password, :password_confirmation)
+      params.require(:user).permit(:uid, :first_name, :last_name, :token, :refresh_token, :email, :role_ids, :password, :password_confirmation)
     end
 
 
