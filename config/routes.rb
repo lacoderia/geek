@@ -45,9 +45,9 @@ Rails.application.routes.draw do
 
   get "complete_registration" => "display#complete_registration", :as => :complete_registration
   
-	get "home_student" => "display#home_student", :as => :home_student
+	get "home_student" => "student_display#home", :as => :home_student
   
-	get "home_tutor" => "display#home_tutor", :as => :home_tutor
+	get "home_tutor" => "tutor_display#home", :as => :home_tutor
 
 	get "counties_all" => "counties#find_for_autocomplete", :as => :find_for_autocomplete
 

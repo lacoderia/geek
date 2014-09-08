@@ -21,12 +21,4 @@ class DisplayController < ApplicationController
 
 	end
 
-	def home_student
-		@student = Student.find(current_user.client_id)
-	end
-
-	def home_tutor
-		@tutor = Tutor.find(current_user.client_id)
-	end
-
 end
