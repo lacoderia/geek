@@ -49,6 +49,8 @@ Review.create(student_id: student.id, tutor_id: tutor.id, grade: 10, description
 Availability.create(tutor_id: tutor.id, start: Time.now, end: Time.now)
 
 cat_academico = Category.create(name: "Académico", description: "Matemáticas, ciencias, geografía, etc", picture_url: "/assets/site/cat-academico.png")
+cat_matematicas = Category.create(name: "Matemáticas", description: "mate, ciencias, geografía, etc", category_id: cat_academico.id, picture_url: "")
+
 cat_lenguas = Category.create(name: "Lenguas", description: "Inglés, francés, español, etc", picture_url: "/assets/site/cat-lenguas.png")
 cat_artes = Category.create(name: "Artes", description: "Guitarra, pintura, fotografía, etc", picture_url: "/assets/site/cat-artes.png")
 cat_computacion = Category.create(name: "Computación", description: "Computación", picture_url: "/assets/site/cat-computacion.png")
@@ -60,9 +62,12 @@ tutor.categories << cat_matematicas
 tutor.counties << County.joins(:postal_code).where("code = ?", "07708").first
 tutor.counties << County.joins(:postal_code).where("code = ?", "07700").first
 
-appointment_status = AppointmentStatus.create(name: "confirmado")
+status_enviado = AppointmentStatus.create(name: "enviado")
+status_confirmado = AppointmentStatus.create(name: "confirmado")
+status_cancelado = AppointmentStatus.create(name: "cancelado")
+
 address = Address.create(description: "Casa privada", line1: "Sucre Norte 234", line2: "Col. Cigarras de Nuevo Leon", county_id: County.joins(:postal_code).where("code = ?", "06600").first)
-appointment = Appointment.create(appointment_status_id: appointment_status.id, student_id: student.id, tutor_id: tutor.id, date: Time.now, details: "Detalles de la cita", address_id: address.id)
+appointment = Appointment.create(appointment_status_id: status_confirmado.id, student_id: student.id, tutor_id: tutor.id, date: Time.now, details: "Detalles de la cita", address_id: address.id)
 
 Message.create(sender_id: student.user.id, recipient_id: tutor.user.id, text: "hola", status: "entregado")
 

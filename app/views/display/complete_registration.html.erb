@@ -20,6 +20,7 @@
 	<div>
 		<%= f.hidden_field :uid, :value => @user.uid %>
 		<%= f.hidden_field :token, :value => @user.token %>
+		<%= f.hidden_field :refresh_token, :value => @user.refresh_token %>
 		<% @user.roles.each do |role| %>
 			<%= f.hidden_field "role_ids", :value => role.id, :multiple => true %>
 		<% end %>
