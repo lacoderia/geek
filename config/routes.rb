@@ -31,7 +31,11 @@ Rails.application.routes.draw do
 
   resources :students
 
-  resources :tutors
+  resources :tutors do
+		collection do
+			get 'find_by_county_id'
+		end
+	end
 
   resources :roles
 
