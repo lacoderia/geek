@@ -61,6 +61,11 @@ class TutorsController < ApplicationController
     end
   end
 
+	def find_by_county_id
+		county_id = params[:county_id]
+		@tutors = Tutor.joins(:counties).where("county_id = ?", county_id)
+	end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_tutor
