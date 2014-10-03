@@ -18,7 +18,7 @@ class AvailabilitiesControllerTest < ActionController::TestCase
 
   test "should create availability" do
     assert_difference('Availability.count') do
-      post :create, availability: { end: @availability.end, start: @availability.start, tutor_id: @availability.tutor_id }
+      post :create, availability: { end: @availability.end, preferences_id: @availability.preferences_id, start: @availability.start, week_day_id: @availability.week_day_id }
     end
 
     assert_redirected_to availability_path(assigns(:availability))
@@ -35,7 +35,7 @@ class AvailabilitiesControllerTest < ActionController::TestCase
   end
 
   test "should update availability" do
-    patch :update, id: @availability, availability: { end: @availability.end, start: @availability.start, tutor_id: @availability.tutor_id }
+    patch :update, id: @availability, availability: { end: @availability.end, preferences_id: @availability.preferences_id, start: @availability.start, week_day_id: @availability.week_day_id }
     assert_redirected_to availability_path(assigns(:availability))
   end
 

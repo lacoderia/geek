@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   resources :availabilities
 
+  resources :week_days
+
+  resources :vacations
+
   resources :preferences
 
   resources :appointment_statuses

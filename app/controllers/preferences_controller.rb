@@ -69,6 +69,6 @@ class PreferencesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def preference_params
-      params.require(:preference).permit(:monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday, :online, :only_office)
+      params.require(:preference).permit(:cost, :online, :office)
     end
 end

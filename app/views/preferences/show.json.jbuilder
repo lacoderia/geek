@@ -1,1 +1,1 @@
-json.extract! @preference, :id, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday, :online, :only_office, :created_at, :updated_at
+json.extract! @preference, :id, :cost, :online, :office, :created_at, :updated_at

@@ -3,15 +3,9 @@
 <table>
   <thead>
     <tr>
-      <th>Monday</th>
-      <th>Tuesday</th>
-      <th>Wednesday</th>
-      <th>Thursday</th>
-      <th>Friday</th>
-      <th>Saturday</th>
-      <th>Sunday</th>
+      <th>Cost</th>
       <th>Online</th>
-      <th>Only office</th>
+      <th>Office</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -19,15 +13,9 @@
   <tbody>
     <% @preferences.each do |preference| %>
       <tr>
-        <td><%= preference.monday %></td>
-        <td><%= preference.tuesday %></td>
-        <td><%= preference.wednesday %></td>
-        <td><%= preference.thursday %></td>
-        <td><%= preference.friday %></td>
-        <td><%= preference.saturday %></td>
-        <td><%= preference.sunday %></td>
+        <td><%= preference.cost %></td>
         <td><%= preference.online %></td>
-        <td><%= preference.only_office %></td>
+        <td><%= preference.office %></td>
         <td><%= link_to 'Show', preference %></td>
         <td><%= link_to 'Edit', edit_preference_path(preference) %></td>
         <td><%= link_to 'Destroy', preference, method: :delete, data: { confirm: 'Are you sure?' } %></td>
