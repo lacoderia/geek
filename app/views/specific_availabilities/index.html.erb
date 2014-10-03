@@ -1,0 +1,29 @@
+<h1>Listing specific_availabilities</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Tutor</th>
+      <th>Start</th>
+      <th>End</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @specific_availabilities.each do |specific_availability| %>
+      <tr>
+        <td><%= specific_availability.tutor_id %></td>
+        <td><%= specific_availability.start %></td>
+        <td><%= specific_availability.end %></td>
+        <td><%= link_to 'Show', specific_availability %></td>
+        <td><%= link_to 'Edit', edit_specific_availability_path(specific_availability) %></td>
+        <td><%= link_to 'Destroy', specific_availability, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Specific availability', new_specific_availability_path %>
