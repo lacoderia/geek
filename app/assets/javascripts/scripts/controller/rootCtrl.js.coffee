@@ -1,10 +1,3 @@
-@Geek.controller 'RootController', ($scope, $rootScope, $cookieStore, CountiesService, DEFAULT_VALUES)->
+@Geek.controller 'RootController', ($scope, $rootScope, $cookieStore, CountyService, DEFAULT_VALUES)->
+  console.log 'ENTRE'
 
-  $rootScope.laguage = $cookieStore.get('language')
-
-  if $rootScope.language
-    console.log $rootScope.language
-  else
-    $rootScope.language = DEFAULT_VALUES.LANGUAGE
-
-	#counties = CountiesService.getCounties
