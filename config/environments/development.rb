@@ -63,9 +63,7 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = false
 
-  config.assets.precompile += %w( zjquery-ui.js )
-  config.assets.precompile += %w( autocomplete.css )
-  config.assets.precompile += %w( autocomplete.js )
-  config.assets.precompile += %w( scripts/controller/rootCtrl.js )
+  config.assets.precompile += %w( scripts/controller/pruebaCtrl.js )
+
 
 end
