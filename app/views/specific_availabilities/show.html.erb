@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Tutor:</strong>
+  <%= @specific_availability.tutor_id %>
+</p>
+
+<p>
+  <strong>Start:</strong>
+  <%= @specific_availability.start %>
+</p>
+
+<p>
+  <strong>End:</strong>
+  <%= @specific_availability.end %>
+</p>
+
+<%= link_to 'Edit', edit_specific_availability_path(@specific_availability) %> |
+<%= link_to 'Back', specific_availabilities_path %>

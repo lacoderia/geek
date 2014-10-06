@@ -12,16 +12,20 @@
   <% end %>
 
   <div class="field">
+    <%= f.label :week_day_id %><br>
+    <%= f.number_field :week_day_id %>
+  </div>
+  <div class="field">
+    <%= f.label :preference_id %><br>
+    <%= f.number_field :preference_id %>
+  </div>
+  <div class="field">
     <%= f.label :start %><br>
-    <%= f.datetime_select :start %>
+    <%= f.time_select :start %>
   </div>
   <div class="field">
     <%= f.label :end %><br>
-    <%= f.datetime_select :end %>
-  </div>
-  <div class="field">
-    <%= f.label :tutor_id %><br>
-    <%= f.number_field :tutor_id %>
+    <%= f.time_select :end %>
   </div>
   <div class="actions">
     <%= f.submit %>

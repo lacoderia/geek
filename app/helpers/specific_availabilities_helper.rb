@@ -1,0 +1,2 @@
+module SpecificAvailabilitiesHelper
+end

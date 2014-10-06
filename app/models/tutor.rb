@@ -7,11 +7,12 @@ class Tutor < ActiveRecord::Base
   acts_as :user, :as => :client
 	belongs_to :preference	
 	belongs_to :bank_account
-	has_many :availabilities
+	has_many :vacations
 	has_many :reviews
 	has_and_belongs_to_many :counties
 	has_and_belongs_to_many :categories
 	has_many :appointments
+	has_many :specific_availabilities
 
 	def refresh_token_action
 		client = Google::APIClient.new

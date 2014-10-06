@@ -1,6 +1,6 @@
-class CreateAvailabilities < ActiveRecord::Migration
+class CreateVacations < ActiveRecord::Migration
   def change
-    create_table :availabilities do |t|
+    create_table :vacations do |t|
       t.datetime :start
       t.datetime :end
       t.integer :tutor_id

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140807213355) do
+ActiveRecord::Schema.define(version: 20141003232657) do
 
   create_table "addresses", force: true do |t|
     t.string   "description"
@@ -42,12 +42,14 @@ ActiveRecord::Schema.define(version: 20140807213355) do
     t.integer  "address_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "appointment_id"
   end
 
   create_table "availabilities", force: true do |t|
-    t.datetime "start"
-    t.datetime "end"
-    t.integer  "tutor_id"
+    t.integer  "week_day_id"
+    t.integer  "preference_id"
+    t.time     "start"
+    t.time     "end"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -120,22 +122,9 @@ ActiveRecord::Schema.define(version: 20140807213355) do
   end
 
   create_table "preferences", force: true do |t|
-    t.time     "monday_start"
-    t.time     "monday_end"
-    t.time     "tuesday_start"
-    t.time     "tuesday_end"
-    t.time     "wednesday_start"
-    t.time     "wednesday_end"
-    t.time     "thursday_start"
-    t.time     "thursday_end"
-    t.time     "friday_start"
-    t.time     "friday_end"
-    t.time     "saturday_start"
-    t.time     "saturday_end"
-    t.time     "sunday_start"
-    t.time     "sunday_end"
     t.boolean  "online"
-    t.boolean  "only_office"
+    t.boolean  "office"
+    t.float    "cost"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -184,6 +173,14 @@ ActiveRecord::Schema.define(version: 20140807213355) do
     t.integer "user_id"
   end
 
+  create_table "specific_availabilities", force: true do |t|
+    t.integer  "tutor_id"
+    t.datetime "start"
+    t.datetime "end"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "states", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -192,7 +189,6 @@ ActiveRecord::Schema.define(version: 20140807213355) do
 
   create_table "students", force: true do |t|
     t.float    "credits"
-    t.string   "openpay_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -216,6 +212,7 @@ ActiveRecord::Schema.define(version: 20140807213355) do
     t.string   "first_name"
     t.string   "last_name"
     t.boolean  "active"
+    t.string   "openpay_id"
     t.string   "token"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -234,9 +231,24 @@ ActiveRecord::Schema.define(version: 20140807213355) do
     t.string   "phone_number"
     t.integer  "client_id"
     t.string   "client_type"
+    t.string   "refresh_token"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+
+  create_table "vacations", force: true do |t|
+    t.datetime "start"
+    t.datetime "end"
+    t.integer  "tutor_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "week_days", force: true do |t|
+    t.string   "day"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

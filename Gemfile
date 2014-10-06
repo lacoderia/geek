@@ -28,6 +28,7 @@ gem 'omniauth-facebook'
 #gem 'omniauth-twitter'
 gem 'omniauth-google-oauth2'
 gem 'google-api-client'
+gem 'openpay'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

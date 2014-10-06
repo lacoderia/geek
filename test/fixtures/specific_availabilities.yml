@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tutor_id: 1
+  start: 2014-10-03 18:26:57
+  end: 2014-10-03 18:26:57
+
+two:
+  tutor_id: 1
+  start: 2014-10-03 18:26:57
+  end: 2014-10-03 18:26:57

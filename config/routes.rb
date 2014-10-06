@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
+  resources :specific_availabilities
+
   resources :availabilities
+
+  resources :week_days
+
+  resources :vacations
 
   resources :preferences
 
