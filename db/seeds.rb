@@ -40,13 +40,26 @@ user_tutor = User.create(first_name: 'Ramiro', last_name: 'Tutor', email: 'ramir
 
 student = Student.create(credits: 10.0, openpay_id: "999999", user: user_student)
 
-preference = Preference.create(monday_start: Time.now, monday_end: Time.now + 1.hour, tuesday_start: Time.now, tuesday_end: Time.now + 1.hour, wednesday_start: Time.now, wednesday_end: Time.now + 1.hour, thursday_start: Time.now, thursday_end: Time.now + 1.hour, friday_start: Time.now, friday_end: Time.now + 1.hour, saturday_start: Time.now, saturday_end: Time.now + 1.hour, sunday_start: Time.now, sunday_end: Time.now + 1.hour, online: false, only_office: true)
+preference = Preference.create(cost: 150.00, online: false, office: true)
+
+monday = WeekDay.create(day: "monday")
+tuesday = WeekDay.create(day: "tuesday")
+wednesday = WeekDay.create(day: "wednesday")
+thursday = WeekDay.create(day: "thursday")
+friday = WeekDay.create(day: "friday")
+saturday = WeekDay.create(day: "saturday")
+sunday = WeekDay.create(day: "sunday")
+
+availability = Availability.create(week_day_id: monday.id, preference_id: preference.id, start: Time.now, end: Time.now)
+
 bank_account = BankAccount.create(openpay_id: "3123123", alias: "bank account tutor", holder_name: "Ramiro Tutor", clabe: "234234234234", bank_code: "BMX", bank_name: "BANAMEX", creation_date: Time.now)
 tutor = Tutor.create(details: "tutor details", references: "tutor references", background: "tutor background", preference_id: preference.id ,bank_account_id: bank_account.id, calendar_id: "232342af", user: user_tutor, tier1_rate: 20, tier2_rate: 18, tier3_rate: 15)
 
+specific_availability = SpecificAvailability.create(tutor_id: tutor.id, start: Time.now, end: Time.now)
+
 Review.create(student_id: student.id, tutor_id: tutor.id, grade: 10, description: "abcdefg")
 
-Availability.create(tutor_id: tutor.id, start: Time.now, end: Time.now)
+Vacation.create(tutor_id: tutor.id, start: Time.now, end: Time.now)
 
 cat_academico = Category.create(name: "Académico", description: "Matemáticas, ciencias, geografía, etc", picture_url: "/assets/site/cat-academico.png")
 cat_matematicas = Category.create(name: "Matemáticas", description: "mate, ciencias, geografía, etc", category_id: cat_academico.id, picture_url: "")
