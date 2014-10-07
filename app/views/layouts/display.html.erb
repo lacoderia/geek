@@ -6,15 +6,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= yield :head_style %>
-  <%= javascript_include_tag 'application' %>
+  <%= javascript_include_tag 'application',
+                             'lib/angular/angucomplete-alt',
+                             'student/app',
+                             'student/controllers/rootCtrl',
+                             'student/controllers/searchTutorCtrl',
+                             'student/services/countyService' %>
   <%= yield :head_script %>
   <%= csrf_meta_tags %>
 </head>
 
-<body ng-controller="RootController">
+<body ng-controller="RootController as rootCtrl">
 
   <%= yield %>
-  <%= javascript_include_tag 'scripts/display' %>
 
 </body>
 </html>

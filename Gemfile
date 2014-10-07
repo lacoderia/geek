@@ -29,7 +29,7 @@ gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 gem 'google-api-client'
 gem 'openpay'
-gem 'activeadmin', github: 'gregbell/active_admin' 
+gem 'activeadmin', github: 'gregbell/active_admin'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

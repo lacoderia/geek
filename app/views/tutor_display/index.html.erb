@@ -10,41 +10,10 @@
       </a>
     </h1>
     <nav class="navigation col-lg-10 col-md-10 col-sm-9 col-xs-9" role="navigation">
-      <%= render 'layouts/display/navigation_home' %>
+      <%= render 'layouts/tutor_display/navigation_home' %>
     </nav>
   </div>
 </header>
-
-<div class="container">
-  <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-      <div class="bgcolor-light-gray section-search" ng-controller="SearchTutorController as searchTutorCtrl">
-        <img src="/assets/site/geek.png" alt="Geek" class="search-image hidden-xs">
-        <div>
-          <h2>geek</h2>
-          <h3>¿Qué quieres aprender?</h3>
-          <form>
-            <input type="text" class="course" placeholder="Me interesaría aprender..." ng-model="subjectInput">
-            <!--input id="tags" type="text" class="county" placeholder="En la zona de..."-->
-            <angucomplete-alt id="counties"
-                              placeholder="En la zona de..."
-                              pause="100"
-                              selected-object="selectedCountyInput"
-                              local-data="counties"
-                              search-fields="name"
-                              title-field="name"
-                              minlength="1"
-                              input-class="county">
-
-            </angucomplete-alt>
-            <button ng-click="searchTutor()">Buscar</button>
-          </form>
-        </div>
-        <img src="/assets/site/geek.png" alt="Geek" class="search-image hidden-lg hidden-md hidden-sm">
-      </div>
-    </div>
-  </div>
-</div>
 
 <div class="bgcolor-light-green green-separator"></div>
 
@@ -55,24 +24,6 @@
       <div class="col-lg-4 col-md-4 col-sm-4 text-color-white"><span class="number">2</span><span class="title">Agenda una cita.</span></div>
       <div class="col-lg-4 col-md-4 col-sm-4 text-color-white"><span class="number">3</span><span class="title">Pasa tu examen de Álgebra.</span></div>
       <div class="clearfix"></div>
-    </div>
-  </div>
-</div>
-
-<div class="container">
-  <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 section-categories">
-      <% @categories.each do |category| %>
-          <% if not category.category_id  %>
-              <div class="category">
-                <a href="#" title="<%= category.description %>">
-                  <img src="<%= category.picture_url %>" alt="<%= category.name %>">
-                  <span class="category-title"><%= category.name %></span>
-                </a>
-                <div class="clearfix"></div>
-              </div>
-          <% end %>
-      <% end %>
     </div>
   </div>
 </div>
@@ -104,4 +55,4 @@
   </div>
 </div>
 
-<%= render 'layouts/display/footer' %>
+<%= render 'layouts/tutor_display/footer' %>
