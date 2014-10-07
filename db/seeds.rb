@@ -18,16 +18,16 @@ while (line = file_df.gets)
 end
 file_df.close
 
-file_mexico = File.open('db/sepomex/mexico.txt', 'r:UTF-8')
-while (line = file_mexico.gets)
-	arr = line.encode!('UTF-8', 'UTF-8', :invalid => :replace).split("|")
+#file_mexico = File.open('db/sepomex/mexico.txt', 'r:UTF-8')
+#while (line = file_mexico.gets)
+#	arr = line.encode!('UTF-8', 'UTF-8', :invalid => :replace).split("|")
 	# 0 - codigo, 1 - colonia, 3 - delegacion, 4 - estado, 5 - ciudad
-	estado = State.find_or_create_by(name: arr[4])	
-	ciudad = City.find_or_create_by(name: arr[5])
-	cp = PostalCode.create(code: arr[0], state_id: estado.id, city_id: ciudad.id)
-	colonia = County.create(name: arr[1], postal_code_id: cp.id)
-end
-file_mexico.close
+#	estado = State.find_or_create_by(name: arr[4])	
+#	ciudad = City.find_or_create_by(name: arr[5])
+#	cp = PostalCode.create(code: arr[0], state_id: estado.id, city_id: ciudad.id)
+#	colonia = County.create(name: arr[1], postal_code_id: cp.id)
+#end
+#file_mexico.close
 
 role_admin = Role.create(name: 'admin')
 role_tutor = Role.create(name: 'tutor')
@@ -36,7 +36,7 @@ role_student = Role.create(name: 'student')
 User.create(first_name: 'admin', last_name: 'admin', email: 'admin@admin.com', password: 'geek2014', roles: [role_admin])
 
 user_student = User.create(first_name: 'Juan', last_name: 'Estudiante', email: 'juan@estudiante.com', password: 'geek2014', roles: [role_student])
-user_tutor = User.create(first_name: 'Ramiro', last_name: 'Tutor', email: 'ramiro@tutor.com', password: 'geek2014', roles: [role_tutor])
+user_tutor = User.create(first_name: 'Ramiro', last_name: 'Tutor', email: 'ramiro@tutor.com', password: 'geek2014', roles: [role_tutor], gender: "Masculino", picture_url: "http://learnunity3d.com/wp-content/uploads//2012/06/Digital_Tutors.png", phone_number: "(672) 55 53 43")
 
 student = Student.create(credits: 10.0, openpay_id: "999999", user: user_student)
 
@@ -62,6 +62,8 @@ Review.create(student_id: student.id, tutor_id: tutor.id, grade: 10, description
 Vacation.create(tutor_id: tutor.id, start: Time.now, end: Time.now)
 
 cat_academico = Category.create(name: "Académico", description: "Matemáticas, ciencias, geografía, etc", picture_url: "/assets/site/cat-academico.png")
+cat_matematicas = Category.create(name: "Matemáticas", description: "mate, ciencias, geografía, etc", category_id: cat_academico.id, picture_url: "")
+
 cat_lenguas = Category.create(name: "Lenguas", description: "Inglés, francés, español, etc", picture_url: "/assets/site/cat-lenguas.png")
 cat_artes = Category.create(name: "Artes", description: "Guitarra, pintura, fotografía, etc", picture_url: "/assets/site/cat-artes.png")
 cat_computacion = Category.create(name: "Computación", description: "Computación", picture_url: "/assets/site/cat-computacion.png")
