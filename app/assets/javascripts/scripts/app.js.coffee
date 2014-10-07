@@ -1,4 +1,4 @@
-@Geek = angular.module 'Geek', ['ngResource', 'ngCookies', 'pascalprecht.translate']
+@Geek = angular.module 'Geek', ['ngResource', 'pascalprecht.translate']
 
   .constant 'DEFAULT_VALUES', {
     'LANGUAGE':'es'

@@ -14,12 +14,19 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require base/modernizr-2.6.2.min.js
-//= require base/prefixfree.min.js
-//= require lib/angular.min
-//= require lib/angular-resource.min
-//= require lib/angular-cookies.min
+//= require lib/modernizr-2.6.2.min.js
+//= require lib/prefixfree.min.js
+//= require lib/angular/angular.min.js
+//= require lib/angular/angular-resource.min.js
 //= require scripts/app
+
+//Libraries
 //= require lib/angular/angular-translate.min
+
+// Directives
+
+//Services
 //= require scripts/services/countyService
+
+//Controllers
 //= require scripts/controller/rootCtrl

@@ -63,7 +63,5 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = false
 
-  config.assets.precompile += %w( scripts/controller/pruebaCtrl.js )
-
 
 end
