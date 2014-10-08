@@ -33,6 +33,9 @@ gem 'activeadmin', github: 'gregbell/active_admin'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+# Use jquery-validation to validate forms
+gem 'jquery-validation-rails', '~> 1.12.0'
+
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder

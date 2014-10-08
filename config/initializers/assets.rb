@@ -11,6 +11,7 @@ Rails.application.config.assets.version = '1.0'
 
 #Precompile custom assets
 Rails.application.config.assets.precompile += %w( student/app.js )
+Rails.application.config.assets.precompile += %w( tutor/app.js )
 
 #Import libs
 Rails.application.config.assets.precompile += %w( lib/angular/angucomplete-alt.js )
@@ -18,11 +19,14 @@ Rails.application.config.assets.precompile += %w( lib/angular/angucomplete-alt.j
 #Import Services
 Rails.application.config.assets.precompile += %w( student/services/countyService.js )
 
+Rails.application.config.assets.precompile += %w( tutor/services/categoryService.js )
+
 #Import Directives
 
 #Import Controllers
 Rails.application.config.assets.precompile += %w( student/controllers/rootCtrl.js )
 Rails.application.config.assets.precompile += %w( student/controllers/searchTutorCtrl.js )
 
+Rails.application.config.assets.precompile += %w( tutor/controllers/rootCtrl.js )
 
 

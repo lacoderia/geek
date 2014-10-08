@@ -14,6 +14,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.validate
+//= require jquery.validate.additional-methods
 //= require lib/modernizr-2.6.2.min.js
 //= require lib/prefixfree.min.js
 //= require lib/angular/angular.min.js
