@@ -19,5 +19,6 @@
 //= require lib/modernizr-2.6.2.min.js
 //= require lib/prefixfree.min.js
 //= require lib/angular/angular.min.js
+//= require lib/angular/angular-route.min.js
 //= require lib/angular/angular-resource.min.js
 

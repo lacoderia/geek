@@ -53,36 +53,38 @@ footer{
 
 .section-how-it-works{
   box-sizing: border-box;
-  font-size: 22px;
+  color: $color-light-blue;
+  font-size: 20px;
+  font-weight: 500;
   margin: 0px auto;
-  max-width: 1170px;
   padding: 2em 1em 0em;
   text-align: center;
+  text-transform: uppercase;
 
-  .row{
-    max-width: 1200px;
+  ul{
+    margin: 0px;
+  }
+
+  li{
+    display: block;
+    margin-bottom: 1em;
+    text-align: center;
+    vertical-align: top;
+    width: 100%;
   }
 
   span.number{
-    border: 2px solid white;
+    border: 2px solid $color-light-blue;
     border-radius: 50px;
     box-sizing: border-box;
     display: block;
     font-size: 20px;
     height: 40px;
-    margin: -2px auto 0.8em;
+    margin: -3px auto 0em;
     padding: 0.2em;
     text-align: center;
     vertical-align: middle;
     width: 40px;
-  }
-
-  span.title{
-    box-sizing: border-box;
-    display: inline-block;
-    margin-bottom: 2em;
-    text-transform: uppercase;
-    vertical-align: middle;
   }
 
 }
@@ -231,7 +233,7 @@ footer{
       appearance: field;
       margin: 0em auto 1em;
       padding: 0.8em 1.5em;
-
+      width: 100%;
     }
   }
 
@@ -366,26 +368,29 @@ footer{
       max-width: 1200px;
     }
 
+    li{
+      display: inline-block;
+      margin-right: 1%;
+      text-align: center;
+      width: 32%;
+    }
+
+    li:last-child{
+      margin-right: 0%;
+    }
+
     span.number{
-      border: 2px solid white;
+      border: 2px solid $color-light-blue;
       border-radius: 50px;
       box-sizing: border-box;
       display: inline-block;
       font-size: 10px;
       height: 20px;
-      margin: -2px 5px 0px 0px;
+      margin: -3px 5px 0px 0px;
       padding: 0.2em;
       text-align: center;
       vertical-align: middle;
       width: 20px;
-    }
-
-    span.title{
-      box-sizing: border-box;
-      display: inline-block;
-      margin-bottom: 0em;
-      text-transform: uppercase;
-      vertical-align: middle;
     }
 
   }

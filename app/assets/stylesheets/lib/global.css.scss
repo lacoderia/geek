@@ -194,17 +194,23 @@ body{
     color: $color-dark-red;
     display: inline-block;
     font-family: 'Typewriter';
+    margin-bottom: 0px;
     vertical-align: top;
   }
 
   a span{
     color: $color-dark-red;
+    display: inline-block;
+    font-size: 50px;
+    text-align: center;
+    width: 100%;
   }
 
   .navigation{
     display: inline-block;
     font-size: 16px;
-    text-align: right;
+    margin-bottom: 1em;
+    text-align: center;
 
     ul{
       display: inline-block;
@@ -219,7 +225,7 @@ body{
 
         a{
           display: inline-block;
-          padding: 0.2em 0.3em;
+          padding: 0.5em 0.8em;
         }
       }
 

@@ -59,16 +59,18 @@ Rails.application.routes.draw do
   resources :users
 
   get "complete_registration" => "display#complete_registration", :as => :complete_registration
+
+  get "counties_all" => "counties#find_for_autocomplete", :as => :find_for_autocomplete
+
+  get "tutor" => "tutor_display#landing", :as => :tutor_landing
+
+  get "student" => "tutor_display#landing", :as => :student_landing
   
-	get "home_student" => "student_display#home", :as => :home_student
+	get "student/home" => "student_display#index", :as => :tutor_index
 
-	get "home_tutor" => "tutor_display#home", :as => :home_tutor
+	get "tutor/home" => "tutor_display#index", :as => :student_index
 
-	get "counties_all" => "counties#find_for_autocomplete", :as => :find_for_autocomplete
-
-  get "tutor" => "tutor_display#index", :as => :tutor_index
-
-  get "tutor/perfil" => "tutor_display#perfil", :as => :tutor_perfil
+  get "tutor/solicitud" => "tutor_display#solicitud", :as => :tutor_solicitud
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -48,14 +48,9 @@ gem 'spring',        group: :development
 
 gem 'bootstrap-sass', '~> 3.2.0'
 
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'rb-fsevent'
 
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
-
-# Use debugger
-# gem 'debugger', group: [:development, :test]
+#Use livereload for living changes
+group :development do
+  gem 'guard-livereload'
+end
