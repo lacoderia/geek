@@ -4,7 +4,8 @@ class CreateAppointments < ActiveRecord::Migration
       t.integer :appointment_status_id
       t.integer :student_id
       t.integer :tutor_id
-      t.datetime :date
+      t.datetime :start
+			t.datetime :end
       t.text :details
       t.integer :address_id
 

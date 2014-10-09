@@ -58,4 +58,26 @@ class Tutor < ActiveRecord::Base
 
 	end
 
+	def self.get_availabilities tutor_id, month, year
+		result = {}
+		tutor = Tutor.find(tutor_id)
+
+		#llenar numero de días por mes, con todos los horarios disponibles
+		number_of_days = Time.days_in_month(params[:month], params[:year])
+		(1..number_of_days).each do |i|
+			result[i] = (0..23).to_a
+		end
+		
+		# primero, checar contra vacaciones. NO es parte del MVP
+		# segundo, revisar contra clases en request y en agendadas
+		appointments = tutor.appointments.where("EXTRACT(month from start) = ? ", params[:month])
+		appointments.each do |appointment|
+			dif = appointment.end.hour - appointment.start.hour 
+			result[appointment.start.day] -= (appointment.start.hour..(appointment.start.hour+dif-1)).to_a
+		end
+			
+		# tercero, agendar contra disponibilidades por semana especifica					
+		# cuarto, revisar contra preferencias generales
+	end 
+
 end
