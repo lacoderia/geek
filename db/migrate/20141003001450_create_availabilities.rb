@@ -3,8 +3,8 @@ class CreateAvailabilities < ActiveRecord::Migration
     create_table :availabilities do |t|
       t.integer :week_day_id
       t.integer :preference_id
-      t.time :start
-      t.time :end
+      t.datetime :start
+      t.datetime :end
 
       t.timestamps
     end

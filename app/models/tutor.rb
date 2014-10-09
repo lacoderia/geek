@@ -13,6 +13,7 @@ class Tutor < ActiveRecord::Base
 	has_and_belongs_to_many :categories
 	has_many :appointments
 	has_many :specific_availabilities
+	has_many :availabilities, through: :preference
 
 	def refresh_token_action
 		client = Google::APIClient.new
@@ -58,26 +59,60 @@ class Tutor < ActiveRecord::Base
 
 	end
 
-	def self.get_availabilities tutor_id, month, year
+	def self.availability_list tutor_id, month, year
 		result = {}
 		tutor = Tutor.find(tutor_id)
 
-		#llenar numero de días por mes, con todos los horarios disponibles
-		number_of_days = Time.days_in_month(params[:month], params[:year])
-		(1..number_of_days).each do |i|
-			result[i] = (0..23).to_a
+		number_of_days = Time.days_in_month(month, year)
+
+		ix = 1
+		while ix <= 7 do
+			first_monday = Date.new(year, month, ix).wday
+			if first_monday == 1
+				break
+			end
+			ix += 1
 		end
-		
+		first_monday = ix
+
 		# primero, checar contra vacaciones. NO es parte del MVP
-		# segundo, revisar contra clases en request y en agendadas
-		appointments = tutor.appointments.where("EXTRACT(month from start) = ? ", params[:month])
+					
+		# segundo, revisar contra preferencias generales
+		availabilities = tutor.availabilities
+		availabilities.each do |availability|
+			#week_day = a.id > 6 ? 0 : a.id
+			dif = availability.end.hour - availability.start.hour
+			day_in_month = first_monday + (availability.week_day_id - 1)
+			day_in_month -= 7 if day_in_month > 7
+			while day_in_month <= number_of_days do
+				result[day_in_month] = []
+				result[day_in_month] += (availability.start.hour..(availability.start.hour+dif-1)).to_a
+				day_in_month += 7
+			end
+		end
+
+		# tercero, agregar disponibilidades por semana especifica					
+		specific_availabilities = tutor.specific_availabilities.where("EXTRACT(month from start) = ?", month)
+
+		specific_availabilities.each do |sa|
+			dif = sa.end.hour - sa.start.hour
+			if not result[sa.start.day]
+				result[sa.start.day] = [] 
+			else 
+				result[sa.start.day] -= (sa.start.hour..(sa.start.hour+dif-1)).to_a
+			end
+			result[sa.start.day] += (sa.start.hour..(sa.start.hour+dif-1)).to_a
+			result[sa.start.day].sort!
+		end
+
+		# cuarto, quitar contra clases en request y en agendadas
+		appointments = tutor.appointments.where("EXTRACT(month from start) = ? ", month)
 		appointments.each do |appointment|
 			dif = appointment.end.hour - appointment.start.hour 
-			result[appointment.start.day] -= (appointment.start.hour..(appointment.start.hour+dif-1)).to_a
+			result[appointment.start.day] -= (appointment.start.hour..(appointment.start.hour+dif-1)).to_a if result[appointment.start.day]
 		end
-			
-		# tercero, agendar contra disponibilidades por semana especifica					
-		# cuarto, revisar contra preferencias generales
+
+		result
 	end 
 
 end

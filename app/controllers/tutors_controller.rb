@@ -71,11 +71,12 @@ class TutorsController < ApplicationController
 	# Recibe:
 	# month = numero de mes 
 	# year = numero de año
-	# tutor_id = id del tutor
+	# id = id del tutor
 	# Regresa:
 	# hash con días del mes, con una lista de horarios
-	def availabilities 
-		Tutor.get_availabilities(params[:tutor_id], params[:month], params[:year])
+	def availability_list 
+		@availability_list = Tutor.availability_list(params[:id], params[:month].to_i, params[:year].to_i)
+		logger.info "DEBUGGING #{@availability_list}"
 	end
 
   private

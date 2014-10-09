@@ -18,16 +18,16 @@ while (line = file_df.gets)
 end
 file_df.close
 
-file_mexico = File.open('db/sepomex/mexico.txt', 'r:UTF-8')
-while (line = file_mexico.gets)
-	arr = line.encode!('UTF-8', 'UTF-8', :invalid => :replace).split("|")
+#file_mexico = File.open('db/sepomex/mexico.txt', 'r:UTF-8')
+#while (line = file_mexico.gets)
+#	arr = line.encode!('UTF-8', 'UTF-8', :invalid => :replace).split("|")
 	# 0 - codigo, 1 - colonia, 3 - delegacion, 4 - estado, 5 - ciudad
-	estado = State.find_or_create_by(name: arr[4])	
-	ciudad = City.find_or_create_by(name: arr[5])
-	cp = PostalCode.create(code: arr[0], state_id: estado.id, city_id: ciudad.id)
-	colonia = County.create(name: arr[1], postal_code_id: cp.id)
-end
-file_mexico.close
+#	estado = State.find_or_create_by(name: arr[4])	
+#	ciudad = City.find_or_create_by(name: arr[5])
+#	cp = PostalCode.create(code: arr[0], state_id: estado.id, city_id: ciudad.id)
+#	colonia = County.create(name: arr[1], postal_code_id: cp.id)
+#end
+#file_mexico.close
 
 role_admin = Role.create(name: 'admin')
 role_tutor = Role.create(name: 'tutor')
@@ -50,12 +50,12 @@ friday = WeekDay.create(day: "friday")
 saturday = WeekDay.create(day: "saturday")
 sunday = WeekDay.create(day: "sunday")
 
-availability = Availability.create(week_day_id: monday.id, preference_id: preference.id, start: Time.now, end: Time.now)
+availability = Availability.create(week_day_id: monday.id, preference_id: preference.id, start: Time.now, end: Time.now + 2.hour)
 
 bank_account = BankAccount.create(openpay_id: "3123123", alias: "bank account tutor", holder_name: "Ramiro Tutor", clabe: "234234234234", bank_code: "BMX", bank_name: "BANAMEX", creation_date: Time.now)
 tutor = Tutor.create(details: "tutor details", references: "tutor references", background: "tutor background", preference_id: preference.id ,bank_account_id: bank_account.id, calendar_id: "232342af", user: user_tutor, tier1_rate: 20, tier2_rate: 18, tier3_rate: 15)
 
-specific_availability = SpecificAvailability.create(tutor_id: tutor.id, start: Time.now, end: Time.now)
+specific_availability = SpecificAvailability.create(tutor_id: tutor.id, start: Time.now + 1.day, end: Time.now + 1.day + 3.hour)
 
 Review.create(student_id: student.id, tutor_id: tutor.id, grade: 10, description: "abcdefg")
 
@@ -80,7 +80,7 @@ status_confirmado = AppointmentStatus.create(name: "confirmado")
 status_cancelado = AppointmentStatus.create(name: "cancelado")
 
 address = Address.create(description: "Casa privada", line1: "Sucre Norte 234", line2: "Col. Cigarras de Nuevo Leon", county_id: County.joins(:postal_code).where("code = ?", "06600").first)
-appointment = Appointment.create(appointment_status_id: status_confirmado.id, student_id: student.id, tutor_id: tutor.id, date: Time.now, details: "Detalles de la cita", address_id: address.id)
+appointment = Appointment.create(appointment_status_id: status_confirmado.id, student_id: student.id, tutor_id: tutor.id, start: Time.now, end: Time.now + 1.hour, details: "Detalles de la cita", address_id: address.id)
 
 Message.create(sender_id: student.user.id, recipient_id: tutor.user.id, text: "hola", status: "entregado")
 
