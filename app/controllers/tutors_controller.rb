@@ -61,9 +61,21 @@ class TutorsController < ApplicationController
     end
   end
 
+	# Recibe:
+	# county_id = ID de la colonia
 	def find_by_county_id
 		county_id = params[:county_id]
 		@tutors = Tutor.joins(:counties).where("county_id = ?", county_id)
+	end
+
+	# Recibe:
+	# month = numero de mes 
+	# year = numero de año
+	# tutor_id = id del tutor
+	# Regresa:
+	# hash con días del mes, con una lista de horarios
+	def availabilities 
+		Tutor.get_availabilities(params[:tutor_id], params[:month], params[:year])
 	end
 
   private
