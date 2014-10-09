@@ -8,6 +8,9 @@ Rails.application.config.assets.version = '1.0'
 # Rails.application.config.assets.precompile += %w( search.js )
 
 #Precompile styles
+Rails.application.config.assets.precompile += %w( styles/display.css )
+
+Rails.application.config.assets.precompile += %w( styles/tutor_display.css )
 
 #Precompile custom assets
 Rails.application.config.assets.precompile += %w( student/app.js )
@@ -15,6 +18,7 @@ Rails.application.config.assets.precompile += %w( tutor/app.js )
 
 #Import libs
 Rails.application.config.assets.precompile += %w( lib/angular/angucomplete-alt.js )
+Rails.application.config.assets.precompile += %w( lib/angular/spin.min.js )
 
 #Import Services
 Rails.application.config.assets.precompile += %w( student/services/countyService.js )
