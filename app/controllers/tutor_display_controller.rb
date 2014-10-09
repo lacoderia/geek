@@ -1,15 +1,11 @@
 class TutorDisplayController < ApplicationController
 
-	def home
-		@tutor = Tutor.find(current_user.client_id)
+	def landing
+
   end
 
   def index
-
-  end
-
-  def perfil
-
+    @tutor = Tutor.find(current_user.client_id)
   end
 
 end
