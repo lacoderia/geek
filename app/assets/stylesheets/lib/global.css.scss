@@ -292,7 +292,7 @@ body{
             font-size: 15px;
             position: absolute;
             bottom: 0;
-            width: 60%;
+            width: 70%;
           }
 
           .tab.active {
@@ -300,21 +300,21 @@ body{
           }
 
           .left-tab {
-            border-color: black;
+            border-color: red;
             border-top-left-radius: 100%;
             border-top: 7px solid;
             border-left: 7px solid;
-            left: -10%;
-            height: 70px;
+            left: -20%;
+            height: 60px;
           }
 
           .right-tab {
-            border-color: black;
+            border-color: $color-medium-pink;
             border-top-right-radius: 100%;
             border-top: 7px solid;
             border-right: 7px solid;
-            height: 70px;
-            right: -10%;
+            height: 60px;
+            right: -20%;
           }
         }
       }
