@@ -2,8 +2,8 @@
   <li>
     <a href="/" title="¿Qué quieres aprender hoy?" class="text-color-dark-blue">¿Qué quieres aprender hoy?</a>
   </li>
-  <li><a href="#" title="Ingresa" class="signin">Ingresa</a></li>
-  <li><a href="#" title="Registrate" class="signup">Regístrate</a></li>
+  <li><a href="#" title="Ingresa" class="signin" ng-click="showSignInModal('signIn')">Ingresa</a></li>
+  <li><a href="#" title="Registrate" class="signup" ng-click="showSignInModal('signUp')">Regístrate</a></li>
   <li><a href="#" title="Idioma" class="text-color-light-blue">English/Español</a></li>
 </ul>
 <ul class="hidden-md hidden-lg hidden-sm">
@@ -13,3 +13,55 @@
   <li><a href="#" title="Ingresa">Ingresa</a></li>
   <li><a href="#" title="Registra">Regístrate</a></li>
 </ul>
+
+<div class="modal fade" id="sign-in-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-head">
+        <div class="tabs">
+          <div class="tab left-tab" ng-class="{active: selectedTab == 'signIn'}" ng-click="selectTab('signUp')">
+            <span>REGÍSTRATE</span>
+          </div>
+          <div class="tab right-tab" ng-class="{active: selectedTab == 'signUp'}" ng-click="selectTab('signIn')">
+            <span>INICIAR SESIÓN</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="sign-up-container" ng-show="selectedTab == 'signUp'">
+          <div class="form-button">
+            <div>REGÍSTRATE CON GOOGLE <span class="icon-googleplus"></span></div>
+          </div>
+          <form name="signUpForm">
+            <div class="form-group" show-errors>
+              <input type="text" id="sign-up-name" name="sign-up-name" ng-model="signUpName" class="form-input form-control" placeholder="NOMBRE" required/>
+            </div>
+            <div class="form-group" show-errors>
+              <input type="text" id="sign-up-mail" name="sign-up-mail" ng-model="signUpMail" class="form-input form-control" placeholder="CORREO" ng-pattern="/^[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\.)+[A-Za-z]{2,4}$/" required/>
+            </div>
+            <div class="form-group" show-errors>
+              <input type="password" id="sign-up-password" name="sign-up-password" ng-model="signUpPassword" class="form-input form-control" placeholder="PASSWORD" required/>
+            </div>
+            <div class="form-group" show-errors>
+              <input type="password" id="sign-up-confirmation" name="sign-up-confirmation" ng-model="signUpConfirmation" class="form-input form-control" placeholder="CONFIRMAR PASSWORD" pw-check="sign-up-password" required/>
+            </div>
+            <div class="form-group" show-errors>
+              <input type="checkbox" id="sign-up-terms" name="sign-up-terms" ng-model="signUpTerms" class="form-checkbox form-control" required/>
+              <span>HE LEÍDO Y ACEPTO LOS TÉRMINOS Y CONDICIONES</span>
+            </div>
+          </form>
+          <div class="form-submit">
+            <div>REGÍSTRATE</div>
+          </div>
+        </div>
+        <div class="sign-in-container" ng-show="selectedTab == 'signIn'">
+          <input type="text" name="sign-in-mail" class="form-input" placeholder="CORREO" />
+          <input type="text" name="sign-in-password" class="form-input" placeholder="PASSWORD" />
+          <div class="form-submit">
+            <div>INICIAR SESIÓN</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

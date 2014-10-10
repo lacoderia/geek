@@ -19,7 +19,11 @@ $color-dark-red: #EC2227;
 $color-light-red: #F05E5E;
 $color-dark-yellow: #F9D605;
 $color-light-yellow: #FFF496;
-$color-input-bgcolor: #f4f4f4;
+$color-input-bgcolor: #F4F4F4;
+$color-light-pink: #FACECD;
+$color-medium-pink: #F9BFBF;
+$color-dark-pink: #F69E9E;
+$color-input-pink: #F6E5E5;
 
 $screen-xs-min: 460px;
 $screen-sm-min: 768px;
@@ -186,8 +190,24 @@ body{
   }
 }
 
-.navbar{
+.modal-dialog {
+  left: 50%;
+  margin: 0;
+  position: absolute;
+  top: 50%;
 
+  .modal-content {
+    .modal-body {
+      overflow-y: auto;
+    }
+
+    .modal-footer {
+      margin-top: 0;
+    }
+  }
+}
+
+.navbar{
   margin-bottom: 0px;
 
   h1{
@@ -240,11 +260,143 @@ body{
   }
 }
 
+#sign-in-modal {
 
-/*:
+  .modal-dialog {
+    max-width: 350px;
+    width: 100%;
 
-$color-dark-yellow: #F9D605;
-$color-light-yellow: #FFF496;*/
+    .modal-content {
+      border-color: $color-medium-pink;
+      border-width: 7px;
+      border-radius: 10px;
+
+      .modal-head {
+        background-color: $color-dark-pink;
+        border-bottom: 7px solid;
+        border-color: $color-medium-pink;
+        font-size: 0;
+        height: 200px;
+        overflow: hidden;
+        position: relative;
+
+        .tabs {
+          bottom: 0px;
+          cursor: pointer;
+          position: absolute;
+          width: 100%;
+
+          .tab {
+            background-color: $color-dark-pink;
+            display: inline-block;
+            font-size: 15px;
+            position: absolute;
+            bottom: 0;
+            width: 60%;
+          }
+
+          .tab.active {
+            background-color: $color-light-pink;
+          }
+
+          .left-tab {
+            border-color: black;
+            border-top-left-radius: 100%;
+            border-top: 7px solid;
+            border-left: 7px solid;
+            left: -10%;
+            height: 70px;
+          }
+
+          .right-tab {
+            border-color: black;
+            border-top-right-radius: 100%;
+            border-top: 7px solid;
+            border-right: 7px solid;
+            height: 70px;
+            right: -10%;
+          }
+        }
+      }
+
+      .modal-body {
+        height: 345px;
+        padding: 30px;
+
+        .form-button {
+          background-color: #E85C3D;
+          border-radius: 2px;
+          color: white;
+          cursor: pointer;
+          display: table;
+          font-family: "gotham";
+          font-weight: 500;
+          font-style: normal;
+          height: 40px;
+          text-align: center;
+          width: 100%;
+
+          div {
+            display: table-cell;
+            height: 100%;
+            padding-top: 4px;
+            vertical-align: middle;
+          }
+        }
+
+        .form-input {
+          background: white;
+          background-color: $color-medium-pink;
+          border: 0;
+          border-radius: 2px;
+          color: $color-input-pink;
+          display: block;
+          font-family: "gotham";
+          font-weight: 500;
+          font-style: normal;
+          height: 30px;
+          margin-top: 15px;
+          outline: 0;
+          padding-left: 20px;
+          padding-right: 20px;
+          padding-top: 5px;
+          width: 100%;
+        }
+
+        .has-error .form-input{
+          background-color: red;
+        }
+
+        ::-webkit-input-placeholder { color: $color-input-pink; }
+        ::-moz-placeholder { color: $color-input-pink; } /* firefox 19+ */
+        :-ms-input-placeholder { color: $color-input-pink; } /* ie */
+        input:-moz-placeholder { color: $color-input-pink; }
+
+        .form-submit {
+          background-color: $color-dark-pink;
+          border-radius: 2px;
+          color: $color-input-pink;
+          cursor: pointer;
+          display: table;
+          font-family: "gotham";
+          font-weight: 500;
+          font-style: normal;
+          height: 50px;
+          margin-top: 15px;
+          text-align: center;
+          width: 100%;
+
+          div {
+            display: table-cell;
+            height: 100%;
+            padding-top: 4px;
+            vertical-align: middle;
+          }
+        }
+      }
+    }
+  }
+}
 
 
 .text-color-black{
@@ -364,5 +516,11 @@ $color-light-yellow: #FFF496;*/
         }
       }
     }
+  }
+}
+
+@media (max-width: 767px) {
+  .modal-dialog {
+    width: 100%;
   }
 }
