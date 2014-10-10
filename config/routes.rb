@@ -43,6 +43,9 @@ Rails.application.routes.draw do
 		collection do
 			get 'find_by_county_id'
 		end
+		member do
+			get 'availability_list'
+		end
 	end
 
   resources :roles
