@@ -1,26 +1,41 @@
 'use strict';
 
-Geek.controller('RootController', function($scope, $rootScope, DEFAULT_VALUES, CountyService){
-
-    //Counties catalog
+Geek.controller('RootController', function($scope, $rootScope, DEFAULT_VALUES, CountyService, CategoryService){
+    console.log('CARGO EL CONTROLADOR')
+    //Catálogo de zonas
     $rootScope.counties = [];
 
-    //County selected by the user
+    //Catálogo de categorías
+    $rootScope.categories = [];
+
+    //Zona seleccionada por el usuario
     $rootScope.selectedCountyObj = undefined;
 
-    //Subject inputted by the user
+    //Materia seleccionada por el usuario
     $rootScope.subjectStr = '';
 
-    //Call a service to fill in the counties catalog
+    //Obtiene los datos del catálogo de zonas
     CountyService.all().then(
         function(data){
             if(data){
-                //Fill the counties availables
                 $rootScope.counties = data;
             }
         },
         function(response){
             console.log('Error retrieving the counties: ' + response);
+        }
+    );
+
+    //Obtiene los datos del catálogo de categorías
+    CategoryService.all().then(
+        function(data){
+            if(data){
+                //Fill the categories availables
+                $rootScope.categories = data;
+            }
+        },
+        function(response){
+            console.log('Error retrieving the categories: ' + response);
         }
     );
 

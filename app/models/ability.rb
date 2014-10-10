@@ -7,7 +7,7 @@ class Ability
       can :manage, :all
 	  else
       cannot :manage, :all
-		  can :manage, :display
+		  can :manage, :student_display
 	  end
   end
 end

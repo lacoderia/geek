@@ -10,16 +10,20 @@ footer{
   font-size: 10px;
   font-weight: 400;
   padding: 2.5em 0em;
+  text-align: center;
   vertical-align: middle;
 
   .language{
     font-size: 16px;
     margin-bottom: 1em;
-    text-align: center;
 
     a{
       text-decoration: underline;
     }
+  }
+
+  .social-icons{
+    margin-top: 1.3em;
   }
 
   img{
@@ -57,17 +61,18 @@ footer{
   font-size: 20px;
   font-weight: 500;
   margin: 0px auto;
-  padding: 2em 1em 0em;
+  padding: 1em 1em 0em;
   text-align: center;
   text-transform: uppercase;
 
   ul{
     margin: 0px;
+    padding-left: 0px;
   }
 
   li{
     display: block;
-    margin-bottom: 1em;
+    margin-bottom: 1.8em;
     text-align: center;
     vertical-align: top;
     width: 100%;
@@ -80,7 +85,7 @@ footer{
     display: block;
     font-size: 20px;
     height: 40px;
-    margin: -3px auto 0em;
+    margin: -3px auto 0.4em;
     padding: 0.2em;
     text-align: center;
     vertical-align: middle;
@@ -356,6 +361,12 @@ footer{
 }
 
 @media (min-width: $screen-md-min) {
+
+  footer{
+    .social-icons{
+      margin-top: 0em;
+    }
+  }
 
   .section-how-it-works{
     box-sizing: border-box;

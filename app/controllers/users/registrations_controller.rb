@@ -24,7 +24,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 				if @user.role? :student
 					Student.create(credits: 0.0, user: @user)
 					sign_in @user
-					format.html { redirect_to home_student_url }
+					format.html { redirect_to student_landing_url }
         	format.json { render :show, status: :created, location: @user }
 				else
 					#crear calendario
@@ -36,7 +36,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
 					Tutor.create(user: @user, calendar_id: calendar_id)
 					sign_in @user
-					format.html { redirect_to home_tutor_url }
+					format.html { redirect_to tutor_landing_url }
         	format.json { render :show, status: :created, location: @user }
 				end
       else
