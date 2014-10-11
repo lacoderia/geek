@@ -76,7 +76,18 @@ class TutorsController < ApplicationController
 	# hash con días del mes, con una lista de horarios
 	def availability_list 
 		@availability_list = Tutor.availability_list(params[:id], params[:month].to_i, params[:year].to_i)
-		logger.info "DEBUGGING #{@availability_list}"
+	end
+
+	# Recibe:
+	# start = fecha de inicio en formato iso8601 (toISOString en JS). Ej 6:30pm, 10 nov 2014 CST ("2014-11-10T18:30:00-05:00")
+	# length = numero de horas que dura la clase (min: 1) 
+	# id = id del tutor
+	# student_id = id del estudiante
+	# description = descripcion de la clase
+	# Regresa:
+	# 
+	def request_class
+		@request = Tutor.request_class(params[:id], params[:start], params[:length].to_i, params[:student_id], params[:description])
 	end
 
   private

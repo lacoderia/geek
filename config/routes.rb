@@ -45,6 +45,7 @@ Rails.application.routes.draw do
 		end
 		member do
 			get 'availability_list'
+			get 'request_class'
 		end
 	end
 
