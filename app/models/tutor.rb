@@ -34,7 +34,9 @@ class Tutor < ActiveRecord::Base
 			client = Google::APIClient.new
 			client.authorization.access_token = token
 			service = client.discovered_api('calendar', 'v3')
-			attendees_emails = [{'email' => student.email}]
+			attendees_emails = []
+			# Revisar si se quiere mandar confirmación a los attendees por correo
+			# attendees_emails = [{'email' => self.email}, {'email' => student.email}]
 			result = client.execute(:api_method => service.events.insert, :parameters => {'calendarId' => calendar, 'sendNotifications' => true}, :body => JSON.dump('start' => {'dateTime' => start_date.to_json.gsub(/"/, '') }, 'end' => {'dateTime' => (start_date + length_in_hours.hour).to_json.gsub(/"/, '') }, 'summary' => name, 'attendees' => attendees_emails ), :headers => {'Content-Type' => 'application/json'})
 			# appointment_status_id 1 == enviado
 			Appointment.create(student_id: student.id, tutor_id: self.id, appointment_id: JSON.parse(result.response.body)["id"], start: start_date, end: start_date + length_in_hours.hour, appointment_status_id: 1)
