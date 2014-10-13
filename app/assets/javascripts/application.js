@@ -12,15 +12,23 @@
 //
 // CONFIGURAR require google-analytics
 //
+//= require lib/modernizr-2.6.2.min.js
+//= require lib/prefixfree.min.js
 //= require jquery
 //= require jquery_ujs
 //= require jquery.validate
 //= require jquery.validate.additional-methods
+//= require lib/spin
 //= require bootstrap-sprockets
-//= require lib/modernizr-2.6.2.min.js
-//= require lib/prefixfree.min.js
+
+// Librerias de Angular requeridas en el proyecto
 //= require lib/angular/angular.min.js
 //= require lib/angular/angular-resource.min.js
 //= require lib/angular/angular-route.min.js
+//= require lib/angular/angular-animate.min
+
+// Directivas externas
+//= require lib/angular/angucomplete-alt
+//= require lib/angular/angular-spinner.min
 //= require lib/angular/showErrors.js
 
