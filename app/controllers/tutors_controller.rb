@@ -1,5 +1,6 @@
 class TutorsController < ApplicationController
   before_action :set_tutor, only: [:show, :edit, :update, :destroy]
+  skip_before_filter :verify_authenticity_token, :only => [:update]
 
   # GET /tutors
   # GET /tutors.json
@@ -41,6 +42,11 @@ class TutorsController < ApplicationController
   # PATCH/PUT /tutors/1.json
   def update
     respond_to do |format|
+      if params[:tutor][:categories]
+        params[:tutor][:categories].each do | cat |
+          @tutor.categories << Category.find(cat[:id])
+        end
+      end
       if @tutor.update(tutor_params)
         format.html { redirect_to @tutor, notice: 'Tutor was successfully updated.' }
         format.json { render :show, status: :ok, location: @tutor }
@@ -98,6 +104,6 @@ class TutorsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tutor_params
-      params.require(:tutor).permit(:details, :references, :background, :preference_id, :calendar_id, :bank_account_id)
+      params.require(:tutor).permit(:first_name, :last_name, :details, :references, :background, :preference_id, :calendar_id, :bank_account_id)
     end
 end
