@@ -45,7 +45,7 @@ Rails.application.routes.draw do
 
   resources :tutors do
 		collection do
-			get 'by_county_id'
+			get 'by_county_and_category_ids'
 		end
 		member do
 			get 'availability_list'
