@@ -63,7 +63,7 @@ class TutorsController < ApplicationController
 
 	# Recibe:
 	# county_id = ID de la colonia
-	def find_by_county_id
+	def by_county_id
 		county_id = params[:county_id]
 		@tutors = Tutor.joins(:counties).where("county_id = ?", county_id)
 	end
@@ -85,7 +85,7 @@ class TutorsController < ApplicationController
 	# student_id = id del estudiante
 	# description = descripcion de la clase
 	# Regresa:
-	# 
+	# success: true si la pudo agendar, false si no se pudo crear
 	def request_class
 		@request = Tutor.request_class(params[:id], params[:start], params[:length].to_i, params[:student_id], params[:description])
 	end

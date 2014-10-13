@@ -20,7 +20,7 @@ class Tutor < ActiveRecord::Base
 	  client.authorization.client_id = ENV['GOOGLE_CLIENT_ID']
   	client.authorization.client_secret = ENV['GOOGLE_CLIENT_SECRET']
 	  client.authorization.grant_type = 'refresh_token'
-  	client.authorization.refresh_token = self.refresh_token 
+  	client.authorization.refresh_token = self.refresh_token
 
 	  response = client.authorization.fetch_access_token!
   	client.authorization
@@ -128,6 +128,12 @@ class Tutor < ActiveRecord::Base
 		# TODO: Validar que tenga disponibilidad		
 		tutor.refresh_token_action
 		tutor.create_appointment description, start_date, length, student 
+	end
+
+	def self.list_appointments_by_status tutor_id, appointment_status_id
+		tutor = Tutor.find tutor_id
+		# Appointment status 1 = enviado, 2 = confirmado, 3 = cancelado
+		tutor.appointments.where("appointment_status_id = ?", AppointmentStatus.find(appointment_status_id))
 	end
 
 end

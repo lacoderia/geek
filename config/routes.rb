@@ -13,7 +13,11 @@ Rails.application.routes.draw do
 
   resources :appointment_statuses
 
-  resources :appointments
+  resources :appointments do
+		collection do
+			get 'by_status_and_tutor'
+		end
+	end
 
   resources :messages
 
@@ -41,7 +45,7 @@ Rails.application.routes.draw do
 
   resources :tutors do
 		collection do
-			get 'find_by_county_id'
+			get 'by_county_id'
 		end
 		member do
 			get 'availability_list'

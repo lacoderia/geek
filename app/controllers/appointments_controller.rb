@@ -61,6 +61,15 @@ class AppointmentsController < ApplicationController
     end
   end
 
+	# Recibe:
+	# tutor_id = ID del tutor
+	# appointment_status_id = ID del estado de la cita
+	# Regresa:
+	# lista de appointments
+	def by_status_and_tutor 
+		@appointments = Tutor.list_appointments_by_status(params[:tutor_id], params[:appointment_status_id])
+	end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_appointment
@@ -69,6 +78,6 @@ class AppointmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def appointment_params
-      params.require(:appointment).permit(:appointment_status_id, :student_id, :tutor_id, :date, :details, :address_id)
+      params.require(:appointment).permit(:appointment_status_id, :student_id, :tutor_id, :start, :end, :details, :address_id)
     end
 end
