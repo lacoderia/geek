@@ -18,13 +18,19 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-head">
+        <div class="owl">
+          <img src="/assets/site/signup-owl.png" alt="Geek owl" class="">
+        </div>
         <div class="tabs">
           <div class="tab left-tab" ng-class="{active: selectedTab == 'signIn'}" ng-click="selectTab('signUp')">
-            <span>REGÍSTRATE</span>
+            <span>REGÍSTRARTE</span>
           </div>
           <div class="tab right-tab" ng-class="{active: selectedTab == 'signUp'}" ng-click="selectTab('signIn')">
             <span>INICIAR SESIÓN</span>
           </div>
+        </div>
+        <div class="owl-hands">
+          <img src="/assets/site/signup-owl-hands.png" alt="Geek owl" class="">
         </div>
       </div>
       <div class="modal-body">
@@ -45,9 +51,9 @@
             <div class="form-group" show-errors>
               <input type="password" id="sign-up-confirmation" name="sign-up-confirmation" ng-model="signUpConfirmation" class="form-input form-control" placeholder="CONFIRMAR PASSWORD" pw-check="sign-up-password" required/>
             </div>
-            <div class="form-group" show-errors>
-              <input type="checkbox" id="sign-up-terms" name="sign-up-terms" ng-model="signUpTerms" class="form-checkbox form-control" required/>
-              <span>HE LEÍDO Y ACEPTO LOS TÉRMINOS Y CONDICIONES</span>
+            <div class="form-group form-checkbox custom-checkbox" show-errors>
+              <input type="checkbox" id="sign-up-terms" name="sign-up-terms" ng-model="signUpTerms" class="form-control" required>
+              <label for="sign-up-terms">HE LEÍDO Y ACEPTO LOS TÉRMINOS Y CONDICIONES</label>
             </div>
           </form>
           <div class="form-submit">
