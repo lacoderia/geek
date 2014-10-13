@@ -27,6 +27,7 @@ Rails.application.config.assets.precompile += %w( lib/angular/angular-onready-di
 
 #Import Controllers
 Rails.application.config.assets.precompile += %w( student/controllers/rootCtrl.js )
+Rails.application.config.assets.precompile += %w( student/controllers/navigationCtrl.js )
 Rails.application.config.assets.precompile += %w( student/controllers/categoryLandingController.js )
 Rails.application.config.assets.precompile += %w( student/controllers/searchTutorCtrl.js )
 
