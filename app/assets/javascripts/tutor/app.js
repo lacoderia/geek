@@ -3,7 +3,12 @@
 var Geek = angular.module('Geek', ['ngResource', 'ui.bootstrap.showErrors'])
 
     .constant('DEFAULT_VALUES',{
-        'LANGUAGE':'es'
+        'LANGUAGE':'es',
+        'URL_SERVICES': {
+            'CATEGORY_SERVICE_URL': '/categories.json',
+            'COUNTY_SERVICE_URL': '/counties.json'
+
+        }
     })
 
     .constant('CONFIG', {})
@@ -21,4 +26,16 @@ var Geek = angular.module('Geek', ['ngResource', 'ui.bootstrap.showErrors'])
                 });
             }
         }
-    }]);
+    }])
+
+    .config('$routeProvider', function($routeProvider){
+        $routeProvider
+            .when('/student',{
+                template: 'tutor_display/landing',
+                controller: 'RootController'
+            })
+            .otherwise({
+                template: 'display/landing',
+                controller: 'RootController'
+            })
+    });

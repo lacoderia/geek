@@ -48,9 +48,8 @@ gem 'spring',        group: :development
 
 gem 'bootstrap-sass', '~> 3.2.0'
 
-gem 'rb-fsevent'
-
 #Use livereload for living changes
 group :development do
+  gem 'rb-fsevent'
   gem 'guard-livereload'
 end

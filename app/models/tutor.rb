@@ -20,7 +20,7 @@ class Tutor < ActiveRecord::Base
 	  client.authorization.client_id = ENV['GOOGLE_CLIENT_ID']
   	client.authorization.client_secret = ENV['GOOGLE_CLIENT_SECRET']
 	  client.authorization.grant_type = 'refresh_token'
-  	client.authorization.refresh_token = self.refresh_token 
+  	client.authorization.refresh_token = self.refresh_token
 
 	  response = client.authorization.fetch_access_token!
   	client.authorization
@@ -28,17 +28,23 @@ class Tutor < ActiveRecord::Base
 	end
 
 	def create_appointment name, start_date, length_in_hours, student 
-		token = self.token
-		calendar = self.calendar_id
-		client = Google::APIClient.new
-		client.authorization.access_token = token
-		service = client.discovered_api('calendar', 'v3')
-		attendees_emails = [{'email' => student.email}]
-
-		result = client.execute(:api_method => service.events.insert, :parameters => {'calendarId' => calendar, 'sendNotifications' => true}, :body => JSON.dump('start' => {'dateTime' => start_date.to_json.gsub(/"/, '') }, 'end' => {'dateTime' => (start_date + length_in_hours.hour).to_json.gsub(/"/, '') }, 'summary' => name, 'attendees' => attendees_emails ), :headers => {'Content-Type' => 'application/json'})
-		
-		# appointment_status_id 1 == enviado
-		Appointment.create(student_id: student.id, tutor_id: self.id, appointment_id: JSON.parse(result.response.body)["id"], date: start_date, appointment_status_id: 1)
+		begin
+			token = self.token
+			calendar = self.calendar_id
+			client = Google::APIClient.new
+			client.authorization.access_token = token
+			service = client.discovered_api('calendar', 'v3')
+			attendees_emails = []
+			# Revisar si se quiere mandar confirmación a los attendees por correo
+			# attendees_emails = [{'email' => self.email}, {'email' => student.email}]
+			result = client.execute(:api_method => service.events.insert, :parameters => {'calendarId' => calendar, 'sendNotifications' => true}, :body => JSON.dump('start' => {'dateTime' => start_date.to_json.gsub(/"/, '') }, 'end' => {'dateTime' => (start_date + length_in_hours.hour).to_json.gsub(/"/, '') }, 'summary' => name, 'attendees' => attendees_emails ), :headers => {'Content-Type' => 'application/json'})
+			# appointment_status_id 1 == enviado
+			Appointment.create(student_id: student.id, tutor_id: self.id, appointment_id: JSON.parse(result.response.body)["id"], start: start_date, end: start_date + length_in_hours.hour, appointment_status_id: 1)
+			return true
+		rescue Exception => e
+			logger.error ("ERROR #{e}")
+			return false
+		end
 	end
 
 	def delete_appointment appointment
@@ -114,5 +120,20 @@ class Tutor < ActiveRecord::Base
 
 		result
 	end 
+
+	def self.request_class tutor_id, start, length, student_id, description
+		tutor = Tutor.find(tutor_id)
+		start_date = DateTime.iso8601(start)	
+		student = Student.find(student_id)
+		# TODO: Validar que tenga disponibilidad		
+		tutor.refresh_token_action
+		tutor.create_appointment description, start_date, length, student 
+	end
+
+	def self.list_appointments_by_status tutor_id, appointment_status_id
+		tutor = Tutor.find tutor_id
+		# Appointment status 1 = enviado, 2 = confirmado, 3 = cancelado
+		tutor.appointments.where("appointment_status_id = ?", AppointmentStatus.find(appointment_status_id))
+	end
 
 end

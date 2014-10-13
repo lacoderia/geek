@@ -7,9 +7,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 			sign_in @user
 			#@user.update_attribute(:token, auth_hash.credentials.token)
 			if @user.role? :student
-				redirect_to home_student_url
+				redirect_to student_landing_url
 			else
-				redirect_to home_tutor_url
+				redirect_to tutor_landing_url
 			end
 		else
 			session["devise.facebook_data"] = auth_hash.except("extra")
@@ -24,9 +24,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 			flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Google"
 			sign_in @user
 			if @user.role? :student
-				redirect_to home_student_url
+				redirect_to student_landing_url
 			else
-				redirect_to home_tutor_url
+				redirect_to tutor_landing_url
 			end
 		else
 			session["devise.google_data"] = auth_hash.except("extra")

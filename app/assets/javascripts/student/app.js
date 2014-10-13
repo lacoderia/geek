@@ -2,10 +2,6 @@
 
 var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt'])
 
-    .config(['$routeProvider', function($routeProvider){
-
-    }])
-
     .constant('DEFAULT_VALUES',{
         'LANGUAGE':'es',
         'URL_SERVICES': {
@@ -16,4 +12,10 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt'])
 
     })
 
-    .constant('CONFIG', {});
+    .config(['$routeProvider', function($routeProvider){
+
+        $routeProvider.when('/tutor', { templateUrl: '../assets/mainPost.html', controller: 'PostCtrl' } )
+        $routeProvider.otherwise({ templateUrl: '/assets/student/partial_landing.html', controller: 'RootController' } )
+
+
+    }]);

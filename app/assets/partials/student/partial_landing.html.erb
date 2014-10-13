@@ -1,9 +1,3 @@
-<% content_for :head_style do %>
-<% end %>
-
-<% content_for :head_script do %>
-<% end %>
-
 <header class="container">
   <div class="row navbar">
     <h1 class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
@@ -13,7 +7,7 @@
       </a>
     </h1>
     <nav class="navigation col-lg-10 col-md-10 col-sm-9 col-xs-12" role="navigation">
-      <%= render 'layouts/display/navigation_home' %>
+
     </nav>
   </div>
 </header>
@@ -31,7 +25,7 @@
             <!--input id="tags" type="text" class="county" placeholder="En la zona de..."-->
             <angucomplete-alt id="counties"
                               placeholder="En la zona de..."
-                              pause="100"
+                              pause="600"
                               selected-object="selectedCountyInput"
                               local-data="counties"
                               search-fields="name"
@@ -65,17 +59,7 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 section-categories">
-      <% @categories.each do |category| %>
-          <% if not category.category_id  %>
-              <div class="category">
-                <a href="#" title="<%= category.description %>">
-                  <img src="<%= category.picture_url %>" alt="<%= category.name %>">
-                  <span class="category-title"><%= category.name %></span>
-                </a>
-                <div class="clearfix"></div>
-              </div>
-          <% end %>
-      <% end %>
+
     </div>
   </div>
 </div>
@@ -107,4 +91,3 @@
   </div>
 </div>
 
-<%= render 'layouts/display/footer' %>

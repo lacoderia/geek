@@ -292,7 +292,7 @@ body{
   .navigation{
     display: inline-block;
     font-size: 16px;
-    margin-bottom: 1em;
+    margin-bottom: 0px;
     text-align: center;
 
     ul{
@@ -618,10 +618,16 @@ body{
 }
 
 @media (min-width: $screen-md-min) {
+
+  .angucomplete-dropdown{
+    width: 250px;
+  }
+
   .navbar{
 
     .navigation{
       font-size: 19px;
+      margin-bottom: 1em;
 
       ul{
 

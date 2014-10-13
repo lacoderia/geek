@@ -24,7 +24,11 @@
     <%= f.number_field :tutor_id %>
   </div>
   <div class="field">
-    <%= f.label :date %><br>
+    <%= f.label :start %><br>
+    <%= f.datetime_select :date %>
+  </div>
+  <div class="field">
+    <%= f.label :end %><br>
     <%= f.datetime_select :date %>
   </div>
   <div class="field">

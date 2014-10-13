@@ -13,7 +13,11 @@ Rails.application.routes.draw do
 
   resources :appointment_statuses
 
-  resources :appointments
+  resources :appointments do
+		collection do
+			get 'by_status_and_tutor'
+		end
+	end
 
   resources :messages
 
@@ -41,10 +45,11 @@ Rails.application.routes.draw do
 
   resources :tutors do
 		collection do
-			get 'find_by_county_id'
+			get 'by_county_id'
 		end
 		member do
 			get 'availability_list'
+			get 'request_class'
 		end
 	end
 
@@ -58,17 +63,17 @@ Rails.application.routes.draw do
   end
   resources :users
 
-  get "complete_registration" => "display#complete_registration", :as => :complete_registration
+  get "complete_registration" => "student_display#complete_registration", :as => :complete_registration
 
   get "counties_all" => "counties#find_for_autocomplete", :as => :find_for_autocomplete
 
   get "tutor" => "tutor_display#landing", :as => :tutor_landing
 
-  get "student" => "tutor_display#landing", :as => :student_landing
+  get "student" => "student_display#landing", :as => :student_landing
   
-	get "student/home" => "student_display#index", :as => :tutor_index
+	#get "student/home" => "student_display#index", :as => :tutor_index
 
-	get "tutor/home" => "tutor_display#index", :as => :student_index
+	#get "tutor/home" => "tutor_display#index", :as => :student_index
 
   get "tutor/perfil" => "tutor_display#perfil", :as => :tutor_perfil
 
@@ -76,6 +81,6 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'display#index'
+  root 'student_display#landing'
 
 end

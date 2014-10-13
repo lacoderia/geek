@@ -8,7 +8,7 @@ Rails.application.config.assets.version = '1.0'
 # Rails.application.config.assets.precompile += %w( search.js )
 
 #Precompile styles
-Rails.application.config.assets.precompile += %w( styles/display.css )
+Rails.application.config.assets.precompile += %w( styles/student_display.css )
 
 Rails.application.config.assets.precompile += %w( styles/tutor_display.css )
 
@@ -22,6 +22,7 @@ Rails.application.config.assets.precompile += %w( lib/angular/spin.min.js )
 
 #Import Services
 Rails.application.config.assets.precompile += %w( student/services/countyService.js )
+Rails.application.config.assets.precompile += %w( student/services/categoryService.js )
 
 Rails.application.config.assets.precompile += %w( tutor/services/categoryService.js )
 
