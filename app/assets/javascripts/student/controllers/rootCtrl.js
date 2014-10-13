@@ -1,7 +1,7 @@
 'use strict';
 
 Geek.controller('RootController', function($scope, $rootScope, DEFAULT_VALUES, CountyService, CategoryService){
-    console.log('CARGO EL CONTROLADOR')
+
     //Catálogo de zonas
     $rootScope.counties = [];
 
@@ -32,6 +32,7 @@ Geek.controller('RootController', function($scope, $rootScope, DEFAULT_VALUES, C
             if(data){
                 //Fill the categories availables
                 $rootScope.categories = data;
+                $scope.$broadcast('categoriesLoaded')
             }
         },
         function(response){

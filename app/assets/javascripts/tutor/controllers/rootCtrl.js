@@ -1,7 +1,6 @@
 'use strict';
 
 Geek.controller('RootController', function($scope, $rootScope, DEFAULT_VALUES, CategoryService){
-
     //Categories catalog
     $rootScope.categories = [];
 

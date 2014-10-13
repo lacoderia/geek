@@ -16,10 +16,6 @@ Rails.application.config.assets.precompile += %w( styles/tutor_display.css )
 Rails.application.config.assets.precompile += %w( student/app.js )
 Rails.application.config.assets.precompile += %w( tutor/app.js )
 
-#Import libs
-Rails.application.config.assets.precompile += %w( lib/angular/angucomplete-alt.js )
-Rails.application.config.assets.precompile += %w( lib/angular/spin.min.js )
-
 #Import Services
 Rails.application.config.assets.precompile += %w( student/services/countyService.js )
 Rails.application.config.assets.precompile += %w( student/services/categoryService.js )
@@ -27,9 +23,11 @@ Rails.application.config.assets.precompile += %w( student/services/categoryServi
 Rails.application.config.assets.precompile += %w( tutor/services/categoryService.js )
 
 #Import Directives
+Rails.application.config.assets.precompile += %w( lib/angular/angular-onready-directive.js )
 
 #Import Controllers
 Rails.application.config.assets.precompile += %w( student/controllers/rootCtrl.js )
+Rails.application.config.assets.precompile += %w( student/controllers/categoryLandingController.js )
 Rails.application.config.assets.precompile += %w( student/controllers/searchTutorCtrl.js )
 
 Rails.application.config.assets.precompile += %w( tutor/controllers/rootCtrl.js )

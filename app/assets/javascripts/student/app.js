@@ -1,6 +1,6 @@
 'use strict';
 
-var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt'])
+var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt', 'angularSpinner'])
 
     .constant('DEFAULT_VALUES',{
         'LANGUAGE':'es',
@@ -14,7 +14,6 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt'])
 
     .config(['$routeProvider', function($routeProvider){
 
-        $routeProvider.when('/tutor', { templateUrl: '../assets/mainPost.html', controller: 'PostCtrl' } )
         $routeProvider.otherwise({ templateUrl: '/assets/student/partial_landing.html', controller: 'RootController' } )
 
 

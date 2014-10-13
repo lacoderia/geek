@@ -69,13 +69,13 @@ Rails.application.routes.draw do
 
   get "tutor" => "tutor_display#landing", :as => :tutor_landing
 
-  get "student" => "student_display#landing", :as => :student_landing
+  #get "student" => "student_display#landing", :as => :student_landing
   
 	#get "student/home" => "student_display#index", :as => :tutor_index
 
 	#get "tutor/home" => "tutor_display#index", :as => :student_index
 
-  get "tutor/perfil" => "tutor_display#perfil", :as => :tutor_perfil
+  #get "tutor/perfil" => "tutor_display#perfil", :as => :tutor_perfil
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
