@@ -14,10 +14,10 @@ Rails.application.routes.draw do
   resources :appointment_statuses
 
   resources :appointments do
-		collection do
-			get 'by_status_and_tutor'
-		end
-	end
+    collection do
+      get 'by_status_and_tutor'
+    end
+  end
 
   resources :messages
 
@@ -44,36 +44,40 @@ Rails.application.routes.draw do
   resources :students
 
   resources :tutors do
-		collection do
-			get 'by_county_and_category_ids'
-		end
-		member do
-			get 'availability_list'
-			get 'request_class'
-		end
-	end
+    collection do
+      get 'by_county_and_category_ids'
+    end
+    member do
+      get 'availability_list'
+      get 'request_class'
+    end
+  end
 
   resources :roles
 
   devise_for :users, :controllers => {:registrations => "users/registrations", :sessions => 'users/sessions', :omniauth_callbacks => "users/omniauth_callbacks"}
   devise_scope :user do
-	  get 'logout', :to => "devise/sessions#destroy"
-	  get 'signin', :to => "devise/sessions#new"
-	  get 'signup', :to => "devise/registrations#new"
+    get 'logout', :to => "devise/sessions#destroy"
+    get 'signin', :to => "devise/sessions#new"
+    get 'signup', :to => "devise/registrations#new"
   end
   resources :users
 
   get "counties_all" => "counties#find_for_autocomplete", :as => :find_for_autocomplete
 
   get "tutor" => "tutor_display#landing", :as => :tutor_landing
+  
+  get "tutor_dashboard" => "tutor_display#landing", :as => :tutor_dashboard
 
   get "student" => "student_display#landing", :as => :student_landing
   
-	get "tutor_registration" => "tutor_display#tutor_registration", :as => :tutor_registration
+  get "student_dashboard" => "student_display#landing", :as => :student_dashboard
+  
+  #get "tutor_registration" => "tutor_display#tutor_registration", :as => :tutor_registration
 
-	#get "student/home" => "student_display#index", :as => :tutor_index
+  #get "student/home" => "student_display#index", :as => :tutor_index
 
-	#get "tutor/home" => "tutor_display#index", :as => :student_index
+  #get "tutor/home" => "tutor_display#index", :as => :student_index
 
   #get "tutor/perfil" => "tutor_display#perfil", :as => :tutor_perfil
 

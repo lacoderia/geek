@@ -18,11 +18,16 @@ Geek.controller('NavigationController', function($scope, $rootScope, DEFAULT_VAL
     $scope.submitTutorForm = function(){
         $("#tutor-form").submit();
     }
+
     $scope.registerGooglePlus = function(){
         window.location = "users/auth/google_oauth2";
     }
 
-    $(document).ready(function() {    
+	$scope.loginTutor = function(){
+        $("#login-form").submit();
+	}
+
+    $scope.$on("rootControllerReady", function() {    
 
         $scope.userData = false;
         if ($("#user-data").data()){

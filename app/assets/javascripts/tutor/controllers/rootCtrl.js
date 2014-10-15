@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('RootController', function($scope, $rootScope, DEFAULT_VALUES, CategoryService){
+Geek.controller('RootController', function($scope, $rootScope, $timeout, DEFAULT_VALUES, CategoryService){
     //Categories catalog
     $rootScope.categories = [];
 
@@ -70,6 +70,11 @@ Geek.controller('RootController', function($scope, $rootScope, DEFAULT_VALUES, C
         };
 	
         $(window).resize(adjustModalMaxHeightAndPosition).trigger("resize");
+		
+		$timeout(function() {
+			$rootScope.$broadcast("rootControllerReady");
+		},0);
+		
     });
 
     //Call a service to fill in the categories catalog
