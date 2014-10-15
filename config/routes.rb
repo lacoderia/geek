@@ -45,7 +45,7 @@ Rails.application.routes.draw do
 
   resources :tutors do
 		collection do
-			get 'by_county_id'
+			get 'by_county_and_category_ids'
 		end
 		member do
 			get 'availability_list'
@@ -63,14 +63,14 @@ Rails.application.routes.draw do
   end
   resources :users
 
-  get "complete_registration" => "student_display#complete_registration", :as => :complete_registration
-
   get "counties_all" => "counties#find_for_autocomplete", :as => :find_for_autocomplete
 
   get "tutor" => "tutor_display#landing", :as => :tutor_landing
 
-  #get "student" => "student_display#landing", :as => :student_landing
+  get "student" => "student_display#landing", :as => :student_landing
   
+	get "tutor_registration" => "tutor_display#tutor_registration", :as => :tutor_registration
+
 	#get "student/home" => "student_display#index", :as => :tutor_index
 
 	#get "tutor/home" => "tutor_display#index", :as => :student_index

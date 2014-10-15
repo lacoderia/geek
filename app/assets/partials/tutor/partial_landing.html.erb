@@ -44,30 +44,38 @@
             </div>
             <div class="modal-body">
               <div class="sign-up-container noselect" ng-show="selectedTab == 'signUp'">
-                <div class="form-button-gp">
-                  <div>REGÍSTRATE CON GOOGLE <span class="icon-googleplus"></span></div>
+                <div class="form-button-gp" ng-hide="userData">
+                  <div id="google-plus-register">REGÍSTRATE CON GOOGLE <span class="icon-googleplus"></span></div>
                 </div>
-                <form name="signUpForm">
+                <form name="signUpForm" ng-show="userData" accept-charset="UTF-8" action="/users" method="post" id="tutor-form">
                   <div class="form-group" show-errors>
-                    <input type="text" id="sign-up-name" name="sign-up-name" ng-model="signUpName" class="form-input form-control" placeholder="NOMBRE" required/>
+                    <input type="text" id="sign-up-name" name="user[first_name]" ng-model="signUpName" class="form-input form-control" placeholder="NOMBRE" required/>
                   </div>
                   <div class="form-group" show-errors>
-                    <input type="text" id="sign-up-mail" name="sign-up-mail" ng-model="signUpMail" class="form-input form-control" placeholder="CORREO" ng-pattern="/^[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\.)+[A-Za-z]{2,4}$/" required/>
+                    <input type="text" id="sign-up-mail" name="user[email]" ng-model="signUpMail" class="form-input form-control" placeholder="CORREO" ng-pattern="/^[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\.)+[A-Za-z]{2,4}$/" required/>
                   </div>
                   <div class="form-group" show-errors>
-                    <input type="password" id="sign-up-password" name="sign-up-password" ng-model="signUpPassword" class="form-input form-control" placeholder="PASSWORD" required/>
+                    <input type="password" id="sign-up-password" name="user[password]" ng-model="signUpPassword" class="form-input form-control" placeholder="PASSWORD" required/>
                   </div>
                   <div class="form-group" show-errors>
-                    <input type="password" id="sign-up-confirmation" name="sign-up-confirmation" ng-model="signUpConfirmation" class="form-input form-control" placeholder="CONFIRMAR PASSWORD" pw-check="sign-up-password" required/>
+                    <input type="password" id="sign-up-confirmation" name="user[password_confirmation]" ng-model="signUpConfirmation" class="form-input form-control" placeholder="CONFIRMAR PASSWORD" pw-check="sign-up-password" required/>
                   </div>
                   <div class="form-group form-checkbox custom-checkbox" show-errors>
                     <input type="checkbox" id="sign-up-terms" name="sign-up-terms" ng-model="signUpTerms" class="form-control" required>
                     <label for="sign-up-terms">HE LEÍDO Y ACEPTO LOS TÉRMINOS Y CONDICIONES</label>
                   </div>
+                  <div>
+                    <input id="user_uid" name="user[uid]" type="hidden" value="{{signUpUID}}">
+                    <input id="user_last_name" name="user[last_name]" type="hidden" value="{{signUpLastName}}">
+                    <input id="user_token" name="user[token]" type="hidden" value="{{signUpToken}}">
+                    <input id="user_refresh_token" name="user[refresh_token]" type="hidden" value="{{signUpRefreshToken}}">
+                    <input id="user_role_ids" multiple="multiple" name="user[role_ids][]" type="hidden" value="{{roleIds}}" >
+                  </div>
+                  <div class="form-submit" ng-show="userData" id="tutor-register-submit">
+                    <div>REGÍSTRATE</div>
+                  </div>
                 </form>
-                <div class="form-submit">
-                  <div>REGÍSTRATE</div>
-                </div>
+                
               </div>
               <div class="sign-in-container" ng-show="selectedTab == 'signIn'">
                 <input type="text" name="sign-in-mail" class="form-input" placeholder="CORREO" />

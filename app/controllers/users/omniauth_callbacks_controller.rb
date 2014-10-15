@@ -13,13 +13,13 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 			end
 		else
 			session["devise.facebook_data"] = auth_hash.except("extra")
-			redirect_to complete_registration_url
+			redirect_to student_landing_url
 		end
 	end
 
 	def google_oauth2
 		@user = User.find_by_email(auth_hash.info.email)
-		logger.info("AUTH HASH #{auth_hash.to_yaml}")
+		#logger.info("AUTH HASH #{auth_hash.to_yaml}")
 		if @user
 			flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Google"
 			sign_in @user
@@ -30,7 +30,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 			end
 		else
 			session["devise.google_data"] = auth_hash.except("extra")
-			redirect_to complete_registration_url
+			redirect_to tutor_landing_url
+			#redirect_to tutor_registration_url
 		end
 	end
 
