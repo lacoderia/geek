@@ -15,6 +15,14 @@ Geek.controller('RootController', function($scope, $rootScope, DEFAULT_VALUES, C
             return false;
         });
 
+				$("#google-plus-register").click(function () {
+					window.location = "users/auth/google_oauth2";
+				});
+
+				$("#tutor-register-submit").click(function (){
+					$("#tutor-form").submit();
+				});
+
         $('.fileupload input[type=file]').change(function () {
             var input = $(this);
             if (input[0].files && input[0].files[0]) {
@@ -68,6 +76,19 @@ Geek.controller('RootController', function($scope, $rootScope, DEFAULT_VALUES, C
                 };
             });
         };
+			
+				$rootScope.userData = false;
+				if ($("#user-data").data()){
+					$rootScope.userData = true;
+					$('#sign-in-modal').modal('show');
+					$rootScope.signUpName = $('#user-data').data('first-name');
+					$rootScope.signUpMail = $('#user-data').data('email'); 
+					$rootScope.signUpUID = $('#user-data').data('uid'); 
+					$rootScope.signUpLastName = $('#user-data').data('last-name'); 
+					$rootScope.signUpToken = $('#user-data').data('token'); 
+					$rootScope.signUpRefreshToken = $('#user-data').data('email'); 
+					$rootScope.roleIds = 2; 
+				}
 
         $(window).resize(adjustModalMaxHeightAndPosition).trigger("resize");
     });
