@@ -45,7 +45,7 @@
             <div class="modal-body">
               <div class="sign-up-container noselect" ng-show="selectedTab == 'signUp'">
                 <div class="form-button-gp" ng-hide="userData">
-                  <div id="google-plus-register">REGÍSTRATE CON GOOGLE <span class="icon-googleplus"></span></div>
+                  <div ng-click="registerGooglePlus()">REGÍSTRATE CON GOOGLE <span class="icon-googleplus"></span></div>
                 </div>
                 <form name="signUpForm" ng-show="userData" accept-charset="UTF-8" action="/users" method="post" id="tutor-form">
                   <div class="form-group" show-errors>
@@ -71,7 +71,7 @@
                     <input id="user_refresh_token" name="user[refresh_token]" type="hidden" value="{{signUpRefreshToken}}">
                     <input id="user_role_ids" multiple="multiple" name="user[role_ids][]" type="hidden" value="{{roleIds}}" >
                   </div>
-                  <div class="form-submit" ng-show="userData" id="tutor-register-submit">
+                  <div class="form-submit" ng-show="userData" ng-click="submitTutorForm()">
                     <div>REGÍSTRATE</div>
                   </div>
                 </form>
