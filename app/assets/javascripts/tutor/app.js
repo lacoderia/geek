@@ -1,6 +1,6 @@
 'use strict';
 
-var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt', 'angularSpinner'])
+var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt', 'angularSpinner', 'ui.bootstrap.showErrors'])
 
     .constant('DEFAULT_VALUES',{
         'LANGUAGE':'es',
@@ -13,8 +13,20 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt', 
     })
 
     .config(['$routeProvider', function($routeProvider){
-
         $routeProvider.otherwise({ templateUrl: '/assets/tutor/partial_landing.html', controller: 'RootController' } )
+    }])
 
-
+    .directive('pwCheck', [function () {
+        return {
+            require: 'ngModel',
+            link: function (scope, elem, attrs, ctrl) {
+                var firstPassword = '#' + attrs.pwCheck;
+                elem.add(firstPassword).on('keyup', function () {
+                    scope.$apply(function () {
+                        var v = elem.val()===$(firstPassword).val();
+                        ctrl.$setValidity('pwmatch', v);
+                    });
+                });
+            }
+        }
     }]);
