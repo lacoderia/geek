@@ -25,6 +25,22 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt', 
                 url: "/dashboard",
                 templateUrl: "/assets/student/partial_dashboard_layout.html",
             })
+            .state('dashboard.search-tutor', {
+                url: "/search-tutor",
+                templateUrl: "/assets/student/partial_dashboard_layout.search_tutor.html"
+
+            }).state('dashboard.my-classes', {
+                url: "/my-classes",
+                templateUrl: "/assets/student/partial_dashboard_layout.my_classes.html"
+
+            }).state('dashboard.account', {
+                url: "/account",
+                templateUrl: "/assets/student/partial_dashboard_layout.account.html"
+            })
+            .state('dashboard.messages', {
+                url: "/messages",
+                templateUrl: "/assets/student/partial_dashboard_layout.messages.html"
+            })
 
     })    
 

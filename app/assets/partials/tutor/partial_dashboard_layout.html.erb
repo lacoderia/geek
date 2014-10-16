@@ -9,9 +9,9 @@
     <nav class="navigation col-lg-10 col-md-10 col-sm-9 col-xs-12" role="navigation" ng-controller="NavigationController as navigationCtrl">
       <ul>
         <li>
-          <a href="#" title="Mensajes" class="text-color-dark-blue">Mensajes</a>
+          <a ui-sref=".messages" title="Mensajes" class="text-color-dark-blue">Mensajes</a>
         </li>
-        <li><a href="#" title="Perfíl" class="signin" ng-click="showSignInModal('signIn')">Ingresa</a></li>
+        <li><a ui-sref=".account" title="Perfíl">Perfíl</a></li>
       </ul>
     </nav>
   </div>
@@ -20,8 +20,8 @@
 <div class="container">
   <div class="row">
     <ul class="menu-tabs col-lg-12 col-md-12 col-sm-12 col-xs-12">
-      <li><a href="#" title="Busca una clase">Mi agenda</a></li>
-      <li><a href="#" title="Mis clases">Mi historial</a></li>
+      <li><a ui-sref=".calendar" title="Busca una clase">Mi agenda</a></li>
+      <li><a ui-sref=".history" title="Mis clases">Mi historial</a></li>
     </ul>
   </div>
 </div>

@@ -22,7 +22,23 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt', 
             })
             .state('dashboard', {
                 url: "/dashboard",
-                templateUrl: "/assets/tutor/partial_dashboard_layout.html",
+                templateUrl: "/assets/tutor/partial_dashboard_layout.html"
+            })
+            .state('dashboard.calendar', {
+                url: "/calendar",
+                templateUrl: "/assets/tutor/partial_dashboard_layout.calendar.html"
+            })
+            .state('dashboard.history', {
+                url: "/history",
+                templateUrl: "/assets/tutor/partial_dashboard_layout.history.html"
+            })
+            .state('dashboard.account', {
+                url: "/account",
+                templateUrl: "/assets/student/partial_dashboard_layout.account.html"
+            })
+            .state('dashboard.messages', {
+                url: "/messages",
+                templateUrl: "/assets/student/partial_dashboard_layout.messages.html"
             })
     })    
 
