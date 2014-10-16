@@ -36,7 +36,7 @@ Geek.controller('NavigationController', function($scope, $rootScope, DEFAULT_VAL
     $scope.registerGooglePlus = function(){
         window.location = "users/auth/google_oauth2";
     };
-
+    
     $scope.$on("rootControllerReady", function() {
         $scope.userData = false;
         if ($("#user-data").data()){

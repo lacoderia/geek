@@ -21,6 +21,10 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt', 
                 templateUrl: "/assets/student/partial_landing.html",
                 controller: 'RootController'
             })
+            .state('dashboard', {
+                url: "/dashboard",
+                templateUrl: "/assets/student/partial_dashboard_layout.html",
+            })
 
     })    
 
