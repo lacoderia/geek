@@ -4,26 +4,32 @@
 *
 */
 
-$color-dark-gray: #808184;
-$color-light-gray: #A6A8AB;
-$color-dark-blue: #264A96;
-$color-light-blue: #79AADB;
-$color-dark-green: #2BA780;
-$color-light-green: #91C9AC;
-$color-dark-orange: #F07423;
-$color-medium-orange: #FAAE40;
-$color-light-orange: #FFD495;
-$color-dark-brown: #726659;
-$color-light-brown: #C1B49A;
-$color-dark-red: #EC2227;
-$color-light-red: #F05E5E;
-$color-dark-yellow: #F9D605;
-$color-light-yellow: #FFF496;
-$color-input-bgcolor: #F4F4F4;
-$color-light-pink: #FACECD;
-$color-medium-pink: #F9BFBF;
-$color-dark-pink: #F69E9E;
-$color-input-pink: #F6E5E5;
+$color-dark-gray: #808184;      // rgb(128,129,132)
+$color-light-gray: #A6A8AB;     // rgb(166,168,171)
+$color-dark-blue: #264A96;      // rgb(38,74,150)
+$color-light-blue: #79AADB;     // rgb(121,170,219)
+$color-dark-green: #2BA780;     // rgb(43,167,128)
+$color-light-green: #91C9AC;    // rgb(145,201,172)
+$color-dark-orange: #F07423;    // rgb(240,116,35)
+$color-medium-orange: #FAAE40;  // rgb(250,174,64)
+$color-light-orange: #FFD495;   // rgb(255,212,149)
+$color-dark-brown: #726659;     // rgb(114,102,89)
+$color-light-brown: #C1B49A;    // rgb(193,180,154)
+$color-dark-red: #EC2227;       // rgb(236,34,39)
+$color-light-red: #F05E5E;      // rgb(240,94,94)
+$color-dark-yellow: #F9D605;    // rgb(249,214,5)
+$color-light-yellow: #FFF496;   // rgb(255,244,150)
+$color-input-bgcolor: #F4F4F4;  // rgb(244,244,244)
+$color-light-pink: #FACECD;     // rgb(250,206,205)
+$color-medium-pink: #F9BFBF;    // rgb(249,191,191)
+$color-dark-pink: #F69E9E;      // rgb(246,158,158)
+$color-input-pink: #F6E5E5;     // rgb(246,229,229)
+
+$color-sign-up-light-blue: #F1F6FC;
+$color-sign-up-medium-blue: #D8E5F6;
+$color-sign-up-dark-blue: #CBDDF2;
+$color-sign-up-input-blue: #93A3CE;
+
 
 $screen-xs-min: 460px;
 $screen-sm-min: 768px;
@@ -196,7 +202,6 @@ body{
     position: absolute;
     left:0; top: 2px;
     width: 17px; height: 17px;
-    background: $color-dark-pink;
     border-radius: 3px;
   }
   /* checked mark aspect */
@@ -250,6 +255,49 @@ body{
 
   img{
     width: 100%;
+  }
+}
+
+.menu-tabs{
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+
+  li{
+    background-color: rgba(166,168,171,0.2);
+    border-radius: 10px 10px 0px 0px;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+    text-transform: uppercase;
+
+    a{
+      color: $color-light-green;
+      display: inline-block;
+      padding: 1.5em 3em;
+      min-width: 300px;
+    }
+
+    a:hover{
+      text-decoration: none;
+    }
+
+    a.selected{
+      color: $color-dark-green;
+    }
+  }
+
+  li:first-child{
+    border-radius: 10px 0px 0px 0px;
+  }
+
+  li:last-child{
+    border-radius: 0px 10px 0px 0px;
+  }
+
+  li:hover{
+    background-color: rgba(166,168,171,0.3);
   }
 }
 
@@ -321,6 +369,7 @@ body{
       }
     }
   }
+
 }
 
 .noselect {
@@ -332,206 +381,9 @@ body{
   user-select: none;
 }
 
-#sign-in-modal {
-
-  .modal-dialog {
-    font-family: "gotham";
-    font-weight: 500;
-    font-style: normal;
-    max-width: 350px;
-    width: 100%;
-
-    .modal-content {
-      border-color: $color-medium-pink;
-      border-width: 7px;
-      border-radius: 10px;
-      overflow: hidden;
-      box-sizing: content-box;
-
-      .modal-head {
-        background-color: $color-dark-pink;
-        border-bottom: 7px solid;
-        border-color: $color-medium-pink;
-        font-size: 0;
-        height: 240px;
-        overflow: hidden;
-        position: relative;
-
-        .owl {
-          bottom: 60px;
-          margin: 0 auto;
-          position: absolute;
-          width: 100%;
-
-          img {
-            width: 200px;
-          }
-        }
-
-        .owl-hands {
-          bottom: 45px;
-          margin: 0 auto;
-          position: absolute;
-          width: 100%;
-
-          img {
-            width: 170px;
-          }
-        }
-
-        .tabs {
-          bottom: 0px;
-          cursor: pointer;
-          position: absolute;
-          width: 100%;
-
-          .tab {
-            background-color: $color-dark-pink;
-            display: inline-block;
-            font-size: 15px;
-            position: absolute;
-            bottom: 0;
-            width: 230px;
-
-            span {
-              bottom: 15px;
-              color: white;
-              position: absolute;
-              width: 175px;
-            }
-          }
-
-          .tab.active {
-            background-color: $color-light-pink;
-          }
-
-          .left-tab {
-            border-top-left-radius: 100%;
-            border-top: 7px solid $color-medium-pink;
-            border-left: 7px solid $color-medium-pink;
-            border-right: 3px solid $color-medium-pink;
-            left: -62px;
-            height: 65px;
-
-            span {
-              right: 0;
-            }
-          }
-
-          .right-tab {
-            border-top-right-radius: 100%;
-            border-top: 7px solid $color-medium-pink;
-            border-left: 4px solid $color-medium-pink;
-            border-right: 7px solid $color-medium-pink;
-            height: 65px;
-            right: -62px;
-
-            span {
-              left: 0;
-            }
-          }
-        }
-      }
-
-      .modal-body {
-        height: 345px;
-        padding: 20px;
-
-        .form-button-fb, .form-button-gp {
-          border-radius: 2px;
-          color: white;
-          cursor: pointer;
-          display: table;
-          height: 42px;
-          text-align: center;
-          width: 100%;
-
-          div {
-            display: table-cell;
-            height: 100%;
-            padding-top: 4px;
-            vertical-align: middle;
-          }
-        }
-
-        .form-button-fb {
-          background-color: #4C66A4;
-        }
-
-        .form-button-gp {
-          background-color: #E85C3D;
-        }
-
-        .form-input {
-          background: white;
-          background-color: $color-medium-pink;
-          border: 0;
-          border-radius: 2px;
-          color: $color-input-pink;
-          display: block;
-          height: 30px;
-          margin-top: 18px;
-          outline: 0;
-          padding-left: 20px;
-          padding-right: 20px;
-          padding-top: 8px;
-          width: 100%;
-        }
-
-        .has-error .form-input{
-          background-color: red;
-        }
-
-        .has-error.form-checkbox{
-          background-color: red;
-        }
-
-        .form-checkbox {
-          color: $color-dark-pink;
-          font-size: 11px;
-          text-align: left;
-          width: 100%;
-
-          .form-control {
-            display: inline-block;
-            height: 0;
-            width: 0;
-          }
-
-          label {
-            font-weight: 500;
-            padding-top: 4px;
-          }
-        }
-
-        ::-webkit-input-placeholder { color: $color-input-pink; }
-        ::-moz-placeholder { color: $color-input-pink; } /* firefox 19+ */
-        :-ms-input-placeholder { color: $color-input-pink; } /* ie */
-        input:-moz-placeholder { color: $color-input-pink; }
-
-        .form-submit {
-          background-color: $color-dark-pink;
-          border-radius: 2px;
-          color: $color-input-pink;
-          cursor: pointer;
-          display: table;
-          height: 52px;
-          margin-top: 15px;
-          text-align: center;
-          width: 100%;
-
-          div {
-            display: table-cell;
-            height: 100%;
-            padding-top: 4px;
-            vertical-align: middle;
-          }
-        }
-      }
-    }
-  }
+.section-dashboard-container{
+  margin-top: 0.3em;
 }
-
 
 .text-color-black{
   color: black;
@@ -644,6 +496,7 @@ body{
     .navigation{
       font-size: 19px;
       margin-bottom: 1em;
+      text-align: right;
 
       ul{
 

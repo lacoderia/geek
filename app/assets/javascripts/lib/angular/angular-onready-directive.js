@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.directive('ngReady', function($rootScope, usSpinnerService){
+Geek.directive('ngReady', function($rootScope){
     return{
         restrict: 'A',
         replace: false,
@@ -8,8 +8,7 @@ Geek.directive('ngReady', function($rootScope, usSpinnerService){
         link: function(scope, element, attrs){
 
             if(scope.$parent.$last){
-                var spinnerTarget = attrs.ngReady;
-                usSpinnerService.stop(spinnerTarget);
+
             }
 
         }

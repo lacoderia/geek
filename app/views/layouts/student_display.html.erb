@@ -9,11 +9,13 @@
   <%= yield :head_style %>
   <%= javascript_include_tag 'application',
                              'student/app',
-                             'student/controllers/rootCtrl',
                              'student/controllers/navigationCtrl',
+                             'student/controllers/rootCtrl',
                              'student/controllers/searchTutorCtrl',
+                             'student/controllers/rootCtrl',
                              'student/services/countyService',
                              'student/services/categoryService',
+                             'student/services/tutorService',
                              'lib/angular/angular-onready-directive'%>
   <%= yield :head_script %>
   <%= csrf_meta_tags %>

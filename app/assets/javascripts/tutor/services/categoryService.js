@@ -1,12 +1,12 @@
 'use strict';
 
-Geek.factory('CategoryService', function($http, $q){
+Geek.factory('CategoryService', function($http, $q, DEFAULT_VALUES){
 
     var all = function(){
         var deferred = $q.defer();
         var promise = deferred.promise;
 
-        $http.get('/categories.json').
+        $http.get(DEFAULT_VALUES.URL_SERVICES.CATEGORY_SERVICE_URL).
         success(function(data){
             deferred.resolve(data);
         }).

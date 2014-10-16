@@ -1,34 +1,40 @@
 @font-face {
-	font-family: 'icomoon';
-	src:url('/assets/icomoon.eot?nw9kij');
-	src:url('/assets/icomoon.eot?#iefixnw9kij') format('embedded-opentype'),
-		url('/assets/icomoon.woff?nw9kij') format('woff'),
-		url('/assets/icomoon.ttf?nw9kij') format('truetype'),
-		url('/assets/icomoon.svg?nw9kij#icomoon') format('svg');
-	font-weight: normal;
-	font-style: normal;
+    font-family: 'icomoon';
+    src:url('/assets/icomoon.eot?4whck5');
+    src:url('/assets/icomoon.eot?#iefix4whck5') format('embedded-opentype'),
+    url('/assets/icomoon.woff?4whck5') format('woff'),
+    url('/assets/icomoon.ttf?4whck5') format('truetype'),
+    url('/assets/icomoon.svg?4whck5#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
 }
 
 [class^="icon-"], [class*=" icon-"] {
-	font-family: 'icomoon';
-	speak: none;
-	font-style: normal;
-	font-weight: normal;
-	font-variant: normal;
-	text-transform: none;
-	line-height: 1;
+    font-family: 'icomoon';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
 
-	/* Better Font Rendering =========== */
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-facebook:before {
-	content: "\e603";
+.icon-star1:before {
+    content: "\e601";
 }
-.icon-facebook2:before {
-	content: "\e604";
+.icon-star2:before {
+    content: "\e602";
+}
+.icon-facebook3:before {
+    content: "\e603";
+}
+.icon-facebook4:before {
+    content: "\e604";
 }
 .icon-googleplus:before {
-	content: "\e600";
+    content: "\e600";
 }

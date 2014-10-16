@@ -14,5 +14,23 @@ Geek.controller('NavigationController', function($scope, $rootScope, DEFAULT_VAL
     $scope.selectTab = function(selectedTab) {
         $scope.selectedTab = selectedTab;
     }
+
+    // Función que envía la forma de registro del estudiante después de validarla
+    $scope.submitStudentForm = function(){
+        $scope.$broadcast('show-errors-check-validity', $scope.signUpForm);
+
+        if ($scope.signUpForm.$valid) {
+            $("#student-form").submit();
+        }
+    }
+
+    // Función que envía la forma de registro del estudiante después de validarla
+    $scope.loginStudent = function(){
+        $scope.$broadcast('show-errors-check-validity', $scope.studentLoginForm);
+
+        if ($scope.studentLoginForm.$valid) {
+            $("#student-login-form").submit();
+        }
+    }
 });
 
