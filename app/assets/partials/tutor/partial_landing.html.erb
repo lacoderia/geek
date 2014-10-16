@@ -79,11 +79,15 @@
               </div>
               <div class="sign-in-container" ng-show="selectedTab == 'signIn'">
 				<form accept-charset="UTF-8" action="/users/sign_in" id="login-form" method="post">
-                	<input type="text" name="user[email]" class="form-input" placeholder="CORREO" />
-	                <input type="password" name="user[password]" class="form-input" placeholder="PASSWORD" />
-    	            <div class="form-submit" ng-click="loginTutor()">
-        	          <div>INICIAR SESIÓN</div>
-            	    </div>
+                  <div class="form-group">
+                	<input type="text" name="user[email]" class="form-input form-control" placeholder="CORREO" />
+                  </div>
+                  <div class="form-group">
+	                <input type="password" name="user[password]" class="form-input form-control" placeholder="PASSWORD" />
+                  </div>
+    	          <div class="form-submit" ng-click="loginTutor()">
+        	        <div>INICIAR SESIÓN</div>
+            	  </div>
 				</form>
 	       	  </div>
             </div>

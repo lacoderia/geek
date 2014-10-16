@@ -16,7 +16,11 @@ Geek.controller('NavigationController', function($scope, $rootScope, DEFAULT_VAL
     }
 
     $scope.submitTutorForm = function(){
-        $("#tutor-form").submit();
+        $scope.$broadcast('show-errors-check-validity');
+
+        if ($scope.signUpForm.$valid) {
+            $("#tutor-form").submit();
+        }
     }
 
     $scope.registerGooglePlus = function(){
