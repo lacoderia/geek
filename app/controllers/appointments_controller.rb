@@ -41,6 +41,7 @@ class AppointmentsController < ApplicationController
   # PATCH/PUT /appointments/1.json
   def update
     respond_to do |format|
+      # Si se cancela, borrar la cita del calendario 
       if @appointment.update(appointment_params)
         format.html { redirect_to @appointment, notice: 'Appointment was successfully updated.' }
         format.json { render :show, status: :ok, location: @appointment }
@@ -61,14 +62,14 @@ class AppointmentsController < ApplicationController
     end
   end
 
-	# Recibe:
-	# tutor_id = ID del tutor
-	# appointment_status_id = ID del estado de la cita
-	# Regresa:
-	# lista de appointments
-	def by_status_and_tutor 
-		@appointments = Tutor.list_appointments_by_status(params[:tutor_id], params[:appointment_status_id])
-	end
+  # Recibe:
+  # tutor_id = ID del tutor
+  # appointment_status_id = ID del estado de la cita
+  # Regresa:
+  # lista de appointments
+  def by_status_and_tutor 
+    @appointments = Tutor.list_appointments_by_status(params[:tutor_id], params[:appointment_status_id])
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

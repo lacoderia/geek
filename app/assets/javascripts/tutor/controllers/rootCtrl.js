@@ -71,9 +71,9 @@ Geek.controller('RootController', function($scope, $rootScope, $timeout, DEFAULT
 	
         $(window).resize(adjustModalMaxHeightAndPosition).trigger("resize");
 		
-		$timeout(function() {
-			$rootScope.$broadcast("rootControllerReady");
-		},0);
+	$timeout(function() {
+	  $rootScope.$broadcast("rootControllerReady");
+	},0);
 		
     });
 

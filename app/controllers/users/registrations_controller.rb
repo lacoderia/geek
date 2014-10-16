@@ -41,10 +41,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
         end
       else
         if @user.role? :student
-          format.html { render :new }
+          format.html { redirect_to student_landing_url }
           format.json { render json: @user.errors, status: :unprocessable_entity }
         else
-          format.html { render :new }
+          format.html { redirect_to tutor_landing_url }
           format.json { render json: @user.errors, status: :unprocessable_entity }
         end
       end

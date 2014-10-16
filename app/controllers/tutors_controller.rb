@@ -67,44 +67,44 @@ class TutorsController < ApplicationController
     end
   end
 
-	# Recibe:
-	# county_id = ID de la colonia
-	# category_id = ID de la categoria
-	# Regresa:
-	# Arreglo de tutores que coincidieron con el criterio de búsqueda
-	def by_county_and_category_ids
-		county_id = params[:county_id]
-		category_id = params[:category_id]
-		@tutors = nil
-		if county_id and category_id
-			@tutors = Tutor.joins(:categories, :counties).where("county_id = ? and categories.category_id = ?", county_id, category_id)
-		else
-			@tutors = Tutor.joins(:counties).where("county_id = ?", county_id) if county_id
-			@tutors = Tutor.joins(:categories).where("categories.category_id = ?", category_id) if category_id
-		end
-	end
+  # Recibe:
+  # county_id = ID de la colonia
+  # category_id = ID de la categoria
+  # Regresa:
+  # Arreglo de tutores que coincidieron con el criterio de búsqueda
+  def by_county_and_category_ids
+    county_id = params[:county_id]
+    category_id = params[:category_id]
+    @tutors = nil
+    if county_id and category_id
+      @tutors = Tutor.joins(:categories, :counties).where("county_id = ? and categories.category_id = ?", county_id, category_id)
+    else
+      @tutors = Tutor.joins(:counties).where("county_id = ?", county_id) if county_id
+      @tutors = Tutor.joins(:categories).where("categories.category_id = ?", category_id) if category_id
+    end
+  end
 
-	# Recibe:
-	# month = numero de mes 
-	# year = numero de año
-	# id = id del tutor
-	# Regresa:
-	# hash con días del mes, con una lista de horarios
-	def availability_list 
-		@availability_list = Tutor.availability_list(params[:id], params[:month].to_i, params[:year].to_i)
-	end
+  # Recibe:
+  # month = numero de mes 
+  # year = numero de año
+  # id = id del tutor
+  # Regresa:
+  # hash con días del mes, con una lista de horarios
+  def availability_list 
+    @availability_list = Tutor.availability_list(params[:id], params[:month].to_i, params[:year].to_i)
+  end
 
-	# Recibe:
-	# start = fecha de inicio en formato iso8601 (toISOString en JS). Ej 6:30pm, 10 nov 2014 CST ("2014-11-10T18:30:00-05:00")
-	# length = numero de horas que dura la clase (min: 1) 
-	# id = id del tutor
-	# student_id = id del estudiante
-	# description = descripcion de la clase
-	# Regresa:
-	# success: true si la pudo agendar, false si no se pudo crear
-	def request_class
-		@request = Tutor.request_class(params[:id], params[:start], params[:length].to_i, params[:student_id], params[:description])
-	end
+  # Recibe:
+  # start = fecha de inicio en formato iso8601 (toISOString en JS). Ej 6:30pm, 10 nov 2014 CST ("2014-11-10T18:30:00-05:00")
+  # length = numero de horas que dura la clase (min: 1) 
+  # id = id del tutor
+  # student_id = id del estudiante
+  # description = descripcion de la clase
+  # Regresa:
+  # success: true si la pudo agendar, false si no se pudo crear
+  def request_class
+    @request = Tutor.request_class(params[:id], params[:start], params[:length].to_i, params[:student_id], params[:description])
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

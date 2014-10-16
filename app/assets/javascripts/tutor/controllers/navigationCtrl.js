@@ -23,24 +23,28 @@ Geek.controller('NavigationController', function($scope, $rootScope, DEFAULT_VAL
         window.location = "users/auth/google_oauth2";
     }
 
-	$scope.loginTutor = function(){
+    $scope.loginTutor = function(){
         $("#login-form").submit();
-	}
+    }
 
     $scope.$on("rootControllerReady", function() {    
 
         $scope.userData = false;
         if ($("#user-data").data()){
             $scope.userData = true;
-            $('#sign-in-modal').modal('show');
-			$scope.signUpName = $('#user-data').data('first-name');
-			$scope.signUpMail = $('#user-data').data('email'); 
-			$scope.signUpUID = $('#user-data').data('uid'); 
-			$scope.signUpLastName = $('#user-data').data('last-name'); 
-			$scope.signUpToken = $('#user-data').data('token'); 
-			$scope.signUpRefreshToken = $('#user-data').data('email'); 
-			$scope.roleIds = 2; 
-		}
+            $scope.showSignInModal('signUp'); 
+	    $scope.signUpName = $('#user-data').data('first-name');
+	    $scope.signUpMail = $('#user-data').data('email'); 
+	    $scope.signUpUID = $('#user-data').data('uid'); 
+	    $scope.signUpLastName = $('#user-data').data('last-name'); 
+	    $scope.signUpToken = $('#user-data').data('token'); 
+	    $scope.signUpRefreshToken = $('#user-data').data('email'); 
+	    $scope.roleIds = 2; 
+	}
+        if ($("#login-data").data()) {
+            $scope.showSignInModal('signIn'); 
+            $scope.loginError = $("#login-data").data('error');
+        }
     });
 
 });

@@ -76,8 +76,10 @@ tutor.counties << County.joins(:postal_code).where("code = ?", "07708").first
 tutor.counties << County.joins(:postal_code).where("code = ?", "07700").first
 
 status_enviado = AppointmentStatus.create(name: "pending")
+status_rechazado = AppointmentStatus.create(name: "rejected")
 status_confirmado = AppointmentStatus.create(name: "confirmed")
 status_cancelado = AppointmentStatus.create(name: "canceled")
+status_completado = AppointmentStatus.create(name: "completed")
 
 address = Address.create(description: "Casa privada", line1: "Sucre Norte 234", line2: "Col. Cigarras de Nuevo Leon", county_id: County.joins(:postal_code).where("code = ?", "06600").first)
 appointment = Appointment.create(appointment_status_id: status_confirmado.id, student_id: student.id, tutor_id: tutor.id, start: Time.now, end: Time.now + 1.hour, details: "Detalles de la cita", address_id: address.id)
