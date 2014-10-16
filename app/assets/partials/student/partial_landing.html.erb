@@ -11,9 +11,9 @@
         <li>
           <a href="/tutor" title="¿Quieres dar clases en geek?" class="text-color-dark-blue">¿Quieres dar clases en geek?</a>
         </li>
-        <li><a href="#" title="Ingresa" class="signin" ng-click="showSignInModal('signIn')">Ingresa</a></li>
-        <li><a href="#" title="Regístrate" class="signup" ng-click="showSignInModal('signUp')">Regístrate</a></li>
-        <li><a href="#" title="Cambiar idioma" class="text-color-light-blue">English/Español</a></li>
+        <li><a title="Ingresa" class="signin" ng-click="showSignInModal('signIn')">Ingresa</a></li>
+        <li><a title="Regístrate" class="signup" ng-click="showSignInModal('signUp')">Regístrate</a></li>
+        <li><a title="Cambiar idioma" class="text-color-light-blue">English/Español</a></li>
       </ul>
       <ul class="hidden-md hidden-lg hidden-sm">
         <li>
@@ -43,13 +43,15 @@
             </div>
             <div class="modal-body">
               <div class="sign-up-container noselect" ng-show="selectedTab == 'signUp'">
-                <div class="form-button-fb">
-                  <div>REGÍSTRATE CON FACEBOOK <span class="icon-facebook"></span></div>
-                </div>
-                <form name="signUpForm" id="student-form">
+                <div ng-hide="userData">
+                  <div class="form-button-fb">
+                    <div ng-click="registerFacebook()">REGÍSTRATE CON FACEBOOK <span class="icon-facebook"></span></div>
+                  </div>
                   <div class="form-text">
                     o
                   </div>
+                </div>
+                <form name="signUpForm" id="student-form" accept-charset="UTF-8" action="/users" method="post">
                   <div class="form-group" show-errors>
                     <input type="text" id="sign-up-name" name="user[first_name]" ng-model="signUpName" class="form-input form-control" placeholder="NOMBRE" required/>
                   </div>
@@ -66,19 +68,36 @@
                     <input type="checkbox" id="sign-up-terms" name="sign-up-terms" ng-model="signUpTerms" class="form-control" required>
                     <label for="sign-up-terms">HE LEÍDO Y ACEPTO LOS TÉRMINOS Y CONDICIONES</label>
                   </div>
-                </form>
-                <div class="form-submit" ng-click="submitStudentForm()">
-                  <div>REGÍSTRATE</div>
-                </div>
+                  <div>
+                    <input id="user_uid" name="user[uid]" type="hidden" value="{{signUpUID}}" />
+                    <input id="user_last_name" name="user[last_name]" type="hidden" value="{{signUpLastName}}" />
+                    <input id="user_token" name="user[token]" type="hidden" value="{{signUpToken}}" />
+                    <input id="user_refresh_token" name="user[refresh_token]" type="hidden" value="{{signUpRefreshToken}}" />
+                    <input id="user_role_ids" multiple="multiple" name="user[role_ids][]" type="hidden" value="{{roleIds}}" />
+                  </div>
+                  <div class="form-submit" ng-click="submitStudentForm()">
+                    <div>REGÍSTRATE</div>
+                  </div>
+                </form> 
               </div>
               <div class="sign-in-container" ng-show="selectedTab == 'signIn'">
-                <form name="studentLoginForm" id="student-login-form">
+                <label ng-show='loginError' ng-bind='loginError'></label>
+                <div ng-hide="userData">
+                  <div class="form-button-fb">
+                    <div ng-click="registerFacebook()">INICIA CON FACEBOOK <span class="icon-facebook"></span></div>
+                  </div>
+                   <div class="form-text">
+                    o
+                  </div>
+                </div>
+                <form name="studentLoginForm" id="student-login-form" accept-charset="UTF-8" action="/users/sign_in" id="login-form" method="post">
                   <div class="form-group" show-errors>
                     <input type="text" name="student[email]" class="form-input form-control" placeholder="CORREO" required/>
                   </div>
                   <div class="form-group" show-errors>
-                    <input type="text" name="student[password]" class="form-input form-control" placeholder="PASSWORD" required/>
+                    <input type="password" name="student[password]" class="form-input form-control" placeholder="PASSWORD" required/>
                   </div>
+                  <input id="tutor_role_ids" multiple="multiple" name="student[role_ids][]" type="hidden" value="3" >
                   <div class="form-submit" ng-click="loginStudent()">
                     <div>INICIAR SESIÓN</div>
                   </div>

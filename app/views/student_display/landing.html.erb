@@ -5,3 +5,9 @@
 <% end %>
 
 <section ui-view></section>
+<% if @user %>
+  <div id="user-data" data-email="<%= @user.email %>" data-first-name="<%= @user.first_name %>" data-last-name="<%= @user.last_name %>" data-uid="<%= @user.uid %>" data-token="<%= @user.token %>" data-refresh-token="<%= @user.refresh_token %>"></div>
+<% end %>
+<% if @login %>
+  <div id="login-data" data-error="Usuario o contraseña incorrecta."></div>
+<% end %>

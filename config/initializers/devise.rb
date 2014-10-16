@@ -233,11 +233,11 @@ Devise.setup do |config|
   require "omniauth-facebook"
   config.omniauth :facebook, ENV['FACEBOOK_APP_KEY'], ENV['FACEBOOK_APP_SECRET'], {:scope =>'email', :client_options => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}
 
-	require "omniauth-google-oauth2"
+  require "omniauth-google-oauth2"
 
-	config.omniauth :google_oauth2, ENV["GOOGLE_CLIENT_ID"], ENV["GOOGLE_CLIENT_SECRET"], {
+  config.omniauth :google_oauth2, ENV["GOOGLE_CLIENT_ID"], ENV["GOOGLE_CLIENT_SECRET"], {
     access_type: 'offline',
-		prompt: 'consent',
+    prompt: 'consent',
     scope: 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/userinfo.profile'
   }
 
