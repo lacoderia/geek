@@ -28,7 +28,5 @@ module Geek
     config.assets.precompile += %w( .svg .eot .woff .ttf otf )
 			
     config.time_zone = "Central Time (US & Canada)"
-
-    config.autoload_paths += %W(#{config.root}/lib)
   end
 end

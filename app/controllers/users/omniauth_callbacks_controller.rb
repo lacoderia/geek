@@ -44,7 +44,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def failure
-    # ERROR si cancela el request de facebook o de google+
-    redirect_to "/errors" 
+    redirect_to student_landing_url
   end
 end
