@@ -90,17 +90,95 @@
   </div>
 </header>
 
+<div class="container" ng-controller="SearchTutorController as searchTutorCtrl">
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 section-search-results">
+      <div class="bgcolor-light-gray light-search">
+        <h2 class="col-lg-2 col-md-3 hidden-sm hidden-xs">geek</h2>
+        <form class="col-lg-10 col-md-9 col-sm-12 col-xs-12">
+          <input type="text" class="course" placeholder="Me interesaría aprender..." ng-model="subjectInput">
+          <angucomplete-alt id="counties"
+                            placeholder="En la zona de..."
+                            pause="600"
+                            selected-object="selectedCountyInput"
+                            local-data="counties"
+                            search-fields="name"
+                            title-field="name"
+                            minlength="1"
+                            input-class="county">
+
+          </angucomplete-alt>
+          <button ng-click="searchTutor()">Buscar</button>
+        </form>
+        <div class="clearfix"></div>
+      </div>
+
+      <div class="search-results-list" ng-show="tutorList.length > 0">
+        <div class="search-results-tools">
+          <div class="search-filters">
+
+          </div>
+          <div class="search-orders">
+            <p>Ordenar por:</p>
+          </div>
+        </div>
+        <div class="search-result-list">
+          <div class="tutor" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-repeat="tutor in tutorList">
+            <div class="tutor-image col-lg-2 col-md-2 col-sm-12 col-xs-12">
+              <img src="/assets/site/cat-artes.png">
+              <div class="clearfix"></div>
+            </div>
+            <div class="tutor-personal-info col-lg-8 col-md-8 col-sm-12 col-xs-12">
+              <div class="content">
+                <h4 class="tutor-name">María Alvarado Ruíz</h4>
+                <h5 class="tutor-county">Condesa</h5>
+                <p class="resume">
+                  The path of the righteous man is beset on all sides by the iniquities of the selfish and the tyranny of evil men.
+                  Blessed is he who, in the name of charity and good will, shepherds the weak through the valley of darkness,
+                  for he is truly his brother's keeper and the finder of lost children.
+                </p>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+            <div class="tutor-class-info col-lg-2 col-md-2 col-sm-12 col-xs-12">
+              <div class="content">
+                <div class="content-score">
+                  <div class="score">
+                    <span class="icon-star1"></span>
+                    <span class="icon-star1"></span>
+                    <span class="icon-star1"></span>
+                    <span class="icon-star1"></span>
+                    <span class="icon-star1"></span>
+                  </div>
+                </div>
+                <div class="content-price">
+                  <h4 class="price">
+                    $ 300.00 MXN <br>
+                    Por hora
+                  </h4>
+                </div>
+                <div class="content-button">
+                  <button class="action-button send-message">Enviar mensaje</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="container">
   <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-      <div class="bgcolor-light-gray section-search" ng-controller="SearchTutorController as searchTutorCtrl">
+      <div class="bgcolor-light-gray section-search">
         <img src="/assets/site/geek.png" alt="Geek" class="search-image hidden-xs">
         <div>
           <h2 class="hidden-xs">geek</h2>
           <h3>¿Qué quieres aprender?</h3>
           <form>
             <input type="text" class="course" placeholder="Me interesaría aprender..." ng-model="subjectInput">
-            <!--input id="tags" type="text" class="county" placeholder="En la zona de..."-->
             <angucomplete-alt id="counties"
                               placeholder="En la zona de..."
                               pause="600"
@@ -137,7 +215,6 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 section-categories">
-      <div us-spinner spinner-key="categoryLandingSpinner" spinner-start-active="1"></div>
       <div class="category" ng-repeat="category in categories" ng-if="!category.category_id" ng-Ready="categoryLandingSpinner">
         <a href="#" title="{{ category.description }}">
           <img ng-src="{{ category.picture_url }}" alt="{{ category.name }}">

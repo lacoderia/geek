@@ -18,7 +18,6 @@
 //= require jquery_ujs
 //= require jquery.validate
 //= require jquery.validate.additional-methods
-//= require lib/spin
 //= require bootstrap-sprockets
 
 // Librerias de Angular requeridas en el proyecto
@@ -29,6 +28,5 @@
 
 // Directivas externas
 //= require lib/angular/angucomplete-alt
-//= require lib/angular/angular-spinner.min
 //= require lib/angular/showErrors.js
-
+//= require lib/angular/angular-ui-router.min

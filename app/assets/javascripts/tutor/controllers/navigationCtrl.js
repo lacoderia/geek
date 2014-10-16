@@ -8,12 +8,12 @@ Geek.controller('NavigationController', function($scope, $rootScope, DEFAULT_VAL
     $scope.showSignInModal = function(selectedTab) {
         $scope.selectTab(selectedTab);
         $('#sign-in-modal').modal('show');
-    }
+    };
 
     //Function that selects the sign in modal tab
     $scope.selectTab = function(selectedTab) {
         $scope.selectedTab = selectedTab;
-    }
+    };
 
     $scope.submitTutorForm = function(){
         $scope.$broadcast('show-errors-check-validity');
@@ -25,13 +25,9 @@ Geek.controller('NavigationController', function($scope, $rootScope, DEFAULT_VAL
 
     $scope.registerGooglePlus = function(){
         window.location = "users/auth/google_oauth2";
-    }
+    };
 
-	$scope.loginTutor = function(){
-        $("#login-form").submit();
-	}
-
-    $scope.$on("rootControllerReady", function() {    
+    $(document).ready(function() {    
 
         $scope.userData = false;
         if ($("#user-data").data()){

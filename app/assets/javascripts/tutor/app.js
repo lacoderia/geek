@@ -1,6 +1,6 @@
 'use strict';
 
-var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt', 'angularSpinner', 'ui.bootstrap.showErrors'])
+var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt', 'ui.router', 'ui.bootstrap.showErrors'])
 
     .constant('DEFAULT_VALUES',{
         'LANGUAGE':'es',
@@ -12,11 +12,16 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt', 
 
     })
 
-    .config(['$routeProvider', function($routeProvider){
-        $routeProvider.otherwise({ templateUrl: '/assets/tutor/partial_landing.html', controller: 'RootController' } )
-    }])
+    .config(function($stateProvider, $urlRouterProvider){
+        $urlRouterProvider.otherwise("/home") //Estado predeterminado
+        $stateProvider
+            .state('tutor', {
+                url: "/home",
+                templateUrl: "/assets/tutor/partial_landing.html"
+            })
+    })    
 
-    .directive('pwCheck', [function () {
+    /*.directive('pwCheck', [function () {
         return {
             require: 'ngModel',
             link: function (scope, elem, attrs, ctrl) {
@@ -29,4 +34,4 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt', 
                 });
             }
         }
-    }]);
+    }]);*/

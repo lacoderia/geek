@@ -242,6 +242,14 @@ footer{
   }
 }
 
+.action-button{
+  border: none;
+  color: white;
+  display: inline-block;
+  padding: 0.7rem 1rem;
+  width: 100%;
+}
+
 .section-benefits{
   box-sizing: border-box;
   font-family: 'Gotham';
@@ -367,7 +375,252 @@ footer{
   }
 
   .category:hover{
-    background-color: rgba(166,168,171,0.6);
+    background-color: rgba(166,168,171,0.1);
+
+  }
+
+}
+
+.section-how-it-works{
+  box-sizing: border-box;
+  font-size: 22px;
+  margin: 0px auto;
+  max-width: 1170px;
+  padding: 2em 1em 0em;
+  text-align: center;
+
+  .row{
+    max-width: 1200px;
+  }
+
+  span.number{
+    border: 2px solid white;
+    border-radius: 50px;
+    box-sizing: border-box;
+    display: block;
+    font-size: 20px;
+    height: 40px;
+    margin: -2px auto 0.8em;
+    padding: 0.2em;
+    text-align: center;
+    vertical-align: middle;
+    width: 40px;
+  }
+
+  span.title{
+    box-sizing: border-box;
+    display: inline-block;
+    margin-bottom: 2em;
+    text-transform: uppercase;
+    vertical-align: middle;
+  }
+
+}
+
+.section-search-results{
+
+  .light-search{
+    background-color: rgba(166,168,171,0.1);
+    padding: 1.5em 1em;
+
+    form{
+      display: inline-block;
+      margin: 0px;
+      padding: 2em;
+
+      input, select, button{
+        background: $color-input-bgcolor;
+        border: 1px solid $color-light-gray;
+        border-radius: 10px;
+        box-shadow: 3px 3px 8px 0px rgba(50, 50, 50, 0.2);
+        color: $color-light-gray;
+        display: block;
+        font-family: "gotham";
+        font-weight: 400;
+
+      }
+
+      button{
+        color: $color-dark-blue;
+        display: block;
+        margin: 1em auto 1em;
+        padding: 0.8em 1.5em;
+        width: 100px;
+      }
+
+      button:hover{
+        background-color: rgba(166, 168, 171, 0.2);
+      }
+
+      input:hover{
+        background-color: rgba(166, 168, 171, 0.2);
+      }
+
+      input:focus{
+        background-color: rgba(166, 168, 171, 0.3);
+      }
+
+      select:hover{
+        background-color: rgba(166, 168, 171, 0.2);
+        cursor: pointer;
+      }
+
+      .county, .course{
+        appearance: field;
+        margin: 0em auto 1em;
+        padding: 0.8em 1.5em;
+      }
+
+      .county{
+        margin-bottom: 0em;
+      }
+    }
+  }
+
+  .search-results-list{
+    margin: 2em 0em 0em;
+
+    .search-results-tools{
+      background-color: rgba(166,168,171,0.1);
+      padding: 1em;
+      margin: 0em 0em 1em;
+    }
+
+    .search-result-list{
+
+      .tutor{
+        box-sizing: border-box;
+        height: 200px;
+        margin: 0em 0em 0.2em 0em;
+        text-transform: uppercase;
+        width: 100%;
+
+        .content{
+          margin-left: 0.3em;
+          height: 100%;
+        }
+
+        .tutor-image{
+          height: 100%;
+
+          img{
+            height: 100%;
+            width: 100%;
+          }
+        }
+
+        .tutor-class-info{
+          box-sizing: border-box;
+          height: 100%;
+          padding: 0;
+          text-align: center;
+
+          .content{
+
+            .content-button{
+              height: 20%;
+              position: relative;
+              width: 100%;
+
+
+              button{
+                bottom: 0;
+                height: 100%;
+                left: 0;
+                position: absolute;
+                text-transform: uppercase;
+                width: 100%;
+              }
+            }
+
+            .content-price{
+              background-color: rgba(121,170,219,0.4);
+              display: table;
+              height: 60%;
+              width: 100%;
+
+              .price{
+                display: table-cell;
+                color: $color-light-blue;
+                font-size: 18px;
+                font-weight: 500;
+                height: 100%;
+                margin: 0px;
+                vertical-align: middle;
+                width: 100%;
+              }
+            }
+
+            .content-score{
+              background-color: rgba(145,201,172,0.2);
+              display: table;
+              height: 20%;
+              width: 100%;
+
+              .score{
+                display: table-cell;
+                color: $color-light-blue;
+                font-size: 0px;
+                height: 100%;
+                margin: 0px;
+                padding: 0px;
+                vertical-align: middle;
+                width: 100%;
+
+                span{
+                  font-size: 25px;
+                  margin: 0px 8px 0px 0px;
+                  padding: 0px;
+                }
+
+                span:last-child{
+                  margin-right: 0px;
+                }
+              }
+            }
+          }
+
+
+
+        }
+
+        .tutor-personal-info{
+          box-sizing: border-box;
+          height: 100%;
+          padding: 0em;
+
+          .resume{
+            color: $color-medium-orange;
+            font-size: 14px;
+            font-weight: 500;
+            margin: 1em 0em 0em;
+            padding: 0em;
+          }
+
+          .tutor-county{
+            color: $color-dark-green;
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0px;
+          }
+
+          .tutor-name{
+            color: $color-medium-orange;
+            font-size: 22px;
+            font-weight: 600;
+            margin: 0em;
+            padding: 0em;
+          }
+
+          div.content{
+            background-color: rgba(250,174,64,0.1);
+            padding: 1.5em;
+          }
+        }
+
+
+      }
+    }
 
   }
 
@@ -459,6 +712,12 @@ footer{
     width: 100%;
   }
 
+}
+
+
+
+.send-message{
+  background-color: $color-light-blue;
 }
 
 @media (min-width: $screen-sm-min) {
@@ -604,6 +863,85 @@ footer{
       margin-bottom: 0em;
       text-transform: uppercase;
       vertical-align: middle;
+    }
+
+  }
+
+  .section-search-results{
+
+    .light-search{
+
+      padding: 1.5em 1em 1em;
+
+      h2{
+        color: #ec2227;
+        font-family: 'Typewriter';
+        font-size: 60px;
+        margin: 0px;
+      }
+
+      form{
+        display: inline-block;
+        margin: 0px;
+        padding: 1em;
+
+        input, select, button{
+          background: $color-input-bgcolor;
+          border: 1px solid $color-light-gray;
+          border-radius: 10px;
+          box-shadow: 3px 3px 8px 0px rgba(50, 50, 50, 0.2);
+          color: $color-light-gray;
+          display: inline-block;
+          font-family: "gotham";
+          font-weight: 400;
+
+        }
+
+        button{
+          color: $color-dark-blue;
+          display: inline-block;
+          margin: 0em auto;
+          padding: 0.8em 1.5em;
+          width: 18%;
+        }
+
+        button:hover{
+          background-color: rgba(166, 168, 171, 0.2);
+        }
+
+        input:hover{
+          background-color: rgba(166, 168, 171, 0.2);
+        }
+
+        input:focus{
+          background-color: rgba(166, 168, 171, 0.3);
+        }
+
+        select:hover{
+          background-color: rgba(166, 168, 171, 0.2);
+          cursor: pointer;
+        }
+
+        .county, .course{
+          appearance: field;
+          margin: 0em auto 1em;
+          padding: 0.8em 1.5em;
+          width: 40%;
+        }
+
+        .angucomplete-holder{
+          width: 40%;
+        }
+
+        .angucomplete-dropdown{
+          width: 100%;
+        }
+
+        .county{
+          margin-bottom: 0em;
+          width: 100%;
+        }
+      }
     }
 
   }

@@ -1,20 +1,28 @@
 'use strict';
 
-var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt', 'angularSpinner', 'ui.bootstrap.showErrors'])
+var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt', 'ui.router', 'ui.bootstrap.showErrors'])
 
     .constant('DEFAULT_VALUES',{
         'LANGUAGE':'es',
         'URL_SERVICES': {
-                'CATEGORY_SERVICE_URL': '/categories.json',
-                'COUNTY_SERVICE_URL': '/counties.json'
+            'CATEGORY_SERVICE_URL': '/categories.json',
+            'COUNTY_SERVICE_URL': '/counties.json',
+            'TUTOR_SERVICE_URL': '/tutors/by_county_and_category_ids.json'
 
         }
 
     })
 
-    .config(['$routeProvider', function($routeProvider){
-        $routeProvider.otherwise({ templateUrl: '/assets/student/partial_landing.html', controller: 'RootController' } )
-    }])
+    .config(function($stateProvider, $urlRouterProvider){
+        $urlRouterProvider.otherwise("/home") //Estado predeterminado
+        $stateProvider
+            .state('student', {
+                url: "/home",
+                templateUrl: "/assets/student/partial_landing.html",
+                controller: 'RootController'
+            })
+
+    })    
 
     .directive('pwCheck', [function () {
         return {
