@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('RootController', function($scope, $rootScope, DEFAULT_VALUES, CountyService, CategoryService){
+Geek.controller('RootController', function($scope, $rootScope, $timeout, DEFAULT_VALUES, CountyService, CategoryService){
 
     //Catálogo de zonas
     $rootScope.counties = [];
@@ -53,6 +53,10 @@ Geek.controller('RootController', function($scope, $rootScope, DEFAULT_VALUES, C
         };
 
         $(window).resize(adjustModalMaxHeightAndPosition).trigger("resize");
+
+        $timeout(function() {
+	    $rootScope.$broadcast("rootControllerReady");
+	},0);
     });
 
     //Obtiene los datos del catálogo de zonas

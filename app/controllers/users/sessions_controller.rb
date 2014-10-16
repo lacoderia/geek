@@ -9,11 +9,16 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def create
-    @user = User.find_by_email(params[:tutor][:email])
-    #logger.info("ROLES #{params[:tutor][:role_ids]}")
+    if params[:tutor]
+      @user = User.find_by_email(params[:tutor][:email])
+      @pass = params[:tutor][:password] 
+    elsif params[:student]
+      @user = User.find_by_email(params[:student][:email])
+      @pass = params[:student][:password] 
+    end
     path = nil
     if @user
-      if @user.valid_password?(params[:tutor][:password])
+      if @user.valid_password?(@pass)
         sign_in @user
         if @user.role? :student
           session["student.login"] = nil
@@ -24,7 +29,7 @@ class Users::SessionsController < Devise::SessionsController
         end 
       else
         #Constraseña incorrecta
-        if params[:student] and params[:student][:role_ids] == ["1"]
+        if params[:student] and params[:student][:role_ids] == ["3"]
           session["student.login"] = true
           path = student_landing_url 
         elsif params[:tutor] and params[:tutor][:role_ids] == ["2"]
@@ -34,7 +39,7 @@ class Users::SessionsController < Devise::SessionsController
       end
     else
       #Usuario incorrecto
-      if params[:student] and params[:student][:role_ids] == ["1"]
+      if params[:student] and params[:student][:role_ids] == ["3"]
         session["student.login"] = true
         path = student_landing_url 
       elsif params[:tutor] and params[:tutor][:role_ids] == ["2"]

@@ -13,7 +13,7 @@ class TutorDisplayController < ApplicationController
   end
 
   def dashboard 
-    session["devise.google_data"] = nil
+    #session["devise.google_data"] = nil
 
   end
 
