@@ -17,11 +17,12 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt', 
         $stateProvider
             .state('tutor', {
                 url: "/home",
-                templateUrl: "/assets/tutor/partial_landing.html"
+                templateUrl: "/assets/tutor/partial_landing.html",
+                controller: "RootController"
             })
     })    
 
-    /*.directive('pwCheck', [function () {
+    .directive('pwCheck', [function () {
         return {
             require: 'ngModel',
             link: function (scope, elem, attrs, ctrl) {
@@ -34,4 +35,4 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt', 
                 });
             }
         }
-    }]);*/
+    }]);

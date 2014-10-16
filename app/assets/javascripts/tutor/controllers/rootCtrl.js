@@ -73,7 +73,7 @@ Geek.controller('RootController', function($scope, $rootScope, $timeout, DEFAULT
 		$timeout(function() {
 			$rootScope.$broadcast("rootControllerReady");
 		},0);
-		
+
     });
 
     //Call a service to fill in the categories catalog
