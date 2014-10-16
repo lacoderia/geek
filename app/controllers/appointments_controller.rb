@@ -41,7 +41,6 @@ class AppointmentsController < ApplicationController
   # PATCH/PUT /appointments/1.json
   def update
     respond_to do |format|
-      # Si se cancela, borrar la cita del calendario 
       if @appointment.update(appointment_params)
         format.html { redirect_to @appointment, notice: 'Appointment was successfully updated.' }
         format.json { render :show, status: :ok, location: @appointment }
@@ -62,13 +61,33 @@ class AppointmentsController < ApplicationController
     end
   end
 
-  # Recibe:
-  # tutor_id = ID del tutor
-  # appointment_status_id = ID del estado de la cita
+	# Recibe:
+	# appointment_status_id = ID del estado de la cita
+	# Regresa:
+	# lista de appointments
+	def by_status_and_tutor
+    @appointments = []
+    if current_user
+		  @appointments = Tutor.list_appointments_by_status(current_user.id, params[:appointment_status_id])
+    end
+	end
+
   # Regresa:
   # lista de appointments
-  def by_status_and_tutor 
-    @appointments = Tutor.list_appointments_by_status(params[:tutor_id], params[:appointment_status_id])
+  def by_tutor 
+    @appointments = []
+    if current_user
+      @appointments = Tutor.list_appointments(current_user.id)
+    end
+  end
+
+  # Regresa:
+  # lista de appointments
+  def by_student
+    @appointments = []
+    if current_user
+      @appointments = Student.list_appointments(current_user.id)
+    end
   end
 
   private

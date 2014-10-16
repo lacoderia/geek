@@ -15,7 +15,8 @@ Rails.application.routes.draw do
 
   resources :appointments do
     collection do
-      get 'by_status_and_tutor'
+      get 'by_tutor'
+      get 'by_student'
     end
   end
 

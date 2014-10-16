@@ -137,4 +137,9 @@ class Tutor < ActiveRecord::Base
     tutor.appointments.where("appointment_status_id = ?", AppointmentStatus.find(appointment_status_id))
   end
 
+	def self.list_appointments tutor_id
+		tutor = Tutor.find tutor_id
+		tutor.appointments.includes(:student, :address, :appointment_status).order(:appointment_status_id)
+	end
+
 end
