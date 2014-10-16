@@ -41,6 +41,7 @@ footer{
 }
 
 #sign-in-modal {
+  text-align: center;
 
   .modal-dialog {
     font-family: "gotham";
@@ -122,6 +123,7 @@ footer{
             height: 65px;
 
             span {
+              padding-left: 15px;
               right: 0;
             }
           }
@@ -136,6 +138,7 @@ footer{
 
             span {
               left: 0;
+              padding-right: 15px;
             }
           }
         }
@@ -367,6 +370,108 @@ footer{
 
 }
 
+.section-dashboard-container {
+  .tutor-request-container {
+    background-color: $color-light-gray;
+
+    .left, .right {
+      display: inline-block;
+      padding: 3em 4em 3em 4em;
+      margin: 0 auto;
+
+      .request-title {
+        color: $color-dark-green;
+      }
+
+      .request-subtitle {
+        color: $color-input-gray;
+        font-weight: 500;
+        width: 60%;
+        margin: 0 auto;
+        padding-bottom: 1em;
+        padding-top: 1em;
+      }
+    }
+
+    .tutor_picture {
+      line-height: 0;
+      text-align: center;
+      width: 100%;
+
+      .profile_picture {
+        background-color: white;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        display: inline-block;
+        overflow: hidden;
+        width: 60%;
+
+        img {
+          width: 100%;
+        }
+      }
+
+      .btn-upload {
+        background-color: $color-input-gray-bgcolor;
+        border-bottom-right-radius: 10px;
+        border-bottom-left-radius: 10px;
+        color: $color-input-gray;
+        cursor: pointer;
+        line-height: 1;
+        display: inline-block;
+        font-weight: 500;
+        height: 30px;
+        padding-top: 8px;
+        width:  60%
+      }
+    }
+
+    ::-webkit-input-placeholder { color: $color-input-gray; }
+    ::-moz-placeholder { color: $color-input-gray; } /* firefox 19+ */
+    :-ms-input-placeholder { color: $color-input-gray; } /* ie */
+    input:-moz-placeholder { color: $color-input-gray; }
+
+    .form-group {
+      text-align: center;
+      margin-bottom: 0px;
+    }
+
+    .form-input {
+      background: white;
+      background-color: $color-input-gray-bgcolor;
+      border: 0;
+      border-radius: 6px;
+      color: $color-input-gray;
+      display: inline-block;
+      height: 30px;
+      margin-top: 18px;
+      outline: 0;
+      padding-left: 20px;
+      padding-right: 20px;
+      padding-top: 7px;
+      width: 60%;
+    }
+
+    .form-textarea {
+      background: white;
+      background-color: $color-input-gray-bgcolor;
+      border: 0;
+      border-radius: 6px;
+      color: $color-input-gray;
+      display: inline-block;
+      height: 80px;
+      margin-bottom: 0px;
+      margin-top: 18px;
+      outline: 0;
+      padding-left: 20px;
+      padding-right: 20px;
+      padding-top: 7px;
+      resize: none;
+      width: 60%;
+    }
+  }
+}
+
 .section-search{
   background-color: rgba(166,168,171,0.1);
   border-radius: 10px 10px 0px 0px;
@@ -400,10 +505,10 @@ footer{
 
     input, select, button{
       background: $color-input-bgcolor;
-      border: 1px solid $color-light-gray;
+      border: 1px solid $color-medium-gray;
       border-radius: 10px;
       box-shadow: 3px 3px 8px 0px rgba(50, 50, 50, 0.2);
-      color: $color-light-gray;
+      color: $color-medium-gray;
       display: block;
       font-family: "gotham";
       font-weight: 400;

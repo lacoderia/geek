@@ -5,7 +5,11 @@
 */
 
 $color-dark-gray: #808184;      // rgb(128,129,132)
-$color-light-gray: #A6A8AB;     // rgb(166,168,171)
+$color-medium-gray: #A6A8AB;     // rgb(166,168,171)
+$color-light-gray: #F6F6F6;
+$color-input-gray-bgcolor: #EEEEEE;
+$color-input-gray: #D1D1D1;
+
 $color-dark-blue: #264A96;      // rgb(38,74,150)
 $color-light-blue: #79AADB;     // rgb(121,170,219)
 $color-dark-green: #2BA780;     // rgb(43,167,128)
@@ -20,6 +24,7 @@ $color-light-red: #F05E5E;      // rgb(240,94,94)
 $color-dark-yellow: #F9D605;    // rgb(249,214,5)
 $color-light-yellow: #FFF496;   // rgb(255,244,150)
 $color-input-bgcolor: #F4F4F4;  // rgb(244,244,244)
+
 $color-light-pink: #FACECD;     // rgb(250,206,205)
 $color-medium-pink: #F9BFBF;    // rgb(249,191,191)
 $color-dark-pink: #F69E9E;      // rgb(246,158,158)
@@ -178,7 +183,7 @@ body{
 }
 
 .bgcolor-light-gray{
-  background-color: $color-light-gray;
+  background-color: $color-medium-gray;
 }
 
 .custom-checkbox {
@@ -427,7 +432,7 @@ body{
 }
 
 .text-color-light-gray{
-  color: $color-light-gray;
+  color: $color-medium-gray;
 }
 
 .text-color-light-green{

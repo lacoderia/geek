@@ -42,6 +42,7 @@ footer{
 }
 
 #sign-in-modal {
+  text-align: center;
 
   .modal-dialog {
     font-family: "gotham";
@@ -430,10 +431,10 @@ footer{
 
       input, select, button{
         background: $color-input-bgcolor;
-        border: 1px solid $color-light-gray;
+        border: 1px solid $color-medium-gray;
         border-radius: 10px;
         box-shadow: 3px 3px 8px 0px rgba(50, 50, 50, 0.2);
-        color: $color-light-gray;
+        color: $color-medium-gray;
         display: block;
         font-family: "gotham";
         font-weight: 400;
@@ -659,10 +660,10 @@ footer{
 
     input, select, button{
       background: $color-input-bgcolor;
-      border: 1px solid $color-light-gray;
+      border: 1px solid $color-medium-gray;
       border-radius: 10px;
       box-shadow: 3px 3px 8px 0px rgba(50, 50, 50, 0.2);
-      color: $color-light-gray;
+      color: $color-medium-gray;
       display: block;
       font-family: "gotham";
       font-weight: 400;
@@ -887,10 +888,10 @@ footer{
 
         input, select, button{
           background: $color-input-bgcolor;
-          border: 1px solid $color-light-gray;
+          border: 1px solid $color-medium-gray;
           border-radius: 10px;
           box-shadow: 3px 3px 8px 0px rgba(50, 50, 50, 0.2);
-          color: $color-light-gray;
+          color: $color-medium-gray;
           display: inline-block;
           font-family: "gotham";
           font-weight: 400;
