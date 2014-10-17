@@ -1,11 +1,6 @@
 'use strict';
 
 Geek.controller('RootController', function($scope, $rootScope, $timeout, DEFAULT_VALUES, CategoryService){
-    //Categories catalog
-    $rootScope.categories = [];
-
-    //Tutor's topics
-    $rootScope.tutorTopics = [];
 
     $(document).ready(function() {
 
@@ -28,10 +23,6 @@ Geek.controller('RootController', function($scope, $rootScope, $timeout, DEFAULT
                 reader.readAsDataURL(input[0].files[0]);
             }
         });
-
-        jQuery.validator.addMethod("tutor_topic_length", function(value, element) {
-            return $('#tutor_topics').children().length;
-        }, "Al menos debes agregar un tema");
 
         //Método que ayuda a centrar verticalmente los modales de bootstrap
         function adjustModalMaxHeightAndPosition(){
@@ -71,54 +62,11 @@ Geek.controller('RootController', function($scope, $rootScope, $timeout, DEFAULT
 	
         $(window).resize(adjustModalMaxHeightAndPosition).trigger("resize");
 		
-	$timeout(function() {
-	    $rootScope.$broadcast("rootControllerReady");
-	},0);
+	    $timeout(function() {
+	        $rootScope.$broadcast("rootControllerReady");
+	    },0);
 		
     });
 
-    //Call a service to fill in the categories catalog
-    CategoryService.all().then(
-        function(data){
-            if(data){
-                //Fill the categories availables
-                $rootScope.categories = data;
-                $rootScope.selectedCategory = $rootScope.categories[0];
-            }
-        },
-        function(response){
-            console.log('Error retrieving the categories: ' + response);
-        }
-    );
-
-    //Function that adds a topic to a tutor's profile
-    $rootScope.addTutorTopic = function() {
-        if ($scope.selectedTopic && $scope.selectedCategory) {
-            $rootScope.tutorTopics.push({
-                'name' : $scope.selectedTopic,
-                'category' : $scope.selectedCategory.name
-            });
-        }
-    }
-
-    //Function that removes a topic from a tutor's profile
-    $rootScope.removeTutorTopic = function(index) {
-        $rootScope.tutorTopics.splice(index, 1);
-    }
-
-    //Function that submits the tutor request for validation
-    $rootScope.submitTutorRequest = function() {
-        $('#tutor_profile_form').validate({
-            rules: {
-                tutor_topic: {
-                    tutor_topic_length : true
-                }
-            }
-        });
-
-        if ($("#tutor_profile_form").valid()){
-            alert('Enviar forma');
-        }
-    }
 });
 

@@ -16,8 +16,6 @@
 //= require lib/prefixfree.min.js
 //= require jquery
 //= require jquery_ujs
-//= require jquery.validate
-//= require jquery.validate.additional-methods
 //= require bootstrap-sprockets
 
 // Librerias de Angular requeridas en el proyecto
