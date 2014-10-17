@@ -33,9 +33,9 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt', 
                 url: "/history",
                 templateUrl: "/assets/tutor/partial_dashboard_layout.history.html"
             })
-            .state('dashboard.account', {
+            .state('dashboard.profile', {
                 url: "/account",
-                templateUrl: "/assets/tutor/partial_dashboard_layout.account.html",
+                templateUrl: "/assets/tutor/partial_dashboard_layout.profile.html",
                 controller: "ProfileController"
             })
             .state('dashboard.messages', {
