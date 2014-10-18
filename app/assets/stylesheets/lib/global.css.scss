@@ -174,9 +174,15 @@ body{
   font-family: 'Gotham';
 }
 
+h2.section-title{
+  font-size:  2.5em;
+  margin: 0em;
+}
+
 .action-button{
   border: none;
   color: white;
+  cursor: pointer;
   display: inline-block;
   padding: 0.7rem 1rem;
 }
@@ -186,9 +192,21 @@ body{
   color: $color-light-gray;
 }
 
+.action-button-dark-gray:hover{
+  background-color: $color-light-gray;
+  color: $color-dark-gray;
+  text-decoration: none;
+}
+
 .action-button-medium-gray{
   background-color: $color-medium-gray;
   color: $color-dark-gray;
+}
+
+.action-button-medium-gray:hover{
+  background-color: $color-dark-gray;
+  color: $color-medium-gray;
+  text-decoration: none;
 }
 
 .action-button-light-gray{
@@ -196,9 +214,32 @@ body{
   color: $color-dark-gray;
 }
 
+.action-button-light-gray:hover{
+  background-color: $color-dark-gray;
+  color: $color-light-gray;
+  text-decoration: none;
+}
+
+.action-button-input-gray{
+  background-color: $color-input-gray-bgcolor;
+  color: $color-input-gray;
+}
+
+.action-button-input-gray:hover{
+  background-color: $color-input-gray;
+  color: $color-input-gray-bgcolor;
+  text-decoration: none;
+}
+
 .action-button-dark-blue{
   background-color: $color-dark-blue;
   color: $color-light-blue;
+}
+
+.action-button-dark-blue:hover{
+  background-color: $color-light-blue;
+  color: $color-dark-blue;
+  text-decoration: none;
 }
 
 .action-button-light-blue{
@@ -206,9 +247,21 @@ body{
   color: $color-dark-blue;
 }
 
+.action-button-light-blue:hover{
+  background-color: $color-dark-blue;
+  color: $color-light-blue;
+  text-decoration: none;
+}
+
 .action-button-dark-green{
   background-color: $color-dark-green;
   color: $color-light-green;
+}
+
+.action-button-dark-green:hover{
+  background-color: $color-light-green;
+  color: $color-dark-green;
+  text-decoration: none;
 }
 
 .action-button-light-green{
@@ -216,19 +269,43 @@ body{
   color: $color-dark-green;
 }
 
+.action-button-light-green:hover{
+  background-color: $color-dark-green;
+  color: $color-light-green;
+  text-decoration: none;
+}
+
 .action-button-dark-orange{
   background-color: $color-dark-orange;
   color: $color-light-orange;
 }
 
-.action-button-medium-orange{
-  background-color: $color-medium-orange;
+.action-button-dark-orange:hover{
+  background-color: $color-light-orange;
   color: $color-dark-orange;
+  text-decoration: none;
 }
 
 .action-button-medium-orange{
   background-color: $color-medium-orange;
   color: $color-dark-orange;
+}
+
+.action-button-medium-orange:hover{
+  background-color: $color-dark-orange;
+  color: $color-medium-orange;
+  text-decoration: none;
+}
+
+.action-button-medium-orange{
+  background-color: $color-medium-orange;
+  color: $color-dark-orange;
+}
+
+.action-button-medium-orange:hover{
+  background-color: $color-dark-orange;
+  color: $color-medium-orange;
+  text-decoration: none;
 }
 
 .action-button-light-orange{
@@ -236,9 +313,21 @@ body{
   color: $color-dark-orange;
 }
 
+.action-button-light-orange:hover{
+  background-color: $color-dark-orange;
+  color: $color-light-orange;
+  text-decoration: none;
+}
+
 .action-button-dark-brown{
   background-color: $color-dark-brown;
   color: $color-light-brown;
+}
+
+.action-button-dark-brown:hover{
+  background-color: $color-light-brown;
+  color: $color-dark-brown;
+  text-decoration: none;
 }
 
 .action-button-dark-red{
@@ -246,9 +335,21 @@ body{
   color: $color-light-red;
 }
 
+.action-button-dark-red:hover{
+  background-color: $color-light-red;
+  color: $color-dark-red;
+  text-decoration: none;
+}
+
 .action-button-light-red{
   background-color: $color-light-red;
   color: $color-dark-red;
+}
+
+.action-button-light-red:hover{
+  background-color: $color-dark-red;
+  color: $color-light-red;
+  text-decoration: none;
 }
 
 .action-button-dark-yellow{
@@ -256,9 +357,21 @@ body{
   color: $color-light-yellow;
 }
 
+.action-button-dark-yellow:hover{
+  background-color: $color-light-yellow;
+  color: $color-dark-yellow;
+  text-decoration: none;
+}
+
 .action-button-light-yellow{
   background-color: $color-light-yellow;
   color: $color-dark-yellow;
+}
+
+.action-button-light-yellow:hover{
+  background-color: $color-dark-yellow;
+  color: $color-light-yellow;
+  text-decoration: none;
 }
 
 .bgcolor-light-green{
@@ -271,6 +384,26 @@ body{
 
 .bgcolor-light-gray{
   background-color: $color-medium-gray;
+}
+
+.action-button-upload {
+  background-color: $color-input-gray-bgcolor;
+  border: none;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  color: $color-input-gray;
+  cursor: pointer;
+  line-height: 1;
+  display: inline-block;
+  font-weight: 500;
+  height: 30px;
+  padding-top: 8px;
+  text-decoration: none;
+}
+
+.action-button-upload:hover{
+  background-color: $color-dark-gray;
+  color: white;
 }
 
 .custom-checkbox {
@@ -339,10 +472,11 @@ body{
 
   fieldset{
     border: none;
+    margin-top: 3.5em;
   }
 
   legend{
-    display: none;
+    font-size: 1.5em;
   }
 
   ::-webkit-input-placeholder { color: $color-input-gray; }
@@ -552,7 +686,7 @@ body{
 
 .section-dashboard-container{
   margin: 0.3em 0em;
-  padding: 2em;
+  padding: 2.5em 2em;
 }
 
 .text-color-black{

@@ -41,7 +41,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt', 
             .state('dashboard.messages', {
                 url: "/messages",
                 templateUrl: "/assets/tutor/partial_dashboard_layout.messages.html"
-            })
+            });
     })    
 
     .directive('pwCheck', [function () {
