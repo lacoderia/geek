@@ -18,12 +18,12 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt', 
             .state('tutor', {
                 url: "/home",
                 templateUrl: "/assets/tutor/partial_landing.html",
-                controller: 'RootController'
+                controller: "RootController"
             })
             .state('dashboard', {
                 url: "/dashboard",
                 templateUrl: "/assets/tutor/partial_dashboard_layout.html",
-                controller: 'RootController'
+                controller: "RootController"
             })
             .state('dashboard.calendar', {
                 url: "/calendar",
@@ -33,14 +33,15 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt', 
                 url: "/history",
                 templateUrl: "/assets/tutor/partial_dashboard_layout.history.html"
             })
-            .state('dashboard.account', {
-                url: "/account",
-                templateUrl: "/assets/tutor/partial_dashboard_layout.account.html"
+            .state('dashboard.profile', {
+                url: "/profile",
+                templateUrl: "/assets/tutor/partial_dashboard_layout.profile.html",
+                controller: "ProfileController"
             })
             .state('dashboard.messages', {
                 url: "/messages",
                 templateUrl: "/assets/tutor/partial_dashboard_layout.messages.html"
-            })
+            });
     })    
 
     .directive('pwCheck', [function () {

@@ -47,7 +47,7 @@
                 <div class="form-button-gp" ng-hide="userData">
                   <div ng-click="registerGooglePlus()">REGÍSTRATE CON GOOGLE <span class="icon-googleplus"></span></div>
                 </div>
-                <form name="signUpForm" id="tutor-form" ng-show="userData" accept-charset="UTF-8" action="/users" method="post">
+                <form name="signUpForm" id="tutor-form" class="validation-form" ng-show="userData" accept-charset="UTF-8" action="/users" method="post">
                   <div class="form-group" show-errors>
                     <input type="text" id="sign-up-name" name="user[first_name]" ng-model="signUpName" class="form-input form-control" placeholder="NOMBRE" required/>
                   </div>
@@ -87,7 +87,7 @@
                     o
                   </div>
                 </div>
-	        <form name="tutorLoginForm" id="tutor-login-form" accept-charset="UTF-8" action="/users/sign_in" id="login-form" method="post">
+	        <form name="tutorLoginForm" id="tutor-login-form" class="validation-form" accept-charset="UTF-8" action="/users/sign_in" id="login-form" method="post">
                   <div class="form-group" show-errors>
                     <input type="text" name="tutor[email]" ng-model="signInMail" class="form-input form-control" placeholder="CORREO" required/>
                   </div>
