@@ -22,11 +22,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
     respond_to do |format|
       if @user.save
         if @user.role? :student
-	  Student.create(credits: 0.0, user: @user)
-	  sign_in @user
-	  format.html { redirect_to student_dashboard_url }
-	  format.json { render :show, status: :created, location: @user }
-	else
+          Student.create(credits: 0.0, user: @user)
+          sign_in @user
+          format.html { redirect_to student_dashboard_url }
+          format.json { render :show, status: :created, location: @user }
+        else
           #crear calendario
           client = Google::APIClient.new
           client.authorization.access_token = @user.token
@@ -36,7 +36,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
           Tutor.create(user: @user, calendar_id: calendar_id)
           sign_in @user
-          format.html { redirect_to tutor_dashboard_url }
+          format.html { redirect_to '/tutor#/dashboard' }
           format.json { render :show, status: :created, location: @user }
         end
       else

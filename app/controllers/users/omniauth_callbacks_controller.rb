@@ -27,10 +27,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       sign_in @user
       if @user.role? :student #este no deberia de pasar
         session["devise.facebook_data"] = nil
-	redirect_to student_dashboard_url
+        redirect_to student_dashboard_url
       else
         session["devise.google_data"] = nil
-	redirect_to tutor_dashboard_url
+        redirect_to '/tutor#/dashboard'
       end
     else
       session["devise.google_data"] = auth_hash.except("extra")
