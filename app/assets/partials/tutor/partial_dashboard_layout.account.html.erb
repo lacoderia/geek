@@ -1,5 +1,5 @@
 <div class="tutor-request-container col-lg-12">
-  <form id="tutor_profile_form">
+  <form name="tutorRequestForm" id="tutor_profile_form" class="validation-form">
     <div class="left col-lg-6">
       <div class="tutor_picture">
         <div class="profile_picture">
@@ -10,22 +10,22 @@
           <input type='file' name="picture" id="picture" enctype="multipart/form-data" runat="server" />
         </div>
       </div>
-      <div class="form-group">
-        <input type="text" placeholder="NOMBRE" class="form-input form-control" name="tutor_name" required/>
+      <div class="form-group" show-errors>
+        <input type="text" name="tutor_name" ng-model="tutorRequestName" class="form-input form-control" placeholder="NOMBRE" required/>
       </div>
-      <div class="form-group">
-        <input type="text" placeholder="APELLIDO" class="form-input form-control" name="tutor_last_name" required/>
+      <div class="form-group" show-errors>
+        <input type="text" name="tutor_last_name" ng-model="tutorRequestLastName" class="form-input form-control" placeholder="APELLIDO" class="form-input form-control" required/>
       </div>
-      <div class="form-group">
-        <input type="text" placeholder="TELÉFONO" class="form-input form-control" name="tutor_phone" required/>
+      <div class="form-group" show-errors>
+        <input type="text" name="tutor_phone" ng-model="tutorRequestPhone" class="form-input form-control" placeholder="TELÉFONO" class="form-input form-control" required/>
       </div>
     </div>
     <div class="right col-lg-6">
-      <div class="form-group">
-        <textarea placeholder="FORMACIÓN" name="tutor_studies" class="form-textarea required"></textarea>
+      <div class="form-group" show-errors>
+        <textarea name="tutor_studies" ng-model="tutorRequestStudies" class="form-textarea form-control" placeholder="FORMACIÓN" required></textarea>
       </div>
-      <div class="form-group">
-        <textarea placeholder="REFERENCIAS" name="tutor_references" class="form-textarea required"></textarea>
+      <div class="form-group" show-errors>
+        <textarea name="tutor_references" ng-model="tutorRequestReferences" class="form-textarea form-control" placeholder="REFERENCIAS" required></textarea>
       </div>
       <div class="request-subtitle">TEMAS</div>
 

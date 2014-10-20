@@ -35,5 +35,6 @@ Rails.application.config.assets.precompile += %w( student/controllers/navigation
 
 Rails.application.config.assets.precompile += %w( tutor/controllers/rootCtrl.js )
 Rails.application.config.assets.precompile += %w( tutor/controllers/navigationCtrl.js )
+Rails.application.config.assets.precompile += %w( tutor/controllers/profileCtrl.js )
 
 

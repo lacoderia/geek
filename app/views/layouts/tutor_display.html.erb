@@ -9,8 +9,9 @@
   <%= yield :head_style %>
   <%= javascript_include_tag 'application',
                              'tutor/app',
-                             'tutor/controllers/navigationCtrl',
                              'tutor/controllers/rootCtrl',
+                             'tutor/controllers/navigationCtrl',
+                             'tutor/controllers/profileCtrl',
                              'tutor/services/categoryService',
                              'lib/angular/angular-onready-directive'%>
   <%= yield :head_script %>

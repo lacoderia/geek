@@ -182,14 +182,6 @@ footer{
           width: 100%;
         }
 
-        .has-error .form-input{
-          background-color: red;
-        }
-
-        .has-error.form-checkbox{
-          background-color: red;
-        }
-
         .form-checkbox {
           color: $color-dark-pink;
           font-size: 11px;
@@ -371,26 +363,45 @@ footer{
 }
 
 .section-dashboard-container {
+  background-color: $color-light-gray;
+
   .tutor-request-container {
-    background-color: $color-light-gray;
 
-    .left, .right {
+    .left{
       display: inline-block;
-      padding: 3em 4em 3em 4em;
+      margin-right: 1%;
+      vertical-align: top;
+      text-align: right;
+      width: 18%;
+    }
+
+    .request-title {
+      color: $color-dark-green;
+    }
+
+    .request-subtitle {
+      color: $color-input-gray;
+      font-weight: 500;
+      width: 60%;
       margin: 0 auto;
+      padding-bottom: 1em;
+      padding-top: 1em;
+    }
 
-      .request-title {
-        color: $color-dark-green;
-      }
+    .right, .left{
+      padding: 18px 0px;
+    }
 
-      .request-subtitle {
-        color: $color-input-gray;
-        font-weight: 500;
-        width: 60%;
-        margin: 0 auto;
-        padding-bottom: 1em;
-        padding-top: 1em;
-      }
+    .right{
+      display: inline-block;
+      vertical-align: top;
+      text-align: left;
+      width: 80%;
+    }
+
+    .send-form{
+      margin: 2em auto;
+      width: 20%;
     }
 
     .tutor_picture {
@@ -399,75 +410,21 @@ footer{
       width: 100%;
 
       .profile_picture {
-        background-color: white;
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
         display: inline-block;
         overflow: hidden;
-        width: 60%;
+        width: 20%;
 
         img {
+          background-color: white;
           width: 100%;
         }
       }
 
-      .btn-upload {
-        background-color: $color-input-gray-bgcolor;
-        border-bottom-right-radius: 10px;
-        border-bottom-left-radius: 10px;
-        color: $color-input-gray;
-        cursor: pointer;
-        line-height: 1;
-        display: inline-block;
-        font-weight: 500;
-        height: 30px;
-        padding-top: 8px;
-        width:  60%
+      .action-button-upload {
+        width:  100%
       }
-    }
-
-    ::-webkit-input-placeholder { color: $color-input-gray; }
-    ::-moz-placeholder { color: $color-input-gray; } /* firefox 19+ */
-    :-ms-input-placeholder { color: $color-input-gray; } /* ie */
-    input:-moz-placeholder { color: $color-input-gray; }
-
-    .form-group {
-      text-align: center;
-      margin-bottom: 0px;
-    }
-
-    .form-input {
-      background: white;
-      background-color: $color-input-gray-bgcolor;
-      border: 0;
-      border-radius: 6px;
-      color: $color-input-gray;
-      display: inline-block;
-      height: 30px;
-      margin-top: 18px;
-      outline: 0;
-      padding-left: 20px;
-      padding-right: 20px;
-      padding-top: 7px;
-      width: 60%;
-    }
-
-    .form-textarea {
-      background: white;
-      background-color: $color-input-gray-bgcolor;
-      border: 0;
-      border-radius: 6px;
-      color: $color-input-gray;
-      display: inline-block;
-      height: 80px;
-      margin-bottom: 0px;
-      margin-top: 18px;
-      outline: 0;
-      padding-left: 20px;
-      padding-right: 20px;
-      padding-top: 7px;
-      resize: none;
-      width: 60%;
     }
   }
 }
@@ -555,6 +512,20 @@ footer{
     width: 100%;
   }
 
+}
+
+.validation-form {
+  .has-error.form-checkbox{
+    background-color: red;
+  }
+
+  .has-error .form-input{
+    background-color: red;
+  }
+
+  .has-error .form-textarea{
+    background-color: red;
+  }
 }
 
 @media (min-width: $screen-sm-min) {
