@@ -4,26 +4,6 @@ Geek.controller('RootController', function($scope, $rootScope, $timeout, DEFAULT
 
     $(document).ready(function() {
 
-        //Hacemos binding del elemento btn-upload para simular el uso de un input type=file
-        $(".btn-upload").click(function () {
-            $(".fileupload input").trigger('click');
-            return false;
-        });	
-
-        $('.fileupload input[type=file]').change(function () {
-            var input = $(this);
-            if (input[0].files && input[0].files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = function (e) {
-                    $('#profile_picture')
-                        .attr('src', e.target.result);
-                };
-
-                reader.readAsDataURL(input[0].files[0]);
-            }
-        });
-
         //Método que ayuda a centrar verticalmente los modales de bootstrap
         function adjustModalMaxHeightAndPosition(){
             $('.modal').each(function(){

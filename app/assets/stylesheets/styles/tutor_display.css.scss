@@ -12,6 +12,14 @@
   }
 }
 
+.custom-radio {
+  /* radio aspect */
+  [type="radio"]:not(:checked) + label:before,
+  [type="radio"]:checked + label:before {
+    background: $color-dark-pink;
+  }
+}
+
 footer{
   color: $color-light-blue;
   font-family: "Gotham";
@@ -187,6 +195,22 @@ footer{
           font-size: 11px;
           text-align: left;
           width: 100%;
+
+          .form-control {
+            display: inline-block;
+            height: 0;
+            width: 0;
+          }
+
+          label {
+            font-weight: 500;
+            padding-top: 4px;
+          }
+        }
+
+        .form-radio {
+          color: $color-dark-pink;
+          text-align: left;
 
           .form-control {
             display: inline-block;
