@@ -181,7 +181,6 @@ h2.section-title{
 
 .action-button{
   border: none;
-  color: white;
   cursor: pointer;
   display: inline-block;
   padding: 0.7rem 1rem;
@@ -222,12 +221,12 @@ h2.section-title{
 
 .action-button-input-gray{
   background-color: $color-input-gray-bgcolor;
-  color: $color-input-gray;
+  color: $color-dark-gray;
 }
 
 .action-button-input-gray:hover{
   background-color: $color-input-gray;
-  color: $color-input-gray-bgcolor;
+  color: $color-light-gray;
   text-decoration: none;
 }
 
@@ -523,6 +522,7 @@ h2.section-title{
     padding-left: 20px;
     padding-right: 20px;
     padding-top: 7px;
+    text-transform: uppercase;
     width: 50%;
   }
 
@@ -546,6 +546,28 @@ h2.section-title{
 
 }
 
+.dropdown{
+
+  display: inline-block;
+  text-transform: uppercase;
+
+  button{
+    background-color: $color-input-gray-bgcolor;
+    border: none;
+    color: $color-dark-gray;
+    margin-bottom: 0.2em;
+    padding: 0.3rem 1.5rem;
+    text-transform: uppercase;
+  }
+}
+
+.form-button{
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  padding: 0.3rem 1.5rem;
+}
+
 .green-separator{
   height: 12px;
   margin-bottom: 0.5em;
@@ -558,6 +580,37 @@ h2.section-title{
 
   img{
     width: 100%;
+  }
+}
+
+.items-added-group{
+  margin: 1em 0em;
+  min-height: 34px;
+
+
+  .item-added{
+    background-color: $color-input-gray-bgcolor;
+    border-radius: 5px;
+    color: $color-dark-gray;
+    font-weight: 500;
+    display: inline-block;
+    margin: 5px 3px 0px 0px;
+    padding: 0.5em 0.8em 0.3em 1em;
+    position: relative;
+    text-transform: uppercase;
+    vertical-align: middle;
+
+    .close-item{
+      display: inline-block;
+      color: $color-dark-gray;
+      cursor: pointer;
+      font-size: 0.8em;
+      margin: 3px 0px 0px 5px;
+    }
+
+    .close-item:hover{
+      color: $color-dark-red;
+    }
   }
 }
 
