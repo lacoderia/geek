@@ -50,12 +50,12 @@ friday = WeekDay.create(day: "friday")
 saturday = WeekDay.create(day: "saturday")
 sunday = WeekDay.create(day: "sunday")
 
-availability = Availability.create(week_day_id: monday.id, preference_id: preference.id, start: Time.now, end: Time.now + 2.hour)
+availability = Availability.create(week_day_id: monday.id, preference_id: preference.id, start: Time.now, end: Time.now + 2.hour + 30.minute)
 
 bank_account = BankAccount.create(openpay_id: "3123123", alias: "bank account tutor", holder_name: "Ramiro Tutor", clabe: "234234234234", bank_code: "BMX", bank_name: "BANAMEX", creation_date: Time.now)
 tutor = Tutor.create(details: "tutor details", references: "tutor references", background: "tutor background", preference_id: preference.id ,bank_account_id: bank_account.id, calendar_id: "232342af", user: user_tutor, tier1_rate: 20, tier2_rate: 18, tier3_rate: 15)
 
-specific_availability = SpecificAvailability.create(tutor_id: tutor.id, start: Time.now + 1.day, end: Time.now + 1.day + 3.hour)
+specific_availability = SpecificAvailability.create(tutor_id: tutor.id, start: Time.now + 1.day, end: Time.now + 1.day + 3.hour + 30.minute)
 
 Review.create(student_id: student.id, tutor_id: tutor.id, grade: 10, description: "abcdefg")
 

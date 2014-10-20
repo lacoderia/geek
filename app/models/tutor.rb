@@ -87,13 +87,19 @@ class Tutor < ActiveRecord::Base
     availabilities = tutor.availabilities
     availabilities.each do |availability|
       #week_day = a.id > 6 ? 0 : a.id
-      dif = availability.end.hour - availability.start.hour
+      dif_hour = availability.end.hour - availability.start.hour
+      dif_min = availability.end.min - availability.start.min
       day_in_month = first_monday + (availability.week_day_id - 1)
       day_in_month -= 7 if day_in_month > 7
       while day_in_month <= number_of_days do
         result[day_in_month] = []
-        result[day_in_month] += (availability.start.hour..(availability.start.hour+dif-1)).to_a
-          day_in_month += 7
+        if dif_min > 0
+          difference = availability.start.hour..(availability.start.hour+dif_hour-1 + 0.5)
+        else
+          difference = availability.start.hour..(availability.start.hour+dif_hour-1)
+        end
+        result[day_in_month] += (difference).step(0.5).to_a
+        day_in_month += 7
       end
     end
 
@@ -101,22 +107,36 @@ class Tutor < ActiveRecord::Base
     specific_availabilities = tutor.specific_availabilities.where("EXTRACT(month from start) = ?", month)
 
     specific_availabilities.each do |sa|
-      dif = sa.end.hour - sa.start.hour
+      dif_hour = sa.end.hour - sa.start.hour
+      dif_min = sa.end.min - sa.start.min
+      if dif_min > 0
+        difference = sa.start.hour..(sa.start.hour+dif_hour-1 + 0.5)
+      else
+        difference = sa.start.hour..(sa.start.hour+dif_hour-1)
+      end
+
       if not result[sa.start.day]
         result[sa.start.day] = [] 
       else 
-        result[sa.start.day] -= (sa.start.hour..(sa.start.hour+dif-1)).to_a
+        result[sa.start.day] -= (difference).step(0.5).to_a
       end
     
-      result[sa.start.day] += (sa.start.hour..(sa.start.hour+dif-1)).to_a
+      result[sa.start.day] += (difference).step(0.5).to_a
       result[sa.start.day].sort!
     end
 
     # cuarto, quitar contra clases en request y en agendadas
     appointments = tutor.appointments.where("EXTRACT(month from start) = ? ", month)
     appointments.each do |appointment|
-      dif = appointment.end.hour - appointment.start.hour 
-      result[appointment.start.day] -= (appointment.start.hour..(appointment.start.hour+dif-1)).to_a if result[appointment.start.day]
+      dif_hour = appointment.end.hour - appointment.start.hour 
+      dif_min = appointment.end.min - appointment.start.min
+      if dif_min > 0
+        difference = appointment.start.hour..(appointment.start.hour+dif_hour-1 + 0.5)
+      else
+        difference = appointment.start.hour..(appointment.start.hour+dif_hour-1)
+      end
+
+      result[appointment.start.day] -= (difference).step(0.5).to_a if result[appointment.start.day]
     end
 
     result
@@ -137,9 +157,9 @@ class Tutor < ActiveRecord::Base
     tutor.appointments.where("appointment_status_id = ?", AppointmentStatus.find(appointment_status_id))
   end
 
-	def self.list_appointments tutor_id
-		tutor = Tutor.find tutor_id
-		tutor.appointments.includes(:student, :address, :appointment_status).order(:appointment_status_id)
-	end
+  def self.list_appointments tutor_id
+    tutor = Tutor.find tutor_id
+    tutor.appointments.includes(:student, :address, :appointment_status).order(:appointment_status_id)
+  end
 
 end
