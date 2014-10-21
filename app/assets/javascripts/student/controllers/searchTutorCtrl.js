@@ -1,4 +1,4 @@
-Geek.controller('SearchTutorController', function($scope, $rootScope, TutorService){
+Geek.controller('SearchTutorController', ["$scope", "$rootScope", "TutorService", function($scope, $rootScope, TutorService){
 
     //Subject inputted by the user
     $scope.subjectInput = '';
@@ -47,5 +47,4 @@ Geek.controller('SearchTutorController', function($scope, $rootScope, TutorServi
         }
     };
 
-});
-SearchTutorController.$inject = ['$scope', '$rootScope', 'TutorService'];
+}]);

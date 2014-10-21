@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('RootController', function($scope, $rootScope, $timeout, DEFAULT_VALUES, CountyService, CategoryService){
+Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "DEFAULT_VALUES", "CountyService", "CategoryService", function($scope, $rootScope, $timeout, DEFAULT_VALUES, CountyService, CategoryService){
 
     //Catálogo de zonas
     $rootScope.counties = [];
@@ -14,7 +14,7 @@ Geek.controller('RootController', function($scope, $rootScope, $timeout, DEFAULT
     //Materia seleccionada por el usuario
     $rootScope.subjectStr = '';
 
-    $(document).ready(function() {
+    $(document).ready(function(){
 
         //Método que ayuda a centrar verticalmente los modales de bootstrap
         function adjustModalMaxHeightAndPosition(){
@@ -85,5 +85,4 @@ Geek.controller('RootController', function($scope, $rootScope, $timeout, DEFAULT
         }
     );
 
-});
-RootController.$inject = ['$scope', '$rootScope', '$timeout', 'DEFAULT_VALUES', 'CountyService', 'CategoryService'];
+}]);
