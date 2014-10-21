@@ -405,6 +405,175 @@ h2.section-title{
   color: white;
 }
 
+.calendar{
+
+  margin: 2em 0em 0em 0em;
+
+  .action-button{
+    display: inline-block;
+  }
+
+
+  .month-view{
+    .month-title{
+      background-color: $color-light-green;
+      display: inline-block;
+      color: white;
+      font-size: 2.5em;
+      padding: 0.3em;
+      text-align: center;
+      text-transform: uppercase;
+      width: 85.6%;
+
+      span.control{
+        cursor: pointer;
+        width: 8%;
+      }
+
+      span.title{
+        width: 80%;
+      }
+
+      span{
+        display: inline-block;
+      }
+    }
+
+    .month-row{
+      font-size: 0px;
+      padding: 0px;
+      margin: 0px;
+      width: 100%;
+
+      table{
+        padding: 0px;
+        width: 100%;
+
+        td{
+          padding: 0px;
+        }
+      }
+
+      .month-day{
+        border-bottom: 2px solid $color-input-gray-bgcolor;
+        border-left: 2px solid $color-input-gray-bgcolor;
+        border-right: 2px solid $color-input-gray-bgcolor;
+        box-sizing: border-box;
+        color: $color-dark-gray;
+        font-size: 2rem;
+        font-weight: 400;
+        padding: 0px;
+        text-align: center;
+        width: 14%;
+
+        a{
+          box-sizing: border-box;
+          cursor: pointer;
+          display: inline-block;
+          padding: 0.5em 0.5em;
+          text-decoration: none;
+          width: 100%;
+        }
+
+        a.not-current-month{
+          color: $color-input-gray;
+          cursor: auto;
+
+          .events{
+            visibility: hidden;
+          }
+        }
+
+        a.not-current-month:hover{
+          text-decoration: none;
+        }
+
+
+        a.current-day-class{
+          background-color: $color-sign-up-dark-blue;
+        }
+
+        a.current-day-class:hover{
+          background-color: $color-sign-up-dark-blue;
+          color: white;
+        }
+
+        a.current-month{
+          color: $color-dark-gray;
+        }
+
+        a.current-month:hover{
+          background-color: $color-input-gray-bgcolor;
+        }
+      }
+
+      .month-day-title{
+        background-color: $color-input-gray-bgcolor;
+        color: $color-dark-green;
+        font-size: 1rem;
+        font-weight: 500;
+        padding: 1rem;
+        text-align: center;
+        text-transform: uppercase;
+      }
+
+    }
+  }
+
+  .week-view{
+    margin: 2em 0em 0em 0em;
+
+    .week-row{
+      table{
+        padding: 0px;
+        width: 100%;
+
+        td{
+          padding: 0px;
+        }
+      }
+
+      .week-title-row{
+        border-bottom: 2px solid $color-input-gray-bgcolor;
+        border-left: 2px solid $color-input-gray-bgcolor;
+        border-right: 2px solid $color-input-gray-bgcolor;
+        box-sizing: border-box;
+        color: $color-dark-gray;
+        font-size: 2rem;
+        font-weight: 400;
+        padding: 0px;
+        text-align: center;
+        width: 20%;
+      }
+
+      .info-title{
+        background-color: $color-input-gray-bgcolor;
+        color: $color-dark-green;
+        font-size: 1rem;
+        font-weight: 500;
+        padding: 1rem;
+        text-align: center;
+        text-transform: uppercase;
+      }
+    }
+  }
+
+}
+
+.control-arrow{
+  background: transparent url("/assets/site/geek_sprite.png") no-repeat;
+  height: 18px;
+  width: 38px;
+}
+
+.control-left-arrow{
+  background-position: 0 0;
+}
+
+.control-right-arrow{
+  background-position: 0px -18px;
+}
+
 .custom-checkbox {
   /* Base for label styling */
   [type="checkbox"]:not(:checked),
@@ -622,6 +791,46 @@ h2.section-title{
     text-transform: uppercase;
   }
 }
+
+.events{
+  font-size: 14px;
+  padding: 0px;
+
+  .event{
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0px 0px 2px;
+    overflow: hidden;
+    height: 8px;
+    vertical-align: middle;
+    width: 8px;
+  }
+
+  .event-green{
+    background-color: $color-dark-green;
+  }
+
+  .event-orange{
+    background-color: $color-dark-orange;
+  }
+
+  .event-red{
+    background-color: $color-dark-orange;
+  }
+}
+
+ul.events{
+  list-style: none;
+  margin: 0.8em 0.5em;
+  padding: 0px;
+  width: 100%;
+
+  li{
+    display: inline-block;
+    margin-right: 2em;
+  }
+}
+
 
 .form-button{
   border: none;
