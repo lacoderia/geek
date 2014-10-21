@@ -5,9 +5,14 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt', 
     .constant('DEFAULT_VALUES',{
         'LANGUAGE':'es',
         'URL_SERVICES': {
-                'CATEGORY_SERVICE_URL': '/categories.json',
-                'COUNTY_SERVICE_URL': '/counties.json'
+            'CATEGORY_SERVICE_URL': '/categories.json',
+            'COUNTY_SERVICE_URL': '/counties.json'
 
+        },
+        PROFILE_STATUS: {
+            'NO_REQUEST': 0,
+            'REQUEST_SENT': 1,
+            'REQUEST_ACCEPTED': 2
         }
 
     })
