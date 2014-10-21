@@ -44,7 +44,7 @@ class TutorsController < ApplicationController
     respond_to do |format|
       if params[:tutor][:categories]
         params[:tutor][:categories].each do | cat |
-          @tutor.categories << Category.find(cat[:id])
+          @tutor.categories << Category.create(:name => cat[:name], :category_id => cat[:category_id])
         end
       end
       if @tutor.update(tutor_params)
