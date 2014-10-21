@@ -8,10 +8,10 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
   
   has_and_belongs_to_many :roles
-	has_and_belongs_to_many :addresses
+  has_and_belongs_to_many :addresses
 
-	def role?(role)
-		return !!self.roles.find_by_name(role)
-	end
+  def role?(role)
+    return !!self.roles.find_by_name(role)
+  end
 
 end

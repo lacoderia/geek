@@ -61,16 +61,16 @@ class AppointmentsController < ApplicationController
     end
   end
 
-	# Recibe:
-	# appointment_status_id = ID del estado de la cita
-	# Regresa:
-	# lista de appointments
-	def by_status_and_tutor
+  # Recibe:
+  # appointment_status_id = ID del estado de la cita
+  # Regresa:
+  # lista de appointments
+  def by_status_and_tutor
     @appointments = []
     if current_user
-		  @appointments = Tutor.list_appointments_by_status(current_user.id, params[:appointment_status_id])
+      @appointments = Tutor.list_appointments_by_status(current_user.id, params[:appointment_status_id])
     end
-	end
+  end
 
   # Regresa:
   # lista de appointments
