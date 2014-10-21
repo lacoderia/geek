@@ -144,7 +144,7 @@ class Tutor < ActiveRecord::Base
 
   def self.request_class tutor_id, start, length, student_id, description
     tutor = Tutor.find(tutor_id)
-    start_date = DateTime.iso8601(start)	
+    start_date = DateTime.iso8601(start).in_time_zone
     student = Student.find(student_id)
     # TODO: Validar que tenga disponibilidad		
     tutor.refresh_token_action
@@ -160,6 +160,35 @@ class Tutor < ActiveRecord::Base
   def self.list_appointments tutor_id
     tutor = Tutor.find tutor_id
     tutor.appointments.includes(:student, :address, :appointment_status).order(:appointment_status_id)
+  end
+
+  def self.save_availabilities tutor_id, availabilities
+
+    tutor = Tutor.joins(:preference).find tutor_id
+    preference = tutor.preference
+    preference.availabilities.destroy_all
+
+    availabilities.each do |availability|
+      day = WeekDay.find_by_day(availability["day"])
+      start_time = DateTime.iso8601("0001-01-01T#{availability['start']}").in_time_zone
+      end_time = DateTime.iso8601("0001-01-01T#{availability['end']}").in_time_zone
+      preference.availabilities << Availability.create(week_day_id: day.id, preference_id: preference.id, start: start_time, end: end_time)
+    end
+
+    preference.availabilities
+  end
+
+  # TODO: Incluir metodo para borrar disponibilidades o alterar las existentes si se interrumpen
+  def self.save_specific_availabilities tutor_id, specific_availabilities
+    
+    tutor = Tutor.joins(:preference).find tutor_id
+
+    specific_availabilities.each do |sa|
+      start_datetime = DateTime.iso8601(sa["start"]).in_time_zone
+      end_datetime = DateTime.iso8601(sa["end"]).in_time_zone
+      SpecificAvailability.create(tutor_id: tutor.id, start: start_datetime, end: end_datetime)
+    end
+
   end
 
 end

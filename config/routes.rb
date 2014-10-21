@@ -50,7 +50,8 @@ Rails.application.routes.draw do
     end
     member do
       get 'availability_list'
-      get 'request_class'
+      match 'request_class', :via => [:get, :post]
+      match 'save_availabilities', :via => [:get, :post]
     end
   end
 

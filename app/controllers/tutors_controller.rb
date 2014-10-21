@@ -95,7 +95,7 @@ class TutorsController < ApplicationController
   end
 
   # Recibe:
-  # start = fecha de inicio en formato iso8601 (toISOString en JS). Ej 6:30pm, 10 nov 2014 CST ("2014-11-10T18:30:00-05:00")
+  # start = fecha de inicio en formato iso8601 (toISOString en JS). Ej 6:30pm, 10 nov 2014 CST ("2014-11-10T18:30:00")
   # length = numero de horas que dura la clase (min: 1) 
   # id = id del tutor
   # student_id = id del estudiante
@@ -104,6 +104,24 @@ class TutorsController < ApplicationController
   # success: true si la pudo agendar, false si no se pudo crear
   def request_class
     @request = Tutor.request_class(params[:id], params[:start], params[:length].to_i, params[:student_id], params[:description])
+  end
+
+  # Recibe:
+  # id = id del tutor
+  # availabilities = arreglo de hash de disponibilidades [{day:'monday', start: '13:00', end:'14:00'}]
+  # Regresa:
+  # lista de objetos availabilities del tutor
+  def save_availabilities
+    @availabilities = Tutor.save_availabilities(params[:id], params[:availabilities])
+  end
+
+  # Recibe:
+  # id = id del tutor
+  # specific_availabilities = arreglo de hash de disponibilidades en formato iso8601 [{start: '2014-11-10T18:30:00', end: '2014-11-10T19:30:00' }]
+  # Regresa:
+  # lista de objetos specific_availabilities del tutor
+  def save_specific_availabilities
+    @specific_availabilities = Tutor.save_specific_availabilities(params[:id], params[:specific_availabilities]) 
   end
 
   private
