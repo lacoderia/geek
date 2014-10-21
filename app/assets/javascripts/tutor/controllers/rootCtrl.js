@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('RootController', function($scope, $rootScope, $timeout, DEFAULT_VALUES, CategoryService){
+Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "DEFAULT_VALUES", "CategoryService", function($scope, $rootScope, $timeout, DEFAULT_VALUES, CategoryService){
 
     $(document).ready(function() {
 
@@ -48,5 +48,4 @@ Geek.controller('RootController', function($scope, $rootScope, $timeout, DEFAULT
 		
     });
 
-});
-
+}]);

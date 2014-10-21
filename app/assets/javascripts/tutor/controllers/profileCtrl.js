@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('ProfileController', function($scope, $rootScope, DEFAULT_VALUES, CategoryService){
+Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", "CategoryService", function($scope, $rootScope, DEFAULT_VALUES, CategoryService){
 
     //Categories catalog
     $scope.categories = [];
@@ -158,5 +158,4 @@ Geek.controller('ProfileController', function($scope, $rootScope, DEFAULT_VALUES
 
     }
 
-});
-
+}]);
