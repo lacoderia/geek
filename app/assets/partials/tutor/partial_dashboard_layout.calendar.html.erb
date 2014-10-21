@@ -1,1 +1,62 @@
-CALENDARIO
+<div class="tutor-calendar-container">
+    <h2 class="section-title">Mi agenda</h2>
+    <div class="calendar" ng-controller="CalendarController as CalendarCrtl">
+        <div class="month-view">
+          <ul class="events">
+            <li><span class="event event-green"></span> Cita confirmada</li>
+            <li><span class="event event-green"></span> Cita confirmada</li>
+          </ul>
+          <div class="month-title">
+            <span ng-click="getPreviousMonth()" class="control"><span class="control-arrow control-left-arrow"></span></span>
+            <span class="title"> {{ MONTHS[selectedMonth] }} {{ selectedYear }} </span>
+            <span ng-click="getNextMonth()" class="control"><span class="control-arrow control-right-arrow"></span></span></div>
+          <div class="action-button action-button-dark-green">Editar preferencias</div>
+          <div class="month-row">
+            <table>
+              <tbody>
+              <tr>
+                <td class="month-day-title" ng-repeat="day in DAYS">
+                  <span class="hidden-sm hidden-xs">{{ day.title }}</span>
+                  <span class="hidden-md hidden-lg">{{ day.minTitle }}</span>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="month-row" ng-repeat="row in calendarRows">
+            <table>
+              <tbody>
+                  <tr>
+                    <td class="month-day" ng-repeat="day in row.days">
+                      <a class="{{ day.isCurrentDayClass }}">{{ day.numberDay }}
+                        <div class="events"><span class="event event-green"></span></div>
+                      </a>
+                    </td>
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="week-view">
+          <div class="week-row">
+
+              <table>
+                <thead>
+                    <tr class="week-title-row">
+                      <th class="info-title">Horario</th>
+                      <th class="info-title">Alumno</th>
+                      <th class="info-title">Materia</th>
+                      <th class="info-title">Pago</th>
+                      <th class="info-title">Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                      <td colspan="5"></td>
+                    </tr>
+                </tbody>
+              </table>
+          </div>
+        </div>
+    </div>
+</div>
