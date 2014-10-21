@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.factory('TutorService', function($http, $q, DEFAULT_VALUES){
+Geek.factory('TutorService', ["$http", "$q", "DEFAULT_VALUES", function($http, $q, DEFAULT_VALUES){
 
     var getTutorByCountyId = function(countyId){
         var deferred = $q.defer();
@@ -69,4 +69,4 @@ Geek.factory('TutorService', function($http, $q, DEFAULT_VALUES){
         getTutorByCategoryAndCountyIds: getTutorByCategoryAndCountyIds
     }
 
-});
+}]);

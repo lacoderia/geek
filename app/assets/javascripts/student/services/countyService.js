@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.factory('CountyService', function($http, $q, DEFAULT_VALUES){
+Geek.factory('CountyService', ["$http", "$q", "DEFAULT_VALUES", function($http, $q, DEFAULT_VALUES){
 
     var all = function(){
         var deferred = $q.defer();
@@ -22,4 +22,4 @@ Geek.factory('CountyService', function($http, $q, DEFAULT_VALUES){
         all: all
     }
 
-});
+}]);

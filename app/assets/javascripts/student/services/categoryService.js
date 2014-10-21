@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.factory('CategoryService', function($http, $q){
+Geek.factory('CategoryService', ["$http", "$q", function($http, $q){
 
     var all = function(){
         var deferred = $q.defer();
@@ -22,4 +22,4 @@ Geek.factory('CategoryService', function($http, $q){
         all: all
     }
 
-});
+}]);
