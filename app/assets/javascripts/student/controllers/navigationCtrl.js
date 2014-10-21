@@ -56,4 +56,4 @@ Geek.controller('NavigationController', function($scope, $rootScope, DEFAULT_VAL
         }
     });
 });
-
+NavigationController.$inject = ['$scope', '$rootScope', 'DEFAULT_VALUES'];

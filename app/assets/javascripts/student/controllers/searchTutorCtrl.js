@@ -48,3 +48,4 @@ Geek.controller('SearchTutorController', function($scope, $rootScope, TutorServi
     };
 
 });
+SearchTutorController.$inject = ['$scope', '$rootScope', 'TutorService'];

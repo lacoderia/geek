@@ -86,4 +86,4 @@ Geek.controller('RootController', function($scope, $rootScope, $timeout, DEFAULT
     );
 
 });
-
+RootController.$inject = ['$scope', '$rootScope', '$timeout', 'DEFAULT_VALUES', 'CountyService', 'CategoryService'];
