@@ -4,6 +4,96 @@
 		{
 			"icon": {
 				"paths": [
+					"M512 0c-282.77 0-512 229.23-512 512s229.23 512 512 512 512-229.23 512-512-229.23-512-512-512zM768 346.51l-165.488 165.49 165.488 165.488v90.512h-90.512l-165.488-165.488-165.49 165.488h-90.51v-90.512l165.49-165.488-165.49-165.49v-90.51h90.51l165.49 165.49 165.488-165.49h90.512v90.51z"
+				],
+				"attrs": [
+					{
+						"opacity": 1,
+						"visibility": false
+					}
+				],
+				"grid": 16
+			},
+			"attrs": [
+				{
+					"opacity": 1,
+					"visibility": false
+				}
+			],
+			"properties": {
+				"order": 1,
+				"id": 2,
+				"prevSize": 32,
+				"code": 58885,
+				"name": "close",
+				"ligatures": ""
+			},
+			"setIdx": 0,
+			"iconIdx": 0
+		},
+		{
+			"icon": {
+				"paths": [
+					"M1024 397.050l-353.78-51.408-158.22-320.582-158.216 320.582-353.784 51.408 256 249.538-60.432 352.352 316.432-166.358 316.432 166.358-60.434-352.352 256.002-249.538z"
+				],
+				"attrs": [
+					{
+						"opacity": 1,
+						"visibility": false
+					}
+				],
+				"grid": 16
+			},
+			"attrs": [
+				{
+					"opacity": 1,
+					"visibility": false
+				}
+			],
+			"properties": {
+				"order": 1,
+				"id": 1,
+				"prevSize": 32,
+				"code": 58881,
+				"name": "star1",
+				"ligatures": ""
+			},
+			"setIdx": 0,
+			"iconIdx": 1
+		},
+		{
+			"icon": {
+				"paths": [
+					"M1024 397.050l-353.78-51.408-158.22-320.582-158.216 320.582-353.784 51.408 256 249.538-60.432 352.352 316.432-166.358 316.432 166.358-60.434-352.352 256.002-249.538zM512 753.498l-223.462 117.48 42.676-248.83-180.786-176.222 249.84-36.304 111.732-226.396 111.736 226.396 249.836 36.304-180.788 176.222 42.678 248.83-223.462-117.48z"
+				],
+				"attrs": [
+					{
+						"opacity": 1,
+						"visibility": false
+					}
+				],
+				"grid": 16
+			},
+			"attrs": [
+				{
+					"opacity": 1,
+					"visibility": false
+				}
+			],
+			"properties": {
+				"order": 3,
+				"id": 0,
+				"prevSize": 32,
+				"code": 58882,
+				"name": "star2",
+				"ligatures": ""
+			},
+			"setIdx": 0,
+			"iconIdx": 2
+		},
+		{
+			"icon": {
+				"paths": [
 					"M575.87 1024h-191.87v-512h-128v-176.45l128-0.058-0.208-103.952c0-143.952 39.034-231.54 208.598-231.54h141.176v176.484h-88.23c-66.032 0-69.206 24.656-69.206 70.684l-0.262 88.324h158.69l-18.704 176.45-139.854 0.058-0.13 512z"
 				],
 				"tags": [
@@ -13,14 +103,14 @@
 				"grid": 16
 			},
 			"properties": {
-				"order": 6,
+				"order": 2,
 				"id": 357,
 				"prevSize": 32,
 				"code": 58883,
 				"name": "facebook3",
 				"ligatures": ""
 			},
-			"setIdx": 0,
+			"setIdx": 1,
 			"iconIdx": 0
 		},
 		{
@@ -35,14 +125,14 @@
 				"grid": 16
 			},
 			"properties": {
-				"order": 7,
+				"order": 4,
 				"id": 358,
 				"prevSize": 32,
 				"code": 58884,
 				"name": "facebook4",
 				"ligatures": ""
 			},
-			"setIdx": 0,
+			"setIdx": 1,
 			"iconIdx": 1
 		},
 		{
@@ -58,13 +148,13 @@
 			},
 			"properties": {
 				"id": 356,
-				"order": 8,
+				"order": 5,
 				"prevSize": 32,
 				"code": 58880,
 				"name": "googleplus",
 				"ligatures": ""
 			},
-			"setIdx": 0,
+			"setIdx": 1,
 			"iconIdx": 2
 		}
 	],
@@ -89,6 +179,7 @@
 		"imagePref": {},
 		"historySize": 100,
 		"showCodes": true,
-		"search": ""
+		"search": "",
+		"showSVGs": true
 	}
 }
