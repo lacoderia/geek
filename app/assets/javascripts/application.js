@@ -19,12 +19,12 @@
 //= require bootstrap-sprockets
 
 // Librerias de Angular requeridas en el proyecto
-//= require lib/angular/angular.min.js
-//= require lib/angular/angular-resource.min.js
-//= require lib/angular/angular-route.min.js
-//= require lib/angular/angular-animate.min
+//= require lib/angular/angular.js
+//= require lib/angular/angular-resource.js
+//= require lib/angular/angular-route.js
+//= require lib/angular/angular-animate
 
 // Directivas externas
 //= require lib/angular/angucomplete-alt
 //= require lib/angular/showErrors.js
-//= require lib/angular/angular-ui-router.min
+//= require lib/angular/angular-ui-router
