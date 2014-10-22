@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('NavigationController', function($scope, $rootScope, DEFAULT_VALUES){
+Geek.controller('NavigationController', ["$scope", "$rootScope", "DEFAULT_VALUES", function($scope, $rootScope, DEFAULT_VALUES){
 
     $scope.selectedTab = 'signUp';
 
@@ -56,5 +56,4 @@ Geek.controller('NavigationController', function($scope, $rootScope, DEFAULT_VAL
         }
     });
 
-});
-
+}]);
