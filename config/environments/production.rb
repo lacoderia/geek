@@ -1,14 +1,5 @@
 Rails.application.configure do
 
-  ENV['FACEBOOK_APP_KEY'] = ""
-  ENV['FACEBOOK_APP_SECRET'] = ""
-
-  ENV['ADDRESS'] = ""
-  ENV['HOST'] = ""
-  ENV['DOMAIN_NAME'] = ""
-  ENV['MAIL_USERNAME'] = "" 
-  ENV['MAIL_PASSWORD'] = "" 
-
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
