@@ -39,18 +39,18 @@ class Tutor < ActiveRecord::Base
       # attendees_emails = [{'email' => self.email}, {'email' => student.email}]
       result = client.execute(:api_method => service.events.insert, :parameters => {'calendarId' => calendar, 'sendNotifications' => true}, :body => JSON.dump('start' => {'dateTime' => start_date.to_json.gsub(/"/, '') }, 'end' => {'dateTime' => (start_date + length_in_hours.hour).to_json.gsub(/"/, '') }, 'summary' => name, 'attendees' => attendees_emails ), :headers => {'Content-Type' => 'application/json'})
       # appointment_status_id 1 == enviado
-      Appointment.create(student_id: student.id, tutor_id: self.id, appointment_id: JSON.parse(result.response.body)["id"], start: start_date, end: start_date + length_in_hours.hour, appointment_status_id: 1, subject: name)
-      return true
+      appointment = Appointment.create(student_id: student.id, tutor_id: self.id, appointment_id: JSON.parse(result.response.body)["id"], start: start_date, end: start_date + length_in_hours.hour, appointment_status_id: 1, subject: name)
+      return appointment 
     rescue Exception => e
       logger.error ("ERROR #{e}")
-      return false
+      return nil 
     end
   end
 
   def delete_appointment appointment
 	
     # appointment_status_id 3 = confirmado, 4 = cancelado
-    if appointment.appointment_status_id == 3
+    #if appointment.appointment_status_id == 3
       client = Google::APIClient.new
       token = self.token
       client.authorization.access_token = token
@@ -59,9 +59,9 @@ class Tutor < ActiveRecord::Base
       event = appointment.appointment_id
       client.execute(:api_method => service.events.delete, :parameters => {'calendarId' => calendar, 'eventId' => event, 'sendNotifications' => true}, :headers => {'Content-Type' => 'application/json'})
       appointment.update_attribute(:appointment_status_id, 4)
-    else
-      raise "El evento no está confirmado"
-    end
+    #else
+    #  raise "El evento no está confirmado"
+    #end
 
   end
 
