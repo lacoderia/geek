@@ -42,13 +42,13 @@ student = Student.create(credits: 10.0, openpay_id: "999999", user: user_student
 
 preference = Preference.create(cost: 150.00, online: false, office: true)
 
-monday = WeekDay.create(day: "monday")
-tuesday = WeekDay.create(day: "tuesday")
-wednesday = WeekDay.create(day: "wednesday")
-thursday = WeekDay.create(day: "thursday")
-friday = WeekDay.create(day: "friday")
-saturday = WeekDay.create(day: "saturday")
-sunday = WeekDay.create(day: "sunday")
+monday = WeekDay.create(day: "monday", day_number: 1)
+tuesday = WeekDay.create(day: "tuesday", day_number: 2)
+wednesday = WeekDay.create(day: "wednesday", day_number: 3)
+thursday = WeekDay.create(day: "thursday", day_number: 4)
+friday = WeekDay.create(day: "friday", day_number: 5)
+saturday = WeekDay.create(day: "saturday", day_number: 6)
+sunday = WeekDay.create(day: "sunday", day_number: 0)
 
 availability = Availability.create(week_day_id: monday.id, preference_id: preference.id, start: Time.now, end: Time.now + 2.hour + 30.minute)
 
@@ -82,7 +82,7 @@ status_cancelado = AppointmentStatus.create(name: "canceled")
 status_completado = AppointmentStatus.create(name: "completed")
 
 address = Address.create(description: "Casa privada", line1: "Sucre Norte 234", line2: "Col. Cigarras de Nuevo Leon", county_id: County.joins(:postal_code).where("code = ?", "06600").first)
-appointment = Appointment.create(appointment_status_id: status_confirmado.id, student_id: student.id, tutor_id: tutor.id, start: Time.now, end: Time.now + 1.hour, details: "Detalles de la cita", address_id: address.id)
+appointment = Appointment.create(appointment_status_id: status_confirmado.id, student_id: student.id, tutor_id: tutor.id, start: Time.now, end: Time.now + 1.hour, details: "Detalles de la cita", address_id: address.id, subject: "Artes")
 
 Message.create(sender_id: student.user.id, recipient_id: tutor.user.id, text: "hola", status: "entregado")
 

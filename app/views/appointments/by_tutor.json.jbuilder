@@ -1,5 +1,5 @@
 json.array!(@appointments) do |appointment|
-  json.extract! appointment, :id, :start, :end, :details
+  json.extract! appointment, :id, :start, :end, :details, :subject
   json.set! :student do 
 		json.extract! appointment.student, :id, :first_name, :last_name
 	end

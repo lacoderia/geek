@@ -39,7 +39,7 @@ class Tutor < ActiveRecord::Base
       # attendees_emails = [{'email' => self.email}, {'email' => student.email}]
       result = client.execute(:api_method => service.events.insert, :parameters => {'calendarId' => calendar, 'sendNotifications' => true}, :body => JSON.dump('start' => {'dateTime' => start_date.to_json.gsub(/"/, '') }, 'end' => {'dateTime' => (start_date + length_in_hours.hour).to_json.gsub(/"/, '') }, 'summary' => name, 'attendees' => attendees_emails ), :headers => {'Content-Type' => 'application/json'})
       # appointment_status_id 1 == enviado
-      Appointment.create(student_id: student.id, tutor_id: self.id, appointment_id: JSON.parse(result.response.body)["id"], start: start_date, end: start_date + length_in_hours.hour, appointment_status_id: 1)
+      Appointment.create(student_id: student.id, tutor_id: self.id, appointment_id: JSON.parse(result.response.body)["id"], start: start_date, end: start_date + length_in_hours.hour, appointment_status_id: 1, subject: name)
       return true
     rescue Exception => e
       logger.error ("ERROR #{e}")
@@ -176,7 +176,7 @@ class Tutor < ActiveRecord::Base
     preference.availabilities.destroy_all
 
     availabilities.each do |availability|
-      day = WeekDay.find_by_day(availability["day"])
+      day = WeekDay.find_by_day_number(availability["day_number"])
       start_time = DateTime.iso8601("0001-01-01T#{availability['start']}").in_time_zone
       end_time = DateTime.iso8601("0001-01-01T#{availability['end']}").in_time_zone
       preference.availabilities << Availability.create(week_day_id: day.id, preference_id: preference.id, start: start_time, end: end_time)
