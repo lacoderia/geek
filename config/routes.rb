@@ -42,7 +42,11 @@ Rails.application.routes.draw do
 
   resources :counties
 
-  resources :students
+  resources :students do
+    collection do
+      get 'profile'
+    end
+  end
 
   resources :tutors do
     collection do
@@ -75,7 +79,7 @@ Rails.application.routes.draw do
 
   get "student" => "student_display#landing", :as => :student_landing
   
-  get "student_dashboard" => "student_display#landing", :as => :student_dashboard
+  #get "student_dashboard" => "student_display#landing", :as => :student_dashboard
   
   #get "tutor_registration" => "tutor_display#tutor_registration", :as => :tutor_registration
 
