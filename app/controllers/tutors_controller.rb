@@ -124,6 +124,24 @@ class TutorsController < ApplicationController
     @specific_availabilities = Tutor.save_specific_availabilities(params[:id], params[:specific_availabilities]) 
   end
 
+  # Obtiene información del tutor loggeado
+  # Regresa:
+  # tutor un objeto tutor con la información 
+  def profile
+    if current_user
+      @tutor = Tutor.where('email = ? ', current_user.email)[0]
+    end
+  end
+
+  # Obtiene información acerca del estado del tutor
+  # Regresa:
+  # tutor un objeto tutor con la información de si tiene autorización y si envió su solicitud
+  def status
+    if current_user
+      @tutor = Tutor.where('email = ? ', current_user.email)[0]
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_tutor

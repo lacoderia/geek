@@ -47,6 +47,8 @@ Rails.application.routes.draw do
   resources :tutors do
     collection do
       get 'by_county_and_category_ids'
+      get 'profile'
+      get 'status'
     end
     member do
       get 'availability_list'
@@ -69,7 +71,7 @@ Rails.application.routes.draw do
 
   get "tutor" => "tutor_display#landing", :as => :tutor_landing
   
-  get "tutor_dashboard" => "tutor_display#landing", :as => :tutor_dashboard
+  #get "tutor#/dashboard" => "tutor_display#landing", :as => :tutor_dashboard
 
   get "student" => "student_display#landing", :as => :student_landing
   
