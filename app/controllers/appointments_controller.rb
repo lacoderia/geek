@@ -83,8 +83,8 @@ class AppointmentsController < ApplicationController
   # lista de appointments. Todos si no se pasaron parámetros. Solo las anteriores a hoy si tiene parametro previous
   def by_tutor 
     @appointments = []
-    if current_user
-      @appointments = Tutor.list_appointments(current_user.id, params[:month], params[:year], params[:previous])
+    if current_user and current_user.client_type == "Tutor"
+      @appointments = Tutor.list_appointments(current_user.client_id, params[:month], params[:year], params[:previous])
     end
   end
 
@@ -96,8 +96,8 @@ class AppointmentsController < ApplicationController
   # lista de appointments. Todos si no se pasaron parámetros. Solo las anteriores a hoy si tiene parametro previous
   def by_student
     @appointments = []
-    if current_user
-      @appointments = Student.list_appointments(current_user.id, params[:month], params[:year], params[:previous])
+    if current_user and current_user.client_type == "Student"
+      @appointments = Student.list_appointments(current_user.client_id, params[:month], params[:year], params[:previous])
     end
   end
 
