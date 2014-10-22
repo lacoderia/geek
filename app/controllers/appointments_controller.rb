@@ -72,21 +72,29 @@ class AppointmentsController < ApplicationController
     end
   end
 
+  # Recibe:
+  # month = numero de mes (opcional)
+  # year = numero de año (opcional)
+  # previous = true si se quieren las citas historicas (opcional)
   # Regresa:
-  # lista de appointments
+  # lista de appointments. Todos si no se pasaron parámetros. Solo las anteriores a hoy si tiene parametro previous
   def by_tutor 
     @appointments = []
     if current_user
-      @appointments = Tutor.list_appointments(current_user.id)
+      @appointments = Tutor.list_appointments(current_user.id, params[:month], params[:year], params[:previous])
     end
   end
 
+  # Recibe:
+  # month = numero de mes (opcional)
+  # year = numero de año (opcional)
+  # previous = true si se quieren las citas historicas (opcional)
   # Regresa:
-  # lista de appointments
+  # lista de appointments. Todos si no se pasaron parámetros. Solo las anteriores a hoy si tiene parametro previous
   def by_student
     @appointments = []
     if current_user
-      @appointments = Student.list_appointments(current_user.id)
+      @appointments = Student.list_appointments(current_user.id, params[:month], params[:year], params[:previous])
     end
   end
 

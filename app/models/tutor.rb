@@ -104,7 +104,7 @@ class Tutor < ActiveRecord::Base
     end
 
     # tercero, agregar disponibilidades por semana especifica					
-    specific_availabilities = tutor.specific_availabilities.where("EXTRACT(month from start) = ?", month)
+    specific_availabilities = tutor.specific_availabilities.where("EXTRACT(month from start) = ? AND EXTRACT(year from start) = ?", month, year)
 
     specific_availabilities.each do |sa|
       dif_hour = sa.end.hour - sa.start.hour
@@ -126,7 +126,7 @@ class Tutor < ActiveRecord::Base
     end
 
     # cuarto, quitar contra clases en request y en agendadas
-    appointments = tutor.appointments.where("EXTRACT(month from start) = ? ", month)
+    appointments = tutor.appointments.where("EXTRACT(month from start) = ? AND EXTRACT(year from start) = ?", month, year)
     appointments.each do |appointment|
       dif_hour = appointment.end.hour - appointment.start.hour 
       dif_min = appointment.end.min - appointment.start.min
@@ -157,9 +157,16 @@ class Tutor < ActiveRecord::Base
     tutor.appointments.where("appointment_status_id = ?", AppointmentStatus.find(appointment_status_id))
   end
 
-  def self.list_appointments tutor_id
+  # month, year, previous pueden ser nil. Previous es la primera condicion que se checa para retornar el historico
+  def self.list_appointments tutor_id, month, year, previous
     tutor = Tutor.find tutor_id
-    tutor.appointments.includes(:student, :address, :appointment_status).order(:appointment_status_id)
+    if previous
+      tutor.appointments.includes(:student, :address, :appointment_status).where("appointments.end < ?", Time.now ).order(:appointment_status_id)
+    elsif month and year
+      tutor.appointments.includes(:student, :address, :appointment_status).where("EXTRACT(month from start) = ? AND EXTRACT(year from start) = ?", month.to_i, year.to_i).order(:appointment_status_id)
+    else
+      tutor.appointments.includes(:student, :address, :appointment_status).order(:appointment_status_id)
+    end
   end
 
   def self.save_availabilities tutor_id, availabilities
