@@ -2,40 +2,10 @@
 
 Geek.controller('CalendarController', function($scope, $rootScope, AppointmentService, DEFAULT_VALUES){
 
-    $scope.DAYS = [
-        {
-            'title':'Domingo',
-            'minTitle' : 'D'
-        },
-        {
-            'title':'Lunes',
-            'minTitle' : 'L'
-        },
-        {
-            'title':'Martes',
-            'minTitle' : 'M'
-        },
-        {
-            'title':'Miércoles',
-            'minTitle' : 'M'
-        },
-        {
-            'title':'Jueves',
-            'minTitle' : 'J'
-        },
-        {
-            'title':'Viernes',
-            'minTitle' : 'V'
-        },
-        {
-            'title':'Sábado',
-            'minTitle' : 'S'
-        }
-    ];
-
-    $scope.MONTHS = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-    $scope.START_YEAR = 1900;
-    $scope.TOTAL_CALENDAR_ROWS = 6;
+    $scope.DAYS = DEFAULT_VALUES.DAYS;
+    $scope.MONTHS = DEFAULT_VALUES.MONTHS;
+    $scope.START_YEAR = DEFAULT_VALUES.START_YEAR;
+    $scope.TOTAL_CALENDAR_ROWS = DEFAULT_VALUES.TOTAL_CALENDAR_ROWS;
 
     $scope.currentDate = new Date();
 

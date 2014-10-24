@@ -1,23 +1,17 @@
 'use strict';
 
-Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", "CategoryService", function($scope, $rootScope, DEFAULT_VALUES, CategoryService){
+Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", "CategoryService", "CountyService", "ProfileService", function($scope, $rootScope, DEFAULT_VALUES, CategoryService, CountyService, ProfileService){
 
     //Categories catalog
     $scope.categories = [];
 
-    //Tutor request object
-    $scope.tutorRequest = {
-        'topics': []
-    };
-
     //Tutor profile object
-    $scope.tutor = {
-        'requestStatus' : 0,
-        'topics': []
-    }
+    $scope.tutor = null;
 
-    //Copiamos DEFAULT_VALUES a una variable del scope para accederlo en la vista
-    $scope.DEFAULT_VALUES = DEFAULT_VALUES;
+    //Llenamos las variables necesarias para manipular el calendario
+    $scope.HOURS = DEFAULT_VALUES.HOURS;
+    $scope.DAYS = DEFAULT_VALUES.DAYS;
+    $scope.TOTAL_WEEKLY_CALENDAR_ROWS = DEFAULT_VALUES.TOTAL_WEEKLY_CALENDAR_ROWS;
 
     //Call a service to fill in the categories catalog
     CategoryService.all().then(
@@ -33,46 +27,138 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
         }
     );
 
-    // Definimos broadcasts y listeners
+    //Obtiene los datos del catálogo de zonas
+    CountyService.all().then(
+        function(data){
+            if(data){
+                $scope.counties = data;
+            }
+        },
+        function(response){
+            console.log('Error retrieving the counties: ' + response);
+        }
+    );
+
+    // Inicializamos los broadcasts y listeners del controlador
     $scope.$on("rootControllerReady", function() {
 
-        // Lógica que cambia la imagen visible en el perfil del usuario por la seleccionada por el usuario
-        $('.fileupload input[type=file]').change(function () {
-            var input = $(this);
-            if (input[0].files && input[0].files[0]) {
-                var reader = new FileReader();
+        // Obtiene el estatus del usuario para saber que pantalla de perfil mostrarle
+        ProfileService.getStatus().then(
+            function(data){
+                if(data && data.id){
+                    $scope.tutor = {
+                        'id': data.id,
+                        'request': {
+                            //'approved': data.approved,
+                            //'sent': data.request_sent
+                            'approved': true,
+                            'sent': true
+                        },
+                        'firstName': data.first_name,
+                        'lastName': data.last_name,
+                        'topics': [],
+                        'zones': []
+                    }
 
-                reader.onload = function (e) {
-                    $('#profile_picture')
-                        .attr('src', e.target.result);
-                };
+                    // Si el tutor ya envió el request y ya fue aceptado obtenemos su perfil completo
+                    if ($scope.tutor.request.approved && $scope.tutor.request.sent) {
 
-                reader.readAsDataURL(input[0].files[0]);
+                        ProfileService.getProfile().then(
+                            function(data){
+
+                                console.log(data);
+
+                                if(data && data.id){
+                                    $scope.tutor = {
+                                        'id': data.id,
+                                        'request': {
+                                            //'approved': data.approved,
+                                            //'sent': data.request_sent
+                                            'approved': true,
+                                            'sent': true
+                                        },
+                                        'firstName': data.first_name,
+                                        'lastName': data.last_name,
+                                        'gender': data.gender,
+                                        'phone': data.phone_number,
+                                        'details': data.details,
+                                        'references': data.references,
+                                        'studies': data.background,
+                                        'preference': data.preference,
+                                        'topics': data.categories,
+                                        'zones': data.counties
+                                    }
+
+                                    $scope.createWeekCalendar();
+                                    $scope.updateWeekCalendar($scope.tutor.preference.availabilities);
+                                }
+                            },
+                            function(response){
+                                console.log('Error getting tutor\'s request status: ' + response);
+                            }
+                        );
+                    }
+                }
+            },
+            function(response){
+                console.log('Error getting tutor\'s request status: ' + response);
             }
-        });
+        );
+
     });
 
     // Función que simula el click en el input type file
-    $scope.openImageSelector = function(event) {
-        $(event.target).siblings('.fileupload').find('input').trigger('click');
+    $scope.openProfilePictureSelector = function(event) {
+        $(event.target).siblings('input').trigger('click');
         return false;
+    }
+
+    // Función que modifica la imagen del perfil del tutor
+    $scope.selectProfilePicture = function(element) {
+        var input = $(element);
+        if (input[0].files && input[0].files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $(element).siblings('img.profile_picture')
+                    .attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input[0].files[0]);
+        }
     }
 
     $scope.selectCategory = function(category) {
         $scope.selectedCategory = category;
     }
 
-    //Function that adds a topic to a tutor's request
-    $scope.addTutorRequestTopic = function() {
+    //Function that adds a topic to a tutor's information
+    $scope.addTutorTopic = function() {
         if ($scope.selectedTopic && $scope.selectedCategory) {
-            $scope.tutorRequest.topics.push({
+            $scope.tutor.topics.push({
                 'name' : $scope.selectedTopic,
-                'category' : $scope.selectedCategory.name
+                'category_id' : parseInt($scope.selectedCategory.id)
             });
         }
     }
 
-    //Function that removes a topic from a tutor's profile
+    //Function that removes a zone from a tutor's information
+    $scope.removeTutorZone = function(index) {
+        $scope.tutor.zones.splice(index, 1);
+        console.log($scope.tutor.zones);
+    }
+
+    //Function that adds a zone to a tutor's information
+    $scope.addTutorZone = function() {
+        if ($scope.selectedZone) {
+            $scope.tutor.zones.push({
+                'id': $scope.selectedZone.originalObject.id,
+                'name': $scope.selectedZone.originalObject.name
+            });
+        }
+    }
+
+    //Function that removes a topic from a tutor's information
     $scope.removeTutorTopic = function(index) {
         $scope.tutor.topics.splice(index, 1);
     }
@@ -82,80 +168,156 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
 
         $scope.$broadcast('show-errors-check-validity', $scope.tutorRequestForm);
 
-        if ($scope.tutorRequestForm.$valid && $scope.tutorRequest.topics.length) {
-            var data = {
-                'tutor': {
-                    'first_name': $scope.tutorRequest.name,
-                    'last_name': $scope.tutorRequest.lastname,
-                    'background': $scope.tutorRequest.studies,
-                    'categories': [],
-                    'references': $scope.tutorRequest.references
-                }
+        if ($scope.tutorRequestForm.$valid && $scope.tutor.topics.length) {
+            var tutor = {
+                'id': $scope.tutor.id,
+                'first_name': $scope.tutor.name,
+                'last_name': $scope.tutor.lastname,
+                'background': $scope.tutor.studies,
+                'references': $scope.tutor.references,
+                'categories': $scope.tutor.topics
             }
 
-            $.ajax({
-                type: "PUT",
-                url: "/tutors/1.json",
-                data: data,
-                dataType: "json",
-                success: function(response) {
-                    alert('La solicitud fue enviada con éxito');
+            ProfileService.submitRequest(tutor).then(
+                function(data){
+                    if(data && data.id) {
+                        $scope.tutor.request.sent = true;
+                    }
                 },
-                error: function(error) {
-                    console.log(error);
-                    alert('Ocurrió un error al enviar la solicitud');
+                function(response){
+                    console.log('Error getting tutor\'s request status: ' + response);
                 }
-            });
+            );
         }
 
-    }
-
-    //Function that removes a topic from a tutor's request
-    $scope.removeTutorRequestTopic = function(index) {
-        $scope.tutorRequest.topics.splice(index, 1);
-    }
-
-    //Function that adds a topic to a tutor's profile
-    $scope.addTutorTopic = function() {
-        if ($scope.selectedTopic && $scope.selectedCategory) {
-            $scope.tutor.topics.push({
-                'name' : $scope.selectedTopic,
-                'category' : $scope.selectedCategory.name
-            });
-        }
     }
 
     //Function that submits the tutor profile for update
     $scope.submitTutorProfile = function() {
 
-        $scope.$broadcast('show-errors-check-validity', $scope.tutorProfileForm);
+        // Objeto que será enviado al servicio que actualiza el calendario de disponibilidad del tutor
+        var weekCalendar = {
+            'id': $scope.tutor.id,
+            'availabilities': []
+        };
 
-        if ($scope.tutorProfileForm.$valid && $scope.tutor.topics.length) {
-            var data = {
-                'tutor': {
-                    'first_name': $scope.tutor.name,
-                    'last_name': $scope.tutor.lastname,
-                    'background': $scope.tutor.studies,
-                    'categories': [],
-                    'references': $scope.tutor.references
+        // Lógica que pobla el objeto weekCalendar
+        var validCalendar = true;
+
+        // Recorremos el calendario semanal por día (columnas)
+        for (var i=0; i<$scope.DAYS.length; i++){
+            var straightHalfhours = 0;  // variable que contiene el número de medias horas contiguas
+            var startTime = '';         // Variable que contiene la hora inicial del bloque contiguo
+            var endTime = '';           // Variable que contiene la hora final del bloque contiguo
+
+            // Recorremos cada media hora de cada día de arriba hacia abajo para revisar su contigüidad
+            for(var j=0; j<$scope.weekRows.length; j++) {
+                if ($scope.weekRows[j].halfHours[i].available){
+                    startTime = $scope.weekRows[j].halfHours[i].startTime;
+                    endTime = $scope.weekRows[j].halfHours[i].endTime;
+
+                    // Si comenzamos un bloque agregamos un objeto, si no solamente actualizamos su fecha final
+                    if (straightHalfhours == 0) {
+                        weekCalendar.availabilities.push(
+                            {
+                                'day_number': i,
+                                'start': startTime,
+                                'end': endTime
+                            }
+                        );
+                    } else {
+                        weekCalendar.availabilities[weekCalendar.availabilities.length - 1].end = endTime;
+                    }
+
+                    straightHalfhours++;
+
+                    if (!$scope.weekRows[j+1] || !$scope.weekRows[j+1].halfHours[i].available){
+                        if (straightHalfhours == 1) {
+                            validCalendar = false;
+                            break;
+                        }
+                    }
+                } else {
+                    // Reseteamos las variables para buscar un nuevo bloque
+                    straightHalfhours = 0;
+                    startTime = '';
+                    endTime = '';
                 }
             }
 
-            $.ajax({
-                type: "PUT",
-                url: "/tutors/1.json",
-                data: data,
-                dataType: "json",
-                success: function(response) {
-                    alert('La solicitud fue enviada con éxito');
+            if (!validCalendar) {
+                break;
+            }
+        }
+
+        $scope.$broadcast('show-errors-check-validity', $scope.tutorProfileForm);
+
+        if ($scope.tutorProfileForm.$valid && $scope.tutor.topics.length && validCalendar) {
+
+            var tutor = {
+                'id': $scope.tutor.id,
+                'first_name': $scope.tutor.name,
+                'last_name': $scope.tutor.lastname,
+                'background': $scope.tutor.studies,
+                'references': $scope.tutor.references,
+                'categories': $scope.tutor.topics
+            }
+
+            ProfileService.submitProfile(tutor).then(
+                function(data){
+                    if(data && data.id) {
+                        alert('La solicitud fue enviada con éxito');
+                    }
                 },
-                error: function(error) {
-                    console.log(error);
+                function(response){
                     alert('Ocurrió un error al enviar la solicitud');
+                    console.log('Error getting tutor\'s request status: ' + response);
                 }
-            });
+            );
+
+            ProfileService.submitWeekCalendar(weekCalendar).then(
+                function(data){
+                    if(data && data.id) {
+                        alert('El calendario fue actualizado con éxito');
+                    }
+                },
+                function(response){
+                    alert('Ocurrió un error al enviar el calendario');
+                    console.log('Error getting tutor\'s request status: ' + response);
+                }
+            );
         }
 
     }
+
+    // Método que genera la información para poblar la vista semanal del perfil del tutor
+    $scope.createWeekCalendar = function() {
+        $scope.weekRows = new Array();
+
+        for(var rowIndex=0; rowIndex<$scope.HOURS.length; rowIndex++){
+            $scope.weekRows[rowIndex] = {
+                'halfHours': new Array()
+            };
+            for(var dayIndex=0; dayIndex<$scope.DAYS.length; dayIndex++){
+                $scope.weekRows[rowIndex].halfHours[dayIndex] = {
+                    'startTime': $scope.HOURS[rowIndex],
+                    'endTime': $scope.HOURS[rowIndex + 1] ? $scope.HOURS[rowIndex + 1] : $scope.HOURS[0],
+                    'available': false
+                };
+            }
+        }
+    };
+
+    $scope.updateWeekCalendar = function(availabilities) {
+        for(var i=0; i<availabilities.length; i++) {
+
+        }
+    }
+
+    // Método que cambia la disponibilidad de un horario
+    $scope.toggleHourAvailability = function(halfHour) {
+        halfHour.available = !halfHour.available;
+    }
+
 
 }]);

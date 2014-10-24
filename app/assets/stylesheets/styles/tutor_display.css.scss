@@ -12,11 +12,31 @@
   }
 }
 
+.custom-checkbox-profile {
+  /* checkbox aspect */
+  [type="checkbox"]:not(:checked) + label:before,
+  [type="checkbox"]:checked + label:before {
+    background: $color-input-gray;
+  }
+
+  label {
+    color: $color-dark-gray;
+    margin-right: 2em;
+    text-transform: uppercase;
+  }
+}
+
 .custom-radio {
   /* radio aspect */
   [type="radio"]:not(:checked) + label:before,
   [type="radio"]:checked + label:before {
-    background: $color-dark-pink;
+    background: $color-input-gray;
+  }
+
+  label {
+    color: $color-dark-gray;
+    margin-right: 2em;
+    text-transform: uppercase;
   }
 }
 
@@ -389,7 +409,7 @@ footer{
 .section-dashboard-container {
   background-color: $color-light-gray;
 
-  .tutor-request-container {
+  .tutor-profile-container {
 
     .left{
       display: inline-block;
@@ -397,6 +417,16 @@ footer{
       vertical-align: top;
       text-align: right;
       width: 18%;
+    }
+
+    .profile-zones {
+      .angucomplete-holder {
+        width: 50%;
+
+        .form-input-half {
+          width: 100%;
+        }
+      }
     }
 
     .request-title {
@@ -435,7 +465,7 @@ footer{
       text-align: center;
       width: 100%;
 
-      .profile_picture {
+      .profile_picture_container {
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
         display: inline-block;

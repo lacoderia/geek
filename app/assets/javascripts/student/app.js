@@ -8,9 +8,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt', 
             'CATEGORY_SERVICE_URL': '/categories.json',
             'COUNTY_SERVICE_URL': '/counties.json',
             'TUTOR_SERVICE_URL': '/tutors/by_county_and_category_ids.json'
-
         }
-
     })
 
     .config(function($stateProvider, $urlRouterProvider){

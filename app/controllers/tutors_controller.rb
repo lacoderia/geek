@@ -129,7 +129,7 @@ class TutorsController < ApplicationController
   # tutor un objeto tutor con la información 
   def profile
     if current_user
-      @tutor = Tutor.where('email = ? ', current_user.email)[0]
+      @tutor = Tutor.joins(:preference => :availabilities).where('email = ? ', current_user.email)[0]
     end
   end
 

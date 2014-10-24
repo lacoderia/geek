@@ -15,6 +15,12 @@ class Tutor < ActiveRecord::Base
   has_many :specific_availabilities
   has_many :availabilities, through: :preference
 
+  after_create :set_default_preferences
+
+  def set_default_preferences
+    self.update_attribute(:preference, Preference.create(cost: 0.00, online: false, office: true))
+  end
+
   def refresh_token_action
     client = Google::APIClient.new
     client.authorization.client_id = ENV['GOOGLE_CLIENT_ID']
