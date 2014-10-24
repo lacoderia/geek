@@ -84,7 +84,11 @@ class AppointmentsController < ApplicationController
   def by_tutor 
     @appointments = []
     if current_user and current_user.client_type == "Tutor"
-      @appointments = Tutor.list_appointments(current_user.client_id, params[:month], params[:year], params[:previous])
+      if @grouped = params[:previous]
+        @appointments = Tutor.list_previous_appointments(current_user.client_id) 
+      else
+        @appointments = Tutor.list_appointments(current_user.client_id, params[:month], params[:year])
+      end
     end
   end
 
@@ -97,7 +101,11 @@ class AppointmentsController < ApplicationController
   def by_student
     @appointments = []
     if current_user and current_user.client_type == "Student"
-      @appointments = Student.list_appointments(current_user.client_id, params[:month], params[:year], params[:previous])
+      if @grouped = params[:previous]
+        @appointments = Student.list_previous_appointments(current_user.client_id) 
+      else
+        @appointments = Student.list_appointments(current_user.client_id, params[:month], params[:year])
+      end
     end
   end
 

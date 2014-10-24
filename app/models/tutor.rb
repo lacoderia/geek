@@ -164,15 +164,25 @@ class Tutor < ActiveRecord::Base
   end
 
   # month, year, previous pueden ser nil. Previous es la primera condicion que se checa para retornar el historico
-  def self.list_appointments tutor_id, month, year, previous
+  def self.list_appointments tutor_id, month, year 
     tutor = Tutor.find tutor_id
-    if previous
-      tutor.appointments.includes(:student, :address, :appointment_status).where("appointments.end < ?", Time.now ).order("start DESC")
-    elsif month and year
+    if month and year
       tutor.appointments.includes(:student, :address, :appointment_status).where("EXTRACT(month from start) = ? AND EXTRACT(year from start) = ?", month.to_i, year.to_i).order(:appointment_status_id)
     else
       tutor.appointments.includes(:student, :address, :appointment_status).order(:appointment_status_id)
     end
+  end
+
+  def self.list_previous_appointments(tutor_id)
+    tutor = Tutor.find tutor_id
+    appointments = tutor.appointments.select("*, EXTRACT(year from appointments.end) as per_year, EXTRACT(month from appointments.end) as per_month, EXTRACT(day from appointments.end) as per_day").includes(:student, :address, :appointment_status).where("appointments.end < ?", Time.now ).order("start DESC")
+    result = {}
+    appointments.each do |appointment|
+      key = "#{appointment.per_year.to_i}-#{'%02d' % appointment.per_month.to_i}-#{'%02d' % appointment.per_day.to_i}"
+      result[key] = [] if not result[key]
+      result[key] << appointment
+    end
+    result.sort.to_h
   end
 
   def self.save_availabilities tutor_id, availabilities
