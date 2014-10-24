@@ -167,7 +167,7 @@ class Tutor < ActiveRecord::Base
   def self.list_appointments tutor_id, month, year, previous
     tutor = Tutor.find tutor_id
     if previous
-      tutor.appointments.includes(:student, :address, :appointment_status).where("appointments.end < ?", Time.now ).order(:appointment_status_id)
+      tutor.appointments.includes(:student, :address, :appointment_status).where("appointments.end < ?", Time.now ).order("start DESC")
     elsif month and year
       tutor.appointments.includes(:student, :address, :appointment_status).where("EXTRACT(month from start) = ? AND EXTRACT(year from start) = ?", month.to_i, year.to_i).order(:appointment_status_id)
     else

@@ -22,7 +22,7 @@ class Users::SessionsController < Devise::SessionsController
         sign_in @user
         if @user.role? :student
           session["student.login"] = nil
-          path = student_dashboard_url
+          path = '/student#/dashboard'
         else
           session["tutor.login"] = nil
           path = '/tutor#/dashboard'

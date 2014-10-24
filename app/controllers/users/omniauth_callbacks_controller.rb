@@ -8,10 +8,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       #@user.update_attribute(:token, auth_hash.credentials.token)
       if @user.role? :student
         session["devise.facebook_data"] = nil
-        redirect_to student_dashboard_url
+        redirect_to '/student#/dashboard'
       else #este no deberia de pasar
         session["devise.google_data"] = nil
-        redirect_to tutor_dashboard_url
+        redirect_to '/tutor#/dashboard'
       end
     else
       session["devise.facebook_data"] = auth_hash.except("extra")
@@ -27,7 +27,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       sign_in @user
       if @user.role? :student #este no deberia de pasar
         session["devise.facebook_data"] = nil
-        redirect_to student_dashboard_url
+        redirect_to '/student#/dashboard'
       else
         session["devise.google_data"] = nil
         redirect_to '/tutor#/dashboard'

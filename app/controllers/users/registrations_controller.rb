@@ -24,7 +24,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         if @user.role? :student
           Student.create(credits: 0.0, user: @user)
           sign_in @user
-          format.html { redirect_to student_dashboard_url }
+          format.html { redirect_to '/student#/dashboard' }
           format.json { render :show, status: :created, location: @user }
         else
           #crear calendario

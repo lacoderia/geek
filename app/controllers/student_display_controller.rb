@@ -1,16 +1,11 @@
 class StudentDisplayController < ApplicationController
 
   def landing
-
-    #Get categories catalog
-    @categories = Category.all
-
     if session["devise.facebook_data"]
       auth_hash = session["devise.facebook_data"]
       role = Role.find_by_name("student")
       @user = User.new(:first_name => auth_hash["info"]["first_name"], :last_name => auth_hash["info"]["last_name"], :uid => auth_hash["uid"], :email => auth_hash["info"]["email"], :token => auth_hash["credentials"]["token"], :refresh_token => auth_hash["credentials"]["refresh_token"], :roles => [role])
-    end
-    if session["student.login"]
+    elsif session["student.login"]
       @login = true
     end
 
@@ -18,7 +13,6 @@ class StudentDisplayController < ApplicationController
 
   def dashboard
     #session["devise.facebook_data"] = nil
-
   end
 
   def show
