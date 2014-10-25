@@ -163,7 +163,7 @@ class Tutor < ActiveRecord::Base
     tutor.appointments.where("appointment_status_id = ?", AppointmentStatus.find(appointment_status_id))
   end
 
-  # month, year, previous pueden ser nil. Previous es la primera condicion que se checa para retornar el historico
+  # month, year, previous pueden ser nil. 
   def self.list_appointments tutor_id, month, year 
     tutor = Tutor.find tutor_id
     if month and year
