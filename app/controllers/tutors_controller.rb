@@ -128,8 +128,9 @@ class TutorsController < ApplicationController
   # Regresa:
   # tutor un objeto tutor con la información 
   def profile
+    #@tutor = Tutor.last
     if current_user
-      @tutor = Tutor.joins(:preference => :availabilities).where('email = ? ', current_user.email)[0]
+      @tutor = Tutor.joins("INNER JOIN preferences ON preferences.id = tutors.preference_id").joins("LEFT OUTER JOIN availabilities ON preferences.id = availabilities.preference_id").where('email = ? ', current_user.email).first
     end
   end
 
