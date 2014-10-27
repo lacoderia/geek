@@ -1,6 +1,6 @@
 if @grouped
 
-  @appointments.each do |key, value|
+  json.array! (@appointments) do |key, value|
     json.set! key do
       json.array!(value) do |appointment|
         json.extract! appointment, :id, :start, :end, :details, :subject
