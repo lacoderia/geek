@@ -175,11 +175,12 @@ $screen-lg-min: 1200px;
 
 body{
   font-family: 'Gotham';
+  user-select: none;
 }
 
 h2.section-title{
   font-size:  2.5em;
-  margin: 0em;
+  margin: 0em 0em 1em;
 }
 
 .action-button{
@@ -345,12 +346,12 @@ h2.section-title{
 
 .action-button-light-red{
   background-color: $color-light-red;
-  color: $color-dark-red;
+  color: white;
 }
 
 .action-button-light-red:hover{
   background-color: $color-dark-red;
-  color: $color-light-red;
+  color: white;
   text-decoration: none;
 }
 
@@ -408,37 +409,166 @@ h2.section-title{
   color: white;
 }
 
+.appointment-history{
+  border: 2px solid $color-input-gray-bgcolor;
+  min-height: 300px;
+  margin: 2em 0em 0em 0em;
+
+  .history-list-view-row{
+    table{
+      border-collapse: collapse;
+      padding: 0px;
+      width: 100%;
+
+      td{
+        padding: 0px;
+      }
+
+      th{
+        font-weight: normal;
+      }
+    }
+
+    .history-list-day-title-row{
+      background-color: $color-sign-up-dark-blue;
+      color: $color-light-blue;
+      font-size: 16px;
+      width: 100%;
+
+      .day-title{
+        font-weight: 500 !important;
+        padding: 0.5em;
+      }
+    }
+
+    .history-list-title-row{
+      border-bottom: 2px solid $color-input-gray-bgcolor;
+      border-left: 2px solid $color-input-gray-bgcolor;
+      border-right: 2px solid $color-input-gray-bgcolor;
+      box-sizing: border-box;
+      color: $color-dark-gray;
+      font-size: 2rem;
+      font-weight: 400;
+      padding: 0px;
+      text-align: center;
+      width: 100%;
+    }
+
+    .info-title{
+      background-color: $color-input-gray-bgcolor;
+      color: $color-dark-green;
+      font-size: 1rem;
+      font-weight: 500;
+      padding: 1rem;
+      text-align: center;
+      text-transform: uppercase;
+      width: 25%;
+    }
+
+    .history-list-day-info-row{
+      padding: 1em;
+      width: 100%;
+
+      .day-info{
+        background-color: $color-sign-up-light-blue;
+        color: $color-light-blue;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 300;
+        padding: 0.5em;
+        text-align: center;
+        width: 20%;
+      }
+    }
+
+
+  }
+
+  .history-list-view-unavailable{
+    display: table;
+    height: 300px;
+    text-align: center;
+    width: 100%;
+
+    .history-list-view-unavailable-content{
+      color: $color-dark-gray;
+      display: table-cell;
+      font-size: 2.5em;
+      vertical-align: middle;
+    }
+  }
+}
+
 .calendar{
+
+  .appointment-status-canceled{
+    color: $color-dark-red;
+  }
+
+  .appointment-status-confirmed{
+    color: $color-dark-green;
+  }
+
+  .appointment-status-completed{
+    color: $color-light-green;
+  }
+
+  .appointment-status-pending{
+    color: $color-light-orange;
+  }
+
+  .appointment-status-rejected{
+    color: $color-light-red;
+  }
 
   margin: 2em 0em 0em 0em;
 
   .action-button{
+    cursor: pointer;
     display: inline-block;
+    font-size: 14px;
   }
 
-
   .month-view{
-    .month-title{
-      background-color: $color-light-green;
-      display: inline-block;
-      color: white;
-      font-size: 2.5em;
-      padding: 0.3em;
-      text-align: center;
-      text-transform: uppercase;
-      width: 85.6%;
 
-      span.control{
-        cursor: pointer;
-        width: 8%;
+    .calendar-header{
+
+      display: table;
+      font-size: 0px;
+      width: 100%;
+
+      .action-button{
+        display: table-cell;
+        font-size: 0.8rem;
+        height: 100%;
+        text-align: center;
+        vertical-align: middle;
+        width: 14%;
       }
 
-      span.title{
-        width: 80%;
-      }
+      .month-title{
+        background-color: $color-light-green;
+        display: table-cell;
+        color: white;
+        font-size: 2.0rem;
+        padding: 0.3em;
+        text-align: center;
+        text-transform: uppercase;
+        vertical-align: top;
+        width: 85.6%;
 
-      span{
-        display: inline-block;
+        span.control{
+          cursor: pointer;
+          width: 8%;
+        }
+
+        span.title{
+          width: 80%;
+        }
+
+        span{
+          display: inline-block;
+        }
       }
     }
 
@@ -492,13 +622,13 @@ h2.section-title{
         }
 
 
-        a.current-day-class{
-          background-color: $color-sign-up-dark-blue;
+        a.current-day{
+          color: $color-light-blue;
+          //background-color: $color-sign-up-dark-blue;
         }
 
-        a.current-day-class:hover{
-          background-color: $color-sign-up-dark-blue;
-          color: white;
+        a.current-day:hover{
+          background-color: $color-input-gray-bgcolor;
         }
 
         a.current-month{
@@ -508,6 +638,15 @@ h2.section-title{
         a.current-month:hover{
           background-color: $color-input-gray-bgcolor;
         }
+
+        a.selected-day{
+          background-color: $color-sign-up-dark-blue;
+        }
+
+        a.selected-day:hover{
+          background-color: $color-sign-up-dark-blue;
+        }
+
       }
 
       .month-day-title{
@@ -518,19 +657,131 @@ h2.section-title{
         padding: 1rem;
         text-align: center;
         text-transform: uppercase;
+        width: 14%;
       }
 
     }
   }
 
-  .week-view{
+  .week-list-view{
+    border: 2px solid $color-input-gray-bgcolor;
+    min-height: 300px;
+    margin: 2em 0em 0em 0em;
 
-    .week-row{
-      font-size: 0px;
-      padding: 0px;
-      margin: 0px;
+    .week-list-view-row{
+      table{
+        border-collapse: collapse;
+        padding: 0px;
+        width: 100%;
+
+        td{
+          padding: 0px;
+        }
+
+        th{
+          font-weight: normal;
+        }
+      }
+
+      .week-list-day-row{
+        margin-bottom: 1.3em;
+        width: 100%;
+
+        .week-list-day-title-row{
+          background-color: $color-sign-up-dark-blue;
+          color: $color-light-blue;
+          font-size: 16px;
+          width: 100%;
+
+          .day-title{
+            font-weight: 500 !important;
+            padding: 0.5em;
+          }
+        }
+        .week-list-day-info-row{
+          cursor: pointer;
+          padding: 1em;
+          width: 100%;
+
+          .day-info{
+            background-color: $color-sign-up-light-blue;
+            color: $color-light-blue;
+            font-size: 14px;
+            font-weight: 300;
+            padding: 0.5em;
+            text-align: center;
+            width: 20%;
+
+          }
+
+          .appointment-button{
+            font-size: 14px;
+            text-align: center;
+
+            .cancel-class{
+              color: $color-dark-red;
+            }
+
+            .confirm-class{
+              color: $color-light-green;
+            }
+
+            .reject-class{
+              color: $color-light-red;
+
+            }
+          }
+
+        }
+      }
+
+      .week-list-title-row{
+        border-bottom: 2px solid $color-input-gray-bgcolor;
+        border-left: 2px solid $color-input-gray-bgcolor;
+        border-right: 2px solid $color-input-gray-bgcolor;
+        box-sizing: border-box;
+        color: $color-dark-gray;
+        font-size: 2rem;
+        font-weight: 400;
+        padding: 0px;
+        text-align: center;
+        width: 100%;
+      }
+
+      .info-title{
+        background-color: $color-input-gray-bgcolor;
+        color: $color-dark-green;
+        font-size: 1rem;
+        font-weight: 500;
+        padding: 1rem;
+        text-align: center;
+        text-transform: uppercase;
+        width: 20%;
+      }
+
+
+    }
+
+    .week-list-view-unavailable{
+      display: table;
+      height: 300px;
+      text-align: center;
       width: 100%;
 
+      .week-list-view-unavailable-content{
+        color: $color-dark-gray;
+        display: table-cell;
+        font-size: 2.5em;
+        height: 100%;
+        vertical-align: middle;
+      }
+    }
+  }
+
+  .week-view{
+    margin: 2em 0em 0em 0em;
+
+    .week-row{
       table{
         padding: 0px;
         width: 100%;
@@ -811,17 +1062,22 @@ h2.section-title{
 }
 
 .events{
-  font-size: 14px;
+  font-size: 0px;
+  min-height: 10px;
   padding: 0px;
 
   .event{
     border-radius: 50%;
     display: inline-block;
-    margin: 0px 0px 2px;
+    margin: 0px 4px 2px 0px;
     overflow: hidden;
     height: 8px;
     vertical-align: middle;
     width: 8px;
+  }
+
+  .events:last-child{
+    margin-right: 0px;
   }
 
   .event-green{
@@ -845,6 +1101,7 @@ ul.events{
 
   li{
     display: inline-block;
+    font-size: 14px;
     margin-right: 2em;
   }
 }
@@ -946,6 +1203,70 @@ ul.events{
   }
 }
 
+.modal-detail{
+  background-color: white;
+  border: 1px solid $color-medium-gray;
+  box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.55);
+  margin: 0;
+  max-width: 400px;
+  position: absolute;
+  width: 100%;
+
+  .modal-detail-close{
+    color: #28479C;
+    cursor: pointer;
+    position: absolute;
+    right: 16px;
+    top: 18px;
+  }
+
+  .modal-detail-close:hover{
+    color: $color-light-blue;
+  }
+
+  .modal-detail-header{
+    background-color: $color-sign-up-dark-blue;
+    border-bottom: 1px solid $color-medium-gray;
+    color: #28479C;
+    font-size: 1.4rem;
+    font-weight: 500;
+    padding: 0.6rem 1em;
+  }
+
+  .modal-detail-content{
+    color: $color-medium-gray;
+    font-size: 1rem;
+    padding: 1em;
+  }
+
+}
+
+.modal-detail:before{
+  bottom: -36px;
+  border: solid transparent;
+  border-top: solid $color-medium-gray;
+  border-width: 18px;
+  content: " ";
+  height: 0;
+  left: 18px;
+  position: absolute;
+  pointer-events: none;
+  width: 0;
+}
+
+.modal-detail:after{
+  bottom: -32px;
+  border: solid transparent;
+  border-top: solid white;
+  border-width: 16px;
+  content: " ";
+  height: 0;
+  left: 20px;
+  position: absolute;
+  pointer-events: none;
+  width: 0;
+}
+
 .modal-dialog {
   left: 50%;
   margin: 0;
@@ -1001,6 +1322,7 @@ ul.events{
 
         > a{
           display: inline-block;
+          cursor: pointer;
           padding: 0.5em 0.8em;
         }
       }

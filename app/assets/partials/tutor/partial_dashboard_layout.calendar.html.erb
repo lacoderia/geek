@@ -6,11 +6,13 @@
             <li><span class="event event-green"></span> Cita confirmada</li>
             <li><span class="event event-green"></span> Cita confirmada</li>
           </ul>
-          <div class="month-title">
-            <span ng-click="getPreviousMonth()" class="control"><span class="control-arrow control-left-arrow"></span></span>
-            <span class="title"> {{ MONTHS[selectedMonth] }} {{ selectedYear }} </span>
-            <span ng-click="getNextMonth()" class="control"><span class="control-arrow control-right-arrow"></span></span></div>
-          <div class="action-button action-button-dark-green">Editar preferencias</div>
+          <div class="calendar-header">
+            <div class="month-title">
+                <span ng-click="getPreviousMonth()" class="control"><span class="control-arrow control-left-arrow"></span></span>
+                <span class="title"> {{ MONTHS[selectedMonth] }} {{ selectedYear }} </span>
+                <span ng-click="getNextMonth()" class="control"><span class="control-arrow control-right-arrow"></span></span></div>
+                <a class="action-button action-button-dark-green" title="Editar preferencias" ui-sref="dashboard.profile">Editar preferencias</a>
+          </div>
           <div class="month-row">
             <table>
               <tbody>
@@ -28,8 +30,8 @@
               <tbody>
                   <tr>
                     <td class="month-day" ng-repeat="day in row.days">
-                      <a class="{{ day.isCurrentDayClass }}">{{ day.numberDay }}
-                        <div class="events"><span class="event event-green"></span></div>
+                      <a title="Día {{ day.numberDay }}" ng-class="[day.dayClass, { true:'selected-day', false:'' }[day.selected]]" ng-click="selectDate(day)">{{ day.numberDay }}
+                        <div class="events"><span class="event event-green" ng-repeat="appointment in day.appointments"></span></div>
                       </a>
                     </td>
                   </tr>
@@ -37,25 +39,48 @@
             </table>
           </div>
         </div>
-        <div class="week-view">
-          <div class="week-row">
-
-              <table>
+        <div class="week-list-view">
+          <div class="week-list-view-unavailable" ng-hide="existstWeekAppoinments">
+            <div class="week-list-view-unavailable-content">
+                <h3>No tienes citas agendadas en esta semana</h3>
+            </div>
+          </div>
+          <div class="week-list-view-row" ng-show="existstWeekAppoinments">
+            <table>
                 <thead>
-                    <tr class="week-title-row">
-                      <th class="info-title">Horario</th>
-                      <th class="info-title">Alumno</th>
-                      <th class="info-title">Materia</th>
-                      <th class="info-title">Pago</th>
-                      <th class="info-title">Estado</th>
+                    <tr class="week-list-title-row">
+                        <th class="info-title">Horario</th>
+                        <th class="info-title">Alumno</th>
+                        <th class="info-title">Materia</th>
+                        <th class="info-title">Estatus</th>
+                        <th class="info-title">Acciones</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                      <td colspan="5"></td>
-                    </tr>
-                </tbody>
-              </table>
+            </table>
+            <table ng-repeat="day in selectedWeek" class="week-list-day-row" ng-show="day.appointments">
+              <thead>
+                <tr class="week-list-day-title-row">
+                  <th class="hidden-sm hidden-xs day-title" colspan="6">{{ DAYS[day.day].title }}, {{ day.numberDay }} de {{ MONTHS[day.month] }}</th>
+                  <th class="hidden-md hidden-lg day-title" colspan="6">{{ DAYS[day.day].minTitle }}, {{ day.numberDay }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="appointment in day.appointments" class="week-list-day-info-row" ng-click="showAppointmentDetail($event,appointment)">
+                  <td class="day-info">De {{ appointment.startHour }} a {{ appointment.endHour }}</td>
+                  <td class="day-info">{{ appointment.student.first_name }} {{ appointment.student.last_name }}</td>
+                  <td class="day-info">{{ appointment.subject }}</td>
+                  <td class="day-info"><span ng-class="appointment.appointmentStatusClass"> {{ appointment.status.name }}</span></td>
+                  <td class="day-info">
+                    <div class="appointment-button">
+                        <a ng-show="showCancelButton" class="cancel-class" title="Cancelar clase" ng-click="changeStatusAppointment($event, $index, 'cancel', appointment)">Cancelar</a>
+                        <a ng-show="showAcceptButton" class="confirm-class" title="Confirmar clase" ng-click="changeStatusAppointment($event, $index, 'confirm', appointment)">Aceptar</a>
+                        <a ng-show="showRejectButton" class="reject-class" title="Rechazar clase" ng-click="changeStatusAppointment($event, $index, 'reject', appointment)">Rechazar</a>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div ng-modal-detail ></div>
           </div>
         </div>
     </div>

@@ -2,6 +2,8 @@
 
 Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "DEFAULT_VALUES", "CategoryService", function($scope, $rootScope, $timeout, DEFAULT_VALUES, CategoryService){
 
+    $rootScope.tutor = null;
+
     $(document).ready(function() {
 
         //Método que ayuda a centrar verticalmente los modales de bootstrap

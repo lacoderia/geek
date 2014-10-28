@@ -3,10 +3,14 @@
 Geek.factory('AppointmentService', ["$http", "$q", "DEFAULT_VALUES", function($http, $q, DEFAULT_VALUES){
 
     var all = function(){
-        /*var deferred = $q.defer();
+        var deferred = $q.defer();
         var promise = deferred.promise;
 
-        $http.get(DEFAULT_VALUES.URL_SERVICES.CATEGORY_SERVICE_URL).
+        $http.get(DEFAULT_VALUES.URL_SERVICES.APPOINTMENT_SERVICE_URL,{
+            params: {
+                'previous': true
+            }
+        }).
             success(function(data){
                 deferred.resolve(data);
             }).
@@ -15,14 +19,19 @@ Geek.factory('AppointmentService', ["$http", "$q", "DEFAULT_VALUES", function($h
                 deferred.reject(response);
             });
 
-        return promise*/
+        return promise
     };
 
-    var getAppointmentsByMonth = function(month){
-        /*var deferred = $q.defer();
+    var getAppointmentsByMonthAndYear = function(month, year){
+        var deferred = $q.defer();
         var promise = deferred.promise;
 
-        $http.get(DEFAULT_VALUES.URL_SERVICES.CATEGORY_SERVICE_URL).
+        $http.get(DEFAULT_VALUES.URL_SERVICES.APPOINTMENT_SERVICE_URL,{
+            params: {
+                'month': (month+1),
+                'year': year
+            }
+        }).
             success(function(data){
                 deferred.resolve(data);
             }).
@@ -31,18 +40,18 @@ Geek.factory('AppointmentService', ["$http", "$q", "DEFAULT_VALUES", function($h
                 deferred.reject(response);
             });
 
-        return promise*/
-        return [
-            {"id":1,"tutor_id":1,"start":"2014-10-10T18:16:37.842-05:00","end":"2014-10-10T19:16:37.842-05:00","details":"Detalles de la cita","address":{},"student":{},"status":{}},
-            {"id":1,"tutor_id":1,"start":"2014-10-20T18:16:37.842-05:00","end":"2014-10-20T19:16:37.842-05:00","details":"Detalles de la cita","address":{},"student":{},"status":{}},
-            {"id":1,"tutor_id":1,"start":"2014-10-21T18:16:37.842-05:00","end":"2014-10-21T19:16:37.842-05:00","details":"Detalles de la cita","address":{},"student":{},"status":{}},
-            {"id":1,"tutor_id":1,"start":"2014-10-23T18:16:37.842-05:00","end":"2014-10-23T19:16:37.842-05:00","details":"Detalles de la cita","address":{},"student":{},"status":{}}
-        ]
+        return promise
+
+    };
+
+    var setAppointmentStatus = function(appointmentId, appointmentStatusId){
+
     };
 
     return{
         all: all,
-        getAppointmentsByMonth: getAppointmentsByMonth
+        getAppointmentsByMonthAndYear: getAppointmentsByMonthAndYear,
+
     }
 
 }]);
