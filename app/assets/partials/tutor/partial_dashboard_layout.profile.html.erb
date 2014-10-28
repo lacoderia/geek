@@ -1,3 +1,4 @@
+<div ng-controller="ProfileController">
 <div class="tutor-profile-container" ng-show="tutor && !tutor.request.sent">
   <h2 class="section-title">Enviar solicitud</h2>
   <form name="tutorRequestForm" id="tutor_request_form" class="dashboard-form validation-form">
@@ -20,7 +21,7 @@
       </div>
       <div class="form-group" show-errors>
         <div class="left">
-            <label>Apellido:</label>
+          <label>Apellido:</label>
         </div>
         <div class="right">
           <input type="text" name="tutor_last_name" ng-model="tutor.lastName" class="form-input form-control" placeholder="APELLIDO" class="form-input form-control" required/>
@@ -28,7 +29,7 @@
       </div>
       <div class="form-group" show-errors>
         <div class="left">
-            <label>Teléfono:</label>
+          <label>Teléfono:</label>
         </div>
         <div class="right">
           <input type="text" name="tutor_phone" ng-model="tutor.phone" ng-pattern="/^[0-9]+$/" ng-minlength="8" ng-maxlength="10" maxlength="10" class="form-input form-control" placeholder="TELÉFONO" class="form-input form-control" required/>
@@ -251,4 +252,5 @@
       <a class="action-button action-button-light-green" ng-click="submitTutorProfile()">Guardar</a>
     </div>
   </form>
+</div>
 </div>

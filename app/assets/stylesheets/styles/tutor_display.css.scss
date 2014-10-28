@@ -4,6 +4,10 @@
 
 @import "lib/global";
 
+.appointment-detail-content{
+    padding: 0.2rem 1rem !important;
+}
+
 .custom-checkbox {
   /* checkbox aspect */
   [type="checkbox"]:not(:checked) + label:before,

@@ -1,10 +1,11 @@
 'use strict';
 
-var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt', 'ui.router', 'ui.bootstrap.showErrors'])
+var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'angucomplete-alt', 'ui.router', 'ui.bootstrap.showErrors'])
 
     .constant('DEFAULT_VALUES',{
         'LANGUAGE':'es',
         'URL_SERVICES': {
+            'APPOINTMENT_SERVICE_URL': 'appointments/by_tutor.json',
             'CATEGORY_SERVICE_URL': '/categories.json',
             'COUNTY_SERVICE_URL': '/counties.json',
             'PROFILE_GET_STATUS_URL': '/tutors/status.json',
@@ -20,6 +21,8 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt', 
         'MONTHS': ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
         'START_YEAR': 1900,
         'TOTAL_CALENDAR_ROWS': 6,
+        'APPOINTMENT_STATUS': [{id:1,name:'pending'},{id:2,name:'rejected'},{id:3,name:'confirmed'},{id:4,name:'canceled'},{id:5,name:'completed'}],
+        'STATUS_CLASS': {'pending':'appointment-status-pending icon-help','rejected':'appointment-status-rejected icon-close','confirmed':'appointment-status-confirmed icon-accept','canceled':'appointment-status-canceled icon-close','completed':'appointment-status-completed'}
     })
 
     .config(function($stateProvider, $urlRouterProvider){
@@ -45,14 +48,23 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt', 
             })
             .state('dashboard.profile', {
                 url: "/profile",
-                templateUrl: "/assets/tutor/partial_dashboard_layout.profile.html",
-                controller: "ProfileController"
+                templateUrl: "/assets/tutor/partial_dashboard_layout.profile.html"
             })
             .state('dashboard.messages', {
                 url: "/messages",
                 templateUrl: "/assets/tutor/partial_dashboard_layout.messages.html"
             });
-    })    
+    })
+
+    .filter('groupByDate', function(){
+
+        return function(items){
+
+            console.log(items)
+
+        }
+
+    })
 
     .directive('pwCheck', [function () {
         return {

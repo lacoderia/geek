@@ -23,6 +23,7 @@
 //= require lib/angular/angular-resource.js
 //= require lib/angular/angular-route.js
 //= require lib/angular/angular-animate
+//= require lib/angular/angular-sanitize
 
 // Directivas externas
 //= require lib/angular/angucomplete-alt
