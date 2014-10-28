@@ -46,6 +46,9 @@ class Tutor < ActiveRecord::Base
       result = client.execute(:api_method => service.events.insert, :parameters => {'calendarId' => calendar, 'sendNotifications' => true}, :body => JSON.dump('start' => {'dateTime' => start_date.to_json.gsub(/"/, '') }, 'end' => {'dateTime' => (start_date + length_in_hours.hour).to_json.gsub(/"/, '') }, 'summary' => name, 'attendees' => attendees_emails ), :headers => {'Content-Type' => 'application/json'})
       # appointment_status_id 1 == enviado
       appointment = Appointment.create(student_id: student.id, tutor_id: self.id, appointment_id: JSON.parse(result.response.body)["id"], start: start_date, end: start_date + length_in_hours.hour, appointment_status_id: 1, subject: name)
+      UserMailer.tutor_notification_email(appointment.tutor_id, appointment.appointment_status_id).deliver
+      UserMailer.student_notification_email(appointment.student_id, appointment.appointment_status_id).deliver
+
       return appointment 
     rescue Exception => e
       logger.error ("ERROR #{e}")

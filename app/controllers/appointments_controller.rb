@@ -42,9 +42,12 @@ class AppointmentsController < ApplicationController
   def update
     respond_to do |format|
       if @appointment.update(appointment_params)
-        if @appointment.appointment_status_id == 4 #Estatus cancelado
+        if @appointment.appointment_status_id == 4 or @appointment.appointment_status_id == 2 #Estatus cancelado o rechazado
           @appointment.tutor.delete_appointment @appointment 
         end
+        UserMailer.tutor_notification_email(@appointment.tutor_id, @appointment.appointment_status_id).deliver
+        UserMailer.student_notification_email(@appointment.student_id, @appointment.appointment_status_id).deliver
+
         format.html { redirect_to @appointment, notice: 'Appointment was successfully updated.' }
         format.json { render :show, status: :ok, location: @appointment }
       else
