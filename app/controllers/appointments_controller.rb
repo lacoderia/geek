@@ -42,7 +42,7 @@ class AppointmentsController < ApplicationController
   def update
     respond_to do |format|
       if @appointment.update(appointment_params)
-        if @appointment.appointment_status_id == 4 #Estatus cancelado
+        if @appointment.appointment_status_id == 4 or @appointment.appointment_status_id == 2 #Estatus cancelado o rechazado
           @appointment.tutor.delete_appointment @appointment 
         end
         format.html { redirect_to @appointment, notice: 'Appointment was successfully updated.' }
