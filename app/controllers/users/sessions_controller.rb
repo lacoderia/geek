@@ -25,7 +25,7 @@ class Users::SessionsController < Devise::SessionsController
           path = '/student#/dashboard'
         else
           session["tutor.login"] = nil
-          path = '/tutor#/dashboard'
+          path = :tutor_redirect
         end 
       else
         #Constraseña incorrecta

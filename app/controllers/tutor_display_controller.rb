@@ -10,8 +10,17 @@ class TutorDisplayController < ApplicationController
     end
   end
 
-  def dashboard 
-    #session["devise.google_data"] = nil
+  def redirect 
+    path = '/tutor'
+    if current_user
+      @tutor = Tutor.where('email = ? ', current_user.email)[0]
+      if @tutor.approved
+        path = '/tutor#/dashboard/calendar'
+      else
+        path = '/tutor#/dashboard/profile'
+      end
+    end
+    redirect_to path
   end
 
   def index
