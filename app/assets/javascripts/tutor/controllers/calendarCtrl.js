@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('CalendarController', function($scope, $rootScope, AppointmentService, DEFAULT_VALUES){
+Geek.controller('CalendarController', ["$scope", "$rootScope", "AppointmentService", "DEFAULT_VALUES", function($scope, $rootScope, AppointmentService, DEFAULT_VALUES){
 
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.MONTHS = DEFAULT_VALUES.MONTHS;
@@ -136,4 +136,4 @@ Geek.controller('CalendarController', function($scope, $rootScope, AppointmentSe
 
     $scope.getMonthlyCalendar($scope.selectedYear,$scope.selectedMonth);
     $scope.getWeeklyCalendar($scope.selectedYear,$scope.selectedMonth, $scope.selectedDay);
-});
+}]);

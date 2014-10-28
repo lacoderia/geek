@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.factory('ProfileService', function($http, $q, DEFAULT_VALUES){
+Geek.factory('ProfileService', ["$http", "$q", "DEFAULT_VALUES", function($http, $q, DEFAULT_VALUES){
 
     var getStatus = function(){
         var deferred = $q.defer();
@@ -90,4 +90,4 @@ Geek.factory('ProfileService', function($http, $q, DEFAULT_VALUES){
         submitWeekCalendar: submitWeekCalendar
     }
 
-});
+}]);

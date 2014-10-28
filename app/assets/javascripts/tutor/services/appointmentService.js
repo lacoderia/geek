@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.factory('AppointmentService', function($http, $q, DEFAULT_VALUES){
+Geek.factory('AppointmentService', ["$http", "$q", "DEFAULT_VALUES", function($http, $q, DEFAULT_VALUES){
 
     var all = function(){
         /*var deferred = $q.defer();
@@ -45,4 +45,4 @@ Geek.factory('AppointmentService', function($http, $q, DEFAULT_VALUES){
         getAppointmentsByMonth: getAppointmentsByMonth
     }
 
-});
+}]);
