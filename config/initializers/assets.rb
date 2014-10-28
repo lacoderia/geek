@@ -33,9 +33,7 @@ Rails.application.config.assets.precompile += %w( tutor/directives/modalDetailDr
 #Import Controllers
 Rails.application.config.assets.precompile += %w( student/controllers/rootCtrl.js )
 Rails.application.config.assets.precompile += %w( student/controllers/navigationCtrl.js )
-Rails.application.config.assets.precompile += %w( student/controllers/categoryLandingController.js )
 Rails.application.config.assets.precompile += %w( student/controllers/searchTutorCtrl.js )
-Rails.application.config.assets.precompile += %w( student/controllers/navigationCtrl.js )
 
 Rails.application.config.assets.precompile += %w( tutor/controllers/rootCtrl.js )
 Rails.application.config.assets.precompile += %w( tutor/controllers/navigationCtrl.js )
