@@ -36,12 +36,6 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
         }
     );
 
-    // Inicializamos los broadcasts y listeners del controlador
-    $scope.$on("tutorProfileLoaded", function() {
-        $scope.createWeekCalendar();
-        $scope.updateWeekCalendar($rootScope.tutor.preference.availabilities);
-    });
-
     // Función que simula el click en el input type file
     $scope.openProfilePictureSelector = function(event) {
         $(event.target).siblings('input').trigger('click');
@@ -227,46 +221,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
 
     }
 
-    // Método que genera la información para poblar la vista semanal del perfil del tutor
-    $scope.createWeekCalendar = function() {
 
-        for(var rowIndex=0; rowIndex<$scope.HOURS.length; rowIndex++){
-            $rootScope.weekRows[rowIndex] = {
-                'halfHours': new Array()
-            };
-            for(var dayIndex=0; dayIndex<$scope.DAYS.length; dayIndex++){
-                $rootScope.weekRows[rowIndex].halfHours[dayIndex] = {
-                    'startTime': $scope.HOURS[rowIndex],
-                    'endTime': $scope.HOURS[rowIndex + 1] ? $scope.HOURS[rowIndex + 1] : $scope.HOURS[0],
-                    'available': false
-                };
-            }
-        }
-    };
-
-    $scope.updateWeekCalendar = function(availabilities) {
-        for(var i=0; i<availabilities.length; i++) {
-
-            var dayIndex = availabilities[i].day_number;
-            for (var j=0; j<$rootScope.weekRows.length; j++) {
-                var timeObject = $rootScope.weekRows[j].halfHours[dayIndex];
-                var startTime = timeObject.startTime;
-                var endTime = timeObject.endTime;
-
-                if (startTime >= availabilities[i].start) {
-                    if (availabilities[i].end == '00:00') {
-                        timeObject.available = true;
-                    } else if (endTime <= availabilities[i].end) {
-                        timeObject.available = true;
-                    }
-                }
-
-                if (endTime == availabilities[i].end) {
-                    break;
-                }
-            }
-        }
-    }
 
     // Método que cambia la disponibilidad de un horario
     $scope.toggleHourAvailability = function(halfHour) {

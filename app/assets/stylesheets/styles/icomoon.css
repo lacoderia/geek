@@ -1,10 +1,10 @@
 @font-face {
     font-family: 'icomoon';
-    src:url('/assets/icomoon.eot?-fe6xlm');
-    src:url('/assets/icomoon.eot?#iefix-fe6xlm') format('embedded-opentype'),
-    url('/assets/icomoon.woff?-fe6xlm') format('woff'),
-    url('/assets/icomoon.ttf?-fe6xlm') format('truetype'),
-    url('/assets/icomoon.svg?-fe6xlm#icomoon') format('svg');
+    src:url('/assets/icomoon.eot?sktgtu');
+    src:url('/assets/icomoon.eot?#iefixsktgtu') format('embedded-opentype'),
+    url('/assets/icomoon.woff?sktgtu') format('woff'),
+    url('/assets/icomoon.ttf?sktgtu') format('truetype'),
+    url('/assets/icomoon.svg?sktgtu#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -23,11 +23,11 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-accept:before {
-    content: "\e607";
+.icon-table:before {
+    content: "\e609";
 }
-.icon-help:before {
-    content: "\e606";
+.icon-list:before {
+    content: "\e608";
 }
 .icon-close:before {
     content: "\e605";
@@ -46,4 +46,10 @@
 }
 .icon-googleplus:before {
     content: "\e600";
+}
+.icon-accept:before {
+    content: "\e607";
+}
+.icon-help:before {
+    content: "\e606";
 }
