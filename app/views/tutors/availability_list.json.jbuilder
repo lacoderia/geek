@@ -1,5 +1,7 @@
-@availability_list.each do |key, value|
-  json.set! key do
-    json.array! value
-  end
-end
+#@availability_list.each do |key, value|
+#  json.set! key do
+#    json.array! value
+#  end
+#end
+
+json.array! (@availability_list)

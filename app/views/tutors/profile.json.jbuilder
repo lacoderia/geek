@@ -5,8 +5,8 @@ if @tutor
     json.set! :availabilities do
       json.array!(@tutor.preference.availabilities) do |availability|
         json.extract! availability, :id
-        json.start "#{availability.start.utc.strftime '%H:%M'}"
-        json.end "#{availability.end.utc.strftime '%H:%M'}"
+        json.start "#{availability.start.strftime '%H:%M'}"
+        json.end "#{availability.end.strftime '%H:%M'}"
         json.day_number WeekDay.find(availability.week_day_id).day_number
       end
     end
