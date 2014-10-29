@@ -346,7 +346,8 @@ class Tutor < ActiveRecord::Base
       time = Time.now
       days_in_month = Time.days_in_month(month, year)
       start = Time.zone.parse("#{year}-#{month}-#{'%02d' % prng.rand(1..days_in_month)} #{'%02d' % prng.rand(0..23)}:00")
-      self.create_appointment cat.name, start, 1, student 
+      appointment = self.create_appointment cat.name, start, 1, student
+      appointment.update_attribute(:appointment_status_id, prng.rand(1..AppointmentStatus.count))
     end
   end
 
