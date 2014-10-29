@@ -4,7 +4,8 @@
         <div class="month-view">
           <ul class="events">
             <li><span class="event event-green"></span> Cita confirmada</li>
-            <li><span class="event event-green"></span> Cita confirmada</li>
+            <li><span class="event event-orange"></span> Cita pendiente</li>
+            <li><span class="event event-red"></span> Cita cancelada</li>
           </ul>
           <div class="calendar-header">
             <div class="month-title">
@@ -39,7 +40,13 @@
             </table>
           </div>
         </div>
-        <div class="week-list-view">
+        <div>
+          <ul class="view-selector">
+            <li><a title="Lista semanal de citas" ng-click="changeView(false)" ng-class="{ true:'', false:'selected' }[weekView]"><span class="icon-list"></span></a></li>
+            <li><a title="Vista semanal" ng-click="changeView(true)" ng-class="{ true:'selected', false:'' }[weekView]"><span class="icon-table"></span></a></li>
+          </ul>
+        </div>
+        <div class="week-list-view" ng-hide="weekView">
           <div class="week-list-view-unavailable" ng-hide="existstWeekAppoinments">
             <div class="week-list-view-unavailable-content">
                 <h3>No tienes citas agendadas en esta semana</h3>
@@ -80,7 +87,32 @@
                 </tr>
               </tbody>
             </table>
-            <div ng-modal-detail ></div>
+          </div>
+        </div>
+        <div class="week-view" ng-show="weekView">
+          <div class="week-row">
+            <table>
+              <tbody>
+              <tr>
+                <td class="week-day-title"></td>
+                <td class="week-day-title" ng-repeat="day in DAYS">
+                  <span class="hidden-sm hidden-xs">{{ day.title }}</span>
+                  <span class="hidden-md hidden-lg">{{ day.minTitle }}</span>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="week-row" ng-repeat="row in weekRows">
+            <table>
+              <tbody>
+              <tr>
+                <td class="week-day">{{ HOURS[$index] }}</td>
+                <td class="week-day" ng-class="{available: halfHour.available}" ng-repeat="halfHour in row.halfHours">
+                </td>
+              </tr>
+              </tbody>
+            </table>
           </div>
         </div>
     </div>

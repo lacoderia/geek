@@ -8,6 +8,9 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
     // Objeto que contiene el calendario semanal del perfil del usuario
     $rootScope.weekRows = new Array();
 
+    $scope.DAYS = DEFAULT_VALUES.DAYS;
+    $scope.HOURS = DEFAULT_VALUES.HOURS;
+
     $(document).ready(function() {
 
         //Método que ayuda a centrar verticalmente los modales de bootstrap
@@ -48,6 +51,49 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
 	
         $(window).resize(adjustModalMaxHeightAndPosition).trigger("resize");
 
+        // Método que genera la información para poblar la vista semanal del perfil del tutor
+        $scope.createWeekCalendar = function() {
+
+            for(var rowIndex=0; rowIndex<$scope.HOURS.length; rowIndex++){
+                $rootScope.weekRows[rowIndex] = {
+                    'halfHours': new Array()
+                };
+                for(var dayIndex=0; dayIndex<$scope.DAYS.length; dayIndex++){
+                    $rootScope.weekRows[rowIndex].halfHours[dayIndex] = {
+                        'startTime': $scope.HOURS[rowIndex],
+                        'endTime': $scope.HOURS[rowIndex + 1] ? $scope.HOURS[rowIndex + 1] : $scope.HOURS[0],
+                        'available': false
+                    };
+                }
+            }
+            $scope.updateWeekCalendar($rootScope.tutor.preference.availabilities);
+        };
+
+        $scope.updateWeekCalendar = function(availabilities) {
+            for(var i=0; i<availabilities.length; i++) {
+
+                var dayIndex = availabilities[i].day_number;
+                for (var j=0; j<$rootScope.weekRows.length; j++) {
+                    var timeObject = $rootScope.weekRows[j].halfHours[dayIndex];
+                    var startTime = timeObject.startTime;
+                    var endTime = timeObject.endTime;
+
+                    if (startTime >= availabilities[i].start) {
+                        if (availabilities[i].end == '00:00') {
+                            timeObject.available = true;
+                        } else if (endTime <= availabilities[i].end) {
+                            timeObject.available = true;
+                        }
+                    }
+
+                    if (endTime == availabilities[i].end) {
+                        break;
+                    }
+                }
+            }
+            $rootScope.$broadcast('tutorProfileLoaded');
+        };
+
         // Obtenemos la información de perfil del tutor
         ProfileService.getStatus().then(
             function(data){
@@ -84,7 +130,8 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
                                         $rootScope.tutor.topics = data.categories;
                                         $rootScope.tutor.zones = data.counties;
 
-                                        $rootScope.$broadcast("tutorProfileLoaded");
+                                        //$rootScope.$broadcast("tutorProfileLoaded");
+                                        $scope.createWeekCalendar();
                                     }
 
                                     console.log($rootScope.tutor.preference);

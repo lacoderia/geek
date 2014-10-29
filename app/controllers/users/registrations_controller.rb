@@ -36,7 +36,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
           Tutor.create(user: @user, calendar_id: calendar_id)
           sign_in @user
-          format.html { redirect_to '/tutor#/dashboard' }
+          format.html { redirect_to :tutor_redirect }
           format.json { render :show, status: :created, location: @user }
         end
       else

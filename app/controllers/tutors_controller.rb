@@ -41,9 +41,11 @@ class TutorsController < ApplicationController
   # PATCH/PUT /tutors/1
   # PATCH/PUT /tutors/1.json
   def update
+    puts 'diego'
+    puts params[:categories]
     respond_to do |format|
-      if params[:tutor][:categories]
-        params[:tutor][:categories].each do | cat |
+      if params[:categories]
+        params[:categories].each do | cat |
           @tutor.categories << Category.create(:name => cat[:name], :category_id => cat[:category_id])
         end
       end

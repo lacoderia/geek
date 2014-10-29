@@ -15,8 +15,8 @@ Geek.controller('AppointmentHistoryController',['$scope','$rootScope','Appointme
     $scope.showAppointmentDetail = function($event,appointment){
 
         var options = {
-            posX: $event.screenX + 70,
-            posY: $event.clientY - $event.screenY
+            posX: $event.clientX,
+            posY: $event.pageY
         };
 
         var appointmentTitle =  appointment.subject + ' - ' + appointment.student.first_name + ' '  + appointment.student.last_name;

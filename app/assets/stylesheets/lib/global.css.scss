@@ -377,6 +377,26 @@ h2.section-title{
   text-decoration: none;
 }
 
+.appointment-status-canceled{
+  color: $color-dark-red;
+}
+
+.appointment-status-confirmed{
+  color: $color-dark-green;
+}
+
+.appointment-status-completed{
+  color: $color-light-green;
+}
+
+.appointment-status-pending{
+  color: $color-light-orange;
+}
+
+.appointment-status-rejected{
+  color: $color-light-red;
+}
+
 .bgcolor-light-green{
   background-color: $color-light-green;
 }
@@ -501,26 +521,6 @@ h2.section-title{
 
 .calendar{
 
-  .appointment-status-canceled{
-    color: $color-dark-red;
-  }
-
-  .appointment-status-confirmed{
-    color: $color-dark-green;
-  }
-
-  .appointment-status-completed{
-    color: $color-light-green;
-  }
-
-  .appointment-status-pending{
-    color: $color-light-orange;
-  }
-
-  .appointment-status-rejected{
-    color: $color-light-red;
-  }
-
   margin: 2em 0em 0em 0em;
 
   .action-button{
@@ -530,6 +530,7 @@ h2.section-title{
   }
 
   .month-view{
+    margin-bottom: 2em;
 
     .calendar-header{
 
@@ -611,6 +612,7 @@ h2.section-title{
         a.not-current-month{
           color: $color-input-gray;
           cursor: auto;
+          pointer-events: none;
 
           .events{
             visibility: hidden;
@@ -663,10 +665,51 @@ h2.section-title{
     }
   }
 
+  .view-selector{
+    font-size: 0px;
+    list-style: none;
+    margin: 2em 0em 0em 0em;
+    padding: 0px;
+    text-align: right;
+
+    li{
+      border: 2px solid $color-input-gray-bgcolor;
+      border-bottom: none;
+      font-size: 16px;
+      display: inline-block;
+      text-align: center;
+      vertical-align: middle;
+
+      a{
+        color: $color-dark-green;
+        cursor: pointer;
+        display: inline-block;
+        padding: 1em 2em;
+        text-decoration: none;
+      }
+
+      a:hover{
+        background-color: $color-input-gray;
+      }
+
+      a.selected{
+        background-color: $color-input-gray-bgcolor;
+      }
+    }
+
+    li:first-child{
+      border-radius: 10px 0px 0px 0px;
+    }
+
+    li:last-child{
+      border-radius: 0px 10px 0px 0px;
+    }
+  }
+
   .week-list-view{
     border: 2px solid $color-input-gray-bgcolor;
     min-height: 300px;
-    margin: 2em 0em 0em 0em;
+    margin: 0em;
 
     .week-list-view-row{
       table{
@@ -699,12 +742,12 @@ h2.section-title{
           }
         }
         .week-list-day-info-row{
+          background-color: white;
           cursor: pointer;
           padding: 1em;
           width: 100%;
 
           .day-info{
-            background-color: $color-sign-up-light-blue;
             color: $color-light-blue;
             font-size: 14px;
             font-weight: 300;
@@ -733,6 +776,11 @@ h2.section-title{
           }
 
         }
+
+        .week-list-day-info-row:hover{
+          background-color: $color-sign-up-light-blue;
+        }
+
       }
 
       .week-list-title-row{
@@ -779,7 +827,8 @@ h2.section-title{
   }
 
   .week-view{
-    margin: 2em 0em 0em 0em;
+    border: 2px solid $color-input-gray-bgcolor;
+    margin: 0em;
 
     .week-row{
       table{
@@ -1089,7 +1138,7 @@ h2.section-title{
   }
 
   .event-red{
-    background-color: $color-dark-orange;
+    background-color: $color-dark-red;
   }
 }
 
@@ -1241,7 +1290,7 @@ ul.events{
 
 }
 
-.modal-detail:before{
+.modal-detail-arrow-left:before{
   bottom: -36px;
   border: solid transparent;
   border-top: solid $color-medium-gray;
@@ -1254,7 +1303,7 @@ ul.events{
   width: 0;
 }
 
-.modal-detail:after{
+.modal-detail-arrow-left:after{
   bottom: -32px;
   border: solid transparent;
   border-top: solid white;
@@ -1262,6 +1311,32 @@ ul.events{
   content: " ";
   height: 0;
   left: 20px;
+  position: absolute;
+  pointer-events: none;
+  width: 0;
+}
+
+.modal-detail-arrow-right:before{
+  bottom: -36px;
+  border: solid transparent;
+  border-top: solid $color-medium-gray;
+  border-width: 18px;
+  content: " ";
+  height: 0;
+  right: 18px;
+  position: absolute;
+  pointer-events: none;
+  width: 0;
+}
+
+.modal-detail-arrow-right:after{
+  bottom: -32px;
+  border: solid transparent;
+  border-top: solid white;
+  border-width: 16px;
+  content: " ";
+  height: 0;
+  right: 20px;
   position: absolute;
   pointer-events: none;
   width: 0;

@@ -6,6 +6,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile','Appointm
     $scope.MONTHS = DEFAULT_VALUES.MONTHS;
     $scope.START_YEAR = DEFAULT_VALUES.START_YEAR;
     $scope.TOTAL_CALENDAR_ROWS = DEFAULT_VALUES.TOTAL_CALENDAR_ROWS;
+    $scope.HOURS = DEFAULT_VALUES.HOURS;
 
     $scope.currentDate = new Date();
 
@@ -19,15 +20,18 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile','Appointm
 
     $scope.calendarRows = [];
     $scope.appointments = [];
-
+    $scope.weekView = false;
     $scope.showCancelButton = false;
     $scope.showAcceptButton = false;
     $scope.showRejectButton = false;
 
-    /* Definición de eventos */
-
+    // Inicializamos los broadcasts y listeners del controlador
     $scope.$on('appointmentsSet', function(){
         $scope.existstWeekAppoinments = $scope.existsAppointmentsByWeek($scope.selectedWeek);
+
+    });
+
+    $scope.$on("tutorProfileLoaded", function() {
 
     });
 
@@ -152,16 +156,10 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile','Appointm
     *
     * */
     $scope.showAppointmentDetail = function($event,appointment){
-        console.log($event.pageY)
-        console.log($event.screenY)
-        console.log($event.clientY)
-        console.log($event.offsetY)
-        console.log($event.pageY + $event.screenY)
-        console.log($event)
 
         var options = {
-            posX: $event.screenX + 70,
-            posY: $event.clientY - $event.screenY
+            posX: $event.clientX,
+            posY: $event.pageY
         };
 
         var appointmentTitle =  appointment.subject + ' - ' + appointment.student.first_name + ' '  + appointment.student.last_name;
@@ -212,6 +210,13 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile','Appointm
             $scope.showRejectButton = false;
             $scope.showCancelButton = false;
         }
+    };
+
+    /*
+     * Determina si existen o no citas en una semana determinada
+     * */
+    $scope.changeView = function(weekView){
+        $scope.weekView = weekView;
     };
 
     /*

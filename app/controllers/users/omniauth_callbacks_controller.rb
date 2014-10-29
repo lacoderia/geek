@@ -11,7 +11,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         redirect_to '/student#/dashboard'
       else #este no deberia de pasar
         session["devise.google_data"] = nil
-        redirect_to '/tutor#/dashboard'
+        redirect_to :tutor_redirect
       end
     else
       session["devise.facebook_data"] = auth_hash.except("extra")
@@ -30,7 +30,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         redirect_to '/student#/dashboard'
       else
         session["devise.google_data"] = nil
-        redirect_to '/tutor#/dashboard'
+        redirect_to :tutor_redirect
       end
     else
       session["devise.google_data"] = auth_hash.except("extra")

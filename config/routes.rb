@@ -75,7 +75,7 @@ Rails.application.routes.draw do
 
   get "tutor" => "tutor_display#landing", :as => :tutor_landing
   
-  #get "tutor#/dashboard" => "tutor_display#landing", :as => :tutor_dashboard
+  get "tutor_redirect" => "tutor_display#redirect", :as => :tutor_redirect
 
   get "student" => "student_display#landing", :as => :student_landing
   
