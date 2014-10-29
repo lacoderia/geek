@@ -194,11 +194,15 @@ class Tutor < ActiveRecord::Base
     preference = tutor.preference
     preference.availabilities.destroy_all
 
-    availabilities.each do |availability|
-      day = WeekDay.find_by_day_number(availability["day_number"])
-      start_time = DateTime.iso8601("0001-01-01T#{availability['start']}").in_time_zone
-      end_time = DateTime.iso8601("0001-01-01T#{availability['end']}").in_time_zone
-      preference.availabilities << Availability.create(week_day_id: day.id, preference_id: preference.id, start: start_time, end: end_time)
+    if availabilities
+
+      availabilities.each do |availability|
+        day = WeekDay.find_by_day_number(availability["day_number"])
+        start_time = DateTime.iso8601("0001-01-01T#{availability['start']}").in_time_zone
+        end_time = DateTime.iso8601("0001-01-01T#{availability['end']}").in_time_zone
+        preference.availabilities << Availability.create(week_day_id: day.id, preference_id: preference.id, start: start_time, end: end_time)
+      end
+
     end
 
     preference.availabilities
