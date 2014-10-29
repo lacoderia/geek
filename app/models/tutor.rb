@@ -46,8 +46,8 @@ class Tutor < ActiveRecord::Base
       result = client.execute(:api_method => service.events.insert, :parameters => {'calendarId' => calendar, 'sendNotifications' => true}, :body => JSON.dump('start' => {'dateTime' => start_date.to_json.gsub(/"/, '') }, 'end' => {'dateTime' => (start_date + length_in_hours.hour).to_json.gsub(/"/, '') }, 'summary' => name, 'attendees' => attendees_emails ), :headers => {'Content-Type' => 'application/json'})
       # appointment_status_id 1 == enviado
       appointment = Appointment.create(student_id: student.id, tutor_id: self.id, appointment_id: JSON.parse(result.response.body)["id"], start: start_date, end: start_date + length_in_hours.hour, appointment_status_id: 1, subject: name)
-      UserMailer.tutor_notification_email(appointment.tutor_id, appointment.appointment_status_id).deliver
-      UserMailer.student_notification_email(appointment.student_id, appointment.appointment_status_id).deliver
+      UserMailer.tutor_notification_email(appointment.tutor_id, appointment.appointment_status_id, name).deliver
+      UserMailer.student_notification_email(appointment.student_id, appointment.appointment_status_id, name).deliver
 
       return appointment 
     rescue Exception => e
@@ -215,6 +215,18 @@ class Tutor < ActiveRecord::Base
       SpecificAvailability.create(tutor_id: tutor.id, start: start_datetime, end: end_datetime)
     end
 
+  end
+
+  def create_dummy_appointments month, year
+    students = Student.where("token is not null")
+    students.each do |student|
+      prng = Random.new
+      cat = Category.all[prng.rand(0..Category.count-1)]
+      time = Time.now
+      days_in_month = Time.days_in_month(month, year)
+      start = Time.zone.parse("#{year}-#{month}-#{'%02d' % prng.rand(1..days_in_month)} #{'%02d' % prng.rand(0..23)}:00")
+      self.create_appointment cat.name, start, 1, student 
+    end
   end
 
 end
