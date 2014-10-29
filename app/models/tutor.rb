@@ -95,9 +95,7 @@ class Tutor < ActiveRecord::Base
     # segundo, revisar contra preferencias generales
     availabilities = tutor.availabilities
     availabilities.each do |availability|
-      #week_day = a.id > 6 ? 0 : a.id
       dif_hour = availability.end.hour - availability.start.hour
-      #dif_min = availability.end.min - availability.start.min
       start_min = availability.start.min > 0 ? 0.5 : 0.0
       end_min = availability.end.min > 0 ? 0.5 : 0.0
       day_in_month = first_monday + (availability.week_day_id - 1)
@@ -106,12 +104,7 @@ class Tutor < ActiveRecord::Base
         if not result[day_in_month]
           result[day_in_month] = []
         end
-        difference = (availability.start.hour + start_min)..(availability.start.hour+dif_hour + end_min)
-        #if dif_min > 0
-        #  difference = availability.start.hour..(availability.start.hour+dif_hour-1 + 0.5)
-        #else
-        #  difference = availability.start.hour..(availability.start.hour+dif_hour-1)
-        #end
+        difference = (availability.start.hour + start_min)..(availability.start.hour+dif_hour -0.5 + end_min)
         result[day_in_month] += (difference).step(0.5).to_a
         day_in_month += 7
       end
@@ -119,18 +112,13 @@ class Tutor < ActiveRecord::Base
 
     # tercero, agregar disponibilidades por semana especifica					
     specific_availabilities = tutor.specific_availabilities.where("EXTRACT(month from start) = ? AND EXTRACT(year from start) = ?", month, year)
-
     specific_availabilities.each do |sa|
       dif_hour = sa.end.hour - sa.start.hour
-      dif_min = sa.end.min - sa.start.min
-      if dif_min > 0
-        difference = sa.start.hour..(sa.start.hour+dif_hour-1 + 0.5)
-      else
-        difference = sa.start.hour..(sa.start.hour+dif_hour-1)
-      end
-
+      start_min = sa.start.min > 0 ? 0.5 : 0.0
+      end_min = sa.end.min > 0 ? 0.5 : 0.0
+      difference = (sa.start.hour + start_min)..(sa.start.hour+dif_hour -0.5 + end_min)
       if not result[sa.start.day]
-        result[sa.start.day] = [] 
+        result[sa.start.day] = []
       else 
         result[sa.start.day] -= (difference).step(0.5).to_a
       end
@@ -143,14 +131,14 @@ class Tutor < ActiveRecord::Base
     appointments = tutor.appointments.where("EXTRACT(month from start) = ? AND EXTRACT(year from start) = ?", month, year)
     appointments.each do |appointment|
       dif_hour = appointment.end.hour - appointment.start.hour 
-      dif_min = appointment.end.min - appointment.start.min
-      if dif_min > 0
-        difference = appointment.start.hour..(appointment.start.hour+dif_hour-1 + 0.5)
-      else
-        difference = appointment.start.hour..(appointment.start.hour+dif_hour-1)
+      start_min = appointment.start.min > 0 ? 0.5 : 0.0
+      end_min = appointment.end.min > 0 ? 0.5 : 0.0
+      difference = (appointment.start.hour + start_min)..(appointment.start.hour+dif_hour -0.5 + end_min)
+      if result[appointment.start.day]
+        result[appointment.start.day] -= (difference).step(0.5).to_a
+        result.delete(appointment.start.day) if result[appointment.start.day].empty?
       end
-
-      result[appointment.start.day] -= (difference).step(0.5).to_a if result[appointment.start.day]
+      
     end
 
     formatted_result = []
@@ -163,110 +151,30 @@ class Tutor < ActiveRecord::Base
       previous_hour = nil
       value.each do |hour|
         if hour == initial_hour
-          end_hour = initial_hour + 0.5
+          end_hour = initial_hour
         elsif hour == previous_hour + 0.5 
           end_hour = hour
           obj[:start] = initial_hour
-          obj[:end] = end_hour 
+          obj[:end] = end_hour + 0.5 
         else
           obj[:start] = initial_hour
-          obj[:end] = end_hour 
-          formatted_result << obj
+          obj[:end] = end_hour + 0.5
+          formatted_result << Tutor.transfrom_hours(obj)
           obj = {:day => key}
           initial_hour = hour
-          end_hour = nil
+          end_hour = initial_hour 
+          obj[:start] = initial_hour
+          obj[:end] = end_hour + 0.5
         end
         previous_hour = hour
       end
 
-      formatted_result << obj
+      formatted_result << Tutor.transfrom_hours(obj)
 
     end
 
     formatted_result.sort_by { |hash| hash[:day]}
   end
-
-  def self.availability_list_2 tutor_id, month, year
-    result = {}
-    tutor = Tutor.find(tutor_id)
-
-    number_of_days = Time.days_in_month(month, year)
-
-    ix = 1
-    while ix <= 7 do
-      first_monday = Date.new(year, month, ix).wday
-      if first_monday == 1
-        break
-      end
-      ix += 1
-    end
-    first_monday = ix
-
-    # primero, checar contra vacaciones. NO es parte del MVP
-					
-    # segundo, revisar contra preferencias generales
-    availabilities = tutor.availabilities
-    availabilities.each do |availability|
-      #week_day = a.id > 6 ? 0 : a.id
-      dif_hour = availability.end.hour - availability.start.hour
-      #dif_min = availability.end.min - availability.start.min
-      start_min = availability.start.min > 0 ? 0.5 : 0.0
-      end_min = availability.end.min > 0 ? 0.5 : 0.0
-      day_in_month = first_monday + (availability.week_day_id - 1)
-      day_in_month -= 7 if day_in_month > 7
-      while day_in_month <= number_of_days do
-        if not result[day_in_month]
-          result[day_in_month] = []
-        end
-        difference = (availability.start.hour + start_min)..(availability.start.hour+dif_hour + end_min)
-        #if dif_min > 0
-        #  difference = availability.start.hour..(availability.start.hour+dif_hour-1 + 0.5)
-        #else
-        #  difference = availability.start.hour..(availability.start.hour+dif_hour-1)
-        #end
-        result[day_in_month] += (difference).step(0.5).to_a
-        day_in_month += 7
-      end
-    end
-
-    # tercero, agregar disponibilidades por semana especifica					
-    specific_availabilities = tutor.specific_availabilities.where("EXTRACT(month from start) = ? AND EXTRACT(year from start) = ?", month, year)
-
-    specific_availabilities.each do |sa|
-      dif_hour = sa.end.hour - sa.start.hour
-      dif_min = sa.end.min - sa.start.min
-      if dif_min > 0
-        difference = sa.start.hour..(sa.start.hour+dif_hour-1 + 0.5)
-      else
-        difference = sa.start.hour..(sa.start.hour+dif_hour-1)
-      end
-
-      if not result[sa.start.day]
-        result[sa.start.day] = [] 
-      else 
-        result[sa.start.day] -= (difference).step(0.5).to_a
-      end
-    
-      result[sa.start.day] += (difference).step(0.5).to_a
-      result[sa.start.day].sort!
-    end
-
-    # cuarto, quitar contra clases en request y en agendadas
-    appointments = tutor.appointments.where("EXTRACT(month from start) = ? AND EXTRACT(year from start) = ?", month, year)
-    appointments.each do |appointment|
-      dif_hour = appointment.end.hour - appointment.start.hour 
-      dif_min = appointment.end.min - appointment.start.min
-      if dif_min > 0
-        difference = appointment.start.hour..(appointment.start.hour+dif_hour-1 + 0.5)
-      else
-        difference = appointment.start.hour..(appointment.start.hour+dif_hour-1)
-      end
-
-      result[appointment.start.day] -= (difference).step(0.5).to_a if result[appointment.start.day]
-    end
-
-    result
-  end 
 
   def self.request_class tutor_id, start, length, student_id, description
     tutor = Tutor.find(tutor_id)
@@ -349,6 +257,16 @@ class Tutor < ActiveRecord::Base
       appointment = self.create_appointment cat.name, start, 1, student
       appointment.update_attribute(:appointment_status_id, prng.rand(1..AppointmentStatus.count))
     end
+  end
+
+  def self.transfrom_hours obj
+    logger.info("OBJ #{obj}")
+    start_hour = obj[:start].to_s
+    end_hour = obj[:end].to_s
+
+    obj[:start] = start_hour.sub(".0", ":00").sub(".5", ":30")
+    obj[:end] = end_hour.sub(".0", ":00").sub(".5", ":30")
+    obj
   end
 
 end
