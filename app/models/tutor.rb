@@ -173,7 +173,7 @@ class Tutor < ActiveRecord::Base
 
     end
 
-    formatted_result.sort_by { |hash| hash[:day]}
+    formatted_result.sort_by { |hash| [hash[:day], hash[:start]]}
   end
 
   def self.request_class tutor_id, start, length, student_id, description
@@ -260,12 +260,23 @@ class Tutor < ActiveRecord::Base
   end
 
   def self.transfrom_hours obj
-    logger.info("OBJ #{obj}")
-    start_hour = obj[:start].to_s
-    end_hour = obj[:end].to_s
+    start_hour = '%02d' % obj[:start]
+    end_hour = '%02d' % obj[:end]
 
-    obj[:start] = start_hour.sub(".0", ":00").sub(".5", ":30")
-    obj[:end] = end_hour.sub(".0", ":00").sub(".5", ":30")
+    start_min = obj[:start].modulo(1)
+    end_min = obj[:end].modulo(1)
+
+    if start_min > 0
+      obj[:start] = "#{start_hour}:30"
+    else
+      obj[:start] = "#{start_hour}:00"
+    end
+
+    if end_min > 0
+      obj[:end] = "#{end_hour}:30"
+    else
+      obj[:end] = "#{end_hour}:00"
+    end
     obj
   end
 
