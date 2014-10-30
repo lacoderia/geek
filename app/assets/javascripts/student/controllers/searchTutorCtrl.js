@@ -22,8 +22,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "TutorService"
                 function(data){
                     if(data){
                         $scope.tutorList = data;
-
-                        console.log(data)
+                        console.log($scope.tutorList)
                     }
                 },
                 function(response){

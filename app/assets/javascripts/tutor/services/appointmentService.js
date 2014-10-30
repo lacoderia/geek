@@ -49,7 +49,7 @@ Geek.factory('AppointmentService', ["$http", "$q", "DEFAULT_VALUES", function($h
         var promise = deferred.promise;
         var APPOINTMENT_PUT_STATUS_URL = '/appointments/' + appointmentId + '.json';
 
-        $http.get(APPOINTMENT_PUT_STATUS_URL ,{
+        $http.put(APPOINTMENT_PUT_STATUS_URL ,{
             params: {
                 'id': appointmentId,
                 'appointment_status_id': appointmentStatusId

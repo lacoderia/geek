@@ -24,9 +24,6 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile','Appointm
     $scope.weekView = false;
 
     // Inicializamos los broadcasts y listeners del controlador
-    $scope.$on('tutorProfileLoaded', function(){
-        $scope.getWeeklyAppointmentList($scope.selectedYear,$scope.selectedMonth);
-    });
 
     /*
     * Obtiene el número total de días que existen en un mes determinado
@@ -179,6 +176,8 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile','Appointm
                 }
             }
         }
+
+
     };
 
     /*
@@ -241,7 +240,8 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile','Appointm
                                     '</td>' +
                                     '<tr><td class="appointment-detail-content">' + appointment.details + '</td></tr>' +
                                   '</table>';
-        $scope.open(appointmentTitle, appointmentContent, null, options);
+        appointmentContent = $compile(appointmentContent)($scope);
+        $scope.open(appointmentTitle, appointmentContent , null, options);
     };
 
 
@@ -261,6 +261,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile','Appointm
                 appointment.status = DEFAULT_VALUES.APPOINTMENT_STATUS[1];
                 break;
         }
+
         appointment.appointmentStatusClass = DEFAULT_VALUES.STATUS_CLASS[appointment.status.name]
         $scope.showActionButtons(appointment);
 
@@ -272,9 +273,6 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile','Appointm
                 console.log('Error setting appointment status: ' + response);
             }
         );
-
-        //day.appointments.splice(appointmentIndex,1);
-        //$scope.existstWeekAppoinments = $scope.existsAppointmentsByWeek($scope.selectedWeek);
     };
 
     $scope.showActionButtons = function(appointment){
@@ -404,7 +402,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile','Appointm
                     indexDay++;
                 }
             }
-
+            $scope.getWeeklyAppointmentList($scope.selectedYear,$scope.selectedMonth);
         }
     };
 
