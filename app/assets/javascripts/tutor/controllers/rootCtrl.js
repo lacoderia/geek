@@ -124,7 +124,6 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
 
                             ProfileService.getProfile().then(
                                 function(data){
-                                    console.log(data);
                                     if(data && data.id){
                                         $rootScope.tutor.gender =data.gender;
                                         $rootScope.tutor.phone = data.phone;
