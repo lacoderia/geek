@@ -75,7 +75,7 @@
                     <div>REGÍSTRATE</div>
                   </div>
                 </form>
-                
+
               </div>
               <div class="sign-in-container" ng-show="selectedTab == 'signIn'">
                 <label ng-show='loginError' ng-bind='loginError'></label>
@@ -87,19 +87,19 @@
                     o
                   </div>
                 </div>
-	        <form name="tutorLoginForm" id="tutor-login-form" class="validation-form" accept-charset="UTF-8" action="/users/sign_in" id="login-form" method="post">
+                <form name="tutorLoginForm" id="tutor-login-form" class="validation-form" accept-charset="UTF-8" action="/users/sign_in" id="login-form" method="post">
                   <div class="form-group" show-errors>
                     <input type="text" name="tutor[email]" ng-model="signInMail" class="form-input form-control" placeholder="CORREO" required/>
                   </div>
                   <div class="form-group" show-errors>
-	            <input type="password" name="tutor[password]" ng-model="signInPassword" class="form-input form-control" placeholder="PASSWORD" required/>
+                    <input type="password" name="tutor[password]" ng-model="signInPassword" class="form-input form-control" placeholder="PASSWORD" required/>
                   </div>
                   <input id="tutor_role_ids" multiple="multiple" name="tutor[role_ids][]" type="hidden" value="2" >
-    	          <div class="form-submit" ng-click="loginTutor()">
-        	    <div>INICIAR SESIÓN</div>
-            	  </div>
-		</form>
-	      </div>
+                  <div class="form-submit" ng-click="loginTutor()">
+                    <div>INICIAR SESIÓN</div>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
