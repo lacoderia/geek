@@ -35,4 +35,9 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "TutorService"
         }
     };
 
+    // Show tutor details popup
+    $scope.showTutorDetails = function(tutor) {
+        $scope.openTutorDetailModal(tutor);
+    }
+
 }]);

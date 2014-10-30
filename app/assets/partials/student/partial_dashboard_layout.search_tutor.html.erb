@@ -42,6 +42,7 @@
             <h4 class="tutor-name">María Alvarado Ruíz</h4>
             <h5 class="tutor-county">Condesa</h5>
             <p class="resume">
+              
               The path of the righteous man is beset on all sides by the iniquities of the selfish and the tyranny of evil men.
               Blessed is he who, in the name of charity and good will, shepherds the weak through the valley of darkness,
               for he is truly his brother's keeper and the finder of lost children.
@@ -62,12 +63,12 @@
             </div>
             <div class="content-price">
               <h4 class="price">
-                $ 300.00 MXN <br>
+                $ {{tutor.preference.price}} MXN <br>
                 Por hora
               </h4>
             </div>
             <div class="content-button">
-              <button class="action-button send-message">Ver perfil</button>
+              <button class="action-button send-message" ng-click="showTutorDetails(tutor)">Ver perfil</button>
             </div>
           </div>
         </div>
@@ -108,7 +109,4 @@
       <img src="/assets/site/geek.png" alt="Geek" class="search-image hidden-lg hidden-md hidden-sm">
     </div>
   </div>
-
 </div>
-
-<div ng-modal-tutor-detail ></div>

@@ -2,6 +2,9 @@
 
 Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "DEFAULT_VALUES", "CountyService", "CategoryService", function($scope, $rootScope, $timeout, DEFAULT_VALUES, CountyService, CategoryService){
 
+    //Variable que determina si el overlay es visible
+    $rootScope.showOverlay = false;
+
     //Catálogo de zonas
     $rootScope.counties = [];
 
