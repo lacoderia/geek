@@ -377,6 +377,37 @@ h2.section-title{
   text-decoration: none;
 }
 
+.appointment-button{
+  font-size: 0px;
+  text-align: center;
+
+  a{
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    margin-right: 0.3em;
+    padding: 0.3em 0.8em 0.2em;
+    vertical-align: top;
+  }
+
+  .cancel-class{
+    background-color: $color-dark-red;
+    color: white;
+  }
+
+  .confirm-class{
+    background-color: $color-light-green;
+    color: white;
+  }
+
+  .reject-class{
+    background-color: $color-light-red;
+    color: white;
+
+  }
+}
+
 .appointment-status-canceled{
   color: $color-dark-red;
 }
@@ -757,24 +788,6 @@ h2.section-title{
 
           }
 
-          .appointment-button{
-            font-size: 14px;
-            text-align: center;
-
-            .cancel-class{
-              color: $color-dark-red;
-            }
-
-            .confirm-class{
-              color: $color-light-green;
-            }
-
-            .reject-class{
-              color: $color-light-red;
-
-            }
-          }
-
         }
 
         .week-list-day-info-row:hover{
@@ -1129,16 +1142,24 @@ h2.section-title{
     margin-right: 0px;
   }
 
-  .event-green{
-    background-color: $color-dark-green;
+  .appointment-status-canceled{
+    background-color: $color-dark-red !important;
   }
 
-  .event-orange{
-    background-color: $color-dark-orange;
+  .appointment-status-confirmed{
+    background-color: $color-dark-green !important;
   }
 
-  .event-red{
-    background-color: $color-dark-red;
+  .appointment-status-completed{
+    background-color: $color-light-green !important;
+  }
+
+  .appointment-status-pending{
+    background-color: $color-light-orange !important;
+  }
+
+  .appointment-status-rejected{
+    background-color: $color-light-red !important;
   }
 }
 
@@ -1286,6 +1307,10 @@ ul.events{
     color: $color-medium-gray;
     font-size: 1rem;
     padding: 1em;
+
+    table{
+      width: 100%;
+    }
   }
 
 }

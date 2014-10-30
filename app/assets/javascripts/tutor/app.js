@@ -22,7 +22,8 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
         'START_YEAR': 1900,
         'TOTAL_CALENDAR_ROWS': 6,
         'APPOINTMENT_STATUS': [{id:1,name:'pending'},{id:2,name:'rejected'},{id:3,name:'confirmed'},{id:4,name:'canceled'},{id:5,name:'completed'}],
-        'STATUS_CLASS': {'pending':'appointment-status-pending icon-help','rejected':'appointment-status-rejected icon-close','confirmed':'appointment-status-confirmed icon-accept','canceled':'appointment-status-canceled icon-close','completed':'appointment-status-completed'},
+        'STATUS_CLASS': {'pending':'appointment-status-pending','rejected':'appointment-status-rejected','confirmed':'appointment-status-confirmed','canceled':'appointment-status-canceled','completed':'appointment-status-completed'},
+        'STATUS_ICON_CLASS': {'pending':'icon-help','rejected':'icon-close','confirmed':'icon-accept','canceled':'icon-close','completed':''},
     })
 
     .config(function($stateProvider, $urlRouterProvider){

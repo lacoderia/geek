@@ -19,7 +19,7 @@ Geek.factory('AppointmentService', ["$http", "$q", "DEFAULT_VALUES", function($h
                 deferred.reject(response);
             });
 
-        return promise
+        return promise;
     };
 
     var getAppointmentsByMonthAndYear = function(month, year){
@@ -40,17 +40,36 @@ Geek.factory('AppointmentService', ["$http", "$q", "DEFAULT_VALUES", function($h
                 deferred.reject(response);
             });
 
-        return promise
+        return promise;
 
     };
 
     var setAppointmentStatus = function(appointmentId, appointmentStatusId){
+        var deferred = $q.defer();
+        var promise = deferred.promise;
+        var APPOINTMENT_PUT_STATUS_URL = '/appointments/' + appointmentId + '.json';
 
+        $http.get(APPOINTMENT_PUT_STATUS_URL ,{
+            params: {
+                'id': appointmentId,
+                'appointment_status_id': appointmentStatusId
+            }
+        }).
+            success(function(data){
+                deferred.resolve(data);
+            }).
+
+            error(function(response){
+                deferred.reject(response);
+            });
+
+        return promise;
     };
 
     return{
         all: all,
         getAppointmentsByMonthAndYear: getAppointmentsByMonthAndYear,
+        setAppointmentStatus: setAppointmentStatus
 
     }
 

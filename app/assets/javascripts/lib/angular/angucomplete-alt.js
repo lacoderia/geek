@@ -33,6 +33,7 @@ angular.module('angucomplete-alt', [] ).directive('angucompleteAlt', ['$q', '$pa
   return {
     restrict: 'EA',
     require: '^?form',
+    replace: true,
     scope: {
       selectedObject: '=',
       disableInput: '=',

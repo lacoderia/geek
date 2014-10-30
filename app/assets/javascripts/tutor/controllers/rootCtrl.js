@@ -62,7 +62,8 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
                     $rootScope.weekRows[rowIndex].halfHours[dayIndex] = {
                         'startTime': $scope.HOURS[rowIndex],
                         'endTime': $scope.HOURS[rowIndex + 1] ? $scope.HOURS[rowIndex + 1] : $scope.HOURS[0],
-                        'available': false
+                        'available': false,
+                        'appointment': undefined
                     };
                 }
             }
@@ -91,7 +92,9 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
                     }
                 }
             }
+
             $rootScope.$broadcast('tutorProfileLoaded');
+
         };
 
         // Obtenemos la información de perfil del tutor

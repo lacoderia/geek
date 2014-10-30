@@ -17,22 +17,15 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile','Appointm
     $scope.selectedWeek = [];
     $scope.selectedWeekNumber = -1;
     $scope.existstWeekAppoinments = false;
+    $scope.currentWeekViewAppointments = [];
 
     $scope.calendarRows = [];
     $scope.appointments = [];
     $scope.weekView = false;
-    $scope.showCancelButton = false;
-    $scope.showAcceptButton = false;
-    $scope.showRejectButton = false;
 
     // Inicializamos los broadcasts y listeners del controlador
-    $scope.$on('appointmentsSet', function(){
-        $scope.existstWeekAppoinments = $scope.existsAppointmentsByWeek($scope.selectedWeek);
-
-    });
-
-    $scope.$on("tutorProfileLoaded", function() {
-
+    $scope.$on('tutorProfileLoaded', function(){
+        $scope.getWeeklyAppointmentList($scope.selectedYear,$scope.selectedMonth);
     });
 
     /*
@@ -123,12 +116,16 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile','Appointm
 
         if($scope.selectedDate){
             if($scope.selectedDate.numberDay != day.numberDay || $scope.selectedDate.month != day.month){
+
                 $scope.selectedDate.selected = false;
                 $scope.selectedDate = day;
                 $scope.selectedDate.selected = true;
                 $scope.getWeekByDay($scope.selectedDate);
+                $scope.setWeekAppointments();
                 $scope.existstWeekAppoinments = $scope.existsAppointmentsByWeek($scope.selectedWeek);
+
             }else if($scope.selectedDate.numberDay == day.numberDay && $scope.selectedDate.month == day.month){
+
                 $scope.selectedDate = day;
                 $scope.selectedDate.selected = true;
             }
@@ -137,8 +134,50 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile','Appointm
             day.selected = true;
             $scope.selectedDate = day;
             $scope.getWeekByDay($scope.selectedDate);
+            $scope.setWeekAppointments();
             $scope.existstWeekAppoinments = $scope.existsAppointmentsByWeek($scope.selectedWeek);
 
+        }
+    };
+
+    $scope.resetWeekViewAppointments = function(){
+
+        for(var timeObjectIndex=0; timeObjectIndex<$scope.currentWeekViewAppointments.length; timeObjectIndex++){
+            var timeObject = $scope.currentWeekViewAppointments[timeObjectIndex];
+            timeObject.appointment = {};
+        }
+    };
+
+    $scope.setWeekAppointments = function(){
+
+        $scope.resetWeekViewAppointments();
+
+        for(var dayIndex=0; dayIndex<$scope.selectedWeek.length; dayIndex++){
+            var day = $scope.selectedWeek[dayIndex];
+
+            if(day.appointments){
+                for(var appointmentIndex=0; appointmentIndex<day.appointments.length; appointmentIndex++){
+                    var appointment = day.appointments[appointmentIndex];
+                    var straightHourTime = false;
+                    for(var hourIndex=0; hourIndex<$scope.HOURS.length; hourIndex++){
+                        var timeObject = $rootScope.weekRows[hourIndex].halfHours[dayIndex];
+
+                        if(!straightHourTime){
+                            if(appointment.startHour == timeObject.startTime){
+                                $scope.currentWeekViewAppointments.push(timeObject);
+                                timeObject.appointment = appointment;
+                                straightHourTime = true;
+                            }
+                        } else{
+                            $scope.currentWeekViewAppointments.push(timeObject);
+                            timeObject.appointment = appointment;
+                            if(appointment.endHour == timeObject.endTime){
+                                straightHourTime = false;
+                            }
+                        }
+                    }
+                }
+            }
         }
     };
 
@@ -163,11 +202,43 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile','Appointm
         };
 
         var appointmentTitle =  appointment.subject + ' - ' + appointment.student.first_name + ' '  + appointment.student.last_name;
+
+        var appointmentButtons = '';
+        if(appointment.showCancelButton){
+            appointmentButtons+= '<a class="cancel-class" title="Cancelar clase" ng-click="changeStatusAppointment($event, $index, \'cancel\', appointment)">Cancelar</a>';
+        }
+
+        if(appointment.showAcceptButton){
+            appointmentButtons+= '<a class="confirm-class" title="Confirmar clase" ng-click="changeStatusAppointment($event, $index, \'confirm\', appointment)">Confirmar</a>';
+        }
+
+        if(appointment.showRejectButton){
+            appointmentButtons+= '<a class="reject-class" title="Rechazar clase" ng-click="changeStatusAppointment($event, $index, \'reject\', appointment)">Rechazar</a>';
+        }
+
+        var appointmentAddress = 'Dirección por confirmar';
+        if(appointment){
+            if(appointment.address.line1 || appointment.address.line2){
+                appointmentAddress = '';
+                if(appointment.address.line1){
+                    appointmentAddress+= appointment.address.line1 + ' ';
+                }
+                if(appointment.address.line2){
+                    appointmentAddress+= appointment.address.line2;
+                }
+            }
+        }
+
         var appointmentContent = '<table>' +
                                     '<tr><td class="appointment-detail-content">' + $scope.DAYS[appointment.day].title + ', ' + appointment.numberDay + ' de ' + $scope.MONTHS[appointment.month] + '</td></tr>' +
                                     '<tr><td class="appointment-detail-content"> De ' + appointment.startHour + ' a ' + appointment.endHour + '</td></tr>' +
-                                    '<tr><td class="appointment-detail-content">' + appointment.address.line1 + ' ' + appointment.address.line2 + '</td></tr>' +
-                                    '<tr><td class="appointment-detail-content"><span class="' + appointment.appointmentStatusClass + '"> ' + appointment.status.name + '</span></td></tr>' +
+                                    '<tr><td class="appointment-detail-content">' + appointmentAddress + '</td></tr>' +
+                                    '<tr><td class="appointment-detail-content"><span class="' + appointment.appointmentStatusClass + " " + appointment.appointmentIconClass + '"> ' + appointment.status.name + '</span></td></tr>' +
+                                    '<td class="appointment-detail-content">' +
+                                        '<div class="appointment-button">' +
+                                            appointmentButtons +
+                                        '</div>' +
+                                    '</td>' +
                                     '<tr><td class="appointment-detail-content">' + appointment.details + '</td></tr>' +
                                   '</table>';
         $scope.open(appointmentTitle, appointmentContent, null, options);
@@ -192,23 +263,33 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile','Appointm
         }
         appointment.appointmentStatusClass = DEFAULT_VALUES.STATUS_CLASS[appointment.status.name]
         $scope.showActionButtons(appointment);
+
+        AppointmentService.setAppointmentStatus(appointment.id,appointment.status.id).then(
+            function (data){
+                console.log(data)
+            },
+            function (response){
+                console.log('Error setting appointment status: ' + response);
+            }
+        );
+
         //day.appointments.splice(appointmentIndex,1);
         //$scope.existstWeekAppoinments = $scope.existsAppointmentsByWeek($scope.selectedWeek);
     };
 
     $scope.showActionButtons = function(appointment){
         if(appointment.status.id == DEFAULT_VALUES.APPOINTMENT_STATUS[0].id){
-            $scope.showAcceptButton = true;
-            $scope.showRejectButton = true;
-            $scope.showCancelButton = false;
+            appointment.showAcceptButton = true;
+            appointment.showRejectButton = true;
+            appointment.showCancelButton = false;
         }else if(appointment.status.id == DEFAULT_VALUES.APPOINTMENT_STATUS[2].id){
-            $scope.showAcceptButton = false;
-            $scope.showRejectButton = false;
-            $scope.showCancelButton = true;
+            appointment.showAcceptButton = false;
+            appointment.showRejectButton = false;
+            appointment.showCancelButton = true;
         }else{
-            $scope.showAcceptButton = false;
-            $scope.showRejectButton = false;
-            $scope.showCancelButton = false;
+            appointment.showAcceptButton = false;
+            appointment.showRejectButton = false;
+            appointment.showCancelButton = false;
         }
     };
 
@@ -276,7 +357,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile','Appointm
                             'year': year,
                             'week_number': rowIndex,
                             'selected': false,
-                            'appointments': undefined
+                            'appointments': []
                         };
 
                         if(!$scope.selectedDate && day.isCurrentDay){
@@ -302,7 +383,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile','Appointm
                             'year': year,
                             'week_number': rowIndex,
                             'selected': false,
-                            'appointments': null
+                            'appointments': []
                         };
                     }else{
                         day = {
@@ -315,7 +396,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile','Appointm
                             'year': year,
                             'week_number': rowIndex,
                             'selected': false,
-                            'appointments': null
+                            'appointments': []
                         };
                         nextDay++;
                     }
@@ -340,23 +421,46 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile','Appointm
 
                         var appointment = $scope.appointments[appointmentIndex];
 
-                        appointment.start = new Date(appointment.start);
-                        appointment.end = new Date(appointment.end);
-                        appointment.startHour = appointment.start.getHours() + ":" + appointment.start.getMinutes();
-                        appointment.endHour = appointment.end.getHours() + ":" + appointment.end.getMinutes();
-                        appointment.numberDay = appointment.start.getDate();
-                        appointment.day = appointment.start.getDay();
-                        appointment.month = appointment.start.getMonth();
-                        appointment.year = appointment.start.getYear() + $scope.START_YEAR;
-                        appointment.appointmentStatusClass = DEFAULT_VALUES.STATUS_CLASS[appointment.status.name]
-                        $scope.setDayAppointment(appointment,year,month);
+                        var startDate = new Date(appointment.start);
+                        var endDate = new Date(appointment.end);
+                        var startMintues = (startDate.getMinutes() < 10) ? '0' + startDate.getMinutes() : startDate.getMinutes();
+                        var endMintues = (endDate.getMinutes() < 10) ? '0' + endDate.getMinutes() : endDate.getMinutes();
+                        var startHour = (startDate.getHours() < 10) ? '0' + startDate.getHours() : startDate.getHours();
+                        var endHour = (endDate.getHours() < 10) ? '0' + endDate.getHours() : endDate.getHours();
 
+                        appointment.start = startDate;
+                        appointment.end = endDate;
+                        appointment.startHour = startHour + ":" + startMintues;
+                        appointment.endHour = endHour + ":" + endMintues;
+                        appointment.numberDay = startDate.getDate();
+                        appointment.day = startDate.getDay();
+                        appointment.month = startDate.getMonth();
+                        appointment.year = startDate.getYear() + $scope.START_YEAR;
+                        appointment.appointmentStatusClass = DEFAULT_VALUES.STATUS_CLASS[appointment.status.name];
+                        appointment.appointmentIconClass = DEFAULT_VALUES.STATUS_ICON_CLASS[appointment.status.name];
+                        appointment.showCancelButton = false;
+                        appointment.showAcceptButton = false;
+                        appointment.showRejectButton = false;
+
+                        if(!appointment.address){
+                            appointment.address = appointment.address = {};
+                        }
+
+                        if(!appointment.details){
+                            appointment.details = '';
+                        }
+
+                        $scope.setDayAppointment(appointment,year,month);
                         $scope.showActionButtons(appointment);
                     }
-                    $rootScope.$broadcast('appointmentsSet');
 
+                    $scope.existstWeekAppoinments = $scope.existsAppointmentsByWeek($scope.selectedWeek);
+                    $scope.setWeekAppointments();
+
+                    if(!$scope.$$phase){
+                        $scope.$apply();
+                    }
                 }
-
             },
             function (response){
                 console.log('Error retrieving the appointments: ' + response);
@@ -366,6 +470,5 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile','Appointm
     };
 
     $scope.getMonthlyCalendar($scope.selectedYear,$scope.selectedMonth);
-    $scope.getWeeklyAppointmentList($scope.selectedYear,$scope.selectedMonth);
 
 }]);

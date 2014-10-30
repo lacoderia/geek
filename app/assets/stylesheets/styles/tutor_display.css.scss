@@ -8,6 +8,35 @@
     padding: 0.2rem 1rem !important;
 }
 
+.calendar{
+  .tutor-calendar-section{
+
+    .week-day.available{
+      background-color: transparent !important;
+      cursor: pointer;
+    }
+
+    .appointment-status-confirmed{
+      background-color: $color-dark-green !important;
+    }
+
+    .appointment-status-completed{
+      background-color: $color-light-green !important;
+    }
+
+    .appointment-status-pending{
+      background-color: $color-light-orange !important;
+    }
+
+    .week-day.unavailable{
+      background-image: linear-gradient(-45deg, transparent 45%, $color-input-gray 50%, transparent 55%, transparent 100%);
+      background-size: 8px 8px;
+      background-position: 2px 2px;
+      cursor: default !important;
+    }
+  }
+}
+
 .custom-checkbox {
   /* checkbox aspect */
   [type="checkbox"]:not(:checked) + label:before,

@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.directive('ngModalDetail', function($timeout, $window, $document){
+Geek.directive('ngModalDetail', function($timeout, $window, $document, $compile){
     return{
         restrict: 'A',
         replace: true,
