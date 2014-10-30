@@ -14,8 +14,11 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "DEFAULT_
     //Zona seleccionada por el usuario
     $rootScope.selectedCountyObj = undefined;
 
-    //Materia seleccionada por el usuario
-    $rootScope.subjectStr = '';
+    // Objeto que contiene el calendario semanal del tutor
+    $rootScope.weekRows = new Array();
+
+    $scope.DAYS = DEFAULT_VALUES.DAYS;
+    $scope.HOURS = DEFAULT_VALUES.HOURS;
 
     $(document).ready(function(){
 
@@ -58,8 +61,10 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "DEFAULT_
         $(window).resize(adjustModalMaxHeightAndPosition).trigger("resize");
 
         $timeout(function() {
-	    $rootScope.$broadcast("rootControllerReady");
-	},0);
+	        $rootScope.$broadcast("rootControllerReady");
+
+            $rootScope.createWeekCalendar();
+	    },0);
     });
 
     //Obtiene los datos del catálogo de zonas
@@ -87,5 +92,23 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "DEFAULT_
             console.log('Error retrieving the categories: ' + response);
         }
     );
+
+    // Método que genera la información para poblar la vista semanal del perfil del tutor
+    $rootScope.createWeekCalendar = function() {
+
+        for(var rowIndex=0; rowIndex<$scope.HOURS.length; rowIndex++){
+            $rootScope.weekRows[rowIndex] = {
+                'halfHours': new Array()
+            };
+            for(var dayIndex=0; dayIndex<$scope.DAYS.length; dayIndex++){
+                $rootScope.weekRows[rowIndex].halfHours[dayIndex] = {
+                    'startTime': $scope.HOURS[rowIndex],
+                    'endTime': $scope.HOURS[rowIndex + 1] ? $scope.HOURS[rowIndex + 1] : $scope.HOURS[0],
+                    'available': false,
+                    'appointment': undefined
+                };
+            }
+        }
+    };
 
 }]);

@@ -5,11 +5,7 @@ Geek.directive('ngModalTutorDetail', ["$timeout", "$rootScope", function($timeou
         restrict: 'A',
         replace: true,
         transclude: true,
-        template: '<div class="modal-container" ng-show="toggle" >' +
-                    '<div id="tutor-detail">' +
-                        'ALGO' +
-                    '</div>' +
-                  '</div>',
+        templateUrl: '/assets/student/template_tutor_detail.html',
         link: function(scope, element, attrs){
 
             scope.DEFAULT_ARROW_CLASSES = ['modal-detail-arrow-left', 'modal-detail-arrow-right'];
