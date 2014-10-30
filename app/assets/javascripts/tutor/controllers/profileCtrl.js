@@ -103,7 +103,8 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
                 'last_name': $rootScope.tutor.lastname,
                 'background': $rootScope.tutor.studies,
                 'references': $rootScope.tutor.references,
-                'categories': $rootScope.tutor.topics
+                'categories': $rootScope.tutor.topics,
+                'preference': $rootScope.tutor.preference
             }
 
             ProfileService.submitRequest(tutor).then(
@@ -192,6 +193,8 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
                     console.log('Error getting tutor\'s request status: ' + response);
                 }
             );
+        } else {
+            alert('El calendario no es válido y no fue actualizado');
         }
 
         if ($scope.tutorProfileForm.$valid && $rootScope.tutor.topics.length) {
@@ -208,11 +211,11 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
             ProfileService.submitProfile(tutor).then(
                 function(data){
                     if(data && data.id) {
-                        alert('La solicitud fue enviada con éxito');
+                        alert('La actualización fue realizada con éxito');
                     }
                 },
                 function(response){
-                    alert('Ocurrió un error al enviar la solicitud');
+                    alert('Ocurrió un error al enviar la actualización del perfil');
                     console.log('Error getting tutor\'s request status: ' + response);
                 }
             );

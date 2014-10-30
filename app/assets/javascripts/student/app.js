@@ -26,13 +26,15 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt', 
             })
             .state('dashboard.search-tutor', {
                 url: "/search-tutor",
-                templateUrl: "/assets/student/partial_dashboard_layout.search_tutor.html"
-
-            }).state('dashboard.my-classes', {
+                templateUrl: "/assets/student/partial_dashboard_layout.search_tutor.html",
+                controller: 'SearchTutorController'
+            })
+            .state('dashboard.my-classes', {
                 url: "/my-classes",
                 templateUrl: "/assets/student/partial_dashboard_layout.my_classes.html"
 
-            }).state('dashboard.profile', {
+            })
+            .state('dashboard.profile', {
                 url: "/account",
                 templateUrl: "/assets/student/partial_dashboard_layout.profile.html"
             })

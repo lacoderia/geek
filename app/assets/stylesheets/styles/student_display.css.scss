@@ -459,13 +459,13 @@ footer{
         cursor: pointer;
       }
 
-      .county, .course{
+      .county, .category, .course{
         appearance: field;
         margin: 0em auto 1em;
         padding: 0.8em 1.5em;
       }
 
-      .county{
+      .county, .category{
         margin-bottom: 0em;
       }
     }
@@ -688,13 +688,13 @@ footer{
       cursor: pointer;
     }
 
-    .county, .course{
+    .county, .category, .course{
       appearance: field;
       margin: 0em auto 1em;
       padding: 0.8em 1.5em;
     }
 
-    .county{
+    .county, .category{
       margin-bottom: 0em;
     }
   }
@@ -801,7 +801,7 @@ footer{
         width: 150px;
       }
 
-      .course, .county{
+      .course, .county, .category{
         padding: 0.8em 1.5em;
         width: 49%;
       }
@@ -916,7 +916,7 @@ footer{
           cursor: pointer;
         }
 
-        .county, .course{
+        .county, .category, .course{
           appearance: field;
           margin: 0em auto 1em;
           padding: 0.8em 1.5em;
@@ -931,7 +931,7 @@ footer{
           width: 100%;
         }
 
-        .county{
+        .county, .category{
           margin-bottom: 0em;
           width: 100%;
         }
@@ -971,7 +971,7 @@ footer{
         width: 150px;
       }
 
-      .course, .county{
+      .course, .county, .category{
         margin-bottom: 0px;
         padding: 0.8em 1.5em;
         width: 250px;
@@ -1012,7 +1012,7 @@ footer{
         width: 150px;
       }
 
-      .course, .county{
+      .course, .county, .category{
         padding: 0.8em 1.5em;
         width: 250px;
       }

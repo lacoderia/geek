@@ -128,9 +128,9 @@
           <label>Sexo:</label>
         </div>
         <div class="right form-radio custom-radio">
-          <input type="radio" id="tutor_gender_h" name="tutor_gender" ng-model="tutor.gender" class="form-control" >
+          <input type="radio" id="tutor_gender_h" name="tutor_gender" ng-model="tutor.gender" class="form-control" value="H">
           <label for="tutor_gender_h">Hombre</label>
-          <input type="radio" id="tutor_gender_m" name="tutor_gender" ng-model="tutor.gender" class="form-control" >
+          <input type="radio" id="tutor_gender_m" name="tutor_gender" ng-model="tutor.gender" class="form-control" value="M">
           <label for="tutor_gender_m">Mujer</label>
         </div>
       </div>
@@ -203,11 +203,11 @@
           <label>Modalidad:</label>
         </div>
         <div class="right form-radio custom-checkbox custom-checkbox-profile">
-          <input type="checkbox" id="tutor_class_mode_online" name="tutor_class_mode[]" ng-model="tutor.class.modes" class="form-control" >
+          <input type="checkbox" id="tutor_class_mode_online" name="tutor_class_mode[]" ng-model="tutor.preference.online" class="form-control" >
           <label for="tutor_class_mode_online">EN LÍNEA</label>
-          <input type="checkbox" id="tutor_class_mode_home" name="tutor_class_mode[]" ng-model="tutor.class.modes" class="form-control" >
+          <input type="checkbox" id="tutor_class_mode_home" name="tutor_class_mode[]" ng-model="tutor.preference.office" class="form-control" >
           <label for="tutor_class_mode_home">CASA/OFICINA</label>
-          <input type="checkbox" id="tutor_class_mode_public" name="tutor_class_mode[]" ng-model="tutor.class.modes" class="form-control" >
+          <input type="checkbox" id="tutor_class_mode_public" name="tutor_class_mode[]" ng-model="tutor.preference.public" class="form-control" >
           <label for="tutor_class_mode_public">PÚBLICA</label>
         </div>
       </div>
@@ -216,7 +216,7 @@
           <label>Costo por clase:</label>
         </div>
         <div class="right">
-          <input type="text" name="tutor_class_cost" ng-model="tutor.class.cost" ng-pattern="/^[0-9]+$/" ng-pattern="/^\$?\-?([1-9]{1}[0-9]{0,2}(\,\d{3})*(\.\d{0,2})?|[1-9]{1}\d{0,}(\.\d{0,2})?|0(\.\d{0,2})?|(\.\d{1,2}))$|^\-?\$?([1-9]{1}\d{0,2}(\,\d{3})*(\.\d{0,2})?|[1-9]{1}\d{0,}(\.\d{0,2})?|0(\.\d{0,2})?|(\.\d{1,2}))$|^\(\$?([1-9]{1}\d{0,2}(\,\d{3})*(\.\d{0,2})?|[1-9]{1}\d{0,}(\.\d{0,2})?|0(\.\d{0,2})?|(\.\d{1,2}))\)$/" class="form-input form-control" placeholder="COSTO" class="form-input form-control"/>
+          <input type="text" name="tutor_class_cost" ng-model="tutor.preference.cost" ng-pattern="/^[0-9]+$/" ng-pattern="/^\$?\-?([1-9]{1}[0-9]{0,2}(\,\d{3})*(\.\d{0,2})?|[1-9]{1}\d{0,}(\.\d{0,2})?|0(\.\d{0,2})?|(\.\d{1,2}))$|^\-?\$?([1-9]{1}\d{0,2}(\,\d{3})*(\.\d{0,2})?|[1-9]{1}\d{0,}(\.\d{0,2})?|0(\.\d{0,2})?|(\.\d{1,2}))$|^\(\$?([1-9]{1}\d{0,2}(\,\d{3})*(\.\d{0,2})?|[1-9]{1}\d{0,}(\.\d{0,2})?|0(\.\d{0,2})?|(\.\d{1,2}))\)$/" class="form-input form-control" placeholder="COSTO" class="form-input form-control"/>
         </div>
       </div>
     </fieldset>

@@ -1,7 +1,7 @@
 Geek.controller('SearchTutorController', ["$scope", "$rootScope", "TutorService", function($scope, $rootScope, TutorService){
 
     //Subject inputted by the user
-    $scope.subjectInput = '';
+    $scope.subjectInput = undefined;
 
     //County selected by the user
     $scope.selectedCountyInput = undefined;
@@ -13,12 +13,12 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "TutorService"
 
     //Find a tutor, by the inputted data by the user
     $scope.searchTutor = function(){
-        if ($scope.selectedCountyInput && $scope.subjectInput){
+        if ($scope.subjectInput || $scope.selectedCountyInput){
 
+            var categoryId = ($scope.subjectInput) ? $scope.subjectInput.originalObject.id : null;
+            var countyId = ($scope.selectedCountyInput) ? $scope.selectedCountyInput.originalObject.id : null;
 
-        }else if($scope.selectedCountyInput){
-
-            TutorService.getTutorByCountyId($scope.selectedCountyInput.originalObject.id).then(
+            TutorService.getTutorByCategoryAndCountyIds(categoryId, countyId).then(
                 function(data){
                     if(data){
                         $scope.tutorList = data;
@@ -31,19 +31,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "TutorService"
                     console.log('Error retrieving the counties: ' + response);
                 }
             );
-        }else if($scope.subjectInput){
-            $rootScope.subjectStr = $scope.subjectInput;
-            TutorService.getTutorByCategoryId($rootScope.subjectStr).then(
-                function(data){
-                    if(data){
-                        $scope.tutorList = data;
-                        console.log(data)
-                    }
-                },
-                function(response){
-                    console.log('Error retrieving the counties: ' + response);
-                }
-            );
+
         }
     };
 

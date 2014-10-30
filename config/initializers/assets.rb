@@ -28,6 +28,7 @@ Rails.application.config.assets.precompile += %w( tutor/services/appointmentServ
 
 #Import Directives
 Rails.application.config.assets.precompile += %w( lib/angular/angular-onready-directive.js )
+Rails.application.config.assets.precompile += %w( student/directives/modalTutorDetailDrctv.js )
 Rails.application.config.assets.precompile += %w( tutor/directives/modalDetailDrctv.js )
 
 #Import Controllers

@@ -117,7 +117,16 @@
       <div class="bgcolor-light-gray light-search">
         <h2 class="col-lg-2 col-md-3 hidden-sm hidden-xs">geek</h2>
         <form class="col-lg-10 col-md-9 col-sm-12 col-xs-12">
-          <input type="text" class="course" placeholder="Me interesaría aprender..." ng-model="subjectInput">
+          <angucomplete-alt id="topics"
+                            placeholder="Me interesaría aprender..."
+                            pause="600"
+                            selected-object="subjectInput"
+                            local-data="categories"
+                            search-fields="name"
+                            title-field="name"
+                            minlength="1"
+                            input-class="category">
+          </angucomplete-alt>
           <angucomplete-alt id="counties"
                             placeholder="En la zona de..."
                             pause="600"
@@ -127,7 +136,6 @@
                             title-field="name"
                             minlength="1"
                             input-class="county">
-
           </angucomplete-alt>
           <button ng-click="searchTutor()">Buscar</button>
         </form>
@@ -199,7 +207,16 @@
           <h2 class="hidden-xs">geek</h2>
           <h3>¿Qué quieres aprender?</h3>
           <form>
-            <input type="text" class="course" placeholder="Me interesaría aprender..." ng-model="subjectInput">
+            <angucomplete-alt id="topics"
+                              placeholder="Me interesaría aprender..."
+                              pause="600"
+                              selected-object="subjectInput"
+                              local-data="categories"
+                              search-fields="name"
+                              title-field="name"
+                              minlength="1"
+                              input-class="category">
+            </angucomplete-alt>
             <angucomplete-alt id="counties"
                               placeholder="En la zona de..."
                               pause="600"

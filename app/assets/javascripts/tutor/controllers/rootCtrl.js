@@ -11,6 +11,7 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.HOURS = DEFAULT_VALUES.HOURS;
 
+
     $(document).ready(function() {
 
         //Método que ayuda a centrar verticalmente los modales de bootstrap
@@ -123,21 +124,24 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
 
                             ProfileService.getProfile().then(
                                 function(data){
+                                    console.log(data);
                                     if(data && data.id){
                                         $rootScope.tutor.gender =data.gender;
                                         $rootScope.tutor.phone = data.phone;
                                         $rootScope.tutor.details = data.details;
                                         $rootScope.tutor.references = data.references;
-                                        $rootScope.tutor.studies = data.studies;
+                                        $rootScope.tutor.studies = data.background;
                                         $rootScope.tutor.preference = data.preference;
                                         $rootScope.tutor.topics = data.categories;
                                         $rootScope.tutor.zones = data.counties;
 
+                                        // Datos de test
+                                        $rootScope.tutor.gender = 'M';
+                                        $rootScope.tutor.phone = '5512345678'
+
                                         //$rootScope.$broadcast("tutorProfileLoaded");
                                         $scope.createWeekCalendar();
                                     }
-
-                                    console.log($rootScope.tutor.preference);
                                 },
                                 function(response){
                                     console.log('Error getting tutor\'s request status: ' + response);

@@ -14,6 +14,6 @@ json.array!(@tutors) do |tutor|
     json.extract! (tutor.preference), :id, :online, :office, :cost
   end
   json.set! :bank_account do
-    json.extract! (tutor.bank_account), :id, :openpay_id, :alias, :holder_name, :clabe, :bank_name, :bank_code
+    json.extract! (tutor.bank_account), :id, :openpay_id, :alias, :holder_name, :clabe, :bank_name, :bank_code if tutor.bank_account
   end
 end
