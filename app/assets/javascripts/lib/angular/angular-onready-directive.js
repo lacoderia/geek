@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.directive('ngReady', function($rootScope){
+Geek.directive('ngReady', ["$rootScope", function($rootScope){
     return{
         restrict: 'A',
         replace: false,
@@ -13,4 +13,4 @@ Geek.directive('ngReady', function($rootScope){
 
         }
     }
-});
+}]);
