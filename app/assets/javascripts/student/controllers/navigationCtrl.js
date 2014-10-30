@@ -39,6 +39,7 @@ Geek.controller('NavigationController', ["$scope", "$rootScope", "DEFAULT_VALUES
 
     $scope.$on("rootControllerReady", function() {
         $scope.userData = false;
+	$scope.roleIds = 3; 
         if ($("#user-data").data()){
             $scope.userData = true;
             $scope.showSignInModal('signUp'); 
@@ -48,7 +49,6 @@ Geek.controller('NavigationController', ["$scope", "$rootScope", "DEFAULT_VALUES
 	    $scope.signUpLastName = $('#user-data').data('last-name'); 
 	    $scope.signUpToken = $('#user-data').data('token'); 
 	    $scope.signUpRefreshToken = $('#user-data').data('refresh-token'); 
-	    $scope.roleIds = 3; 
 	}
         if ($("#login-data").data()) {
             $scope.showSignInModal('signIn'); 
