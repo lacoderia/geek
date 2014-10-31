@@ -61,6 +61,7 @@ class Tutor < ActiveRecord::Base
     # appointment_status_id 3 = confirmado, 4 = cancelado
     #if appointment.appointment_status_id == 3
       client = Google::APIClient.new
+      self.refresh_token_action
       token = self.token
       client.authorization.access_token = token
       service = client.discovered_api('calendar', 'v3')
