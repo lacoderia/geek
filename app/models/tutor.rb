@@ -67,7 +67,7 @@ class Tutor < ActiveRecord::Base
       calendar = self.calendar_id
       event = appointment.appointment_id
       client.execute(:api_method => service.events.delete, :parameters => {'calendarId' => calendar, 'eventId' => event, 'sendNotifications' => true}, :headers => {'Content-Type' => 'application/json'})
-      appointment.update_attribute(:appointment_status_id, 4)
+      # appointment.update_attribute(:appointment_status_id, 4)
     #else
     #  raise "El evento no está confirmado"
     #end
