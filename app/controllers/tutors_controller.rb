@@ -41,14 +41,25 @@ class TutorsController < ApplicationController
   # PATCH/PUT /tutors/1
   # PATCH/PUT /tutors/1.json
   def update
-    puts 'diego'
-    puts params[:categories]
     respond_to do |format|
       if params[:categories]
+        @tutor.categories.destroy_all
         params[:categories].each do | cat |
-          @tutor.categories << Category.create(:name => cat[:name], :category_id => cat[:category_id])
+          persisted = Category.find_by_name(cat[:name])
+          if persisted
+            @tutor.categories << persisted
+          else
+            @tutor.categories << Category.create(:name => cat[:name], :category_id => cat[:category_id])
+          end
         end
       end
+      if params[:counties]
+        @tutor.counties.destroy_all
+        params[:counties].each do |county|
+          @tutor.counties << County.find(county[:id])
+        end
+      end
+
       if @tutor.update(tutor_params)
         format.html { redirect_to @tutor, notice: 'Tutor was successfully updated.' }
         format.json { render :show, status: :ok, location: @tutor }
