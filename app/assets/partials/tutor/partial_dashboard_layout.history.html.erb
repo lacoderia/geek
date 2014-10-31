@@ -17,7 +17,7 @@
             </tr>
         </thead>
       </table>
-      <table ng-repeat="appointmentGroup in appointmentsGroups" ng-show="appointmentGroup.appointments">
+      <table ng-repeat="appointmentGroup in appointmentsGroups" class="week-list-day-row" ng-show="appointmentGroup.appointments.length">
         <thead>
             <tr class="history-list-day-title-row">
               <td class="hidden-sm hidden-xs day-title" colspan="6">{{ DAYS[appointmentGroup.day].title }}, {{ appointmentGroup.numberDay }} de {{ MONTHS[appointmentGroup.month] }}</td>
@@ -29,7 +29,7 @@
               <td class="day-info">De {{ appointment.startHour }} a {{ appointment.endHour }}</td>
               <td class="day-info">{{ appointment.student.first_name }} {{ appointment.student.last_name }}</td>
               <td class="day-info">{{ appointment.subject }}</td>
-              <td class="day-info"><span ng-class="appointment.appointmentStatusClass"> {{ appointment.status.name }}</span></td>
+              <td class="day-info"><span ng-class="[appointment.appointmentStatusClass,appointment.appointmentIconClass]"> {{ appointment.status.name }}</span></td>
             </tr>
         </tbody>
       </table>

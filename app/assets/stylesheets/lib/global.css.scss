@@ -480,17 +480,22 @@ h2.section-title{
       }
     }
 
-    .history-list-day-title-row{
-      background-color: $color-sign-up-dark-blue;
-      color: $color-light-blue;
-      font-size: 16px;
-      width: 100%;
+    .week-list-day-row{
+      margin-bottom: 2em;
 
-      .day-title{
-        font-weight: 500 !important;
-        padding: 0.5em;
+      .history-list-day-title-row{
+        background-color: $color-sign-up-dark-blue;
+        color: $color-light-blue;
+        font-size: 16px;
+        width: 100%;
+
+        .day-title{
+          font-weight: 500 !important;
+          padding: 0.5em;
+        }
       }
     }
+
 
     .history-list-title-row{
       border-bottom: 2px solid $color-input-gray-bgcolor;
@@ -517,11 +522,11 @@ h2.section-title{
     }
 
     .history-list-day-info-row{
+      background-color: white;
       padding: 1em;
       width: 100%;
 
       .day-info{
-        background-color: $color-sign-up-light-blue;
         color: $color-light-blue;
         cursor: pointer;
         font-size: 14px;
