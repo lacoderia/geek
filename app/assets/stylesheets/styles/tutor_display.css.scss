@@ -16,6 +16,10 @@
       cursor: pointer;
     }
 
+    .appointment-status-canceled{
+      background-color: $color-dark-red !important;
+    }
+
     .appointment-status-confirmed{
       background-color: $color-dark-green !important;
     }
