@@ -105,10 +105,10 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
                     $rootScope.tutor = {
                         'id': data.id,
                         'request': {
-                            'approved': data.approved,
-                            'sent': data.request_sent
-                            //'approved': true,
-                            //'sent': true
+                            //'approved': data.approved,
+                            //'sent': data.request_sent
+                            'approved': true,
+                            'sent': true
                         },
                         'firstName': data.first_name,
                         'lastName': data.last_name,
