@@ -98,7 +98,6 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile','Appointm
                             day.appointments = [];
                         }
                         day.appointments.push(appointment);
-                        console.log(day);
                     }
                 }
             }
@@ -415,7 +414,6 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile','Appointm
         AppointmentService.getAppointmentsByMonthAndYear(month,year).then(
             function(data){
                 $scope.appointments = data;
-                console.log($scope.appointments)
                 if(data){
                     for(var appointmentIndex=0; appointmentIndex<$scope.appointments.length; appointmentIndex++){
 
