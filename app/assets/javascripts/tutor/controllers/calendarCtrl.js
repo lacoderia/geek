@@ -147,9 +147,13 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
 
     $scope.setWeekAppointments = function(){
 
-        $scope.$watchCollection('weekRows.length', function(){
-
+        if($rootScope.weekRows.length < 1){
+            $timeout(function(){
+                $scope.setWeekAppointments();
+            },100)
+        }else{
             $scope.resetWeekViewAppointments();
+            console.log('ENTRE')
             for(var dayIndex=0; dayIndex<$scope.selectedWeek.length; dayIndex++){
                 var day = $scope.selectedWeek[dayIndex];
 
@@ -177,8 +181,10 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
                     }
                 }
             }
+        };
 
-        });
+
+
     };
 
     /*
@@ -454,7 +460,6 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
                     }
 
                     $scope.existstWeekAppoinments = $scope.existsAppointmentsByWeek($scope.selectedWeek);
-                    $scope.setWeekAppointments();
 
                     if(!$scope.$$phase){
                         $scope.$apply();
