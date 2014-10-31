@@ -8,10 +8,10 @@
       </div>
       <div class="tutor-personal-info">
         <div class="content">
-          <h4 class="tutor-name">María Alvarado Ruíz</h4>
-          <h5 class="tutor-county">Condesa</h5>
+          <h4 class="tutor-name">{{ selectedTutor.first_name }} {{ selectedTutor.last_name }}</h4>
+          <h5 class="tutor-county" ng-repeat="county in selectedTutor.counties">{{ county.name }}{{ $last ? '' : ', ' }}</h5>
           <p class="resume">
-            The path of the righteous man is beset on all sides by the iniquities of the selfish and the tyranny of evil men.
+            {{ selectedTutor.resume }}
           </p>
         </div>
       </div>
@@ -28,7 +28,7 @@
           </div>
           <div class="content-price">
             <h4 class="price">
-              $ 300.00 MXN <br>
+              {{ selectedTutor.preferences.cost }} <br>
               Por hora
             </h4>
           </div>
@@ -59,7 +59,7 @@
           <tr>
             <td class="week-day">{{ HOURS[$index] }}</td>
             <td class="week-day" ng-class="[halfHour.appointment.appointmentStatusClass, {true:'available', false: 'unavailable'}[halfHour.available]]" ng-repeat="halfHour in row.halfHours" ng-click="showAppointmentDetail($event,halfHour.appointment)">
-            a
+            &nbsp;
             </td>
           </tr>
           </tbody>
