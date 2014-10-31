@@ -20,6 +20,7 @@ Rails.application.config.assets.precompile += %w( tutor/app.js )
 Rails.application.config.assets.precompile += %w( student/services/countyService.js )
 Rails.application.config.assets.precompile += %w( student/services/categoryService.js )
 Rails.application.config.assets.precompile += %w( student/services/tutorService.js )
+Rails.application.config.assets.precompile += %w( student/services/appointmentService.js )
 
 Rails.application.config.assets.precompile += %w( tutor/services/countyService.js )
 Rails.application.config.assets.precompile += %w( tutor/services/categoryService.js )
@@ -29,12 +30,14 @@ Rails.application.config.assets.precompile += %w( tutor/services/appointmentServ
 #Import Directives
 Rails.application.config.assets.precompile += %w( lib/angular/angular-onready-directive.js )
 Rails.application.config.assets.precompile += %w( student/directives/modalTutorDetailDrctv.js )
+Rails.application.config.assets.precompile += %w( student/directives/modalDetailDrctv.js )
 Rails.application.config.assets.precompile += %w( tutor/directives/modalDetailDrctv.js )
 
 #Import Controllers
 Rails.application.config.assets.precompile += %w( student/controllers/rootCtrl.js )
 Rails.application.config.assets.precompile += %w( student/controllers/navigationCtrl.js )
 Rails.application.config.assets.precompile += %w( student/controllers/searchTutorCtrl.js )
+Rails.application.config.assets.precompile += %w( student/controllers/calendarCtrl.js )
 
 Rails.application.config.assets.precompile += %w( tutor/controllers/rootCtrl.js )
 Rails.application.config.assets.precompile += %w( tutor/controllers/navigationCtrl.js )

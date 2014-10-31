@@ -1,1 +1,40 @@
-Mis CLASES
+<div class="student-classes-container">
+	<h2 class="section-title">Mis Clases</h2>
+	<div class="calendar" ng-controller="CalendarController as CalendarCrtl">
+		<div class="week-list-view">
+	   	<div class="week-list-view-unavailable" ng-hide="appointments.length > 0">
+	      <div class="week-list-view-unavailable-content">
+	          <h3>No tienes citas agendadas en esta semana</h3>
+	      </div>
+	    </div>
+	    <div class="week-list-view-row" ng-show="appointments.length > 0">
+	      <table>
+	          <thead>
+	              <tr class="week-list-title-row">
+	                  <th class="info-title">Horario</th>
+	                  <th class="info-title">Tutor</th>
+	                  <th class="info-title">Materia</th>
+	                  <th class="info-title">Estatus</th>
+	                  <th class="info-title">Acciones</th>
+	              </tr>
+	          </thead>
+	      </table>
+	      <table class="week-list-day-row">
+	        <tbody>
+	        	<tr ng-repeat="app in appointments" class="week-list-day-info-row" ng-click="showAppointmentDetail($event, app)">
+              <td class="day-info">De {{ app.startHour }} a {{ app.endHour }}</td>
+              <td class="day-info">{{ app.tutor.first_name }} {{ app.tutor.last_name }}</td>
+              <td class="day-info">{{ app.subject }}</td>
+              <td class="day-info"><span ng-class="[app.appointmentStatusClass, app.appointmentIconClass]"> {{ app.status.name }}</span></td>
+              <td class="day-info">
+                <div class="appointment-button">
+                    <a ng-show="app.showCancelButton" class="cancel-class" title="Cancelar clase" ng-click="changeStatusAppointment($event, $index, 'cancel', app)">Cancelar</a>
+                </div>
+              </td>
+            </tr>
+	        </tbody>
+	      </table>
+	    </div>
+	  </div>
+	</div>
+</div>
