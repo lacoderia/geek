@@ -93,7 +93,7 @@ class TutorsController < ApplicationController
       @tutors = Tutor.joins(:categories, :counties).where("county_id = ? and (categories.category_id = ? OR categories.id = ?)", county_id, category_id, category_id)
     else
       @tutors = Tutor.joins(:counties).where("county_id = ?", county_id) if county_id
-      @tutors = Tutor.joins(:categories).where("categories.id = ?", category_id) if category_id
+      @tutors = Tutor.joins(:categories).where("categories.id = ? OR categories.category_id = ?", category_id, category_id) if category_id
     end
   end
 
