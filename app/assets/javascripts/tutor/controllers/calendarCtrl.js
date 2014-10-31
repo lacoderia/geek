@@ -148,36 +148,36 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
     $scope.setWeekAppointments = function(){
 
         $scope.$watchCollection('weekRows.length', function(){
-            if($rootScope.weekRows.length == 48){
-                $scope.resetWeekViewAppointments();
-                for(var dayIndex=0; dayIndex<$scope.selectedWeek.length; dayIndex++){
-                    var day = $scope.selectedWeek[dayIndex];
 
-                    if(day.appointments){
-                        for(var appointmentIndex=0; appointmentIndex<day.appointments.length; appointmentIndex++){
-                            var appointment = day.appointments[appointmentIndex];
-                            var straightHourTime = false;
-                            for(var hourIndex=0; hourIndex<$scope.HOURS.length; hourIndex++){
-                                var timeObject = $rootScope.weekRows[hourIndex].halfHours[dayIndex];
+            $scope.resetWeekViewAppointments();
+            for(var dayIndex=0; dayIndex<$scope.selectedWeek.length; dayIndex++){
+                var day = $scope.selectedWeek[dayIndex];
 
-                                if(!straightHourTime){
-                                    if(appointment.startHour == timeObject.startTime){
-                                        $scope.currentWeekViewAppointments.push(timeObject);
-                                        timeObject.appointment = appointment;
-                                        straightHourTime = true;
-                                    }
-                                } else{
+                if(day.appointments){
+                    for(var appointmentIndex=0; appointmentIndex<day.appointments.length; appointmentIndex++){
+                        var appointment = day.appointments[appointmentIndex];
+                        var straightHourTime = false;
+                        for(var hourIndex=0; hourIndex<$scope.HOURS.length; hourIndex++){
+                            var timeObject = $rootScope.weekRows[hourIndex].halfHours[dayIndex];
+
+                            if(!straightHourTime){
+                                if(appointment.startHour == timeObject.startTime){
                                     $scope.currentWeekViewAppointments.push(timeObject);
                                     timeObject.appointment = appointment;
-                                    if(appointment.endHour == timeObject.endTime){
-                                        straightHourTime = false;
-                                    }
+                                    straightHourTime = true;
+                                }
+                            } else{
+                                $scope.currentWeekViewAppointments.push(timeObject);
+                                timeObject.appointment = appointment;
+                                if(appointment.endHour == timeObject.endTime){
+                                    straightHourTime = false;
                                 }
                             }
                         }
                     }
                 }
-            };
+            }
+
         });
     };
 
