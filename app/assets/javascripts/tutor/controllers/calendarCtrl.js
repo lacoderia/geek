@@ -85,6 +85,18 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
         return (day.month == $scope.selectedDate.month && day.numberDay == $scope.selectedDate.numberDay && day.year == $scope.selectedDate.year);
     };
 
+    $scope.isAppointmentExist = function(day, appointment){
+        var isAppointmentExist = false
+        for(var appointmentIndex=0; appointmentIndex<day.appointments.length; appointmentIndex++){
+            var newAppointment = day.appointments[appointmentIndex];
+            if(newAppointment.id == appointment.id){
+                isAppointmentExist = true;
+                break;
+            }
+        }
+        return isAppointmentExist;
+    };
+
     /*
     * Agrega una cita en un día determinado
     * */
@@ -93,11 +105,9 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
             for(var rowIndex=0; rowIndex<$scope.TOTAL_CALENDAR_ROWS; rowIndex++){
                 for(var dayIndex=0; dayIndex<$scope.DAYS.length; dayIndex++){
                     var day = $scope.calendarRows[rowIndex].days[dayIndex];
-                    if(day.numberDay == appointment.numberDay){
-                        if(!day.appointments){
-                            day.appointments = [];
-                        }
+                    if(day.numberDay == appointment.numberDay && !$scope.isAppointmentExist(day,appointment)){
                         day.appointments.push(appointment);
+                        //console.log(day)
                     }
                 }
             }
@@ -153,7 +163,6 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
             },100)
         }else{
             $scope.resetWeekViewAppointments();
-            console.log('ENTRE')
             for(var dayIndex=0; dayIndex<$scope.selectedWeek.length; dayIndex++){
                 var day = $scope.selectedWeek[dayIndex];
 
