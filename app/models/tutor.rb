@@ -259,6 +259,15 @@ class Tutor < ActiveRecord::Base
     end
   end
 
+  def create_dummy_selected_appointments start_hour, day, month, year
+    student = Student.where("token is not null").last
+    if student
+      cat = self.categories.last
+      start = Time.zone.parse("#{year}-#{month}-#{'%02d' % day} #{'%02d' % start_hour}:00")
+      appointment = self.create_appointment cat.name, start, 1, student
+    end
+  end
+
   def self.transfrom_hours obj
     start_hour = '%02d' % obj[:start]
     end_hour = '%02d' % obj[:end]
