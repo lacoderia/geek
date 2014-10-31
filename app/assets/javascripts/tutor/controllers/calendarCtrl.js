@@ -412,7 +412,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile','Appointm
     * */
     $scope.getWeeklyAppointmentList = function(year,month){
 
-        $scope.appointments = AppointmentService.getAppointmentsByMonthAndYear(month,year).then(
+        AppointmentService.getAppointmentsByMonthAndYear(month,year).then(
             function(data){
                 $scope.appointments = data;
                 console.log($scope.appointments)

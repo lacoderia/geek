@@ -205,7 +205,8 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
                 'last_name': $rootScope.tutor.lastname,
                 'background': $rootScope.tutor.studies,
                 'references': $rootScope.tutor.references,
-                'categories': $rootScope.tutor.topics
+                'categories': $rootScope.tutor.topics,
+                'counties': $rootScope.tutor.zones
             }
 
             ProfileService.submitProfile(tutor).then(

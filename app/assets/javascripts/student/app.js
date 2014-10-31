@@ -5,6 +5,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt', 
     .constant('DEFAULT_VALUES',{
         'LANGUAGE':'es',
         'URL_SERVICES': {
+            'APPOINTMENT_SERVICE_URL': 'appointments/by_student.json',
             'CATEGORY_SERVICE_URL': '/categories.json',
             'COUNTY_SERVICE_URL': '/counties.json',
             'TUTOR_SERVICE_URL': '/tutors/by_county_and_category_ids.json'
@@ -16,6 +17,11 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt', 
             '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30',
             '20:00', '20:30', '21:00', '21:30', '22:00', '22:30', '23:00', '23:30'],
         'DAYS': [{'title':'Domingo', 'minTitle' : 'D'}, {'title':'Lunes', 'minTitle' : 'L'}, {'title':'Martes', 'minTitle' : 'M'}, {'title':'Miércoles', 'minTitle' : 'M'}, {'title':'Jueves', 'minTitle' : 'J'}, {'title':'Viernes', 'minTitle' : 'V'}, {'title':'Sábado', 'minTitle' : 'S'}]
+        'MONTHS': ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        'START_YEAR': 1900,
+        'APPOINTMENT_STATUS': [{id:1,name:'pending'},{id:2,name:'rejected'},{id:3,name:'confirmed'},{id:4,name:'canceled'},{id:5,name:'completed'}],
+        'STATUS_CLASS': {'pending':'appointment-status-pending','rejected':'appointment-status-rejected','confirmed':'appointment-status-confirmed','canceled':'appointment-status-canceled','completed':'appointment-status-completed'},
+        'STATUS_ICON_CLASS': {'pending':'icon-help','rejected':'icon-close','confirmed':'icon-accept','canceled':'icon-close','completed':''},
     })
 
     .config(function($stateProvider, $urlRouterProvider){
