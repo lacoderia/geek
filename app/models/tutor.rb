@@ -61,13 +61,14 @@ class Tutor < ActiveRecord::Base
     # appointment_status_id 3 = confirmado, 4 = cancelado
     #if appointment.appointment_status_id == 3
       client = Google::APIClient.new
+      self.refresh_token_action
       token = self.token
       client.authorization.access_token = token
       service = client.discovered_api('calendar', 'v3')
       calendar = self.calendar_id
       event = appointment.appointment_id
       client.execute(:api_method => service.events.delete, :parameters => {'calendarId' => calendar, 'eventId' => event, 'sendNotifications' => true}, :headers => {'Content-Type' => 'application/json'})
-      appointment.update_attribute(:appointment_status_id, 4)
+      # appointment.update_attribute(:appointment_status_id, 4)
     #else
     #  raise "El evento no está confirmado"
     #end
