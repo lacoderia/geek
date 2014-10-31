@@ -8,7 +8,7 @@ Geek.directive('ngModalDetail', ["$timeout", "$window", "$document", function($t
         template:   '<div ng-class="[DEFAULT_CLASS, detailArrowClass]" ng-style="modalStyle" ng-show="toggle">' +
                         '<span class="icon-close modal-detail-close" ng-click="close()"></span>' +
                         '<div class="modal-detail-header" ng-bind-html="title"></div>' +
-                        '<div class="modal-detail-content" ng-bind-html="content"></div>' +
+                        '<div class="modal-detail-content" ng-html-compile="content"></div>' +
                         '<div class="modal-detail-footer" ng-bind-html-="footer"></div>' +
                     '</div>',
         link: function(scope, element, attrs){

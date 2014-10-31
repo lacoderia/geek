@@ -98,6 +98,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile','Appointm
                             day.appointments = [];
                         }
                         day.appointments.push(appointment);
+                        console.log(day);
                     }
                 }
             }
@@ -240,7 +241,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile','Appointm
                                     '</td>' +
                                     '<tr><td class="appointment-detail-content">' + appointment.details + '</td></tr>' +
                                   '</table>';
-        appointmentContent = $compile(appointmentContent)($scope);
+        appointmentContent = appointmentContent;
         $scope.open(appointmentTitle, appointmentContent , null, options);
     };
 
@@ -262,7 +263,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile','Appointm
                 break;
         }
 
-        appointment.appointmentStatusClass = DEFAULT_VALUES.STATUS_CLASS[appointment.status.name]
+        appointment.appointmentStatusClass = DEFAULT_VALUES.STATUS_CLASS[appointment.status.id]
         $scope.showActionButtons(appointment);
 
         AppointmentService.setAppointmentStatus(appointment.id,appointment.status.id).then(
@@ -414,6 +415,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile','Appointm
         $scope.appointments = AppointmentService.getAppointmentsByMonthAndYear(month,year).then(
             function(data){
                 $scope.appointments = data;
+                console.log($scope.appointments)
                 if(data){
                     for(var appointmentIndex=0; appointmentIndex<$scope.appointments.length; appointmentIndex++){
 
@@ -434,8 +436,8 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile','Appointm
                         appointment.day = startDate.getDay();
                         appointment.month = startDate.getMonth();
                         appointment.year = startDate.getYear() + $scope.START_YEAR;
-                        appointment.appointmentStatusClass = DEFAULT_VALUES.STATUS_CLASS[appointment.status.name];
-                        appointment.appointmentIconClass = DEFAULT_VALUES.STATUS_ICON_CLASS[appointment.status.name];
+                        appointment.appointmentStatusClass = DEFAULT_VALUES.STATUS_CLASS[appointment.status.id];
+                        appointment.appointmentIconClass = DEFAULT_VALUES.STATUS_ICON_CLASS[appointment.status.id];
                         appointment.showCancelButton = false;
                         appointment.showAcceptButton = false;
                         appointment.showRejectButton = false;
