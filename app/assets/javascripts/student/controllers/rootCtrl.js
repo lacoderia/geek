@@ -17,6 +17,7 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "DEFAULT_
     // Objeto que contiene el calendario semanal del tutor
     $rootScope.weekRows = new Array();
 
+
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.HOURS = DEFAULT_VALUES.HOURS;
 
@@ -62,8 +63,6 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "DEFAULT_
 
         $timeout(function() {
 	        $rootScope.$broadcast("rootControllerReady");
-
-            $rootScope.createWeekCalendar();
 	    },0);
     });
 
@@ -93,22 +92,6 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "DEFAULT_
         }
     );
 
-    // Método que genera la información para poblar la vista semanal del perfil del tutor
-    $rootScope.createWeekCalendar = function() {
 
-        for(var rowIndex=0; rowIndex<$scope.HOURS.length; rowIndex++){
-            $rootScope.weekRows[rowIndex] = {
-                'halfHours': new Array()
-            };
-            for(var dayIndex=0; dayIndex<$scope.DAYS.length; dayIndex++){
-                $rootScope.weekRows[rowIndex].halfHours[dayIndex] = {
-                    'startTime': $scope.HOURS[rowIndex],
-                    'endTime': $scope.HOURS[rowIndex + 1] ? $scope.HOURS[rowIndex + 1] : $scope.HOURS[0],
-                    'available': false,
-                    'appointment': undefined
-                };
-            }
-        }
-    };
 
 }]);

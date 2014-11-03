@@ -51,7 +51,6 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
             $scope.selectedYear++;
         }
         $scope.getMonthlyCalendar($scope.selectedYear,$scope.selectedMonth);
-        $scope.getWeeklyAppointmentList($scope.selectedYear,$scope.selectedMonth);
     };
 
     /*
@@ -66,7 +65,6 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
             $scope.selectedYear --;
         }
         $scope.getMonthlyCalendar($scope.selectedYear,$scope.selectedMonth);
-        $scope.getWeeklyAppointmentList($scope.selectedYear,$scope.selectedMonth);
 
     };
 
@@ -85,35 +83,20 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
         return (day.month == $scope.selectedDate.month && day.numberDay == $scope.selectedDate.numberDay && day.year == $scope.selectedDate.year);
     };
 
-    $scope.isAppointmentExist = function(day, appointment){
-        var isAppointmentExist = false
-        for(var appointmentIndex=0; appointmentIndex<day.appointments.length; appointmentIndex++){
-            var newAppointment = day.appointments[appointmentIndex];
-            if(newAppointment.id == appointment.id){
-                isAppointmentExist = true;
-                break;
-            }
-        }
-        return isAppointmentExist;
-    };
-
     /*
     * Agrega una cita en un día determinado
     * */
-    $scope.setDayAppointment = function(appointment,year,month){
-        if(appointment.month == month && appointment.year == year){
-            for(var rowIndex=0; rowIndex<$scope.TOTAL_CALENDAR_ROWS; rowIndex++){
-                for(var dayIndex=0; dayIndex<$scope.DAYS.length; dayIndex++){
-                    var day = $scope.calendarRows[rowIndex].days[dayIndex];
-                    if(day.numberDay == appointment.numberDay && !$scope.isAppointmentExist(day,appointment)){
-                        day.appointments.push(appointment);
-                        //console.log(day)
-                    }
+    $scope.setDayAppointment = function(appointment){
+
+        for(var rowIndex=0; rowIndex<$scope.TOTAL_CALENDAR_ROWS; rowIndex++){
+            for(var dayIndex=0; dayIndex<$scope.DAYS.length; dayIndex++){
+                var day = $scope.calendarRows[rowIndex].days[dayIndex];
+                if(day.numberDay == appointment.numberDay && day.month == appointment.month && day.year == appointment.year){
+                    day.appointments.push(appointment);
+                    return;
                 }
             }
         }
-
-
     };
 
     /*
@@ -157,42 +140,38 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
 
     $scope.setWeekAppointments = function(){
 
-        if($rootScope.weekRows.length < 1){
-            $timeout(function(){
-                $scope.setWeekAppointments();
-            },100)
-        }else{
-            $scope.resetWeekViewAppointments();
-            for(var dayIndex=0; dayIndex<$scope.selectedWeek.length; dayIndex++){
-                var day = $scope.selectedWeek[dayIndex];
+        $scope.$watch('tutorProfileLoaded', function(){
+            if($rootScope.tutorProfileLoaded){
+                $scope.resetWeekViewAppointments();
+                for(var dayIndex=0; dayIndex<$scope.selectedWeek.length; dayIndex++){
+                    var day = $scope.selectedWeek[dayIndex];
 
-                if(day.appointments){
-                    for(var appointmentIndex=0; appointmentIndex<day.appointments.length; appointmentIndex++){
-                        var appointment = day.appointments[appointmentIndex];
-                        var straightHourTime = false;
-                        for(var hourIndex=0; hourIndex<$scope.HOURS.length; hourIndex++){
-                            var timeObject = $rootScope.weekRows[hourIndex].halfHours[dayIndex];
+                    if(day.appointments){
+                        for(var appointmentIndex=0; appointmentIndex<day.appointments.length; appointmentIndex++){
+                            var appointment = day.appointments[appointmentIndex];
+                            var straightHourTime = false;
+                            for(var hourIndex=0; hourIndex<$scope.HOURS.length; hourIndex++){
+                                var timeObject = $rootScope.weekRows[hourIndex].halfHours[dayIndex];
 
-                            if(!straightHourTime){
-                                if(appointment.startHour == timeObject.startTime){
+                                if(!straightHourTime){
+                                    if(appointment.startHour == timeObject.startTime){
+                                        $scope.currentWeekViewAppointments.push(timeObject);
+                                        timeObject.appointment = appointment;
+                                        straightHourTime = true;
+                                    }
+                                } else{
                                     $scope.currentWeekViewAppointments.push(timeObject);
                                     timeObject.appointment = appointment;
-                                    straightHourTime = true;
-                                }
-                            } else{
-                                $scope.currentWeekViewAppointments.push(timeObject);
-                                timeObject.appointment = appointment;
-                                if(appointment.endHour == timeObject.endTime){
-                                    straightHourTime = false;
+                                    if(appointment.endHour == timeObject.endTime){
+                                        straightHourTime = false;
+                                    }
                                 }
                             }
                         }
                     }
                 }
             }
-        };
-
-
+        });
 
     };
 
@@ -344,11 +323,25 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
             var indexDay = 0;
             var numberDay = 1;
             var nextDay = 1;
+            var previousMonth = month;
+            var nextMonth = month;
+            var previousYear = year;
+            var nextYear = year;
 
             if(month > 0){
                 lastDayOfLastMonth = $scope.getDaysInMonth(year,month);
+                previousMonth--;
+                if(month < 11){
+                    nextMonth++;
+                }else{
+                    nextMonth = 0;
+                    nextYear++;
+                }
             }else{
                 lastDayOfLastMonth = $scope.getDaysInMonth((year-1),12);
+                nextMonth = month++;
+                previousYear--;
+
             }
 
             for(var rowIndex=0; rowIndex<$scope.TOTAL_CALENDAR_ROWS; rowIndex++){
@@ -388,26 +381,26 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
                     }else if(indexDay < firstDay){
 
                         day = {
-                            'day': new Date(year,month,numberDay).getDay(),
+                            'day': new Date(previousYear,previousMonth,(lastDayOfLastMonth - (firstDay-1) + dayIndex)).getDay(),
                             'numberDay': lastDayOfLastMonth - (firstDay-1) + dayIndex,
                             'isCurrentDay': false,
                             'dayClass': 'not-current-month',
-                            'month': month,
+                            'month': previousMonth,
                             'isCurrentMonth': false,
-                            'year': year,
+                            'year': previousYear,
                             'week_number': rowIndex,
                             'selected': false,
                             'appointments': []
                         };
                     }else{
                         day = {
-                            'day': new Date(year,month,numberDay).getDay(),
+                            'day': new Date(nextYear,nextMonth,nextDay).getDay(),
                             'numberDay': nextDay,
                             'isCurrentDay': false,
                             'dayClass': 'not-current-month',
-                            'month': month,
+                            'month': nextMonth,
                             'isCurrentMonth': false,
-                            'year': year,
+                            'year': nextYear,
                             'week_number': rowIndex,
                             'selected': false,
                             'appointments': []
@@ -464,7 +457,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
                             appointment.details = '';
                         }
 
-                        $scope.setDayAppointment(appointment,year,month);
+                        $scope.setDayAppointment(appointment);
                         $scope.showActionButtons(appointment);
                     }
 

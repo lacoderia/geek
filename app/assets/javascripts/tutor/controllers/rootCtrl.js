@@ -11,6 +11,8 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.HOURS = DEFAULT_VALUES.HOURS;
 
+    // Estatus de la carga del perfíl del tutor
+    $rootScope.tutorProfileLoaded = false;
 
     $(document).ready(function() {
 
@@ -94,7 +96,7 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
                 }
             }
 
-            $rootScope.$broadcast('tutorProfileLoaded');
+            $rootScope.tutorProfileLoaded = true;
 
         };
 
@@ -105,10 +107,10 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
                     $rootScope.tutor = {
                         'id': data.id,
                         'request': {
-                            'approved': data.approved,
-                            'sent': data.request_sent
-                            //'approved': true,
-                            //'sent': true
+                            //'approved': data.approved,
+                            //'sent': data.request_sent
+                            'approved': true,
+                            'sent': true
                         },
                         'firstName': data.first_name,
                         'lastName': data.last_name,

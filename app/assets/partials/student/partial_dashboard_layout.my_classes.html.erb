@@ -21,14 +21,14 @@
 	      </table>
 	      <table class="week-list-day-row">
 	        <tbody>
-	        	<tr ng-repeat="app in appointments" class="week-list-day-info-row" ng-click="showAppointmentDetail($event, app)">
-              <td class="day-info">De {{ app.startHour }} a {{ app.endHour }}</td>
-              <td class="day-info">{{ app.tutor.first_name }} {{ app.tutor.last_name }}</td>
-              <td class="day-info">{{ app.subject }}</td>
-              <td class="day-info"><span ng-class="[app.appointmentStatusClass, app.appointmentIconClass]"> {{ app.status.name }}</span></td>
+	        	<tr ng-repeat="appointment in appointments" class="week-list-day-info-row" ng-click="showAppointmentDetail($event, appointment)">
+              <td class="day-info">De {{ appointment.startHour }} a {{ appointment.endHour }}</td>
+              <td class="day-info">{{ appointment.tutor.first_name }} {{ appointment.tutor.last_name }}</td>
+              <td class="day-info">{{ appointment.subject }}</td>
+              <td class="day-info"><span ng-class="[appointment.appointmentStatusClass, appointment.appointmentIconClass]"> {{ appointment.status.name }}</span></td>
               <td class="day-info">
                 <div class="appointment-button">
-                    <a ng-show="app.showCancelButton" class="cancel-class" title="Cancelar clase" ng-click="changeStatusAppointment($event, $index, 'cancel', app)">Cancelar</a>
+                    <a ng-show="appointment.showCancelButton" class="cancel-class" title="Cancelar clase" ng-click="changeStatusAppointment($event, $index, 'cancel', appointment)">Cancelar</a>
                 </div>
               </td>
             </tr>

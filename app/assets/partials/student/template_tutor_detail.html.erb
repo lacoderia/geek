@@ -11,7 +11,7 @@
           <h4 class="tutor-name">{{ selectedTutor.first_name }} {{ selectedTutor.last_name }}</h4>
           <h5 class="tutor-county" ng-repeat="county in selectedTutor.counties">{{ county.name }}{{ $last ? '' : ', ' }}</h5>
           <p class="resume">
-            {{ selectedTutor.resume }}
+            {{ selectedTutor.background }}
           </p>
         </div>
       </div>
@@ -28,7 +28,7 @@
           </div>
           <div class="content-price">
             <h4 class="price">
-              {{ selectedTutor.preferences.cost }} <br>
+              $ {{ selectedTutor.preference.cost }} <br>
               Por hora
             </h4>
           </div>
@@ -39,7 +39,7 @@
       </div>
     </div>
 
-    <div class="week-view tutor-calendar-section">
+    <div class="week-view tutor-calendar-section" ng-controller="CalendarController">
       <div class="week-row">
         <table>
           <tbody>

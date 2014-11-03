@@ -22,7 +22,6 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "TutorService"
                 function(data){
                     if(data){
                         $scope.tutorList = data;
-                        console.log($scope.tutorList)
                     }
                 },
                 function(response){
@@ -37,6 +36,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "TutorService"
     // Show tutor details popup
     $scope.showTutorDetails = function(tutor) {
         $scope.openTutorDetailModal(tutor);
+        $rootScope.$broadcast('initTutorCalendar',$scope.selectedTutor);
     }
 
 }]);
