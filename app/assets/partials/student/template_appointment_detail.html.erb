@@ -1,0 +1,21 @@
+<div ng-class="[DEFAULT_CLASS, detailArrowClass]" ng-style="modalStyle" ng-show="clickedAppointment" ng-controller="CalendarController">
+  <span class="icon-close modal-detail-close" ng-click="closeAppointmentDetail()"></span>
+  <div class="modal-detail-header" ng-bind="clickedAppointment.title"></div>
+  <div class="modal-detail-content">
+    <table>
+      <tr><td class="appointment-detail-content" ng-bind="clickedAppointment.date"></td></tr>
+      <tr><td class="appointment-detail-content" ng-bind="clickedAppointment.time"></td></tr>
+      <tr><td class="appointment-detail-content" ng-bind="clickedAppointment.address"></td></tr>
+      <tr><td class="appointment-detail-content">
+        <span class="{{clickedAppointment.appointmentStatusClass}} {{clickedAppointment.appointmentIconClass}}"> {{ clickedAppointment.status.name }}</span>
+      </td></tr>
+      <td class="appointment-detail-content">
+        <div class="appointment-button">
+          <a ng-repeat="button in clickedAppointment.buttons" ng-class="button.class" title="button.title" ng-click="changeStatusAppointment($event, clickedAppointment.index, button.action, clickedAppointment)">{{ button.text }}</a>
+        </div>
+      </td>
+      <tr><td class="appointment-detail-content" ng-bind="clickedAppointment.details"></td></tr>
+    </table>
+  </div>
+  <div class="modal-detail-footer"></div>
+</div>

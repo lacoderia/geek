@@ -1,6 +1,6 @@
 'use strict';
 
-var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'angucomplete-alt', 'ui.router', 'ui.bootstrap.showErrors', 'ngHtmlCompile'])
+var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'angucomplete-alt', 'ui.router', 'ui.bootstrap.showErrors'])
 
     .constant('DEFAULT_VALUES',{
         'LANGUAGE':'es',

@@ -7,7 +7,7 @@ Geek.controller('AppointmentHistoryController',['$scope','$rootScope','Appointme
     $scope.START_YEAR = DEFAULT_VALUES.START_YEAR;
 
     $scope.appointmentsGroups = [];
-    $scope.existstsAppoinments = false;
+    $scope.appointmentsExist = false;
 
     /*
      *
@@ -98,8 +98,8 @@ Geek.controller('AppointmentHistoryController',['$scope','$rootScope','Appointme
     $scope.getAppointments = function(appointments){
         for(var appointmentIndex=0; appointmentIndex<appointments.length; appointmentIndex++){
 
-            if(!$scope.existstsAppoinments){
-                $scope.existstsAppoinments = true;
+            if(!$scope.appointmentsExist){
+                $scope.appointmentsExist = true;
             }
 
             var appointment = appointments[appointmentIndex];
