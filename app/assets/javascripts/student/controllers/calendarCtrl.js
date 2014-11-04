@@ -86,7 +86,9 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile','Availabi
 
     };
 
-    /*$scope.getAppointments = function() {
+
+
+    /* /*$scope.getAppointments = function() {
      AppointmentService.all().then(
      function(data) {
      $scope.appointments = data;
@@ -131,16 +133,15 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile','Availabi
      );
      };
 
-    $scope.showActionButtons = function(appointment) {
-        if(appointment.status.id == DEFAULT_VALUES.APPOINTMENT_STATUS[2].id) {
-            appointment.showCancelButton = true;
-        } else {
-            appointment.showCancelButton = false;
-        }
-    };*/
+     $scope.showActionButtons = function(appointment) {
+     if(appointment.status.id == DEFAULT_VALUES.APPOINTMENT_STATUS[2].id) {
+     appointment.showCancelButton = true;
+     } else {
+     appointment.showCancelButton = false;
+     }
+     };*/
 
-    /*
-     * Cambia el status de un un appointment determinado
+     /* Cambia el status de un un appointment determinado
      **/
     $scope.changeStatusAppointment = function($event,appointmentIndex,action,appointment){
         $event.stopPropagation();

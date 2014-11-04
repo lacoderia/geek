@@ -21,9 +21,38 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
         'MONTHS': ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
         'START_YEAR': 1900,
         'TOTAL_CALENDAR_ROWS': 6,
-        'APPOINTMENT_STATUS': [{id:1,name:'pending'},{id:2,name:'rejected'},{id:3,name:'confirmed'},{id:4,name:'canceled'},{id:5,name:'completed'}],
-        'STATUS_CLASS': {'1':'appointment-status-pending','2':'appointment-status-rejected','3':'appointment-status-confirmed','4':'appointment-status-canceled','5':'appointment-status-completed'},
-        'STATUS_ICON_CLASS': {'1':'icon-help','2':'icon-close','3':'icon-accept','4':'icon-close','5':''},
+        'APPOINTMENT_STATUS': [
+            {
+                code: 0,
+                name: 'pending',
+                class: 'appointment-status-pending',
+                icon_class: 'icon-help'
+            },
+            {
+                code: 1,
+                name: 'rejected',
+                class: 'appointment-status-rejected',
+                icon_class: 'icon-close'
+            },
+            {
+                code: 2,
+                name: 'confirmed',
+                class: 'appointment-status-confirmed',
+                icon_class: 'icon-accept'
+            },
+            {
+                code: 3,
+                name: 'canceled',
+                class: 'appointment-status-canceled',
+                icon_class: 'icon-close'
+            },
+            {
+                code: 4,
+                name: 'completed',
+                class: 'appointment-status-completed',
+                icon_class: 'icon-accept'
+            }
+        ]
     })
 
     .config(function($stateProvider, $urlRouterProvider){

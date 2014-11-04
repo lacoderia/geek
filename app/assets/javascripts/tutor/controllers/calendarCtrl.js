@@ -205,21 +205,24 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
     $scope.changeStatusAppointment = function($event,appointmentIndex,action,appointment){
         $event.stopPropagation();
 
-        AppointmentService.setAppointmentStatus(appointment.id,appointment.status.id).then(
-            function (data){
-                switch (action){
-                    case 'cancel':
-                        appointment.status = DEFAULT_VALUES.APPOINTMENT_STATUS[3];
-                        break;
-                    case 'confirm':
-                        appointment.status = DEFAULT_VALUES.APPOINTMENT_STATUS[2];
-                        break;
-                    case 'reject':
-                        appointment.status = DEFAULT_VALUES.APPOINTMENT_STATUS[1];
-                        break;
-                }
+        var status = '';
 
-                appointment.appointmentStatusClass = DEFAULT_VALUES.STATUS_CLASS[appointment.status.id]
+        switch (action){
+            case 'cancel':
+                status = DEFAULT_VALUES.APPOINTMENT_STATUS[3];
+                break;
+            case 'confirm':
+                status = DEFAULT_VALUES.APPOINTMENT_STATUS[2];
+                break;
+            case 'reject':
+                status = DEFAULT_VALUES.APPOINTMENT_STATUS[1];
+                break;
+        }
+
+        AppointmentService.setAppointmentStatus(appointment.id, status.id).then(
+            function (data){
+                appointment.status = status;
+                appointment.appointmentStatusClass = appointment.status.class;
                 $scope.showActionButtons(appointment);
             },
             function (response){
@@ -230,7 +233,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
 
     $scope.showActionButtons = function(appointment){
         appointment.buttons = new Array();
-        if(appointment.status.id == DEFAULT_VALUES.APPOINTMENT_STATUS[0].id){
+        if(appointment.status.code == DEFAULT_VALUES.APPOINTMENT_STATUS[0].code){
             appointment.buttons.push({
                 'class': 'confirm-class',
                 'title': 'Confirmar clase',
@@ -245,7 +248,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
                 'text': 'Rechazar'
             });
 
-        }else if(appointment.status.id == DEFAULT_VALUES.APPOINTMENT_STATUS[2].id){
+        }else if(appointment.status.code == DEFAULT_VALUES.APPOINTMENT_STATUS[2].code){
             appointment.buttons.push({
                 'class': 'cancel-class',
                 'title': 'Cancelar clase',
@@ -412,8 +415,11 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
                         appointment.day = startDate.getDay();
                         appointment.month = startDate.getMonth();
                         appointment.year = startDate.getYear() + $scope.START_YEAR;
-                        appointment.appointmentStatusClass = DEFAULT_VALUES.STATUS_CLASS[appointment.status.id];
-                        appointment.appointmentIconClass = DEFAULT_VALUES.STATUS_ICON_CLASS[appointment.status.id];
+
+                        // Creamos el objeto status del appointment
+                        var statusId = appointment.status.id;
+                        appointment.status = DEFAULT_VALUES.APPOINTMENT_STATUS[appointment.status.code];
+                        appointment.status.id = statusId;
                         appointment.buttons = new Array();
 
                         if(!appointment.address){

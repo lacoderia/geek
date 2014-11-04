@@ -11,7 +11,7 @@ if @grouped
           json.extract! appointment.address, :id, :description, :line1, :line2 if appointment.address
         end
         json.set! :status do
-          json.extract! appointment.appointment_status, :id, :name
+          json.extract! appointment.appointment_status, :id, :name, :code
         end
       end
     end
@@ -28,7 +28,7 @@ else
       json.extract! appointment.address, :id, :description, :line1, :line2 if appointment.address
     end
     json.set! :status do
-      json.extract! appointment.appointment_status, :id, :name
+      json.extract! appointment.appointment_status, :id, :name, :code
     end
   end
 
