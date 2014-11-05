@@ -11,7 +11,7 @@
       </td></tr>
       <td class="appointment-detail-content">
         <div class="appointment-button">
-          <a ng-repeat="button in clickedAppointment.buttons" ng-class="button.class" title="button.title" ng-click="changeStatusAppointment($event, clickedAppointment.index, button.action, clickedAppointment)">{{ button.text }}</a>
+          <a ng-repeat="button in clickedAppointment.buttons" ng-class="button.class" title="button.title" ng-click="changeAppointmentStatus($event, button.action, clickedAppointment)">{{ button.text }}</a>
         </div>
       </td>
       <tr><td class="appointment-detail-content" ng-bind="clickedAppointment.details"></td></tr>

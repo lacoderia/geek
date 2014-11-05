@@ -10,7 +10,7 @@ Geek.controller('MyAppointmentsController',['$scope','$rootScope','$compile','Ap
     /*
      * Cambia el status de un un appointment determinado
      **/
-    $scope.changeStatusAppointment = function($event,appointmentIndex,action,appointment){
+    $scope.changeAppointmentStatus = function($event,action,appointment){
         $event.stopPropagation();
 
         var status = '';
@@ -37,14 +37,15 @@ Geek.controller('MyAppointmentsController',['$scope','$rootScope','$compile','Ap
     /*
      * Obtiene la posición donde el usuario hiczo click y abre el popupd del detalle del appointment
      * */
-    $scope.showAppointmentDetail = function($event, appointmentIndex, appointment){
+    $scope.showAppointmentDetail = function($event, appointment){
+        if(appointment) {
+            var options = {
+                posX: $event.clientX,
+                posY: $event.pageY
+            };
 
-        var options = {
-            posX: $event.clientX,
-            posY: $event.pageY
-        };
-
-        $scope.openAppointmentDetail($event, appointmentIndex, appointment, options, DEFAULT_VALUES);
+            $scope.openAppointmentDetail($event, appointment, options, DEFAULT_VALUES);
+        }
     };
 
     /*

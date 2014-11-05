@@ -10,14 +10,14 @@ Geek.controller('AppointmentHistoryController',['$scope','$rootScope','Appointme
     /*
      * Obtiene la posición donde el usuario hiczo click y abre el popupd del detalle del appointment
      * */
-    $scope.showAppointmentDetail = function($event, appointmentIndex, appointment){
+    $scope.showAppointmentDetail = function($event, appointment){
 
         var options = {
             posX: $event.clientX,
             posY: $event.pageY
         };
 
-        $scope.openAppointmentDetail($event, appointmentIndex, appointment, options, DEFAULT_VALUES);
+        $scope.openAppointmentDetail($event, appointment, options, DEFAULT_VALUES);
     };
 
     /*

@@ -18,6 +18,9 @@ Rails.application.routes.draw do
       get 'by_tutor'
       get 'by_student'
     end
+    member do
+      post 'change_status'
+    end
   end
 
   resources :messages
