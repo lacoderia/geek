@@ -4,7 +4,7 @@ Geek.directive('ngModalDetail', ["$timeout", "$window", "$document", function($t
     return{
         restrict: 'A',
         replace: true,
-        templateUrl: '/assets/student/template_appointment_detail.html',
+        templateUrl: '/assets/tutor/template_appointment_detail.html',
         link: function(scope, element, attrs){
 
             scope.DEFAULT_ARROW_CLASSES = ['modal-detail-arrow-left', 'modal-detail-arrow-right'];
@@ -44,23 +44,25 @@ Geek.directive('ngModalDetail', ["$timeout", "$window", "$document", function($t
 
                 // Detenemos la propagación del evento click para evitar que el bind al final del metodo se ejecute
                 $event.stopPropagation();
-                
-                scope.clickedAppointment = appointment;
-                scope.clickedAppointment.index = appointmentIndex;
-                scope.clickedAppointment.title =  appointment.subject + ' - ' + appointment.student.first_name + ' '  + appointment.student.last_name;
-                scope.clickedAppointment.date = DEFAULT_VALUES.DAYS[appointment.day].title + ', ' + appointment.numberDay + ' de ' + DEFAULT_VALUES.MONTHS[appointment.month];
-                scope.clickedAppointment.time = 'De ' + appointment.startHour + ' a ' + appointment.endHour;
 
-                scope.clickedAppointment.address = 'Dirección por confirmar';
-                if(appointment.address.line1 || appointment.address.line2){
-                    scope.clickedAppointment.address = '';
-                    if(appointment.address.line1){
-                        scope.clickedAppointment.address += appointment.address.line1 + ' ';
+                $timeout(function(){
+                    scope.clickedAppointment = appointment;
+                    scope.clickedAppointment.index = appointmentIndex;
+                    scope.clickedAppointment.title =  appointment.subject + ' - ' + appointment.student.first_name + ' '  + appointment.student.last_name;
+                    scope.clickedAppointment.date = DEFAULT_VALUES.DAYS[appointment.day].title + ', ' + appointment.numberDay + ' de ' + DEFAULT_VALUES.MONTHS[appointment.month];
+                    scope.clickedAppointment.time = 'De ' + appointment.startHour + ' a ' + appointment.endHour;
+
+                    scope.clickedAppointment.address = 'Dirección por confirmar';
+                    if(appointment.address.line1 || appointment.address.line2){
+                        scope.clickedAppointment.address = '';
+                        if(appointment.address.line1){
+                            scope.clickedAppointment.address += appointment.address.line1 + ' ';
+                        }
+                        if(appointment.address.line2){
+                            scope.clickedAppointment.address += appointment.address.line2;
+                        }
                     }
-                    if(appointment.address.line2){
-                        scope.clickedAppointment.address += appointment.address.line2;
-                    }
-                }
+                }, 0);
 
                 $timeout(function(){
                     var dialogHeight = angular.element(element).prop('offsetHeight');

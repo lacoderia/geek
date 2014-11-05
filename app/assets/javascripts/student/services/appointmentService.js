@@ -6,7 +6,11 @@ Geek.factory('AppointmentService', ["$http", "$q", "DEFAULT_VALUES", function($h
         var deferred = $q.defer();
         var promise = deferred.promise;
 
-        $http.get(DEFAULT_VALUES.URL_SERVICES.APPOINTMENT_SERVICE_URL).
+        $http.get(DEFAULT_VALUES.URL_SERVICES.APPOINTMENT_SERVICE_URL,{
+            params: {
+                'previous': true
+            }
+        }).
             success(function(data){
                 deferred.resolve(data);
             }).
@@ -15,7 +19,7 @@ Geek.factory('AppointmentService', ["$http", "$q", "DEFAULT_VALUES", function($h
                 deferred.reject(response);
             });
 
-        return promise
+        return promise;
     };
 
     var getAppointmentsByMonthAndYear = function(month, year, tutorId){

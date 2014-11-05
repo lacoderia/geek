@@ -4,10 +4,8 @@ Geek.controller('AppointmentHistoryController',['$scope','$rootScope','Appointme
 
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.MONTHS = DEFAULT_VALUES.MONTHS;
-    $scope.START_YEAR = DEFAULT_VALUES.START_YEAR;
 
     $scope.appointmentsGroups = [];
-    $scope.appointmentsExist = false;
 
     /*
      * Obtiene la posición donde el usuario hiczo click y abre el popupd del detalle del appointment
@@ -26,12 +24,11 @@ Geek.controller('AppointmentHistoryController',['$scope','$rootScope','Appointme
      * Obtiene la una lista de citas anteriores a la fecha actual
      * */
     $scope.getPastAppointmentList = function(){
-        var appointmentsGroupedByDate = AppointmentService.all().then(
+        AppointmentService.all().then(
             function(data){
                 if(data){
-                    appointmentsGroupedByDate = data;
-                    for(var groupIndex=0; groupIndex<appointmentsGroupedByDate.length; groupIndex++){
-                        var appointmentsGroup = appointmentsGroupedByDate[groupIndex];
+                    for(var groupIndex = 0; groupIndex < data.length; groupIndex++){
+                        var appointmentsGroup = data[groupIndex];
                         var groupDateKey = Object.keys(appointmentsGroup)[0];
                         var groupDateArray = groupDateKey.split('-');
                         var groupDate = new Date(parseInt(groupDateArray[0]), parseInt(groupDateArray[1])-1, parseInt(groupDateArray[2]));
@@ -40,9 +37,8 @@ Geek.controller('AppointmentHistoryController',['$scope','$rootScope','Appointme
                             day: groupDate.getDay(),
                             month: groupDate.getMonth(),
                             year: groupDate.getYear(),
-                            appointments: $scope.getAppointments(appointmentsGroupedByDate[groupIndex][groupDateKey])
-
-                        }
+                            appointments: $scope.getAppointments(data[groupIndex][groupDateKey])
+                        };
                         $scope.appointmentsGroups.push(appointmentGroup);
                     }
                 }
@@ -56,10 +52,6 @@ Geek.controller('AppointmentHistoryController',['$scope','$rootScope','Appointme
 
     $scope.getAppointments = function(appointments){
         for(var appointmentIndex=0; appointmentIndex<appointments.length; appointmentIndex++){
-
-            if(!$scope.appointmentsExist){
-                $scope.appointmentsExist = true;
-            }
 
             var appointment = appointments[appointmentIndex];
 

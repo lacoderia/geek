@@ -1,16 +1,10 @@
 'use strict';
 
-Geek.directive('ngModalDetail', function($timeout, $window, $document, $compile){
+Geek.directive('ngModalDetail', ["$timeout", "$window", "$document", function($timeout, $window, $document){
     return{
         restrict: 'A',
         replace: true,
-        transclude: true,
-        template:   '<div ng-class="[DEFAULT_CLASS, detailArrowClass]" ng-style="modalStyle" ng-show="toggle">' +
-                        '<span class="icon-close modal-detail-close" ng-click="close()"></span>' +
-                        '<div class="modal-detail-header" ng-bind-html="title"></div>' +
-                        '<div class="modal-detail-content" ng-bind-html="content"></div>' +
-                        '<div class="modal-detail-footer" ng-bind-html-="footer"></div>' +
-                    '</div>',
+        templateUrl: '/assets/student/template_appointment_detail.html',
         link: function(scope, element, attrs){
 
             scope.DEFAULT_ARROW_CLASSES = ['modal-detail-arrow-left', 'modal-detail-arrow-right'];
@@ -25,41 +19,50 @@ Geek.directive('ngModalDetail', function($timeout, $window, $document, $compile)
                 left:0
             };
 
-            scope.toggle = false;
-            scope.title = '';
-            scope.content = '';
+            scope.clickedAppointment = null;
 
-            scope.close = function(){
+            scope.closeAppointmentDetail = function(){
+                scope.modalStyle.top = 0;
+                scope.modalStyle.left = 0;
 
-                if(scope.toggle){
+                scope.clickedAppointment = null;
 
-                    scope.toggle = false;
-                    scope.title = '';
-                    scope.content = '';
-                    scope.footer = '';
-                    scope.modalStyle.top = 0;
-                    scope.modalStyle.left = 0;
-
-                    $document.unbind('click');
-                    if(!scope.$$phase){
-                        scope.$apply();
-                    }
+                if(!scope.$$phase){
+                    scope.$apply();
                 }
+
+                // Dejamos de detectar el click en el modal
+                element.unbind('click');
+
+                // Dejamos de detectar el click en $document que cierra el modal
+                $document.unbind('click', scope.closeAppointmentDetail);
             };
 
-            scope.open = function(title, content, footer, options){
+            scope.openAppointmentDetail = function($event, appointmentIndex, appointment, options, DEFAULT_VALUES){
+                // Primero cerramos el modal que está abierto para evitar ver parpadear información del modal anterior
+                scope.closeAppointmentDetail();
 
-                if(scope.toggle){
-                    scope.toggle = false;
-                }
+                // Detenemos la propagación del evento click para evitar que el bind al final del metodo se ejecute
+                $event.stopPropagation();
 
                 $timeout(function(){
-                    scope.title = title;
-                    scope.content = content;
-                    scope.footer = footer;
-                    scope.toggle = true;
-                },0);
+                    scope.clickedAppointment = appointment;
+                    scope.clickedAppointment.index = appointmentIndex;
+                    scope.clickedAppointment.title =  appointment.subject + ' - ' + appointment.tutor.first_name + ' '  + appointment.tutor.last_name;
+                    scope.clickedAppointment.date = DEFAULT_VALUES.DAYS[appointment.day].title + ', ' + appointment.numberDay + ' de ' + DEFAULT_VALUES.MONTHS[appointment.month];
+                    scope.clickedAppointment.time = 'De ' + appointment.startHour + ' a ' + appointment.endHour;
 
+                    scope.clickedAppointment.address = 'Dirección por confirmar';
+                    if(appointment.address.line1 || appointment.address.line2){
+                        scope.clickedAppointment.address = '';
+                        if(appointment.address.line1){
+                            scope.clickedAppointment.address += appointment.address.line1 + ' ';
+                        }
+                        if(appointment.address.line2){
+                            scope.clickedAppointment.address += appointment.address.line2;
+                        }
+                    }
+                },0);
 
                 $timeout(function(){
                     var dialogHeight = angular.element(element).prop('offsetHeight');
@@ -75,14 +78,17 @@ Geek.directive('ngModalDetail', function($timeout, $window, $document, $compile)
                         scope.detailArrowClass = scope.DEFAULT_ARROW_CLASSES[0];
                     }
 
-                    $document.bind('click', function($event){
-                        $event.stopPropagation();
-                        scope.close();
-
-                    });
-
                 },0);
+
+                // Detenemos la propagación para que el evento click sobre $document no cierre el modal
+                element.bind('click', function(e) {
+                    e.stopPropagation();
+                });
+
+                // Si detectamos un click sobre $document cerramos el modal
+                $document.bind('click', scope.closeAppointmentDetail);
+
             };
         }
     }
-});
+}]);
