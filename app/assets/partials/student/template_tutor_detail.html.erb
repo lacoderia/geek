@@ -58,7 +58,7 @@
           <tbody>
           <tr>
             <td class="week-day">{{ HOURS[$index] }}</td>
-            <td class="week-day" ng-class="[halfHour.appointment.appointmentStatusClass, {true:'available', false: 'unavailable'}[halfHour.available]]" ng-repeat="halfHour in row.halfHours" ng-click="showAppointmentDetail($event,halfHour.appointment)">
+            <td class="week-day" ng-class="[halfHour.appointment.appointmentStatusClass, {true:'available', false: 'unavailable'}[halfHour.available]]" ng-repeat="halfHour in row.halfHours" ng-click="showAppointmentDetail($event, halfHour.appointment)">
             &nbsp;
             </td>
           </tr>
