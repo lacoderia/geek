@@ -32,15 +32,22 @@
               Por hora
             </h4>
           </div>
-          <div class="content-button">
-            <button class="action-button send-message" ng-click="showTutorDetails(tutor)">Ver perfil</button>
-          </div>
         </div>
       </div>
     </div>
 
     <div class="week-view tutor-calendar-section" ng-controller="CalendarController">
-      <div class="week-row">
+
+      <div class="week-row tutor-calendar-title-day">
+        <table>
+          <tbody>
+          <tr class="week-title">
+            <td class="control"><span class="control-arrow control-left-arrow" ng-click="getPreviousWeek()"></span></td>
+            <td class="title">Semana del {{ selectedWeek[0].numberDay }} de {{ MONTHS[selectedWeek[0].month] }} al {{ selectedWeek[6].numberDay }} de {{ MONTHS[selectedWeek[0].month] }}</td>
+            <td class="control"><span class="control-arrow control-right-arrow" ng-click="getNextWeek()"></span></td>
+          </tr>
+          </tbody>
+        </table>
         <table>
           <tbody>
           <tr>
@@ -53,14 +60,12 @@
           </tbody>
         </table>
       </div>
-      <div class="week-row" ng-repeat="row in weekRows">
-        <table>
+      <div class="tutor-calendar-hours week-row">
+        <table ng-repeat="row in weekRows" id="week-row-{{ HOURS[$index] }}">
           <tbody>
           <tr>
             <td class="week-day">{{ HOURS[$index] }}</td>
-            <td class="week-day" ng-class="[halfHour.appointment.appointmentStatusClass, {true:'available', false: 'unavailable'}[halfHour.available]]" ng-repeat="halfHour in row.halfHours" ng-click="showAppointmentDetail($event,halfHour.appointment)">
-            &nbsp;
-            </td>
+            <td class="week-day" ng-class="[halfHour.appointment.appointmentStatusClass, {true:'available', false: 'unavailable'}[halfHour.available]]" ng-repeat="halfHour in row.halfHours" ng-click="showAppointmentDetail($event,halfHour.appointment)"></td>
           </tr>
           </tbody>
         </table>

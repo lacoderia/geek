@@ -208,7 +208,7 @@ class Tutor < ActiveRecord::Base
         else
           obj[:start] = initial_hour
           obj[:end] = end_hour + 0.5
-          formatted_result << Tutor.transfrom_hours(obj)
+          formatted_result << Tutor.transform_hours(obj)
           obj = {:day => key}
           initial_hour = hour
           end_hour = initial_hour 
@@ -218,7 +218,7 @@ class Tutor < ActiveRecord::Base
         previous_hour = hour
       end
 
-      formatted_result << Tutor.transfrom_hours(obj)
+      formatted_result << Tutor.transform_hours(obj) if obj[:start] and obj[:end]
 
     end
 
@@ -325,7 +325,7 @@ class Tutor < ActiveRecord::Base
     end
   end
 
-  def self.transfrom_hours obj
+  def self.transform_hours obj
     start_hour = '%02d' % obj[:start]
     end_hour = '%02d' % obj[:end]
 
