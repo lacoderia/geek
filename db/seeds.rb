@@ -75,11 +75,15 @@ tutor.categories << cat_matematicas
 tutor.counties << County.joins(:postal_code).where("code = ?", "07708").first
 tutor.counties << County.joins(:postal_code).where("code = ?", "07700").first
 
-status_enviado = AppointmentStatus.create(name: "pendiente")
-status_rechazado = AppointmentStatus.create(name: "rechazada")
-status_confirmado = AppointmentStatus.create(name: "confirmada")
-status_cancelado = AppointmentStatus.create(name: "cancelada")
-status_completado = AppointmentStatus.create(name: "completada")
+status_pendiente = AppointmentStatus.create(name: "Pendiente", code: "0")
+status_rechazado_es = AppointmentStatus.create(name: "Rechazada Estudiante", code: "1")
+status_rechazado_tu = AppointmentStatus.create(name: "Rechazada Tutor", code: "2")
+status_confirmado = AppointmentStatus.create(name: "confirmada", code: "3")
+status_cancelado_stu = AppointmentStatus.create(name: "Cancelada Estudiante", code: "4")
+status_cancelado_tu = AppointmentStatus.create(name: "Cancelada Tutor", code: "5")
+status_completado = AppointmentStatus.create(name: "Completada", code: "6")
+status_cobrada = AppointmentStatus.create(name: "Cobrada", code: "7")
+status_pagada = AppointmentStatus.create(name: "Pagada", code: "8")
 
 address = Address.create(description: "Casa privada", line1: "Sucre Norte 234", line2: "Col. Cigarras de Nuevo Leon", county_id: County.joins(:postal_code).where("code = ?", "06600").first)
 appointment = Appointment.create(appointment_status_id: status_confirmado.id, student_id: student.id, tutor_id: tutor.id, start: Time.now, end: Time.now + 1.hour, details: "Detalles de la cita", address_id: address.id, subject: "Artes")
