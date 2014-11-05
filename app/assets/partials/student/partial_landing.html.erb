@@ -117,7 +117,7 @@
       <div class="bgcolor-light-gray light-search">
         <h2 class="col-lg-2 col-md-3 hidden-sm hidden-xs">geek</h2>
         <form class="col-lg-10 col-md-9 col-sm-12 col-xs-12">
-          <angucomplete-alt id="topics"
+          <angucomplete-alt-geek id="topics"
                             placeholder="Me interesaría aprender..."
                             pause="600"
                             selected-object="subjectInput"
@@ -126,8 +126,8 @@
                             title-field="name"
                             minlength="1"
                             input-class="category">
-          </angucomplete-alt>
-          <angucomplete-alt id="counties"
+          </angucomplete-alt-geek>
+          <angucomplete-alt-geek id="counties"
                             placeholder="En la zona de..."
                             pause="600"
                             selected-object="selectedCountyInput"
@@ -136,7 +136,7 @@
                             title-field="name"
                             minlength="1"
                             input-class="county">
-          </angucomplete-alt>
+          </angucomplete-alt-geek>
           <button ng-click="searchTutor()">Buscar</button>
         </form>
         <div class="clearfix"></div>
@@ -207,7 +207,7 @@
           <h2 class="hidden-xs">geek</h2>
           <h3>¿Qué quieres aprender?</h3>
           <form>
-            <angucomplete-alt id="topics"
+            <angucomplete-alt-geek id="topics"
                               placeholder="Me interesaría aprender..."
                               pause="600"
                               selected-object="subjectInput"
@@ -216,8 +216,8 @@
                               title-field="name"
                               minlength="1"
                               input-class="category">
-            </angucomplete-alt>
-            <angucomplete-alt id="counties"
+            </angucomplete-alt-geek>
+            <angucomplete-alt-geek id="counties"
                               placeholder="En la zona de..."
                               pause="600"
                               selected-object="selectedCountyInput"
@@ -227,7 +227,7 @@
                               minlength="1"
                               input-class="county">
 
-            </angucomplete-alt>
+            </angucomplete-alt-geek>
             <button ng-click="searchTutor()">Buscar</button>
           </form>
         </div>

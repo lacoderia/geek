@@ -1,12 +1,12 @@
 <div class="tutor-calendar-container">
   <h2 class="section-title">Mi historial</h2>
   <div class="appointment-history" ng-controller="AppointmentHistoryController as AppointmentHistoryCtrl">
-    <div class="history-list-view-unavailable" ng-hide="appointmentsExist">
+    <div class="history-list-view-unavailable" ng-hide="appointmentsGroups.length">
       <div class="history-list-view-unavailable-content">
         <h3>No tienes citas anteriores</h3>
       </div>
     </div>
-    <div class="history-list-view-row" ng-show="appointmentsExist">
+    <div class="history-list-view-row" ng-show="appointmentsGroups.length">
       <table>
         <thead>
             <tr class="history-list-title-row">

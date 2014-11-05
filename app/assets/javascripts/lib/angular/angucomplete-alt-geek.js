@@ -9,7 +9,7 @@
 
 'use strict';
 
-angular.module('angucomplete-alt', [] ).directive('angucompleteAlt', ['$q', '$parse', '$http', '$sce', '$timeout', '$rootScope', function ($q, $parse, $http, $sce, $timeout, $rootScope) {
+angular.module('angucomplete-alt-geek', [] ).directive('angucompleteAltGeek', ['$q', '$parse', '$http', '$sce', '$timeout', '$rootScope', function ($q, $parse, $http, $sce, $timeout, $rootScope) {
     // keyboard events
     var KEY_DW  = 40;
     var KEY_RT  = 39;
@@ -68,7 +68,7 @@ angular.module('angucomplete-alt', [] ).directive('angucompleteAlt', ['$q', '$pa
             '  <div id="{{id}}_dropdown" class="angucomplete-dropdown" ng-show="showDropdown">' +
             '    <div class="angucomplete-searching" ng-show="searching" ng-bind="textSearching"></div>' +
             '    <div class="angucomplete-searching" ng-show="!searching && (!results || results.length == 0)" ng-bind="textNoResults"></div>' +
-            '    <div class="angucomplete-row" ng-repeat="result in results" ng-click="selectResult(result)" ng-mouseenter="hoverRow($index)" ng-class="{\'angucomplete-selected-row\': $index == currentIndex}">' +
+            '    <div class="angucomplete-row" ng-repeat="result in results" ng-click="selectResultBroadcast(result)" ng-mouseenter="hoverRow($index)" ng-class="{\'angucomplete-selected-row\': $index == currentIndex}">' +
             '      <div ng-if="imageField" class="angucomplete-image-holder">' +
             '        <img ng-if="result.image && result.image != \'\'" ng-src="{{result.image}}" class="angucomplete-image"/>' +
             '        <div ng-if="!result.image && result.image != \'\'" class="angucomplete-image-default"></div>' +
@@ -98,7 +98,6 @@ angular.module('angucomplete-alt', [] ).directive('angucompleteAlt', ['$q', '$pa
                 mousedownOn = event.target.id;
             });
 
-            scope.copiedInput = false;
             scope.currentIndex = null;
             scope.searching = false;
             scope.searchStr = scope.initialValue;
@@ -110,7 +109,7 @@ angular.module('angucomplete-alt', [] ).directive('angucompleteAlt', ['$q', '$pa
                 }
             });
 
-            scope.$on('angucomplete-alt:clearInput', function (event, elementId) {
+            scope.$on('angucomplete-alt-geek:clearInput', function (event, elementId) {
 
                 if (!elementId) {
                     scope.searchStr = null;
@@ -124,13 +123,9 @@ angular.module('angucomplete-alt', [] ).directive('angucompleteAlt', ['$q', '$pa
                 }
             });
 
-            $rootScope.$on('angucomplete-alt:copyInput', function (event, elementId, value) {
+            $rootScope.$on('angucomplete-alt-geek:copyInput', function (event, elementId, result) {
                 if (scope.id === elementId) {
-                    alert('a')
-                    console.log(value)
-                    scope.copiedInput = true;
-                    callOrAssign(value);
-                    scope.copiedInput = false;
+                    scope.selectResult(result);
                 }
             });
 
@@ -152,10 +147,6 @@ angular.module('angucomplete-alt', [] ).directive('angucompleteAlt', ['$q', '$pa
                 }
                 else {
                     handleRequired(false);
-                }
-
-                if (scope.copiedInput == false) {
-                    $rootScope.$broadcast('angucomplete-alt:copyInput', scope.id, value);
                 }
             }
 
@@ -553,6 +544,10 @@ angular.module('angucomplete-alt', [] ).directive('angucompleteAlt', ['$q', '$pa
                 scope.currentIndex = index;
             };
 
+            scope.selectResultBroadcast = function(result) {
+                $rootScope.$broadcast('angucomplete-alt-geek:copyInput', scope.id, result);
+            }
+
             scope.selectResult = function(result) {
                 // Restore original values
                 if (scope.matchClass) {
@@ -567,6 +562,7 @@ angular.module('angucomplete-alt', [] ).directive('angucompleteAlt', ['$q', '$pa
                     scope.searchStr = result.title;
                 }
                 callOrAssign(result);
+
                 clearResults();
             };
 

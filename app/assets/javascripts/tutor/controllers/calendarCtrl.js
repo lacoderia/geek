@@ -201,7 +201,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
 
     /*
      * Cambia el status de un un appointment determinado
-     **/
+     * */
     $scope.changeStatusAppointment = function($event,appointmentIndex,action,appointment){
         $event.stopPropagation();
 
@@ -219,10 +219,11 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
                 break;
         }
 
-        AppointmentService.setAppointmentStatus(appointment.id, status.id).then(
+        AppointmentService.setAppointmentStatus(appointment.id, status.code).then(
             function (data){
+                var statusId = appointment.status.id;
                 appointment.status = status;
-                appointment.appointmentStatusClass = appointment.status.class;
+                appointment.status.id = statusId;
                 $scope.showActionButtons(appointment);
             },
             function (response){
@@ -248,7 +249,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
                 'text': 'Rechazar'
             });
 
-        }else if(appointment.status.code == DEFAULT_VALUES.APPOINTMENT_STATUS[2].code){
+        } else if(appointment.status.code == DEFAULT_VALUES.APPOINTMENT_STATUS[2].code){
             appointment.buttons.push({
                 'class': 'cancel-class',
                 'title': 'Cancelar clase',
@@ -310,7 +311,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
                     nextYear++;
                 }
             }else{
-                lastDayOfLastMonth = $scope.getDaysInMonth((year-1),12);
+                lastDayOfLastMonth = $scope.getDaysInMonth((year-1),11);
                 nextMonth = month++;
                 previousYear--;
 
