@@ -876,6 +876,10 @@ h2.section-title{
         background-color: $color-profile-light-blue;
       }
 
+      .week-day.no-cursor {
+        cursor: default;
+      }
+
       .week-day-title{
         background-color: $color-input-gray-bgcolor;
         color: $color-dark-green;

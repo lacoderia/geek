@@ -48,44 +48,80 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
     /*
      * Obtiene el siguiente mes del mes seleccionado
      * */
-    $scope.getNextMonth = function(){
+    $scope.getNextMonth = function(month,year){
 
-        if($scope.selectedMonth < 11){
-            $scope.selectedMonth++;
+        var nextDate = {
+            month: month,
+            year: year
+        };
+
+        if(month < 11){
+            nextDate.month++;
         }else{
-            $scope.selectedMonth = 0;
-            $scope.selectedYear++;
+            nextDate.month = 0;
+            nextDate.year++;
         }
+
+        return nextDate;
     };
 
     /*
      * Obtiene el mes previo del mes seleccionado
      * */
-    $scope.getPreviousMonth = function(){
+    $scope.getPreviousMonth = function(month,year){
 
-        if($scope.selectedMonth > 0){
-            $scope.selectedMonth--;
+        var previousDate = {
+            month: month,
+            year: year
+        };
+
+        if(month > 0){
+            previousDate.month--;
         }else{
-            $scope.selectedMonth = 11;
-            $scope.selectedYear --;
+            previousDate.month = 11;
+            previousDate.year --;
         }
 
+        return previousDate;
     };
 
     $scope.getNextWeek = function(){
+
         var lastDay = $scope.selectedWeek[$scope.selectedWeek.length-1];
-        console.log(lastDay);
+        var nextNumberDay = lastDay.numberDay+1;
+        var lastDayOftMonth = $scope.getDaysInMonth(lastDay.year,lastDay.month+1);
+        var nextDate = undefined;
+
+        if(nextNumberDay <= lastDayOftMonth){
+            nextDate = new Date(lastDay.year,lastDay.month,nextNumberDay);
+            $scope.getWeekByDate(nextDate);
+        }else{
+            var nextMonth = $scope.getNextMonth(lastDay.month, lastDay.year);
+            nextDate = new Date(nextMonth.year,nextMonth.month,1);
+            $scope.getWeekByDate(nextDate);
+        }
     };
 
     $scope.getPreviousWeek = function(){
+        var firstDay = $scope.selectedWeek[0];
+        var previousNumberDay = firstDay.numberDay-1;
+        var previousDate = undefined;
 
+        if(previousNumberDay > 0){
+            previousDate = new Date(firstDay.year,firstDay.month,previousNumberDay);
+            $scope.getWeekByDate(previousDate);
+        }else{
+            var previousMonth = $scope.getPreviousMonth(firstDay.month,firstDay.year);
+            var lastDayOfPreviousMonth = $scope.getDaysInMonth(previousMonth.year, previousMonth.month+1);
+            previousDate = new Date(previousMonth.year,previousMonth.month,lastDayOfPreviousMonth);
+            $scope.getWeekByDate(previousDate);
+        }
     };
 
     /*
      * Obtiene los días de la semana a la que pertenece un día determinado
      **/
     $scope.getWeekByDate = function(date){
-        console.log(date)
         var week = [];
 
         var month = date.getMonth();
@@ -324,4 +360,6 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
         }
 
     };
+
+
 }]);

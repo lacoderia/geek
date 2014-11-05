@@ -38,7 +38,7 @@ Geek.directive('ngModalDetail', ["$timeout", "$window", "$document", function($t
                 $document.unbind('click', scope.closeAppointmentDetail);
             };
 
-            scope.openAppointmentDetail = function($event, appointmentIndex, appointment, options, DEFAULT_VALUES){
+            scope.openAppointmentDetail = function($event, appointment, options, DEFAULT_VALUES){
                 // Primero cerramos el modal que está abierto para evitar ver parpadear información del modal anterior
                 scope.closeAppointmentDetail();
 
@@ -47,7 +47,6 @@ Geek.directive('ngModalDetail', ["$timeout", "$window", "$document", function($t
 
                 $timeout(function(){
                     scope.clickedAppointment = appointment;
-                    scope.clickedAppointment.index = appointmentIndex;
                     scope.clickedAppointment.title =  appointment.subject + ' - ' + appointment.student.first_name + ' '  + appointment.student.last_name;
                     scope.clickedAppointment.date = DEFAULT_VALUES.DAYS[appointment.day].title + ', ' + appointment.numberDay + ' de ' + DEFAULT_VALUES.MONTHS[appointment.month];
                     scope.clickedAppointment.time = 'De ' + appointment.startHour + ' a ' + appointment.endHour;

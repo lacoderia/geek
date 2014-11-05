@@ -1,5 +1,6 @@
 class AppointmentsController < ApplicationController
   before_action :set_appointment, only: [:show, :edit, :update, :destroy]
+  skip_before_filter :verify_authenticity_token
 
   # GET /appointments
   # GET /appointments.json
@@ -42,12 +43,6 @@ class AppointmentsController < ApplicationController
   def update
     respond_to do |format|
       if @appointment.update(appointment_params)
-        if @appointment.appointment_status_id == 4 or @appointment.appointment_status_id == 2 #Estatus cancelado o rechazado
-          @appointment.tutor.delete_appointment @appointment 
-        end
-        UserMailer.tutor_notification_email(@appointment.tutor_id, @appointment.appointment_status_id, @appointment.subject).deliver
-        UserMailer.student_notification_email(appointment.student_id, appointment.appointment_status_id, @appointment.subject).deliver
-
         format.html { redirect_to @appointment, notice: 'Appointment was successfully updated.' }
         format.json { render :show, status: :ok, location: @appointment }
       else
@@ -122,6 +117,28 @@ class AppointmentsController < ApplicationController
     end
   end
 
+  # Actualiza el estatus de una cita
+  # Recibe:
+  # code = el código de estatus
+  # Regresa:
+  # la cita actualizada
+  def change_status
+    @appointment = Appointment.find(params[:id])
+    status = AppointmentStatus.find_by_code(params[:code])
+    @appointment.appointment_status_id = status.id
+    if @appointment.save
+      if status.code == "1" or status.code == "2" or status.code == "4" or status.code == "5"
+        puts '---------------------------------ahuevo--------------------'
+        #@appointment.tutor.delete_appointment @appointment 
+      end
+      #UserMailer.tutor_notification_email(@appointment.tutor_id, @appointment.appointment_status_id, @appointment.subject).deliver
+      #UserMailer.student_notification_email(@appointment.student_id, @appointment.appointment_status_id, @appointment.subject).deliver
+      render :show, status: :ok, location: @appointment
+    else
+      render json: @appointment.errors, status: :unprocessable_entity
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_appointment
@@ -130,6 +147,6 @@ class AppointmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def appointment_params
-      params.require(:appointment).permit(:appointment_status_id, :student_id, :tutor_id, :start, :end, :details, :address_id, :code)
+      params.require(:appointment).permit(:appointment_status_id, :student_id, :tutor_id, :start, :end, :details, :address_id)
     end
 end
