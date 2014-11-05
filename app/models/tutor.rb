@@ -241,24 +241,32 @@ class Tutor < ActiveRecord::Base
   end
 
   # month, year, previous pueden ser nil. 
-  def self.list_appointments tutor_id, month, year 
+  def self.list_appointments_by_month_and_year tutor_id, month, year 
     tutor = Tutor.find tutor_id
     if month and year
-      tutor.appointments.includes(:student, :address, :appointment_status).where("EXTRACT(month from start) = ? AND EXTRACT(year from start) = ?", month.to_i, year.to_i).order(:appointment_status_id)
+      tutor.appointments.includes(:student, :address, :appointment_status).where("EXTRACT(month from start) = ? AND EXTRACT(year from start) = ?", month.to_i, year.to_i).order(:end)
     else
-      tutor.appointments.includes(:student, :address, :appointment_status).order(:appointment_status_id)
+      tutor.appointments.includes(:student, :address, :appointment_status).order(:end)
     end
   end
 
-  def self.list_previous_appointments(tutor_id)
+  def self.list_grouped_appointments(tutor_id, previous)
     tutor = Tutor.find tutor_id
-    appointments = tutor.appointments.select("*, EXTRACT(year from appointments.end) as per_year, EXTRACT(month from appointments.end) as per_month, EXTRACT(day from appointments.end) as per_day").includes(:student, :address, :appointment_status).where("appointments.end < ?", Time.now ).order("start DESC")
     result = {}
+
+    if previous
+      where = "appointments.end < ?"
+    else
+      where = "appointments.end >= ?"
+    end
+
+    appointments = tutor.appointments.select("*, EXTRACT(year from appointments.end) as per_year, EXTRACT(month from appointments.end) as per_month, EXTRACT(day from appointments.end) as per_day").includes(:student, :address, :appointment_status).where(where, Time.now ).order("start DESC")
     appointments.each do |appointment|
       key = "#{appointment.per_year.to_i}-#{'%02d' % appointment.per_month.to_i}-#{'%02d' % appointment.per_day.to_i}"
       result[key] = [] if not result[key]
       result[key] << appointment
     end
+
     result.sort.to_h
   end
 
