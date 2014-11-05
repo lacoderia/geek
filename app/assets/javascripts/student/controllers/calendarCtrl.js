@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('CalendarController',['$scope','$rootScope','$compile','AvailabilityService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $compile, AvailabilityService, DEFAULT_VALUES){
+Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeout', '$location', '$anchorScroll', 'AvailabilityService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $compile, $timeout, $location, $anchorScroll, AvailabilityService, DEFAULT_VALUES){
 
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.MONTHS = DEFAULT_VALUES.MONTHS;
@@ -20,15 +20,15 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile','Availabi
     $scope.existstWeekAppoinments = false;
     $scope.currentWeekViewAppointments = [];
 
-    $scope.calendarRows = [];
-    $scope.monthAvailability = [];
+    $rootScope.weekRows
+    $scope.weekAvailability = [];
     $scope.weekView = false;
 
     // Inicializamos los broadcasts y listeners del controlador
     $scope.$on('initTutorCalendar', function($event, selectedTutor){
         $scope.selectedTutor = selectedTutor;
         $scope.createWeekCalendar();
-        $scope.getMonthlyCalendar($scope.selectedYear,$scope.selectedMonth);
+        
     });
 
     /*
@@ -42,7 +42,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile','Availabi
      * Obtiene el primer día de cada mes
      * */
     $scope.getFirstDayOfMonth = function(year,month){
-        return new Date(year, month, 1).getDay();;
+        return new Date(year, month, 1).getDay();
     };
 
     /*
@@ -56,8 +56,6 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile','Availabi
             $scope.selectedMonth = 0;
             $scope.selectedYear++;
         }
-        $scope.getMonthlyCalendar($scope.selectedYear,$scope.selectedMonth);
-        $scope.getWeeklyAppointmentList($scope.selectedYear,$scope.selectedMonth);
     };
 
     /*
@@ -71,23 +69,148 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile','Availabi
             $scope.selectedMonth = 11;
             $scope.selectedYear --;
         }
-        $scope.getMonthlyCalendar($scope.selectedYear,$scope.selectedMonth);
-        $scope.getWeeklyAppointmentList($scope.selectedYear,$scope.selectedMonth);
+
+    };
+
+    $scope.getNextWeek = function(){
+        var lastDay = $scope.selectedWeek[$scope.selectedWeek.length-1];
+        console.log(lastDay);
+    };
+
+    $scope.getPreviousWeek = function(){
 
     };
 
     /*
      * Obtiene los días de la semana a la que pertenece un día determinado
      **/
-    $scope.getWeekByDay = function(day){
-        $scope.selectedWeekNumber = day.week_number;
-        $scope.selectedWeek = $scope.calendarRows[$scope.selectedWeekNumber].days;
+    $scope.getWeekByDate = function(date){
+        console.log(date)
+        var week = [];
+
+        var month = date.getMonth();
+        var year = date.getYear() + $scope.START_YEAR;
+
+        var firstNumberDay = date.getDate() - date.getDay();
+        var numberDay = firstNumberDay;
+        var previousMonth = month;
+        var nextMonth = month;
+        var previousYear = year;
+        var nextYear = year;
+        var lastDayOfPreviousMonth = 0;
+        var lastDayOftMonth = $scope.getDaysInMonth(year,month+1);
+
+        if(month > 0){
+            previousMonth = previousMonth-1;
+            lastDayOfPreviousMonth = $scope.getDaysInMonth(year,previousMonth+1);
+
+            if(month < 11){
+                nextMonth = nextMonth+1;
+            }else{
+                nextMonth = 0;
+                nextYear = nextYear+1;
+            }
+        }else{
+            nextMonth = month+1;
+            previousYear = year-1;
+            previousMonth = 11;
+            lastDayOfPreviousMonth = $scope.getDaysInMonth(previousYear,12);
+
+        }
+
+        var day = {};
+
+        if(firstNumberDay < 1){
+            for(var dayIndex=0; dayIndex<$scope.DAYS.length; dayIndex++){
+                if(numberDay < lastDayOfPreviousMonth){
+                    numberDay = lastDayOfPreviousMonth + firstNumberDay;
+                    if(previousMonth != 11){
+                        day = {
+                            'day': dayIndex,
+                            'numberDay': numberDay,
+                            'month': previousMonth,
+                            'year': year,
+                            'availabilities': []
+                        };
+                    }else{
+                        day = {
+                            'day': new Date(previousYear,previousMonth,numberDay).getDay(),
+                            'numberDay': numberDay,
+                            'month': previousMonth,
+                            'year': previousYear,
+                            'availabilities': []
+                        };
+                    }
+
+                }else{
+                    if(firstNumberDay == lastDayOfPreviousMonth){
+                        firstNumberDay=1;
+                    }
+
+                    day = {
+                        'day': dayIndex,
+                        'numberDay': firstNumberDay,
+                        'month': month,
+                        'year': year,
+                        'availabilities': []
+                    };
+                    numberDay++;
+                }
+                firstNumberDay++;
+                week.push(day);
+            }
+        }else{
+            for(var dayIndex=0; dayIndex<$scope.DAYS.length; dayIndex++){
+                numberDay = firstNumberDay;
+                if(numberDay < lastDayOftMonth){
+                    day = {
+                        'day': dayIndex,
+                        'numberDay': numberDay,
+                        'month': month,
+                        'year': year,
+                        'availabilities': []
+                    };
+                    firstNumberDay++;
+                }else if(numberDay == lastDayOftMonth){
+                    day = {
+                        'day': dayIndex,
+                        'numberDay': numberDay,
+                        'month': month,
+                        'year': year,
+                        'availabilities': []
+                    };
+                    month = nextMonth;
+                    if(nextMonth == 0){
+                        year = nextYear;
+                    }
+                    firstNumberDay = 1;
+
+                }else{
+                    day = {
+                        'day': dayIndex,
+                        'numberDay': numberDay,
+                        'month': month,
+                        'year': year,
+                        'availabilities': []
+                    };
+                    firstNumberDay++;
+                }
+
+                week.push(day);
+            }
+        }
+
+        $scope.selectedWeek = week;
+        $scope.getWeekAvailability();
     };
 
+
+    // Método que asigna la disponibilidad de una semana seleccionada
     $scope.setWeekAvailabilities = function(){
+
         for(var dayIndex=0; dayIndex<$scope.selectedWeek.length; dayIndex++){
             var day = $scope.selectedWeek[dayIndex];
-            if(day.availabilities && day.isCurrentMonth){
+            if(day.availabilities){
                 for(var availabilityIndex=0; availabilityIndex<day.availabilities.length; availabilityIndex++){
                     var availability = day.availabilities[availabilityIndex];
                     var straightHourTime = false;
@@ -99,8 +222,8 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile','Availabi
                                 straightHourTime = true;
                             }
                         }else{
+                            timeObject.available = true;
                             if(availability.end == timeObject.endTime){
-                                timeObject.available = true;
                                 straightHourTime = false;
                                 break;
                             }
@@ -113,130 +236,32 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile','Availabi
         }
     };
 
+    // Método que asigna la disponiblidad de los días de un mes
     $scope.setDayAvailability = function(availability){
 
-        for(var rowIndex=0; rowIndex<$scope.TOTAL_CALENDAR_ROWS; rowIndex++){
-            for(var dayIndex=0; dayIndex<$scope.DAYS.length; dayIndex++){
-                var day = $scope.calendarRows[rowIndex].days[dayIndex];
-                if(day.numberDay == availability.day && day.month == availability.month && day.year == availability.year){
-                    day.availabilities.push(availability);
-                    return;
-                }
+        for(var dayIndex=0; dayIndex<$scope.DAYS.length; dayIndex++){
+            var day = $scope.selectedWeek[dayIndex];
+            if(day.numberDay == availability.day && day.month == availability.month && day.year == availability.year){
+                day.availabilities.push(availability);
+                return;
             }
         }
 
-    };
 
-    /*
-     * Obtiene un calendario por mes
-     * */
-    $scope.getMonthlyCalendar = function(year,month){
-
-        if(year > $scope.START_YEAR && month >= 0 && month < 12){
-            var firstDay = $scope.getFirstDayOfMonth(year,month);
-            var lastDay = $scope.getDaysInMonth(year,month+1);
-            var lastDayOfLastMonth = 0;
-            var indexDay = 0;
-            var numberDay = 1;
-            var nextDay = 1;var previousMonth = month;
-            var nextMonth = month;
-            var previousYear = year;
-            var nextYear = year;
-
-            if(month > 0){
-                lastDayOfLastMonth = $scope.getDaysInMonth(year,month);
-                previousMonth--;
-                if(month < 11){
-                    nextMonth++;
-                }else{
-                    nextMonth = 0;
-                    nextYear++;
-                }
-            }else{
-                lastDayOfLastMonth = $scope.getDaysInMonth((year-1),12);
-                nextMonth = month++;
-                previousYear--;
-
-            }
-
-            for(var rowIndex=0; rowIndex<$scope.TOTAL_CALENDAR_ROWS; rowIndex++){
-                $scope.calendarRows[rowIndex] = {
-                    'week': rowIndex,
-                    'days': []
-                };
-                for(var dayIndex=0; dayIndex<$scope.DAYS.length; dayIndex++){
-                    var day = {};
-                    var isCurrentMonth = true;
-                    if(indexDay >= firstDay && numberDay <= lastDay){
-
-                        day = {
-                            'day': new Date(year,month,numberDay).getDay(),
-                            'numberDay': numberDay,
-                            'dayClass': 'current-month',
-                            'month': month,
-                            'isCurrentMonth': isCurrentMonth,
-                            'year': year,
-                            'week_number': rowIndex,
-                            'availabilities': []
-                        };
-
-                        if($scope.selectedDate == numberDay){
-                            $scope.getWeekByDay(day);
-                        }
-
-                        numberDay++;
-
-                    }else if(indexDay < firstDay){
-                        day = {
-                            'day': new Date(previousYear,previousMonth,(lastDayOfLastMonth - (firstDay-1) + dayIndex)).getDay(),
-                            'numberDay': lastDayOfLastMonth - (firstDay-1) + dayIndex,
-                            'dayClass': 'not-current-month',
-                            'month': previousMonth,
-                            'isCurrentMonth': false,
-                            'year': previousYear,
-                            'week_number': rowIndex,
-                            'availabilities': []
-                        };
-                    }else{
-                        day = {
-                            'day': new Date(nextYear,nextMonth,nextDay).getDay(),
-                            'numberDay': nextDay,
-                            'dayClass': 'not-current-month',
-                            'month': nextMonth,
-                            'isCurrentMonth': false,
-                            'year': nextYear,
-                            'week_number': rowIndex,
-                            'availabilities': []
-                        };
-                        nextDay++;
-                    }
-                    $scope.calendarRows[rowIndex].days[dayIndex] = day;
-                    indexDay++;
-                }
-            }
-
-            if($scope.selectedTutor){
-                $scope.getMonthAvailability(year,month);
-                //$scope.updateWeekCalendar($rootScope.selectedTutor.preference.availabilities);
-            }
-        }
     };
 
 
     /*
-     * Obtiene la una lista de citas en una semana determinada
+     * Obtiene la disponibilidad de una semana determinada
      * */
-    $scope.getMonthAvailability = function(year,month){
-
-        AvailabilityService.getTutorAvailabilityByMonthAndYear(month,year,$scope.selectedTutor.id).then(
+    $scope.getWeekAvailability = function(){
+        AvailabilityService.getTutorAvailabilityByRange($scope.selectedWeek[0], $scope.selectedWeek[$scope.selectedWeek.length-1],$scope.selectedTutor.id).then(
             function(data){
-                $scope.monthAvailability = data;
+                $scope.weekAvailability = data;
                 if(data){
-                    for(var availabilityIndex=0; availabilityIndex<$scope.monthAvailability.length; availabilityIndex++){
-
-                        var availability = $scope.monthAvailability[availabilityIndex];
-                        availability.month = month;
-                        availability.year = year;
+                    for(var availabilityIndex=0; availabilityIndex<$scope.weekAvailability.length; availabilityIndex++){
+                        var availability = $scope.weekAvailability[availabilityIndex];
+                        availability.month--,
 
                         $scope.setDayAvailability(availability);
                         $scope.setWeekAvailabilities();
@@ -270,8 +295,11 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile','Availabi
                 };
             }
         }
+
+        $scope.getWeekByDate($scope.currentDate);
     };
 
+    // Método que actualiza la vista semanal con la disponibilidad del tutor
     $scope.updateWeekCalendar = function(availabilities) {
         for(var i=0; i<availabilities.length; i++) {
 
@@ -296,6 +324,4 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile','Availabi
         }
 
     };
-
-
 }]);

@@ -2,15 +2,19 @@
 
 Geek.factory('AvailabilityService', ["$http", "$q", "DEFAULT_VALUES", function($http, $q){
 
-    var getTutorAvailabilityByMonthAndYear = function(month, year, tutorId){
+    var getTutorAvailabilityByRange = function(startDay, endDay, tutorId){
         var deferred = $q.defer();
         var promise = deferred.promise;
-        var TUTOR_AVAILABILITY_URL = '/tutors/' + tutorId + '/availability_list.json';
+        var TUTOR_AVAILABILITY_URL = '/tutors/' + tutorId + '/ranged_availability_list.json';
 
         $http.get(TUTOR_AVAILABILITY_URL,{
             params: {
-                'month': (month+1),
-                'year': year
+                'start_day': startDay.numberDay,
+                'start_month': startDay.month+1,
+                'start_year': startDay.year,
+                'end_day': endDay.numberDay,
+                'end_month': endDay.month+1,
+                'end_year': endDay.year
             }
         }).
             success(function(data){
@@ -27,7 +31,7 @@ Geek.factory('AvailabilityService', ["$http", "$q", "DEFAULT_VALUES", function($
 
 
     return{
-        getTutorAvailabilityByMonthAndYear: getTutorAvailabilityByMonthAndYear,
+        getTutorAvailabilityByRange: getTutorAvailabilityByRange
     }
 
 }]);
