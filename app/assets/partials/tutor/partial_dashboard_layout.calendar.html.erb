@@ -32,7 +32,7 @@
                   <tr>
                     <td class="month-day" ng-repeat="day in row.days">
                       <a title="Día {{ day.numberDay }}" ng-class="[day.dayClass, { true:'selected-day', false:'' }[day.selected]]" ng-click="selectDate(day)">{{ day.numberDay }}
-                        <div class="events"><span class="event" ng-repeat="appointment in day.appointments" ng-class="appointment.appointmentStatusClass"></span></div>
+                        <div class="events"><span class="event" ng-repeat="appointment in day.appointments" ng-class="appointment.status.class"></span></div>
                       </a>
                     </td>
                   </tr>
@@ -72,16 +72,14 @@
                 </tr>
               </thead>
               <tbody>
-                <tr ng-repeat="appointment in day.appointments" class="week-list-day-info-row" ng-click="showAppointmentDetail($event,appointment)">
+                <tr ng-repeat="appointment in day.appointments" class="week-list-day-info-row" ng-click="showAppointmentDetail($event, $index, appointment)">
                   <td class="day-info">De {{ appointment.startHour }} a {{ appointment.endHour }}</td>
                   <td class="day-info">{{ appointment.student.first_name }} {{ appointment.student.last_name }}</td>
                   <td class="day-info">{{ appointment.subject }}</td>
-                  <td class="day-info"><span ng-class="[appointment.appointmentStatusClass,appointment.appointmentIconClass]"> {{ appointment.status.name }}</span></td>
+                  <td class="day-info"><span ng-class="[appointment.status.class,appointment.status.icon_class]"> {{ appointment.status.name }}</span></td>
                   <td class="day-info">
                     <div class="appointment-button">
-                        <a ng-show="appointment.showCancelButton" class="cancel-class" title="Cancelar clase" ng-click="changeStatusAppointment($event, $index, 'cancel', appointment)">Cancelar</a>
-                        <a ng-show="appointment.showAcceptButton" class="confirm-class" title="Confirmar clase" ng-click="changeStatusAppointment($event, $index, 'confirm', appointment)">Confirmar</a>
-                        <a ng-show="appointment.showRejectButton" class="reject-class" title="Rechazar clase" ng-click="changeStatusAppointment($event, $index, 'reject', appointment)">Rechazar</a>
+                      <a ng-repeat="button in appointment.buttons" ng-class="button.class" title="button.title" ng-click="changeStatusAppointment($event, $index, button.action, appointment)">{{ button.text }}</a>
                     </div>
                   </td>
                 </tr>
@@ -108,7 +106,7 @@
               <tbody>
               <tr>
                 <td class="week-day">{{ HOURS[$index] }}</td>
-                <td class="week-day" ng-class="[halfHour.appointment.appointmentStatusClass, {true:'available', false: 'unavailable'}[halfHour.available]]" ng-repeat="halfHour in row.halfHours" ng-click="showAppointmentDetail($event,halfHour.appointment)">
+                <td class="week-day" ng-class="[halfHour.appointment.appointment.class, {true:'available', false: 'unavailable'}[halfHour.available]]" ng-repeat="halfHour in row.halfHours" ng-click="showAppointmentDetail($event,$index,halfHour.appointment)">
                 </td>
               </tr>
               </tbody>
