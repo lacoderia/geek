@@ -108,6 +108,20 @@ class TutorsController < ApplicationController
   end
 
   # Recibe:
+  # start_day = numero de dia inicial 
+  # start_month = numero de mes inicial
+  # start_year = numero de año inicial
+  # end_day = numero de dia final
+  # end_month = numero de mes final
+  # end_year = numero de año final
+  # id = id del tutor
+  # Regresa:
+  # hash con días del mes, con una lista de horarios
+  def ranged_availability_list
+    @availability_list = Tutor.ranged_availability_list(params[:id], params[:start_day].to_i, params[:start_month].to_i, params[:start_year].to_i, params[:end_day].to_i, params[:end_month].to_i, params[:end_year].to_i)
+  end
+
+  # Recibe:
   # start = fecha de inicio en formato iso8601 (toISOString en JS). Ej 6:30pm, 10 nov 2014 CST ("2014-11-10T18:30:00")
   # length = numero de horas que dura la clase (min: 1) 
   # id = id del tutor

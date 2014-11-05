@@ -75,6 +75,54 @@ class Tutor < ActiveRecord::Base
 
   end
 
+  def self.ranged_availability_list tutor_id, start_day, start_month, start_year, end_day, end_month, end_year
+
+    result = []
+
+    if start_month != end_month or start_year != end_year
+      # mes distinto o año distinto
+      previous_month_availabilities = self.availability_list tutor_id, start_month, start_year 
+      days_in_previous_month = Time.days_in_month(start_month, start_year)
+
+      next_month_availabilities = self.availability_list tutor_id, end_month, end_year 
+
+      previous_month_availabilities.each do |pma|
+        (start_day.to_i..days_in_previous_month).each do |day|
+          if pma[:day] == day
+            pma[:month] = start_month 
+            pma[:year] = start_year
+            result << pma 
+          end
+        end
+      end
+
+      next_month_availabilities.each do |nma|
+        (1..end_day.to_i).each do |day|
+          if nma[:day] == day
+            nma[:month] = end_month
+            nma[:year] = end_year
+            result << nma
+          end
+        end
+      end
+
+    else
+      # mismo mes
+      availabilities = self.availability_list tutor_id, start_month, start_year 
+      availabilities.each do |availability|
+        (start_day.to_i..end_day.to_i).each do |day|
+          if availability[:day] == day
+            availability[:month] = start_month
+            availability[:year] = start_year
+            result << availability
+          end
+        end
+      end      
+    end      
+
+    return result
+  end
+
   def self.availability_list tutor_id, month, year
     result = {}
     tutor = Tutor.find(tutor_id)
