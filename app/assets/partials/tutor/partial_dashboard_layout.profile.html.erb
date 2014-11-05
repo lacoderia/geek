@@ -182,7 +182,7 @@
           <label>Zonas:</label>
         </div>
         <div class="right profile-zones">
-          <angucomplete-alt id="counties"
+          <angucomplete-alt-geek id="counties"
                             placeholder="ZONA"
                             pause="600"
                             selected-object="selectedZone"
@@ -191,7 +191,7 @@
                             title-field="name"
                             minlength="1"
                             input-class="form-input-half">
-          </angucomplete-alt>
+          </angucomplete-alt-geek>
           <a class="action-button action-button-medium-gray" ng-click="addTutorZone()">Añadir</a>
           <div id="tutor_zones" class="items-added-group">
             <div id="tutor_zone_{{$index}}" ng-repeat="tutorZone in tutor.zones" class="item-added">{{tutorZone.name}} <span ng-click="removeTutorZone($index)" class="icon-close close-item"></span></div>

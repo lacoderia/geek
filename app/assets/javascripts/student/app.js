@@ -1,6 +1,6 @@
 'use strict';
 
-var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt', 'ui.router', 'ui.bootstrap.showErrors'])
+var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-geek', 'ui.router', 'ui.bootstrap.showErrors'])
 
     .constant('DEFAULT_VALUES',{
         'LANGUAGE':'es',
@@ -20,6 +20,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt', 
         'MONTHS': ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
         'START_YEAR': 1900,
         'TOTAL_CALENDAR_ROWS': 6,
+        'CALENDAR_LOCATION_HASH': 'week-row-07:00',
         'APPOINTMENT_STATUS': [
             {
                 code: 0,
@@ -84,9 +85,8 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt', 
             .state('dashboard.messages', {
                 url: "/messages",
                 templateUrl: "/assets/student/partial_dashboard_layout.messages.html"
-            })
-
-    })    
+        })
+    })
 
     .directive('pwCheck', [function () {
         return {

@@ -77,15 +77,20 @@ class AppointmentsController < ApplicationController
   # month = numero de mes (opcional)
   # year = numero de año (opcional)
   # previous = true si se quieren las citas historicas (opcional)
+  # next = true si se quieren las citas futuras (opcional)
   # Regresa:
   # lista de appointments. Todos si no se pasaron parámetros. Solo las anteriores a hoy si tiene parametro previous
   def by_tutor 
     @appointments = []
     if current_user and current_user.client_type == "Tutor"
-      if @grouped = params[:previous]
-        @appointments = Tutor.list_previous_appointments(current_user.client_id) 
+      if params[:previous]
+        @grouped = true
+        @appointments = Tutor.list_grouped_appointments(current_user.client_id, true) 
+      elsif params[:next]
+        @grouped = true
+        @appointments = Tutor.list_grouped_appointments(current_user.client_id, false) 
       else
-        @appointments = Tutor.list_appointments(current_user.client_id, params[:month], params[:year])
+        @appointments = Tutor.list_appointments_by_month_and_year(current_user.client_id, params[:month], params[:year])
       end
     end
   end
@@ -94,15 +99,20 @@ class AppointmentsController < ApplicationController
   # month = numero de mes (opcional)
   # year = numero de año (opcional)
   # previous = true si se quieren las citas historicas (opcional)
+  # next = true si se quieren las citas futuras (opcional)  
   # Regresa:
   # lista de appointments. Todos si no se pasaron parámetros. Solo las anteriores a hoy si tiene parametro previous
   def by_student
     @appointments = []
     if current_user and current_user.client_type == "Student"
-      if @grouped = params[:previous]
-        @appointments = Student.list_previous_appointments(current_user.client_id) 
+      if params[:previous]
+        @grouped = true
+        @appointments = Student.list_grouped_appointments(current_user.client_id, true) 
+      elsif params[:next]
+        @grouped = true
+        @appointments = Student.list_grouped_appointments(current_user.client_id, false) 
       else
-        @appointments = Student.list_appointments(current_user.client_id, params[:month], params[:year])
+        @appointments = Student.list_appointments_by_month_and_year(current_user.client_id, params[:month], params[:year])
       end
     end
   end
