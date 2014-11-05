@@ -9,7 +9,7 @@
 
 'use strict';
 
-angular.module('angucomplete-alt', [] ).directive('angucompleteAlt', ['$q', '$parse', '$http', '$sce', '$timeout', '$rootScope', function ($q, $parse, $http, $sce, $timeout, $rootScope) {
+angular.module('angucomplete-alt-geek', [] ).directive('angucompleteAltGeek', ['$q', '$parse', '$http', '$sce', '$timeout', '$rootScope', function ($q, $parse, $http, $sce, $timeout, $rootScope) {
     // keyboard events
     var KEY_DW  = 40;
     var KEY_RT  = 39;
@@ -110,7 +110,7 @@ angular.module('angucomplete-alt', [] ).directive('angucompleteAlt', ['$q', '$pa
                 }
             });
 
-            scope.$on('angucomplete-alt:clearInput', function (event, elementId) {
+            scope.$on('angucomplete-alt-geek:clearInput', function (event, elementId) {
 
                 if (!elementId) {
                     scope.searchStr = null;
@@ -124,7 +124,7 @@ angular.module('angucomplete-alt', [] ).directive('angucompleteAlt', ['$q', '$pa
                 }
             });
 
-            $rootScope.$on('angucomplete-alt:copyInput', function (event, elementId, value) {
+            $rootScope.$on('angucomplete-alt-geek:copyInput', function (event, elementId, value) {
                 if (scope.id === elementId) {
                     alert('a')
                     console.log(value)
@@ -155,7 +155,7 @@ angular.module('angucomplete-alt', [] ).directive('angucompleteAlt', ['$q', '$pa
                 }
 
                 if (scope.copiedInput == false) {
-                    $rootScope.$broadcast('angucomplete-alt:copyInput', scope.id, value);
+                    $rootScope.$broadcast('angucomplete-alt-geek:copyInput', scope.id, value);
                 }
             }
 

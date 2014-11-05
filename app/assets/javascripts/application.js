@@ -26,7 +26,7 @@
 //= require lib/angular/angular-sanitize
 
 // Directivas externas
-//= require lib/angular/angucomplete-alt
+//= require lib/angular/angucomplete-alt-geek
 //= require lib/angular/showErrors.js
 //= require lib/angular/ngHtmlCompile.js
 //= require lib/angular/angular-ui-router
