@@ -1,6 +1,5 @@
 class AppointmentsController < ApplicationController
   before_action :set_appointment, only: [:show, :edit, :update, :destroy]
-  skip_before_filter :verify_authenticity_token
 
   # GET /appointments
   # GET /appointments.json

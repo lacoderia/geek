@@ -209,13 +209,13 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
 
         switch (action){
             case 'cancel':
-                status = DEFAULT_VALUES.APPOINTMENT_STATUS[3];
+                status = DEFAULT_VALUES.APPOINTMENT_STATUS[5];
                 break;
             case 'confirm':
-                status = DEFAULT_VALUES.APPOINTMENT_STATUS[2];
+                status = DEFAULT_VALUES.APPOINTMENT_STATUS[3];
                 break;
             case 'reject':
-                status = DEFAULT_VALUES.APPOINTMENT_STATUS[1];
+                status = DEFAULT_VALUES.APPOINTMENT_STATUS[2];
                 break;
         }
 
@@ -249,7 +249,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
                 'text': 'Rechazar'
             });
 
-        } else if(appointment.status.code == DEFAULT_VALUES.APPOINTMENT_STATUS[2].code){
+        } else if(appointment.status.code == DEFAULT_VALUES.APPOINTMENT_STATUS[3].code){
             appointment.buttons.push({
                 'class': 'cancel-class',
                 'title': 'Cancelar clase',

@@ -36,19 +36,43 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
             },
             {
                 code: 2,
+                name: 'rejected',
+                class: 'appointment-status-rejected',
+                icon_class: 'icon-close'
+            },
+            {
+                code: 3,
                 name: 'confirmed',
                 class: 'appointment-status-confirmed',
                 icon_class: 'icon-accept'
             },
             {
-                code: 3,
-                name: 'canceled',
+                code: 4,
+                name: 'cancelled',
                 class: 'appointment-status-canceled',
                 icon_class: 'icon-close'
             },
             {
-                code: 4,
+                code: 5,
+                name: 'cancelled',
+                class: 'appointment-status-canceled',
+                icon_class: 'icon-accept'
+            },
+            {
+                code: 6,
                 name: 'completed',
+                class: 'appointment-status-completed',
+                icon_class: 'icon-accept'
+            },
+            {
+                code: 7,
+                name: 'charged',
+                class: 'appointment-status-completed',
+                icon_class: 'icon-accept'
+            },
+            {
+                code: 8,
+                name: 'paid',
                 class: 'appointment-status-completed',
                 icon_class: 'icon-accept'
             }
