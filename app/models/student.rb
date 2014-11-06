@@ -30,8 +30,9 @@ class Student < ActiveRecord::Base
       key = "#{appointment.per_year.to_i}-#{'%02d' % appointment.per_month.to_i}-#{'%02d' % appointment.per_day.to_i}"
       result[key] = [] if not result[key]
       result[key] << appointment
+      result[key].sort_by!{|app| app.end}
     end
-    result.sort.to_h
+    result.sort
   end
 
 
