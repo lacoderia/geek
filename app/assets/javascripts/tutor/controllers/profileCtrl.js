@@ -182,11 +182,12 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
 
         $scope.$broadcast('show-errors-check-validity', $scope.tutorProfileForm);
 
+        $scope.updatedCalendar = false;
         if (validCalendar) {
             ProfileService.submitWeekCalendar(weekCalendar).then(
                 function(data){
-                    if(data.length) {
-                        alert('El calendario fue actualizado con éxito');
+                    if(data) {
+                        $scope.updatedCalendar = true;
                     }
                 },
                 function(response){
@@ -205,14 +206,19 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
                 'first_name': $rootScope.tutor.name,
                 'last_name': $rootScope.tutor.lastname,
                 'background': $rootScope.tutor.studies,
-                'references': $rootScope.tutor.references,
+                //'references': $rootScope.tutor.references,
                 'categories': $rootScope.tutor.topics,
+                'phone_number': $rootScope.tutor.phone_number,
+                'gender': $rootScope.tutor.gender,
+                'preference': {
+                  'cost': $rootScope.tutor.preference.cost
+                },
                 'counties': $rootScope.tutor.zones
             }
 
             ProfileService.submitProfile(tutor).then(
                 function(data){
-                    if(data && data.id) {
+                    if(data && data.id && $scope.updatedCalendar) {
                         alert('La actualización fue realizada con éxito');
                     }
                 },

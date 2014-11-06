@@ -139,7 +139,7 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
                                         $rootScope.tutor.zones = data.counties;
 
                                         // Datos de test
-                                        $rootScope.tutor.gender = 'M';
+                                        //$rootScope.tutor.gender = 'M';
                                         //$rootScope.tutor.phone = '5512345678'
 
                                         //$rootScope.$broadcast("tutorProfileLoaded");
