@@ -44,14 +44,13 @@ Geek.factory('AppointmentService', ["$http", "$q", "DEFAULT_VALUES", function($h
 
     };
 
-    var setAppointmentStatus = function(appointmentId, appointmentStatusId){
+    var setAppointmentStatus = function(appointmentId, appointmentStatusCode){
         var deferred = $q.defer();
         var promise = deferred.promise;
-        var APPOINTMENT_PUT_STATUS_URL = '/appointments/' + appointmentId + '.json';
+        var CHANGE_APPOINTMENT_STATUS_URL = '/appointments/' + appointmentId + '/change_status';
 
-        $http.put(APPOINTMENT_PUT_STATUS_URL ,{
-            'id': appointmentId,
-            'appointment_status_id': appointmentStatusId
+        $http.post(CHANGE_APPOINTMENT_STATUS_URL ,{
+            'code': appointmentStatusCode.toString()
         }).
             success(function(data){
                 deferred.resolve(data);

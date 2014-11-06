@@ -17,7 +17,7 @@ Geek.controller('MyAppointmentsController',['$scope','$rootScope','$compile','Ap
 
         switch (action){
             case 'cancel':
-                status = DEFAULT_VALUES.APPOINTMENT_STATUS[3];
+                status = DEFAULT_VALUES.APPOINTMENT_STATUS[4];
                 break;
         }
 
@@ -130,7 +130,7 @@ Geek.controller('MyAppointmentsController',['$scope','$rootScope','$compile','Ap
                 'action': 'cancel',
                 'text': 'Cancelar'
             });
-        } else if(appointment.status.code == DEFAULT_VALUES.APPOINTMENT_STATUS[2].code) {
+        } else if(appointment.status.code == DEFAULT_VALUES.APPOINTMENT_STATUS[3].code) {
             appointment.buttons.push({
                 'class': 'cancel-class',
                 'title': 'Cancelar clase',
