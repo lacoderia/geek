@@ -59,6 +59,9 @@ class TutorsController < ApplicationController
           @tutor.counties << County.find(county[:id])
         end
       end
+      if params[:phone_number]
+        @tutor.user.update_attribute(:phone_number, params[:phone_number]) 
+      end
 
       if @tutor.update(tutor_params)
         format.html { redirect_to @tutor, notice: 'Tutor was successfully updated.' }

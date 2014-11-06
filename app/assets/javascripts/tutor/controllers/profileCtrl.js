@@ -99,12 +99,13 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
         if ($scope.tutorRequestForm.$valid && $rootScope.tutor.topics.length) {
             var tutor = {
                 'id': $rootScope.tutor.id,
-                'first_name': $rootScope.tutor.name,
-                'last_name': $rootScope.tutor.lastname,
+                'first_name': $rootScope.tutor.firstName,
+                'last_name': $rootScope.tutor.lastName,
                 'background': $rootScope.tutor.studies,
                 'references': $rootScope.tutor.references,
                 'categories': $rootScope.tutor.topics,
-                'preference': $rootScope.tutor.preference
+                'preference': $rootScope.tutor.preference,
+                'phone_number': $rootScope.tutor.phone_number
             }
 
             ProfileService.submitRequest(tutor).then(
