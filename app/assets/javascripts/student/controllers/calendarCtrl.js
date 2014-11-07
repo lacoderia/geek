@@ -244,10 +244,25 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
         $scope.getWeekAvailability();
     };
 
+    $scope.resetWeekAvailabilities = function(){
+
+        for(var dayIndex=0; dayIndex<$scope.selectedWeek.length; dayIndex++){
+            var day = $scope.selectedWeek[dayIndex];
+            for(var hourIndex=0; hourIndex<$scope.HOURS.length; hourIndex++){
+                var timeObject = $rootScope.weekRows[hourIndex].halfHours[dayIndex];
+                timeObject.available = false;
+            }
+        }
+
+        if(!$scope.$$phase){
+            $scope.$apply();
+        }
+
+    };
 
     // Método que asigna la disponibilidad de una semana seleccionada
     $scope.setWeekAvailabilities = function(){
-
+        $scope.resetWeekAvailabilities();
         for(var dayIndex=0; dayIndex<$scope.selectedWeek.length; dayIndex++){
             var day = $scope.selectedWeek[dayIndex];
             if(day.availabilities){
