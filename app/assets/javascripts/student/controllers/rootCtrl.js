@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "DEFAULT_VALUES", "CountyService", "CategoryService", function($scope, $rootScope, $timeout, DEFAULT_VALUES, CountyService, CategoryService){
+Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "DEFAULT_VALUES", "ProfileService", "CountyService", "CategoryService", function($scope, $rootScope, $timeout, DEFAULT_VALUES, ProfileService, CountyService, CategoryService){
 
     //Variable que determina si el overlay es visible
     $rootScope.showOverlay = false;
@@ -64,6 +64,17 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "DEFAULT_
         $timeout(function() {
 	        $rootScope.$broadcast("rootControllerReady");
 	    },0);
+
+        ProfileService.getProfile().then(
+            function(data){
+                if(data && data.id){
+                    $rootScope.student = data;
+                }
+            },
+            function(response){
+                console.log('Error getting tutor\'s request status: ' + response);
+            }
+        );
     });
 
     //Obtiene los datos del catálogo de zonas

@@ -1,0 +1,16 @@
+<div ng-class="[DEFAULT_CLASS, detailArrowClass]" ng-style="modalStyle" ng-show="clickedHalfHour" ng-controller="SearchTutorController">
+  <span class="icon-close modal-detail-close" ng-click="closeAppointmentRequest()"></span>
+  <div class="modal-detail-header" ng-bind="clickedHalfHour.title"></div>
+  <div class="modal-detail-content">
+    <table>
+      <tr><td class="appointment-detail-content" ng-bind="clickedHalfHour.date"></td></tr>
+      <tr><td class="appointment-detail-content" ng-bind="clickedHalfHour.time"></td></tr>
+      <td class="appointment-detail-content">
+        <div class="appointment-button">
+          <a ng-click="sendAppointmentRequest($event, clickedHalfHour, selectedTutor, selectedStudent)">Agendar clase</a>
+        </div>
+      </td>
+    </table>
+  </div>
+  <div class="modal-detail-footer"></div>
+</div>

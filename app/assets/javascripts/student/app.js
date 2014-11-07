@@ -8,7 +8,8 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
             'APPOINTMENT_SERVICE_URL': 'appointments/by_student.json',
             'CATEGORY_SERVICE_URL': '/categories.json',
             'COUNTY_SERVICE_URL': '/counties.json',
-            'TUTOR_SERVICE_URL': '/tutors/by_county_and_category_ids.json'
+            'TUTOR_SERVICE_URL': '/tutors/by_county_and_category_ids.json',
+            'PROFILE_GET_PROFILE_URL': '/students/profile.json'
         },
         'HOURS': [  '00:00', '00:30', '01:00', '01:30', '02:00', '02:30', '03:00', '03:30',
             '04:00', '04:30', '05:00', '05:30', '06:00', '06:30', '07:00', '07:30',

@@ -64,10 +64,33 @@ Geek.factory('AppointmentService', ["$http", "$q", "DEFAULT_VALUES", function($h
         return promise;
     };
 
+    var sendAppointmentRequest = function(appointment){
+        var deferred = $q.defer();
+        var promise = deferred.promise;
+        var CHANGE_APPOINTMENT_STATUS_URL = 'tutors/' + appointment.tutorId + '/request_class.json';
+
+        $http.post(CHANGE_APPOINTMENT_STATUS_URL ,{
+            'start': appointment.start,
+            'length': appointment.duration,
+            'student_id': appointment.studentId,
+            'description': appointment.description
+        }).
+            success(function(data){
+                deferred.resolve(data);
+            }).
+
+            error(function(response){
+                deferred.reject(response);
+            });
+
+        return promise;
+    };
+
     return{
         all: all,
         getAppointmentsByMonthAndYear: getAppointmentsByMonthAndYear,
-        setAppointmentStatus: setAppointmentStatus
+        setAppointmentStatus: setAppointmentStatus,
+        sendAppointmentRequest: sendAppointmentRequest
     }
 
 }]);

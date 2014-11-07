@@ -39,17 +39,19 @@ Geek.controller('NavigationController', ["$scope", "$rootScope", "DEFAULT_VALUES
 
     $scope.$on("rootControllerReady", function() {
         $scope.userData = false;
-	$scope.roleIds = 3; 
+	    $scope.roleIds = 3;
+
         if ($("#user-data").data()){
             $scope.userData = true;
             $scope.showSignInModal('signUp'); 
-	    $scope.signUpName = $('#user-data').data('first-name');
-	    $scope.signUpMail = $('#user-data').data('email'); 
-	    $scope.signUpUID = $('#user-data').data('uid'); 
-	    $scope.signUpLastName = $('#user-data').data('last-name'); 
-	    $scope.signUpToken = $('#user-data').data('token'); 
-	    $scope.signUpRefreshToken = $('#user-data').data('refresh-token'); 
-	}
+	        $scope.signUpName = $('#user-data').data('first-name');
+	        $scope.signUpMail = $('#user-data').data('email');
+	        $scope.signUpUID = $('#user-data').data('uid');
+	        $scope.signUpLastName = $('#user-data').data('last-name');
+	        $scope.signUpToken = $('#user-data').data('token');
+	        $scope.signUpRefreshToken = $('#user-data').data('refresh-token');
+	    }
+
         if ($("#login-data").data()) {
             $scope.showSignInModal('signIn'); 
             $scope.loginError = $("#login-data").data('error');
