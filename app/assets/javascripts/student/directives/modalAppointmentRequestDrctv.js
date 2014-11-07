@@ -54,10 +54,13 @@ Geek.directive('ngModalAppointmentRequest', ["$timeout", "$window", "$document",
                     scope.selectedTutor = tutor;
                     scope.selectedStudent = student;
 
+                    var endTime = '0'+(parseInt(halfHour.startTime.split(':')[0])+1);
+                    endTime = endTime.substr(endTime.length-2, endTime.length);
+
                     scope.clickedHalfHour = halfHour;
                     scope.clickedHalfHour.title =  'Agendar clase';
                     scope.clickedHalfHour.date = DEFAULT_VALUES.DAYS[day.day].title + ', ' + day.numberDay + ' de ' + DEFAULT_VALUES.MONTHS[day.month];
-                    scope.clickedHalfHour.time = 'De ' + halfHour.startTime + ' a ' + halfHour.endTime;
+                    scope.clickedHalfHour.time = 'De ' + halfHour.startTime + ' a ' + endTime + ':' + halfHour.startTime.split(':')[1];
                     scope.clickedHalfHour.dateTimeISO = new Date(day.year, day.month, day.numberDay, halfHour.startTime.split(':')[0], halfHour.startTime.split(':')[1]).toISOString();
 
                 },0);
