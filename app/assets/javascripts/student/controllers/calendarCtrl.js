@@ -29,10 +29,12 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
         $scope.selectedTutor = selectedTutor;
         $scope.createWeekCalendar();
 
-        $location.hash('week-row-07:00');
-        $anchorScroll();
-        $location.url($location.path());
         
+        $timeout(function(){
+          $location.hash('week-row-07:30');
+          $anchorScroll();
+          $location.url($location.path());
+        }, 0);
     });
 
     /*
