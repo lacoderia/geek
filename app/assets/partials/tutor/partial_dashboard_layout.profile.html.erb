@@ -219,8 +219,8 @@
       </div>
     </fieldset>
     <div class="calendar">
-      <div class="week-view">
-        <div class="week-row">
+      <div class="week-view tutor-calendar-section">
+        <div class="week-row tutor-calendar-title-day">
           <table>
             <tbody>
             <tr>
@@ -233,8 +233,8 @@
             </tbody>
           </table>
         </div>
-        <div class="week-row" ng-repeat="row in weekRows">
-          <table>
+        <div class="week-row tutor-calendar-hours">
+          <table ng-repeat="row in weekRows" id="week-row-{{ HOURS[$index] }}">
             <tbody>
             <tr>
               <td class="week-day">{{ HOURS[$index] }}</td>

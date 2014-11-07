@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", "CategoryService", "CountyService", "ProfileService", function($scope, $rootScope, DEFAULT_VALUES, CategoryService, CountyService, ProfileService){
+Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", "$timeout", "$location", "$anchorScroll", "CategoryService", "CountyService", "ProfileService", function($scope, $rootScope, DEFAULT_VALUES, $timeout, $location, $anchorScroll, CategoryService, CountyService, ProfileService){
 
     //Categories catalog
     $scope.categories = [];
@@ -9,6 +9,15 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
     $scope.HOURS = DEFAULT_VALUES.HOURS;
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.TOTAL_WEEKLY_CALENDAR_ROWS = DEFAULT_VALUES.TOTAL_WEEKLY_CALENDAR_ROWS;
+
+    $scope.$watch('tutorProfileLoaded', function() {
+      $timeout(function(){
+        $location.hash('week-row-07:30');
+        $anchorScroll();
+        $location.url($location.path());
+        $anchorScroll();
+      }, 0);
+    });
 
     //Call a service to fill in the categories catalog
     CategoryService.all().then(
@@ -238,6 +247,5 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
     $scope.toggleHourAvailability = function(halfHour) {
         halfHour.available = !halfHour.available;
     }
-
 
 }]);
