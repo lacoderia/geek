@@ -9,6 +9,7 @@ $color-medium-gray: #A6A8AB;     // rgb(166,168,171)
 $color-light-gray: #F6F6F6;
 $color-input-gray-bgcolor: #EEEEEE;
 $color-input-gray: #D1D1D1;
+$color-footer-gray: #F5F5F5;
 
 $color-dark-blue: #264A96;      // rgb(38,74,150)
 $color-light-blue: #79AADB;     // rgb(121,170,219)
@@ -38,6 +39,11 @@ $color-sign-up-input-blue: #93A3CE;
 $color-profile-light-blue: #D7E0EB;
 $color-profile-medium-blue: #7DAADF;
 
+$color-landing-dark-green: #A8C7B7;
+$color-landing-light-green: #C6E3D4;
+$color-landing-dark-red: #E95B5B;
+$color-landing-medium-red: #EA8282;
+$color-landing-light-red: #F7A8A8;
 
 $screen-xs-min: 460px;
 $screen-sm-min: 768px;
@@ -439,6 +445,29 @@ h2.section-title{
 .bgcolor-light-gray{
   background-color: $color-medium-gray;
 }
+
+.bgcolor-gradient-green{
+  background: $color-landing-dark-green; /* Old browsers */
+  background: linear-gradient(to bottom, $color-landing-light-green 0%, $color-landing-dark-green 100%);
+}
+
+.bgcolor-gradient-green-backwards{
+  background: $color-landing-dark-green; /* Old browsers */
+  background: linear-gradient(to bottom, $color-landing-dark-green 0%, $color-landing-light-green  100%);
+}
+
+.bgcolor-landing-dark-red{
+  background-color: $color-landing-dark-red;
+}
+
+.bgcolor-landing-medium-red{
+ background-color: $color-landing-medium-red;
+}
+
+.bgcolor-landing-light-red{
+  background-color: $color-landing-light-red;
+}
+
 
 .action-button-upload {
   background-color: $color-input-gray-bgcolor;
@@ -1493,6 +1522,18 @@ ul.events{
 
 .text-color-dark-yellow{
   color: $color-dark-yellow;
+}
+
+.text-color-landing-dark-red{
+  color: $color-landing-dark-red;
+}
+
+.text-color-landing-medium-red{
+  color: $color-landing-medium-red;
+}
+
+.text-color-landing-light-red{
+  color: $color-landing-light-red;
 }
 
 .text-color-light-blue{
