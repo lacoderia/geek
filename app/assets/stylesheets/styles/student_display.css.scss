@@ -558,6 +558,10 @@ footer{
     max-width: 1200px;
   }
 
+  .slider{
+    position: relative;
+  }
+
   span.number{
     border: 2px solid white;
     border-radius: 50px;
@@ -596,6 +600,12 @@ footer{
 
   img.center{
     margin: 0em auto 0em;
+  }
+
+  img.slider{
+    display: inline-block;
+    max-width: 250px;
+    width: 100%;
   }
 
 }
