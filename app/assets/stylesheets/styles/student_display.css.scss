@@ -65,63 +65,48 @@ footer{
   }
 }
 
-.modal-container {
+.tutor-calendar-section{
+  height: 480px !important;
+  overflow: hidden;
+  position: relative;
 
-  .tutor{
-    height: 190px !important;
-    overflow: hidden;
+  .tutor-calendar-title-day{
+    height: 100px;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
 
-    .tutor-class-info{
-      .content-price{
-        height: 80% !important;
+    table{
+      height: 50px;
+    }
+
+    .week-title{
+      background-color: $color-light-green;
+      color: white;
+      font-size: 0px;
+      padding: 0.3em;
+      text-align: center;
+      text-transform: uppercase;
+      vertical-align: middle;
+      width: 100%;
+
+      td.title{
+        font-size: 1.5rem;
+        width: 80%;
+      }
+
+      td.control{
+        width: 8%;
       }
     }
   }
 
-  .tutor-calendar-section{
-    height: 480px !important;
-    overflow: hidden;
-    position: relative;
-
-    .tutor-calendar-title-day{
-      height: 100px;
-      left: 0;
-      position: absolute;
-      right: 0;
-      top: 0;
-
-      table{
-        height: 50px;
-      }
-
-      .week-title{
-        background-color: $color-light-green;
-        color: white;
-        font-size: 0px;
-        padding: 0.3em;
-        text-align: center;
-        text-transform: uppercase;
-        vertical-align: middle;
-        width: 100%;
-
-        td.title{
-          font-size: 1.5rem;
-          width: 80%;
-        }
-
-        td.control{
-          width: 8%;
-        }
-      }
-    }
-
-    .tutor-calendar-hours{
-      height: 100%;
-      overflow: auto;
-      padding-top: 100px;
-    }
+  .tutor-calendar-hours{
+    height: 100%;
+    overflow: auto;
+    padding-top: 100px;
   }
-
 }
 
 .modal-container:before {
@@ -530,6 +515,7 @@ footer{
 
 .section-dashboard-container {
   background-color: $color-light-gray;
+  margin-bottom: 6em;
 
     .section-search{
       border-radius: 10px;
@@ -713,6 +699,7 @@ footer{
 
     .search-results-tools{
       background-color: rgba(166,168,171,0.1);
+      border-radius: 10px 10px 0px 0px;
       padding: 1em;
       margin: 0em 0em 1em;
     }

@@ -191,6 +191,11 @@ h2.section-title{
   margin: 0em 0em 1em;
 }
 
+h3.section-title{
+  font-size:  1.5em;
+  margin: 0em 0em 0.4em;
+}
+
 .action-button{
   border: none;
   cursor: pointer;
@@ -598,7 +603,7 @@ h2.section-title{
 
 .calendar{
 
-  margin: 2em 0em 0em 0em;
+  margin: 3em 0em 0em 0em;
 
   .action-button{
     cursor: pointer;
@@ -939,6 +944,7 @@ h2.section-title{
 
 .control-arrow{
   background: transparent url("/assets/site/geek_sprite.png") no-repeat;
+  cursor: pointer;
   display: inline-block;
   height: 18px;
   width: 38px;

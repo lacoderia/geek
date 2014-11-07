@@ -65,17 +65,17 @@
                 Por hora
               </h4>
             </div>
-            <div class="content-button">
-              <button class="action-button send-message" ng-click="showTutorDetails(tutor)" ng-hide="selectedTutor">Ver disponibilidad</button>
+            <div class="content-button" ng-hide="selectedTutor">
+              <button class="action-button send-message" ng-click="showTutorDetails(tutor)" >Ver disponibilidad</button>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div id="tutor-detail" class="modal-container calendar" ng-show="selectedTutor">
 
+    <div class="calendar" ng-show="selectedTutor">
+      <h3 class="section-title">Reserva una clase con {{ selectedTutor.first_name }}</h3>
       <div class="week-view tutor-calendar-section" ng-controller="CalendarController">
-
         <div class="week-row tutor-calendar-title-day">
           <table>
             <tbody>

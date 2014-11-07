@@ -29,12 +29,13 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
         $scope.selectedTutor = selectedTutor;
         $scope.createWeekCalendar();
 
-        
         $timeout(function(){
-          $location.hash('week-row-07:30');
-          $anchorScroll();
-          $location.url($location.path());
-        }, 0);
+            $location.hash('week-row-07:00');
+            $anchorScroll();
+            $location.url($location.path());
+            $anchorScroll();
+        },0);
+
     });
 
     /*
@@ -268,15 +269,20 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
         for(var dayIndex=0; dayIndex<$scope.selectedWeek.length; dayIndex++){
             var day = $scope.selectedWeek[dayIndex];
             if(day.availabilities){
+
                 for(var availabilityIndex=0; availabilityIndex<day.availabilities.length; availabilityIndex++){
                     var availability = day.availabilities[availabilityIndex];
                     var straightHourTime = false;
                     for(var hourIndex=0; hourIndex<$scope.HOURS.length; hourIndex++){
                         var timeObject = $rootScope.weekRows[hourIndex].halfHours[dayIndex];
+
                         if(!straightHourTime){
                             if(availability.start == timeObject.startTime){
                                 timeObject.available = true;
                                 straightHourTime = true;
+                                if(availability.end == timeObject.endTime){
+                                    straightHourTime = false;
+                                }
                             }
                         }else{
                             timeObject.available = true;
