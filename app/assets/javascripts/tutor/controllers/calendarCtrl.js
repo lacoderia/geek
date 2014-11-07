@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeout', 'AppointmentService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $compile, $timeout, AppointmentService, DEFAULT_VALUES){
+Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeout', '$location', '$anchorScroll', 'AppointmentService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $compile, $timeout, $location, $anchorScroll, AppointmentService, DEFAULT_VALUES){
 
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.MONTHS = DEFAULT_VALUES.MONTHS;
@@ -24,6 +24,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
     $scope.weekView = false;
 
     // Inicializamos los broadcasts y listeners del controlador
+    
 
     /*
     * Obtiene el número total de días que existen en un mes determinado
@@ -264,6 +265,11 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
      * */
     $scope.changeView = function(weekView){
         $scope.weekView = weekView;
+        $timeout(function(){
+          $location.hash('week-row-07:30');
+          $anchorScroll();
+          $location.url($location.path());
+        }, 0);
     };
 
     /*
