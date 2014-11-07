@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", "CategoryService", "CountyService", "ProfileService", function($scope, $rootScope, DEFAULT_VALUES, CategoryService, CountyService, ProfileService){
+Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", "$timeout", "$location", "$anchorScroll", "CategoryService", "CountyService", "ProfileService", function($scope, $rootScope, DEFAULT_VALUES, $timeout, $location, $anchorScroll, CategoryService, CountyService, ProfileService){
 
     //Categories catalog
     $scope.categories = [];
@@ -9,6 +9,15 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
     $scope.HOURS = DEFAULT_VALUES.HOURS;
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.TOTAL_WEEKLY_CALENDAR_ROWS = DEFAULT_VALUES.TOTAL_WEEKLY_CALENDAR_ROWS;
+
+    $scope.$watch('tutorProfileLoaded', function() {
+      $timeout(function(){
+        $location.hash('week-row-07:30');
+        $anchorScroll();
+        $location.url($location.path());
+        $anchorScroll();
+      }, 0);
+    });
 
     //Call a service to fill in the categories catalog
     CategoryService.all().then(
@@ -99,12 +108,13 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
         if ($scope.tutorRequestForm.$valid && $rootScope.tutor.topics.length) {
             var tutor = {
                 'id': $rootScope.tutor.id,
-                'first_name': $rootScope.tutor.name,
-                'last_name': $rootScope.tutor.lastname,
+                'first_name': $rootScope.tutor.firstName,
+                'last_name': $rootScope.tutor.lastName,
                 'background': $rootScope.tutor.studies,
                 'references': $rootScope.tutor.references,
                 'categories': $rootScope.tutor.topics,
-                'preference': $rootScope.tutor.preference
+                'preference': $rootScope.tutor.preference,
+                'phone_number': $rootScope.tutor.phone_number
             }
 
             ProfileService.submitRequest(tutor).then(
@@ -181,11 +191,12 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
 
         $scope.$broadcast('show-errors-check-validity', $scope.tutorProfileForm);
 
+        $scope.updatedCalendar = false;
         if (validCalendar) {
             ProfileService.submitWeekCalendar(weekCalendar).then(
                 function(data){
-                    if(data.length) {
-                        alert('El calendario fue actualizado con éxito');
+                    if(data) {
+                        $scope.updatedCalendar = true;
                     }
                 },
                 function(response){
@@ -204,14 +215,19 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
                 'first_name': $rootScope.tutor.name,
                 'last_name': $rootScope.tutor.lastname,
                 'background': $rootScope.tutor.studies,
-                'references': $rootScope.tutor.references,
+                //'references': $rootScope.tutor.references,
                 'categories': $rootScope.tutor.topics,
+                'phone_number': $rootScope.tutor.phone_number,
+                'gender': $rootScope.tutor.gender,
+                'preference': {
+                  'cost': $rootScope.tutor.preference.cost
+                },
                 'counties': $rootScope.tutor.zones
             }
 
             ProfileService.submitProfile(tutor).then(
                 function(data){
-                    if(data && data.id) {
+                    if(data && data.id && $scope.updatedCalendar) {
                         alert('La actualización fue realizada con éxito');
                     }
                 },
@@ -231,6 +247,5 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
     $scope.toggleHourAvailability = function(halfHour) {
         halfHour.available = !halfHour.available;
     }
-
 
 }]);

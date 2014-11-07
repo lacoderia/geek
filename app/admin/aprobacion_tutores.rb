@@ -20,23 +20,22 @@ ActiveAdmin.register Tutor, :as => "Solicitudes_de Tutores" do
 		column :first_name	
 		column :last_name
 		column :email
-		column :gender
 		column :phone_number
 		actions :defaults => true
 	end
 
 	form do |f|
 		f.inputs "Tutor details" do
-			f.input :picture_url, :hint => f.template.image_tag(f.object.picture_url), :as => :string, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
+			#f.input :picture_url, :hint => f.template.image_tag(f.object.picture_url), :as => :string, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
 			f.input :first_name, :as => :string, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
 			f.input :last_name, :as => :string, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
 			f.input :email, :as => :string, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
-			f.input	:gender, :as => :string, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
+			#f.input :gender, :as => :string, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
 			f.input	:phone_number, :as => :string, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
-			f.input	:details, :as => :string, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
-			f.input	:references, :as => :string, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
+			#f.input :details, :as => :string, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
+			#f.input :references, :as => :string, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
 			f.input	:background, :as => :string, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
-			f.input :tier1_rate, :label => "Cost",:as => :string, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" } 
+			#f.input :tier1_rate, :label => "Cost",:as => :string, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" } 
 			f.input :approved
 		end
     f.actions

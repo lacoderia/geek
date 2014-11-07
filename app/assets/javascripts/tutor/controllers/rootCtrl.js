@@ -107,13 +107,14 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
                     $rootScope.tutor = {
                         'id': data.id,
                         'request': {
-                            //'approved': data.approved,
-                            //'sent': data.request_sent
-                            'approved': true,
-                            'sent': true
+                            'approved': data.approved,
+                            'sent': data.request_sent
+                            //'approved': true,
+                            //'sent': true
                         },
                         'firstName': data.first_name,
                         'lastName': data.last_name,
+                        'email': data.email,
                         'topics': [],
                         'zones': []
                     }
@@ -127,8 +128,9 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
                             ProfileService.getProfile().then(
                                 function(data){
                                     if(data && data.id){
-                                        $rootScope.tutor.gender =data.gender;
-                                        $rootScope.tutor.phone = data.phone;
+                                        $rootScope.tutor.gender = data.gender;
+                                        $rootScope.tutor.email = data.email;
+                                        $rootScope.tutor.phone_number = data.phone_number;
                                         $rootScope.tutor.details = data.details;
                                         $rootScope.tutor.references = data.references;
                                         $rootScope.tutor.studies = data.background;
@@ -137,8 +139,8 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
                                         $rootScope.tutor.zones = data.counties;
 
                                         // Datos de test
-                                        $rootScope.tutor.gender = 'M';
-                                        $rootScope.tutor.phone = '5512345678'
+                                        //$rootScope.tutor.gender = 'M';
+                                        //$rootScope.tutor.phone = '5512345678'
 
                                         //$rootScope.$broadcast("tutorProfileLoaded");
                                         $scope.createWeekCalendar();

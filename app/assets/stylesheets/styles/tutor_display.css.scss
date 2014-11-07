@@ -10,7 +10,24 @@
 
 .calendar{
   .tutor-calendar-section{
+    height: 480px !important;
+    overflow: auto;
+    position: relative;
 
+    .tutor-calendar-hours{
+      height: 100%;
+      overflow: auto;
+      padding-top: 55px;
+    }
+
+    .tutor-calendar-title-day{
+      //height: 200px;
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+    
     .week-day.available{
       background-color: transparent;
       cursor: pointer;

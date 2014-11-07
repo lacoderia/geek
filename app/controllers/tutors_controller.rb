@@ -59,6 +59,9 @@ class TutorsController < ApplicationController
           @tutor.counties << County.find(county[:id])
         end
       end
+      if params[:preference]
+        @tutor.preference.update_attribute(:cost, params[:preference][:cost])
+      end
 
       if @tutor.update(tutor_params)
         format.html { redirect_to @tutor, notice: 'Tutor was successfully updated.' }
@@ -178,6 +181,6 @@ class TutorsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tutor_params
-      params.require(:tutor).permit(:first_name, :last_name, :details, :references, :background, :preference_id, :calendar_id, :bank_account_id)
+      params.permit(:first_name, :last_name, :details, :references, :background, :calendar_id, :bank_account_id, :gender, :phone_number)
     end
 end

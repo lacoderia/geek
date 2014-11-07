@@ -27,12 +27,22 @@
           <input type="text" name="tutor_last_name" ng-model="tutor.lastName" class="form-input form-control" placeholder="APELLIDO" class="form-input form-control" required/>
         </div>
       </div>
+
+      <div class="form-group" show-errors>
+        <div class="left">
+          <label>Email:</label>
+        </div>
+        <div class="right">
+          <input type="text" name="tutor_email" ng-model="tutor.email" class="form-input form-control" placeholder="EMAIL" class="form-input form-control" />
+        </div>
+      </div>
+
       <div class="form-group" show-errors>
         <div class="left">
           <label>Teléfono:</label>
         </div>
         <div class="right">
-          <input type="text" name="tutor_phone" ng-model="tutor.phone" ng-pattern="/^[0-9]+$/" ng-minlength="8" ng-maxlength="10" maxlength="10" class="form-input form-control" placeholder="TELÉFONO" class="form-input form-control" required/>
+          <input type="text" name="tutor_phone" ng-model="tutor.phone_number" ng-pattern="/^[0-9]+$/" ng-minlength="8" ng-maxlength="10" maxlength="10" class="form-input form-control" placeholder="TELÉFONO" class="form-input form-control" />
         </div>
       </div>
     </fieldset>
@@ -40,20 +50,13 @@
       <legend>Información académica</legend>
       <div class="form-group" show-errors>
         <div class="left">
-          <label>Formación:</label>
+          <label>Formación y Experiencia:</label>
         </div>
         <div class="right">
           <textarea name="tutor_studies" ng-model="tutor.studies" class="form-textarea form-control" placeholder="FORMACIÓN" required></textarea>
         </div>
       </div>
-      <div class="form-group" show-errors>
-        <div class="left">
-          <label>Referencias:</label>
-        </div>
-        <div class="right">
-          <textarea name="tutor_references" ng-model="tutor.references" class="form-textarea form-control" placeholder="REFERENCIAS" required></textarea>
-        </div>
-      </div>
+      
       <div class="form-group">
         <div class="left">
           <label>Temas:</label>
@@ -72,6 +75,7 @@
           <a class="action-button action-button-medium-gray" ng-click="addTutorTopic()">Añadir</a>
           <div id="tutor_request_topics" class="items-added-group">
             <div id="tutor_request_topic_{{$index}}" ng-repeat="tutorTopic in tutor.topics" class="item-added">{{tutorTopic.name}} <span ng-click="removeTutorTopic($index)" class="icon-close close-item"></span></div>
+            <div ng-hide="tutor.topics.length">Debes seleccionar al menos un tema.</div>
           </div>
         </div>
       </div>
@@ -120,7 +124,7 @@
           <label>Teléfono:</label>
         </div>
         <div class="right">
-          <input type="text" name="tutor_phone" ng-model="tutor.phone" ng-pattern="/^[0-9]+$/" ng-minlength="8" ng-maxlength="10" maxlength="10" class="form-input form-control" placeholder="TELÉFONO" class="form-input form-control" required/>
+          <input type="text" name="tutor_phone" ng-model="tutor.phone_number" ng-pattern="/^[0-9]+$/" ng-minlength="8" ng-maxlength="10" maxlength="10" class="form-input form-control" placeholder="TELÉFONO" class="form-input form-control" />
         </div>
       </div>
       <div class="form-group" show-errors>
@@ -139,18 +143,10 @@
       <legend>Información académica</legend>
       <div class="form-group" show-errors>
         <div class="left">
-          <label>Formación:</label>
+          <label>Formación y Experiencia:</label>
         </div>
         <div class="right">
           <textarea name="tutor_studies" ng-model="tutor.studies" class="form-textarea form-control" placeholder="FORMACIÓN" required></textarea>
-        </div>
-      </div>
-      <div class="form-group" show-errors>
-        <div class="left">
-          <label>Referencias:</label>
-        </div>
-        <div class="right">
-          <textarea name="tutor_references" ng-model="tutor.references" class="form-textarea form-control" placeholder="REFERENCIAS" required></textarea>
         </div>
       </div>
       <div class="form-group">
@@ -171,6 +167,7 @@
           <a class="action-button action-button-medium-gray" ng-click="addTutorTopic()">Añadir</a>
           <div id="tutor_topics" class="items-added-group">
             <div id="tutor_topic_{{$index}}" ng-repeat="tutorTopic in tutor.topics" class="item-added">{{tutorTopic.name}} <span ng-click="removeTutorTopic($index)" class="icon-close close-item"></span></div>
+            <div ng-hide="tutor.topics.length">Debes seleccionar al menos un tema.</div>
           </div>
         </div>
       </div>
@@ -195,6 +192,7 @@
           <a class="action-button action-button-medium-gray" ng-click="addTutorZone()">Añadir</a>
           <div id="tutor_zones" class="items-added-group">
             <div id="tutor_zone_{{$index}}" ng-repeat="tutorZone in tutor.zones" class="item-added">{{tutorZone.name}} <span ng-click="removeTutorZone($index)" class="icon-close close-item"></span></div>
+            <!-- <div ng-hide="tutor.zones.length">Debes seleccionar al menos una zona.</div> -->
           </div>
         </div>
       </div>
@@ -221,8 +219,8 @@
       </div>
     </fieldset>
     <div class="calendar">
-      <div class="week-view">
-        <div class="week-row">
+      <div class="week-view tutor-calendar-section">
+        <div class="week-row tutor-calendar-title-day">
           <table>
             <tbody>
             <tr>
@@ -235,8 +233,8 @@
             </tbody>
           </table>
         </div>
-        <div class="week-row" ng-repeat="row in weekRows">
-          <table>
+        <div class="week-row tutor-calendar-hours">
+          <table ng-repeat="row in weekRows" id="week-row-{{ HOURS[$index] }}">
             <tbody>
             <tr>
               <td class="week-day">{{ HOURS[$index] }}</td>
