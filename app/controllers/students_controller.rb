@@ -66,7 +66,7 @@ class StudentsController < ApplicationController
   # un objeto con la información del estudiante
   def profile
     if current_user
-      @student = Student.where('email = ? ', current_user.email)[0]
+      @student = Student.where('email = ? ', current_user.email).first
     end
   end
 

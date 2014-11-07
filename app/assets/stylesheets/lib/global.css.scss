@@ -44,6 +44,8 @@ $color-landing-light-green: #C6E3D4;
 $color-landing-dark-red: #E95B5B;
 $color-landing-medium-red: #EA8282;
 $color-landing-light-red: #F7A8A8;
+$color-landing-light-blue: #D7E0EB;
+$color-landing-medium-blue: #7DAADF;
 
 $screen-xs-min: 460px;
 $screen-sm-min: 768px;
@@ -454,6 +456,16 @@ h2.section-title{
 .bgcolor-gradient-green-backwards{
   background: $color-landing-dark-green; /* Old browsers */
   background: linear-gradient(to bottom, $color-landing-dark-green 0%, $color-landing-light-green  100%);
+}
+
+.bgcolor-gradient-blue{
+  background: $color-landing-light-blue; /* Old browsers */
+  background: linear-gradient(to bottom, $color-landing-light-blue 0%, $color-landing-medium-blue 100%);
+}
+
+.bgcolor-gradient-blue-backwards{
+  background: $color-landing-light-blue; /* Old browsers */
+  background: linear-gradient(to bottom, $color-landing-medium-blue 0%, $color-landing-light-blue  100%);
 }
 
 .bgcolor-landing-dark-red{
@@ -1572,6 +1584,9 @@ ul.events{
   color: white;
 }
 
+.margin-bottom{
+  margin-bottom: 0.5em;
+}
 
 
 
