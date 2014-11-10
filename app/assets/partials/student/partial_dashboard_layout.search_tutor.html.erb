@@ -98,12 +98,12 @@
             </tbody>
           </table>
         </div>
-        <div class="tutor-calendar-hours week-row">
+        <div class="tutor-calendar-hours week-row" calendar-scroll>
           <table ng-repeat="row in weekRows" id="week-row-{{ HOURS[$index] }}">
             <tbody>
             <tr>
               <td class="week-day">{{ HOURS[$index] }}</td>
-              <td class="week-day" ng-class="[halfHour.appointment.status.class, {true:'available', false: 'unavailable'}[halfHour.available]]" ng-repeat="halfHour in row.halfHours" ng-click="showAppointmentRequestModal($event, $parent.$index, $index, selectedWeek[$index], halfHour, selectedTutor, student)"></td>
+              <td class="week-day" ng-class="[{true:'highlighted', false: ''}[halfHour.highlight], {true:'available', false: 'unavailable'}[halfHour.available]]" ng-repeat="halfHour in row.halfHours" ng-click="showAppointmentRequestModal($event, $parent.$index, $index, selectedWeek[$index])"></td>
             </tr>
             </tbody>
           </table>
@@ -146,3 +146,5 @@
     </div>
   </div>
 </div>
+
+<div ng-modal-appointment-request ></div>

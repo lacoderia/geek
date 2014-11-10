@@ -20,7 +20,6 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
     $scope.existstWeekAppoinments = false;
     $scope.currentWeekViewAppointments = [];
 
-    $rootScope.weekRows
     $scope.weekAvailability = [];
     $scope.weekView = false;
 
@@ -345,6 +344,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
     // Método que genera la información para poblar la vista semanal del perfil del tutor
     $scope.createWeekCalendar = function() {
 
+        var id = 0;
         for(var rowIndex=0; rowIndex<$scope.HOURS.length; rowIndex++){
             $rootScope.weekRows[rowIndex] = {
                 'halfHours': new Array()
@@ -354,39 +354,16 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
                     'startTime': $scope.HOURS[rowIndex],
                     'endTime': $scope.HOURS[rowIndex + 1] ? $scope.HOURS[rowIndex + 1] : $scope.HOURS[0],
                     'available': false,
-                    'appointment': undefined
+                    'appointment': undefined,
+                    'id': id,
+                    'highlighted': false
                 };
+
+                id++;
             }
         }
 
         $scope.getWeekByDate($scope.currentDate);
     };
-
-    // Método que actualiza la vista semanal con la disponibilidad del tutor
-    $scope.updateWeekCalendar = function(availabilities) {
-        for(var i=0; i<availabilities.length; i++) {
-
-            var dayIndex = availabilities[i].day_number;
-            for (var j=0; j<$rootScope.weekRows.length; j++) {
-                var timeObject = $rootScope.weekRows[j].halfHours[dayIndex];
-                var startTime = timeObject.startTime;
-                var endTime = timeObject.endTime;
-
-                if (startTime >= availabilities[i].start) {
-                    if (availabilities[i].end == '00:00') {
-                        timeObject.available = true;
-                    } else if (endTime <= availabilities[i].end) {
-                        timeObject.available = true;
-                    }
-                }
-
-                if (endTime == availabilities[i].end) {
-                    break;
-                }
-            }
-        }
-
-    };
-
 
 }]);

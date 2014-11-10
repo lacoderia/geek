@@ -19,13 +19,17 @@ Geek.directive('ngModalAppointmentRequest', ["$timeout", "$window", "$document",
                 left:0
             };
 
-            scope.clickedAppointment = null;
-
             scope.closeAppointmentRequest = function(){
                 scope.modalStyle.top = 0;
                 scope.modalStyle.left = 0;
 
-                scope.clickedHalfHour = null;
+                if (scope.selectedClass && scope.selectedClass.halfHours) {
+                    for(var i = 0; i < scope.selectedClass.halfHours.length; i++) {
+                        scope.selectedClass.halfHours[i].highlight = false;
+                    }
+                }
+
+                scope.selectedClass = null;
 
                 if(!scope.$$phase){
                     scope.$apply();
@@ -38,32 +42,12 @@ Geek.directive('ngModalAppointmentRequest', ["$timeout", "$window", "$document",
                 $document.unbind('click', scope.closeAppointmentRequest);
             };
 
-            scope.openAppointmentRequest = function($event, row, column, day, halfHour, tutor, student, options, DEFAULT_VALUES){
+            scope.openAppointmentRequest = function($event, options){
                 // Primero cerramos el modal que está abierto para evitar ver parpadear información del modal anterior
                 scope.closeAppointmentRequest();
 
                 // Detenemos la propagación del evento click para evitar que el bind al final del metodo se ejecute
                 $event.stopPropagation();
-
-                $timeout(function(){
-
-                    scope.selectedRow = row;
-                    scope.selectedColumn = column;
-                    scope.selectedStudent = student;
-
-                    scope.selectedTutor = tutor;
-                    scope.selectedStudent = student;
-
-                    var endTime = '0'+(parseInt(halfHour.startTime.split(':')[0])+1);
-                    endTime = endTime.substr(endTime.length-2, endTime.length);
-
-                    scope.clickedHalfHour = halfHour;
-                    scope.clickedHalfHour.title =  'Agendar clase';
-                    scope.clickedHalfHour.date = DEFAULT_VALUES.DAYS[day.day].title + ', ' + day.numberDay + ' de ' + DEFAULT_VALUES.MONTHS[day.month];
-                    scope.clickedHalfHour.time = 'De ' + halfHour.startTime + ' a ' + endTime + ':' + halfHour.startTime.split(':')[1];
-                    scope.clickedHalfHour.dateTimeISO = new Date(day.year, day.month, day.numberDay, halfHour.startTime.split(':')[0], halfHour.startTime.split(':')[1]).toISOString();
-
-                },0);
 
                 $timeout(function(){
                     var dialogHeight = angular.element(element).prop('offsetHeight');

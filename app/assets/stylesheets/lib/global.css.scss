@@ -485,7 +485,6 @@ h3.section-title{
   background-color: $color-landing-light-red;
 }
 
-
 .action-button-upload {
   background-color: $color-input-gray-bgcolor;
   border: none;
@@ -920,6 +919,10 @@ h3.section-title{
 
       .week-day.available {
         background-color: $color-profile-light-blue;
+      }
+
+      .week-day.highlighted {
+        background-color: $color-profile-medium-blue;
       }
 
       .week-day.no-cursor {

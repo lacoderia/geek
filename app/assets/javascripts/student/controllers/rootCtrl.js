@@ -104,5 +104,4 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "DEFAULT_
     );
 
 
-
 }]);

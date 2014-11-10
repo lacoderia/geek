@@ -126,4 +126,12 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                 });
             }
         }
+    }])
+
+    .directive('calendarScroll', [function () {
+        return function(scope, element, attrs) {
+            element.bind("scroll", function() {
+                scope.closeAppointmentRequest();
+            });
+        }
     }]);
