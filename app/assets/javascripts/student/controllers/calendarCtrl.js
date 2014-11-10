@@ -16,11 +16,8 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
     $scope.selectedYear = $scope.currentDate.getYear() + $scope.START_YEAR;
     $scope.selectedTutor = undefined;
     $scope.selectedWeek = [];
-    $scope.selectedWeekNumber = -1;
-    $scope.existstWeekAppoinments = false;
-    $scope.currentWeekViewAppointments = [];
+    $scope.showPreviousWeek = false;
 
-    $rootScope.weekRows
     $scope.weekAvailability = [];
     $scope.weekView = false;
 
@@ -92,36 +89,73 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
         return previousDate;
     };
 
-    $scope.getNextWeek = function(){
+    // Función que regresa un arreglo de siete días correspondiente a la semana siguiente de la semana enviada como parámetro
+    $scope.getNextWeek = function(week){
 
-        var lastDay = $scope.selectedWeek[$scope.selectedWeek.length-1];
+        var lastDay = week[week.length-1];
         var nextNumberDay = lastDay.numberDay+1;
         var lastDayOftMonth = $scope.getDaysInMonth(lastDay.year,lastDay.month+1);
         var nextDate = undefined;
+        var nextWeek = [];
 
         if(nextNumberDay <= lastDayOftMonth){
             nextDate = new Date(lastDay.year,lastDay.month,nextNumberDay);
-            $scope.getWeekByDate(nextDate);
+            nextWeek = $scope.getWeekByDate(nextDate);
         }else{
             var nextMonth = $scope.getNextMonth(lastDay.month, lastDay.year);
             nextDate = new Date(nextMonth.year,nextMonth.month,1);
-            $scope.getWeekByDate(nextDate);
+            nextWeek = $scope.getWeekByDate(nextDate);
         }
+
+        return nextWeek;
     };
 
-    $scope.getPreviousWeek = function(){
-        var firstDay = $scope.selectedWeek[0];
+    // Función que regresa un arreglo de siete días correspondiente a la semana anterior de la semana enviada como parámetro
+    $scope.getPreviousWeek = function(week){
+        var firstDay = week[0];
         var previousNumberDay = firstDay.numberDay-1;
         var previousDate = undefined;
+        var previousWeek = [];
 
         if(previousNumberDay > 0){
             previousDate = new Date(firstDay.year,firstDay.month,previousNumberDay);
-            $scope.getWeekByDate(previousDate);
+            previousWeek = $scope.getWeekByDate(previousDate);
         }else{
             var previousMonth = $scope.getPreviousMonth(firstDay.month,firstDay.year);
             var lastDayOfPreviousMonth = $scope.getDaysInMonth(previousMonth.year, previousMonth.month+1);
             previousDate = new Date(previousMonth.year,previousMonth.month,lastDayOfPreviousMonth);
-            $scope.getWeekByDate(previousDate);
+            previousWeek = $scope.getWeekByDate(previousDate);
+        }
+
+        return previousWeek;
+    };
+
+    // Función que cambia la semana actual de acuerdo al botón presionado en el calendario semanal
+    $scope.changeWeek = function(time){
+
+        switch (time){
+            case('previous'):
+                $scope.selectedWeek = $scope.getPreviousWeek($scope.selectedWeek);
+                $scope.getWeekAvailability();
+
+                var firstDay = $scope.selectedWeek[0];
+
+                if(firstDay.year < $scope.selectedYear){
+                    $scope.showPreviousWeek = false;
+                }else if(firstDay.month < $scope.selectedMonth){
+                    $scope.showPreviousWeek = false;
+                }else{
+                    if(firstDay.month == $scope.selectedMonth && firstDay.numberDay < $scope.selectedDate){
+                        $scope.showPreviousWeek = false;
+                    }
+                }
+                break;
+
+            case('next'):
+                $scope.selectedWeek = $scope.getNextWeek($scope.selectedWeek);
+                $scope.getWeekAvailability();
+                $scope.showPreviousWeek = true;
+                break;
         }
     };
 
@@ -242,11 +276,10 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
                 week.push(day);
             }
         }
-
-        $scope.selectedWeek = week;
-        $scope.getWeekAvailability();
+        return week;
     };
 
+    //Función que borra la disponibilidad de la semana seleccionada previamente
     $scope.resetWeekAvailabilities = function(){
 
         for(var dayIndex=0; dayIndex<$scope.selectedWeek.length; dayIndex++){
@@ -359,33 +392,8 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
             }
         }
 
-        $scope.getWeekByDate($scope.currentDate);
-    };
-
-    // Método que actualiza la vista semanal con la disponibilidad del tutor
-    $scope.updateWeekCalendar = function(availabilities) {
-        for(var i=0; i<availabilities.length; i++) {
-
-            var dayIndex = availabilities[i].day_number;
-            for (var j=0; j<$rootScope.weekRows.length; j++) {
-                var timeObject = $rootScope.weekRows[j].halfHours[dayIndex];
-                var startTime = timeObject.startTime;
-                var endTime = timeObject.endTime;
-
-                if (startTime >= availabilities[i].start) {
-                    if (availabilities[i].end == '00:00') {
-                        timeObject.available = true;
-                    } else if (endTime <= availabilities[i].end) {
-                        timeObject.available = true;
-                    }
-                }
-
-                if (endTime == availabilities[i].end) {
-                    break;
-                }
-            }
-        }
-
+        $scope.selectedWeek = $scope.getWeekByDate($scope.currentDate);
+        $scope.getWeekAvailability();
     };
 
 
