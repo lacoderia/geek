@@ -10,6 +10,12 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.TOTAL_WEEKLY_CALENDAR_ROWS = DEFAULT_VALUES.TOTAL_WEEKLY_CALENDAR_ROWS;
 
+    $scope.alertParams = {
+        type: 'warning',
+        message: 'Mensaje de error',
+        icon: true,
+    };;
+
     $scope.$watch('tutorProfileLoaded', function() {
       $timeout(function(){
         $location.hash('week-row-07:30');
