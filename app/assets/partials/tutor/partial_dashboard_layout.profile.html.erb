@@ -1,6 +1,7 @@
 <div ng-controller="ProfileController">
 <div class="tutor-profile-container" ng-show="tutor && !tutor.request.sent">
   <h2 class="section-title">Enviar solicitud</h2>
+  <ng-alert id="tutor-request-form" alert-params="tutorRequestAlertParams"></ng-alert>
   <form name="tutorRequestForm" id="tutor_request_form" class="dashboard-form validation-form">
     <fieldset>
       <legend>Información personal</legend>
@@ -93,7 +94,7 @@
 </div>
 <div class="tutor-profile-container" ng-show="tutor && tutor.request.sent && tutor.request.approved">
   <h2 class="section-title">Mi perfil</h2>
-  <ng-alert id="tutor-profile-form" alert-params="alertParams"></ng-alert>
+  <ng-alert id="tutor-profile-form" alert-params="tutorProfileAlertParams"></ng-alert>
   <form name="tutorProfileForm" id="tutor_profile_form" class="dashboard-form validation-form">
     <fieldset>
       <legend>Información personal</legend>

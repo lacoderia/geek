@@ -12,7 +12,7 @@ Geek.directive('ngAlert', ["$rootScope", function($rootScope){
                     '</div>',
         link: function(scope, element, attrs){
 
-            scope.ALERT_VALUES = {'warning': { alertClass: 'alert-warning', alertIcon: 'icon-alert'}, 'info' : { alertClass: 'alert-info', alertIcon: 'icon-alert'}, 'success': { alertClass: 'alert-success', alertIcon: 'icon-accept'}, 'danger': { alertClass: 'alert-danger', alertIcon: 'icon-alert'}};
+            scope.ALERT_VALUES = {'warning': { alertClass: 'alert-warning', alertIcon: 'icon-alert'}, 'info' : { alertClass: 'alert-info', alertIcon: ''}, 'success': { alertClass: 'alert-success', alertIcon: 'icon-accept'}, 'danger': { alertClass: 'alert-danger', alertIcon: 'icon-alert'}};
 
         },
         scope: {
