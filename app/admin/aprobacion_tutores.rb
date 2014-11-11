@@ -26,7 +26,7 @@ ActiveAdmin.register Tutor, :as => "Solicitudes_de Tutores" do
 
 	form do |f|
 		f.inputs "Tutor details" do
-			#f.input :picture_url, :hint => f.template.image_tag(f.object.picture_url), :as => :string, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
+			f.input :picture_url, :hint => f.template.image_tag(f.object.picture_url), :as => :string, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
 			f.input :first_name, :as => :string, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
 			f.input :last_name, :as => :string, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
 			f.input :email, :as => :string, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
