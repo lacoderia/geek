@@ -62,6 +62,7 @@
                     el.toggleClass('has-error', invalid);
 
                     var $elementScope = angular.element(el).scope();
+                    console.log(formCtrl[inputName])
                     if(invalid) {
                         console.log(formCtrl[inputName]);
                         if (formCtrl[inputName].$error.required == true) {
