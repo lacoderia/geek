@@ -153,12 +153,12 @@
           <textarea name="tutor_studies" ng-model="tutor.studies" class="form-textarea form-control" placeholder="FORMACIÓN" popover="{{tutorProfileForm.tutor_studies.popoverMessage}}" popover-trigger="focus" popover-animation="false" required></textarea>
         </div>
       </div>
-      <div class="form-group" has-error="tutor.topics">
+      <div class="form-group" show-errors show-errors-params="tutor.topics">
         <div class="left">
           <label>Temas:</label>
         </div>
         <div class="right">
-          <div popover="Debes seleccionar al menos un tema." popover-trigger="mouseenter" popover-animation="false" tooltip-placement="right">
+          <div popover="{{tutorProfileForm.tutor_topic.popoverMessage}}" popover-trigger="click" popover-animation="false" tooltip-placement="right">
             <div class="dropdown">
                 <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
                     {{selectedCategory.name}}
@@ -179,7 +179,7 @@
     </fieldset>
     <fieldset>
       <legend>Información de clases</legend>
-      <div class="form-group">
+      <div class="form-group" show-errors show-errors-params="tutor.zones">
         <div class="left">
           <label>Zonas:</label>
         </div>
@@ -201,17 +201,17 @@
           </div>
         </div>
       </div>
-      <div class="form-group" show-errors>
+      <div class="form-group" show-errors show-errors-params="tutor.preference.classLocation">
         <div class="left">
           <label>Modalidad:</label>
         </div>
         <div class="right form-radio custom-checkbox custom-checkbox-profile">
           <span popover="{{tutorProfileForm.tutor_class_mode.popoverMessage}}" popover-trigger="mouseenter" popover-animation="false" tooltip-placement="right">
-            <input type="checkbox" id="tutor_class_mode_online" name="tutor_class_mode[]" ng-model="tutor.preference.classLocation.online" class="form-control" ng-required="arrayHasLength(tutor.preference.classLocation)">
+            <input type="checkbox" id="tutor_class_mode_online" name="tutor_class_mode" ng-model="tutor.preference.classLocation.online" class="form-control">
             <label for="tutor_class_mode_online">EN LÍNEA</label>
-            <input type="checkbox" id="tutor_class_mode_home" name="tutor_class_mode[]" ng-model="tutor.preference.classLocation.office" class="form-control" ng-required="arrayHasLength(tutor.preference.classLocation)">
+            <input type="checkbox" id="tutor_class_mode_home" name="tutor_class_mode" ng-model="tutor.preference.classLocation.office" class="form-control">
             <label for="tutor_class_mode_home">CASA/OFICINA</label>
-            <input type="checkbox" id="tutor_class_mode_public" name="tutor_class_mode[]" ng-model="tutor.preference.classLocation.public" class="form-control" ng-required="arrayHasLength(tutor.preference.classLocation)">
+            <input type="checkbox" id="tutor_class_mode_public" name="tutor_class_mode" ng-model="tutor.preference.classLocation.public" class="form-control">
             <label for="tutor_class_mode_public">PÚBLICA</label>
           </span>
         </div>

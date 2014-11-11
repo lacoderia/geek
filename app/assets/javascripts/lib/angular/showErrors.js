@@ -23,7 +23,7 @@
                 return showSuccess;
             };
             linkFn = function(scope, el, attrs, formCtrl) {
-                var blurred, inputEl, inputName, inputNgEl, options, showSuccess, toggleClasses, trigger, messages;
+                var blurred, inputEl, inputName, inputNgEl, options, showSuccess, toggleClasses, trigger;
                 blurred = false;
                 options = scope.$eval(attrs.showErrors);
                 showSuccess = getShowSuccess(options);
@@ -59,29 +59,37 @@
                     }, 0, false);
                 });
                 return toggleClasses = function(invalid) {
-                    el.toggleClass('has-error', invalid);
-
-                    var $elementScope = angular.element(el).scope();
-                    console.log(formCtrl[inputName])
-                    if(invalid) {
-                        console.log(formCtrl[inputName]);
-                        if (formCtrl[inputName].$error.required == true) {
-                            formCtrl[inputName].popoverMessage = 'Este campo es requerido';
-                        } else if (formCtrl[inputName].$error.minlength == true) {
-                            formCtrl[inputName].popoverMessage = 'El campo no cumple con la longitud mínima';
-                        } else if (formCtrl[inputName].$error.maxlength == true) {
-                            formCtrl[inputName].popoverMessage = 'El campo no cumple con la longitud máxima';
+                    if (scope.showErrorsParams){
+                        if (!scope.showErrorsParams.length) {
+                            el.toggleClass('has-error', true);
+                            formCtrl[inputName].popoverMessage = 'Se debe agregar al menos un elemento';
                         } else {
-                            formCtrl[inputName].popoverMessage = ''
+                            el.toggleClass('has-error', false);
+                            formCtrl[inputName].popoverMessage = '';
                         }
                     } else {
-                        formCtrl[inputName].popoverMessage = '';
-                    }
+                        el.toggleClass('has-error', invalid);
 
+                        var $elementScope = angular.element(el).scope();
+                        if(invalid) {
+                            if (formCtrl[inputName].$error.required == true) {
+                                formCtrl[inputName].popoverMessage = 'Este campo es requerido';
+                            } else if (formCtrl[inputName].$error.minlength == true) {
+                                formCtrl[inputName].popoverMessage = 'El campo no cumple con la longitud mínima';
+                            } else if (formCtrl[inputName].$error.maxlength == true) {
+                                formCtrl[inputName].popoverMessage = 'El campo no cumple con la longitud máxima';
+                            } else {
+                                formCtrl[inputName].popoverMessage = ''
+                            }
+                        } else {
+                            formCtrl[inputName].popoverMessage = '';
+                        }
+                    }
 
                     if (showSuccess) {
                         return el.toggleClass('has-success', !invalid);
                     }
+
                 };
             };
             return {
@@ -92,6 +100,9 @@
                         throw "show-errors element does not have the 'form-group' class";
                     }
                     return linkFn;
+                },
+                scope: {
+                    showErrorsParams: '=showErrorsParams'
                 }
             };
         }

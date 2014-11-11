@@ -636,16 +636,8 @@ footer{
     position: relative;
   }
 
-  .has-error.form-checkbox{
-    background-color: red;
-  }
-
-  .has-error.form-radio{
-    background-color: red;
-  }
-
   .has-error {
-    .form-input, .form-textarea, .form-span{
+    .form-input, .form-input-half, .form-textarea, .form-span{
       border: solid 1px red;
     }
 
