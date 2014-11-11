@@ -254,9 +254,10 @@ angular.module( 'ui.bootstrap.tooltip', [ 'ui.bootstrap.position', 'ui.bootstrap
                   };
                   break;
                 default:
+                    console.log(ttWidth)
                   ttPosition = {
                     top: position.top - ttHeight,
-                    left: position.left + position.width / 2 - ttWidth / 2
+                    left: position.left + position.width - ttWidth
                   };
                   break;
               }
