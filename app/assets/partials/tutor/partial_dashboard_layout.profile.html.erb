@@ -25,7 +25,7 @@
           <label>Apellido:</label>
         </div>
         <div class="right">
-          <input type="text" name="tutor_last_name" ng-model="tutor.lastName" class="form-input form-control" placeholder="APELLIDO" class="form-input form-control" required/>
+          <input type="text" name="tutor_last_name" ng-model="tutor.lastName" class="form-input form-control" placeholder="APELLIDO" required/>
         </div>
       </div>
 
@@ -34,7 +34,7 @@
           <label>Email:</label>
         </div>
         <div class="right">
-          <input type="text" name="tutor_email" ng-model="tutor.email" class="form-input form-control" placeholder="EMAIL" class="form-input form-control" />
+          <input type="text" name="tutor_email" ng-model="tutor.email" class="form-input form-control" placeholder="EMAIL" />
         </div>
       </div>
 
@@ -43,7 +43,7 @@
           <label>Teléfono:</label>
         </div>
         <div class="right">
-          <input type="text" name="tutor_phone" ng-model="tutor.phone_number" ng-pattern="/^[0-9]+$/" ng-minlength="8" ng-maxlength="10" maxlength="10" class="form-input form-control" placeholder="TELÉFONO" class="form-input form-control" />
+          <input type="text" name="tutor_phone" ng-model="tutor.phone_number" ng-pattern="/^[0-9]+$/" ng-minlength="8" ng-maxlength="10" maxlength="10" class="form-input form-control" placeholder="TELÉFONO" />
         </div>
       </div>
     </fieldset>
@@ -111,7 +111,7 @@
           <label>Nombre:</label>
         </div>
         <div class="right">
-          <input type="text" name="tutor_name" ng-model="tutor.firstName" class="form-input form-control" placeholder="NOMBRE" required/>
+          <input type="text" name="tutor_name" ng-model="tutor.firstName" class="form-input form-control" placeholder="NOMBRE" popover="{{tutorProfileForm.tutor_name.popoverMessage}}" popover-trigger="click" popover-animation="false" required/>
         </div>
       </div>
       <div class="form-group" show-errors>
@@ -119,7 +119,7 @@
           <label>Apellido:</label>
         </div>
         <div class="right">
-          <input type="text" name="tutor_last_name" ng-model="tutor.lastName" class="form-input form-control" placeholder="APELLIDO" class="form-input form-control" popover="{{tutorProfileForm.lastName.popoverMessage}}" popover-trigger="click" popover-animation="false" required/>
+          <input type="text" name="tutor_last_name" ng-model="tutor.lastName" class="form-input form-control" placeholder="APELLIDO" popover="{{tutorProfileForm.tutor_last_name.popoverMessage}}" popover-trigger="click" popover-animation="false" required/>
         </div>
       </div>
       <div class="form-group" show-errors>
@@ -127,7 +127,7 @@
           <label>Teléfono:</label>
         </div>
         <div class="right">
-          <input type="text" name="tutor_phone" ng-model="tutor.phone_number" ng-pattern="/^[0-9]+$/" ng-minlength="8" ng-maxlength="10" maxlength="10" class="form-input form-control" placeholder="TELÉFONO" popover="{{tutorProfileForm.tutor_phone.popoverMessage}}" popover-trigger="focus" popover-animation="false" ng-required="true"/>
+          <input type="text" name="tutor_phone" ng-model="tutor.phone_number" ng-pattern="/^[0-9]+$/" ng-minlength="8" ng-maxlength="10" maxlength="10" class="form-input form-control" placeholder="TELÉFONO" popover="{{tutorProfileForm.tutor_phone.popoverMessage}}" popover-trigger="click" popover-animation="false" required/>
         </div>
       </div>
       <div class="form-group" show-errors>
@@ -135,12 +135,12 @@
           <label>Sexo:</label>
         </div>
         <div class="right form-radio custom-radio">
-          <span popover="{{tutorProfileForm.tutor_gender.popoverMessage}}" popover-trigger="mouseenter" popover-animation="false" tooltip-placement="right">
+          <div popover="{{tutorProfileForm.tutor_gender.popoverMessage}}" popover-trigger="mouseenter" popover-animation="false">
             <input type="radio" id="tutor_gender_h" name="tutor_gender" ng-model="tutor.gender" class="form-control" value="H" required>
             <label for="tutor_gender_h">Hombre</label>
             <input type="radio" id="tutor_gender_m" name="tutor_gender" ng-model="tutor.gender" class="form-control" value="M" required>
             <label for="tutor_gender_m">Mujer</label>
-          </span>
+          </div>
         </div>
       </div>
     </fieldset>
@@ -151,15 +151,15 @@
           <label>Formación y Experiencia:</label>
         </div>
         <div class="right">
-          <textarea name="tutor_studies" ng-model="tutor.studies" class="form-textarea form-control" placeholder="FORMACIÓN" popover="{{tutorProfileForm.tutor_studies.popoverMessage}}" popover-trigger="focus" popover-animation="false" required></textarea>
+          <textarea name="tutor_studies" ng-model="tutor.studies" class="form-textarea form-control" placeholder="FORMACIÓN" popover="{{tutorProfileForm.tutor_studies.popoverMessage}}" popover-trigger="click" popover-animation="false" required></textarea>
         </div>
       </div>
-      <div class="form-group" show-errors show-errors-params="tutor.topics">
+      <div class="form-group" show-errors show-errors-params="tutor.topics" show-errors-validation-type="arrayLength">
         <div class="left">
           <label>Temas:</label>
         </div>
         <div class="right">
-          <div popover="{{tutorProfileForm.tutor_topic.popoverMessage}}" popover-trigger="click" popover-animation="false" tooltip-placement="right">
+          <div popover="{{tutorProfileForm.tutor_topic.popoverMessage}}" popover-trigger="click" popover-animation="false">
             <div class="dropdown">
                 <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
                     {{selectedCategory.name}}
@@ -180,7 +180,7 @@
     </fieldset>
     <fieldset>
       <legend>Información de clases</legend>
-      <div class="form-group" show-errors show-errors-params="tutor.zones">
+      <div class="form-group"  show-errors-params="tutor.zones" show-errors-validation-type="arrayLength">
         <div class="left">
           <label>Zonas:</label>
         </div>
@@ -193,7 +193,8 @@
                                  search-fields="name"
                                  title-field="name"
                                  minlength="1"
-                                 input-class="form-input-half">
+                                 input-class="form-control"
+                                 name="tutor_zone">
           </angucomplete-alt-geek>
           <a class="action-button action-button-medium-gray" ng-click="addTutorZone()">Añadir</a>
           <div id="tutor_zones" class="items-added-group">
@@ -202,19 +203,19 @@
           </div>
         </div>
       </div>
-      <div class="form-group" show-errors show-errors-params="tutor.preference.classLocation">
+      <div class="form-group" show-errors show-errors-params="tutor.preference.classLocation" show-errors-validation-type="checkboxGroup">
         <div class="left">
           <label>Modalidad:</label>
         </div>
         <div class="right form-radio custom-checkbox custom-checkbox-profile">
-          <span popover="{{tutorProfileForm.tutor_class_mode.popoverMessage}}" popover-trigger="mouseenter" popover-animation="false" tooltip-placement="right">
+          <div popover="{{tutorProfileForm.tutor_class_mode.popoverMessage}}" popover-trigger="mouseenter" popover-animation="false">
             <input type="checkbox" id="tutor_class_mode_online" name="tutor_class_mode" ng-model="tutor.preference.classLocation.online" class="form-control">
             <label for="tutor_class_mode_online">EN LÍNEA</label>
             <input type="checkbox" id="tutor_class_mode_home" name="tutor_class_mode" ng-model="tutor.preference.classLocation.office" class="form-control">
             <label for="tutor_class_mode_home">CASA/OFICINA</label>
             <input type="checkbox" id="tutor_class_mode_public" name="tutor_class_mode" ng-model="tutor.preference.classLocation.public" class="form-control">
             <label for="tutor_class_mode_public">PÚBLICA</label>
-          </span>
+          </div>
         </div>
       </div>
       <div class="form-group" show-errors>
@@ -222,7 +223,7 @@
           <label>Costo por clase:</label>
         </div>
         <div class="right">
-          <input type="text" name="tutor_class_cost" ng-model="tutor.preference.cost" ng-pattern="/^[0-9]+$/" ng-pattern="/^\$?\-?([1-9]{1}[0-9]{0,2}(\,\d{3})*(\.\d{0,2})?|[1-9]{1}\d{0,}(\.\d{0,2})?|0(\.\d{0,2})?|(\.\d{1,2}))$|^\-?\$?([1-9]{1}\d{0,2}(\,\d{3})*(\.\d{0,2})?|[1-9]{1}\d{0,}(\.\d{0,2})?|0(\.\d{0,2})?|(\.\d{1,2}))$|^\(\$?([1-9]{1}\d{0,2}(\,\d{3})*(\.\d{0,2})?|[1-9]{1}\d{0,}(\.\d{0,2})?|0(\.\d{0,2})?|(\.\d{1,2}))\)$/" class="form-input form-control" placeholder="COSTO" class="form-input form-control"/>
+          <input type="text" name="tutor_class_cost" ng-model="tutor.preference.cost" ng-pattern="/^\$?\-?([1-9]{1}[0-9]{0,2}(\,\d{3})*(\.\d{0,2})?|[1-9]{1}\d{0,}(\.\d{0,2})?|0(\.\d{0,2})?|(\.\d{1,2}))$|^\-?\$?([1-9]{1}\d{0,2}(\,\d{3})*(\.\d{0,2})?|[1-9]{1}\d{0,}(\.\d{0,2})?|0(\.\d{0,2})?|(\.\d{1,2}))$|^\(\$?([1-9]{1}\d{0,2}(\,\d{3})*(\.\d{0,2})?|[1-9]{1}\d{0,}(\.\d{0,2})?|0(\.\d{0,2})?|(\.\d{1,2}))\)$/" class="form-input form-control" placeholder="COSTO" popover="{{tutorProfileForm.tutor_class_cost.popoverMessage}}" popover-trigger="click" popover-animation="false" required/>
         </div>
       </div>
     </fieldset>
