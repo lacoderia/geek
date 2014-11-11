@@ -1,5 +1,3 @@
-
-
 'use strict';
 
 Geek.directive('ngAlert', ["$rootScope", function($rootScope){

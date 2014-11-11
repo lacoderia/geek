@@ -157,6 +157,17 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
                     console.log('Error getting tutor\'s request status: ' + response);
                 }
             );
+        }else{
+            $scope.tutorRequestAlertParams = {
+                type: 'danger',
+                message: 'Ocurrió un error al enviar la solicitud, por favor, intenta nuevamente',
+                icon: true
+            };
+
+            $timeout(function(){
+                $location.hash('tutor-request-form');
+                $anchorScroll();
+            }, 0);
         }
 
     }
@@ -289,6 +300,17 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
                 }
             );
 
+        }else{
+            $scope.tutorProfileAlertParams = {
+                type: 'danger',
+                message: 'Ocurrió un error al enviar la actualización del perfil, por favor, corrige los errores en la forma e intenta nuevamente',
+                icon: true
+            };
+
+            $timeout(function(){
+                $location.hash('tutor-profile-form');
+                $anchorScroll();
+            }, 0);
         }
 
     }
