@@ -324,8 +324,6 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
                                 break;
                             }
                         }
-
-
                     }
                 }
             }
