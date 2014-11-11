@@ -66,8 +66,8 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
             var reader = new FileReader();
 
             reader.onload = function (e) {
-                $(element).siblings('img.profile_picture')
-                    .attr('src', e.target.result);
+                $(element).siblings('img.profile_picture').attr('src', e.target.result);
+                $rootScope.tutor.picture = e.target.result;
             };
 
             reader.readAsDataURL(input[0].files[0]);
@@ -122,7 +122,8 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
                 'references': $rootScope.tutor.references,
                 'categories': $rootScope.tutor.topics,
                 'preference': $rootScope.tutor.preference,
-                'phone_number': $rootScope.tutor.phone_number
+                'phone_number': $rootScope.tutor.phone_number,
+                'picture': $rootScope.tutor.picture
             }
 
             ProfileService.submitRequest(tutor).then(
@@ -251,7 +252,8 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
                 'preference': {
                   'cost': $rootScope.tutor.preference.cost
                 },
-                'counties': $rootScope.tutor.zones
+                'counties': $rootScope.tutor.zones,
+                'picture': $rootScope.tutor.picture
             }
 
             ProfileService.submitProfile(tutor).then(

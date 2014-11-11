@@ -137,6 +137,7 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
                                         $rootScope.tutor.preference = data.preference;
                                         $rootScope.tutor.topics = data.categories;
                                         $rootScope.tutor.zones = data.counties;
+                                        $rootScope.tutor.picture_url = data.picture_url;
 
                                         // Datos de test
                                         //$rootScope.tutor.gender = 'M';

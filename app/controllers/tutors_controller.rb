@@ -62,6 +62,10 @@ class TutorsController < ApplicationController
       if params[:preference]
         @tutor.preference.update_attribute(:cost, params[:preference][:cost])
       end
+      if params[:picture]
+        image = Cloudinary::Uploader.upload(params[:picture], :width => 342, :height => 1000, :crop => :limit)
+        @tutor.update_attribute(:picture_url, image["url"])
+      end
 
       if @tutor.update(tutor_params)
         format.html { redirect_to @tutor, notice: 'Tutor was successfully updated.' }
