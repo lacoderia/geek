@@ -56,7 +56,7 @@
           <textarea name="tutor_studies" ng-model="tutor.studies" class="form-textarea form-control" placeholder="FORMACIÓN" required></textarea>
         </div>
       </div>
-      
+
       <div class="form-group">
         <div class="left">
           <label>Temas:</label>
@@ -116,7 +116,7 @@
           <label>Apellido:</label>
         </div>
         <div class="right">
-          <input type="text" name="tutor_last_name" ng-model="tutor.lastName" class="form-input form-control" placeholder="APELLIDO" class="form-input form-control" required/>
+          <input type="text" name="tutor_last_name" ng-model="tutor.lastName" class="form-input form-control" placeholder="APELLIDO" class="form-input form-control" popover="{{tutorProfileForm.lastName.popoverMessage}}" popover-trigger="click" popover-animation="false" required/>
         </div>
       </div>
       <div class="form-group" show-errors>
@@ -124,7 +124,7 @@
           <label>Teléfono:</label>
         </div>
         <div class="right">
-          <input type="text" name="tutor_phone" ng-model="tutor.phone_number" ng-pattern="/^[0-9]+$/" ng-minlength="8" ng-maxlength="10" maxlength="10" class="form-input form-control" placeholder="TELÉFONO" class="form-input form-control" />
+          <input type="text" name="tutor_phone" ng-model="tutor.phone_number" ng-pattern="/^[0-9]+$/" ng-minlength="8" ng-maxlength="10" maxlength="10" class="form-input form-control" placeholder="TELÉFONO" popover="{{tutorProfileForm.tutor_phone.popoverMessage}}" popover-trigger="focus" popover-animation="false" ng-required="true"/>
         </div>
       </div>
       <div class="form-group" show-errors>
@@ -132,10 +132,12 @@
           <label>Sexo:</label>
         </div>
         <div class="right form-radio custom-radio">
-          <input type="radio" id="tutor_gender_h" name="tutor_gender" ng-model="tutor.gender" class="form-control" value="H">
-          <label for="tutor_gender_h">Hombre</label>
-          <input type="radio" id="tutor_gender_m" name="tutor_gender" ng-model="tutor.gender" class="form-control" value="M">
-          <label for="tutor_gender_m">Mujer</label>
+          <span popover="{{tutorProfileForm.tutor_gender.popoverMessage}}" popover-trigger="mouseenter" popover-animation="false" tooltip-placement="right">
+            <input type="radio" id="tutor_gender_h" name="tutor_gender" ng-model="tutor.gender" class="form-control" value="H" required>
+            <label for="tutor_gender_h">Hombre</label>
+            <input type="radio" id="tutor_gender_m" name="tutor_gender" ng-model="tutor.gender" class="form-control" value="M" required>
+            <label for="tutor_gender_m">Mujer</label>
+          </span>
         </div>
       </div>
     </fieldset>
@@ -146,28 +148,29 @@
           <label>Formación y Experiencia:</label>
         </div>
         <div class="right">
-          <textarea name="tutor_studies" ng-model="tutor.studies" class="form-textarea form-control" placeholder="FORMACIÓN" required></textarea>
+          <textarea name="tutor_studies" ng-model="tutor.studies" class="form-textarea form-control" placeholder="FORMACIÓN" popover="{{tutorProfileForm.tutor_studies.popoverMessage}}" popover-trigger="focus" popover-animation="false" required></textarea>
         </div>
       </div>
-      <div class="form-group">
+      <div class="form-group" has-error="tutor.topics">
         <div class="left">
           <label>Temas:</label>
         </div>
         <div class="right">
-          <div class="dropdown">
-            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-              {{selectedCategory.name}}
-              <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-              <li role="presentation"><a role="menuitem" tabindex="{{$index}}" ng-repeat="category in categories" ng-click="selectCategory(category)">{{ category.name }}</a></li>
-            </ul>
-          </div>
-          <input type="text" placeholder="Tema" ng-model="selectedTopic" name="tutor_topic" class="form-input-half form-control">
-          <a class="action-button action-button-medium-gray" ng-click="addTutorTopic()">Añadir</a>
-          <div id="tutor_topics" class="items-added-group">
-            <div id="tutor_topic_{{$index}}" ng-repeat="tutorTopic in tutor.topics" class="item-added">{{tutorTopic.name}} <span ng-click="removeTutorTopic($index)" class="icon-close close-item"></span></div>
-            <div ng-hide="tutor.topics.length">Debes seleccionar al menos un tema.</div>
+          <div popover="Debes seleccionar al menos un tema." popover-trigger="mouseenter" popover-animation="false" tooltip-placement="right">
+            <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                    {{selectedCategory.name}}
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li role="presentation"><a role="menuitem" tabindex="{{$index}}" ng-repeat="category in categories" ng-click="selectCategory(category)">{{ category.name }}</a></li>
+                </ul>
+            </div>
+            <input type="text" placeholder="Tema" ng-model="selectedTopic" name="tutor_topic" class="form-input-half form-control">
+            <a class="action-button action-button-medium-gray" ng-click="addTutorTopic()">Añadir</a>
+            <div id="tutor_topics" class="items-added-group">
+                <div id="tutor_topic_{{$index}}" ng-repeat="tutorTopic in tutor.topics" class="item-added">{{tutorTopic.name}} <span ng-click="removeTutorTopic($index)" class="icon-close close-item"></span></div>
+            </div>
           </div>
         </div>
       </div>
@@ -180,14 +183,14 @@
         </div>
         <div class="right profile-zones">
           <angucomplete-alt-geek id="counties"
-                            placeholder="ZONA"
-                            pause="600"
-                            selected-object="selectedZone"
-                            local-data="counties"
-                            search-fields="name"
-                            title-field="name"
-                            minlength="1"
-                            input-class="form-input-half">
+                                 placeholder="ZONA"
+                                 pause="600"
+                                 selected-object="selectedZone"
+                                 local-data="counties"
+                                 search-fields="name"
+                                 title-field="name"
+                                 minlength="1"
+                                 input-class="form-input-half">
           </angucomplete-alt-geek>
           <a class="action-button action-button-medium-gray" ng-click="addTutorZone()">Añadir</a>
           <div id="tutor_zones" class="items-added-group">
@@ -201,12 +204,14 @@
           <label>Modalidad:</label>
         </div>
         <div class="right form-radio custom-checkbox custom-checkbox-profile">
-          <input type="checkbox" id="tutor_class_mode_online" name="tutor_class_mode[]" ng-model="tutor.preference.online" class="form-control" >
-          <label for="tutor_class_mode_online">EN LÍNEA</label>
-          <input type="checkbox" id="tutor_class_mode_home" name="tutor_class_mode[]" ng-model="tutor.preference.office" class="form-control" >
-          <label for="tutor_class_mode_home">CASA/OFICINA</label>
-          <input type="checkbox" id="tutor_class_mode_public" name="tutor_class_mode[]" ng-model="tutor.preference.public" class="form-control" >
-          <label for="tutor_class_mode_public">PÚBLICA</label>
+          <span popover="{{tutorProfileForm.tutor_class_mode.popoverMessage}}" popover-trigger="mouseenter" popover-animation="false" tooltip-placement="right">
+            <input type="checkbox" id="tutor_class_mode_online" name="tutor_class_mode[]" ng-model="tutor.preference.classLocation.online" class="form-control" ng-required="arrayHasLength(tutor.preference.classLocation)">
+            <label for="tutor_class_mode_online">EN LÍNEA</label>
+            <input type="checkbox" id="tutor_class_mode_home" name="tutor_class_mode[]" ng-model="tutor.preference.classLocation.office" class="form-control" ng-required="arrayHasLength(tutor.preference.classLocation)">
+            <label for="tutor_class_mode_home">CASA/OFICINA</label>
+            <input type="checkbox" id="tutor_class_mode_public" name="tutor_class_mode[]" ng-model="tutor.preference.classLocation.public" class="form-control" ng-required="arrayHasLength(tutor.preference.classLocation)">
+            <label for="tutor_class_mode_public">PÚBLICA</label>
+          </span>
         </div>
       </div>
       <div class="form-group" show-errors>
