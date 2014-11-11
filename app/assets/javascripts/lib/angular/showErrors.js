@@ -23,7 +23,7 @@
                 return showSuccess;
             };
             linkFn = function(scope, el, attrs, formCtrl) {
-                var blurred, inputEl, inputName, inputNgEl, options, showSuccess, toggleClasses, trigger, messages;
+                var blurred, inputEl, inputName, inputNgEl, options, showSuccess, toggleClasses, trigger;
                 blurred = false;
                 options = scope.$eval(attrs.showErrors);
                 showSuccess = getShowSuccess(options);
@@ -59,29 +59,74 @@
                     }, 0, false);
                 });
                 return toggleClasses = function(invalid) {
-                    el.toggleClass('has-error', invalid);
+console.log(scope.showErrorsValidationType);
+                    switch (scope.showErrorsValidationType) {
+                        case 'arrayLength':
+                            if (scope.showErrorsParams){
+                                if (!scope.showErrorsParams.length) {
+                                    el.toggleClass('has-error', true);
+                                    formCtrl[inputName].popoverMessage = 'Se debe agregar al menos un elemento';
+                                } else {
+                                    el.toggleClass('has-error', false);
+                                    formCtrl[inputName].popoverMessage = '';
+                                }
+                            }
+                            break;
+                        case 'checkboxGroup':
+                            alert('s')
+                            if (scope.showErrorsParams){
+                                console.log(scope.showErrorsParams);
+                                if (!scope.showErrorsParams.length) {
+                                    el.toggleClass('has-error', true);
+                                    formCtrl[inputName].popoverMessage = 'Se debe agregar al menos un elemento';
 
-                    var $elementScope = angular.element(el).scope();
-                    console.log(formCtrl[inputName])
-                    if(invalid) {
-                        console.log(formCtrl[inputName]);
-                        if (formCtrl[inputName].$error.required == true) {
-                            formCtrl[inputName].popoverMessage = 'Este campo es requerido';
-                        } else if (formCtrl[inputName].$error.minlength == true) {
-                            formCtrl[inputName].popoverMessage = 'El campo no cumple con la longitud mínima';
-                        } else if (formCtrl[inputName].$error.maxlength == true) {
-                            formCtrl[inputName].popoverMessage = 'El campo no cumple con la longitud máxima';
-                        } else {
-                            formCtrl[inputName].popoverMessage = ''
-                        }
-                    } else {
-                        formCtrl[inputName].popoverMessage = '';
+                                    for (var key in scope.showErrorsParams) {
+                                        if (scope.showErrorsParams.hasOwnProperty(key)) {
+                                            var obj = scope.showErrorsParams[key];
+                                            for (var prop in obj) {
+                                                if (obj.hasOwnProperty(prop)) {
+                                                    alert(prop + " = " + obj[prop]);
+                                                }
+                                            }
+                                        }
+                                    }
+
+
+                                } else {
+                                    el.toggleClass('has-error', false);
+                                    formCtrl[inputName].popoverMessage = '';
+                                }
+                            }
+                            break;
+                        default:
+                            el.toggleClass('has-error', invalid);
+
+                            var $elementScope = angular.element(el).scope();
+                            var inputPlaceholder =  (inputNgEl[0].attributes["placeholder"].value).toLowerCase();
+                            if(invalid) {
+                                if (formCtrl[inputName].$error.required == true) {
+                                    formCtrl[inputName].popoverMessage = 'El campo ' + inputPlaceholder + ' es requerido';
+                                } else if (formCtrl[inputName].$error.minlength == true) {
+                                    formCtrl[inputName].popoverMessage = 'El campo ' + inputPlaceholder + ' debe ser de al menos ' + inputNgEl[0].attributes["ng-minlength"].value + ' caracteres';
+                                } else if (formCtrl[inputName].$error.maxlength == true) {
+                                    formCtrl[inputName].popoverMessage = 'El campo ' + inputPlaceholder + ' no debe ser de más de ' + inputNgEl[0].attributes["ng-maxlength"].value + ' caracteres';
+                                } else if (formCtrl[inputName].$error.pattern == true) {
+                                    formCtrl[inputName].popoverMessage = 'El campo ' + inputPlaceholder + ' contiene caractéres inválidos';
+                                } else {
+                                    formCtrl[inputName].popoverMessage = ''
+                                }
+                            } else {
+                                formCtrl[inputName].popoverMessage = '';
+                            }
+
+                            break;
+
                     }
-
 
                     if (showSuccess) {
                         return el.toggleClass('has-success', !invalid);
                     }
+
                 };
             };
             return {
@@ -92,6 +137,10 @@
                         throw "show-errors element does not have the 'form-group' class";
                     }
                     return linkFn;
+                },
+                scope: {
+                    showErrorsParams: '=showErrorsParams',
+                    showErrorsValidationType: '=showErrorsValidationType'
                 }
             };
         }
