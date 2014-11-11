@@ -63,8 +63,11 @@ class TutorsController < ApplicationController
         @tutor.preference.update_attribute(:cost, params[:preference][:cost])
       end
       if params[:picture]
+        if @tutor.picture_id
+          Cloudinary::Api.delete_resources(["#{@tutor.picture_id}"])
+        end
         image = Cloudinary::Uploader.upload(params[:picture], :width => 342, :height => 1000, :crop => :limit)
-        @tutor.update_attribute(:picture_url, image["url"])
+        @tutor.update_attributes({:picture_url => image["url"], :picture_id => image["public_id"]})
       end
 
       if @tutor.update(tutor_params)

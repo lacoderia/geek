@@ -12,6 +12,11 @@ Rails.application.configure do
   ENV['GOOGLE_CLIENT_ID'] = "387343070369-2mctkqbrhlph8hs724p4ufj19qerhgea.apps.googleusercontent.com"
   ENV['GOOGLE_CLIENT_SECRET'] = "bcKjkLgdSTexn18dCBNNN9xd"
 
+  ENV['CLOUDINARY_URL'] = "cloudinary://162621513544359:4-P1g7NIPDQh0mlr0JfiW260Gs4@hylpaitbl"
+  ENV['CLOUDINARY_KEY'] = '162621513544359'
+  ENV['CLOUDINARY_SECRET'] = '4-P1g7NIPDQh0mlr0JfiW260Gs4'
+  ENV['CLOUDINARY_NAME'] = 'hylpaitbl'
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on

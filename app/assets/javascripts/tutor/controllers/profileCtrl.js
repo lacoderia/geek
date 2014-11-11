@@ -260,6 +260,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
                 function(data){
                     if(data && data.id && $scope.updatedCalendar) {
 
+                        $rootScope.tutor.picture_url = data.picture_url;
                         $scope.tutorProfileAlertParams = {
                             type: 'success',
                             message: 'La actualización fue realizada con éxito',
