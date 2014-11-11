@@ -24,6 +24,7 @@
 //= require lib/angular/angular-route.js
 //= require lib/angular/angular-animate
 //= require lib/angular/angular-sanitize
+//= require lib/angular/ui-bootstrap-custom-tpls-0.10.0
 
 // Directivas externas
 //= require lib/angular/angucomplete-alt-geek

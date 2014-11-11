@@ -506,6 +506,7 @@ footer{
       vertical-align: top;
       text-align: left;
       width: 80%;
+      position: relative;
     }
 
     .send-form{
@@ -630,13 +631,30 @@ footer{
     background-color: red;
   }
 
-  .has-error .form-input{
+  .has-error.form-radio{
     background-color: red;
   }
 
-  .has-error .form-textarea{
-    background-color: red;
+  .has-error {
+    .form-input, .form-textarea, .form-span{
+      border: solid 1px red;
+    }
+
+    [type="radio"]:not(:checked) + label:before,
+    [type="radio"]:checked + label:before {
+      border: solid 1px red;
+    }
+
+    [type="checkbox"]:not(:checked) + label:before,
+    [type="checkbox"]:checked + label:before {
+      border: solid 1px red;
+    }
   }
+
+
+
+
+
 }
 
 @media (min-width: $screen-sm-min) {

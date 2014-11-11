@@ -10,6 +10,14 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.TOTAL_WEEKLY_CALENDAR_ROWS = DEFAULT_VALUES.TOTAL_WEEKLY_CALENDAR_ROWS;
 
+    $scope.tutorRequestAlertParams = undefined;
+    $scope.tutorProfileAlertParams = undefined;
+    /*$scope.alertParams = {
+        type: 'warning',
+        message: 'Mensaje de error',
+        icon: true,
+    };*/
+
     $scope.$watch('tutorProfileLoaded', function() {
       $timeout(function(){
         $location.hash('week-row-07:30');
@@ -122,9 +130,30 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
                 function(data){
                     if(data && data.id) {
                         $rootScope.tutor.request.sent = true;
+
+                        $scope.tutorRequestAlertParams = {
+                            type: 'success',
+                            message: 'La solicitud fue enviada con éxito',
+                            icon: true
+                        };
+
+                        $timeout(function(){
+                            $location.hash('tutor-request-form');
+                            $anchorScroll();
+                        }, 0);
                     }
                 },
                 function(response){
+                    $scope.tutorRequestAlertParams = {
+                        type: 'danger',
+                        message: 'Ocurrió un error al enviar la actualización del perfil, por favor, intenta nuevamente',
+                        icon: true
+                    };
+
+                    $timeout(function(){
+                        $location.hash('tutor-request-form');
+                        $anchorScroll();
+                    }, 0);
                     console.log('Error getting tutor\'s request status: ' + response);
                 }
             );
@@ -230,11 +259,31 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
             ProfileService.submitProfile(tutor).then(
                 function(data){
                     if(data && data.id && $scope.updatedCalendar) {
-                        alert('La actualización fue realizada con éxito');
+
+                        $scope.tutorProfileAlertParams = {
+                            type: 'success',
+                            message: 'La actualización fue realizada con éxito',
+                            icon: true
+                        };
+
+                        $timeout(function(){
+                            $location.hash('tutor-profile-form');
+                            $anchorScroll();
+                        }, 0);
                     }
                 },
                 function(response){
-                    alert('Ocurrió un error al enviar la actualización del perfil');
+                    $scope.tutorProfileAlertParams = {
+                        type: 'danger',
+                        message: 'Ocurrió un error al enviar la actualización del perfil, por favor, intenta nuevamente',
+                        icon: true
+                    };
+
+                    $timeout(function(){
+                        $location.hash('tutor-profile-form');
+                        $anchorScroll();
+                    }, 0);
+
                     console.log('Error getting tutor\'s request status: ' + response);
                 }
             );
