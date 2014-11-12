@@ -17,7 +17,7 @@
           <label>Nombre:</label>
         </div>
         <div class="right">
-          <input type="text" name="tutor_name" ng-model="tutor.firstName" class="form-input form-control" placeholder="NOMBRE" required/>
+          <input type="text" name="tutor_name" ng-model="tutor.firstName" class="form-input form-control" placeholder="NOMBRE" popover="{{tutorProfileForm.tutor_name.popoverMessage}}" popover-trigger="click" popover-animation="false" required/>
         </div>
       </div>
       <div class="form-group" show-errors>
@@ -25,16 +25,7 @@
           <label>Apellido:</label>
         </div>
         <div class="right">
-          <input type="text" name="tutor_last_name" ng-model="tutor.lastName" class="form-input form-control" placeholder="APELLIDO" required/>
-        </div>
-      </div>
-
-      <div class="form-group" show-errors>
-        <div class="left">
-          <label>Email:</label>
-        </div>
-        <div class="right">
-          <input type="text" name="tutor_email" ng-model="tutor.email" class="form-input form-control" placeholder="EMAIL" />
+          <input type="text" name="tutor_last_name" ng-model="tutor.lastName" class="form-input form-control" placeholder="APELLIDO" popover="{{tutorProfileForm.tutor_last_name.popoverMessage}}" popover-trigger="click" popover-animation="false" required/>
         </div>
       </div>
 
@@ -43,7 +34,7 @@
           <label>Teléfono:</label>
         </div>
         <div class="right">
-          <input type="text" name="tutor_phone" ng-model="tutor.phone_number" ng-pattern="/^[0-9]+$/" ng-minlength="8" ng-maxlength="10" maxlength="10" class="form-input form-control" placeholder="TELÉFONO" />
+          <input type="text" name="tutor_phone" ng-model="tutor.phone_number" ng-pattern="/^[0-9]+$/" ng-minlength="8" ng-maxlength="10" maxlength="10" class="form-input form-control" placeholder="TELÉFONO" popover="{{tutorProfileForm.tutor_phone.popoverMessage}}" popover-trigger="click" popover-animation="false" required/>
         </div>
       </div>
     </fieldset>
@@ -54,29 +45,29 @@
           <label>Formación y Experiencia:</label>
         </div>
         <div class="right">
-          <textarea name="tutor_studies" ng-model="tutor.studies" class="form-textarea form-control" placeholder="FORMACIÓN" required></textarea>
+          <textarea name="tutor_studies" ng-model="tutor.studies" class="form-textarea form-control" placeholder="FORMACIÓN" popover="{{tutorProfileForm.tutor_studies.popoverMessage}}" popover-trigger="focus" popover-animation="false" required></textarea>
         </div>
       </div>
-
-      <div class="form-group">
+      <div class="form-group" show-errors show-errors-params="tutor.topics" show-errors-validation-type="arrayLength">
         <div class="left">
           <label>Temas:</label>
         </div>
         <div class="right">
-          <div class="dropdown">
-            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-              {{selectedCategory.name}}
-              <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-              <li role="presentation"><a role="menuitem" tabindex="{{$index}}" ng-repeat="category in categories" ng-click="selectCategory(category)">{{ category.name }}</a></li>
-            </ul>
-          </div>
-          <input type="text" placeholder="Tema" ng-model="selectedTopic" name="tutor_topic" class="form-input-half form-control">
-          <a class="action-button action-button-medium-gray" ng-click="addTutorTopic()">Añadir</a>
-          <div id="tutor_request_topics" class="items-added-group">
-            <div id="tutor_request_topic_{{$index}}" ng-repeat="tutorTopic in tutor.topics" class="item-added">{{tutorTopic.name}} <span ng-click="removeTutorTopic($index)" class="icon-close close-item"></span></div>
-            <div ng-hide="tutor.topics.length">Debes seleccionar al menos un tema.</div>
+          <div popover="{{tutorProfileForm.tutor_topic.popoverMessage}}" popover-trigger="click" popover-animation="false">
+            <div class="dropdown">
+              <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                {{selectedCategory.name}}
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu">
+                <li role="presentation"><a role="menuitem" tabindex="{{$index}}" ng-repeat="category in categories" ng-click="selectCategory(category)">{{ category.name }}</a></li>
+              </ul>
+            </div>
+            <input type="text" placeholder="Tema" ng-model="selectedTopic" name="tutor_topic" class="form-input-half form-control">
+            <a class="action-button action-button-medium-gray" ng-click="addTutorTopic()">Añadir</a>
+            <div id="tutor_topics" class="items-added-group">
+              <div id="tutor_topic_{{$index}}" ng-repeat="tutorTopic in tutor.topics" class="item-added">{{tutorTopic.name}} <span ng-click="removeTutorTopic($index)" class="icon-close close-item"></span></div>
+            </div>
           </div>
         </div>
       </div>
