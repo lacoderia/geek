@@ -46,10 +46,12 @@ class TutorsController < ApplicationController
         @tutor.categories.destroy_all
         params[:categories].each do | cat |
           persisted = Category.find_by_name(cat[:name])
+          # AGREGAR COSTO
           if persisted
-            @tutor.categories << persisted
+            @tutor.categories_tutors << CategoriesTutor.create(:tutor_id => @tutor.id, :category_id => persisted.id, :cost => cat[:cost])
           else
-            @tutor.categories << Category.create(:name => cat[:name], :category_id => cat[:category_id])
+            category = Category.create(:name => cat[:name], :category_id => cat[:category_id])
+            @tutor.categories_tutors << CategoriesTutor.create(:tutor_id => @tutor.id, :category_id => category.id, :cost => cat[:cost])
           end
         end
       end

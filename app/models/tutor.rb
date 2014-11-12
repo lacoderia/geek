@@ -14,6 +14,7 @@ class Tutor < ActiveRecord::Base
   has_many :appointments
   has_many :specific_availabilities
   has_many :availabilities, through: :preference
+  has_many :categories_tutors
 
   after_create :set_default_preferences
 

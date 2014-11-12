@@ -13,8 +13,12 @@ if @tutor
   end
       
   json.set! :categories do
-    json.array!(@tutor.categories) do |category|
-      json.extract! category, :id, :name, :category_id
+    json.array!(@tutor.categories_tutors) do |ct|
+      category = Category.find(ct.category_id)
+      json.id category.id
+      json.name category.name
+      json.category_id category.category_id
+      json.cost ct.cost
     end
   end
 
