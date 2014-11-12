@@ -34,7 +34,7 @@
           <label>Teléfono:</label>
         </div>
         <div class="right">
-          <input type="text" name="tutor_phone" ng-model="tutor.phone_number" ng-pattern="/^[0-9]+$/" ng-minlength="8" ng-maxlength="10" maxlength="10" class="form-input form-control" placeholder="TELÉFONO" popover="{{tutorProfileForm.tutor_phone.popoverMessage}}" popover-trigger="click" popover-animation="false" required/>
+          <input type="text" name="tutor_phone" ng-model="tutor.phone_number" ng-pattern="/^[0-9]+$/" ng-minlength="8" ng-maxlength="10" maxlength="10" class="form-input form-control" placeholder="TELÉFONO" popover="{{tutorProfileForm.tutor_phone.popoverMessage}}" popover-trigger="click" popover-animation="false" />
         </div>
       </div>
     </fieldset>
@@ -53,7 +53,8 @@
           <label>Temas:</label>
         </div>
         <div class="right">
-          <div popover="{{tutorProfileForm.tutor_topic.popoverMessage}}" popover-trigger="click" popover-animation="false">
+          <div>
+          <!-- <div popover="{{tutorProfileForm.tutor_topic.popoverMessage}}" popover-trigger="click" popover-animation="false"> -->
             <div class="dropdown">
               <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
                 {{selectedCategory.name}}
@@ -118,7 +119,7 @@
           <label>Teléfono:</label>
         </div>
         <div class="right">
-          <input type="text" name="tutor_phone" ng-model="tutor.phone_number" ng-pattern="/^[0-9]+$/" ng-minlength="8" ng-maxlength="10" maxlength="10" class="form-input form-control" placeholder="TELÉFONO" popover="{{tutorProfileForm.tutor_phone.popoverMessage}}" popover-trigger="click" popover-animation="false" required/>
+          <input type="text" name="tutor_phone" ng-model="tutor.phone_number" ng-pattern="/^[0-9]+$/" ng-minlength="8" ng-maxlength="10" maxlength="10" class="form-input form-control" placeholder="TELÉFONO" popover="{{tutorProfileForm.tutor_phone.popoverMessage}}" popover-trigger="click" popover-animation="false" />
         </div>
       </div>
       <div class="form-group" show-errors>
@@ -150,7 +151,8 @@
           <label>Temas:</label>
         </div>
         <div class="right">
-          <div popover="{{tutorProfileForm.tutor_topic.popoverMessage}}" popover-trigger="click" popover-animation="false">
+          <div>
+          <!-- <div popover="{{tutorProfileForm.tutor_topic.popoverMessage}}" popover-trigger="click" popover-animation="false"> -->
             <div class="dropdown">
                 <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
                     {{selectedCategory.name}}
@@ -171,7 +173,7 @@
     </fieldset>
     <fieldset>
       <legend>Información de clases</legend>
-      <div class="form-group"  show-errors-params="tutor.zones" show-errors-validation-type="arrayLength">
+      <div class="form-group">
         <div class="left">
           <label>Zonas:</label>
         </div>
@@ -185,7 +187,9 @@
                                  title-field="name"
                                  minlength="1"
                                  input-class="form-control"
-                                 name="tutor_zone">
+                                 name="tutor_zone"
+                                 showerrors="true"
+                                 object-validation="tutor.zones">
           </angucomplete-alt-geek>
           <a class="action-button action-button-medium-gray" ng-click="addTutorZone()">Añadir</a>
           <div id="tutor_zones" class="items-added-group">
