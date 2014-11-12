@@ -60,7 +60,7 @@ class TutorsController < ApplicationController
         end
       end
       if params[:preference]
-        @tutor.preference.update_attribute(:cost, params[:preference][:cost])
+        @tutor.preference.update_attributes({:cost => params[:preference][:cost], :public => params[:preference][:public], :office => params[:preference][:office], :online => params[:preference][:online]})
       end
       if params[:picture]
         if @tutor.picture_id
