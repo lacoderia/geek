@@ -1,5 +1,5 @@
 json.array!(@tutors) do |tutor|
-  json.extract! tutor, :id, :first_name, :last_name, :details, :references, :background, :calendar_id
+  json.extract! tutor, :id, :first_name, :last_name, :details, :references, :background, :calendar_id, :picture_url
   json.set! :counties do
     json.array! (tutor.counties) do |county|
       json.extract! county, :id, :postal_code_id, :name
