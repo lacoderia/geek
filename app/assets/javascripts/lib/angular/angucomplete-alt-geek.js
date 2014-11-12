@@ -61,27 +61,29 @@ angular.module('angucomplete-alt-geek', [] ).directive('angucompleteAltGeek', ['
             autoMatch: '@',
             focusOut: '&',
             focusIn: '&',
-            name: '@'
+            name: '@',
+            showerrors: '@',
+            objectValidation: '='
         },
-        template:
-            '<div class="angucomplete-holder" ng-class="{\'angucomplete-dropdown-visible\': showDropdown}">' +
-            '  <input id="{{id}}_value" name="{{name}}" ng-model="searchStr" ng-disabled="disableInput" type="text" placeholder="{{placeholder}}" ng-focus="onFocusHandler()" class="{{inputClass}}" ng-focus="resetHideResults()" ng-blur="hideResults($event)" autocapitalize="off" autocorrect="off" autocomplete="off" ng-change="inputChangeHandler(searchStr)"/>' +
-            '  <div id="{{id}}_dropdown" class="angucomplete-dropdown" ng-show="showDropdown">' +
-            '    <div class="angucomplete-searching" ng-show="searching" ng-bind="textSearching"></div>' +
-            '    <div class="angucomplete-searching" ng-show="!searching && (!results || results.length == 0)" ng-bind="textNoResults"></div>' +
-            '    <div class="angucomplete-row" ng-repeat="result in results" ng-click="selectResultBroadcast(result)" ng-mouseenter="hoverRow($index)" ng-class="{\'angucomplete-selected-row\': $index == currentIndex}">' +
-            '      <div ng-if="imageField" class="angucomplete-image-holder">' +
-            '        <img ng-if="result.image && result.image != \'\'" ng-src="{{result.image}}" class="angucomplete-image"/>' +
-            '        <div ng-if="!result.image && result.image != \'\'" class="angucomplete-image-default"></div>' +
-            '      </div>' +
-            '      <div class="angucomplete-title" ng-if="matchClass" ng-bind-html="result.title"></div>' +
-            '      <div class="angucomplete-title" ng-if="!matchClass">{{ result.title }}</div>' +
-            '      <div ng-if="matchClass && result.description && result.description != \'\'" class="angucomplete-description" ng-bind-html="result.description"></div>' +
-            '      <div ng-if="!matchClass && result.description && result.description != \'\'" class="angucomplete-description">{{result.description}}</div>' +
-            '    </div>' +
-            '  </div>' +
-            '</div>',
+        template: '<div class="angucomplete-holder" ng-class="{\'angucomplete-dropdown-visible\': showDropdown}">' +
+                '  <input id="{{id}}_value" name="{{name}}" ng-model="searchStr" ng-disabled="disableInput" type="text" placeholder="{{placeholder}}" ng-focus="onFocusHandler()" class="{{inputClass}}" ng-focus="resetHideResults()" ng-blur="hideResults($event)" autocapitalize="off" autocorrect="off" autocomplete="off" ng-change="inputChangeHandler(searchStr)"/>' +
+                '  <div id="{{id}}_dropdown" class="angucomplete-dropdown" ng-show="showDropdown">' +
+                '    <div class="angucomplete-searching" ng-show="searching" ng-bind="textSearching"></div>' +
+                '    <div class="angucomplete-searching" ng-show="!searching && (!results || results.length == 0)" ng-bind="textNoResults"></div>' +
+                '    <div class="angucomplete-row" ng-repeat="result in results" ng-click="selectResultBroadcast(result)" ng-mouseenter="hoverRow($index)" ng-class="{\'angucomplete-selected-row\': $index == currentIndex}">' +
+                '      <div ng-if="imageField" class="angucomplete-image-holder">' +
+                '        <img ng-if="result.image && result.image != \'\'" ng-src="{{result.image}}" class="angucomplete-image"/>' +
+                '        <div ng-if="!result.image && result.image != \'\'" class="angucomplete-image-default"></div>' +
+                '      </div>' +
+                '      <div class="angucomplete-title" ng-if="matchClass" ng-bind-html="result.title"></div>' +
+                '      <div class="angucomplete-title" ng-if="!matchClass">{{ result.title }}</div>' +
+                '      <div ng-if="matchClass && result.description && result.description != \'\'" class="angucomplete-description" ng-bind-html="result.description"></div>' +
+                '      <div ng-if="!matchClass && result.description && result.description != \'\'" class="angucomplete-description">{{result.description}}</div>' +
+                '    </div>' +
+                '  </div>' +
+                '</div>',
         link: function(scope, elem, attrs, ctrl) {
+
             var inputField = elem.find('input');
             var minlength = MIN_LENGTH;
             var searchTimer = null;
@@ -94,6 +96,31 @@ angular.module('angucomplete-alt-geek', [] ).directive('angucompleteAltGeek', ['
             var isScrollOn = false;
             var mousedownOn = null;
             var unbindInitialValue;
+            var firstTime = true;
+
+
+            if(scope.showerrors){
+                scope.$watchCollection('objectValidation', function(){
+
+                    if(scope.objectValidation){
+                        if(!scope.objectValidation.length && !firstTime){
+                            ctrl[scope.name].$invalid = true;
+                            elem.toggleClass('has-error', true);
+                            ctrl[scope.name].popoverMessage = 'Se debe agregar al menos un elemento';
+                        }else{
+                            ctrl[scope.name].$invalid = false;
+                            elem.toggleClass('has-error', false);
+                            ctrl[scope.name].popoverMessage = '';
+
+                            if(firstTime){
+                                firstTime = false;
+                            }
+                        }
+                    }
+
+
+                }, true);
+            }
 
             elem.on('mousedown', function(event) {
                 mousedownOn = event.target.id;
@@ -533,6 +560,7 @@ angular.module('angucomplete-alt-geek', [] ).directive('angucompleteAltGeek', ['
                         scope.focusOut();
                     }
                 }
+
             };
 
             scope.resetHideResults = function() {

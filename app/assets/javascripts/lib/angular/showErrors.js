@@ -23,6 +23,7 @@
                 return showSuccess;
             };
             linkFn = function(scope, el, attrs, formCtrl) {
+
                 var blurred, inputEl, inputName, inputNgEl, options, showSuccess, toggleClasses, trigger;
                 blurred = false;
                 options = scope.$eval(attrs.showErrors);
@@ -62,6 +63,8 @@
                         return blurred = false;
                     }, 0, false);
                 });
+
+
                 return toggleClasses = function(invalid) {
                     switch (scope.showErrorsValidationType) {
                         case 'arrayLength':

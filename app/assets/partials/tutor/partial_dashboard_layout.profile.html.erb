@@ -171,7 +171,7 @@
     </fieldset>
     <fieldset>
       <legend>Información de clases</legend>
-      <div class="form-group"  show-errors-params="tutor.zones" show-errors-validation-type="arrayLength">
+      <div class="form-group">
         <div class="left">
           <label>Zonas:</label>
         </div>
@@ -185,7 +185,9 @@
                                  title-field="name"
                                  minlength="1"
                                  input-class="form-control"
-                                 name="tutor_zone">
+                                 name="tutor_zone"
+                                 showerrors="true"
+                                 object-validation="tutor.zones">
           </angucomplete-alt-geek>
           <a class="action-button action-button-medium-gray" ng-click="addTutorZone()">Añadir</a>
           <div id="tutor_zones" class="items-added-group">
