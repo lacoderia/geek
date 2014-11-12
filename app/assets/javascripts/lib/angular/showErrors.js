@@ -28,16 +28,20 @@
                 options = scope.$eval(attrs.showErrors);
                 showSuccess = getShowSuccess(options);
                 trigger = getTrigger(options);
-                inputEl = el[0].querySelector('.form-control[name]');
+                inputEl = el[0].querySelectorAll('.form-control[name]');
                 inputNgEl = angular.element(inputEl);
                 inputName = inputNgEl.attr('name');
                 if (!inputName) {
                     throw "show-errors element has no child input elements with a 'name' attribute and a 'form-control' class";
                 }
+
                 inputNgEl.bind(trigger, function() {
                     blurred = true;
-                    return toggleClasses(formCtrl[inputName].$invalid);
+                    setTimeout(function(){
+                        return toggleClasses(formCtrl[inputName].$invalid);
+                    },0);
                 });
+
                 scope.$watch(function() {
                     return formCtrl[inputName] && formCtrl[inputName].$invalid;
                 }, function(invalid) {
@@ -59,7 +63,6 @@
                     }, 0, false);
                 });
                 return toggleClasses = function(invalid) {
-console.log(scope.showErrorsValidationType);
                     switch (scope.showErrorsValidationType) {
                         case 'arrayLength':
                             if (scope.showErrorsParams){
@@ -73,24 +76,26 @@ console.log(scope.showErrorsValidationType);
                             }
                             break;
                         case 'checkboxGroup':
-                            alert('s')
                             if (scope.showErrorsParams){
-                                console.log(scope.showErrorsParams);
                                 if (!scope.showErrorsParams.length) {
-                                    el.toggleClass('has-error', true);
-                                    formCtrl[inputName].popoverMessage = 'Se debe agregar al menos un elemento';
+                                    var hasError = true;
 
                                     for (var key in scope.showErrorsParams) {
                                         if (scope.showErrorsParams.hasOwnProperty(key)) {
                                             var obj = scope.showErrorsParams[key];
-                                            for (var prop in obj) {
-                                                if (obj.hasOwnProperty(prop)) {
-                                                    alert(prop + " = " + obj[prop]);
-                                                }
+                                            if (obj) {
+                                                hasError = false;
                                             }
                                         }
                                     }
 
+                                    if (hasError) {
+                                        el.toggleClass('has-error', true);
+                                        formCtrl[inputName].popoverMessage = 'Se debe seleccionar al menos un elemento';
+                                    } else {
+                                        el.toggleClass('has-error', false);
+                                        formCtrl[inputName].popoverMessage = '';
+                                    }
 
                                 } else {
                                     el.toggleClass('has-error', false);
@@ -101,17 +106,16 @@ console.log(scope.showErrorsValidationType);
                         default:
                             el.toggleClass('has-error', invalid);
 
-                            var $elementScope = angular.element(el).scope();
                             var inputPlaceholder =  (inputNgEl[0].attributes["placeholder"].value).toLowerCase();
                             if(invalid) {
-                                if (formCtrl[inputName].$error.required == true) {
-                                    formCtrl[inputName].popoverMessage = 'El campo ' + inputPlaceholder + ' es requerido';
-                                } else if (formCtrl[inputName].$error.minlength == true) {
+                                if (formCtrl[inputName].$error.minlength == true) {
                                     formCtrl[inputName].popoverMessage = 'El campo ' + inputPlaceholder + ' debe ser de al menos ' + inputNgEl[0].attributes["ng-minlength"].value + ' caracteres';
                                 } else if (formCtrl[inputName].$error.maxlength == true) {
                                     formCtrl[inputName].popoverMessage = 'El campo ' + inputPlaceholder + ' no debe ser de más de ' + inputNgEl[0].attributes["ng-maxlength"].value + ' caracteres';
                                 } else if (formCtrl[inputName].$error.pattern == true) {
                                     formCtrl[inputName].popoverMessage = 'El campo ' + inputPlaceholder + ' contiene caractéres inválidos';
+                                } else if (formCtrl[inputName].$error.required == true) {
+                                    formCtrl[inputName].popoverMessage = 'El campo ' + inputPlaceholder + ' es requerido';
                                 } else {
                                     formCtrl[inputName].popoverMessage = ''
                                 }
@@ -120,7 +124,6 @@ console.log(scope.showErrorsValidationType);
                             }
 
                             break;
-
                     }
 
                     if (showSuccess) {
@@ -140,7 +143,7 @@ console.log(scope.showErrorsValidationType);
                 },
                 scope: {
                     showErrorsParams: '=showErrorsParams',
-                    showErrorsValidationType: '=showErrorsValidationType'
+                    showErrorsValidationType: '@showErrorsValidationType'
                 }
             };
         }

@@ -249,7 +249,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
             alert('El calendario no es válido y no fue actualizado');
         }
 
-        if ($scope.tutorProfileForm.$valid && $rootScope.tutor.topics.length) {
+        if ($scope.tutorProfileForm.$valid && $rootScope.tutor.topics.length && $rootScope.tutor.zones.length) {
 
             var tutor = {
                 'id': $rootScope.tutor.id,
@@ -261,7 +261,10 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
                 'phone_number': $rootScope.tutor.phone_number,
                 'gender': $rootScope.tutor.gender,
                 'preference': {
-                  'cost': $rootScope.tutor.preference.cost
+                  'cost': $rootScope.tutor.preference.cost,
+                  'online': $rootScope.tutor.preference.classLocation.online,
+                  'office': $rootScope.tutor.preference.classLocation.office,
+                  'public': $rootScope.tutor.preference.classLocation.public
                 },
                 'counties': $rootScope.tutor.zones,
                 'picture': $rootScope.tutor.picture

@@ -135,10 +135,10 @@
           <label>Sexo:</label>
         </div>
         <div class="right form-radio custom-radio">
-          <div popover="{{tutorProfileForm.tutor_gender.popoverMessage}}" popover-trigger="mouseenter" popover-animation="false">
-            <input type="radio" id="tutor_gender_h" name="tutor_gender" ng-model="tutor.gender" class="form-control" value="H" required>
+          <div popover="{{tutorProfileForm.tutor_gender.popoverMessage}}" popover-trigger="click" popover-animation="false">
+            <input type="radio" id="tutor_gender_h" name="tutor_gender" placeholder="sexo" ng-model="tutor.gender" class="form-control" value="H" required>
             <label for="tutor_gender_h">Hombre</label>
-            <input type="radio" id="tutor_gender_m" name="tutor_gender" ng-model="tutor.gender" class="form-control" value="M" required>
+            <input type="radio" id="tutor_gender_m" name="tutor_gender" placeholder="sexo" ng-model="tutor.gender" class="form-control" value="M" required>
             <label for="tutor_gender_m">Mujer</label>
           </div>
         </div>
@@ -151,7 +151,7 @@
           <label>Formación y Experiencia:</label>
         </div>
         <div class="right">
-          <textarea name="tutor_studies" ng-model="tutor.studies" class="form-textarea form-control" placeholder="FORMACIÓN" popover="{{tutorProfileForm.tutor_studies.popoverMessage}}" popover-trigger="click" popover-animation="false" required></textarea>
+          <textarea name="tutor_studies" ng-model="tutor.studies" class="form-textarea form-control" placeholder="FORMACIÓN" popover="{{tutorProfileForm.tutor_studies.popoverMessage}}" popover-trigger="focus" popover-animation="false" required></textarea>
         </div>
       </div>
       <div class="form-group" show-errors show-errors-params="tutor.topics" show-errors-validation-type="arrayLength">
@@ -203,7 +203,7 @@
           </div>
         </div>
       </div>
-      <div class="form-group" show-errors show-errors-params="tutor.preference.classLocation" show-errors-validation-type="checkboxGroup">
+      <div class="form-group" show-errors="{'trigger':'change'}" show-errors-params="tutor.preference.classLocation" show-errors-validation-type="checkboxGroup">
         <div class="left">
           <label>Modalidad:</label>
         </div>

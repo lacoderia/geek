@@ -134,10 +134,18 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
                                         $rootScope.tutor.details = data.details;
                                         $rootScope.tutor.references = data.references;
                                         $rootScope.tutor.studies = data.background;
-                                        $rootScope.tutor.preference = data.preference;
                                         $rootScope.tutor.topics = data.categories;
                                         $rootScope.tutor.zones = data.counties;
                                         $rootScope.tutor.picture_url = data.picture_url;
+                                        $rootScope.tutor.preference = {
+                                            'cost': data.preference.cost,
+                                            'classLocation': {
+                                                'online': data.preference.online,
+                                                'office': data.preference.office,
+                                                'public': data.preference.public
+                                            },
+                                            'availabilities': data.preference.availabilities
+                                        };
 
                                         // Datos de test
                                         //$rootScope.tutor.gender = 'M';
