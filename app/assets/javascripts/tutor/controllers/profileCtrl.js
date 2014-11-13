@@ -65,8 +65,26 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
             var reader = new FileReader();
 
             reader.onload = function (e) {
-                $(element).siblings('img.profile_picture').attr('src', e.target.result);
+                var imageContainer = $(element).parent().find('.profile_picture');
+                var image = imageContainer.find('img');
+                image.attr('src', e.target.result);
                 $rootScope.tutor.picture = e.target.result;
+
+                var loadedImage = new Image();
+                loadedImage.src = reader.result;
+
+                var ratio = loadedImage.width / loadedImage.height;
+
+                // Si la imagen es horizontal, el alto debe ser el del contenedor y el ancho debe ser proporcional
+                if (loadedImage.width > loadedImage.height) {
+                    image.height(imageContainer.height());
+                    image.width(imageContainer.height() * ratio);
+                } else {
+                    // Si la imagen es vertical o cuadrada, el ancho debe ser el del contenedor y el alto debe ser proporcional
+                    image.width(imageContainer.width());
+                    image.height(imageContainer.width() / ratio);
+                }
+
             };
 
             reader.readAsDataURL(input[0].files[0]);
@@ -328,11 +346,40 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
 
     }
 
-
-
     // Método que cambia la disponibilidad de un horario
     $scope.toggleHourAvailability = function(halfHour) {
         halfHour.available = !halfHour.available;
     }
 
+    $scope.$watch('tutor.picture_url', function(){
+        if ($rootScope.tutor.picture_url) {
+            var imageContainer = $('.profile_picture');
+            var image = imageContainer.find('img');
+            image.hide()
+
+            $('<img/>')
+                .attr("src", $rootScope.tutor.picture_url)
+                .load(function() {
+                    image.attr('src', $rootScope.tutor.picture_url);
+
+                    var ratio = this.width / this.height;
+
+                    // Si la imagen es horizontal, el alto debe ser el del contenedor y el ancho debe ser proporcional
+                    if (this.width > this.height) {
+                        image.height(imageContainer.height());
+                        image.width(imageContainer.height() * ratio);
+                    } else {
+                        // Si la imagen es vertical o cuadrada, el ancho debe ser el del contenedor y el alto debe ser proporcional
+                        image.width(imageContainer.width());
+                        image.height(imageContainer.width() / ratio);
+                    }
+
+                    image.show();
+                })
+                .error(function() {
+
+                });
+
+        }
+    });
 }]);
