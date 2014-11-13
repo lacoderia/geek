@@ -6,8 +6,13 @@ json.array!(@tutors) do |tutor|
     end
   end
   json.set! :categories do
-    json.array! (tutor.categories) do |category|
-      json.extract! category, :id, :name, :description, :category_id, :picture_url
+    json.array! (tutor.categories_tutors) do |ct|
+      category = Category.find(ct.category_id)
+      json.id category.id
+      json.name category.name
+      json.category_id category.category_id
+      json.picture_url category.picture_url
+      json.cost ct.cost
     end
   end
   json.set! :preference do
