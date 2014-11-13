@@ -217,7 +217,8 @@
       </div>
     </fieldset>
     <div class="calendar">
-      <div class="week-view tutor-calendar-section">
+      <ng-alert-message alert-params="calendarAlertMessagesParams"></ng-alert-message>
+      <div class="week-view tutor-calendar-section" ng-class="calendarErrorClass">
         <div class="week-row tutor-calendar-title-day">
           <table>
             <tbody>

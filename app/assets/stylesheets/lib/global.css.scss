@@ -395,6 +395,32 @@ h3.section-title{
   vertical-align: middle;
 }
 
+.alert-danger-message{
+  color: $color-light-red;
+}
+
+.alert-info-message{
+  color: $color-light-blue;
+}
+
+.alert-warning-message{
+  color: $color-medium-orange;
+}
+
+.alert-success-message{
+  color: $color-dark-green;
+}
+
+.border-error{
+  border: 2px solid $color-light-red !important;
+}
+
+.modal-alert-message{
+  display: inline-block;
+  min-height: 16px;
+  overflow: hidden;
+}
+
 .appointment-button{
   font-size: 0px;
   text-align: center;
@@ -1343,6 +1369,10 @@ ul.events{
   li:hover{
     background-color: rgba(166,168,171,0.3);
   }
+}
+
+.modal-error{
+
 }
 
 .modal-detail{

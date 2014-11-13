@@ -13,11 +13,8 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
 
     $scope.tutorRequestAlertParams = undefined;
     $scope.tutorProfileAlertParams = undefined;
-    /*$scope.alertParams = {
-        type: 'warning',
-        message: 'Mensaje de error',
-        icon: true,
-    };*/
+    $scope.calendarAlertMessagesParams = undefined;
+    $scope.calendarErrorClass = undefined;
 
 
     $scope.$watch('tutorProfileLoaded', function() {
@@ -140,10 +137,6 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
                             icon: true
                         };
 
-                        $timeout(function(){
-                            $location.hash('tutor-request-form');
-                            $anchorScroll();
-                        }, 0);
                     }
                 },
                 function(response){
@@ -153,10 +146,6 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
                         icon: true
                     };
 
-                    $timeout(function(){
-                        $location.hash('tutor-request-form');
-                        $anchorScroll();
-                    }, 0);
                     console.log('Error getting tutor\'s request status: ' + response);
                 }
             );
@@ -167,11 +156,12 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
                 icon: true
             };
 
-            $timeout(function(){
-                $location.hash('tutor-request-form');
-                $anchorScroll();
-            }, 0);
         }
+
+        $timeout(function(){
+            $location.hash('tutor-request-form');
+            $anchorScroll();
+        }, 0);
 
     }
 
@@ -241,18 +231,38 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
                 function(data){
                     if(data) {
                         $scope.updatedCalendar = true;
+                        $scope.tutorProfileAlertParams = {
+                            type: 'success',
+                            message: 'La actualización fue realizada con éxito',
+                            icon: true
+                        };
+                        $scope.calendarErrorClass = '';
+                        $scope.calendarAlertMessagesParams = undefined;
                     }
                 },
                 function(response){
-                    alert('Ocurrió un error al enviar el calendario');
+                    $scope.tutorProfileAlertParams = {
+                        type: 'danger',
+                        message: 'Ocurrió un error al guardar las preferencias de calendario.',
+                        icon: true
+                    };
+                    $scope.calendarErrorClass = 'border-error';
                     console.log('Error getting tutor\'s request status: ' + response);
                 }
             );
+
         } else {
-            alert('El calendario no es válido y no fue actualizado');
+            $scope.calendarErrorClass = 'border-error';
+            console.log('ENTRE AQUI')
+            $scope.calendarAlertMessagesParams = {
+                type: 'danger',
+                message: 'Las clases deben durar al menos 1 hora, por favor, selecciona al menos dos horarios contiguos.',
+                icon: true
+            };
+
         }
 
-        if ($scope.tutorProfileForm.$valid && $rootScope.tutor.topics.length && $rootScope.tutor.zones.length) {
+        if ($scope.tutorProfileForm.$valid && $rootScope.tutor.topics.length && $rootScope.tutor.zones.length && validCalendar) {
 
             var tutor = {
                 'id': $rootScope.tutor.id,
@@ -284,10 +294,6 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
                             icon: true
                         };
 
-                        $timeout(function(){
-                            $location.hash('tutor-profile-form');
-                            $anchorScroll();
-                        }, 0);
                     }
                 },
                 function(response){
@@ -297,16 +303,17 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
                         icon: true
                     };
 
-                    $timeout(function(){
-                        $location.hash('tutor-profile-form');
-                        $anchorScroll();
-                    }, 0);
-
                     console.log('Error getting tutor\'s request status: ' + response);
                 }
             );
 
+            $timeout(function(){
+                $location.hash('tutor-profile-form');
+                $anchorScroll();
+            }, 0);
+
         }else{
+
             $scope.tutorProfileAlertParams = {
                 type: 'danger',
                 message: 'Ocurrió un error al enviar la actualización del perfil, por favor, corrige los errores en la forma e intenta nuevamente',

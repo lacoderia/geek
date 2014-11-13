@@ -32,6 +32,7 @@ Rails.application.config.assets.precompile += %w( tutor/services/appointmentServ
 #Import Directives
 Rails.application.config.assets.precompile += %w( lib/angular/angular-onready-directive.js )
 Rails.application.config.assets.precompile += %w( lib/angular/angular-form-alert-directive.js )
+Rails.application.config.assets.precompile += %w( lib/angular/angular-alert-message-directive.js )
 Rails.application.config.assets.precompile += %w( lib/angular/angular-spinner.js )
 Rails.application.config.assets.precompile += %w( lib/angular/ng-currency.js )
 Rails.application.config.assets.precompile += %w( student/directives/modalTutorDetailDrctv.js )

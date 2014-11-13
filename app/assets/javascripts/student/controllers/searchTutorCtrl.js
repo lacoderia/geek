@@ -1,4 +1,4 @@
-Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$timeout", "TutorService", "AppointmentService", "DEFAULT_VALUES", function($scope, $rootScope, $filter, $timeout, TutorService, AppointmentService, DEFAULT_VALUES){
+Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$timeout", "$location", "$anchorScroll", "TutorService", "AppointmentService", "DEFAULT_VALUES", function($scope, $rootScope, $filter, $timeout, $location, $anchorScroll, TutorService, AppointmentService, DEFAULT_VALUES){
 
     //Subject inputted by the user
     $scope.subjectInput = undefined;
@@ -15,6 +15,9 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
     $scope.DEFAULT_CATEGORY_NAME = 'TEMA';
     $scope.selectedCategoryName = $scope.DEFAULT_CATEGORY_NAME;
     $scope.selectedCategory = undefined;
+
+    $scope.appointmentAlertMessagesParams = undefined;
+    $scope.appointmentAlertParams = undefined;
 
 
     //Find a tutor, by the inputted data by the user
@@ -34,15 +37,12 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
                             tutor.show = true;
                             if(tutor.categories){
 
-                                var minCost = parseFloat(tutor.categories[0].cost);
-                                var maxCost = parseFloat(tutor.categories[0].cost);
+                                var minCost = 0;
+                                var maxCost = 0;
 
-                                if(!minCost){
-                                    minCost = 0;
-                                }
-
-                                if(!maxCost){
-                                    maxCost = 0;
+                                if(tutor.categories[0].cost){
+                                    minCost = parseFloat(tutor.categories[0].cost);
+                                    maxCost = parseFloat(tutor.categories[0].cost);
                                 }
 
                                 for(var categoryIndex=0; categoryIndex<tutor.categories.length; categoryIndex++){
@@ -138,7 +138,13 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
                     $scope.selectedClass.halfHours.push(previousHalfHour);
                     $scope.selectedClass.halfHours.push(currentHalfHour);
                 } else {
-                    alert('No se puede agendar una cita en este horario')
+
+                    $scope.appointmentAlertMessagesParams = {
+                        type: 'warning',
+                        message: 'Las clases deben durar al menos 1 hora, por favor, intenta en otro horario.',
+                        icon: true
+                    };
+
                 }
 
                 var firstHalfhour = $scope.selectedClass.halfHours[0];
@@ -151,6 +157,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
 
                 $scope.selectedCategoryName = $scope.DEFAULT_CATEGORY_NAME;
                 $scope.selectedCategory = undefined;
+                $scope.appointmentAlertMessagesParams = undefined;
 
             },0);
 
@@ -184,21 +191,53 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
          'description': $scope.selectedCategoryName
         }
 
-        AppointmentService.sendAppointmentRequest(appointment).then(
-            function(data){
+        if($scope.selectedCategory){
+            AppointmentService.sendAppointmentRequest(appointment).then(
+                function(data){
 
-                for(var i=0; i<$scope.selectedClass.halfHours.length; i++) {
-                    $scope.selectedClass.halfHours[i].available = false;
+                    for(var i=0; i<$scope.selectedClass.halfHours.length; i++) {
+                        $scope.selectedClass.halfHours[i].available = false;
+                    }
+
+                    $scope.closeAppointmentRequest();
+                    console.log('ENTRE')
+
+                    $scope.appointmentAlertParams = {
+                        type: 'success',
+                        message: 'La cita fue agendada con éxito',
+                        icon: true
+                    }
+
+                    $timeout(function(){
+                        $location.hash('appointment-alert');
+                        $anchorScroll();
+                    }, 0);
+
+                },
+                function (response){
+                    $scope.appointmentAlertParams = {
+                        type: 'danger',
+                        message: 'Hubo un error al solicitar una cita, por favor, intenta de nuevo.',
+                        icon: true
+                    }
+
+                    $timeout(function(){
+                        $location.hash('appointment-alert');
+                        $anchorScroll();
+                    }, 0);
+
+                    console.log('Error saving an appointment: ' + response);
                 }
+            );
+        }else{
 
-                $scope.closeAppointmentRequest();
+            $scope.appointmentAlertMessagesParams = {
+                type: 'warning',
+                message: 'Debes seleccionar un tema',
+                icon: true
+            };
+        }
 
-                alert('La cita fue agendada con éxito');
-            },
-            function (response){
-                console.log('Error requesting an appointment: ' + response);
-            }
-        );
 
     };
 
