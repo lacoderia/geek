@@ -4,6 +4,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
 
     .constant('DEFAULT_VALUES',{
         'LANGUAGE':'es',
+        'PROFILE_IMAGE': '/assets/site/person.png',
         'URL_SERVICES': {
             'APPOINTMENT_SERVICE_URL': 'appointments/by_student.json',
             'CATEGORY_SERVICE_URL': '/categories.json',

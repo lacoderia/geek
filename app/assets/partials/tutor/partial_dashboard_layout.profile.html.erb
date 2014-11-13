@@ -7,7 +7,7 @@
       <legend>Información personal</legend>
       <div class="tutor_picture">
         <div class="profile_picture_container">
-          <img class="profile_picture" src="/assets/site/person.png" ng-src="{{ tutor.picture_url }}">
+          <img class="profile_picture" ng-src="{{ tutor.picture_url && tutor.picture_url || PROFILE_IMAGE }}" alt="{{ PROFILE_IMAGE }}">
           <div class="action-button-upload" ng-click="openProfilePictureSelector($event)">CAMBIAR FOTO</div>
           <input type='file' onchange="angular.element(this).scope().selectProfilePicture(this)" name="picture" enctype="multipart/form-data" runat="server" style="display: none"/>
         </div>
@@ -61,7 +61,7 @@
                 <span class="caret"></span>
               </button>
               <ul class="dropdown-menu" role="menu">
-                <li role="presentation"><a role="menuitem" tabindex="{{$index}}" ng-repeat="category in categories" ng-click="selectCategory(category)">{{ category.name }}</a></li>
+                <li role="presentation" ng-repeat="category in categories"><a role="menuitem" tabindex="{{$index}}"  ng-click="selectCategory(category)">{{ category.name }}</a></li>
               </ul>
             </div>
             <input type="text" placeholder="Tema" ng-model="selectedTopic.name" name="tutor_topic_name" class="form-input form-input-third form-control">
@@ -160,7 +160,7 @@
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" role="menu">
-                    <li role="presentation"><a role="menuitem" tabindex="{{$index}}" ng-repeat="category in categories" ng-click="selectCategory(category)">{{ category.name }}</a></li>
+                    <li role="presentation" ng-repeat="category in categories"><a role="menuitem" tabindex="{{$index}}"  ng-click="selectCategory(category)">{{ category.name }}</a></li>
                 </ul>
             </div>
             <input type="text" placeholder="Tema" ng-model="selectedTopic.name" name="tutor_topic_name" class="form-input form-input-third form-control">

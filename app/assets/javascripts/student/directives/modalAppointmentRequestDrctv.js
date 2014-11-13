@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.directive('ngModalAppointmentRequest', ["$timeout", "$window", "$document", function($timeout, $window, $document){
+Geek.directive('ngModalAppointmentRequest', ["$timeout", "$window", "$document", "$filter", function($timeout, $window, $document, $filter){
     return{
         restrict: 'A',
         replace: true,
@@ -74,6 +74,11 @@ Geek.directive('ngModalAppointmentRequest', ["$timeout", "$window", "$document",
                 $document.bind('click', scope.closeAppointmentRequest);
 
             };
+
+            $timeout(function(){
+                element.find('.dropdown-toggle').dropdown();
+                element.find('.dropdown-menu').dropdown();
+            },0);
 
         }
     }

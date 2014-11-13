@@ -4,6 +4,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
 
     .constant('DEFAULT_VALUES',{
         'LANGUAGE':'es',
+        'PROFILE_IMAGE': '/assets/site/person.png',
         'URL_SERVICES': {
             'APPOINTMENT_SERVICE_URL': 'appointments/by_tutor.json',
             'CATEGORY_SERVICE_URL': '/categories.json',

@@ -1,4 +1,4 @@
-Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$timeout", "TutorService", "AppointmentService", "DEFAULT_VALUES", function($scope, $rootScope, $timeout, TutorService, AppointmentService, DEFAULT_VALUES){
+Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$timeout", "TutorService", "AppointmentService", "DEFAULT_VALUES", function($scope, $rootScope, $filter, $timeout, TutorService, AppointmentService, DEFAULT_VALUES){
 
     //Subject inputted by the user
     $scope.subjectInput = undefined;
@@ -10,6 +10,12 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$timeout", "T
     $scope.countyInput = '';
 
     $scope.tutorList = [];
+
+    $scope.PROFILE_IMAGE = DEFAULT_VALUES.PROFILE_IMAGE;
+    $scope.DEFAULT_CATEGORY_NAME = 'TEMA';
+    $scope.selectedCategoryName = $scope.DEFAULT_CATEGORY_NAME;
+    $scope.selectedCategory = undefined;
+
 
     //Find a tutor, by the inputted data by the user
     $scope.searchTutor = function(){
@@ -23,9 +29,35 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$timeout", "T
                     if(data){
                         $scope.tutorList = data;
 
-                        for(i in $scope.tutorList) {
-                            $scope.tutorList[i].show = true;
+                        for(var tutorIndex in $scope.tutorList) {
+                            var tutor = $scope.tutorList[tutorIndex];
+                            tutor.show = true;
+                            if(tutor.categories){
+                                var minCost = parseFloat(tutor.categories[0].cost);
+
+                                if(tutor.categories.length > 1){
+                                    var maxCost = parseFloat(tutor.categories[0].cost);
+                                    for(var categoryIndex=0; categoryIndex<tutor.categories.length; categoryIndex++){
+                                        var category = tutor.categories[categoryIndex];
+                                        var topicCost = parseFloat(category.cost);
+                                        if(topicCost > maxCost){
+                                            maxCost = category.cost;
+                                        }
+
+                                        if(topicCost < minCost){
+                                            minCost = category.cost;
+                                        }
+                                    }
+
+                                    tutor.costRange = $filter('currency')(minCost, '$') + " - " + $filter('currency')(maxCost, '$');
+                                }else{
+                                    tutor.costRange = $filter('currency')(minCost, '$');
+                                }
+
+                            }
+
                         }
+                        console.log(tutor)
                     }
                 },
                 function(response){
@@ -49,7 +81,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$timeout", "T
 
         //$scope.openTutorDetailModal(tutor);
         $rootScope.$broadcast('initTutorCalendar', $scope.selectedTutor);
-    }
+    };
 
     // Show all tutors found on tutor search
     $scope.showSearchResults = function() {
@@ -58,7 +90,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$timeout", "T
         for(i in $scope.tutorList) {
             $scope.tutorList[i].show = true;
         }
-    }
+    };
 
     $scope.showAppointmentRequestModal = function(event, row, column, day){
 
@@ -102,11 +134,14 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$timeout", "T
                 $scope.selectedClass.time = 'De ' + firstHalfhour.startTime + ' a ' + lastHalfhour.endTime ;
                 $scope.selectedClass.dateTimeISO = new Date(day.year, day.month, day.numberDay, firstHalfhour.startTime.split(':')[0], firstHalfhour.startTime.split(':')[1]).toISOString();
 
+                $scope.selectedCategoryName = $scope.DEFAULT_CATEGORY_NAME;
+                $scope.selectedCategory = undefined;
+
             },0);
 
             $scope.openAppointmentRequest(event, options);
         }
-    }
+    };
 
     $scope.getHalfHour = function(row, column) {
         var halfHour = null;
@@ -115,8 +150,14 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$timeout", "T
             halfHour = $rootScope.weekRows[row].halfHours[column];
         }
 
-        return halfHour
-    }
+        return halfHour;
+    };
+
+    $scope.selectCategory = function(category){
+       $scope.selectedCategory = category;
+       $scope.selectedCategoryName = category.name + ' - ' + $filter('currency')(category.cost, '$');
+    };
+
 
     $scope.sendAppointmentRequest = function() {
 
@@ -125,7 +166,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$timeout", "T
          'start': $scope.selectedClass.dateTimeISO,
          'duration': 1,
          'studentId': $scope.student.id,
-         'description': $scope.selectedClass.description
+         'description': $scope.selectedCategoryName
         }
 
         AppointmentService.sendAppointmentRequest(appointment).then(
@@ -144,6 +185,6 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$timeout", "T
             }
         );
 
-    }
+    };
 
 }]);

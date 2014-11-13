@@ -9,6 +9,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
     $scope.HOURS = DEFAULT_VALUES.HOURS;
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.TOTAL_WEEKLY_CALENDAR_ROWS = DEFAULT_VALUES.TOTAL_WEEKLY_CALENDAR_ROWS;
+    $scope.PROFILE_IMAGE = DEFAULT_VALUES.PROFILE_IMAGE;
 
     $scope.tutorRequestAlertParams = undefined;
     $scope.tutorProfileAlertParams = undefined;
@@ -17,6 +18,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
         message: 'Mensaje de error',
         icon: true,
     };*/
+
 
     $scope.$watch('tutorProfileLoaded', function() {
       $timeout(function(){

@@ -5,9 +5,22 @@
     <table>
       <tr><td class="appointment-detail-content" ng-bind="selectedClass.date"></td></tr>
       <tr><td class="appointment-detail-content" ng-bind="selectedClass.time"></td></tr>
+      <tr>
+        <td>
+          <div class="dropdown">
+            <a class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+              {{ selectedCategoryName }}
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+              <li role="presentation" ng-repeat="category in selectedTutor.categories"><a role="menuitem" tabindex="{{$index}}" ng-click="selectCategory(category)">{{ category.name }} - {{ category.cost | currency : $ }}</a></li>
+            </ul>
+          </div>
+        </td>
+      </tr>
       <td class="appointment-detail-content">
         <div class="appointment-button">
-          <a ng-click="sendAppointmentRequest()">Agendar clase</a>
+          <a class="action-button action-button-light-blue" ng-click="sendAppointmentRequest()">Agendar clase</a>
         </div>
       </td>
     </table>
