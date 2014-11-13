@@ -1117,9 +1117,16 @@ h3.section-title{
     vertical-align: top;
   }
 
+  .form-dropdown {
+    width: 20%;
+  }
+
+  .form-dropdown button {
+    width: 100%;
+  }
+
   .form-input {
-    background: white;
-    background-color: $color-input-gray-bgcolor;
+    background: $color-input-gray-bgcolor;
     border: 0;
     border-radius: 6px;
     color: $color-dark-gray;
@@ -1133,22 +1140,22 @@ h3.section-title{
   }
 
   .form-input-half{
-    background: white;
-    background-color: $color-input-gray-bgcolor;
-    border: 0;
-    border-radius: 6px;
-    color: $color-dark-gray;
-    display: inline-block;
-    height: 30px;
     margin: 0em 0.4em;
-    outline: 0;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 7px;
     text-transform: uppercase;
     width: 50%;
   }
 
+  .form-input-third{
+    margin: 0em 0.4em;
+    text-transform: uppercase;
+    width: 30%;
+  }
+
+  .form-input-fifth{
+    margin: 0em 0.4em;
+    text-transform: uppercase;
+    width: 20%;
+  }
 
   .form-textarea {
     background: white;

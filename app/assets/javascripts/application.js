@@ -31,3 +31,4 @@
 //= require lib/angular/showErrors.js
 //= require lib/angular/ngHtmlCompile.js
 //= require lib/angular/angular-ui-router
+//= require lib/angular/ng-currency

@@ -80,9 +80,10 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
 
     //Function that adds a topic to a tutor's information
     $scope.addTutorTopic = function() {
-        if ($scope.selectedTopic && $scope.selectedCategory) {
+        if ($scope.selectedTopic.name && $scope.selectedTopic.cost && $scope.selectedCategory) {
             $rootScope.tutor.topics.push({
-                'name' : $scope.selectedTopic,
+                'name' : $scope.selectedTopic.name,
+                'cost' : $scope.selectedTopic.cost,
                 'category_id' : parseInt($scope.selectedCategory.id)
             });
         }

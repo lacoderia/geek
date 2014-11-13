@@ -1,6 +1,6 @@
 'use strict';
 
-var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'angucomplete-alt-geek', 'ui.router', 'ui.bootstrap.showErrors', 'ui.bootstrap'])
+var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'angucomplete-alt-geek', 'ui.router', 'ui.bootstrap.showErrors', 'ui.bootstrap', 'ng-currency'])
 
     .constant('DEFAULT_VALUES',{
         'LANGUAGE':'es',
@@ -119,6 +119,26 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
         }
 
     })
+
+    .directive('currency', ['$filter', function ($filter) {
+        return {
+            require: 'ngModel',
+            link: function (elem, $scope, attrs, ngModel) {
+
+                angular.element(elem).bind('keyup input', function(){
+                    console.log('a')
+                });
+
+
+                ngModel.$formatters.push(function (val) {
+                    return $filter('currency')(val)
+                });
+                ngModel.$parsers.push(function (val) {
+                    return val.replace(/[\$,]/, '')
+                });
+            }
+        }
+    }])
 
     .directive('pwCheck', [function () {
         return {
