@@ -33,22 +33,38 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
                             var tutor = $scope.tutorList[tutorIndex];
                             tutor.show = true;
                             if(tutor.categories){
+
                                 var minCost = parseFloat(tutor.categories[0].cost);
+                                var maxCost = parseFloat(tutor.categories[0].cost);
 
-                                if(tutor.categories.length > 1){
-                                    var maxCost = parseFloat(tutor.categories[0].cost);
-                                    for(var categoryIndex=0; categoryIndex<tutor.categories.length; categoryIndex++){
-                                        var category = tutor.categories[categoryIndex];
-                                        var topicCost = parseFloat(category.cost);
-                                        if(topicCost > maxCost){
-                                            maxCost = category.cost;
-                                        }
+                                if(!minCost){
+                                    minCost = 0;
+                                }
 
-                                        if(topicCost < minCost){
-                                            minCost = category.cost;
-                                        }
+                                if(!maxCost){
+                                    maxCost = 0;
+                                }
+
+                                for(var categoryIndex=0; categoryIndex<tutor.categories.length; categoryIndex++){
+                                    var category = tutor.categories[categoryIndex];
+                                    var topicCost = 0;
+
+                                    if(category.cost){
+                                        topicCost = parseFloat(category.cost);
+                                    }else{
+                                        category.cost = 0;
                                     }
 
+                                    if(topicCost > maxCost){
+                                        maxCost = category.cost;
+                                    }
+
+                                    if(topicCost < minCost){
+                                        minCost = category.cost;
+                                    }
+                                }
+
+                                if(tutor.categories.length > 1 && minCost != maxCost){
                                     tutor.costRange = $filter('currency')(minCost, '$') + " - " + $filter('currency')(maxCost, '$');
                                 }else{
                                     tutor.costRange = $filter('currency')(minCost, '$');
@@ -57,7 +73,6 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
                             }
 
                         }
-                        console.log(tutor)
                     }
                 },
                 function(response){
