@@ -55,7 +55,7 @@
         <div class="right">
           <div>
           <!-- <div popover="{{tutorProfileForm.tutor_topic.popoverMessage}}" popover-trigger="click" popover-animation="false"> -->
-            <div class="dropdown">
+            <div class="dropdown form-dropdown">
               <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
                 {{selectedCategory.name}}
                 <span class="caret"></span>
@@ -64,7 +64,8 @@
                 <li role="presentation"><a role="menuitem" tabindex="{{$index}}" ng-repeat="category in categories" ng-click="selectCategory(category)">{{ category.name }}</a></li>
               </ul>
             </div>
-            <input type="text" placeholder="Tema" ng-model="selectedTopic" name="tutor_topic" class="form-input-half form-control">
+            <input type="text" placeholder="Tema" ng-model="selectedTopic.name" name="tutor_topic_name" class="form-input form-input-third form-control">
+            <input type="text" placeholder="Costo" ng-model="selectedTopic.cost" name="tutor_topic_cost" class="form-input form-input-fifth form-control" ng-currency>
             <a class="action-button action-button-medium-gray" ng-click="addTutorTopic()">Añadir</a>
             <div id="tutor_topics" class="items-added-group">
               <div id="tutor_topic_{{$index}}" ng-repeat="tutorTopic in tutor.topics" class="item-added">{{tutorTopic.name}} <span ng-click="removeTutorTopic($index)" class="icon-close close-item"></span></div>
