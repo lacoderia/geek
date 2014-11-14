@@ -352,34 +352,35 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
     }
 
     $scope.$watch('tutor.picture_url', function(){
-        if ($rootScope.tutor.picture_url) {
-            var imageContainer = $('.profile_picture');
-            var image = imageContainer.find('img');
-            image.hide()
+        if ($rootScope.tutor) {
+            if($rootScope.tutor.picture_url){
+                var imageContainer = $('.profile_picture');
+                var image = imageContainer.find('img');
+                image.hide()
 
-            $('<img/>')
-                .attr("src", $rootScope.tutor.picture_url)
-                .load(function() {
-                    image.attr('src', $rootScope.tutor.picture_url);
+                $('<img/>')
+                    .attr("src", $rootScope.tutor.picture_url)
+                    .load(function() {
+                        image.attr('src', $rootScope.tutor.picture_url);
 
-                    var ratio = this.width / this.height;
+                        var ratio = this.width / this.height;
 
-                    // Si la imagen es horizontal, el alto debe ser el del contenedor y el ancho debe ser proporcional
-                    if (this.width > this.height) {
-                        image.height(imageContainer.height());
-                        image.width(imageContainer.height() * ratio);
-                    } else {
-                        // Si la imagen es vertical o cuadrada, el ancho debe ser el del contenedor y el alto debe ser proporcional
-                        image.width(imageContainer.width());
-                        image.height(imageContainer.width() / ratio);
-                    }
+                        // Si la imagen es horizontal, el alto debe ser el del contenedor y el ancho debe ser proporcional
+                        if (this.width > this.height) {
+                            image.height(imageContainer.height());
+                            image.width(imageContainer.height() * ratio);
+                        } else {
+                            // Si la imagen es vertical o cuadrada, el ancho debe ser el del contenedor y el alto debe ser proporcional
+                            image.width(imageContainer.width());
+                            image.height(imageContainer.width() / ratio);
+                        }
 
-                    image.show();
-                })
-                .error(function() {
+                        image.show();
+                    })
+                    .error(function() {
 
-                });
-
+                    });
+            }
         }
     });
 }]);

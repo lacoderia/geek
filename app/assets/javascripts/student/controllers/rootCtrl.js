@@ -17,6 +17,8 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "DEFAULT_
     // Objeto que contiene el calendario semanal del tutor
     $rootScope.weekRows = new Array();
 
+    $scope.userName = DEFAULT_VALUES.USER_NAME;
+
 
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.HOURS = DEFAULT_VALUES.HOURS;
@@ -69,6 +71,7 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "DEFAULT_
             function(data){
                 if(data && data.id){
                     $rootScope.student = data;
+                    $scope.userName = $rootScope.student.first_name + " " + $rootScope.student.last_name;
                 }
             },
             function(response){

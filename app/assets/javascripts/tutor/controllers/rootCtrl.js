@@ -14,6 +14,8 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
     // Estatus de la carga del perfíl del tutor
     $rootScope.tutorProfileLoaded = false;
 
+    $scope.userName = DEFAULT_VALUES.USER_NAME;
+
     $(document).ready(function() {
 
         //Método que ayuda a centrar verticalmente los modales de bootstrap
@@ -97,6 +99,7 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
             }
 
             $rootScope.tutorProfileLoaded = true;
+            $scope.userName = $rootScope.tutor.firstName;
 
         };
 
