@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :municipalities
+
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   resources :specific_availabilities
@@ -43,7 +45,11 @@ Rails.application.routes.draw do
 
   resources :postal_codes
 
-  resources :counties
+  resources :counties do
+    collection do
+      get 'find_for_autocomplete'
+    end
+  end
 
   resources :students do
     collection do

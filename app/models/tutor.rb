@@ -271,6 +271,60 @@ class Tutor < ActiveRecord::Base
     result.sort
   end
 
+  def self.search_by_query_params zone_id, zone_type, zone_str, category_id, category_str
+    tutors = nil
+    message = nil
+    county_ids = []
+    category_ids = []
+    
+    if zone_id and zone_type
+      if zone_type == "county"
+        county_ids << zone_id
+      elsif zone_type == "municipality"
+
+        counties = County.joins(:postal_code => :municipality).where("municipalities.id = #{zone_id}")
+        counties.each do |county|
+          county_ids << county.id
+        end
+      end
+    elsif zone_str
+      counties = County.select(:id).where("name like '%#{zone_str}%'")
+      counties.each do |county|
+        county_ids << county.id
+      end
+      municipalities = Municipality.select(:id).where("name like '%#{zone_str}%'")
+      municipalities.each do |municipality|
+
+        counties = County.joins(:postal_code => :municipality).where("municipalities.id = #{municipality.id}")
+        counties.each do |county|
+          county_ids << county.id
+        end
+        county_ids.uniq!
+      end
+    end
+
+    if category_id
+      category_ids << category_id
+    elsif category_str
+      categories = Category.select(:id).where("name like '%#{category_str}%'")
+      categories.each do |category|
+        category_ids << category.id
+      end
+    end
+
+    if not county_ids.empty? and not category_ids.empty?
+      tutors = Tutor.joins(:categories, :counties).where("county_id in (#{county_ids.map(&:inspect).join(',')}) and (categories.category_id in (#{category_ids.map(&:inspect).join(',')}) OR categories.id in (#{category_ids.map(&:inspect).join(',')}))")
+    elsif not county_ids.empty?
+      tutors = Tutor.joins(:counties).where("county_id in (#{county_ids.map(&:inspect).join(',')})")
+    elsif not category_ids.empty?
+      tutors = Tutor.joins(:categories).where("categories.id in (#{category_id.map(&:inspect).join(',')}) OR categories.category_id in (#{category_id.map(&:inspect).join(',')})")
+    else
+      #no trajo nada búsqueda 
+    end
+
+    return {:message => message, :tutors => tutors}
+  end
+
   def self.save_availabilities tutor_id, availabilities
 
     tutor = Tutor.joins(:preference).find tutor_id

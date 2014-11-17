@@ -12,9 +12,15 @@ while (line = file_df.gets)
 	# 0 - codigo, 1 - colonia, 3 - delegacion, 4 - estado, 5 - ciudad
 	estado = State.find_or_create_by(name: arr[4])
 	ciudad = City.find_or_create_by(name: arr[5])
-	cp = PostalCode.create(code: arr[0], state_id: estado.id, city_id: ciudad.id)
-	colonia = County.create(name: arr[1], postal_code_id: cp.id)
-		
+	municipio = Municipality.find_or_create_by(name: arr[3])
+        if not cp = PostalCode.find_by_code(arr[0])
+          cp = PostalCode.create(code: arr[0], state_id: estado.id, city_id: ciudad.id, municipality_id: municipio.id)
+        elsif not cp.municipality_id
+          cp.update_attribute(:municipality_id, municipio.id)
+        end
+        if not County.find_by_name(arr[1])
+	  colonia = County.create(name: arr[1], postal_code_id: cp.id)
+        end
 end
 file_df.close
 
@@ -24,14 +30,21 @@ file_df.close
 	# 0 - codigo, 1 - colonia, 3 - delegacion, 4 - estado, 5 - ciudad
 #	estado = State.find_or_create_by(name: arr[4])	
 #	ciudad = City.find_or_create_by(name: arr[5])
-#	cp = PostalCode.create(code: arr[0], state_id: estado.id, city_id: ciudad.id)
-#	colonia = County.create(name: arr[1], postal_code_id: cp.id)
+#	municipio = Municipality.find_or_create_by(name: arr[3])
+#       if not cp = PostalCode.find_by_code(arr[0])
+#         cp = PostalCode.create(code: arr[0], state_id: estado.id, city_id: ciudad.id, municipality_id: municipio.id)
+#       elsif not cp.municipality_id
+#         cp.update_attribute(:municipality_id, municipio.id)
+#       end
+#       if not County.find_by_name(arr[1])
+#	  colonia = County.create(name: arr[1], postal_code_id: cp.id)
+#       end
 #end
 #file_mexico.close
 
-role_admin = Role.create(name: 'admin')
-role_tutor = Role.create(name: 'tutor')
-role_student = Role.create(name: 'student')
+role_admin = Role.find_or_create_by(name: 'admin')
+role_tutor = Role.find_or_create_by(name: 'tutor')
+role_student = Role.find_or_create_by(name: 'student')
 
 User.create(first_name: 'admin', last_name: 'admin', email: 'admin@admin.com', password: 'geek2014', roles: [role_admin])
 

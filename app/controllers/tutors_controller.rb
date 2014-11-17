@@ -98,15 +98,7 @@ class TutorsController < ApplicationController
   # Regresa:
   # Arreglo de tutores que coincidieron con el criterio de búsqueda
   def by_county_and_category_ids
-    county_id = params[:county_id]
-    category_id = params[:category_id]
-    @tutors = nil
-    if county_id and category_id
-      @tutors = Tutor.joins(:categories, :counties).where("county_id = ? and (categories.category_id = ? OR categories.id = ?)", county_id, category_id, category_id)
-    else
-      @tutors = Tutor.joins(:counties).where("county_id = ?", county_id) if county_id
-      @tutors = Tutor.joins(:categories).where("categories.id = ? OR categories.category_id = ?", category_id, category_id) if category_id
-    end
+    @tutors = Tutor.search_by_query_params(params[:zone_id], params[:zone_str], params[:zone_type], params[:category_id], params[:category_str]) 
   end
 
   # Recibe:

@@ -61,10 +61,10 @@ class CountiesController < ApplicationController
     end
   end
 
-	#Para autocomplete
-	def find_for_autocomplete 
-		@counties = County.all
-	end
+  #Para autocomplete
+  def find_for_autocomplete 
+    @zones = County.find_for_autocomplete 
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
