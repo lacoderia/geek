@@ -1,9 +1,8 @@
 'use strict';
 
-var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-geek', 'ui.router', 'ui.bootstrap.showErrors'])
+var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-geek', 'ui.router', 'ui.bootstrap.showErrors', 'pascalprecht.translate'])
 
     .constant('DEFAULT_VALUES',{
-        'LANGUAGE':'es',
         'PROFILE_IMAGE': '/assets/site/person.png',
         'USER_NAME': 'Usuario',
         'URL_SERVICES': {
@@ -20,7 +19,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
             '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30',
             '20:00', '20:30', '21:00', '21:30', '22:00', '22:30', '23:00', '23:30'],
         'DAYS': [{'title':'Domingo', 'minTitle' : 'D'}, {'title':'Lunes', 'minTitle' : 'L'}, {'title':'Martes', 'minTitle' : 'M'}, {'title':'Miércoles', 'minTitle' : 'M'}, {'title':'Jueves', 'minTitle' : 'J'}, {'title':'Viernes', 'minTitle' : 'V'}, {'title':'Sábado', 'minTitle' : 'S'}],
-        'MONTHS': ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        'MONTHS': ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'],
         'START_YEAR': 1900,
         'TOTAL_CALENDAR_ROWS': 6,
         'CALENDAR_LOCATION_HASH': 'week-row-07:00',
@@ -114,6 +113,17 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                 templateUrl: "/assets/student/partial_dashboard_layout.messages.html"
         })
     })
+
+    .config(['$translateProvider', function($translateProvider){
+
+        $translateProvider.useStaticFilesLoader({
+            prefix: '/languages/',
+            suffix: '.json'
+        });
+
+        $translateProvider.determinePreferredLanguage();
+
+    }])
 
     .directive('pwCheck', [function () {
         return {

@@ -23,6 +23,10 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "DEFAULT_
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.HOURS = DEFAULT_VALUES.HOURS;
 
+    $rootScope.changeLanguage = function(langKey){
+        $translate.use(langKey);
+    };
+
     $(document).ready(function(){
 
         //Método que ayuda a centrar verticalmente los modales de bootstrap

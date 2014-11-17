@@ -1,9 +1,8 @@
 'use strict';
 
-var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'angucomplete-alt-geek', 'ui.router', 'ui.bootstrap.showErrors', 'ui.bootstrap', 'ng-currency'])
+var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'angucomplete-alt-geek', 'ui.router', 'ui.bootstrap.showErrors', 'ui.bootstrap', 'ng-currency', 'pascalprecht.translate'])
 
-    .constant('DEFAULT_VALUES',{
-        'LANGUAGE':'es',
+        .constant('DEFAULT_VALUES',{
         'PROFILE_IMAGE': '/assets/site/person.png',
         'USER_NAME': 'Usuario',
         'URL_SERVICES': {
@@ -19,8 +18,8 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
                     '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30',
                     '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30',
                     '20:00', '20:30', '21:00', '21:30', '22:00', '22:30', '23:00', '23:30'],
-        'DAYS': [{'title':'Domingo', 'minTitle' : 'D'}, {'title':'Lunes', 'minTitle' : 'L'}, {'title':'Martes', 'minTitle' : 'M'}, {'title':'Miércoles', 'minTitle' : 'M'}, {'title':'Jueves', 'minTitle' : 'J'}, {'title':'Viernes', 'minTitle' : 'V'}, {'title':'Sábado', 'minTitle' : 'S'}],
-        'MONTHS': ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        'DAYS': [{'title':'SUNDAY', 'minTitle' : 'SUNDAY_MIN'}, {'title':'MONDAY', 'minTitle' : 'MONDAY_MIN'}, {'title':'TUESDAY', 'minTitle' : 'TUESDAY_MIN'}, {'title':'WEDNESDAY', 'minTitle' : 'WEDNESDAY_MIN'}, {'title':'THURSDAY', 'minTitle' : 'THURSDAY_MIN'}, {'title':'FRIDAY', 'minTitle' : 'FRIDAY_MIN'}, {'title':'SATURDAY', 'minTitle' : 'SATURDAY_MIN'}],
+        'MONTHS': ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'],
         'START_YEAR': 1900,
         'TOTAL_CALENDAR_ROWS': 6,
         'APPOINTMENT_STATUS': [
@@ -112,15 +111,16 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
             });
     })
 
-    .filter('groupByDate', function(){
+    .config(['$translateProvider', function($translateProvider){
 
-        return function(items){
+        $translateProvider.useStaticFilesLoader({
+            prefix: '/languages/',
+            suffix: '.json'
+        });
 
-            console.log(items)
+        $translateProvider.determinePreferredLanguage();
 
-        }
-
-    })
+    }])
 
     .directive('currency', ['$filter', function ($filter) {
         return {

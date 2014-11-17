@@ -1,0 +1,38 @@
+{
+    "DAYS": {
+        "SUNDAY": "Sunday",
+        "SUNDAY_MIN": "S",
+        "MONDAY": "Monday",
+        "MONDAY_MIN": "M",
+        "TUESDAY": "Tuesday",
+        "TUESDAY_MIN": "T",
+        "WEDNESDAY": "Wednesday",
+        "WEDNESDAY_MIN": "W",
+        "THURSDAY": "Thursday",
+        "THURSDAY_MIN": "T",
+        "FRIDAY": "Friday",
+        "FRIDAY_MIN": "F",
+        "SATURDAY": "Saturday",
+        "SATURDAY_MIN": "S"
+    },
+
+    "MONTHS": {
+        "JANUARY": "January",
+        "FEBRUARY": "February",
+        "MARCH": "March",
+        "APRIL": "April",
+        "MAY": "May",
+        "JUNE": "June",
+        "JULY": "July",
+        "AUGUST": "August",
+        "SEPTEMBER": "September",
+        "OCTOBER": "October",
+        "NOVEMBER": "November",
+        "DECEMBER": "December"
+    },
+
+    "MESSAGES": "Messages",
+    "MY_CALENDAR" : "My Calendar",
+    "MY_HISTORY" : "My History",
+    "SEARCH_A_CLASS": "Search a class"
+}
