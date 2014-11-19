@@ -13,11 +13,8 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
 
     $scope.tutorRequestAlertParams = undefined;
     $scope.tutorProfileAlertParams = undefined;
-    /*$scope.alertParams = {
-        type: 'warning',
-        message: 'Mensaje de error',
-        icon: true,
-    };*/
+    $scope.calendarAlertMessagesParams = undefined;
+    $scope.calendarErrorClass = undefined;
 
 
     $scope.$watch('tutorProfileLoaded', function() {
@@ -68,8 +65,26 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
             var reader = new FileReader();
 
             reader.onload = function (e) {
-                $(element).siblings('img.profile_picture').attr('src', e.target.result);
+                var imageContainer = $(element).parent().find('.profile_picture');
+                var image = imageContainer.find('img');
+                image.attr('src', e.target.result);
                 $rootScope.tutor.picture = e.target.result;
+
+                var loadedImage = new Image();
+                loadedImage.src = reader.result;
+
+                var ratio = loadedImage.width / loadedImage.height;
+
+                // Si la imagen es horizontal, el alto debe ser el del contenedor y el ancho debe ser proporcional
+                if (loadedImage.width > loadedImage.height) {
+                    image.height(imageContainer.height());
+                    image.width(imageContainer.height() * ratio);
+                } else {
+                    // Si la imagen es vertical o cuadrada, el ancho debe ser el del contenedor y el alto debe ser proporcional
+                    image.width(imageContainer.width());
+                    image.height(imageContainer.width() / ratio);
+                }
+
             };
 
             reader.readAsDataURL(input[0].files[0]);
@@ -140,10 +155,6 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
                             icon: true
                         };
 
-                        $timeout(function(){
-                            $location.hash('tutor-request-form');
-                            $anchorScroll();
-                        }, 0);
                     }
                 },
                 function(response){
@@ -153,10 +164,6 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
                         icon: true
                     };
 
-                    $timeout(function(){
-                        $location.hash('tutor-request-form');
-                        $anchorScroll();
-                    }, 0);
                     console.log('Error getting tutor\'s request status: ' + response);
                 }
             );
@@ -167,11 +174,12 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
                 icon: true
             };
 
-            $timeout(function(){
-                $location.hash('tutor-request-form');
-                $anchorScroll();
-            }, 0);
         }
+
+        $timeout(function(){
+            $location.hash('tutor-request-form');
+            $anchorScroll();
+        }, 0);
 
     }
 
@@ -241,18 +249,38 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
                 function(data){
                     if(data) {
                         $scope.updatedCalendar = true;
+                        $scope.tutorProfileAlertParams = {
+                            type: 'success',
+                            message: 'La actualización fue realizada con éxito',
+                            icon: true
+                        };
+                        $scope.calendarErrorClass = '';
+                        $scope.calendarAlertMessagesParams = undefined;
                     }
                 },
                 function(response){
-                    alert('Ocurrió un error al enviar el calendario');
+                    $scope.tutorProfileAlertParams = {
+                        type: 'danger',
+                        message: 'Ocurrió un error al guardar las preferencias de calendario.',
+                        icon: true
+                    };
+                    $scope.calendarErrorClass = 'border-error';
                     console.log('Error getting tutor\'s request status: ' + response);
                 }
             );
+
         } else {
-            alert('El calendario no es válido y no fue actualizado');
+            $scope.calendarErrorClass = 'border-error';
+            console.log('ENTRE AQUI')
+            $scope.calendarAlertMessagesParams = {
+                type: 'danger',
+                message: 'Las clases deben durar al menos 1 hora, por favor, selecciona al menos dos horarios contiguos.',
+                icon: true
+            };
+
         }
 
-        if ($scope.tutorProfileForm.$valid && $rootScope.tutor.topics.length && $rootScope.tutor.zones.length) {
+        if ($scope.tutorProfileForm.$valid && $rootScope.tutor.topics.length && $rootScope.tutor.zones.length && validCalendar) {
 
             var tutor = {
                 'id': $rootScope.tutor.id,
@@ -284,10 +312,6 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
                             icon: true
                         };
 
-                        $timeout(function(){
-                            $location.hash('tutor-profile-form');
-                            $anchorScroll();
-                        }, 0);
                     }
                 },
                 function(response){
@@ -297,16 +321,17 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
                         icon: true
                     };
 
-                    $timeout(function(){
-                        $location.hash('tutor-profile-form');
-                        $anchorScroll();
-                    }, 0);
-
                     console.log('Error getting tutor\'s request status: ' + response);
                 }
             );
 
+            $timeout(function(){
+                $location.hash('tutor-profile-form');
+                $anchorScroll();
+            }, 0);
+
         }else{
+
             $scope.tutorProfileAlertParams = {
                 type: 'danger',
                 message: 'Ocurrió un error al enviar la actualización del perfil, por favor, corrige los errores en la forma e intenta nuevamente',
@@ -321,11 +346,41 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
 
     }
 
-
-
     // Método que cambia la disponibilidad de un horario
     $scope.toggleHourAvailability = function(halfHour) {
         halfHour.available = !halfHour.available;
     }
 
+    $scope.$watch('tutor.picture_url', function(){
+        if ($rootScope.tutor) {
+            if($rootScope.tutor.picture_url){
+                var imageContainer = $('.profile_picture');
+                var image = imageContainer.find('img');
+                image.hide()
+
+                $('<img/>')
+                    .attr("src", $rootScope.tutor.picture_url)
+                    .load(function() {
+                        image.attr('src', $rootScope.tutor.picture_url);
+
+                        var ratio = this.width / this.height;
+
+                        // Si la imagen es horizontal, el alto debe ser el del contenedor y el ancho debe ser proporcional
+                        if (this.width > this.height) {
+                            image.height(imageContainer.height());
+                            image.width(imageContainer.height() * ratio);
+                        } else {
+                            // Si la imagen es vertical o cuadrada, el ancho debe ser el del contenedor y el alto debe ser proporcional
+                            image.width(imageContainer.width());
+                            image.height(imageContainer.width() / ratio);
+                        }
+
+                        image.show();
+                    })
+                    .error(function() {
+
+                    });
+            }
+        }
+    });
 }]);

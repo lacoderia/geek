@@ -75,6 +75,7 @@
 
     <div class="calendar" ng-show="selectedTutor">
       <h3 class="section-title">Agenda una clase con {{ selectedTutor.first_name }}</h3>
+      <ng-alert id="appointment-alert" alert-params="appointmentAlertParams"></ng-alert>
       <div class="week-view tutor-calendar-section" ng-controller="CalendarController">
         <div class="week-row tutor-calendar-title-day">
           <table>

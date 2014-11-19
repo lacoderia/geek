@@ -395,6 +395,32 @@ h3.section-title{
   vertical-align: middle;
 }
 
+.alert-danger-message{
+  color: $color-light-red;
+}
+
+.alert-info-message{
+  color: $color-light-blue;
+}
+
+.alert-warning-message{
+  color: $color-medium-orange;
+}
+
+.alert-success-message{
+  color: $color-dark-green;
+}
+
+.border-error{
+  border: 2px solid $color-light-red !important;
+}
+
+.modal-alert-message{
+  display: inline-block;
+  min-height: 16px;
+  overflow: hidden;
+}
+
 .appointment-button{
   font-size: 0px;
   text-align: center;
@@ -1179,7 +1205,6 @@ h3.section-title{
 .dropdown{
 
   display: inline-block;
-  text-transform: uppercase;
 
   a {
     cursor: pointer;
@@ -1345,6 +1370,10 @@ ul.events{
   }
 }
 
+.modal-error{
+
+}
+
 .modal-detail{
   background-color: white;
   border: 1px solid $color-medium-gray;
@@ -1467,13 +1496,13 @@ ul.events{
     vertical-align: top;
   }
 
-  a span{
+  /*a span{
     color: $color-dark-red;
     display: inline-block;
     font-size: 50px;
     text-align: center;
     width: 100%;
-  }
+  }*/
 
   .navigation{
     display: inline-block;

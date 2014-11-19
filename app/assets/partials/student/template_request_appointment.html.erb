@@ -2,7 +2,8 @@
   <span class="icon-close modal-detail-close" ng-click="closeAppointmentRequest()"></span>
   <div class="modal-detail-header" ng-bind="selectedClass.title"></div>
   <div class="modal-detail-content">
-    <table>
+    <ng-alert-message alert-params="appointmentAlertMessagesParams"></ng-alert-message>
+    <table ng-show="selectedClass.time">
       <tr><td class="appointment-detail-content" ng-bind="selectedClass.date"></td></tr>
       <tr><td class="appointment-detail-content" ng-bind="selectedClass.time"></td></tr>
       <tr>

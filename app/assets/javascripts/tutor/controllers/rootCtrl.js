@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state", "DEFAULT_VALUES", "CategoryService", "ProfileService", function($scope, $rootScope, $timeout, $state, DEFAULT_VALUES, CategoryService, ProfileService){
+Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state", "$translate", "DEFAULT_VALUES", "CategoryService", "ProfileService", function($scope, $rootScope, $timeout, $state, $translate, DEFAULT_VALUES, CategoryService, ProfileService){
 
     // Objeto que tiene los datos del perfil del tutor
     $rootScope.tutor = null;
@@ -13,6 +13,12 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
 
     // Estatus de la carga del perfíl del tutor
     $rootScope.tutorProfileLoaded = false;
+
+    $scope.userName = DEFAULT_VALUES.USER_NAME;
+
+    $rootScope.changeLanguage = function(langKey){
+        $translate.use(langKey);
+    };
 
     $(document).ready(function() {
 
@@ -97,6 +103,7 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
             }
 
             $rootScope.tutorProfileLoaded = true;
+            $scope.userName = $rootScope.tutor.firstName;
 
         };
 

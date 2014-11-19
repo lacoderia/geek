@@ -7,7 +7,9 @@
       <legend>Información personal</legend>
       <div class="tutor_picture">
         <div class="profile_picture_container">
-          <img class="profile_picture" ng-src="{{ tutor.picture_url && tutor.picture_url || PROFILE_IMAGE }}" alt="{{ PROFILE_IMAGE }}">
+          <div class="profile_picture">
+            <img ng-src="{{ tutor.picture_url && tutor.picture_url || PROFILE_IMAGE }}" alt="{{ PROFILE_IMAGE }}">
+          </div>
           <div class="action-button-upload" ng-click="openProfilePictureSelector($event)">CAMBIAR FOTO</div>
           <input type='file' onchange="angular.element(this).scope().selectProfilePicture(this)" name="picture" enctype="multipart/form-data" runat="server" style="display: none"/>
         </div>
@@ -94,7 +96,9 @@
       <legend>Información personal</legend>
       <div class="tutor_picture">
         <div class="profile_picture_container">
-          <img class="profile_picture" src="/assets/site/person.png" ng-src="{{ tutor.picture_url }}">
+          <div class="profile_picture">
+            <img ng-src="{{ tutor.picture_url && tutor.picture_url || PROFILE_IMAGE }}" alt="{{ PROFILE_IMAGE }}">
+          </div>
           <div class="action-button-upload" ng-click="openProfilePictureSelector($event)">CAMBIAR FOTO</div>
           <input type='file' onchange="angular.element(this).scope().selectProfilePicture(this)" name="picture" enctype="multipart/form-data" runat="server" style="display: none"/>
         </div>
@@ -217,7 +221,8 @@
       </div>
     </fieldset>
     <div class="calendar">
-      <div class="week-view tutor-calendar-section">
+      <ng-alert-message alert-params="calendarAlertMessagesParams"></ng-alert-message>
+      <div class="week-view tutor-calendar-section" ng-class="calendarErrorClass">
         <div class="week-row tutor-calendar-title-day">
           <table>
             <tbody>

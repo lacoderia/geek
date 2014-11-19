@@ -11,7 +11,13 @@
         <li>
           <a ui-sref=".messages" class="text-color-dark-blue">Mensajes</a>
         </li>
-        <li><a ui-sref=".profile" title="Perfíl">Perfíl</a></li>
+        <li class="dropdown"><a title="Perfil" class="dropdown-toggle" data-toggle="dropdown" type="button"><span ng-bind="userName"></span> <span class="caret"></span>
+        </a>
+          <ul class="dropdown-menu" role="menu">
+            <li role="presentation" ui-sref=".profile"><a role="menuitem"><span class="icon-user"></span> Perfíl</a></li>
+            <li role="presentation"><a role="menuitem"  href="/logout">Cerrar sesión</a></li>
+          </ul>
+        </li>
       </ul>
     </nav>
   </div>
@@ -20,7 +26,7 @@
 <div class="container">
   <div class="row">
     <ul class="menu-tabs col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <li><a ui-sref=".search-tutor" title="Busca una clase">Busca una clase</a></li>
+        <li><a ui-sref=".search-tutor" title="Busca una clase" translate="SEARCH_A_CLASS"></a></li>
         <li><a ui-sref=".my-classes" title="Mis clases">Mis clases</a></li>
     </ul>
   </div>
