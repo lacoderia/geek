@@ -271,7 +271,17 @@ class Tutor < ActiveRecord::Base
     result.sort
   end
 
-  def self.search_by_query_params zone_id, zone_type, zone_str, category_id, category_str
+  def self.search_by_query_params zone_id, zone_str, zone_type, category_id, category_str
+
+    if zone_id and category_id
+      return Tutor.includes(:counties, :preference, :reviews, :appointments, :categories_tutors => :category).where("county_id = ? and (categories.category_id = ? OR categories.id = ?)", zone_id, category_id, category_id)
+    else
+      return Tutor.includes(:counties, :preference, :reviews, :appointments, :categories_tutors => :category).where("county_id = ?", zone_id) if zone_id
+      return Tutor.includes(:counties, :preference, :reviews, :appointments, :categories_tutors => :category).where("categories.id = ? OR categories.category_id = ?", category_id, category_id) if category_id
+    end
+  end
+
+  def self.search_by_query_params_with_municipality zone_id, zone_type, zone_str, category_id, category_str
     tutors = nil
     message = nil
     county_ids = []
@@ -316,6 +326,7 @@ class Tutor < ActiveRecord::Base
       tutors = Tutor.joins(:categories, :counties).where("county_id in (#{county_ids.map(&:inspect).join(',')}) and (categories.category_id in (#{category_ids.map(&:inspect).join(',')}) OR categories.id in (#{category_ids.map(&:inspect).join(',')}))")
     elsif not county_ids.empty?
       tutors = Tutor.joins(:counties).where("county_id in (#{county_ids.map(&:inspect).join(',')})")
+      #
     elsif not category_ids.empty?
       tutors = Tutor.joins(:categories).where("categories.id in (#{category_id.map(&:inspect).join(',')}) OR categories.category_id in (#{category_id.map(&:inspect).join(',')})")
     else
