@@ -30,33 +30,35 @@
   <div class="search-results-list" ng-show="tutorList.length > 0">
     <div class="search-results-tools" ng-show="selectedTutor">
       <span ng-hide="selectedTutor">Filtros:</span>
-      <span ng-click="showSearchResults()" ng-show="selectedTutor">Regresar</span>
+      <span class="btn-back" ng-click="showSearchResults()" ng-show="selectedTutor"><< MOSTRAR TODOS</span>
     </div>
     <div class="search-result-list">
-      <div class="tutor" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-repeat="tutor in tutorList" ng-show="tutor.show">
-        <div class="tutor-image col-lg-2 col-md-2 col-sm-12 col-xs-12">
-          <img ng-src="{{ tutor.picture_url && tutor.picture_url || PROFILE_IMAGE }}" alt="{{ PROFILE_IMAGE }}">
-          <div class="clearfix"></div>
+      <div class="tutor" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-repeat="tutor in tutorList" ng-show="tutor.show" on-tutor-search-render>
+        <div class="tutor_picture_container col-lg-2 col-md-2 col-sm-12 col-xs-12">
+          <div class="tutor_picture">
+            <img/>
+          </div>
         </div>
         <div class="tutor-personal-info col-lg-8 col-md-8 col-sm-12 col-xs-12">
           <div class="content">
             <h4 class="tutor-name">{{ tutor.first_name }} {{ tutor.last_name }}</h4>
             <h5 class="tutor-county"><span ng-repeat="county in tutor.counties">{{ county.name }}{{ $last ? '' : ', ' }}</span></h5>
-            <p class="resume">
-              {{ tutor.background }}
-            </p>
+            <p class="resume" ng-class="{ 'expanded' : tutor.id == selectedTutor.id }" ng-bind="tutor.background" ellipsis ellipsis-append="ver mas..." ellipsis-symbol="... " ellipsis-append-click="showTutorDetails(tutor)" ellipsis-id="tutor.id"></p>
+            <div class="given-classes">
+              <div>Horas de clase: {{tutor.appointments.classes || 0}}</div>
+              <div>Estudiantes: {{tutor.appointments.classes || 0}}</div>
+            </div>
           </div>
-          <div class="clearfix"></div>
         </div>
         <div class="tutor-class-info col-lg-2 col-md-2 col-sm-12 col-xs-12">
           <div class="content">
             <div class="content-score">
               <div class="score">
-                <span class="icon-star1"></span>
-                <span class="icon-star1"></span>
-                <span class="icon-star1"></span>
-                <span class="icon-star1"></span>
-                <span class="icon-star1"></span>
+                <span class="icon-star1" ng-class="tutor.reviews.average >= 1 ? 'star-full': 'star-empty'"></span>
+                <span class="icon-star1" ng-class="tutor.reviews.average >= 2 ? 'star-full': 'star-empty'"></span>
+                <span class="icon-star1" ng-class="tutor.reviews.average >= 3 ? 'star-full': 'star-empty'"></span>
+                <span class="icon-star1" ng-class="tutor.reviews.average >= 4 ? 'star-full': 'star-empty'"></span>
+                <span class="icon-star1" ng-class="tutor.reviews.average >= 5 ? 'star-full': 'star-empty'"></span>
               </div>
             </div>
             <div class="content-price">
@@ -64,12 +66,19 @@
                 {{ tutor.costRange }} <br>
                 Por hora
               </h4>
+              <div class="preferences">
+                <span class="icon-online" ng-class="{'active' : tutor.preference.online}"></span>
+                <span class="icon-home" ng-class="{'active' : tutor.preference.home}"></span>
+                <span class="icon-public-place" ng-class="{'active' : tutor.preference.public}"></span>
+              </div>
             </div>
-            <div class="content-button" ng-hide="selectedTutor">
-              <button class="action-button send-message" ng-click="showTutorDetails(tutor)" >Ver disponibilidad</button>
+            <div class="content-button">
+              <button class="action-button see-availability" ng-click="showTutorDetails(tutor)" ng-hide="selectedTutor">Ver disponibilidad</button>
+              <button class="action-button send-message" ng-click="showTutorDetails(tutor)" ng-show="selectedTutor">Enviar mensaje</button>
             </div>
           </div>
         </div>
+        <div class="clearfix"></div>
       </div>
     </div>
 

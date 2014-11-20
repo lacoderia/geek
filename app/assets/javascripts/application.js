@@ -32,6 +32,7 @@
 //= require lib/angular/ngHtmlCompile.js
 //= require lib/angular/angular-ui-router
 //= require lib/angular/ng-currency
+//= require lib/angular/angular-ellipsis.js
 //= require lib/angular/angular-translate
 //= require lib/angular/angular-translate-loader-static-files
 //= require lib/angular/angular-translate-storage-local

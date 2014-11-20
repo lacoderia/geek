@@ -96,6 +96,10 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
 
         //$scope.openTutorDetailModal(tutor);
         $rootScope.$broadcast('initTutorCalendar', $scope.selectedTutor);
+
+        $timeout(function(){
+            $rootScope.$broadcast('ellipsis-remove', tutor.id);
+        });
     };
 
     // Show all tutors found on tutor search
@@ -105,6 +109,10 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
         for(i in $scope.tutorList) {
             $scope.tutorList[i].show = true;
         }
+
+        $timeout(function(){
+            $rootScope.$broadcast('ellipsis-add');
+        });
     };
 
     $scope.showAppointmentRequestModal = function(event, row, column, day){
