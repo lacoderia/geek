@@ -313,7 +313,7 @@ class Tutor < ActiveRecord::Base
 
   end
 
-  def self.search_by_query_params_for_google zone_id, zone_obj, category_id, category_str
+  def self.search_by_query_params_for_google zone_obj, category_id, category_str
   
     tutors = nil
     message = nil
@@ -322,9 +322,7 @@ class Tutor < ActiveRecord::Base
     fallback_county_ids = []
     category_ids = []
     
-    if zone_id 
-      county_ids << zone_id
-    elsif zone_obj 
+    if zone_obj 
 
       if zone_obj[:neighborhood] #<-- colonia - county
         counties = County.select(:id).where("name like '%#{zone_obj[:neighborhood]}%'")
@@ -385,7 +383,13 @@ class Tutor < ActiveRecord::Base
       if not fallback_county_ids.empty?
         suggested_tutors = Tutor.joins(:categories, :counties).where("county_id in (#{fallback_county_ids.map(&:inspect).join(',')}) and (categories.category_id in (#{category_ids.map(&:inspect).join(',')}) OR categories.id in (#{category_ids.map(&:inspect).join(',')}))")
         suggested_tutors = suggested_tutors - tutors
-        message = "Pocos resultados. Revisar tutores sugeridos."
+        if suggested_tutors.empty?
+          message = "Búsqueda vacía. Modificar criterios de búsqueda."
+        else
+          message = "Pocos resultados. Revisar tutores sugeridos."
+        end
+      else
+        message = "Búsqueda correcta."
       end
 
     #Solo resultados de ubicacion
@@ -410,10 +414,7 @@ class Tutor < ActiveRecord::Base
     elsif not category_ids.empty?
       tutors = Tutor.joins(:categories).where("categories.id in (#{category_ids.map(&:inspect).join(',')}) OR categories.category_id in (#{category_ids.map(&:inspect).join(',')})")
 
-      if zone_id 
-        #Este caso no debe pasar
-        message = "No se enviaron zonas"
-      elsif zone_obj
+      if zone_obj
         message = "No se encontraron zonas asociadas a ese texto."
       else
         message = "No se enviaron zonas"

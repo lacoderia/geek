@@ -94,11 +94,21 @@ class TutorsController < ApplicationController
 
   # Recibe:
   # county_id = ID de la colonia
-  # category_id = ID de la categoria
+  # category_id = ID de la categoria o subcategoría
   # Regresa:
   # Arreglo de tutores que coincidieron con el criterio de búsqueda
   def by_county_and_category_ids
     @tutors = Tutor.search_by_query_params(params[:county_id], params[:zone_str], params[:category_id], params[:category_str]) 
+  end
+
+  # Recibe:
+  # zone_obj = objeto de google que se conforma por :neighborhood, :postal_code, :sublocality, :locality
+  # category_id = ID de la categoría o subcategoría
+  # category_str = texto para búsqueda de categoría
+  # Regresa:
+  # Objeto con arreglo de tutores que conforman la búsqueda, arreglo de tutores sugeridos con fallback, y mensaje descriptivo.
+  def by_query_params_for_google
+    @result_obj = Tutor.search_by_query_params_for_google(params[:zone_obj], params[:category_id], params[:category_str])
   end
 
   # Recibe:

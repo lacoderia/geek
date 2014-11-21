@@ -60,6 +60,7 @@ Rails.application.routes.draw do
   resources :tutors do
     collection do
       get 'by_county_and_category_ids'
+      match 'by_query_params_for_google', :via => [:get, :post]
       get 'profile'
       get 'status'
     end
