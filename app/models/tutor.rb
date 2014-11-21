@@ -18,6 +18,8 @@ class Tutor < ActiveRecord::Base
 
   after_create :set_default_preferences
 
+  FALLBACK_NUMBER = 10
+
   def set_default_preferences
     self.update_attribute(:preference, Preference.create(cost: 0.00, online: false, office: true))
   end
@@ -271,7 +273,7 @@ class Tutor < ActiveRecord::Base
     result.sort
   end
 
-  def self.search_by_query_params zone_id, zone_str, zone_type, category_id, category_str
+  def self.search_by_query_params zone_id, zone_str, category_id, category_str
 
     if zone_id and category_id
       return Tutor.includes(:counties, :preference, :reviews, :appointments, :categories_tutors => :category).where("county_id = ? and (categories.category_id = ? OR categories.id = ?)", zone_id, category_id, category_id)
@@ -281,36 +283,90 @@ class Tutor < ActiveRecord::Base
     end
   end
 
-  def self.search_by_query_params_with_municipality zone_id, zone_type, zone_str, category_id, category_str
-    tutors = nil
-    message = nil
-    county_ids = []
-    category_ids = []
-    
-    if zone_id and zone_type
-      if zone_type == "county"
-        county_ids << zone_id
-      elsif zone_type == "municipality"
+  def self.fallback_counties sublocality, locality 
 
-        counties = County.joins(:postal_code => :municipality).where("municipalities.id = #{zone_id}")
-        counties.each do |county|
-          county_ids << county.id
-        end
-      end
-    elsif zone_str
-      counties = County.select(:id).where("name like '%#{zone_str}%'")
-      counties.each do |county|
-        county_ids << county.id
-      end
-      municipalities = Municipality.select(:id).where("name like '%#{zone_str}%'")
+    county_ids = []
+
+    if sublocality #<-- delegacion/municipio - municipality
+      municipalities = Municipality.select(:id).where("name like '%#{sublocality}%'")
       municipalities.each do |municipality|
 
         counties = County.joins(:postal_code => :municipality).where("municipalities.id = #{municipality.id}")
         counties.each do |county|
           county_ids << county.id
         end
-        county_ids.uniq!
       end
+    end
+
+    if locality and county_ids.count < FALLBACK_NUMBER #<-- ciudad - city
+      cities = City.select(:id).where("name like '%#{locality}%'")
+      cities.each do |city|
+
+        counties = County.joins(:postal_code => :city).where("cities.id = #{city.id}")
+        counties.each do |county|
+          county_ids << county.id
+        end
+      end
+
+    end 
+    return county_ids.uniq
+
+  end
+
+  def self.search_by_query_params_for_google zone_id, zone_obj, category_id, category_str
+  
+    tutors = nil
+    message = nil
+    suggested_tutors = nil
+    county_ids = []
+    fallback_county_ids = []
+    category_ids = []
+    
+    if zone_id 
+      county_ids << zone_id
+    elsif zone_obj 
+
+      if zone_obj[:neighborhood] #<-- colonia - county
+        counties = County.select(:id).where("name like '%#{zone_obj[:neighborhood]}%'")
+        counties.each do |county|
+          county_ids << county.id
+        end
+        
+        if county_ids.count < FALLBACK_NUMBER
+          fallback_county_ids = Tutor.fallback_counties zone_obj[:sublocality], zone_obj[:locality]
+        end
+
+      elsif zone_obj[:postal_code] #<-- cp - postal_code
+        counties = County.joins(:postal_code).where("postal_codes.code = '#{zone_obj[:postal_code]}'")
+        counties.each do |county|
+          county_ids << county.id
+        end
+
+        if county_ids.count < FALLBACK_NUMBER
+          fallback_county_ids = Tutor.fallback_counties zone_obj[:sublocality], zone_obj[:locality]
+        end
+      elsif zone_obj[:sublocality] #<-- delegacion/municipio - municipality
+        municipalities = Municipality.select(:id).where("name like '%#{zone_obj[:sublocality]}%'")
+        municipalities.each do |municipality|
+
+          counties = County.joins(:postal_code => :municipality).where("municipalities.id = #{municipality.id}")
+          counties.each do |county|
+            county_ids << county.id
+          end
+        end
+      elsif zone_obj[:locality] #<-- ciudad - city
+        cities = City.select(:id).where("name like '%#{zone_obj[:locality]}%'")
+        cities.each do |city|
+
+          counties = County.joins(:postal_code => :city).where("cities.id = #{city.id}")
+          counties.each do |county|
+            county_ids << county.id
+          end
+        end
+
+      end
+      #county_ids.uniq!
+      
     end
 
     if category_id
@@ -322,18 +378,52 @@ class Tutor < ActiveRecord::Base
       end
     end
 
+    #Dos parametros de busqueda
     if not county_ids.empty? and not category_ids.empty?
       tutors = Tutor.joins(:categories, :counties).where("county_id in (#{county_ids.map(&:inspect).join(',')}) and (categories.category_id in (#{category_ids.map(&:inspect).join(',')}) OR categories.id in (#{category_ids.map(&:inspect).join(',')}))")
+      
+      if not fallback_county_ids.empty?
+        suggested_tutors = Tutor.joins(:categories, :counties).where("county_id in (#{fallback_county_ids.map(&:inspect).join(',')}) and (categories.category_id in (#{category_ids.map(&:inspect).join(',')}) OR categories.id in (#{category_ids.map(&:inspect).join(',')}))")
+        suggested_tutors = suggested_tutors - tutors
+        message = "Pocos resultados. Revisar tutores sugeridos."
+      end
+
+    #Solo resultados de ubicacion
     elsif not county_ids.empty?
       tutors = Tutor.joins(:counties).where("county_id in (#{county_ids.map(&:inspect).join(',')})")
-      #
+
+      if not fallback_county_ids.empty?
+        suggested_tutors = Tutor.joins(:counties).where("county_id in (#{fallback_county_ids.map(&:inspect).join(',')})")
+        suggested_tutors = suggested_tutors - tutors
+      end
+
+      if category_id
+        #Este caso no debe pasar
+        message = "No se enviaron categorías."
+      elsif category_str
+        message = "No se encontraron categorías asociadas a ese texto."
+      else
+        message = "No se enviaron categorías."
+      end
+
+    #Solo resultados de categoria
     elsif not category_ids.empty?
-      tutors = Tutor.joins(:categories).where("categories.id in (#{category_id.map(&:inspect).join(',')}) OR categories.category_id in (#{category_id.map(&:inspect).join(',')})")
+      tutors = Tutor.joins(:categories).where("categories.id in (#{category_ids.map(&:inspect).join(',')}) OR categories.category_id in (#{category_ids.map(&:inspect).join(',')})")
+
+      if zone_id 
+        #Este caso no debe pasar
+        message = "No se enviaron zonas"
+      elsif zone_obj
+        message = "No se encontraron zonas asociadas a ese texto."
+      else
+        message = "No se enviaron zonas"
+      end
     else
-      #no trajo nada búsqueda 
+      #Busqueda vacia 
+      message = "Búsqueda vacía."
     end
 
-    return {:message => message, :tutors => tutors}
+    return {:message => message, :tutors => tutors, :suggested_tutors => suggested_tutors}
   end
 
   def self.save_availabilities tutor_id, availabilities

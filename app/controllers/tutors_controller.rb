@@ -98,7 +98,7 @@ class TutorsController < ApplicationController
   # Regresa:
   # Arreglo de tutores que coincidieron con el criterio de búsqueda
   def by_county_and_category_ids
-    @tutors = Tutor.search_by_query_params(params[:county_id], params[:zone_str], params[:zone_type], params[:category_id], params[:category_str]) 
+    @tutors = Tutor.search_by_query_params(params[:county_id], params[:zone_str], params[:category_id], params[:category_str]) 
   end
 
   # Recibe:
