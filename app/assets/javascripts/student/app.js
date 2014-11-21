@@ -1,6 +1,6 @@
 'use strict';
 
-var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-geek', 'ui.router', 'ui.bootstrap.showErrors', 'pascalprecht.translate'])
+var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-geek', 'ui.router', 'ui.bootstrap.showErrors', 'angular-ellipsis', 'pascalprecht.translate'])
 
     .constant('DEFAULT_VALUES',{
         'PROFILE_IMAGE': '/assets/site/person.png',
@@ -136,6 +136,44 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                         ctrl.$setValidity('pwmatch', v);
                     });
                 });
+            }
+        }
+    }])
+
+    .directive('onTutorSearchRender', ['$timeout', function ($timeout) {
+        return function (scope, elem, attrs) {
+
+            if (scope.tutor.picture_url) {
+
+                $timeout(function(){
+                    var imageContainer = angular.element(elem).find('.tutor_picture');
+                    imageContainer.height(imageContainer.width());
+
+                    var image = imageContainer.find('img');
+                    image.hide();
+
+                    $('<img/>')
+                        .attr("src", scope.tutor.picture_url)
+                        .load(function() {
+                            var ratio = this.width / this.height;
+
+                            // Si la imagen es horizontal, el alto debe ser el del contenedor y el ancho debe ser proporcional
+                            if (this.width > this.height) {
+                                image.height(imageContainer.height());
+                                image.width(imageContainer.height() * ratio);
+                            } else {
+                                // Si la imagen es vertical o cuadrada, el ancho debe ser el del contenedor y el alto debe ser proporcional
+                                image.width(imageContainer.width());
+                                image.height(imageContainer.width() / ratio);
+                            }
+
+                            image.attr('src', scope.tutor.picture_url);
+                            image.show();
+                        })
+                        .error(function() {
+                        });
+                });
+
             }
         }
     }])

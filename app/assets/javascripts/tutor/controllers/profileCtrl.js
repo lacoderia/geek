@@ -356,7 +356,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
             if($rootScope.tutor.picture_url){
                 var imageContainer = $('.profile_picture');
                 var image = imageContainer.find('img');
-                image.hide()
+                image.hide();
 
                 $('<img/>')
                     .attr("src", $rootScope.tutor.picture_url)
