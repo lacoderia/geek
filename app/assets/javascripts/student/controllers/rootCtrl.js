@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "DEFAULT_VALUES", "ProfileService", "CountyService", "CategoryService", function($scope, $rootScope, $timeout, DEFAULT_VALUES, ProfileService, CountyService, CategoryService){
+Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "DEFAULT_VALUES", "AuthService", "SessionService", "CountyService", "CategoryService", function($scope, $rootScope, $timeout, DEFAULT_VALUES, AuthService, SessionService, CountyService, CategoryService){
 
     //Variable que determina si el overlay es visible
     $rootScope.showOverlay = false;
@@ -17,15 +17,29 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "DEFAULT_
     // Objeto que contiene el calendario semanal del tutor
     $rootScope.weekRows = new Array();
 
-    $scope.userName = DEFAULT_VALUES.USER_NAME;
+    $scope.tutorResultListVisible = false;
 
+    $scope.userName = DEFAULT_VALUES.USER_NAME;
 
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.HOURS = DEFAULT_VALUES.HOURS;
 
+
     $rootScope.changeLanguage = function(langKey){
         $translate.use(langKey);
     };
+
+    $scope.$on('showResultList', function(){
+        $scope.tutorResultListVisible = true;
+    });
+
+    $scope.$watch('SessionService.session', function(){
+        if(AuthService.isAuthenticated()){
+            $scope.userName = SessionService.getFirstName();
+        }
+    }, true);
+
+
 
     $(document).ready(function(){
 
@@ -63,6 +77,7 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "DEFAULT_
                     $(this).hide();
                 };
             });
+
         };
 
         $(window).resize(adjustModalMaxHeightAndPosition).trigger("resize");
@@ -71,17 +86,6 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "DEFAULT_
 	        $rootScope.$broadcast("rootControllerReady");
 	    },0);
 
-        ProfileService.getProfile().then(
-            function(data){
-                if(data && data.id){
-                    $rootScope.student = data;
-                    $scope.userName = $rootScope.student.first_name + " " + $rootScope.student.last_name;
-                }
-            },
-            function(response){
-                console.log('Error getting tutor\'s request status: ' + response);
-            }
-        );
     });
 
     //Obtiene los datos del catálogo de zonas

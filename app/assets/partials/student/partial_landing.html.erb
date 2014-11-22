@@ -112,30 +112,30 @@
 </header>
 
 <div class="container" ng-controller="SearchTutorController as searchTutorCtrl">
-  <div class="row" ng-show="false">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 section-search-results">
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 section-search-results"  ng-hide="tutorList.length <= 0">
       <div class="bgcolor-light-gray light-search">
         <h2 class="col-lg-2 col-md-3 hidden-sm hidden-xs">geek</h2>
         <form class="col-lg-10 col-md-9 col-sm-12 col-xs-12">
           <angucomplete-alt-geek id="topics"
-                            placeholder="Me interesaría aprender..."
-                            pause="600"
-                            selected-object="subjectInput"
-                            local-data="categories"
-                            search-fields="name"
-                            title-field="name"
-                            minlength="1"
-                            input-class="category">
+                                 placeholder="Me interesaría aprender..."
+                                 pause="600"
+                                 selected-object="subjectInput"
+                                 local-data="categories"
+                                 search-fields="name"
+                                 title-field="name"
+                                 minlength="1"
+                                 input-class="category">
           </angucomplete-alt-geek>
           <angucomplete-alt-geek id="counties"
-                            placeholder="En la zona de..."
-                            pause="600"
-                            selected-object="selectedCountyInput"
-                            local-data="counties"
-                            search-fields="name"
-                            title-field="name"
-                            minlength="1"
-                            input-class="county">
+                                 placeholder="En la zona de..."
+                                 pause="600"
+                                 selected-object="selectedCountyInput"
+                                 local-data="counties"
+                                 search-fields="name"
+                                 title-field="name"
+                                 minlength="1"
+                                 input-class="county">
           </angucomplete-alt-geek>
           <button ng-click="searchTutor()">Buscar</button>
         </form>
@@ -143,28 +143,22 @@
       </div>
 
       <div class="search-results-list" ng-show="tutorList.length > 0">
-        <div class="search-results-tools">
-          <div class="search-filters">
-
-          </div>
-          <div class="search-orders">
-            <p>Ordenar por:</p>
-          </div>
+        <div class="search-results-tools" ng-show="selectedTutor">
+          <span ng-hide="selectedTutor">Filtros:</span>
+          <span ng-click="showSearchResults()" ng-show="selectedTutor">Regresar</span>
         </div>
         <div class="search-result-list">
           <div class="tutor" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-repeat="tutor in tutorList">
             <div class="tutor-image col-lg-2 col-md-2 col-sm-12 col-xs-12">
-              <img src="/assets/site/cat-artes.png">
+              <img ng-src="{{ tutor.picture_url && tutor.picture_url || PROFILE_IMAGE }}" alt="{{ PROFILE_IMAGE }}">
               <div class="clearfix"></div>
             </div>
             <div class="tutor-personal-info col-lg-8 col-md-8 col-sm-12 col-xs-12">
               <div class="content">
-                <h4 class="tutor-name">María Alvarado Ruíz</h4>
-                <h5 class="tutor-county">Condesa</h5>
+                <h4 class="tutor-name">{{ tutor.first_name }} {{ tutor.last_name }}</h4>
+                <h5 class="tutor-county"><span ng-repeat="county in tutor.counties">{{ county.name }}{{ $last ? '' : ', ' }}</span></h5>
                 <p class="resume">
-                  The path of the righteous man is beset on all sides by the iniquities of the selfish and the tyranny of evil men.
-                  Blessed is he who, in the name of charity and good will, shepherds the weak through the valley of darkness,
-                  for he is truly his brother's keeper and the finder of lost children.
+                  {{ tutor.background }}
                 </p>
               </div>
               <div class="clearfix"></div>
@@ -182,12 +176,12 @@
                 </div>
                 <div class="content-price">
                   <h4 class="price">
-                    $ 300.00 MXN <br>
+                    {{ tutor.costRange }} <br>
                     Por hora
                   </h4>
                 </div>
-                <div class="content-button">
-                  <button class="action-button send-message">Enviar mensaje</button>
+                <div class="content-button" ng-hide="selectedTutor">
+                  <button class="action-button send-message" ng-click="showTutorDetails(tutor)" >Ver disponibilidad</button>
                 </div>
               </div>
             </div>
@@ -195,38 +189,34 @@
         </div>
       </div>
     </div>
-  </div>
-</div>
 
-<div class="container">
-  <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-hide="tutorList.length > 0">
       <div class="bgcolor-light-gray section-search">
         <img src="/assets/site/geek.png" alt="Geek" class="search-image hidden-xs">
         <div>
           <h2 class="hidden-xs">geek</h2>
           <h3>¿Qué quieres aprender?</h3>
           <form>
+            <input id="search_zone_input" type="text" placeholder="En la zone de..." class="category">
             <angucomplete-alt-geek id="topics"
-                              placeholder="Me interesaría aprender..."
-                              pause="600"
-                              selected-object="subjectInput"
-                              local-data="categories"
-                              search-fields="name"
-                              title-field="name"
-                              minlength="1"
-                              input-class="category">
+                                   placeholder="Me interesaría aprender..."
+                                   pause="600"
+                                   selected-object="subjectInput"
+                                   local-data="categories"
+                                   search-fields="name"
+                                   title-field="name"
+                                   minlength="1"
+                                   input-class="category">
             </angucomplete-alt-geek>
             <angucomplete-alt-geek id="counties"
-                              placeholder="En la zona de..."
-                              pause="600"
-                              selected-object="selectedCountyInput"
-                              local-data="counties"
-                              search-fields="name"
-                              title-field="name"
-                              minlength="1"
-                              input-class="county">
-
+                                   placeholder="En la zona de..."
+                                   pause="600"
+                                   selected-object="selectedCountyInput"
+                                   local-data="counties"
+                                   search-fields="name"
+                                   title-field="name"
+                                   minlength="1"
+                                   input-class="county">
             </angucomplete-alt-geek>
             <button ng-click="searchTutor()">Buscar</button>
           </form>
@@ -234,12 +224,13 @@
         <img src="/assets/site/geek.png" alt="Geek" class="search-image hidden-lg hidden-md hidden-sm">
       </div>
     </div>
+
   </div>
 </div>
 
-<div class="bgcolor-light-green green-separator"></div>
+<div class="bgcolor-light-green green-separator" ng-hide="tutorResultListVisible"></div>
 
-<div class="container-fluid margin-bottom">
+<div class="container-fluid margin-bottom" ng-hide="tutorResultListVisible">
   <div class="row bgcolor-gradient-green">
     <div class="section-how-it-works">
       <div class="col-lg-4 col-md-4 col-sm-4 text-color-dark-green">
@@ -268,7 +259,7 @@
   </div>
 </div>
 
-<div class="container-fluid margin-bottom">
+<div class="container-fluid margin-bottom" ng-hide="tutorResultListVisible">
   <div class="row bgcolor-gradient-green">
     <div class="section-how-it-works">
       <div class="col-lg-12 col-md-12 col-sm-12 text-color-dark-green">
@@ -286,7 +277,7 @@
   </div>
 </div>
 
-<div class="container-fluid margin-bottom" style="background: #f9bfbf !important;">
+<div class="container-fluid margin-bottom" ng-hide="tutorResultListVisible">
   <div class="row">
     <div class="section-video">
         <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 text-container columns">
@@ -298,10 +289,7 @@
             </ul>
         </div>
         <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 video-container columns">
-          <video controls>
-            <source src="movie.mp4" type="video/mp4">
-            <source src="movie.ogg" type="video/ogg">
-          </video>
+          <iframe src="//player.vimeo.com/video/105317853" width="100%" height="400" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
         </div>
         <div class="clearfix"></div>
     </div>

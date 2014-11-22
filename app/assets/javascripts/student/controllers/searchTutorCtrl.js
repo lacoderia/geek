@@ -1,4 +1,4 @@
-Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$timeout", "$location", "$anchorScroll", "TutorService", "AppointmentService", "DEFAULT_VALUES", function($scope, $rootScope, $filter, $timeout, $location, $anchorScroll, TutorService, AppointmentService, DEFAULT_VALUES){
+Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$timeout", "$location", "$anchorScroll", "TutorService", "AppointmentService", "AuthService", "DEFAULT_VALUES", function($scope, $rootScope, $filter, $timeout, $location, $anchorScroll, TutorService, AppointmentService, AuthService, DEFAULT_VALUES){
 
     //Subject inputted by the user
     $scope.subjectInput = undefined;
@@ -19,10 +19,76 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
     $scope.appointmentAlertMessagesParams = undefined;
     $scope.appointmentAlertParams = undefined;
 
+    $scope.autocomplete = undefined;
+    $scope.components_address = undefined;
+
+    // Se inicializa la búsqueda de Google places después de cargar el DOM
+    $timeout(function(){
+        var countryRestrict = { 'country': 'mx' };
+        var autocompleteInput = document.getElementById('search_zone_input');
+
+        $scope.autocomplete = new google.maps.places.Autocomplete(
+            autocompleteInput,
+            {
+                types: ['geocode'],
+                componentRestrictions: countryRestrict,
+            }
+        );
+
+        google.maps.event.addListener($scope.autocomplete, 'place_changed', $scope.onPlaceChanged);
+    },0);
+
+
+    $scope.onPlaceChanged = function(){
+        var place = $scope.autocomplete.getPlace();
+        $scope.components_address = {
+            'neighborhood': undefined,
+            'locality': undefined,
+            'sublocality': undefined,
+            'postal_code': undefined
+        }
+
+        for(var componentIndex=0; componentIndex<place.address_components.length; componentIndex++){
+            var addressComponent = place.address_components[componentIndex];
+
+            for(var typeIndex=0; typeIndex<addressComponent.types.length; typeIndex++){
+                var type = addressComponent.types[typeIndex];
+
+                switch (type){
+                    case 'neighborhood':
+                        $scope.components_address.neighborhood = addressComponent.long_name;
+                        break;
+                    case 'locality':
+                        $scope.components_address.locality = addressComponent.long_name;
+                        break;
+                    case 'sublocality':
+                        $scope.components_address.sublocality = addressComponent.long_name;
+                        break;
+                    case 'postal_code':
+                        $scope.components_address.postal_code = addressComponent.postal_code;
+                        break;
+                }
+            }
+        }
+    };
 
     //Find a tutor, by the inputted data by the user
     $scope.searchTutor = function(){
-        if ($scope.subjectInput || $scope.selectedCountyInput){
+        if($scope.components_address){
+
+            TutorService.getTutorByQueryParamsForGoogle($scope.components_address).then(
+                function(data){
+                    console.log(data)
+                    if(data){
+                        console.log(data)
+                    }
+                },
+                function(response){
+                    console.log('Error retrieving the search results: ' + response);
+                }
+            );
+        }
+        /*if ($scope.subjectInput || $scope.selectedCountyInput){
 
             var categoryId = ($scope.subjectInput) ? $scope.subjectInput.originalObject.id : null;
             var countyId = ($scope.selectedCountyInput) ? $scope.selectedCountyInput.originalObject.id : null;
@@ -73,6 +139,8 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
                             }
 
                         }
+
+                        $rootScope.$broadcast('showResultList');
                     }
                 },
                 function(response){
@@ -81,25 +149,28 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
                 }
             );
 
-        }
+        }*/
     };
 
     // Show tutor details popup
     $scope.showTutorDetails = function(tutor) {
-        for(i in $scope.tutorList) {
-            if($scope.tutorList[i].id != tutor.id){
-                $scope.tutorList[i].show = false;
+        if(AuthService.isAuthenticated()){
+            for(i in $scope.tutorList) {
+                if($scope.tutorList[i].id != tutor.id){
+                    $scope.tutorList[i].show = false;
+                }
             }
+            $scope.selectedTutor = tutor;
+            //$scope.openTutorDetailModal(tutor);
+            $rootScope.$broadcast('initTutorCalendar', $scope.selectedTutor);
+
+            $timeout(function(){
+                $rootScope.$broadcast('ellipsis-remove', tutor.id);
+            });
+        }else{
+            $rootScope.$broadcast('showSigInModal');
         }
-
-        $scope.selectedTutor = tutor;
-
-        //$scope.openTutorDetailModal(tutor);
-        $rootScope.$broadcast('initTutorCalendar', $scope.selectedTutor);
-
-        $timeout(function(){
-            $rootScope.$broadcast('ellipsis-remove', tutor.id);
-        });
+                
     };
 
     // Show all tutors found on tutor search

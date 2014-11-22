@@ -298,7 +298,7 @@ class Tutor < ActiveRecord::Base
       end
     end
 
-    if locality and county_ids.count < FALLBACK_NUMBER #<-- ciudad - city
+    if locality #<-- ciudad - city
       cities = City.select(:id).where("name like '%#{locality}%'")
       cities.each do |city|
 
@@ -314,7 +314,7 @@ class Tutor < ActiveRecord::Base
   end
 
   def self.search_by_query_params_for_google zone_obj, category_id, category_str
-  
+
     tutors = nil
     message = nil
     suggested_tutors = nil
@@ -322,16 +322,12 @@ class Tutor < ActiveRecord::Base
     fallback_county_ids = []
     category_ids = []
     
-    if zone_obj 
+    if zone_obj
 
       if zone_obj[:neighborhood] #<-- colonia - county
         counties = County.select(:id).where("name like '%#{zone_obj[:neighborhood]}%'")
         counties.each do |county|
           county_ids << county.id
-        end
-        
-        if county_ids.count < FALLBACK_NUMBER
-          fallback_county_ids = Tutor.fallback_counties zone_obj[:sublocality], zone_obj[:locality]
         end
 
       elsif zone_obj[:postal_code] #<-- cp - postal_code
@@ -340,9 +336,6 @@ class Tutor < ActiveRecord::Base
           county_ids << county.id
         end
 
-        if county_ids.count < FALLBACK_NUMBER
-          fallback_county_ids = Tutor.fallback_counties zone_obj[:sublocality], zone_obj[:locality]
-        end
       elsif zone_obj[:sublocality] #<-- delegacion/municipio - municipality
         municipalities = Municipality.select(:id).where("name like '%#{zone_obj[:sublocality]}%'")
         municipalities.each do |municipality|
@@ -379,10 +372,21 @@ class Tutor < ActiveRecord::Base
     #Dos parametros de busqueda
     if not county_ids.empty? and not category_ids.empty?
       tutors = Tutor.joins(:categories, :counties).where("county_id in (#{county_ids.map(&:inspect).join(',')}) and (categories.category_id in (#{category_ids.map(&:inspect).join(',')}) OR categories.id in (#{category_ids.map(&:inspect).join(',')}))")
-      
+
+      if tutors.count < FALLBACK_NUMBER #fallback a sublocality
+        fallback_county_ids = Tutor.fallback_counties zone_obj[:sublocality], nil
+      end
+
       if not fallback_county_ids.empty?
         suggested_tutors = Tutor.joins(:categories, :counties).where("county_id in (#{fallback_county_ids.map(&:inspect).join(',')}) and (categories.category_id in (#{category_ids.map(&:inspect).join(',')}) OR categories.id in (#{category_ids.map(&:inspect).join(',')}))")
         suggested_tutors = suggested_tutors - tutors
+
+        if suggested_tutors.count < FALLBACK_NUMBER
+          fallback_county_ids = Tutor.fallback_counties nil, zone_obj[:locality] #fallback a locality
+          suggested_tutors = Tutor.joins(:categories, :counties).where("county_id in (#{fallback_county_ids.map(&:inspect).join(',')}) and (categories.category_id in (#{category_ids.map(&:inspect).join(',')}) OR categories.id in (#{category_ids.map(&:inspect).join(',')}))")
+          suggested_tutors = suggested_tutors - tutors
+        end
+
         if suggested_tutors.empty?
           message = "Búsqueda vacía. Modificar criterios de búsqueda."
         else
@@ -396,9 +400,19 @@ class Tutor < ActiveRecord::Base
     elsif not county_ids.empty?
       tutors = Tutor.joins(:counties).where("county_id in (#{county_ids.map(&:inspect).join(',')})")
 
+      if tutors.count < FALLBACK_NUMBER #fallback a sublocality
+        fallback_county_ids = Tutor.fallback_counties zone_obj[:sublocality], nil
+      end
+
       if not fallback_county_ids.empty?
         suggested_tutors = Tutor.joins(:counties).where("county_id in (#{fallback_county_ids.map(&:inspect).join(',')})")
         suggested_tutors = suggested_tutors - tutors
+
+        if suggested_tutors.count < FALLBACK_NUMBER
+          fallback_county_ids = Tutor.fallback_counties nil, zone_obj[:locality] #fallback a locality
+          suggested_tutors = Tutor.joins(:counties).where("county_id in (#{fallback_county_ids.map(&:inspect).join(',')})")
+          suggested_tutors = suggested_tutors - tutors
+        end
       end
 
       if category_id

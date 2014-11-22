@@ -15,12 +15,13 @@
                              'student/controllers/rootCtrl',
                              'student/controllers/calendarCtrl',
                              'student/controllers/myAppointmentsCtrl',
-                             'student/services/profileService',
+                             'student/services/sessionService',
                              'student/services/countyService',
                              'student/services/appointmentService',
                              'student/services/categoryService',
                              'student/services/availabilityService',
                              'student/services/tutorService',
+                             'student/services/authService',
                              'student/directives/modalTutorDetailDrctv',
                              'student/directives/modalDetailDrctv',
                              'student/directives/modalAppointmentRequestDrctv',
@@ -38,6 +39,7 @@
 
   <div id="overlay" ng-show="showOverlay"></div>
   <div ng-modal-tutor-detail ></div>
+  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false&language=es"></script>
 
 </body>
 </html>

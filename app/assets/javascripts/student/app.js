@@ -10,7 +10,8 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
             'CATEGORY_SERVICE_URL': '/categories.json',
             'COUNTY_SERVICE_URL': '/counties.json',
             'TUTOR_SERVICE_URL': '/tutors/by_county_and_category_ids.json',
-            'PROFILE_GET_PROFILE_URL': '/students/profile.json'
+            'PROFILE_GET_SESSION_URL': '/students/profile.json',
+            'TUTOR_BY_GOOGLE_SERVICE_URL': '/tutors/by_query_params_for_google.json'
         },
         'HOURS': [  '00:00', '00:30', '01:00', '01:30', '02:00', '02:30', '03:00', '03:30',
             '04:00', '04:30', '05:00', '05:30', '06:00', '06:30', '07:00', '07:30',
@@ -81,38 +82,177 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
         ]
     })
 
-    .config(function($stateProvider, $urlRouterProvider){
+    .config(['$stateProvider','$urlRouterProvider', function($stateProvider, $urlRouterProvider){
         $urlRouterProvider.otherwise("/home") //Estado predeterminado
         $stateProvider
             .state('student', {
                 url: "/home",
                 templateUrl: "/assets/student/partial_landing.html",
-                controller: 'RootController'
+                controller: 'RootController',
+                resolve: {
+                    isAuthenticated: function($state, AuthService, SessionService){
+                        if(AuthService.isAuthenticated()){
+                            $state.go('dashboard.search-tutor');
+                        }else{
+                            AuthService.getSession().then(
+                                function(data){
+                                    if(data && data.id){
+                                        SessionService.createSession(data.id, data.email, data.first_name, data.last_name, data.gender, data.phone_number);
+                                        $rootScope.$broadcast('userAuthenticated');
+                                        $state.go('dashboard.search-tutor');
+
+                                    }else{
+                                        return true;
+                                    }
+                                },
+                                function(response){
+                                    console.log('Error getting tutor\'s request status: ' + response);
+                                    return true;
+                                }
+                            )
+                        }
+                    }
+                }
             })
             .state('dashboard', {
                 url: "/dashboard",
                 templateUrl: "/assets/student/partial_dashboard_layout.html",
-                controller: 'RootController'
+                controller: 'RootController',
+                resolve: {
+                    isAuthenticated: function($state, AuthService, SessionService){
+                        if(AuthService.isAuthenticated()){
+                            $state.go('dashboard.search-tutor');
+                        }else{
+                            AuthService.getSession().then(
+                                function(data){
+                                    if(data && data.id){
+                                        SessionService.createSession(data.id, data.email, data.first_name, data.last_name, data.gender, data.phone_number);
+                                        $state.go('dashboard.search-tutor');
+
+                                    }else{
+                                        $state.go('student');
+                                    }
+                                },
+                                function(response){
+                                    console.log('Error getting tutor\'s request status: ' + response);
+                                    $state.go('home');
+                                }
+                            )
+                        }
+                    }
+                }
             })
             .state('dashboard.search-tutor', {
                 url: "/search-tutor",
                 templateUrl: "/assets/student/partial_dashboard_layout.search_tutor.html",
-                controller: 'SearchTutorController'
+                controller: 'SearchTutorController',
+                resolve: {
+                    isAuthenticated: function($state, AuthService, SessionService){
+                        if(AuthService.isAuthenticated()){
+                            return true;
+                        }else{
+                            AuthService.getSession().then(
+                                function(data){
+                                    if(data && data.id){
+                                        SessionService.createSession(data.id, data.email, data.first_name, data.last_name, data.gender, data.phone_number);
+                                        return true;
+
+                                    }else{
+                                        $state.go('student');
+                                    }
+                                },
+                                function(response){
+                                    console.log('Error getting tutor\'s request status: ' + response);
+                                    $state.go('home');
+                                }
+                            )
+                        }
+                    }
+                }
             })
             .state('dashboard.my-classes', {
                 url: "/my-classes",
-                templateUrl: "/assets/student/partial_dashboard_layout.my_classes.html"
+                templateUrl: "/assets/student/partial_dashboard_layout.my_classes.html",
+                resolve: {
+                    isAuthenticated: function($state, AuthService, SessionService){
+                        if(AuthService.isAuthenticated()){
+                            return true;
+                        }else{
+                            AuthService.getSession().then(
+                                function(data){
+                                    if(data && data.id){
+                                        SessionService.createSession(data.id, data.email, data.first_name, data.last_name, data.gender, data.phone_number);
+                                        return true;
+
+                                    }else{
+                                        $state.go('student');
+                                    }
+                                },
+                                function(response){
+                                    console.log('Error getting tutor\'s request status: ' + response);
+                                    $state.go('home');
+                                }
+                            )
+                        }
+                    }
+                }
 
             })
             .state('dashboard.profile', {
                 url: "/account",
-                templateUrl: "/assets/student/partial_dashboard_layout.profile.html"
+                templateUrl: "/assets/student/partial_dashboard_layout.profile.html",
+                resolve: {
+                    isAuthenticated: function($state, AuthService, SessionService){
+                        if(AuthService.isAuthenticated()){
+                            return true;
+                        }else{
+                            AuthService.getSession().then(
+                                function(data){
+                                    if(data && data.id){
+                                        SessionService.createSession(data.id, data.email, data.first_name, data.last_name, data.gender, data.phone_number);
+                                        return true;
+
+                                    }else{
+                                        $state.go('student');
+                                    }
+                                },
+                                function(response){
+                                    console.log('Error getting tutor\'s request status: ' + response);
+                                    $state.go('home');
+                                }
+                            )
+                        }
+                    }
+                }
             })
             .state('dashboard.messages', {
                 url: "/messages",
-                templateUrl: "/assets/student/partial_dashboard_layout.messages.html"
+                templateUrl: "/assets/student/partial_dashboard_layout.messages.html",
+                resolve: {
+                    isAuthenticated: function($state, AuthService, SessionService){
+                        if(AuthService.isAuthenticated()){
+                            return true;
+                        }else{
+                            AuthService.getSession().then(
+                                function(data){
+                                    if(data && data.id){
+                                        SessionService.createSession(data.id, data.email, data.first_name, data.last_name, data.gender, data.phone_number);
+                                        return true;
+
+                                    }else{
+                                        $state.go('student');
+                                    }
+                                },
+                                function(response){
+                                    console.log('Error getting tutor\'s request status: ' + response);
+                                    $state.go('home');
+                                }
+                            )
+                        }
+                    }
+                }
         })
-    })
+    }])
 
     .config(['$translateProvider', function($translateProvider){
 

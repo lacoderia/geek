@@ -4,6 +4,10 @@ Geek.controller('NavigationController', ["$scope", "$rootScope", "DEFAULT_VALUES
 
     $scope.selectedTab = 'signUp';
 
+    $scope.$on('showSigInModal', function(){
+       $scope.showSignInModal('signUp');
+    });
+
     //Function that opens the landing modal with the sign in tab selected
     $scope.showSignInModal = function(selectedTab) {
         $scope.selectTab(selectedTab);
