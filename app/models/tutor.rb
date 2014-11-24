@@ -3,9 +3,9 @@ class Tutor < ActiveRecord::Base
   require 'google/api_client'
   require 'google/api_client/client_secrets'
   require 'google/api_client/auth/file_storage'
-  
+
   acts_as :user, :as => :client
-  belongs_to :preference	
+  belongs_to :preference
   belongs_to :bank_account
   has_many :vacations
   has_many :reviews
@@ -36,7 +36,7 @@ class Tutor < ActiveRecord::Base
     self.update_attribute(:token, response["access_token"])
   end
 
-  def create_appointment name, start_date, length_in_hours, student 
+  def create_appointment name, start_date, length_in_hours, student
     begin
       token = self.token
       calendar = self.calendar_id
@@ -52,15 +52,15 @@ class Tutor < ActiveRecord::Base
       UserMailer.tutor_notification_email(appointment.tutor_id, appointment.appointment_status_id, name).deliver
       UserMailer.student_notification_email(appointment.student_id, appointment.appointment_status_id, name).deliver
 
-      return appointment 
+      return appointment
     rescue Exception => e
       logger.error ("ERROR #{e}")
-      return nil 
+      return nil
     end
   end
 
   def delete_appointment appointment
-	
+
     # appointment_status_id 3 = confirmado, 4 = cancelado
     #if appointment.appointment_status_id == 3
       client = Google::APIClient.new
@@ -84,17 +84,17 @@ class Tutor < ActiveRecord::Base
 
     if start_month != end_month or start_year != end_year
       # mes distinto o año distinto
-      previous_month_availabilities = self.availability_list tutor_id, start_month, start_year 
+      previous_month_availabilities = self.availability_list tutor_id, start_month, start_year
       days_in_previous_month = Time.days_in_month(start_month, start_year)
 
-      next_month_availabilities = self.availability_list tutor_id, end_month, end_year 
+      next_month_availabilities = self.availability_list tutor_id, end_month, end_year
 
       previous_month_availabilities.each do |pma|
         (start_day.to_i..days_in_previous_month).each do |day|
           if pma[:day] == day
-            pma[:month] = start_month 
+            pma[:month] = start_month
             pma[:year] = start_year
-            result << pma 
+            result << pma
           end
         end
       end
@@ -111,7 +111,7 @@ class Tutor < ActiveRecord::Base
 
     else
       # mismo mes
-      availabilities = self.availability_list tutor_id, start_month, start_year 
+      availabilities = self.availability_list tutor_id, start_month, start_year
       availabilities.each do |availability|
         (start_day.to_i..end_day.to_i).each do |day|
           if availability[:day] == day
@@ -120,8 +120,8 @@ class Tutor < ActiveRecord::Base
             result << availability
           end
         end
-      end      
-    end      
+      end
+    end
 
     return result
   end
@@ -143,7 +143,7 @@ class Tutor < ActiveRecord::Base
     first_monday = ix
 
     # primero, checar contra vacaciones. NO es parte del MVP
-					
+
     # segundo, revisar contra preferencias generales
     availabilities = tutor.availabilities
     availabilities.each do |availability|
@@ -162,7 +162,7 @@ class Tutor < ActiveRecord::Base
       end
     end
 
-    # tercero, agregar disponibilidades por semana especifica					
+    # tercero, agregar disponibilidades por semana especifica
     specific_availabilities = tutor.specific_availabilities.where("EXTRACT(month from start) = ? AND EXTRACT(year from start) = ?", month, year)
     specific_availabilities.each do |sa|
       dif_hour = sa.end.hour - sa.start.hour
@@ -171,10 +171,10 @@ class Tutor < ActiveRecord::Base
       difference = (sa.start.hour + start_min)..(sa.start.hour+dif_hour -0.5 + end_min)
       if not result[sa.start.day]
         result[sa.start.day] = []
-      else 
+      else
         result[sa.start.day] -= (difference).step(0.5).to_a
       end
-    
+
       result[sa.start.day] += (difference).step(0.5).to_a
       result[sa.start.day].sort!
     end
@@ -182,7 +182,7 @@ class Tutor < ActiveRecord::Base
     # cuarto, quitar contra clases en request y en agendadas
     appointments = tutor.appointments.where("EXTRACT(month from start) = ? AND EXTRACT(year from start) = ?", month, year)
     appointments.each do |appointment|
-      dif_hour = appointment.end.hour - appointment.start.hour 
+      dif_hour = appointment.end.hour - appointment.start.hour
       start_min = appointment.start.min > 0 ? 0.5 : 0.0
       end_min = appointment.end.min > 0 ? 0.5 : 0.0
       difference = (appointment.start.hour + start_min)..(appointment.start.hour+dif_hour -0.5 + end_min)
@@ -190,7 +190,7 @@ class Tutor < ActiveRecord::Base
         result[appointment.start.day] -= (difference).step(0.5).to_a
         result.delete(appointment.start.day) if result[appointment.start.day].empty?
       end
-      
+
     end
 
     formatted_result = []
@@ -204,17 +204,17 @@ class Tutor < ActiveRecord::Base
       value.each do |hour|
         if hour == initial_hour
           end_hour = initial_hour
-        elsif hour == previous_hour + 0.5 
+        elsif hour == previous_hour + 0.5
           end_hour = hour
           obj[:start] = initial_hour
-          obj[:end] = end_hour + 0.5 
+          obj[:end] = end_hour + 0.5
         else
           obj[:start] = initial_hour
           obj[:end] = end_hour + 0.5
           formatted_result << Tutor.transform_hours(obj)
           obj = {:day => key}
           initial_hour = hour
-          end_hour = initial_hour 
+          end_hour = initial_hour
           obj[:start] = initial_hour
           obj[:end] = end_hour + 0.5
         end
@@ -232,9 +232,9 @@ class Tutor < ActiveRecord::Base
     tutor = Tutor.find(tutor_id)
     start_date = DateTime.iso8601(start).in_time_zone
     student = Student.find(student_id)
-    # TODO: Validar que tenga disponibilidad		
+    # TODO: Validar que tenga disponibilidad
     tutor.refresh_token_action
-    tutor.create_appointment description, start_date, length, student 
+    tutor.create_appointment description, start_date, length, student
   end
 
   def self.list_appointments_by_status tutor_id, appointment_status_id
@@ -243,8 +243,8 @@ class Tutor < ActiveRecord::Base
     tutor.appointments.where("appointment_status_id = ?", AppointmentStatus.find(appointment_status_id))
   end
 
-  # month, year, previous pueden ser nil. 
-  def self.list_appointments_by_month_and_year tutor_id, month, year 
+  # month, year, previous pueden ser nil.
+  def self.list_appointments_by_month_and_year tutor_id, month, year
     tutor = Tutor.find tutor_id
     if month and year
       tutor.appointments.includes(:student, :address, :appointment_status).where("EXTRACT(month from start) = ? AND EXTRACT(year from start) = ?", month.to_i, year.to_i).order(:end)
@@ -283,12 +283,12 @@ class Tutor < ActiveRecord::Base
     end
   end
 
-  def self.fallback_counties sublocality, locality 
+  def self.fallback_counties sublocality, locality
 
     county_ids = []
 
     if sublocality #<-- delegacion/municipio - municipality
-      municipalities = Municipality.select(:id).where("name like '%#{sublocality}%'")
+      municipalities = Municipality.select(:id).where("lower(unaccent(name)) like '%#{I18n.transliterate(sublocality)}%'")
       municipalities.each do |municipality|
 
         counties = County.joins(:postal_code => :municipality).where("municipalities.id = #{municipality.id}")
@@ -299,7 +299,7 @@ class Tutor < ActiveRecord::Base
     end
 
     if locality #<-- ciudad - city
-      cities = City.select(:id).where("name like '%#{locality}%'")
+      cities = City.select(:id).where("lower(unaccent(name)) like '%#{I18n.transliterate(locality)}%'")
       cities.each do |city|
 
         counties = County.joins(:postal_code => :city).where("cities.id = #{city.id}")
@@ -308,7 +308,7 @@ class Tutor < ActiveRecord::Base
         end
       end
 
-    end 
+    end
     return county_ids.uniq
 
   end
@@ -316,16 +316,16 @@ class Tutor < ActiveRecord::Base
   def self.search_by_query_params_for_google zone_obj, category_id, category_str
 
     tutors = nil
-    message = nil
+    message = ""
     suggested_tutors = nil
     county_ids = []
     fallback_county_ids = []
     category_ids = []
-    
+
     if zone_obj
 
       if zone_obj[:neighborhood] #<-- colonia - county
-        counties = County.select(:id).where("name like '%#{zone_obj[:neighborhood]}%'")
+        counties = County.select(:id).where("lower(unaccent(name)) like '%#{I18n.transliterate(zone_obj[:neighborhood])}%'")
         counties.each do |county|
           county_ids << county.id
         end
@@ -337,7 +337,7 @@ class Tutor < ActiveRecord::Base
         end
 
       elsif zone_obj[:sublocality] #<-- delegacion/municipio - municipality
-        municipalities = Municipality.select(:id).where("name like '%#{zone_obj[:sublocality]}%'")
+        municipalities = Municipality.select(:id).where("lower(unaccent(name)) like '%#{I18n.transliterate(zone_obj[:sublocality])}%'")
         municipalities.each do |municipality|
 
           counties = County.joins(:postal_code => :municipality).where("municipalities.id = #{municipality.id}")
@@ -346,7 +346,7 @@ class Tutor < ActiveRecord::Base
           end
         end
       elsif zone_obj[:locality] #<-- ciudad - city
-        cities = City.select(:id).where("name like '%#{zone_obj[:locality]}%'")
+        cities = City.select(:id).where("lower(unaccent(name) like '%#{I18n.transliterate(zone_obj[:locality])}%'")
         cities.each do |city|
 
           counties = County.joins(:postal_code => :city).where("cities.id = #{city.id}")
@@ -357,13 +357,13 @@ class Tutor < ActiveRecord::Base
 
       end
       #county_ids.uniq!
-      
+
     end
 
     if category_id
       category_ids << category_id
     elsif category_str
-      categories = Category.select(:id).where("name like '%#{category_str}%'")
+      categories = Category.select(:id).where("lower(unaccent(name)) like '%#{I18n.transliterate(category_str).downcase}%'")
       categories.each do |category|
         category_ids << category.id
       end
@@ -375,25 +375,27 @@ class Tutor < ActiveRecord::Base
 
       if tutors.count < FALLBACK_NUMBER #fallback a sublocality
         fallback_county_ids = Tutor.fallback_counties zone_obj[:sublocality], nil
+        message += "Fallback con sublocality."
       end
 
       if not fallback_county_ids.empty?
         suggested_tutors = Tutor.joins(:categories, :counties).where("county_id in (#{fallback_county_ids.map(&:inspect).join(',')}) and (categories.category_id in (#{category_ids.map(&:inspect).join(',')}) OR categories.id in (#{category_ids.map(&:inspect).join(',')}))")
         suggested_tutors = suggested_tutors - tutors
 
-        if suggested_tutors.count < FALLBACK_NUMBER
-          fallback_county_ids = Tutor.fallback_counties nil, zone_obj[:locality] #fallback a locality
+        if suggested_tutors.count < FALLBACK_NUMBER #fallback a locality
+          fallback_county_ids = Tutor.fallback_counties nil, zone_obj[:locality]
           suggested_tutors = Tutor.joins(:categories, :counties).where("county_id in (#{fallback_county_ids.map(&:inspect).join(',')}) and (categories.category_id in (#{category_ids.map(&:inspect).join(',')}) OR categories.id in (#{category_ids.map(&:inspect).join(',')}))")
           suggested_tutors = suggested_tutors - tutors
+          message += "Fallback con locality."
         end
 
         if suggested_tutors.empty?
-          message = "Búsqueda vacía. Modificar criterios de búsqueda."
+          message += " Ampliar criterios de búsqueda."
         else
-          message = "Pocos resultados. Revisar tutores sugeridos."
+          message += " Pocos resultados. Revisar tutores sugeridos."
         end
       else
-        message = "Búsqueda correcta."
+        message += " Búsqueda correcta."
       end
 
     #Solo resultados de ubicacion
@@ -434,7 +436,7 @@ class Tutor < ActiveRecord::Base
         message = "No se enviaron zonas"
       end
     else
-      #Busqueda vacia 
+      #Busqueda vacia
       message = "Búsqueda vacía."
     end
 
@@ -452,7 +454,7 @@ class Tutor < ActiveRecord::Base
       availabilities.each do |availability|
         day = WeekDay.find_by_day_number(availability["day_number"])
         start_time = Time.zone.parse("0001-01-01T#{availability['start']}")
-        end_time = Time.zone.parse("0001-01-01T#{availability['end']}") 
+        end_time = Time.zone.parse("0001-01-01T#{availability['end']}")
         preference.availabilities << Availability.create(week_day_id: day.id, preference_id: preference.id, start: start_time, end: end_time)
       end
 
@@ -463,7 +465,7 @@ class Tutor < ActiveRecord::Base
 
   # TODO: Incluir metodo para borrar disponibilidades o alterar las existentes si se interrumpen
   def self.save_specific_availabilities tutor_id, specific_availabilities
-    
+
     tutor = Tutor.joins(:preference).find tutor_id
 
     specific_availabilities.each do |sa|
