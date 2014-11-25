@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-file_df = File.open('db/sepomex/df.txt', 'r:UTF-8')
+file_df = File.open('db/sepomex/zonas_depuradas.txt', 'r:UTF-8')
 while (line = file_df.gets)
 	arr = line.encode!('UTF-8', 'UTF-8', :invalid => :replace).split("|")
 	# 0 - codigo, 1 - colonia, 3 - delegacion, 4 - estado, 5 - ciudad
@@ -28,7 +28,7 @@ file_df.close
 #while (line = file_mexico.gets)
 #	arr = line.encode!('UTF-8', 'UTF-8', :invalid => :replace).split("|")
 	# 0 - codigo, 1 - colonia, 3 - delegacion, 4 - estado, 5 - ciudad
-#	estado = State.find_or_create_by(name: arr[4])	
+#	estado = State.find_or_create_by(name: arr[4])
 #	ciudad = City.find_or_create_by(name: arr[5])
 #	municipio = Municipality.find_or_create_by(name: arr[3])
 #       if not cp = PostalCode.find_by_code(arr[0])
