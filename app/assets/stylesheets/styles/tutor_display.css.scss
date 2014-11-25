@@ -528,14 +528,14 @@ footer{
         width: 220px;
 
         .profile_picture {
-          background-color: white;
+          background: url('/assets/site/person.png') no-repeat white;
+          background-size: cover;
           height: 220px;
           overflow: hidden;
           position: relative;
           width: 220px;
 
           img {
-            display: none;
             position: absolute;
             left: 50%;
             top: 50%;

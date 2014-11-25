@@ -103,6 +103,10 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
                 'cost' : $scope.selectedTopic.cost,
                 'category_id' : parseInt($scope.selectedCategory.id)
             });
+
+            $scope.selectedTopic.name = '';
+            $scope.selectedTopic.cost = '';
+            $scope.selectedCategory = $scope.categories[0];
         }
     }
 
@@ -271,7 +275,6 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
 
         } else {
             $scope.calendarErrorClass = 'border-error';
-            console.log('ENTRE AQUI')
             $scope.calendarAlertMessagesParams = {
                 type: 'danger',
                 message: 'Las clases deben durar al menos 1 hora, por favor, selecciona al menos dos horarios contiguos.',
@@ -280,7 +283,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
 
         }
 
-        if ($scope.tutorProfileForm.$valid && $rootScope.tutor.topics.length && $rootScope.tutor.zones.length && validCalendar) {
+        if ($scope.tutorProfileForm.$valid && $rootScope.tutor.topics.length && $rootScope.tutor.zones.length) {
 
             var tutor = {
                 'id': $rootScope.tutor.id,
@@ -352,35 +355,36 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
     }
 
     $scope.$watch('tutor.picture_url', function(){
-        if ($rootScope.tutor) {
-            if($rootScope.tutor.picture_url){
-                var imageContainer = $('.profile_picture');
-                var image = imageContainer.find('img');
-                image.hide();
 
-                $('<img/>')
-                    .attr("src", $rootScope.tutor.picture_url)
-                    .load(function() {
-                        image.attr('src', $rootScope.tutor.picture_url);
+        if($rootScope.tutor.picture_url) {
+            var imageContainer = $('.profile_picture');
+            var image = imageContainer.find('img');
+            image.hide();
 
-                        var ratio = this.width / this.height;
+            $('<img/>')
+                .attr("src", $rootScope.tutor.picture_url)
+                .load(function() {
+                    image.attr('src', $rootScope.tutor.picture_url);
 
-                        // Si la imagen es horizontal, el alto debe ser el del contenedor y el ancho debe ser proporcional
-                        if (this.width > this.height) {
-                            image.height(imageContainer.height());
-                            image.width(imageContainer.height() * ratio);
-                        } else {
-                            // Si la imagen es vertical o cuadrada, el ancho debe ser el del contenedor y el alto debe ser proporcional
-                            image.width(imageContainer.width());
-                            image.height(imageContainer.width() / ratio);
-                        }
+                    var ratio = this.width / this.height;
 
-                        image.show();
-                    })
-                    .error(function() {
+                    // Si la imagen es horizontal, el alto debe ser el del contenedor y el ancho debe ser proporcional
+                    if (this.width > this.height) {
+                        image.height(imageContainer.height());
+                        image.width(imageContainer.height() * ratio);
+                    } else {
+                        // Si la imagen es vertical o cuadrada, el ancho debe ser el del contenedor y el alto debe ser proporcional
+                        image.width(imageContainer.width());
+                        image.height(imageContainer.width() / ratio);
+                    }
 
-                    });
-            }
+                    image.show();
+
+                })
+                .error(function() {
+
+                });
         }
+
     });
 }]);
