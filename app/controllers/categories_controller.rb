@@ -4,7 +4,11 @@ class CategoriesController < ApplicationController
   # GET /categories
   # GET /categories.json
   def index
-    @categories = Category.all
+    if params[:parent] && params[:parent] == 'true'
+      @categories = Category.where('category_id is null')
+    else
+      @categories = Category.all
+    end
   end
 
   # GET /categories/1
