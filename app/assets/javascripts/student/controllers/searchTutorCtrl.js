@@ -10,6 +10,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
     $scope.countyInput = '';
 
     $scope.tutorList = [];
+    $scope.suggestedTutorList = [];
 
     $scope.PROFILE_IMAGE = DEFAULT_VALUES.PROFILE_IMAGE;
     $scope.DEFAULT_CATEGORY_NAME = 'TEMA';
@@ -21,36 +22,21 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
 
     $scope.autocomplete = undefined;
     $scope.components_address = undefined;
-
-    // Se inicializa la búsqueda de Google places después de cargar el DOM
-    $timeout(function(){
-        var countryRestrict = { 'country': 'mx' };
-        var autocompleteInput = document.getElementById('search_zone_input');
-
-        $scope.autocomplete = new google.maps.places.Autocomplete(
-            autocompleteInput,
-            {
-                types: ['geocode'],
-                componentRestrictions: countryRestrict,
-            }
-        );
-
-        google.maps.event.addListener($scope.autocomplete, 'place_changed', $scope.onPlaceChanged);
-    },0);
+    $scope.chosenPlaceDetails = '';
+    $scope.showTopSearchbar = false;
 
 
-    $scope.onPlaceChanged = function(){
-        var place = $scope.autocomplete.getPlace();
+    $scope.onPlaceChanged = function(place){
+
         $scope.components_address = {
             'neighborhood': undefined,
             'locality': undefined,
             'sublocality': undefined,
             'postal_code': undefined
-        }
+        };
 
         for(var componentIndex=0; componentIndex<place.address_components.length; componentIndex++){
             var addressComponent = place.address_components[componentIndex];
-
             for(var typeIndex=0; typeIndex<addressComponent.types.length; typeIndex++){
                 var type = addressComponent.types[typeIndex];
 
@@ -72,84 +58,79 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
         }
     };
 
+    $scope.getTutorCostRange = function(tutor){
+        tutor.show = true;
+
+        if(tutor.categories){
+
+            var minCost = 0;
+            var maxCost = 0;
+
+            if(tutor.categories[0].cost){
+                minCost = parseFloat(tutor.categories[0].cost);
+                maxCost = parseFloat(tutor.categories[0].cost);
+            }
+
+            for(var categoryIndex=0; categoryIndex<tutor.categories.length; categoryIndex++){
+                var category = tutor.categories[categoryIndex];
+                var topicCost = 0;
+
+                if(category.cost){
+                    topicCost = parseFloat(category.cost);
+                }else{
+                    category.cost = 0;
+                }
+
+                if(topicCost > maxCost){
+                    maxCost = category.cost;
+                }
+
+                if(topicCost < minCost){
+                    minCost = category.cost;
+                }
+            }
+
+            if(tutor.categories.length > 1 && minCost != maxCost){
+                tutor.costRange = $filter('currency')(minCost, '$') + " - " + $filter('currency')(maxCost, '$');
+            }else{
+                tutor.costRange = $filter('currency')(minCost, '$');
+            }
+        }
+    };
+
     //Find a tutor, by the inputted data by the user
     $scope.searchTutor = function(){
-        if($scope.components_address){
-
-            TutorService.getTutorByQueryParamsForGoogle($scope.components_address).then(
-                function(data){
-                    console.log(data)
-                    if(data){
-                        console.log(data)
-                    }
-                },
-                function(response){
-                    console.log('Error retrieving the search results: ' + response);
-                }
-            );
+        $scope.showTopSearchbar = true;
+        var categoryId = undefined
+        if($scope.subjectInput){
+            categoryId = $scope.subjectInput.originalObject.id
         }
-        /*if ($scope.subjectInput || $scope.selectedCountyInput){
 
-            var categoryId = ($scope.subjectInput) ? $scope.subjectInput.originalObject.id : null;
-            var countyId = ($scope.selectedCountyInput) ? $scope.selectedCountyInput.originalObject.id : null;
+        TutorService.getTutorByQueryParamsForGoogle($scope.components_address, categoryId).then(
+            function(data){
+                if(data){
 
-            TutorService.getTutorByCategoryAndCountyIds(categoryId, countyId).then(
-                function(data){
-                    if(data){
-                        $scope.tutorList = data;
+                    $scope.tutorList = data.tutors;
+                    $scope.suggestedTutorList = data.suggested_tutors;
 
-                        for(var tutorIndex in $scope.tutorList) {
-                            var tutor = $scope.tutorList[tutorIndex];
-                            tutor.show = true;
-                            if(tutor.categories){
-
-                                var minCost = 0;
-                                var maxCost = 0;
-
-                                if(tutor.categories[0].cost){
-                                    minCost = parseFloat(tutor.categories[0].cost);
-                                    maxCost = parseFloat(tutor.categories[0].cost);
-                                }
-
-                                for(var categoryIndex=0; categoryIndex<tutor.categories.length; categoryIndex++){
-                                    var category = tutor.categories[categoryIndex];
-                                    var topicCost = 0;
-
-                                    if(category.cost){
-                                        topicCost = parseFloat(category.cost);
-                                    }else{
-                                        category.cost = 0;
-                                    }
-
-                                    if(topicCost > maxCost){
-                                        maxCost = category.cost;
-                                    }
-
-                                    if(topicCost < minCost){
-                                        minCost = category.cost;
-                                    }
-                                }
-
-                                if(tutor.categories.length > 1 && minCost != maxCost){
-                                    tutor.costRange = $filter('currency')(minCost, '$') + " - " + $filter('currency')(maxCost, '$');
-                                }else{
-                                    tutor.costRange = $filter('currency')(minCost, '$');
-                                }
-
-                            }
-
-                        }
-
-                        $rootScope.$broadcast('showResultList');
+                    for(var tutorIndex in $scope.tutorList) {
+                        var tutor = $scope.tutorList[tutorIndex];
+                        $scope.getTutorCostRange(tutor);
                     }
-                },
-                function(response){
 
-                    console.log('Error retrieving the counties: ' + response);
+                    for(var suggestedTutorIndex in $scope.suggestedTutorList){
+                        var suggestedTutor = $scope.suggestedTutorList[suggestedTutorIndex];
+                        $scope.getTutorCostRange(suggestedTutor);
+                    }
+
+                    $rootScope.$broadcast('showResultList');
                 }
-            );
+            },
+            function(response){
+                console.log('Error retrieving the search results: ' + response);
+            }
+        );
 
-        }*/
     };
 
     // Show tutor details popup

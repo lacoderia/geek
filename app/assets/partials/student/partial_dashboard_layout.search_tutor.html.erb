@@ -1,5 +1,5 @@
 <div class="section-search-results">
-  <div class="bgcolor-light-gray light-search section-search" ng-show="tutorList.length > 0">
+  <div class="bgcolor-light-gray light-search section-search" ng-show="showTopSearchbar">
     <h2 class="col-lg-2 col-md-3 hidden-sm hidden-xs">geek</h2>
     <form class="col-lg-9 col-md-8 col-sm-12 col-xs-12">
       <angucomplete-alt-geek id="topics"
@@ -12,28 +12,72 @@
                         minlength="1"
                         input-class="category">
       </angucomplete-alt-geek>
-      <angucomplete-alt-geek id="counties"
-                        placeholder="En la zona de..."
-                        pause="600"
-                        selected-object="selectedCountyInput"
-                        local-data="counties"
-                        search-fields="name"
-                        title-field="name"
-                        minlength="1"
-                        input-class="county">
-      </angucomplete-alt-geek>
+      <input class="county" type="text" ng-model="chosenPlace" details="chosenPlaceDetails" on-place-change="onPlaceChanged" placeholder="En la zona de..." googleplace>
       <button ng-click="searchTutor()">Buscar</button>
     </form>
     <div class="clearfix"></div>
   </div>
 
-  <div class="search-results-list" ng-show="tutorList.length > 0">
+  <div class="search-results-list" ng-show="showTopSearchbar">
+    <div class="unavailable-message" ng-show="tutorList.length < 1 && suggestedTutorList.length < 1">
+      <div class="unavailable-message-content">
+        <h3>Lo sentimos, no encontramos tutores</h3>
+      </div>
+    </div>
     <div class="search-results-tools" ng-show="selectedTutor">
       <span ng-hide="selectedTutor">Filtros:</span>
       <span class="btn-back" ng-click="showSearchResults()" ng-show="selectedTutor"><< MOSTRAR TODOS</span>
     </div>
-    <div class="search-result-list">
+    <div class="search-result-list" ng-show="tutorList.length > 0 || suggestedTutorList.length > 0">
       <div class="tutor" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-repeat="tutor in tutorList" ng-show="tutor.show" on-tutor-search-render>
+        <div class="tutor_picture_container col-lg-2 col-md-2 col-sm-12 col-xs-12">
+          <div class="tutor_picture">
+            <img/>
+          </div>
+        </div>
+        <div class="tutor-personal-info col-lg-8 col-md-8 col-sm-12 col-xs-12">
+          <div class="content">
+            <h4 class="tutor-name">{{ tutor.first_name }} {{ tutor.last_name }}</h4>
+            <h5 class="tutor-county"><span ng-repeat="county in tutor.counties">{{ county.name }}{{ $last ? '' : ', ' }}</span></h5>
+            <p class="resume" ng-class="{ 'expanded' : tutor.id == selectedTutor.id }" ng-bind="tutor.background" ellipsis ellipsis-append="ver mas..." ellipsis-symbol="... " ellipsis-append-click="showTutorDetails(tutor)" ellipsis-id="tutor.id"></p>
+            <div class="given-classes">
+              <div>Horas de clase: {{tutor.appointments.classes || 0}}</div>
+              <div>Estudiantes: {{tutor.appointments.classes || 0}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="tutor-class-info col-lg-2 col-md-2 col-sm-12 col-xs-12">
+          <div class="content">
+            <div class="content-score">
+              <div class="score">
+                <span class="icon-star1" ng-class="tutor.reviews.average >= 1 ? 'star-full': 'star-empty'"></span>
+                <span class="icon-star1" ng-class="tutor.reviews.average >= 2 ? 'star-full': 'star-empty'"></span>
+                <span class="icon-star1" ng-class="tutor.reviews.average >= 3 ? 'star-full': 'star-empty'"></span>
+                <span class="icon-star1" ng-class="tutor.reviews.average >= 4 ? 'star-full': 'star-empty'"></span>
+                <span class="icon-star1" ng-class="tutor.reviews.average >= 5 ? 'star-full': 'star-empty'"></span>
+              </div>
+            </div>
+            <div class="content-price">
+              <h4 class="price">
+                {{ tutor.costRange }} <br>
+                Por hora
+              </h4>
+              <div class="preferences">
+                <span class="icon-online" ng-class="{'active' : tutor.preference.online}"></span>
+                <span class="icon-home" ng-class="{'active' : tutor.preference.home}"></span>
+                <span class="icon-public-place" ng-class="{'active' : tutor.preference.public}"></span>
+              </div>
+            </div>
+            <div class="content-button">
+              <button class="action-button see-availability" ng-click="showTutorDetails(tutor)" ng-hide="selectedTutor">Ver disponibilidad</button>
+              <button class="action-button send-message" ng-click="showTutorDetails(tutor)" ng-show="selectedTutor">Enviar mensaje</button>
+            </div>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      <h3 class="col-lg-12 col-md-12 col-sm-12 col-xs-12 section-title" ng-show="suggestedTutorList.length > 0 && !selectedTutor" >También te recomendamos</h3>
+      <div class="tutor" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-repeat="tutor in suggestedTutorList" ng-show="suggestedTutorList.length > 0 && !selectedTutor" on-tutor-search-render>
         <div class="tutor_picture_container col-lg-2 col-md-2 col-sm-12 col-xs-12">
           <div class="tutor_picture">
             <img/>
@@ -122,7 +166,7 @@
     </div>
   </div>
 
-  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-hide="tutorList.length > 0">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-hide="showTopSearchbar">
     <div class="bgcolor-light-gray section-search">
       <img src="/assets/site/geek.png" alt="Geek" class="search-image hidden-xs">
       <div>
@@ -139,16 +183,7 @@
                             minlength="1"
                             input-class="category">
           </angucomplete-alt-geek>
-          <angucomplete-alt-geek id="counties"
-                            placeholder="En la zona de..."
-                            pause="600"
-                            selected-object="selectedCountyInput"
-                            local-data="counties"
-                            search-fields="name"
-                            title-field="name"
-                            minlength="1"
-                            input-class="county">
-          </angucomplete-alt-geek>
+          <input class="county" type="text" ng-model="chosenPlace" details="chosenPlaceDetails" on-place-change="onPlaceChanged" placeholder="En la zona de..." googleplace>
           <button ng-click="searchTutor()">Buscar</button>
         </form>
       </div>

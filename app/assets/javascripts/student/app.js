@@ -318,6 +318,36 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
         }
     }])
 
+    .directive('googleplace', function(){
+        return{
+            require: 'ngModel',
+            scope: {
+                ngModel: '=',
+                details: '=?',
+                onPlaceChange: '='
+            },
+            link: function(scope, element, attr, model){
+                var options = {
+                    types: ['geocode'],
+                    componentRestrictions: { 'country': 'mx' }
+                }
+
+                var autocomplete = new google.maps.places.Autocomplete(element[0], options);
+
+                google.maps.event.addListener(autocomplete, 'place_changed', function(){
+
+                    scope.$apply(function() {
+                        var place = autocomplete.getPlace();
+                        model.$setViewValue(element.val());
+                        scope.onPlaceChange(place);
+                    });
+
+                });
+
+            }
+        }
+    })
+
     .directive('calendarScroll', [function () {
         return function(scope, element, attrs) {
             element.bind("scroll", function() {
