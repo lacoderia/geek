@@ -3,7 +3,7 @@
 Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state", "$translate", "DEFAULT_VALUES", "CategoryService", "ProfileService", function($scope, $rootScope, $timeout, $state, $translate, DEFAULT_VALUES, CategoryService, ProfileService){
 
     // Objeto que tiene los datos del perfil del tutor
-    $rootScope.tutor = null;
+    $rootScope.tutor = {};
 
     // Objeto que contiene el calendario semanal del perfil del usuario
     $rootScope.weekRows = new Array();
@@ -154,11 +154,6 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
                                             'availabilities': data.preference.availabilities
                                         };
 
-                                        // Datos de test
-                                        //$rootScope.tutor.gender = 'M';
-                                        //$rootScope.tutor.phone = '5512345678'
-
-                                        //$rootScope.$broadcast("tutorProfileLoaded");
                                         $scope.createWeekCalendar();
                                     }
                                 },

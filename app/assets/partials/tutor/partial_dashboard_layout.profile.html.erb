@@ -8,10 +8,10 @@
       <div class="tutor_picture">
         <div class="profile_picture_container">
           <div class="profile_picture">
-            <img ng-src="{{ tutor.picture_url && tutor.picture_url || PROFILE_IMAGE }}" alt="{{ PROFILE_IMAGE }}">
+            <img src="">
           </div>
           <div class="action-button-upload" ng-click="openProfilePictureSelector($event)">CAMBIAR FOTO</div>
-          <input type='file' onchange="angular.element(this).scope().selectProfilePicture(this)" name="picture" enctype="multipart/form-data" runat="server" style="display: none"/>
+          <input type='file' accept="image/*" onchange="angular.element(this).scope().selectProfilePicture(this)" name="picture" enctype="multipart/form-data" runat="server" style="display: none"/>
         </div>
       </div>
       <div class="form-group" show-errors>
@@ -70,7 +70,7 @@
             <input type="text" placeholder="Costo" ng-model="selectedTopic.cost" name="tutor_topic_cost" class="form-input form-input-fifth form-control" ng-currency>
             <a class="action-button action-button-medium-gray" ng-click="addTutorTopic()">Añadir</a>
             <div id="tutor_topics" class="items-added-group">
-              <div id="tutor_topic_{{$index}}" ng-repeat="tutorTopic in tutor.topics" class="item-added">{{tutorTopic.name}} <span ng-click="removeTutorTopic($index)" class="icon-close close-item"></span></div>
+              <div id="tutor_topic_{{$index}}" ng-repeat="tutorTopic in tutor.topics" class="item-added">{{tutorTopic.name}} - {{tutorTopic.cost | currency : '$'}}<span ng-click="removeTutorTopic($index)" class="icon-close close-item"></span></div>
             </div>
           </div>
         </div>
@@ -97,10 +97,10 @@
       <div class="tutor_picture">
         <div class="profile_picture_container">
           <div class="profile_picture">
-            <img ng-src="{{ tutor.picture_url && tutor.picture_url || PROFILE_IMAGE }}" alt="{{ PROFILE_IMAGE }}">
+            <img src="">
           </div>
           <div class="action-button-upload" ng-click="openProfilePictureSelector($event)">CAMBIAR FOTO</div>
-          <input type='file' onchange="angular.element(this).scope().selectProfilePicture(this)" name="picture" enctype="multipart/form-data" runat="server" style="display: none"/>
+          <input type="file" accept="image/*" onchange="angular.element(this).scope().selectProfilePicture(this)" name="picture" enctype="multipart/form-data" runat="server" style="display: none"/>
         </div>
       </div>
       <div class="form-group" show-errors>
