@@ -112,3 +112,5 @@ address_tutor = Address.create(description: "Casa tutor", line1: "Carabelas 77",
 
 student.user.addresses << address_student
 tutor.user.addresses << address_tutor
+
+ActiveRecord::Base.connection.execute("CREATE EXTENSION unaccent;")
