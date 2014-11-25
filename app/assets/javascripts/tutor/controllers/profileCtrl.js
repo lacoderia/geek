@@ -3,7 +3,7 @@
 Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", "$timeout", "$location", "$anchorScroll", "CategoryService", "CountyService", "ProfileService", function($scope, $rootScope, DEFAULT_VALUES, $timeout, $location, $anchorScroll, CategoryService, CountyService, ProfileService){
 
     //Categories catalog
-    $scope.categories = [];
+    $scope.parentCategories = [];
 
     //Llenamos las variables necesarias para manipular el calendario
     $scope.HOURS = DEFAULT_VALUES.HOURS;
@@ -27,12 +27,12 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
     });
 
     //Call a service to fill in the categories catalog
-    CategoryService.all().then(
+    CategoryService.parentCategories().then(
         function(data){
             if(data){
                 //Fill the categories availables
-                $scope.categories = data;
-                $scope.selectedCategory = $scope.categories[0];
+                $scope.parentCategories = data;
+                $scope.selectedCategory = $scope.parentCategories[0];
             }
         },
         function(response){
@@ -106,7 +106,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
 
             $scope.selectedTopic.name = '';
             $scope.selectedTopic.cost = '';
-            $scope.selectedCategory = $scope.categories[0];
+            $scope.selectedCategory = $scope.parentCategories[0];
         }
     }
 

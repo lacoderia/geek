@@ -63,7 +63,7 @@
                 <span class="caret"></span>
               </button>
               <ul class="dropdown-menu" role="menu">
-                <li role="presentation" ng-repeat="category in categories"><a role="menuitem" tabindex="{{$index}}"  ng-click="selectCategory(category)">{{ category.name }}</a></li>
+                <li role="presentation" ng-repeat="category in parentCategories"><a role="menuitem" tabindex="{{$index}}"  ng-click="selectCategory(category)">{{ category.name }}</a></li>
               </ul>
             </div>
             <input type="text" placeholder="Tema" ng-model="selectedTopic.name" name="tutor_topic_name" class="form-input form-input-third form-control">
@@ -164,7 +164,7 @@
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" role="menu">
-                    <li role="presentation" ng-repeat="category in categories"><a role="menuitem" tabindex="{{$index}}"  ng-click="selectCategory(category)">{{ category.name }}</a></li>
+                    <li role="presentation" ng-repeat="category in parentCategories"><a role="menuitem" tabindex="{{$index}}"  ng-click="selectCategory(category)">{{ category.name }}</a></li>
                 </ul>
             </div>
             <input type="text" placeholder="Tema" ng-model="selectedTopic.name" name="tutor_topic_name" class="form-input form-input-third form-control">

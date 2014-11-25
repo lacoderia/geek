@@ -18,8 +18,27 @@ Geek.factory('CategoryService', ["$http", "$q", "DEFAULT_VALUES", function($http
         return promise
     };
 
+    var parentCategories = function(){
+        var deferred = $q.defer();
+        var promise = deferred.promise;
+
+        $http.get(DEFAULT_VALUES.URL_SERVICES.CATEGORY_SERVICE_URL, {
+            params: { parent : true }
+        }).
+            success(function(data){
+                deferred.resolve(data);
+            }).
+
+            error(function(response){
+                deferred.reject(response);
+            });
+
+        return promise
+    };
+
     return{
-        all: all
+        all: all,
+        parentCategories: parentCategories
     }
 
 }]);
