@@ -136,9 +136,14 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
     // Show tutor details popup
     $scope.showTutorDetails = function(tutor) {
         if(AuthService.isAuthenticated()){
-            for(i in $scope.tutorList) {
+            for(var i in $scope.tutorList) {
                 if($scope.tutorList[i].id != tutor.id){
                     $scope.tutorList[i].show = false;
+                }
+            }
+            for(var i in $scope.suggestedTutorList) {
+                if($scope.suggestedTutorList[i].id != tutor.id){
+                    $scope.suggestedTutorList[i].show = false;
                 }
             }
             $scope.selectedTutor = tutor;
@@ -158,13 +163,17 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
     $scope.showSearchResults = function() {
         $scope.selectedTutor = null;
 
-        for(i in $scope.tutorList) {
+        for(var i in $scope.tutorList) {
             $scope.tutorList[i].show = true;
+        }
+
+        for(var i in $scope.suggestedTutorList) {
+            $scope.suggestedTutorList[i].show = true;
         }
 
         $timeout(function(){
             $rootScope.$broadcast('ellipsis-add');
-        });
+        }, 0);
     };
 
     $scope.showAppointmentRequestModal = function(event, row, column, day){

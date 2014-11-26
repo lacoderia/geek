@@ -141,7 +141,7 @@
         </div>
         <div class="search-results-tools" ng-show="selectedTutor">
           <span ng-hide="selectedTutor">Filtros:</span>
-          <span ng-click="showSearchResults()" ng-show="selectedTutor">Regresar</span>
+          <span class="btn-back" ng-click="showSearchResults()" ng-show="selectedTutor"><< MOSTRAR TODOS</span>
         </div>
         <div class="search-result-list" ng-show="tutorList.length > 0 || suggestedTutorList.length > 0">
           <div class="tutor col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-repeat="tutor in tutorList" on-tutor-search-render>
@@ -154,9 +154,7 @@
               <div class="content">
                 <h4 class="tutor-name">{{ tutor.first_name }} {{ tutor.last_name }}</h4>
                 <h5 class="tutor-county"><span ng-repeat="county in tutor.counties">{{ county.name }}{{ $last ? '' : ', ' }}</span></h5>
-                <p class="resume">
-                  {{ tutor.background }}
-                </p>
+                <p class="resume" ng-class="{ 'expanded' : tutor.id == selectedTutor.id }" ng-bind="tutor.background" ellipsis ellipsis-append="ver mas..." ellipsis-symbol="... " ellipsis-append-click="showTutorDetails(tutor)" ellipsis-id="tutor.id"></p>
               </div>
               <div class="clearfix"></div>
             </div>
@@ -196,9 +194,7 @@
               <div class="content">
                 <h4 class="tutor-name">{{ tutor.first_name }} {{ tutor.last_name }}</h4>
                 <h5 class="tutor-county"><span ng-repeat="county in tutor.counties">{{ county.name }}{{ $last ? '' : ', ' }}</span></h5>
-                <p class="resume">
-                  {{ tutor.background }}
-                </p>
+                <p class="resume" ng-class="{ 'expanded' : tutor.id == selectedTutor.id }" ng-bind="tutor.background" ellipsis ellipsis-append="ver mas..." ellipsis-symbol="... " ellipsis-append-click="showTutorDetails(tutor)" ellipsis-id="tutor.id"></p>
               </div>
               <div class="clearfix"></div>
             </div>

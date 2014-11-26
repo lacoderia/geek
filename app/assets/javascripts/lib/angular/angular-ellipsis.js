@@ -40,7 +40,6 @@ angular.module('angular-ellipsis',[])
                 /* Scope Variables */
                 scope.originalAppendText = scope.ellipsisAppend;
 
-
 				function buildEllipsis() {
 					if (typeof(scope.ngBind) !== 'undefined') {
 						var bindArray = scope.ngBind.split(" "),
@@ -99,14 +98,18 @@ angular.module('angular-ellipsis',[])
 					*	Execute ellipsis truncate on ngBind update
 					*/
 					scope.$watch('ngBind', function () {
-						buildEllipsis();
+                        $timeout(function(){
+                            buildEllipsis();
+                        }, 0);
 					});
 
 				   /**
 					*	Execute ellipsis truncate on ngBind update
 					*/
 					scope.$watch('ellipsisAppend', function () {
-						buildEllipsis();
+                        $timeout(function() {
+                            buildEllipsis();
+                        }, 0);
 					});
 
 				   /**
@@ -137,7 +140,7 @@ angular.module('angular-ellipsis',[])
                     });
 
                     /**
-                    *
+                    *   Remove
                     */
 
                     scope.$on('ellipsis-remove', function (event, ellipsisId) {
