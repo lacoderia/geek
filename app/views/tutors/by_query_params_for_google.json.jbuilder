@@ -24,7 +24,7 @@ json.set! :tutors do
       end
     end
     json.set! :preference do
-      json.extract! (tutor.preference), :id, :online, :office, :cost
+      json.extract! (tutor.preference), :id, :online, :office, :public, :student_place, :cost
     end
     json.set! :reviews do
       counter = 0

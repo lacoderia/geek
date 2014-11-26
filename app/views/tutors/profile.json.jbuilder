@@ -1,7 +1,7 @@
 if @tutor
   json.extract! @tutor, :id, :first_name, :last_name, :email, :gender, :phone_number, :details, :references, :background, :picture_url
   json.set! :preference do
-    json.extract! @tutor.preference, :id, :online, :office, :public, :cost if @tutor.preference
+    json.extract! @tutor.preference, :id, :online, :office, :public, :student_place, :cost if @tutor.preference
     json.set! :availabilities do
       json.array!(@tutor.preference.availabilities) do |availability|
         json.extract! availability, :id
