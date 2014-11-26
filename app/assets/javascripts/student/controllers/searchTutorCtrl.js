@@ -101,6 +101,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
     //Find a tutor, by the inputted data by the user
     $scope.searchTutor = function(){
         $scope.showTopSearchbar = true;
+
         var categoryId = undefined
         if($scope.subjectInput){
             categoryId = $scope.subjectInput.originalObject.id
@@ -109,7 +110,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
         TutorService.getTutorByQueryParamsForGoogle($scope.components_address, categoryId).then(
             function(data){
                 if(data){
-
+                    console.log(data)
                     $scope.tutorList = data.tutors;
                     $scope.suggestedTutorList = data.suggested_tutors;
 

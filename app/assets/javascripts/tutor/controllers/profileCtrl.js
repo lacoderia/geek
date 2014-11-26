@@ -26,6 +26,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
       }, 0);
     });
 
+
     //Call a service to fill in the categories catalog
     CategoryService.parentCategories().then(
         function(data){
@@ -255,7 +256,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
                         $scope.updatedCalendar = true;
                         $scope.tutorProfileAlertParams = {
                             type: 'success',
-                            message: 'La actualización fue realizada con éxito',
+                            message: 'El calendario fue actualizado con éxito',
                             icon: true
                         };
                         $scope.calendarErrorClass = '';
@@ -311,7 +312,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
                         $rootScope.tutor.picture_url = data.picture_url;
                         $scope.tutorProfileAlertParams = {
                             type: 'success',
-                            message: 'La actualización fue realizada con éxito',
+                            message: '¡Felicidades, ya quedó listo y guardado tu perfil! Siempre pordrás editarlo y ajustarlo desde la liga "Perfil" en la página de inicio.',
                             icon: true
                         };
 
