@@ -118,6 +118,15 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
             suffix: '.json'
         });
 
+        $translateProvider.registerAvailableLanguageKeys(
+            ['en_US', 'es_MX'],
+            {
+                'en*': 'en_US',
+                'es*': 'es_MX',
+                '*': 'es_MX' // must be last!
+            }
+        );
+        $translateProvider.fallbackLanguage('es_MX');
         $translateProvider.determinePreferredLanguage();
 
     }])
