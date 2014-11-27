@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  resources :registered_anomaly_statuses
+
+  resources :registered_anomalies
+
+  resources :anomalies
+
   resources :municipalities
 
   devise_for :admin_users, ActiveAdmin::Devise.config

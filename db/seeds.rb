@@ -113,4 +113,19 @@ address_tutor = Address.create(description: "Casa tutor", line1: "Carabelas 77",
 student.user.addresses << address_student
 tutor.user.addresses << address_tutor
 
+######## manejo de anomalías
+
+pending_anomaly_status = RegisteredAnomalyStatus.create(name: "Pendiente")
+valid_anomaly_status = RegisteredAnomalyStatus.create(name: "Valida")
+invalid_anomaly_status = RegisteredAnomalyStatus.create(name: "Invalida")
+
+late_show_anomaly = Anomaly.create(name: "Late Show")
+no_show_anomaly = Anomaly.create(name: "No Show")
+cancelled_anomaly = Anomaly.create(name: "Cancelada")
+other_anomaly = Anomaly.create(name: "Otra")
+
+registered_anomaly = RegisteredAnomaly.create(anomaly_id: late_show_anomaly.id, user_id: user_student.id, source_id: user_tutor.id, appointment_id: appointment.id, description: "El vato llegó borracho y tarde", registered_anomaly_status_id: pending_anomaly_status.id, fee_student: 50, fee_tutor: 50 )
+
+######## Extensión unaccent para hacer búsquedas sin acentos
+
 ActiveRecord::Base.connection.execute("CREATE EXTENSION unaccent;")
