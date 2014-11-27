@@ -98,7 +98,6 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                                 function(data){
                                     if(data && data.id){
                                         SessionService.createSession(data.id, data.email, data.first_name, data.last_name, data.gender, data.phone_number);
-                                        $rootScope.$broadcast('userAuthenticated');
                                         $state.go('dashboard.search-tutor');
 
                                     }else{
@@ -346,6 +345,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                 google.maps.event.addListener(autocomplete, 'place_changed', function(){
 
                     scope.$apply(function() {
+
                         var place = autocomplete.getPlace();
                         model.$setViewValue(element.val());
                         scope.onPlaceChange(place);

@@ -56,6 +56,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
                 }
             }
         }
+
     };
 
     $scope.getTutorCostRange = function(tutor){
@@ -110,7 +111,6 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
         TutorService.getTutorByQueryParamsForGoogle($scope.components_address, categoryId).then(
             function(data){
                 if(data){
-                    console.log(data)
                     $scope.tutorList = data.tutors;
                     $scope.suggestedTutorList = data.suggested_tutors;
 
@@ -131,6 +131,8 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
                 console.log('Error retrieving the search results: ' + response);
             }
         );
+
+
 
     };
 
@@ -157,7 +159,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
         }else{
             $rootScope.$broadcast('showSigInModal');
         }
-                
+
     };
 
     // Show all tutors found on tutor search
@@ -246,19 +248,19 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
     };
 
     $scope.selectCategory = function(category){
-       $scope.selectedCategory = category;
-       $scope.selectedCategoryName = category.name + ' - ' + $filter('currency')(category.cost, '$');
+        $scope.selectedCategory = category;
+        $scope.selectedCategoryName = category.name + ' - ' + $filter('currency')(category.cost, '$');
     };
 
 
     $scope.sendAppointmentRequest = function() {
 
         var appointment = {
-         'tutorId': $scope.selectedTutor.id,
-         'start': $scope.selectedClass.dateTimeISO,
-         'duration': 1,
-         'studentId': $scope.student.id,
-         'description': $scope.selectedCategoryName
+            'tutorId': $scope.selectedTutor.id,
+            'start': $scope.selectedClass.dateTimeISO,
+            'duration': 1,
+            'studentId': $scope.student.id,
+            'description': $scope.selectedCategoryName
         }
 
         if($scope.selectedCategory){

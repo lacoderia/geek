@@ -627,7 +627,7 @@ footer{
       margin: 0px;
       padding: 2em;
 
-      input, select, button{
+      input, select, a.search-button{
         background: $color-input-bgcolor;
         border: 1px solid $color-medium-gray;
         border-radius: 10px;
@@ -639,15 +639,16 @@ footer{
 
       }
 
-      button{
+      a.search-button{
         color: $color-dark-blue;
         display: block;
         margin: 1em auto 1em;
         padding: 0.8em 1.5em;
+        text-align: center;
         width: 100px;
       }
 
-      button:hover{
+      a.search-button:hover{
         background-color: rgba(166, 168, 171, 0.2);
       }
 
@@ -924,7 +925,7 @@ footer{
     margin: 0em auto;
     padding: 2em;
 
-    input, select, button{
+    input, select, a.search-button{
       background: $color-input-bgcolor;
       border: 1px solid $color-medium-gray;
       border-radius: 10px;
@@ -936,15 +937,16 @@ footer{
 
     }
 
-    button{
+    a.search-button{
       color: $color-dark-blue;
       display: block;
       margin: 1em auto 1em;
       padding: 0.8em 1.5em;
+      text-align: center;
       width: 100px;
     }
 
-    button:hover{
+    a.search-button:hover{
       background-color: rgba(166, 168, 171, 0.2);
     }
 
@@ -1050,12 +1052,12 @@ footer{
       padding: 0em 2em 0em 4em;
       text-align: right;
 
-      input, select, button{
+      input, select, a.search-button{
         display: inline-block;
 
       }
 
-      button{
+      a.search-button{
         display: inline-block;
         padding: 0.8em 1.5em;
         width: 150px;
@@ -1149,7 +1151,7 @@ footer{
         margin: 0px;
         padding: 1em;
 
-        input, select, button{
+        input, select, a.search-button{
           background: $color-input-bgcolor;
           border: 1px solid $color-medium-gray;
           border-radius: 10px;
@@ -1161,15 +1163,16 @@ footer{
 
         }
 
-        button{
+        a.search-button{
           color: $color-dark-blue;
           display: inline-block;
           margin: 0em auto;
           padding: 0.8em 1.5em;
+          text-align: center;
           width: 18%;
         }
 
-        button:hover{
+        a.search-button:hover{
           background-color: rgba(166, 168, 171, 0.2);
         }
 
@@ -1239,7 +1242,7 @@ footer{
       margin: 0em 0em 1em 7em;
       padding: 0em;
 
-      button{
+      a.search-button{
         display: inline-block;
         padding: 0.8em 1.5em;
         width: 150px;
@@ -1287,7 +1290,7 @@ footer{
     form{
       display: inline-block;
 
-      button{
+      a.search-button{
         padding: 0.8em 1.5em;
         width: 150px;
       }

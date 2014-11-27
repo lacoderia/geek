@@ -8,6 +8,24 @@
     padding: 0.2rem 0rem !important;
 }
 
+.zones_unavailable{
+  pointer-events: none;
+
+  input{
+    background-color: $color-light-gray;
+  }
+
+  .item-added{
+    background-color: $color-light-gray;
+    border: 1px solid $color-input-gray;
+    color: $color-input-gray !important;
+
+    .close-item{
+      color: $color-input-gray !important;
+    }
+  }
+}
+
 .calendar{
   .tutor-calendar-section{
     height: 480px !important;

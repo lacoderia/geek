@@ -10,21 +10,48 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.TOTAL_WEEKLY_CALENDAR_ROWS = DEFAULT_VALUES.TOTAL_WEEKLY_CALENDAR_ROWS;
     $scope.PROFILE_IMAGE = DEFAULT_VALUES.PROFILE_IMAGE;
+    $scope.help = {
+        formation: '¡Cuéntanos un poco sobre ti! ¿Qué te hace un buen tutor? <br><br> Sé lo más detallado posible e incluye información relevante que te pueda diferenciar del resto detutores en la plataforma',
+        topics: 'Qué materias quieres enseñar en Geek? <br><br> Agrega una por una las materias que quisieras enseñar. Escribe el nombre de la materia, define una categoría a la que pertenece (Académico, Lenguas, Artes, Exámenes, y Computación) y fija un costo por hora. <br><br> Puedes ser tan específico o general como tu quieras',
+        preferences: '¿En qué modalidades puedes/quieres dar tus tutorías? Elige una o varias de las opciones: <ol type="i"><li>Casa tutor- las tutorías pueden ser en tu casa</li><li>Casa estudiante-estás dispuesto a ir a la casa de tus alumnos</li><li>Espacio público- puedes dar tus tutorías en un café, biblioteca, escuela o otro espacio público</li><li> En línea-puedes ofrecer dar tus clases en línea</li></ol>',
+        zones: '¿En qué zonas de la ciudad puedes/quieres dar tus tutorías? <br><br> Recuerda que los estudiantes van a buscar materias de interés por zonas particulares de la ciudad. Puedes elegir varias colonias específicas y/o delegaciones. <br><br> Mientras más detallado seas en tus preferencias, ¡mejor!',
+        availability: '¿En qué días y horarios estás disponible?<br><br> Elige tu disponibilidad default que se replicará para el resto de las semanas del calendario. <br><br> Recuerda que si quieres cambiar tu disponibilidad en semanas específicas, lo podrás hacer al terminareste perfil y entrar a tu calendario'
+    };
 
     $scope.tutorRequestAlertParams = undefined;
     $scope.tutorProfileAlertParams = undefined;
     $scope.calendarAlertMessagesParams = undefined;
     $scope.calendarErrorClass = undefined;
-
+    $scope.zonesAvailable = false;
 
     $scope.$watch('tutorProfileLoaded', function() {
-      $timeout(function(){
-        $location.hash('week-row-07:30');
-        $anchorScroll();
-        $location.url($location.path());
-        $anchorScroll();
-      }, 0);
+        $timeout(function(){
+            $location.hash('week-row-07:30');
+            $anchorScroll();
+            $location.url($location.path());
+            $anchorScroll();
+        }, 0);
     });
+
+    $scope.$watch('tutor.preference.classLocation', function(){
+        if($rootScope.tutor.preference){
+            $scope.setZonesAvailabilities();
+        }
+    });
+
+    $scope.setZonesAvailabilities = function(){
+        if($rootScope.tutor.preference.classLocation.office || $rootScope.tutor.preference.classLocation.student_place || $rootScope.tutor.preference.classLocation.public){
+            $scope.zonesAvailable = true;
+            console.log(true)
+        }else{
+            $scope.zonesAvailable = false;
+            console.log(false)
+        }
+    }
+
+    $scope.changeClassLocation = function(){
+        $scope.setZonesAvailabilities();
+    };
 
 
     //Call a service to fill in the categories catalog
@@ -296,10 +323,11 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
                 'phone_number': $rootScope.tutor.phone_number,
                 'gender': $rootScope.tutor.gender,
                 'preference': {
-                  'cost': $rootScope.tutor.preference.cost,
-                  'online': $rootScope.tutor.preference.classLocation.online,
-                  'office': $rootScope.tutor.preference.classLocation.office,
-                  'public': $rootScope.tutor.preference.classLocation.public
+                    'cost': $rootScope.tutor.preference.cost,
+                    'online': $rootScope.tutor.preference.classLocation.online,
+                    'office': $rootScope.tutor.preference.classLocation.office,
+                    'public': $rootScope.tutor.preference.classLocation.public,
+                    'student_place': $rootScope.tutor.preference.classLocation.student_place
                 },
                 'counties': $rootScope.tutor.zones,
                 'picture': $rootScope.tutor.picture

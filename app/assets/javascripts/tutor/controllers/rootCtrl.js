@@ -149,7 +149,8 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
                                             'classLocation': {
                                                 'online': data.preference.online,
                                                 'office': data.preference.office,
-                                                'public': data.preference.public
+                                                'public': data.preference.public,
+                                                'student_place': data.preference.student_place
                                             },
                                             'availabilities': data.preference.availabilities
                                         };

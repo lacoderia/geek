@@ -151,44 +151,21 @@
       <legend>Información académica</legend>
       <div class="form-group" show-errors>
         <div class="left">
-          <label>Formación y Experiencia:</label>
+          <label><span class="icon-help icon-pointer" data-placement="top-left" data-content="{{ help.formation }}" data-trigger="click" html="true" bs-popover ></span> Formación y Experiencia:</label>
         </div>
         <div class="right">
-          <p class="input-message">
-            ¡Cuéntanos un poco sobre ti! ¿Qué te hace un buen tutor? Sé lo más detallado
-            posible e incluye información relevante que te pueda diferenciar del resto de
-            tutores en la plataforma:
-            <br><br>
-            <em>Estudié Matemáticas Aplicadas en la Universidad Iberoamericana en México DF,
-              con especialización en alemán, economía, y escritura. Estando ahí, fui tutor de
-              estudiantes en todo, desde sumar y restar hasta cálculo diferencial e integral.
-              Obtuve una Maestría en Artes en Enseñanza de Bard College en el '07. He estado
-              dando tutoría desde hace 10 años, y de tiempo completo por más de 6. He tenido
-              estudiantes entre las edades de 6 y 66 años, con un enfoque en los estudiantes de
-              secundaria aunque estoy muy cómodo con cualquier curso de matemáticas.</em>
-          </p>
-        </div>
-        <div class="left">
-        </div>
-        <div class="right">
-          <textarea name="tutor_studies" rows="10" ng-model="tutor.studies" class="form-textarea form-control" placeholder="FORMACIÓN" popover="{{tutorProfileForm.tutor_studies.popoverMessage}}" popover-trigger="focus" popover-animation="false" required></textarea>
+          <textarea name="tutor_studies" rows="10" ng-model="tutor.studies" class="form-textarea form-control"
+                    placeholder="Ej. Estudié Matemáticas Aplicadas en la Universidad Iberoamericana en México DF, con especialización en alemán, economía, y escritura. Estando ahí, fui tutor de estudiantes en todo, desde sumar y restar hasta cálculo diferencial e integral. Obtuve una Maestría en Artes en Enseñanza de Bard College en el '07. He estado dando tutoría desde hace 10 años, y de tiempo completo por más de 6. He tenido estudiantes entre las edades de 6 y 66 años, con un enfoque en los estudiantes de secundaria aunque estoy muy cómodo con cualquier curso de matemáticas."
+                    popover="{{tutorProfileForm.tutor_studies.popoverMessage}}"
+                    popover-trigger="focus"
+                    popover-animation="false"
+                    required>
+          </textarea>
         </div>
       </div>
       <div class="form-group" show-errors show-errors-params="tutor.topics" show-errors-validation-type="arrayLength">
         <div class="left">
-          <label>Temas:</label>
-        </div>
-        <div class="right">
-          <p class="input-message">
-            ¿Qué materias quieres enseñar en Geek? Agrega una por una las materias que
-            quisieras enseñar. Escribe el nombre de la materia, define una categoría a la
-            que pertenece (Académico, Lenguas, Artes, Exámenes, y Computación) y fija un
-            costo por hora. Puedes ser tan específico o general como tu quieras.
-            <br><br>
-            <em>Ej. Algebra, pertenece a la categoría Académico, con un costo por hora de $400</em>
-          </p>
-        </div>
-        <div class="left">
+          <label><span class="icon-help icon-pointer" data-placement="top-left" data-content="{{ help.topics }}" data-trigger="click" html="true" bs-popover ></span> Temas:</label>
         </div>
         <div class="right">
           <div>
@@ -202,8 +179,8 @@
                     <li role="presentation" ng-repeat="category in parentCategories"><a role="menuitem" tabindex="{{$index}}"  ng-click="selectCategory(category)">{{ category.name }}</a></li>
                 </ul>
             </div>
-            <input type="text" placeholder="Tema" ng-model="selectedTopic.name" name="tutor_topic_name" class="form-input form-input-third form-control">
-            <input type="text" placeholder="Costo" ng-model="selectedTopic.cost" name="tutor_topic_cost" class="form-input form-input-fifth form-control" ng-currency>
+            <input type="text" placeholder="Ej. Algebra" ng-model="selectedTopic.name" name="tutor_topic_name" class="form-input form-input-third form-control">
+            <input type="text" placeholder="Ej. 400" ng-model="selectedTopic.cost" name="tutor_topic_cost" class="form-input form-input-fifth form-control" ng-currency>
             <a class="action-button action-button-medium-gray" ng-click="addTutorTopic()">Añadir</a>
             <div id="tutor_topics" class="items-added-group">
                 <div id="tutor_topic_{{$index}}" ng-repeat="tutorTopic in tutor.topics" class="item-added">{{tutorTopic.name}} - {{tutorTopic.cost | currency : '$'}}<span ng-click="removeTutorTopic($index)" class="icon-close close-item"></span></div>
@@ -215,78 +192,57 @@
     <fieldset>
       <legend>Información de clases</legend>
       <div class="form-group">
-        <div class="left">
-          <label>Zonas:</label>
-        </div>
-        <div class="right">
-          <p class="input-message">
-            ¿En qué zonas de la ciudad puedes/quieres dar tus tutorías? Recuerda que
-            los estudiantes van a buscar materias de interés por zonas particulares de la
-            ciudad. Puedes elegir varias colonias específicas y/o delegaciones. Mientras más
-            detallado seas en tus preferencias, ¡mejor!
-          </p>
-        </div>
-        <div class="left">
-        </div>
-        <div class="right profile-zones">
-          <angucomplete-alt-geek id="counties"
-                                 placeholder="ZONA"
-                                 pause="600"
-                                 selected-object="selectedZone"
-                                 local-data="counties"
-                                 search-fields="name"
-                                 title-field="name"
-                                 minlength="1"
-                                 input-class="form-control"
-                                 name="tutor_zone"
-                                 showerrors="true"
-                                 object-validation="tutor.zones">
-          </angucomplete-alt-geek>
-          <a class="action-button action-button-medium-gray" ng-click="addTutorZone()">Añadir</a>
-          <div id="tutor_zones" class="items-added-group">
-            <div id="tutor_zone_{{$index}}" ng-repeat="tutorZone in tutor.zones" class="item-added">{{tutorZone.name}} <span ng-click="removeTutorZone($index)" class="icon-close close-item"></span></div>
+        <div class="form-group" show-errors="{'trigger':'change'}" show-errors-params="tutor.preference.classLocation" show-errors-validation-type="checkboxGroup">
+          <div class="left">
+            <label><span class="icon-help icon-pointer" data-placement="top-left" data-content="{{ help.preferences }}" data-trigger="click" html="true" bs-popover ></span> Modalidad:</label>
           </div>
-        </div>
-      </div>
-      <div class="form-group" show-errors="{'trigger':'change'}" show-errors-params="tutor.preference.classLocation" show-errors-validation-type="checkboxGroup">
-        <div class="left">
-          <label>Modalidad:</label>
-        </div>
-        <div class="right">
-          <p class="input-message">
-            ¿En qué modalidades puedes/quieres dar tus tutorías? Elige una o varias de las
-            opciones: i) Casa tutor- las tutorías pueden ser en tu casa; ii) Casa estudiante-
-            estás dispuesto a ir a la casa de tus alumnos; iii) Espacio público- puedes dar
-            tus tutorías en un café, biblioteca, escuela o otro espacio público; iv) En línea-
-            puedes ofrecer dar tus clases en línea.
-          </p>
-        </div>
+
         <div class="right form-radio custom-checkbox custom-checkbox-profile">
           <div popover="{{tutorProfileForm.tutor_class_mode.popoverMessage}}" popover-trigger="mouseenter" popover-animation="false">
-            <input type="checkbox" id="tutor_class_mode_online" name="tutor_class_mode" ng-model="tutor.preference.classLocation.online" class="form-control">
+            <input type="checkbox" id="tutor_class_mode_online" name="tutor_class_mode" ng-model="tutor.preference.classLocation.online" ng-change="changeClassLocation()" class="form-control">
             <label for="tutor_class_mode_online">EN LÍNEA</label>
-            <input type="checkbox" id="tutor_class_mode_home" name="tutor_class_mode" ng-model="tutor.preference.classLocation.office" class="form-control">
-            <label for="tutor_class_mode_home">CASA/OFICINA</label>
-            <input type="checkbox" id="tutor_class_mode_public" name="tutor_class_mode" ng-model="tutor.preference.classLocation.public" class="form-control">
+
+            <input type="checkbox" id="tutor_class_mode_tutor_home" name="tutor_class_mode" ng-model="tutor.preference.classLocation.office" ng-change="changeClassLocation()" class="form-control">
+            <label for="tutor_class_mode_tutor_home">EN MI CASA</label>
+
+            <input type="checkbox" id="tutor_class_mode_student_home" name="tutor_class_mode" ng-model="tutor.preference.classLocation.student_place" ng-change="changeClassLocation()" class="form-control">
+            <label for="tutor_class_mode_student_home">EN CASA DEL ESTUDIANTE</label>
+
+            <input type="checkbox" id="tutor_class_mode_public" name="tutor_class_mode" ng-model="tutor.preference.classLocation.public" ng-change="changeClassLocation()" class="form-control">
             <label for="tutor_class_mode_public">PÚBLICA</label>
+          </div>
+        </div>
+
+        </div>
+        <div class="form-group" ng-show="zonesAvailable">
+          <div class="left">
+            <label><span class="icon-help icon-pointer" data-placement="top-left" data-content="{{ help.zones }}" data-trigger="click" html="true" bs-popover ></span> Zonas:</label>
+          </div>
+          <div class="right profile-zones">
+            <angucomplete-alt-geek id="counties"
+                                   placeholder="ZONA"
+                                   pause="600"
+                                   selected-object="selectedZone"
+                                   local-data="counties"
+                                   search-fields="name"
+                                   title-field="name"
+                                   minlength="1"
+                                   input-class="form-control"
+                                   name="tutor_zone"
+                                   showerrors="true"
+                                   object-validation="tutor.zones">
+            </angucomplete-alt-geek>
+            <a class="action-button action-button-medium-gray" ng-click="addTutorZone()" ng-show="zonesAvailable">Añadir</a>
+            <div id="tutor_zones" class="items-added-group">
+              <div id="tutor_zone_{{$index}}" ng-repeat="tutorZone in tutor.zones" class="item-added">{{tutorZone.name}} <span ng-click="removeTutorZone($index)" class="icon-close close-item"></span></div>
+            </div>
           </div>
         </div>
       </div>
     </fieldset>
     <div class="calendar">
       <div class="left">
-        <label>Disponibilidad:</label>
-      </div>
-      <div class="right">
-        <p class="input-message">
-          ¿En qué días y horarios estás disponible? Elige tu disponibilidad default que se
-          replicará para el resto de las semanas del calendario. Recuerda que si quieres
-          cambiar tu disponibilidad en semanas específicas, lo podrás hacer al terminar
-          este perfil y entrar a tu calendario.
-        </p>
-      </div>
-      <div class="left">
-        <label></label>
+        <label><span class="icon-help icon-pointer" data-placement="top-left" data-content="{{ help.preferences }}" data-trigger="click" html="true" bs-popover ></span> Disponibilidad:</label>
       </div>
       <div class="right">
         <ng-alert-message alert-params="calendarAlertMessagesParams"></ng-alert-message>
