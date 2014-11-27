@@ -257,6 +257,10 @@ footer{
           }
         }
 
+        .form-group{
+          position: relative;
+        }
+
         .form-input {
           background: white;
           background-color: $color-sign-up-medium-blue;
@@ -278,14 +282,6 @@ footer{
           font-size: 18px;
           margin-top: 12px;
           padding-top: 10px;
-        }
-
-        .has-error .form-input{
-          background-color: red;
-        }
-
-        .has-error.form-checkbox{
-          background-color: red;
         }
 
         .form-checkbox {
@@ -328,6 +324,39 @@ footer{
             padding-top: 4px;
             vertical-align: middle;
           }
+        }
+
+        .has-error {
+          .form-input, .form-input-half, .form-textarea, .form-span{
+            border: solid 1px red;
+          }
+
+          [type="checkbox"]:not(:checked) + label:before,
+          [type="checkbox"]:checked + label:before {
+            border: solid 1px red;
+          }
+        }
+
+        .form-checkbox.has-error:before {
+          display: none;
+        }
+
+        .has-error:before {
+          background-color: $color-light-red;
+          border-radius: 50% 50%;
+          color: white;
+          content: "!";
+          font-size: 13px;
+          font-weight: 500;
+          display: inline-block;
+          height: 15px;
+          padding-left: 1px;
+          position: absolute;
+          right: 10px;
+          text-align: center;
+          top: 8px;
+          width: 15px;
+          z-index: 100;
         }
       }
     }
