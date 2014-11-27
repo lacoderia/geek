@@ -115,14 +115,14 @@ tutor.user.addresses << address_tutor
 
 ######## manejo de anomalías
 
-pending_anomaly_status = RegisteredAnomalyStatus.create(name: "Pendiente")
-valid_anomaly_status = RegisteredAnomalyStatus.create(name: "Valida")
-invalid_anomaly_status = RegisteredAnomalyStatus.create(name: "Invalida")
+pending_anomaly_status = RegisteredAnomalyStatus.create(name: "Pendiente", code: "0")
+valid_anomaly_status = RegisteredAnomalyStatus.create(name: "Valida", code: "1")
+invalid_anomaly_status = RegisteredAnomalyStatus.create(name: "Invalida", code: "2")
 
-late_show_anomaly = Anomaly.create(name: "Late Show")
-no_show_anomaly = Anomaly.create(name: "No Show")
-cancelled_anomaly = Anomaly.create(name: "Cancelada")
-other_anomaly = Anomaly.create(name: "Otra")
+late_show_anomaly = Anomaly.create(name: "Late Show", code: "0")
+no_show_anomaly = Anomaly.create(name: "No Show", code: "1")
+cancelled_anomaly = Anomaly.create(name: "Cancelada", code: "2")
+other_anomaly = Anomaly.create(name: "Otra", code: "3")
 
 registered_anomaly = RegisteredAnomaly.create(anomaly_id: late_show_anomaly.id, user_id: user_student.id, source_id: user_tutor.id, appointment_id: appointment.id, description: "El vato llegó borracho y tarde", registered_anomaly_status_id: pending_anomaly_status.id, fee_student: 50, fee_tutor: 50 )
 
