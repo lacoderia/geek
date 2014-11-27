@@ -128,13 +128,14 @@
                                  input-class="category">
           </angucomplete-alt-geek>
           <input class="county" type="text" ng-model="chosenPlace" details="chosenPlaceDetails" on-place-change="onPlaceChanged" placeholder="En la zona de..." googleplace>
-          <a class="search-button" ng-click="searchTutor()">Buscar</a>
+          <a class="search-button icon-pointer" ng-click="searchTutor()">Buscar</a>
         </form>
         <div class="clearfix"></div>
       </div>
 
       <div class="search-results-list" ng-show="showTopSearchbar">
-        <div class="unavailable-message" ng-show="tutorList.length < 1 && suggestedTutorList.length < 1">
+        <div class="unavailable-message" ng-hide
+                ="tutorList.length || suggestedTutorList.length">
           <div class="unavailable-message-content">
             <h3>Lo sentimos, no encontramos tutores</h3>
           </div>
@@ -143,7 +144,7 @@
           <span ng-hide="selectedTutor">Filtros:</span>
           <span class="btn-back" ng-click="showSearchResults()" ng-show="selectedTutor"><< MOSTRAR TODOS</span>
         </div>
-        <div class="search-result-list" ng-show="tutorList.length > 0 || suggestedTutorList.length > 0">
+        <div class="search-result-list" ng-show="tutorList.length || suggestedTutorList.length">
           <div class="tutor col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-repeat="tutor in tutorList" on-tutor-search-render>
             <div class="tutor_picture_container col-lg-2 col-md-2 col-sm-12 col-xs-12">
               <div class="tutor_picture">
@@ -162,11 +163,11 @@
               <div class="content">
                 <div class="content-score">
                   <div class="score">
-                    <span class="icon-star1"></span>
-                    <span class="icon-star1"></span>
-                    <span class="icon-star1"></span>
-                    <span class="icon-star1"></span>
-                    <span class="icon-star1"></span>
+                    <span class="icon-star1" ng-class="tutor.reviews.average >= 1 ? 'star-full': 'star-empty'"></span>
+                    <span class="icon-star1" ng-class="tutor.reviews.average >= 2 ? 'star-full': 'star-empty'"></span>
+                    <span class="icon-star1" ng-class="tutor.reviews.average >= 3 ? 'star-full': 'star-empty'"></span>
+                    <span class="icon-star1" ng-class="tutor.reviews.average >= 4 ? 'star-full': 'star-empty'"></span>
+                    <span class="icon-star1" ng-class="tutor.reviews.average >= 5 ? 'star-full': 'star-empty'"></span>
                   </div>
                 </div>
                 <div class="content-price">
@@ -174,6 +175,12 @@
                     {{ tutor.costRange }} <br>
                     Por hora
                   </h4>
+                  <div class="preferences">
+                    <span class="icon-earth" ng-class="{'active' : tutor.preference.online}" title="En línea"></span>
+                    <span class="icon-teach" ng-class="{'active' : tutor.preference.office}" title="Casa del tutor"></span>
+                    <span class="icon-school" ng-class="{'active' : tutor.preference.student_place}" title="Casa del estudiante"></span>
+                    <span class="icon-coffee" ng-class="{'active' : tutor.preference.public}" title="Lugar público"></span>
+                  </div>
                 </div>
                 <div class="content-button" ng-hide="selectedTutor">
                   <button class="action-button send-message" ng-click="showTutorDetails(tutor)" >Ver disponibilidad</button>
@@ -202,11 +209,11 @@
               <div class="content">
                 <div class="content-score">
                   <div class="score">
-                    <span class="icon-star1"></span>
-                    <span class="icon-star1"></span>
-                    <span class="icon-star1"></span>
-                    <span class="icon-star1"></span>
-                    <span class="icon-star1"></span>
+                    <span class="icon-star1" ng-class="tutor.reviews.average >= 1 ? 'star-full': 'star-empty'"></span>
+                    <span class="icon-star1" ng-class="tutor.reviews.average >= 2 ? 'star-full': 'star-empty'"></span>
+                    <span class="icon-star1" ng-class="tutor.reviews.average >= 3 ? 'star-full': 'star-empty'"></span>
+                    <span class="icon-star1" ng-class="tutor.reviews.average >= 4 ? 'star-full': 'star-empty'"></span>
+                    <span class="icon-star1" ng-class="tutor.reviews.average >= 5 ? 'star-full': 'star-empty'"></span>
                   </div>
                 </div>
                 <div class="content-price">
@@ -214,6 +221,12 @@
                     {{ tutor.costRange }} <br>
                     Por hora
                   </h4>
+                  <div class="preferences">
+                    <span class="icon-earth" ng-class="{'active' : tutor.preference.online}" title="En línea"></span>
+                    <span class="icon-teach" ng-class="{'active' : tutor.preference.office}" title="Casa del tutor"></span>
+                    <span class="icon-school" ng-class="{'active' : tutor.preference.student_place}" title="Casa del estudiante"></span>
+                    <span class="icon-coffee" ng-class="{'active' : tutor.preference.public}" title="Lugar público"></span>
+                  </div>
                 </div>
                 <div class="content-button" ng-hide="selectedTutor">
                   <button class="action-button send-message" ng-click="showTutorDetails(tutor)" >Ver disponibilidad</button>
@@ -244,7 +257,7 @@
                                    input-class="category">
             </angucomplete-alt-geek>
             <input class="county" type="text" ng-model="chosenPlace" details="chosenPlaceDetails" on-place-change="onPlaceChanged" placeholder="En la zona de..." googleplace>
-            <a class="search-button" ng-click="searchTutor()">Buscar</a>
+            <a class="search-button icon-pointer" ng-click="searchTutor()">Buscar</a>
           </form>
         </div>
         <img src="/assets/site/geek.png" alt="Geek" class="search-image hidden-lg hidden-md hidden-sm">
