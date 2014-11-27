@@ -13,7 +13,7 @@
                         input-class="category">
       </angucomplete-alt-geek>
       <input class="county" type="text" ng-model="chosenPlace" details="chosenPlaceDetails" on-place-change="onPlaceChanged" placeholder="En la zona de..." googleplace>
-      <a class="search-button" ng-click="searchTutor()">Buscar</a>
+      <a class="search-button icon-pointer" ng-click="searchTutor()">Buscar</a>
     </form>
     <div class="clearfix"></div>
   </div>
@@ -63,9 +63,10 @@
                 Por hora
               </h4>
               <div class="preferences">
-                <span class="icon-online" ng-class="{'active' : tutor.preference.online}"></span>
-                <span class="icon-home" ng-class="{'active' : tutor.preference.home}"></span>
-                <span class="icon-public-place" ng-class="{'active' : tutor.preference.public}"></span>
+                <span class="icon-earth" ng-class="{'active' : tutor.preference.online}" title="En línea"></span>
+                <span class="icon-teach" ng-class="{'active' : tutor.preference.office}" title="Casa del tutor"></span>
+                <span class="icon-school" ng-class="{'active' : tutor.preference.student_place}" title="Casa del estudiante"></span>
+                <span class="icon-coffee" ng-class="{'active' : tutor.preference.public}" title="Lugar público"></span>
               </div>
             </div>
             <div class="content-button">
@@ -111,9 +112,10 @@
                 Por hora
               </h4>
               <div class="preferences">
-                <span class="icon-online" ng-class="{'active' : tutor.preference.online}"></span>
-                <span class="icon-home" ng-class="{'active' : tutor.preference.home}"></span>
-                <span class="icon-public-place" ng-class="{'active' : tutor.preference.public}"></span>
+                <span class="icon-earth" ng-class="{'active' : tutor.preference.online}" title="En línea"></span>
+                <span class="icon-teach" ng-class="{'active' : tutor.preference.office}" title="Casa del tutor"></span>
+                <span class="icon-school" ng-class="{'active' : tutor.preference.student_place}" title="Casa del estudiante"></span>
+                <span class="icon-coffee" ng-class="{'active' : tutor.preference.public}" title="Lugar público"></span>
               </div>
             </div>
             <div class="content-button">
@@ -184,7 +186,7 @@
                             input-class="category">
           </angucomplete-alt-geek>
           <input class="county" type="text" ng-model="chosenPlace" details="chosenPlaceDetails" on-place-change="onPlaceChanged" placeholder="En la zona de..." googleplace>
-          <a class="search-button" ng-click="searchTutor()">Buscar</a>
+          <a class="search-button icon-pointer" ng-click="searchTutor()">Buscar</a>
         </form>
       </div>
       <img src="/assets/site/geek.png" alt="Geek" class="search-image hidden-lg hidden-md hidden-sm">

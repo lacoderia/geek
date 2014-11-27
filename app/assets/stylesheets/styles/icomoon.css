@@ -1,10 +1,10 @@
 @font-face {
 	font-family: 'icomoon';
-	src:url('/assets/icomoon.eot?-gbw824');
-	src:url('/assets/icomoon.eot?#iefix-gbw824') format('embedded-opentype'),
-		url('/assets/icomoon.woff?-gbw824') format('woff'),
-		url('/assets/icomoon.ttf?-gbw824') format('truetype'),
-		url('/assets/icomoon.svg?-gbw824#icomoon') format('svg');
+	src:url('/assets/icomoon.eot?ebcm7h');
+	src:url('/assets/icomoon.eot?#iefixebcm7h') format('embedded-opentype'),
+		url('/assets/icomoon.woff?ebcm7h') format('woff'),
+		url('/assets/icomoon.ttf?ebcm7h') format('truetype'),
+		url('/assets/icomoon.svg?ebcm7h#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -23,14 +23,20 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
-.icon-home:before {
-	content: "\e610";
-}
-.icon-online:before {
+.icon-teach:before {
 	content: "\e611";
 }
-.icon-public-place:before {
-	content: "\e612";
+.icon-coffee:before {
+	content: "\f0f4";
+}
+.icon-school:before {
+	content: "\e613";
+}
+.icon-earth:before {
+	content: "\e614";
+}
+.icon-home:before {
+	content: "\e610";
 }
 .icon-user:before {
 	content: "\e60f";
@@ -76,6 +82,51 @@
 }
 .icon-accept:before {
 	content: "\e607";
+}
+.icon-earth:before {
+	content: "\e614";
+}
+.icon-home:before {
+	content: "\e610";
+}
+.icon-user:before {
+	content: "\e60f";
+}
+.icon-alert:before {
+	content: "\e60d";
+}
+.icon-instagram:before {
+	content: "\e60c";
+}
+.icon-twitter:before {
+	content: "\e60b";
+}
+.icon-close-big:before {
+	content: "\e60a";
+}
+.icon-table:before {
+	content: "\e609";
+}
+.icon-list:before {
+	content: "\e608";
+}
+.icon-close:before {
+	content: "\e605";
+}
+.icon-star1:before {
+	content: "\e601";
+}
+.icon-star2:before {
+	content: "\e602";
+}
+.icon-facebook3:before {
+	content: "\e603";
+}
+.icon-facebook4:before {
+	content: "\e604";
+}
+.icon-googleplus:before {
+	content: "\e600";
 }
 .icon-help:before {
 	content: "\e606";
