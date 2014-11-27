@@ -87,12 +87,12 @@
                     o
                   </div>
                 </div>
-                <form name="tutorLoginForm" id="tutor-login-form" class="validation-form" accept-charset="UTF-8" action="/users/sign_in" id="login-form" method="post">
-                  <div class="form-group" show-errors>
-                    <input type="text" name="tutor[email]" ng-model="signInMail" class="form-input form-control" placeholder="CORREO" required/>
+                <form name="tutorLoginForm" id="tutor-login-form" accept-charset="UTF-8" action="/users/sign_in" id="login-form" method="post">
+                  <div class="form-group">
+                    <input type="text" name="tutor[email]" ng-model="signInMail" class="form-input form-control" placeholder="CORREO"/>
                   </div>
-                  <div class="form-group" show-errors>
-                    <input type="password" name="tutor[password]" ng-model="signInPassword" class="form-input form-control" placeholder="PASSWORD" required/>
+                  <div class="form-group">
+                    <input type="password" name="tutor[password]" ng-model="signInPassword" class="form-input form-control" placeholder="PASSWORD"/>
                   </div>
                   <input id="tutor_role_ids" multiple="multiple" name="tutor[role_ids][]" type="hidden" value="2" >
                   <div class="form-submit" ng-click="loginTutor()">
