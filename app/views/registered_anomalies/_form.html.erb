@@ -1,0 +1,29 @@
+<%= form_for(@registered_anomaly) do |f| %>
+  <% if @registered_anomaly.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@registered_anomaly.errors.count, "error") %> prohibited this registered_anomaly from being saved:</h2>
+
+      <ul>
+      <% @registered_anomaly.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :anomaly_id %><br>
+    <%= f.number_field :anomaly_id %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.number_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :appointment_id %><br>
+    <%= f.number_field :appointment_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

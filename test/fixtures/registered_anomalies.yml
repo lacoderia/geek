@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  anomaly_id: 1
+  user_id: 1
+  appointment_id: 1
+
+two:
+  anomaly_id: 1
+  user_id: 1
+  appointment_id: 1

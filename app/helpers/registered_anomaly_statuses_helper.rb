@@ -1,0 +1,2 @@
+module RegisteredAnomalyStatusesHelper
+end
