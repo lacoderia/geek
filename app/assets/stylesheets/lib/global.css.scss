@@ -48,6 +48,8 @@ $color-landing-light-red: #F7A8A8;
 $color-landing-light-blue: #D7E0EB;
 $color-landing-medium-blue: #7DAADF;
 
+$color-landing-text-blue: #7CA9E0;
+
 $color-search-light-blue: #F1F6FC;
 $color-search-medium-blue: #E5EEF8;
 $color-search-dark-blue: #7DAADF;
@@ -485,8 +487,20 @@ h3.section-title{
   background-color: $color-light-blue;
 }
 
+.bgcolor-lightest-blue{
+  background-color: #D8E5F6;
+}
+
 .bgcolor-light-gray{
+  background-color: $color-light-gray;
+}
+
+.bgcolor-medium-gray{
   background-color: $color-medium-gray;
+}
+
+.bgcolor-light-orange{
+  background-color: $color-light-orange;
 }
 
 .bgcolor-gradient-green{
@@ -500,13 +514,13 @@ h3.section-title{
 }
 
 .bgcolor-gradient-blue{
-  background: $color-landing-light-blue; /* Old browsers */
-  background: linear-gradient(to bottom, $color-landing-light-blue 0%, $color-landing-medium-blue 100%);
+  background: #BDD4EF; /* Old browsers */
+  background: linear-gradient(to bottom, #BDD4EF 0%, #B0CBEC 100%);
 }
 
 .bgcolor-gradient-blue-backwards{
-  background: $color-landing-light-blue; /* Old browsers */
-  background: linear-gradient(to bottom, $color-landing-medium-blue 0%, $color-landing-light-blue  100%);
+  background: #B0CBEC; /* Old browsers */
+  background: linear-gradient(to bottom, #B0CBEC 0%, #BDD4EF  100%);
 }
 
 .bgcolor-landing-dark-red{
@@ -1285,9 +1299,14 @@ ul.events{
   padding: 0.3rem 1.5rem;
 }
 
-.green-separator{
+.separator{
   height: 12px;
-  margin-bottom: 0.5em;
+  margin-bottom: 0.4em;
+}
+
+.separator-slim{
+  height: 6px;
+  margin-bottom: 0em;
 }
 
 .landing-logo{
@@ -1537,6 +1556,7 @@ ul.events{
 
         > a{
           display: inline-block;
+          color: $color-landing-text-blue;
           cursor: pointer;
           padding: 0.5em 0.8em;
         }

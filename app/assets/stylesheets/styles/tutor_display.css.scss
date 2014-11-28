@@ -391,6 +391,7 @@ footer{
 
 .section-how-it-works{
   box-sizing: border-box;
+  color: $color-landing-text-blue;
   font-size: 22px;
   margin: 0px auto;
   max-width: 1170px;
@@ -401,26 +402,42 @@ footer{
     max-width: 1200px;
   }
 
-  span.number{
-    border: 2px solid white;
-    border-radius: 50px;
-    box-sizing: border-box;
-    display: block;
-    font-size: 20px;
-    height: 40px;
-    margin: -2px auto 0.8em;
-    padding: 0.2em;
-    text-align: center;
-    vertical-align: middle;
-    width: 40px;
-  }
+  .step-container{
+    padding: 2em;
 
-  span.title{
-    box-sizing: border-box;
-    display: inline-block;
-    margin-bottom: 2em;
-    text-transform: uppercase;
-    vertical-align: middle;
+    span.number{
+      border: 2px solid $color-landing-text-blue;
+      border-radius: 50px;
+      box-sizing: border-box;
+      display: block;
+      font-size: 20px;
+      height: 40px;
+      margin: -2px auto 0.8em;
+      padding: 0.2em;
+      text-align: center;
+      vertical-align: middle;
+      width: 40px;
+    }
+
+    span.title{
+      box-sizing: border-box;
+      display: inline-block;
+      margin-bottom: 2em;
+      text-transform: uppercase;
+      vertical-align: middle;
+    }
+
+    .description{
+      color: white;
+      display: inline-block;
+      font-size: 16px;
+      font-weight: 400;
+      margin-bottom: 30px;
+      margin-top: 10px;
+      text-align: center;
+      text-transform: uppercase;
+      width: 65%;
+    }
   }
 
 }
@@ -612,7 +629,7 @@ footer{
   }
 
   h3{
-    color: $color-light-green;
+    color: $color-landing-text-blue;
     font-family: 'Typewriter';
     font-size: 30px;
     margin: 0em 1em;
@@ -841,6 +858,60 @@ footer{
     }
   }
 
+  .half-row {
+    position: relative;
+    font-size: 0;
+  }
+
+  .half-row:before{
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 350px;
+    background: #BDD4EF; /* Old browsers */
+    background: linear-gradient(to bottom, #BDD4EF 0%, #B0CBEC 100%);
+    width: 50%;
+    z-index: -1;
+  }
+
+  .half-row:after{
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 350px;
+    background: #BDD4EF; /* Old browsers */
+    background: linear-gradient(to bottom, #B0CBEC 0%, #BDD4EF 100%);
+    width: 50%;
+    z-index: -1;
+  }
+
+  .half-row-inverted {
+    position: relative;
+    font-size: 0;
+  }
+
+  .half-row-inverted:before{
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 350px;
+    background: #BDD4EF; /* Old browsers */
+    background: linear-gradient(to bottom, #B0CBEC 0%, #BDD4EF 100%);
+    width: 50%;
+    z-index: -1;
+  }
+
+  .half-row-inverted:after{
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 350px;
+    background: #BDD4EF; /* Old browsers */
+    background: linear-gradient(to bottom, #BDD4EF 0%, #B0CBEC 100%);
+    width: 50%;
+    z-index: -1;
+  }
+
   .section-how-it-works{
     box-sizing: border-box;
     font-size: 22px;
@@ -848,30 +919,21 @@ footer{
     max-width: 1170px;
     padding: 0em 2.5em;
 
-    .row{
-      max-width: 1200px;
-    }
+    .step-container{
+      height: 350px;
 
-    span.number{
-      border: 2px solid white;
-      border-radius: 50px;
-      box-sizing: border-box;
-      display: inline-block;
-      font-size: 10px;
-      height: 20px;
-      margin: -2px 5px 0px 0px;
-      padding: 0.2em;
-      text-align: center;
-      vertical-align: middle;
-      width: 20px;
-    }
+      span.number{
+        display: inline-block;
+        font-size: 10px;
+        height: 20px;
+        margin: -2px 5px 0px 0px;
+        width: 20px;
+      }
 
-    span.title{
-      box-sizing: border-box;
-      display: inline-block;
-      margin-bottom: 0em;
-      text-transform: uppercase;
-      vertical-align: middle;
+      span.title{
+        font-weight: 500;
+        margin-bottom: 0em;
+      }
     }
 
   }

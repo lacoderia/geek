@@ -9,15 +9,15 @@
     <nav class="navigation col-lg-10 col-md-10 col-sm-12 col-xs-12" role="navigation" ng-controller="NavigationController as navigationCtrl">
       <ul class="hidden-xs">
         <li>
-          <a href="/" title="¿Qué quieres aprender hoy?" class="text-color-dark-blue">¿Qué quieres aprender hoy?</a>
+          <a href="/" title="¿Qué quieres aprender hoy?">¿Qué quieres aprender hoy?</a>
         </li>
         <li><a title="Ingresa" class="signin" ng-click="showSignInModal('signIn')">Ingresa</a></li>
         <li><a title="Registrate" class="signup" ng-click="showSignInModal('signUp')">Regístrate</a></li>
-        <li><a title="Idioma" class="text-color-light-blue">English/Español</a></li>
+        <li><a title="Idioma">English/Español</a></li>
       </ul>
       <ul class="hidden-md hidden-lg hidden-sm">
         <li>
-          <a href="/" title="¿Qué quieres aprender hoy?" class="text-color-dark-blue">Estudiante</a>
+          <a href="/" title="¿Qué quieres aprender hoy?">Estudiante</a>
         </li>
         <li><a href="#" title="Ingresa">Ingresa</a></li>
         <li><a href="#" title="Registra">Regístrate</a></li>
@@ -123,34 +123,41 @@
   </div>
 </div>
 
-<div class="bgcolor-light-green green-separator"></div>
+<div class="bgcolor-medium-gray separator-slim"></div>
+<div class="bgcolor-light-orange separator"></div>
 
-<div class="container-fluid margin-bottom">
-  <div class="row bgcolor-gradient-blue">
+<div class="container-fluid">
+  <div class="row half-row">
     <div class="section-how-it-works">
-      <div class="col-lg-6 col-md-6 col-sm-6 text-color-white">
+      <div class="step-container col-lg-6 col-md-6 col-sm-6">
         <div class="title-content"><span class="number">1</span><span class="title">Crea tu perfil</span></div>
-        <img src="/assets/site/student-how-search.png" alt="Busca" class="left">
+        <div class="description">Crea un perfil profesional de manera ágil y sencilla ¡Es gratis!</div>
+        <div><img src="/assets/site/student-how-search.png" alt="Busca" class="left"></div>
       </div>
-      <div class="col-lg-6 col-md-6 col-sm-6 text-color-white">
+      <div class="step-container col-lg-6 col-md-6 col-sm-6">
         <div class="title-content"><span class="number">2</span><span class="title">Define</span></div>
-        <img src="/assets/site/student-how-book.png" alt="Busca" class="right">
+        <div class="description">Define que materias quieres dar, cuál es tu disponibilidad y en que zonas de la ciudad te gustaría darlas</div>
+        <div><img src="/assets/site/student-how-book.png" alt="Busca" class="right"></div>
       </div>
       <div class="clearfix"></div>
     </div>
   </div>
 </div>
 
+<div class="bgcolor-lightest-blue separator-slim"></div>
+
 <div class="container-fluid margin-bottom">
-  <div class="row bgcolor-gradient-blue">
+  <div class="row half-row-inverted">
     <div class="section-how-it-works">
-      <div class="col-lg-6 col-md-6 col-sm-6 text-color-white">
+      <div class="step-container col-lg-6 col-md-6 col-sm-6">
         <div class="title-content"><span class="number">3</span><span class="title">Agenda Clases</span></div>
-        <img src="/assets/site/student-how-search.png" alt="Busca" class="left">
+        <div class="description">Configura tu calendario para que los estudiantes puedan solicitar clases contigo</div>
+        <div><img src="/assets/site/student-how-search.png" alt="Busca" class="left"></div>
       </div>
-      <div class="col-lg-6 col-md-6 col-sm-6 text-color-white">
-        <div class="title-content"><span class="number">4</span><span class="title">Recibe más alumnos =+$</span></div>
-        <img src="/assets/site/student-how-book.png" alt="Busca" class="right">
+      <div class="step-container col-lg-6 col-md-6 col-sm-6">
+        <div class="title-content"><span class="number">4</span><span class="title">Recibe más alumnos</span></div>
+        <div class="description">Permite que mñas estudiantes te encuentren y así incrementa tus ingresos</div>
+        <div><img src="/assets/site/student-how-book.png" alt="Busca" class="right"></div>
       </div>
       <div class="clearfix"></div>
     </div>
