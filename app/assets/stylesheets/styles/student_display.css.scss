@@ -533,41 +533,73 @@ footer{
 
 }
 
-.section-how-it-works{
-  box-sizing: border-box;
-  font-size: 22px;
-  font-weight: 500;
-  margin: 0px auto;
-  max-width: 1170px;
+.how-it-works-wrapper{
   padding: 0em;
-  text-align: center;
 
-  span.number{
-    border: 2px solid $color-dark-green;
-    border-radius: 50px;
+  .section-how-it-works{
     box-sizing: border-box;
-    display: block;
-    font-size: 20px;
-    height: 40px;
-    margin: -2px auto 0.8em;
-    padding: 0.2em;
+    font-size: 22px;
+    font-weight: 500;
+    margin: 0px auto;
+    max-width: 1170px;
+    padding: 0em;
     text-align: center;
-    vertical-align: middle;
-    width: 40px;
-  }
 
-  span.title{
-    box-sizing: border-box;
-    display: inline-block;
-    margin-bottom: 2em;
-    text-transform: uppercase;
-    vertical-align: middle;
-  }
+    .how-item{
+      box-sizing: border-box;
+      padding: 2.5em;
+    }
 
+    p{
+      font-weight: normal;
+      height: 94px;
+      margin-bottom: 1.5em;
+      color: white;
+    }
+
+    img{
+      display: inline-block;
+      margin-right: 4em;
+    }
+
+    img:last-child{
+      margin-right: 0;
+    }
+
+    .title-content{
+      margin-bottom: 0.1em;
+
+      span.number{
+        border: 2px solid $color-dark-green;
+        border-radius: 50px;
+        box-sizing: border-box;
+        display: block;
+        font-size: 20px;
+        height: 40px;
+        margin: -2px auto 0.8em;
+        padding: 0.2em;
+        text-align: center;
+        vertical-align: middle;
+        width: 40px;
+      }
+
+      span.title{
+        box-sizing: border-box;
+        display: inline-block;
+        margin-bottom: 2em;
+        text-transform: uppercase;
+        vertical-align: middle;
+      }
+    }
+
+  }
 }
 
 .video-wrapper{
+  background-color: rgba(236,34,39,0.4);
   overflow: hidden;
+  position: relative;
+  z-index: 1;
 
   .section-video{
     max-width: 1170px;
@@ -587,7 +619,7 @@ footer{
       iframe{
         height: 100%;
         left: 0;
-        padding: 10%;
+        padding: 10% 30% 30%;
         position: absolute;
         top: 0;
         width: 100%;
@@ -635,6 +667,27 @@ footer{
 
 
   }
+}
+
+.video-wrapper:before{
+  border: 1000px solid transparent;
+  border-right: 1000px solid rgba(236,34,39,0.05);
+  height: 0px;
+  right: 50.05%;
+  position: absolute;
+  top: 0;
+  width: 0;
+  z-index: -1;
+}
+
+.video-wrapper:after{
+  background-color: rgba(236,34,39,0.05);
+  height: 1000px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 50%;
+  z-index: -1;
 }
 
 .section-search-results{
@@ -1006,6 +1059,16 @@ footer{
 
 }
 
+.section-guaranty{
+  max-width: 1170px;
+  margin: 0px auto;
+  padding: 1.5em 0em;
+
+  .title-element{
+    margin: 0.1em 0 0;
+  }
+}
+
 .section-where{
   box-sizing: border-box;
   margin: 0px auto;
@@ -1167,39 +1230,41 @@ footer{
 
 @media (min-width: $screen-md-min) {
 
-  .section-how-it-works{
-    box-sizing: border-box;
-    font-size: 22px;
-    margin: 0px auto;
-    max-width: 1170px;
-    padding: 1.5em 0em;
-
-    .row{
-      max-width: 1200px;
-    }
-
-    span.number{
-      border: 2px solid $color-dark-green;
-      border-radius: 50px;
+  .how-it-works-wrapper{
+    .section-how-it-works{
       box-sizing: border-box;
-      display: inline-block;
-      font-size: 10px;
-      height: 20px;
-      margin: -2px 5px 0px 0px;
-      padding: 0.2em;
-      text-align: center;
-      vertical-align: middle;
-      width: 20px;
-    }
+      font-size: 22px;
+      margin: 0px auto;
+      max-width: 1170px;
 
-    span.title{
-      box-sizing: border-box;
-      display: inline-block;
-      margin-bottom: 0em;
-      text-transform: uppercase;
-      vertical-align: middle;
-    }
+      .title-content{
+        margin-bottom: 1em;
 
+        span.number{
+          border: 2px solid $color-dark-green;
+          border-radius: 50px;
+          box-sizing: border-box;
+          display: inline-block;
+          font-size: 10px;
+          height: 20px;
+          margin: -2px 5px 0px 0px;
+          padding: 0.2em;
+          text-align: center;
+          vertical-align: middle;
+          width: 20px;
+        }
+
+        span.title{
+          box-sizing: border-box;
+          display: inline-block;
+          margin-bottom: 0em;
+          text-transform: uppercase;
+          vertical-align: middle;
+        }
+      }
+
+
+    }
   }
 
   .section-search-results{
@@ -1326,7 +1391,7 @@ footer{
     }
 
     .search-image{
-      bottom: -38px;
+      bottom: -28px;
       display: inline-block;
       left: 40px;
       margin-bottom: 0px;

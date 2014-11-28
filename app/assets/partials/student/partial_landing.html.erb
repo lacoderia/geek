@@ -78,7 +78,7 @@
                   <div class="form-submit" ng-click="submitStudentForm()">
                     <div>REGÍSTRATE</div>
                   </div>
-                </form> 
+                </form>
               </div>
               <div class="sign-in-container" ng-show="selectedTab == 'signIn'">
                 <label ng-show='loginError' ng-bind='loginError'></label>
@@ -86,7 +86,7 @@
                   <div class="form-button-fb">
                     <div ng-click="registerFacebook()">INICIA CON FACEBOOK <span class="icon-facebook"></span></div>
                   </div>
-                   <div class="form-text">
+                  <div class="form-text">
                     o
                   </div>
                 </div>
@@ -267,52 +267,52 @@
   </div>
 </div>
 
-<div class="bgcolor-light-gray separator" ng-hide="tutorResultListVisible"></div>
+<div class="bgcolor-medium-gray separator-slim" ng-hide="tutorResultListVisible"></div>
 <div class="bgcolor-light-orange separator margin-bottom" ng-hide="tutorResultListVisible"></div>
 
 <div class="container-fluid margin-bottom" ng-hide="tutorResultListVisible">
-  <div class="row bgcolor-gradient-green">
+  <div class="row bgcolor-gradient-green how-it-works-wrapper">
     <div class="section-how-it-works">
-      <div class="col-lg-4 col-md-4 col-sm-4 columns text-color-dark-green">
+      <div class="col-lg-4 col-md-4 col-sm-4 columns text-color-dark-green how-item">
         <div class="title-content">
           <span class="number">1</span>
           <span class="title">Busca</span>
         </div>
+        <p>Decide qué te gustaría prender y en qué parte de la ciudad</p>
         <img src="/assets/site/student-how-search.png" alt="Busca">
       </div>
-      <div class="col-lg-4 col-md-4 col-sm-4 columns text-color-dark-green">
+      <div class="col-lg-4 col-md-4 col-sm-4 columns text-color-dark-green how-item">
         <div class="title-content">
           <span class="number">2</span>
           <span class="title">Compara</span>
         </div>
+        <p>Ve un perfil detallado de los tutores con sus reseñas, ratings, precio y disponibilidad</p>
         <img src="/assets/site/student-how-compare.png" alt="Compara">
       </div>
-      <div class="col-lg-4 col-md-4 col-sm-4 columns text-color-dark-green">
+      <div class="col-lg-4 col-md-4 col-sm-4 columns text-color-dark-green how-item">
         <div class="title-content">
           <span class="number">3</span>
           <span class="title">Agenda</span>
         </div>
+        <p>Elige el horario que más te convenga; agenda y paga con un solo click</p>
         <img src="/assets/site/student-how-book.png" alt="Agenda">
       </div>
-    <div class="clearfix"></div>
-    </div>
-  </div>
-</div>
-
-<div class="container-fluid margin-bottom" ng-hide="tutorResultListVisible">
-  <div class="row bgcolor-gradient-green">
-    <div class="section-how-it-works">
-      <div class="col-lg-12 col-md-12 col-sm-12 columns text-color-dark-green">
-        <div class="slider">
-          <div>
-            <span class="control-arrow control-left-arrow"></span>
-            <span class="number">4</span><span class="title">Pasa tu examen de álgebra avanzada</span>
-            <img src="/assets/site/student-how-calculator.png" class="slider">
-            <span class="control-arrow control-right-arrow"></span>
-          </div>
-        </div>
-      </div>
       <div class="clearfix"></div>
+    </div>
+    <div class="bgcolor-white separator-slim" ng-hide="tutorResultListVisible"></div>
+    <div class="section-how-it-works">
+      <div class="col-lg-8 col-md-8 col-sm-12 columns text-color-dark-green how-item">
+        <div class="title-content">
+          <span class="number">4</span>
+          <span class="title">Pasa tu examen de álgebra</span>
+        </div>
+        <img src="/assets/site/landing-how-4.png" alt="Pasa tu examen">
+        <img src="/assets/site/landing-how-5.png" alt="Pasa tu examen">
+        <img src="/assets/site/landing-how-6.png" alt="Pasa tu examen">
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-4 columns text-color-dark-green bgcolor-dark-green how-item">
+
+      </div>
     </div>
   </div>
 </div>
@@ -345,23 +345,38 @@
 </div>
 
 <div class="container-fluid margin-bottom video-wrapper" ng-hide="tutorResultListVisible">
-  <div class="row bgcolor-landing-light-red">
+  <div class="row">
     <div class="section-video">
       <div class="col-lg-12 col-md-12 col-sm-12 columns">
         <h3 class="title-element text-color-white">Geek te acerca a esa ayuda extra que necesitas</h3>
       </div>
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-container columns">
-            <ul>
-              <li class="text-color-landing-dark-red"><span><img src="/assets/site/video-opt-1.png" alt="Encuentra a tu tutor ideal"></span><span>Encuentra a  tu tutor ideal</span></li>
-              <li class="text-color-white bgcolor-landing-medium-red"><span><img src="/assets/site/video-opt-2.png" alt="Encuentra a tu tutor ideal"></span><span>Agenda clases de manera ágil y sencilla</span></li>
-              <li class="text-color-white bgcolor-landing-medium-2-red"><span><img src="/assets/site/video-opt-3.png" alt="Encuentra a tu tutor ideal"></span><span>Olvídate del proceso de pago</span></li>
-              <li class="text-color-landing-medium-red"><span><img src="/assets/site/video-opt-4.png" alt="Encuentra a tu tutor ideal"></span><span>Potencia tu conocimiento</span></li>
-            </ul>
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 video-container columns">
-          <iframe src="//player.vimeo.com/video/113034804" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-        </div>
-        <div class="clearfix"></div>
+      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-container columns">
+        <ul>
+          <li class="text-color-landing-dark-red"><span><img src="/assets/site/video-opt-1.png" alt="Encuentra a tu tutor ideal"></span><span>Encuentra a  tu tutor ideal</span></li>
+          <li class="text-color-white bgcolor-landing-medium-red"><span><img src="/assets/site/video-opt-2.png" alt="Encuentra a tu tutor ideal"></span><span>Agenda clases de manera ágil y sencilla</span></li>
+          <li class="text-color-white bgcolor-landing-medium-2-red"><span><img src="/assets/site/video-opt-3.png" alt="Encuentra a tu tutor ideal"></span><span>Olvídate del proceso de pago</span></li>
+          <li class="text-color-landing-medium-red"><span><img src="/assets/site/video-opt-4.png" alt="Encuentra a tu tutor ideal"></span><span>Potencia tu conocimiento</span></li>
+        </ul>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 video-container columns">
+        <iframe src="//player.vimeo.com/video/113034804" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid margin-bottom" ng-hide="tutorResultListVisible">
+  <div class="row bgcolor-light-orange">
+    <div class="section-guaranty">
+      <div class="col-lg-1 col-md-3 col-sm-12 columns">
+        <img src="/assets/site/landing-guaranty.png" alt="Garantía Geek">
+      </div>
+      <div class="col-lg-11 col-md-9 col-sm-12 columns">
+        <h3 class="title-element text-color-medium-orange">Conocemos y aprobamos a cada tutor Geek para</h3>
+        <h3 class="title-element text-color-medium-orange">darte la mayor seguridad y calidad posible</h3>
+      </div>
+      <div class="clearfix"></div>
     </div>
   </div>
 </div>

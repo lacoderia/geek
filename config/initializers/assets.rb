@@ -42,6 +42,7 @@ Rails.application.config.assets.precompile += %w( student/directives/modalTutorD
 Rails.application.config.assets.precompile += %w( student/directives/modalDetailDrctv.js )
 Rails.application.config.assets.precompile += %w( student/directives/modalAppointmentRequestDrctv.js )
 Rails.application.config.assets.precompile += %w( tutor/directives/modalDetailDrctv.js )
+Rails.application.config.assets.precompile += %w( tutor/directives/modalAnomalyDrctv.js )
 
 #Import Controllers
 Rails.application.config.assets.precompile += %w( student/controllers/rootCtrl.js )
