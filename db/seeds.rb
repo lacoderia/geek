@@ -97,6 +97,7 @@ status_cancelado_tu = AppointmentStatus.create(name: "Cancelada Tutor", code: "5
 status_completado = AppointmentStatus.create(name: "Completada", code: "6")
 status_cobrada = AppointmentStatus.create(name: "Cobrada", code: "7")
 status_pagada = AppointmentStatus.create(name: "Pagada", code: "8")
+status_anomalia = AppointmentStatus.create(name: "Anomalía", code: "9")
 
 address = Address.create(description: "Casa privada", line1: "Sucre Norte 234", line2: "Col. Cigarras de Nuevo Leon", county_id: County.joins(:postal_code).where("code = ?", "06600").first)
 appointment = Appointment.create(appointment_status_id: status_confirmado.id, student_id: student.id, tutor_id: tutor.id, start: Time.now, end: Time.now + 1.hour, details: "Detalles de la cita", address_id: address.id, subject: "Artes")
