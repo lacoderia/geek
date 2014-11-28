@@ -73,7 +73,8 @@ Geek.factory('AppointmentService', ["$http", "$q", "DEFAULT_VALUES", function($h
             'start': appointment.start,
             'length': appointment.duration,
             'student_id': appointment.studentId,
-            'description': appointment.description
+            'description': appointment.description,
+            'cost': appointment.cost
         }).
             success(function(data){
                 deferred.resolve(data);

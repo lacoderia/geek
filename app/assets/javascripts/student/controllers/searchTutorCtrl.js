@@ -260,7 +260,8 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
             'start': $scope.selectedClass.dateTimeISO,
             'duration': 1,
             'studentId': $scope.student.id,
-            'description': $scope.selectedCategoryName
+            'description': $scope.selectedCategoryName,
+            'cost': $scope.selectedClass.cost
         }
 
         if($scope.selectedCategory){
