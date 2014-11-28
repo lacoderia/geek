@@ -486,7 +486,15 @@ h3.section-title{
 }
 
 .bgcolor-light-gray{
+  background-color: $color-light-gray;
+}
+
+.bgcolor-medium-gray{
   background-color: $color-medium-gray;
+}
+
+.bgcolor-light-orange{
+  background-color: $color-light-orange;
 }
 
 .bgcolor-gradient-green{
@@ -515,6 +523,10 @@ h3.section-title{
 
 .bgcolor-landing-medium-red{
  background-color: $color-landing-medium-red;
+}
+
+.bgcolor-landing-medium-2-red{
+  background-color: rgba(234,130,130,0.5);
 }
 
 .bgcolor-landing-light-red{
@@ -1285,9 +1297,9 @@ ul.events{
   padding: 0.3rem 1.5rem;
 }
 
-.green-separator{
+.separator{
   height: 12px;
-  margin-bottom: 0.5em;
+  margin-bottom: 0em;
 }
 
 .landing-logo{
