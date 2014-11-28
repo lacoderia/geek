@@ -10,7 +10,7 @@
         <td>
           <div class="dropdown">
             <a class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-              {{ selectedCategoryName }}
+              {{ selectedCategory.name }} - {{selectedCategory.cost | currency:"$"}}
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu" role="menu">

@@ -1,4 +1,4 @@
-Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$timeout", "$location", "$anchorScroll", "TutorService", "AppointmentService", "AuthService", "DEFAULT_VALUES", function($scope, $rootScope, $filter, $timeout, $location, $anchorScroll, TutorService, AppointmentService, AuthService, DEFAULT_VALUES){
+Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$timeout", "$location", "$anchorScroll", "TutorService", "AppointmentService", "AuthService", "SessionService", "DEFAULT_VALUES", function($scope, $rootScope, $filter, $timeout, $location, $anchorScroll, TutorService, AppointmentService, AuthService, SessionService, DEFAULT_VALUES){
 
     //Subject inputted by the user
     $scope.subjectInput = undefined;
@@ -14,7 +14,6 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
 
     $scope.PROFILE_IMAGE = DEFAULT_VALUES.PROFILE_IMAGE;
     $scope.DEFAULT_CATEGORY_NAME = 'TEMA';
-    $scope.selectedCategoryName = $scope.DEFAULT_CATEGORY_NAME;
     $scope.selectedCategory = undefined;
 
     $scope.appointmentAlertMessagesParams = undefined;
@@ -101,6 +100,8 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
 
     //Find a tutor, by the inputted data by the user
     $scope.searchTutor = function(){
+        $scope.resetTutorSearch();
+
         $scope.showTopSearchbar = true;
 
         var categoryId = undefined
@@ -164,7 +165,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
 
     // Show all tutors found on tutor search
     $scope.showSearchResults = function() {
-        $scope.selectedTutor = null;
+        $scope.resetTutorSearch();
 
         for(var i in $scope.tutorList) {
             $scope.tutorList[i].show = true;
@@ -178,6 +179,10 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
             $rootScope.$broadcast('ellipsis-add');
         }, 0);
     };
+
+    $scope.resetTutorSearch = function() {
+        $scope.selectedTutor = null;
+    }
 
     $scope.showAppointmentRequestModal = function(event, row, column, day){
 
@@ -227,8 +232,10 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
                 $scope.selectedClass.time = 'De ' + firstHalfhour.startTime + ' a ' + lastHalfhour.endTime ;
                 $scope.selectedClass.dateTimeISO = new Date(day.year, day.month, day.numberDay, firstHalfhour.startTime.split(':')[0], firstHalfhour.startTime.split(':')[1]).toISOString();
 
-                $scope.selectedCategoryName = $scope.DEFAULT_CATEGORY_NAME;
-                $scope.selectedCategory = undefined;
+                $scope.selectedCategory = {
+                    'name' : $scope.DEFAULT_CATEGORY_NAME,
+                    'cost' : 0
+                };
                 $scope.appointmentAlertMessagesParams = undefined;
 
             },0);
@@ -249,22 +256,22 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
 
     $scope.selectCategory = function(category){
         $scope.selectedCategory = category;
-        $scope.selectedCategoryName = category.name + ' - ' + $filter('currency')(category.cost, '$');
     };
 
 
     $scope.sendAppointmentRequest = function() {
 
-        var appointment = {
-            'tutorId': $scope.selectedTutor.id,
-            'start': $scope.selectedClass.dateTimeISO,
-            'duration': 1,
-            'studentId': $scope.student.id,
-            'description': $scope.selectedCategoryName,
-            'cost': $scope.selectedClass.cost
-        }
+        if($scope.selectedCategory.id){
 
-        if($scope.selectedCategory){
+            var appointment = {
+                'tutorId': $scope.selectedTutor.id,
+                'start': $scope.selectedClass.dateTimeISO,
+                'duration': 1,
+                'studentId': SessionService.getId(),
+                'description': $scope.selectedCategory.name,
+                'cost': $scope.selectedCategory.cost
+            }
+
             AppointmentService.sendAppointmentRequest(appointment).then(
                 function(data){
 
@@ -273,7 +280,6 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
                     }
 
                     $scope.closeAppointmentRequest();
-                    console.log('ENTRE')
 
                     $scope.appointmentAlertParams = {
                         type: 'success',
