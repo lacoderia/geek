@@ -36,7 +36,7 @@ class Tutor < ActiveRecord::Base
     self.update_attribute(:token, response["access_token"])
   end
 
-  def create_appointment name, start_date, length_in_hours, student
+  def create_appointment name, start_date, length_in_hours, student, cost
     begin
       token = self.token
       calendar = self.calendar_id
@@ -48,7 +48,7 @@ class Tutor < ActiveRecord::Base
       # attendees_emails = [{'email' => self.email}, {'email' => student.email}]
       result = client.execute(:api_method => service.events.insert, :parameters => {'calendarId' => calendar, 'sendNotifications' => true}, :body => JSON.dump('start' => {'dateTime' => start_date.to_json.gsub(/"/, '') }, 'end' => {'dateTime' => (start_date + length_in_hours.hour).to_json.gsub(/"/, '') }, 'summary' => name, 'attendees' => attendees_emails ), :headers => {'Content-Type' => 'application/json'})
       # appointment_status_id 1 == enviado
-      appointment = Appointment.create(student_id: student.id, tutor_id: self.id, appointment_id: JSON.parse(result.response.body)["id"], start: start_date, end: start_date + length_in_hours.hour, appointment_status_id: 1, subject: name)
+      appointment = Appointment.create(student_id: student.id, tutor_id: self.id, appointment_id: JSON.parse(result.response.body)["id"], start: start_date, end: start_date + length_in_hours.hour, appointment_status_id: 1, subject: name, cost: cost)
       UserMailer.tutor_notification_email(appointment.tutor_id, appointment.appointment_status_id, name).deliver
       UserMailer.student_notification_email(appointment.student_id, appointment.appointment_status_id, name).deliver
 
@@ -228,13 +228,13 @@ class Tutor < ActiveRecord::Base
     formatted_result.sort_by { |hash| [hash[:day], hash[:start]]}
   end
 
-  def self.request_class tutor_id, start, length, student_id, description
+  def self.request_class tutor_id, start, length, student_id, description, cost
     tutor = Tutor.find(tutor_id)
     start_date = DateTime.iso8601(start).in_time_zone
     student = Student.find(student_id)
     # TODO: Validar que tenga disponibilidad
     tutor.refresh_token_action
-    tutor.create_appointment description, start_date, length, student
+    tutor.create_appointment description, start_date, length, student, cost
   end
 
   def self.list_appointments_by_status tutor_id, appointment_status_id

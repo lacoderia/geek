@@ -141,10 +141,11 @@ class TutorsController < ApplicationController
   # id = id del tutor
   # student_id = id del estudiante
   # description = descripcion de la clase
+  # cost = el costo de la clase
   # Regresa:
   # success: true si la pudo agendar, false si no se pudo crear
   def request_class
-    @request = Tutor.request_class(params[:id], params[:start], params[:length].to_i, params[:student_id], params[:description])
+    @request = Tutor.request_class(params[:id], params[:start], params[:length].to_i, params[:student_id], params[:description], params[:cost])
   end
 
   # Recibe:
