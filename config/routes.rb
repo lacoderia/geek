@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
   resources :registered_anomaly_statuses
 
-  resources :registered_anomalies
+  resources :registered_anomalies do
+    collection do
+      post 'from_student'
+      post 'from_tutor'
+    end
+  end
 
   resources :anomalies
 

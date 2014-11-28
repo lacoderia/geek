@@ -514,13 +514,13 @@ h3.section-title{
 }
 
 .bgcolor-gradient-blue{
-  background: #BDD4EF; /* Old browsers */
-  background: linear-gradient(to bottom, #BDD4EF 0%, #B0CBEC 100%);
+  background: $color-landing-light-blue; /* Old browsers */
+  background: linear-gradient(to bottom, $color-landing-light-blue 0%, $color-landing-medium-blue 100%);
 }
 
 .bgcolor-gradient-blue-backwards{
-  background: #B0CBEC; /* Old browsers */
-  background: linear-gradient(to bottom, #B0CBEC 0%, #BDD4EF  100%);
+  background: $color-landing-light-blue; /* Old browsers */
+  background: linear-gradient(to bottom, $color-landing-medium-blue 0%, $color-landing-light-blue  100%);
 }
 
 .bgcolor-landing-dark-red{
@@ -529,6 +529,10 @@ h3.section-title{
 
 .bgcolor-landing-medium-red{
  background-color: $color-landing-medium-red;
+}
+
+.bgcolor-landing-medium-2-red{
+  background-color: rgba(234,130,130,0.5);
 }
 
 .bgcolor-landing-light-red{
@@ -1556,7 +1560,6 @@ ul.events{
 
         > a{
           display: inline-block;
-          color: $color-landing-text-blue;
           cursor: pointer;
           padding: 0.5em 0.8em;
         }
