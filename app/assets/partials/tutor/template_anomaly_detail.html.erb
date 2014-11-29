@@ -1,9 +1,24 @@
 <div ng-class="[DEFAULT_CLASS, detailArrowClass]" ng-style="modalStyle" ng-show="clickedAnomaly" ng-controller="CalendarController">
   <span class="icon-close modal-detail-close" ng-click="closeAnomalyDetail()"></span>
-  <div class="modal-detail-header"></div>
+  <div class="modal-detail-header">Reporte de Anomalía</div>
   <div class="modal-detail-content">
-    Appointment anomaly
-
+    <div class="dropdown form-dropdown">
+      <label style="font-weight: normal">Motivo</label><br/>
+      <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+        {{selectedAnomaly.name}} 
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <li role="presentation" ng-repeat="anomaly in anomalyList"><a role="menuitem" tabindex="{{$index}}"  ng-click="selectAnomaly(anomaly)">{{ anomaly.name }}</a></li>
+      </ul>
+    </div>
+    <br/>
+      <label style="font-weight: normal">Descripción</label><br/>
+      <textarea  class="form-textarea form-control" rows="4" required></textarea>
+    <br/>
+    <div style="text-align: center;">
+      <a class="action-button action-button-medium-gray" ng-click="reportAnomaly()">Reportar</a>
+    </div>
   </div>
   <div class="modal-detail-footer"></div>
 </div>

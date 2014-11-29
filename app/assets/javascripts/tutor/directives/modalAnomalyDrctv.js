@@ -13,6 +13,11 @@ Geek.directive('ngModalAnomaly', ["$timeout", "$window", "$document", function($
             scope.window = angular.element($window);
             scope.maxWidth = scope.window.width();
 
+            scope.anomalyList = [ {name: "Late Show", code: "0"},
+                                  {name: "No Show", code: "1"},
+                                  {name: "Cancelación", code: "2"}, 
+                                  {name: "Otro", code: "3"}];
+
             scope.detailArrowClass = scope.DEFAULT_ARROW_CLASSES[0];
             scope.modalStyle = {
                 top:0,
@@ -20,6 +25,16 @@ Geek.directive('ngModalAnomaly', ["$timeout", "$window", "$document", function($
             };
 
             scope.clickedAnomaly = null;
+            scope.selectedAnomaly = scope.anomalyList[0];
+
+            scope.selectAnomaly = function(anomaly) {
+              scope.selectedAnomaly = anomaly;
+            };
+
+            scope.reportAnomaly = function(){
+                scope.clickedAnomaly.reported = true;
+                scope.closeAnomalyDetail();
+            };
 
             scope.closeAnomalyDetail = function(){
                 scope.modalStyle.top = 0;
@@ -41,10 +56,14 @@ Geek.directive('ngModalAnomaly', ["$timeout", "$window", "$document", function($
             scope.openAnomalyDetail = function($event, appointment, options, DEFAULT_VALUES){
                 // Primero cerramos el modal que está abierto para evitar ver parpadear información del modal anterior
                 scope.closeAnomalyDetail();
+                scope.closeAppointmentDetail();
 
                 // Detenemos la propagación del evento click para evitar que el bind al final del metodo se ejecute
                 $event.stopPropagation();
 
+                $timeout(function(){
+                    scope.clickedAnomaly = appointment;
+                },0);
 
                 $timeout(function(){
                     var dialogHeight = angular.element(element).prop('offsetHeight');
@@ -60,10 +79,6 @@ Geek.directive('ngModalAnomaly', ["$timeout", "$window", "$document", function($
                         scope.detailArrowClass = scope.DEFAULT_ARROW_CLASSES[0];
                     }
                 },0);
-
-                $timeout(function(){
-                    scope.clickedAnomaly = appointment;
-                });
 
                 // Detenemos la propagación para que el evento click sobre $document no cierre el modal
                 element.bind('click', function(e) {

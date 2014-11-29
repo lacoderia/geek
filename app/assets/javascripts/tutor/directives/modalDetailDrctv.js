@@ -41,6 +41,7 @@ Geek.directive('ngModalDetail', ["$timeout", "$window", "$document", function($t
             scope.openAppointmentDetail = function($event, appointment, options, DEFAULT_VALUES){
                 // Primero cerramos el modal que está abierto para evitar ver parpadear información del modal anterior
                 scope.closeAppointmentDetail();
+                scope.closeAnomalyDetail();
 
                 // Detenemos la propagación del evento click para evitar que el bind al final del metodo se ejecute
                 $event.stopPropagation();
