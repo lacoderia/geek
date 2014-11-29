@@ -268,7 +268,7 @@ class Tutor < ActiveRecord::Base
       key = "#{appointment.per_year.to_i}-#{'%02d' % appointment.per_month.to_i}-#{'%02d' % appointment.per_day.to_i}"
       result[key] = [] if not result[key]
       result[key] << appointment
-      result[key].sorty_by!{|app| app.end}
+      result[key].sort_by!{|app| app.end}
     end
     result.sort
   end
@@ -476,7 +476,7 @@ class Tutor < ActiveRecord::Base
 
   end
 
-  def create_dummy_appointments month, year
+  def create_dummy_appointments month, year, cost
     students = Student.where("token is not null")
     students.each do |student|
       prng = Random.new
@@ -484,17 +484,17 @@ class Tutor < ActiveRecord::Base
       time = Time.now
       days_in_month = Time.days_in_month(month, year)
       start = Time.zone.parse("#{year}-#{month}-#{'%02d' % prng.rand(1..days_in_month)} #{'%02d' % prng.rand(0..23)}:00")
-      appointment = self.create_appointment cat.name, start, 1, student
+      appointment = self.create_appointment cat.name, start, 1, student, cost
       appointment.update_attribute(:appointment_status_id, prng.rand(1..AppointmentStatus.count))
     end
   end
 
-  def create_dummy_selected_appointments start_hour, day, month, year
+  def create_dummy_selected_appointments start_hour, day, month, year, cost
     student = Student.where("token is not null").last
     if student
       cat = self.categories.last
       start = Time.zone.parse("#{year}-#{month}-#{'%02d' % day} #{'%02d' % start_hour}:00")
-      appointment = self.create_appointment cat.name, start, 1, student
+      appointment = self.create_appointment cat.name, start, 1, student, cost
     end
   end
 

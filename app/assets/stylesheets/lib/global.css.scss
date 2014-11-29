@@ -503,6 +503,18 @@ h3.section-title{
   background-color: $color-light-orange;
 }
 
+.bgcolor-light-yellow{
+  background-color: $color-light-yellow;
+}
+
+.bgcolor-dark-green{
+  background-color: $color-dark-green;
+}
+
+.bgcolor-white{
+  background-color: white;
+}
+
 .bgcolor-gradient-green{
   background: $color-landing-dark-green; /* Old browsers */
   background: linear-gradient(to bottom, $color-landing-light-green 0%, $color-landing-dark-green 100%);
