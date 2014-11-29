@@ -547,7 +547,22 @@ footer{
 
     .how-item{
       box-sizing: border-box;
-      padding: 2.5em;
+      padding: 2.5em 1em;
+    }
+
+    .how-item-testimony{
+      box-sizing: border-box;
+      color: white;
+      font-size: 1em;
+      margin: 0;
+      padding: 3em 1em;
+      text-transform: uppercase;
+
+
+      span{
+        color: $color-light-green;
+        display: block;
+      }
     }
 
     p{
