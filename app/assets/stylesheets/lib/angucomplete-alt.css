@@ -8,6 +8,7 @@
     border-width: 1px;
     border-style: solid;
     border-radius: 2px;
+    box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.55);
     width: 200px;
     overflow: scroll;
     max-height: 200px;
@@ -15,9 +16,6 @@
     z-index: 9999;
     position: absolute;
     text-align: left;
-    /*top: 32px;
-    left: 0px;
-    */
     margin-top: 0px;
     background-color: #ffffff;
 }
@@ -33,9 +31,16 @@
 
 .angucomplete-row {
     padding: 5px;
+    border-bottom: 1px solid rgba(166,168,171,0.5);
     color: #000000;
-    margin-bottom: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 0px;
     clear: both;
+}
+
+.angucomplete-row:last-child{
+    border-bottom: none;
 }
 
 .angucomplete-selected-row {
