@@ -112,34 +112,6 @@
   }
 }
 
-footer{
-  color: $color-light-blue;
-  font-family: "Gotham";
-  font-size: 10px;
-  font-weight: 400;
-  padding: 2.5em 0em;
-  text-align: center;
-  vertical-align: middle;
-
-  .language{
-    font-size: 16px;
-    margin-bottom: 1em;
-
-    a{
-      text-decoration: underline;
-    }
-  }
-
-  .social-icons{
-    margin-top: 1.3em;
-  }
-
-  img{
-    max-width: 38px;
-    width: 100%;
-  }
-}
-
 #sign-in-modal {
   text-align: center;
 
@@ -737,10 +709,6 @@ footer{
 }
 
 @media (min-width: $screen-sm-min) {
-
-  footer{
-    padding: 4.5em 0em;
-  }
 
   .section-benefits{
     padding: 2.5em;
