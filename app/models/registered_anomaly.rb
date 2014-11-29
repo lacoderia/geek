@@ -24,7 +24,7 @@ class RegisteredAnomaly < ActiveRecord::Base
     case self.anomaly.code
     when "0" #late show
       puts "late show"
-      self.update_attribute(:registered_anomaly_status_id: 1) # Se cambia a válida
+      self.update_attribute(:registered_anomaly_status_id, 1) # Se cambia a válida
     when "1" #no show
       puts "no show"
     when "2" #cancelacion
