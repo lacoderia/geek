@@ -49,15 +49,21 @@
       <legend>Información académica</legend>
       <div class="form-group" show-errors>
         <div class="left">
-          <label>Formación y Experiencia:</label>
+          <label><span class="icon-help icon-pointer" data-placement="top-left" data-content="{{ help.formation }}" data-trigger="click" html="true" bs-popover ></span> Formación y Experiencia:</label>
         </div>
         <div class="right">
-          <textarea name="tutor_studies" ng-model="tutor.studies" class="form-textarea form-control" placeholder="FORMACIÓN" popover="{{tutorProfileForm.tutor_studies.popoverMessage}}" popover-trigger="focus" popover-animation="false" required></textarea>
+          <textarea name="tutor_studies" rows="10" ng-model="tutor.studies" class="form-textarea form-control"
+                    placeholder="Ej. Estudié Matemáticas Aplicadas en la Universidad Iberoamericana en México DF, con especialización en alemán, economía, y escritura. Estando ahí, fui tutor de estudiantes en todo, desde sumar y restar hasta cálculo diferencial e integral. Obtuve una Maestría en Artes en Enseñanza de Bard College en el '07. He estado dando tutoría desde hace 10 años, y de tiempo completo por más de 6. He tenido estudiantes entre las edades de 6 y 66 años, con un enfoque en los estudiantes de secundaria aunque estoy muy cómodo con cualquier curso de matemáticas."
+                    popover="{{tutorProfileForm.tutor_studies.popoverMessage}}"
+                    popover-trigger="focus"
+                    popover-animation="false"
+                    required>
+          </textarea>
         </div>
       </div>
       <div class="form-group" show-errors show-errors-params="tutor.topics" show-errors-validation-type="arrayLength">
         <div class="left">
-          <label>Temas:</label>
+          <label><span class="icon-help icon-pointer" data-placement="top-left" data-content="{{ help.topics }}" data-trigger="click" html="true" bs-popover ></span> Temas:</label>
         </div>
         <div class="right">
           <div>
@@ -71,8 +77,8 @@
                 <li role="presentation" ng-repeat="category in parentCategories"><a role="menuitem" tabindex="{{$index}}"  ng-click="selectCategory(category)">{{ category.name }}</a></li>
               </ul>
             </div>
-            <input type="text" placeholder="Tema" ng-model="selectedTopic.name" name="tutor_topic_name" class="form-input form-input-third form-control">
-            <input type="text" placeholder="Costo" ng-model="selectedTopic.cost" name="tutor_topic_cost" class="form-input form-input-fifth form-control" ng-currency>
+            <input type="text" placeholder="Ej. Álgebra" ng-model="selectedTopic.name" name="tutor_topic_name" class="form-input form-input-third form-control">
+            <input type="text" placeholder="Ej. 400" ng-model="selectedTopic.cost" name="tutor_topic_cost" class="form-input form-input-fifth form-control" ng-currency>
             <a class="action-button action-button-medium-gray" ng-click="addTutorTopic()">Añadir</a>
             <div id="tutor_topics" class="items-added-group">
               <div id="tutor_topic_{{$index}}" ng-repeat="tutorTopic in tutor.topics" class="item-added">{{tutorTopic.name}} - {{tutorTopic.cost | currency : '$'}}<span ng-click="removeTutorTopic($index)" class="icon-close close-item"></span></div>
