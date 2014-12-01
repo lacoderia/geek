@@ -283,8 +283,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
                         $scope.updatedCalendar = true;
                         $scope.tutorProfileAlertParams = {
                             type: 'success',
-                            message: 'El calendario fue actualizado con éxito',
-                            icon: true
+                            message: '¡Felicidades, ya quedó listo y guardado tu perfil! Siempre pordrás editarlo y ajustarlo desde la liga "Perfil" en la página de inicio.',                            icon: true
                         };
                         $scope.calendarErrorClass = '';
                         $scope.calendarAlertMessagesParams = undefined;
