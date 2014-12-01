@@ -13,6 +13,17 @@ if @grouped
         json.set! :status do
           json.extract! appointment.appointment_status, :id, :name, :code
         end
+        if not appointment.registered_anomalies.empty?
+          appointment.registered_anomalies.each do |anomaly|
+            if anomaly.source_id == appointment.student.user.id
+              json.set! :anomaly do
+                json.extract! anomaly, :id, :appointment_id, :description
+                json.anomaly anomaly.anomaly.code
+                json.anomaly_status anomaly.registered_anomaly_status.code
+              end
+            end
+          end
+        end
       end
     end
   end
@@ -29,6 +40,17 @@ else
     end
     json.set! :status do
       json.extract! appointment.appointment_status, :id, :name, :code
+    end
+    if not appointment.registered_anomalies.empty?
+      appointment.registered_anomalies.each do |anomaly|
+        if anomaly.source_id == appointment.student.user.id
+          json.set! :anomaly do
+            json.extract! anomaly, :id, :appointment_id, :description
+            json.anomaly anomaly.anomaly.code
+            json.anomaly_status anomaly.registered_anomaly_status.code
+          end
+        end
+      end
     end
   end
 end

@@ -9,9 +9,9 @@ class Student < ActiveRecord::Base
   def self.list_appointments_by_month_and_year student_id, month, year 
     student = Student.find student_id
     if month and year
-      student.appointments.includes(:tutor, :address, :appointment_status).where("EXTRACT(month from start) = ? AND EXTRACT(year from start) = ?", month.to_i, year.to_i).order(:end)
+      student.appointments.includes(:tutor, :address, :appointment_status, :registered_anomalies => [:anomaly, :registered_anomaly_status]).where("EXTRACT(month from start) = ? AND EXTRACT(year from start) = ?", month.to_i, year.to_i).order(:end)
     else
-      student.appointments.includes(:tutor, :address, :appointment_status).order(:end)
+      student.appointments.includes(:tutor, :address, :appointment_status, :registered_anomalies => [:anomaly, :registered_anomaly_status]).order(:end)
     end
   end
 
@@ -25,7 +25,7 @@ class Student < ActiveRecord::Base
       where = "appointments.end >= ?"
     end
 
-    appointments = student.appointments.select("*, EXTRACT(year from appointments.end) as per_year, EXTRACT(month from appointments.end) as per_month, EXTRACT(day from appointments.end) as per_day").includes(:tutor, :address, :appointment_status).where(where, Time.now ).order("start DESC")
+    appointments = student.appointments.select("*, EXTRACT(year from appointments.end) as per_year, EXTRACT(month from appointments.end) as per_month, EXTRACT(day from appointments.end) as per_day").includes(:tutor, :address, :appointment_status, :registered_anomalies => [:anomaly, :registered_anomaly_status]).where(where, Time.now ).order("start DESC")
     appointments.each do |appointment|
       key = "#{appointment.per_year.to_i}-#{'%02d' % appointment.per_month.to_i}-#{'%02d' % appointment.per_day.to_i}"
       result[key] = [] if not result[key]
