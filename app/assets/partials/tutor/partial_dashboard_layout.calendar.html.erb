@@ -105,7 +105,7 @@
             <table>
               <tbody>
               <tr>
-                <td class="week-day">{{ HOURS[$index] }}</td>
+                <td class="week-day"><span ng-hide="$index%2">{{ HOURS[$index] }}</span>&nbsp;</td>
                 <td class="week-day" ng-class="[halfHour.appointment.status.class, {true:'available', false: 'unavailable'}[halfHour.available], 'no-cursor']" ng-repeat="halfHour in row.halfHours" ng-click="showAppointmentDetail($event, halfHour.appointment)">
                 </td>
               </tr>

@@ -158,7 +158,7 @@
           <table ng-repeat="row in weekRows" id="week-row-{{ HOURS[$index] }}">
             <tbody>
             <tr>
-              <td class="week-day">{{ HOURS[$index] }}</td>
+              <td class="week-day"><span ng-hide="$index%2">{{ HOURS[$index] }}</span>&nbsp;</td>
               <td class="week-day" ng-class="[{true:'highlighted', false: ''}[halfHour.highlight], {true:'available', false: 'unavailable'}[halfHour.available]]" ng-repeat="halfHour in row.halfHours" ng-click="showAppointmentRequestModal($event, $parent.$index, $index, selectedWeek[$index])"></td>
             </tr>
             </tbody>
