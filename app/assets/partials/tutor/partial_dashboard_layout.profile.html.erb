@@ -253,8 +253,8 @@
               <tr>
                 <td class="week-day-title"></td>
                 <td class="week-day-title" ng-repeat="day in DAYS">
-                  <span class="hidden-sm hidden-xs">{{ day.title }}</span>
-                  <span class="hidden-md hidden-lg">{{ day.minTitle }}</span>
+                  <span class="hidden-sm hidden-xs">{{ day.title | translate }}</span>
+                  <span class="hidden-md hidden-lg">{{ day.minTitle | translate }}</span>
                 </td>
               </tr>
               </tbody>

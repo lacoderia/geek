@@ -137,7 +137,6 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
             link: function (elem, $scope, attrs, ngModel) {
 
                 angular.element(elem).bind('keyup input', function(){
-                    console.log('a')
                 });
 
 

@@ -21,8 +21,8 @@
       <table ng-repeat="appointmentGroup in appointmentsGroups" class="week-list-day-row" ng-show="appointmentGroup.appointments.length">
         <thead>
             <tr class="history-list-day-title-row">
-              <td class="hidden-sm hidden-xs day-title" colspan="6">{{ DAYS[appointmentGroup.day].title }}, {{ appointmentGroup.numberDay }} de {{ MONTHS[appointmentGroup.month] }}</td>
-              <td class="hidden-md hidden-lg day-title" colspan="6">{{ DAYS[appointmentGroup.day].minTitle }}, {{ appointmentGroup.numberDay }}</td>
+              <td class="hidden-sm hidden-xs day-title" colspan="6">{{ DAYS[appointmentGroup.day].title | translate }}, {{ appointmentGroup.numberDay }} de {{ MONTHS[appointmentGroup.month] | translate }}</td>
+              <td class="hidden-md hidden-lg day-title" colspan="6">{{ DAYS[appointmentGroup.day].minTitle | translate}}, {{ appointmentGroup.numberDay }}</td>
             </tr>
         </thead>
         <tbody>
