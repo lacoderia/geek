@@ -30,6 +30,7 @@ Rails.application.config.assets.precompile += %w( tutor/services/countyService.j
 Rails.application.config.assets.precompile += %w( tutor/services/categoryService.js )
 Rails.application.config.assets.precompile += %w( tutor/services/profileService.js )
 Rails.application.config.assets.precompile += %w( tutor/services/appointmentService.js )
+Rails.application.config.assets.precompile += %w( tutor/services/anomalyService.js )
 Rails.application.config.assets.precompile += %w( tutor/services/authService.js )
 
 #Import Directives

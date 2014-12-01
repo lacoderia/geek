@@ -13,6 +13,8 @@ Geek.directive('ngModalAnomaly', ["$timeout", "$window", "$document", function($
             scope.window = angular.element($window);
             scope.maxWidth = scope.window.width();
 
+            scope.anomalyDescription = undefined;
+
             scope.anomalyList = [ {name: "Late Show", code: "0"},
                                   {name: "No Show", code: "1"},
                                   {name: "Cancelación", code: "2"}, 
@@ -24,23 +26,18 @@ Geek.directive('ngModalAnomaly', ["$timeout", "$window", "$document", function($
                 left:0
             };
 
-            scope.clickedAnomaly = null;
+            scope.selectedAppointment = null;
             scope.selectedAnomaly = scope.anomalyList[0];
 
             scope.selectAnomaly = function(anomaly) {
               scope.selectedAnomaly = anomaly;
-            };
-
-            scope.reportAnomaly = function(){
-                scope.clickedAnomaly.reported = true;
-                scope.closeAnomalyDetail();
-            };
+            }; 
 
             scope.closeAnomalyDetail = function(){
                 scope.modalStyle.top = 0;
                 scope.modalStyle.left = 0;
 
-                scope.clickedAnomaly = null;
+                scope.selectedAppointment = null;
 
                 if(!scope.$$phase){
                     scope.$apply();
@@ -62,7 +59,8 @@ Geek.directive('ngModalAnomaly', ["$timeout", "$window", "$document", function($
                 $event.stopPropagation();
 
                 $timeout(function(){
-                    scope.clickedAnomaly = appointment;
+                    scope.selectedAppointment = appointment;
+                    scope.reportAnomaly = options.reportAnomaly;
                 },0);
 
                 $timeout(function(){

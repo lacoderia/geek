@@ -1,4 +1,4 @@
-<div ng-class="[DEFAULT_CLASS, detailArrowClass]" ng-style="modalStyle" ng-show="clickedAnomaly" ng-controller="CalendarController">
+<div ng-class="[DEFAULT_CLASS, detailArrowClass]" ng-style="modalStyle" ng-show="selectedAppointment" ng-controller="CalendarController">
   <span class="icon-close modal-detail-close" ng-click="closeAnomalyDetail()"></span>
   <div class="modal-detail-header">Reporte de Anomalía</div>
   <div class="modal-detail-content">
@@ -14,10 +14,10 @@
     </div>
     <br/>
       <label style="font-weight: normal">Descripción</label><br/>
-      <textarea  class="form-textarea form-control" rows="4" required></textarea>
+      <textarea  class="form-textarea form-control" rows="4" ng-model="anomalyDescription" required></textarea>
     <br/>
     <div style="text-align: center;">
-      <a class="action-button action-button-medium-gray" ng-click="reportAnomaly()">Reportar</a>
+      <a class="action-button action-button-medium-gray" ng-click="reportAnomaly(selectedAppointment, selectedAnomaly.code, anomalyDescription)">Reportar</a>
     </div>
   </div>
   <div class="modal-detail-footer"></div>

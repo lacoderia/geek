@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('AppointmentHistoryController',['$scope','$rootScope','AppointmentService', 'DEFAULT_VALUES' ,function($scope, $rootScope, AppointmentService, DEFAULT_VALUES){
+Geek.controller('AppointmentHistoryController',['$scope','$rootScope','AppointmentService', 'AnomalyService', 'DEFAULT_VALUES' ,function($scope, $rootScope, AppointmentService, AnomalyService, DEFAULT_VALUES){
 
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.MONTHS = DEFAULT_VALUES.MONTHS;
@@ -11,7 +11,8 @@ Geek.controller('AppointmentHistoryController',['$scope','$rootScope','Appointme
         $event.stopPropagation();
         var options = {
             posX: $event.clientX,
-            posY: $event.pageY
+            posY: $event.pageY,
+            reportAnomaly: $scope.setAnomaly
         };
 
         $scope.openAnomalyDetail($event, appointment, options, DEFAULT_VALUES);
@@ -58,6 +59,28 @@ Geek.controller('AppointmentHistoryController',['$scope','$rootScope','Appointme
                 console.log('Error retrieving the appointments: ' + response);
             }
         );
+    };
+
+    $scope.setAnomaly = function(appointment, anomaly_code, description) {
+
+      var reportedAnomaly = {
+        appointment_id: appointment.id,
+        anomaly_code: anomaly_code,
+        description: description
+      };
+
+      AnomalyService.reportAnomaly(reportedAnomaly).then(
+        function(data){
+          console.log(data);
+          appointment.anomaly = data;
+        },
+        function(response){
+          console.log(response);
+        }
+      );
+
+      $scope.closeAnomalyDetail();
+      //console.log("appointment " + appointment_id + " anomaly " + anomaly_code + " description " + description);
     };
 
     $scope.getAppointments = function(appointments){
