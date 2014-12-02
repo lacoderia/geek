@@ -22,6 +22,26 @@ Geek.factory('AppointmentService', ["$http", "$q", "DEFAULT_VALUES", function($h
         return promise;
     };
 
+    var previous = function(){
+        var deferred = $q.defer();
+        var promise = deferred.promise;
+
+        $http.get(DEFAULT_VALUES.URL_SERVICES.APPOINTMENT_SERVICE_URL,{
+            params: {
+                'previous': true
+            }
+        }).
+            success(function(data){
+                deferred.resolve(data);
+            }).
+
+            error(function(response){
+                deferred.reject(response);
+            });
+
+        return promise;
+    };
+
     var getAppointmentsByMonthAndYear = function(month, year, tutorId){
         var deferred = $q.defer();
         var promise = deferred.promise;
@@ -89,6 +109,7 @@ Geek.factory('AppointmentService', ["$http", "$q", "DEFAULT_VALUES", function($h
 
     return{
         all: all,
+        previous: previous,
         getAppointmentsByMonthAndYear: getAppointmentsByMonthAndYear,
         setAppointmentStatus: setAppointmentStatus,
         sendAppointmentRequest: sendAppointmentRequest
