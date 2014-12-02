@@ -1,4 +1,4 @@
-Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$timeout", "$location", "$anchorScroll", "TutorService", "AppointmentService", "AuthService", "SessionService", "DEFAULT_VALUES", function($scope, $rootScope, $filter, $timeout, $location, $anchorScroll, TutorService, AppointmentService, AuthService, SessionService, DEFAULT_VALUES){
+Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$timeout", "$location", "$anchorScroll", "TutorService", "AppointmentService", "AuthService", "SessionService", "usSpinnerService", "DEFAULT_VALUES", function($scope, $rootScope, $filter, $timeout, $location, $anchorScroll, TutorService, AppointmentService, AuthService, SessionService, usSpinnerService, DEFAULT_VALUES){
 
     //Subject inputted by the user
     $scope.subjectInput = undefined;
@@ -270,22 +270,24 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
                 'studentId': SessionService.getId(),
                 'description': $scope.selectedCategory.name,
                 'cost': $scope.selectedCategory.cost
-            }
+            };
+
+            var currentClass = $scope.selectedClass;
+            usSpinnerService.spin('request-appointment-spinner');
+            $scope.closeAppointmentRequest();
 
             AppointmentService.sendAppointmentRequest(appointment).then(
                 function(data){
 
-                    for(var i=0; i<$scope.selectedClass.halfHours.length; i++) {
-                        $scope.selectedClass.halfHours[i].available = false;
+                    for(var i=0; i<currentClass.halfHours.length; i++) {
+                        currentClass.halfHours[i].available = false;
                     }
-
-                    $scope.closeAppointmentRequest();
 
                     $scope.appointmentAlertParams = {
                         type: 'success',
                         message: 'La cita fue agendada con éxito',
                         icon: true
-                    }
+                    };
 
                     $timeout(function(){
                         $location.hash('appointment-alert');
@@ -307,7 +309,9 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
 
                     console.log('Error saving an appointment: ' + response);
                 }
-            );
+            ).finally(function(){
+                    usSpinnerService.stop('request-appointment-spinner');
+            });
         }else{
 
             $scope.appointmentAlertMessagesParams = {
