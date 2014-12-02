@@ -410,11 +410,12 @@ class Tutor < ActiveRecord::Base
         suggested_tutors = Tutor.joins(:counties).where("county_id in (#{fallback_county_ids.map(&:inspect).join(',')})")
         suggested_tutors = suggested_tutors - tutors
 
-        if suggested_tutors.count < FALLBACK_NUMBER
-          fallback_county_ids = Tutor.fallback_counties nil, zone_obj[:locality] #fallback a locality
-          suggested_tutors = Tutor.joins(:counties).where("county_id in (#{fallback_county_ids.map(&:inspect).join(',')})")
-          suggested_tutors = suggested_tutors - tutors
-        end
+        # Fallback hasta sublocality (delegación) en caso que no se incluyan temas
+        #if suggested_tutors.count < FALLBACK_NUMBER
+        #  fallback_county_ids = Tutor.fallback_counties nil, zone_obj[:locality] #fallback a locality
+        #  suggested_tutors = Tutor.joins(:counties).where("county_id in (#{fallback_county_ids.map(&:inspect).join(',')})")
+        #  suggested_tutors = suggested_tutors - tutors
+        #end
       end
 
       if category_id
