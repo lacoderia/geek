@@ -31,8 +31,8 @@
               <td class="day-info">{{ appointment.tutor.first_name }} {{ appointment.tutor.last_name }}</td>
               <td class="day-info">{{ appointment.subject }}</td>
               <td class="day-info"><span ng-class="[appointment.status.class,appointment.status.icon_class]"> {{ appointment.status.name }}</span></td>
-              <td class="day-info"><a ng-click="showAnomalyDetail($event, appointment)" ng-show="!appointment.anomaly">Reportar</a>
-                <span ng-show="appointment.anomaly">Reportado</span>
+              <td class="day-info"><a ng-click="showAnomalyDetail($event, appointment)" ng-show="!appointment.anomaly">reportar queja</a>
+                <span ng-show="appointment.anomaly">reportado</span>
               </td>
             </tr>
         </tbody>
