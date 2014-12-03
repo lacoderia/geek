@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeout', '$location', '$anchorScroll', 'AppointmentService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $compile, $timeout, $location, $anchorScroll, AppointmentService, DEFAULT_VALUES){
+Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeout', '$location', '$anchorScroll', 'AppointmentService', 'AvailabilityService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $compile, $timeout, $location, $anchorScroll, AppointmentService, AvailabilityService, DEFAULT_VALUES){
 
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.MONTHS = DEFAULT_VALUES.MONTHS;
@@ -19,12 +19,18 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
     $scope.existstWeekAppoinments = false;
     $scope.currentWeekViewAppointments = [];
 
+    $scope.weekRows = [];
     $scope.calendarRows = [];
     $scope.appointments = [];
     $scope.weekView = false;
 
     // Inicializamos los broadcasts y listeners del controlador
-    
+    $scope.$watch('tutorProfileLoaded', function(){
+        if($rootScope.tutorProfileLoaded){
+            $scope.weekRows = angular.copy($rootScope.weekRows);
+            $scope.getMonthlyCalendar($scope.selectedYear,$scope.selectedMonth);
+        }
+    });
 
     /*
     * Obtiene el número total de días que existen en un mes determinado
@@ -100,11 +106,16 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
         }
     };
 
+
+    $scope.setCurrentDate = function(day){
+        day.selected = true;
+        $scope.selectedDate = day;
+    };
+
     /*
     *  Cambia el día seleccionado en el calendario
     * */
     $scope.selectDate = function(day){
-
         if($scope.selectedDate){
             if($scope.selectedDate.numberDay != day.numberDay || $scope.selectedDate.month != day.month){
 
@@ -141,38 +152,139 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
 
     $scope.setWeekAppointments = function(){
 
-        $scope.$watch('tutorProfileLoaded', function(){
-            if($rootScope.tutorProfileLoaded){
-                $scope.resetWeekViewAppointments();
-                for(var dayIndex=0; dayIndex<$scope.selectedWeek.length; dayIndex++){
-                    var day = $scope.selectedWeek[dayIndex];
+        $scope.resetWeekViewAppointments();
+        $scope.resetWeekAvailabilities();
 
-                    if(day.appointments){
-                        for(var appointmentIndex=0; appointmentIndex<day.appointments.length; appointmentIndex++){
-                            var appointment = day.appointments[appointmentIndex];
-                            var straightHourTime = false;
-                            for(var hourIndex=0; hourIndex<$scope.HOURS.length; hourIndex++){
-                                var timeObject = $rootScope.weekRows[hourIndex].halfHours[dayIndex];
+        for(var dayIndex=0; dayIndex<$scope.selectedWeek.length; dayIndex++){
+            var day = $scope.selectedWeek[dayIndex];
 
-                                if(!straightHourTime){
-                                    if(appointment.startHour == timeObject.startTime){
-                                        $scope.currentWeekViewAppointments.push(timeObject);
-                                        timeObject.appointment = appointment;
-                                        straightHourTime = true;
-                                    }
-                                } else{
-                                    $scope.currentWeekViewAppointments.push(timeObject);
-                                    timeObject.appointment = appointment;
-                                    if(appointment.endHour == timeObject.endTime){
-                                        straightHourTime = false;
-                                    }
+            if(day.appointments){
+                for(var appointmentIndex=0; appointmentIndex<day.appointments.length; appointmentIndex++){
+                    var appointment = day.appointments[appointmentIndex];
+                    var straightHourTime = false;
+
+                    for(var hourIndex=0; hourIndex<$scope.HOURS.length; hourIndex++){
+                        var timeObject = $scope.weekRows[hourIndex].halfHours[dayIndex];
+
+                        if(!straightHourTime){
+                            if(appointment.startHour == timeObject.startTime){
+                                $scope.currentWeekViewAppointments.push(timeObject);
+                                timeObject.appointment = appointment;
+                                straightHourTime = true;
+
+                                if(appointment.endHour == timeObject.endTime){
+                                    straightHourTime = false;
                                 }
+                            }
+                        } else{
+                            $scope.currentWeekViewAppointments.push(timeObject);
+                            timeObject.appointment = appointment;
+                            if(appointment.endHour == timeObject.endTime){
+                                straightHourTime = false;
+                                break;
+                            }
+                        }
+
+
+                    }
+                }
+            }
+        }
+        $scope.getWeekAvailability();
+
+    };
+
+    //Función que borra la disponibilidad de la semana seleccionada previamente
+    $scope.resetWeekAvailabilities = function(){
+
+        for(var dayIndex=0; dayIndex<$scope.selectedWeek.length; dayIndex++){
+            var day = $scope.selectedWeek[dayIndex];
+            for(var hourIndex=0; hourIndex<$scope.HOURS.length; hourIndex++){
+                var timeObject = $scope.weekRows[hourIndex].halfHours[dayIndex];
+                timeObject.available = false;
+                timeObject.availabilityClass = 'unavailable';
+            }
+        }
+
+        if(!$scope.$$phase){
+            $scope.$apply();
+        }
+
+    };
+
+    // Método que asigna la disponibilidad de una semana seleccionada
+    $scope.setWeekAvailabilities = function(){
+
+        for(var dayIndex=0; dayIndex<$scope.selectedWeek.length; dayIndex++){
+            var day = $scope.selectedWeek[dayIndex];
+            if(day.availabilities){
+
+                for(var availabilityIndex=0; availabilityIndex<day.availabilities.length; availabilityIndex++){
+                    var availability = day.availabilities[availabilityIndex];
+                    var straightHourTime = false;
+
+                    for(var hourIndex=0; hourIndex<$scope.HOURS.length; hourIndex++){
+                        var timeObject = $scope.weekRows[hourIndex].halfHours[dayIndex];
+
+                        if(!straightHourTime){
+                            if(availability.start == timeObject.startTime){
+                                timeObject.available = true;
+                                timeObject.availabilityClass = 'available';
+                                straightHourTime = true;
+                                if(availability.end == timeObject.endTime){
+                                    straightHourTime = false;
+                                }
+                            }
+                        }else{
+                            timeObject.available = true;
+                            timeObject.availabilityClass = 'available';
+                            if(availability.end == timeObject.endTime){
+                                straightHourTime = false;
+                                break;
                             }
                         }
                     }
                 }
+
             }
-        });
+
+            if(day.appointments){
+                for(var appointmentIndex=0; appointmentIndex<day.appointments.length; appointmentIndex++){
+                    var appointment = day.appointments[appointmentIndex];
+                    var straightHourTime = false;
+
+                    for(var hourIndex=0; hourIndex<$scope.HOURS.length; hourIndex++){
+                        var timeObject = $scope.weekRows[hourIndex].halfHours[dayIndex];
+
+                        if(!straightHourTime){
+                            if(appointment.startHour == timeObject.startTime){
+                                if(appointment.status.code != 2){
+                                    timeObject.availabilityClass = 'unavailable-with-appointment';
+                                }else{
+                                    timeObject.availabilityClass = 'available';
+                                }
+                                straightHourTime = true;
+                                if(appointment.endHour == timeObject.endTime){
+                                    straightHourTime = false;
+                                }
+                            }
+                        } else{
+                            if(appointment.status.code != 2){
+                                timeObject.availabilityClass = 'unavailable-with-appointment';
+                            }else{
+                                timeObject.availabilityClass = 'available';
+                            }
+                            timeObject.appointment = appointment;
+                            if(appointment.endHour == timeObject.endTime){
+                                straightHourTime = false;
+                                break;
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
 
     };
 
@@ -190,13 +302,19 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
     * Obtiene la posición donde el usuario hiczo click y abre el popupd del detalle del appointment
     * */
     $scope.showAppointmentDetail = function($event, appointment){
-        if(appointment) {
-            var options = {
-                posX: $event.clientX,
-                posY: $event.pageY
-            };
 
-            $scope.openAppointmentDetail($event, appointment, options, DEFAULT_VALUES);
+        if(appointment){
+
+            if(appointment.status.code != 2){
+                var options = {
+                    posX: $event.clientX,
+                    posY: $event.pageY,
+                    changeAppointmentStatus: $scope.changeAppointmentStatus
+                };
+
+                $scope.openAppointmentDetail($event, appointment, options, DEFAULT_VALUES);
+            }
+
         }
     };
 
@@ -294,7 +412,6 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
     * Obtiene un calendario por mes
     * */
     $scope.getMonthlyCalendar = function(year,month){
-
         if(year > $scope.START_YEAR && month >= 0 & month < 12){
             var firstDay = $scope.getFirstDayOfMonth(year,month);
             var lastDay = $scope.getDaysInMonth(year,month+1);
@@ -308,18 +425,20 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
             var nextYear = year;
 
             if(month > 0){
-                lastDayOfLastMonth = $scope.getDaysInMonth(year,month);
-                previousMonth--;
+                previousMonth = previousMonth-1;
+                lastDayOfLastMonth = $scope.getDaysInMonth(year,previousMonth+1);
+
                 if(month < 11){
-                    nextMonth++;
+                    nextMonth = nextMonth+1;
                 }else{
                     nextMonth = 0;
-                    nextYear++;
+                    nextYear = nextYear+1;
                 }
             }else{
-                lastDayOfLastMonth = $scope.getDaysInMonth((year-1),11);
-                nextMonth = month++;
-                previousYear--;
+                nextMonth = month+1;
+                previousYear = year-1;
+                previousMonth = 11;
+                lastDayOfLastMonth = $scope.getDaysInMonth(previousYear,12);
 
             }
 
@@ -343,10 +462,28 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
                             'year': year,
                             'week_number': rowIndex,
                             'selected': false,
-                            'appointments': []
+                            'appointments': [],
+                            'availabilities' : []
                         };
 
-                        if(!$scope.selectedDate && day.isCurrentDay){
+
+                        if(day.isCurrentDay){
+                            day.dayClass = 'current-day';
+                            if(!$scope.selectedDate || $scope.isSelectedDay(day)){
+                                $scope.setCurrentDate(day);
+                            }
+
+                        }else if($scope.selectedDate){
+                            if($scope.isSelectedDay(day) && month == $scope.selectedDate.month){
+                                $scope.setCurrentDate(day);
+                            }else{
+                                if(day.numberDay == 1){
+                                    $scope.setCurrentDate(day);
+                                }
+                            }
+                        }
+
+                        /*if(!$scope.selectedDate && day.isCurrentDay){
                             day.dayClass = 'current-day';
                             if(!$scope.selectedDate){
                                 $scope.selectDate(day);
@@ -354,7 +491,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
                         }else if($scope.selectedDate && $scope.isSelectedDay(day)){
                             day.dayClass = 'current-day';
                             $scope.selectDate(day);
-                        }
+                        }*/
                         numberDay++;
 
                     }else if(indexDay < firstDay){
@@ -369,7 +506,8 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
                             'year': previousYear,
                             'week_number': rowIndex,
                             'selected': false,
-                            'appointments': []
+                            'appointments': [],
+                            'availabilities' : []
                         };
                     }else{
                         day = {
@@ -382,7 +520,8 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
                             'year': nextYear,
                             'week_number': rowIndex,
                             'selected': false,
-                            'appointments': []
+                            'appointments': [],
+                            'availabilities' : []
                         };
                         nextDay++;
                     }
@@ -390,16 +529,56 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
                     indexDay++;
                 }
             }
-            $scope.getWeeklyAppointmentList($scope.selectedYear,$scope.selectedMonth);
+            $scope.getWeekByDay($scope.selectedDate);
+            $scope.getWeeklyAppointmentList();
+
         }
+    };
+
+    // Método que asigna la disponiblidad de los días de un mes
+    $scope.setDayAvailability = function(availability){
+
+        for(var dayIndex=0; dayIndex<$scope.DAYS.length; dayIndex++){
+            var day = $scope.selectedWeek[dayIndex];
+            if(day.numberDay == availability.day && day.month == availability.month && day.year == availability.year){
+                day.availabilities.push(availability);
+                return;
+            }
+        }
+
+
+    };
+
+    $scope.getWeekAvailability = function(){
+        AvailabilityService.getTutorAvailabilityByRange($scope.selectedWeek[0], $scope.selectedWeek[$scope.selectedWeek.length-1],$scope.tutor.id).then(
+            function(data){
+                $scope.weekAvailability = data;
+                if(data){
+                    for(var availabilityIndex=0; availabilityIndex<$scope.weekAvailability.length; availabilityIndex++){
+                        var availability = $scope.weekAvailability[availabilityIndex];
+                        availability.month--;
+
+                        $scope.setDayAvailability(availability);
+                    }
+                    $scope.setWeekAvailabilities();
+
+                    if(!$scope.$$phase){
+                        $scope.$apply();
+                    }
+                }
+            },
+            function (response){
+                console.log('Error retrieving the availability appointments: ' + response);
+            }
+        );
     };
 
     /*
     * Obtiene la una lista de citas en una semana determinada
     * */
-    $scope.getWeeklyAppointmentList = function(year,month){
+    $scope.getWeeklyAppointmentList = function(){
 
-        AppointmentService.getAppointmentsByMonthAndYear(month,year).then(
+        AppointmentService.getAppointmentsByMonthAndYear($scope.currentMonth,$scope.currentYear).then(
             function(data){
                 $scope.appointments = data;
                 if(data){
@@ -442,6 +621,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
                     }
 
                     $scope.existstWeekAppoinments = $scope.existsAppointmentsByWeek($scope.selectedWeek);
+                    $scope.setWeekAppointments();
 
                     if(!$scope.$$phase){
                         $scope.$apply();
@@ -454,7 +634,5 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
         );
 
     };
-
-    $scope.getMonthlyCalendar($scope.selectedYear,$scope.selectedMonth);
 
 }]);
