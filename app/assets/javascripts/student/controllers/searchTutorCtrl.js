@@ -279,21 +279,29 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
             AppointmentService.sendAppointmentRequest(appointment).then(
                 function(data){
 
-                    for(var i=0; i<currentClass.halfHours.length; i++) {
-                        currentClass.halfHours[i].available = false;
-                    }
-
-                    $scope.appointmentAlertParams = {
-                        type: 'success',
-                        message: 'La cita fue agendada con éxito',
+                    if(data.success == false){
+                      $scope.appointmentAlertParams = {
+                        type: 'danger',
+                        message: 'Hubo un error al solicitar una cita, por favor, intenta de nuevo.',
                         icon: true
-                    };
+                      }
+                    }else{
+                      
+                      for(var i=0; i<currentClass.halfHours.length; i++) {
+                          currentClass.halfHours[i].available = false;
+                      }
 
-                    $timeout(function(){
-                        $location.hash('appointment-alert');
-                        $anchorScroll();
-                    }, 0);
+                      $scope.appointmentAlertParams = {
+                          type: 'success',
+                          message: 'La cita fue agendada con éxito',
+                          icon: true
+                      };
 
+                      $timeout(function(){
+                          $location.hash('appointment-alert');
+                          $anchorScroll();
+                      }, 0);
+                    }
                 },
                 function (response){
                     $scope.appointmentAlertParams = {
