@@ -23,6 +23,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
     $scope.calendarRows = [];
     $scope.appointments = [];
     $scope.weekView = false;
+    $scope.calendarAlertMessagesParams = undefined;
 
     // Inicializamos los broadcasts y listeners del controlador
     $scope.$watch('tutorProfileLoaded', function(){
@@ -318,37 +319,63 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
         }
     };
 
+
     /*
      * Cambia el status de un un appointment determinado
      * */
     $scope.changeAppointmentStatus = function($event,action,appointment){
         $event.stopPropagation();
 
+        var now = new Date();
+
         var status = '';
+        var appointmentDateBeforeNow = true;
 
         switch (action){
             case 'cancel':
                 status = DEFAULT_VALUES.APPOINTMENT_STATUS[5];
+                appointmentDateBeforeNow = true;
+                $scope.calendarAlertMessagesParams = undefined;
                 break;
             case 'confirm':
-                status = DEFAULT_VALUES.APPOINTMENT_STATUS[3];
+                if(now <= appointment.start){
+                    status = DEFAULT_VALUES.APPOINTMENT_STATUS[3];
+                    appointmentDateBeforeNow = true;
+                    $scope.calendarAlertMessagesParams = undefined;
+                }else{
+                    appointmentDateBeforeNow = false;
+                    $scope.calendarAlertMessagesParams = {
+                        type: 'warning',
+                        message: 'La citas a confirmar deben ser mayores a la fecha y hora actual.',
+                        icon: true
+                    };
+
+                    $timeout(function(){
+                        $location.hash('tutor-calendar-alert');
+                        $anchorScroll();
+                    }, 0);
+                }
                 break;
             case 'reject':
                 status = DEFAULT_VALUES.APPOINTMENT_STATUS[2];
+                appointmentDateBeforeNow = true;
+                $scope.calendarAlertMessagesParams = undefined;
                 break;
         }
 
-        AppointmentService.setAppointmentStatus(appointment.id, status.code).then(
-            function (data){
-                var statusId = appointment.status.id;
-                appointment.status = status;
-                appointment.status.id = statusId;
-                $scope.showActionButtons(appointment);
-            },
-            function (response){
-                console.log('Error setting appointment status: ' + response);
-            }
-        );
+        if(appointmentDateBeforeNow){
+            AppointmentService.setAppointmentStatus(appointment.id, status.code).then(
+                function (data){
+                    var statusId = appointment.status.id;
+                    appointment.status = status;
+                    appointment.status.id = statusId;
+                    $scope.showActionButtons(appointment);
+                },
+                function (response){
+                    console.log('Error setting appointment status: ' + response);
+                }
+            );
+        }
     };
 
     $scope.showActionButtons = function(appointment){

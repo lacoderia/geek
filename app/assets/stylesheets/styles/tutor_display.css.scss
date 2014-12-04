@@ -591,6 +591,28 @@
 
 }
 
+.tutor-calendar-tools{
+  display: table;
+  width: 100%;
+
+  .tutor-calendar-alert{
+    box-sizing: border-box;
+    display: table-cell;
+    padding: 0px 5px;
+    width: 80%;
+
+    span{
+
+    }
+  }
+
+  .tutor-calendar-view-selector{
+    display: table-cell;
+    text-align: right;
+    width: 20%;
+  }
+}
+
 .validation-form {
 
   .popover.top > .arrow{
