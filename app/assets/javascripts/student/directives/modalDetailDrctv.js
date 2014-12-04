@@ -78,6 +78,8 @@ Geek.directive('ngModalDetail', ["$timeout", "$window", "$document", function($t
                         scope.detailArrowClass = scope.DEFAULT_ARROW_CLASSES[0];
                     }
 
+                    scope.changeAppointmentStatus = options.changeAppointmentStatus;
+
                 },0);
 
                 // Detenemos la propagación para que el evento click sobre $document no cierre el modal

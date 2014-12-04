@@ -63,6 +63,8 @@ Geek.directive('ngModalAppointmentRequest', ["$timeout", "$window", "$document",
                         scope.detailArrowClass = scope.DEFAULT_ARROW_CLASSES[0];
                     }
 
+                    scope.sendAppointmentRequest = options.sendAppointmentRequest
+
                 },0);
 
                 // Detenemos la propagación para que el evento click sobre $document no cierre el modal

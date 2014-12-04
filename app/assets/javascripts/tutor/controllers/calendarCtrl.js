@@ -300,21 +300,19 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
     };
 
     /*
-    * Obtiene la posición donde el usuario hiczo click y abre el popupd del detalle del appointment
+    * Obtiene la posición donde el usuario hiczo click y abre el popup del detalle del appointment
     * */
     $scope.showAppointmentDetail = function($event, appointment){
 
         if(appointment){
 
-            if(appointment.status.code != 2){
-                var options = {
-                    posX: $event.clientX,
-                    posY: $event.pageY,
-                    changeAppointmentStatus: $scope.changeAppointmentStatus
-                };
+            var options = {
+                posX: $event.clientX,
+                posY: $event.pageY,
+                changeAppointmentStatus: $scope.changeAppointmentStatus
+            };
 
-                $scope.openAppointmentDetail($event, appointment, options, DEFAULT_VALUES);
-            }
+            $scope.openAppointmentDetail($event, appointment, options, DEFAULT_VALUES);
 
         }
     };

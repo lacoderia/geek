@@ -1,5 +1,5 @@
 <div class="tutor-calendar-container">
-  <h2 class="section-title">Mi historial</h2>
+  <h2 class="section-title">Historial</h2>
   <div class="appointment-history" ng-controller="AppointmentHistoryController as AppointmentHistoryCtrl">
     <div class="history-list-view-unavailable" ng-hide="appointmentsGroups.length">
       <div class="history-list-view-unavailable-content">
@@ -31,8 +31,9 @@
               <td class="day-info">{{ appointment.student.first_name }} {{ appointment.student.last_name }}</td>
               <td class="day-info">{{ appointment.subject }}</td>
               <td class="day-info"><span ng-class="[appointment.status.class,appointment.status.icon_class]"> {{ appointment.status.name }}</span></td>
-              <td class="day-info"><a ng-click="showAnomalyDetail($event, appointment)" ng-show="!appointment.anomaly">reportar queja</a>
-                <span ng-show="appointment.anomaly">reportado</span>
+              <td class="day-info appointment-button">
+                <a class="report-class" ng-click="showAnomalyDetail($event, appointment)" ng-show="!appointment.anomaly && appointment.status.code == 3">Reportar queja</a>
+                <span ng-show="appointment.anomaly">Reportado</span>
               </td>
             </tr>
         </tbody>

@@ -32,6 +32,7 @@ Geek.controller('MyAppointmentsController',['$scope','$rootScope','$compile','Ap
                 console.log('Error setting appointment status: ' + response);
             }
         );
+        $scope.closeAppointmentDetail();
     };
 
     /*
@@ -41,7 +42,8 @@ Geek.controller('MyAppointmentsController',['$scope','$rootScope','$compile','Ap
         if(appointment) {
             var options = {
                 posX: $event.clientX,
-                posY: $event.pageY
+                posY: $event.pageY,
+                changeAppointmentStatus: $scope.changeAppointmentStatus
             };
 
             $scope.openAppointmentDetail($event, appointment, options, DEFAULT_VALUES);
