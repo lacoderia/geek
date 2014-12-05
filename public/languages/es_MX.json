@@ -30,5 +30,7 @@
     "MESSAGES": "Mensajes",
     "MY_CALENDAR" : "Mi Calendario",
     "MY_HISTORY" : "Historial",
-    "SEARCH_A_CLASS": "Busca una clase"
+    "SEARCH_A_CLASS": "Busca una clase",
+    "SIGN_IN": "Ingresa",
+    "WANT_TO_TEACH": "¿Quieres dar clases en geek?"
 }
