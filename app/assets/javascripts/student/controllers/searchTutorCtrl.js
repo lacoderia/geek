@@ -23,6 +23,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
     $scope.components_address = undefined;
     $scope.chosenPlaceDetails = '';
     $scope.showTopSearchbar = false;
+    $scope.validAppointmentDate = true;
 
 
     $scope.onPlaceChanged = function(place){
@@ -198,7 +199,8 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
             $timeout(function(){
 
                 $scope.selectedClass = {
-                    'halfHours': new Array()
+                    'halfHours': new Array(),
+                    'title': 'Agendar clase'
                 };
 
                 var currentHalfHour = $scope.getHalfHour(row, column);
@@ -222,13 +224,12 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
                         message: 'Las clases deben durar al menos 1 hora, por favor, intenta en otro horario.',
                         icon: true
                     };
-
+                    return;
                 }
 
                 var firstHalfhour = $scope.selectedClass.halfHours[0];
                 var lastHalfhour = $scope.selectedClass.halfHours[$scope.selectedClass.halfHours.length - 1];
 
-                $scope.selectedClass.title =  'Agendar clase';
                 $scope.selectedClass.date = DEFAULT_VALUES.DAYS[day.day].title + ', ' + day.numberDay + ' de ' + DEFAULT_VALUES.MONTHS[day.month];
                 $scope.selectedClass.time = 'De ' + firstHalfhour.startTime + ' a ' + lastHalfhour.endTime ;
                 $scope.selectedClass.dateTimeISO = new Date(day.year, day.month, day.numberDay, firstHalfhour.startTime.split(':')[0], firstHalfhour.startTime.split(':')[1]).toISOString();
@@ -237,7 +238,24 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
                     'name' : $scope.DEFAULT_CATEGORY_NAME,
                     'cost' : 0
                 };
-                $scope.appointmentAlertMessagesParams = undefined;
+
+
+                var now = new Date();
+                var classDate = new Date($scope.selectedClass.dateTimeISO);
+
+                if(now <= classDate){
+                    $scope.appointmentAlertMessagesParams = undefined;
+                    $scope.validAppointmentDate = true;
+                }else{
+
+                    $scope.appointmentAlertMessagesParams = {
+                        type: 'warning',
+                        message: 'El horario de la clase expiró, por favor, selecciona otro horario',
+                        icon: true
+                    };
+                    $scope.validAppointmentDate = false;
+                    return;
+                }
 
             },0);
 
@@ -261,86 +279,74 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
 
 
     $scope.sendAppointmentRequest = function() {
-        var now = new Date();
-        var classDate = new Date($scope.selectedClass.dateTimeISO);
 
-        if(now <= classDate){
-            if($scope.selectedCategory.id){
+        if($scope.selectedCategory.id){
 
-                var appointment = {
-                    'tutorId': $scope.selectedTutor.id,
-                    'start': $scope.selectedClass.dateTimeISO,
-                    'duration': 1,
-                    'studentId': SessionService.getId(),
-                    'description': $scope.selectedCategory.name,
-                    'cost': $scope.selectedCategory.cost
-                };
+            var appointment = {
+                'tutorId': $scope.selectedTutor.id,
+                'start': $scope.selectedClass.dateTimeISO,
+                'duration': 1,
+                'studentId': SessionService.getId(),
+                'description': $scope.selectedCategory.name,
+                'cost': $scope.selectedCategory.cost
+            };
 
-                var currentClass = $scope.selectedClass;
-                usSpinnerService.spin('request-appointment-spinner');
-                $scope.closeAppointmentRequest();
+            var currentClass = $scope.selectedClass;
+            usSpinnerService.spin('request-appointment-spinner');
+            $scope.closeAppointmentRequest();
 
-                AppointmentService.sendAppointmentRequest(appointment).then(
-                    function(data){
+            AppointmentService.sendAppointmentRequest(appointment).then(
+                function(data){
 
-                        if(data.success == false){
-                            $scope.appointmentAlertParams = {
-                                type: 'warning',
-                                message: 'El horario de la clase expiró, por favor, selecciona otro horario',
-                                icon: true
-                            }
-                        }else{
-
-                            for(var i=0; i<currentClass.halfHours.length; i++) {
-                                currentClass.halfHours[i].available = false;
-                            }
-
-                            $scope.appointmentAlertParams = {
-                                type: 'success',
-                                message: 'La cita fue agendada con éxito',
-                                icon: true
-                            };
-
-                            $timeout(function(){
-                                $location.hash('appointment-alert');
-                                $anchorScroll();
-                            }, 0);
-                        }
-                    },
-                    function (response){
+                    if(data.success == false){
                         $scope.appointmentAlertParams = {
-                            type: 'danger',
-                            message: 'Hubo un error al solicitar una cita, por favor, intenta de nuevo.',
+                            type: 'warning',
+                            message: 'El horario de la clase expiró, por favor, selecciona otro horario',
                             icon: true
                         }
+                    }else{
+
+                        for(var i=0; i<currentClass.halfHours.length; i++) {
+                            currentClass.halfHours[i].available = false;
+                        }
+
+                        $scope.appointmentAlertParams = {
+                            type: 'success',
+                            message: 'La cita fue agendada con éxito',
+                            icon: true
+                        };
 
                         $timeout(function(){
                             $location.hash('appointment-alert');
                             $anchorScroll();
                         }, 0);
-
-                        console.log('Error saving an appointment: ' + response);
                     }
-                ).finally(function(){
-                        usSpinnerService.stop('request-appointment-spinner');
-                    });
-            }else{
+                },
+                function (response){
+                    $scope.appointmentAlertParams = {
+                        type: 'danger',
+                        message: 'Hubo un error al solicitar una cita, por favor, intenta de nuevo.',
+                        icon: true
+                    }
 
-                $scope.appointmentAlertMessagesParams = {
-                    type: 'warning',
-                    message: 'Debes seleccionar un tema',
-                    icon: true
-                };
-            }
+                    $timeout(function(){
+                        $location.hash('appointment-alert');
+                        $anchorScroll();
+                    }, 0);
+
+                    console.log('Error saving an appointment: ' + response);
+                }
+            ).finally(function(){
+                    usSpinnerService.stop('request-appointment-spinner');
+                });
         }else{
 
             $scope.appointmentAlertMessagesParams = {
                 type: 'warning',
-                message: 'El horario de la clase expiró, por favor, selecciona otro horario',
+                message: 'Debes seleccionar un tema',
                 icon: true
             };
         }
-
 
     };
 

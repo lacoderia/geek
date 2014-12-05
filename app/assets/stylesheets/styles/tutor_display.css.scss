@@ -493,7 +493,7 @@
             position: absolute;
             left: 50%;
             top: 50%;
-            -webkit-transform: translateY(-50%) translateX(-50%);
+            transform: translateY(-50%) translateX(-50%);
           }
 
         }
@@ -600,10 +600,6 @@
     display: table-cell;
     padding: 0px 5px;
     width: 80%;
-
-    span{
-
-    }
   }
 
   .tutor-calendar-view-selector{

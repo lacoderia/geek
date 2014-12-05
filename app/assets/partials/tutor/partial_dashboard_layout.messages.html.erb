@@ -1,1 +1,32 @@
-Mensajes
+<div class="messages" ng-controller="MessageController">
+  <h2 class="section-title" translate="MESSAGES"></h2>
+  <!-- Sección de listado de conversaciones vacío -->
+  <div class="unavailable-message" ng-hide="conversations">
+    <div class="unavailable-message-content">
+      <h3>Lo sentimos, no encontramos conversaciones</h3>
+    </div>
+  </div>
+
+  <!-- Sección de listado de conversaciones -->
+  <div class="conversations">
+    <div class="conversation" class="col-lg-12 col-md-12 col-sm-12" ng-repeat="conversation in conversations" ng-hide="conversationSelected" ng-image-adjustment image-container="user_picture" image-src="{{ conversation.user.picture_url }}">
+      <div class="user_picture_container">
+        <div class="user_picture">
+          <img/>
+        </div>
+      </div>
+      <div class="user-personal-info">
+        <div class="content">
+          <h4 class="user-name">{{ conversation.user.first_name }} {{ conversation.user.last_name }}</h4>
+          <p class="user-last-message">{{ conversation.last_message.text }}</p>
+          <div class="conversation-info">
+            <em class="timestamp">{{ conversation.last_message.timestamp }}</em>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+
+  <!-- Sección de conversación seleccionada -->
+</div>
