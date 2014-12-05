@@ -40,11 +40,19 @@
             </table>
           </div>
         </div>
-        <div>
-          <ul class="view-selector">
-            <li><a title="Lista semanal de citas" ng-click="changeView(false)" ng-class="{ true:'', false:'selected' }[weekView]"><span class="icon-list"></span></a></li>
-            <li><a title="Vista semanal" ng-click="changeView(true)" ng-class="{ true:'selected', false:'' }[weekView]"><span class="icon-table"></span></a></li>
-          </ul>
+        <div class="tutor-calendar-tools">
+
+          <div id="tutor-calendar-alert" class="tutor-calendar-alert">
+            <ng-alert-message alert-params="calendarAlertMessagesParams" class="tutor-calendar-alert"></ng-alert-message>
+          </div>
+
+          <div class="tutor-calendar-view-selector">
+            <ul class="view-selector">
+              <li><a title="Lista semanal de citas" ng-click="changeView(false)" ng-class="{ true:'', false:'selected' }[weekView]"><span class="icon-list"></span></a></li>
+              <li><a title="Vista semanal" ng-click="changeView(true)" ng-class="{ true:'selected', false:'' }[weekView]"><span class="icon-table"></span></a></li>
+            </ul>
+          </div>
+
         </div>
         <div class="week-list-view" ng-hide="weekView">
           <div class="week-list-view-unavailable" ng-hide="existstWeekAppoinments">
@@ -106,7 +114,7 @@
               <tbody>
               <tr>
                 <td class="week-day"><span ng-hide="$index%2">{{ HOURS[$index] }}</span>&nbsp;</td>
-                <td class="week-day" ng-class="[halfHour.appointment.status.class, {true:'available', false: 'unavailable'}[halfHour.available], 'no-cursor']" ng-repeat="halfHour in row.halfHours" ng-click="showAppointmentDetail($event, halfHour.appointment)">
+                <td class="week-day" ng-class="[halfHour.appointment.status.class, halfHour.availabilityClass, 'no-cursor']" ng-repeat="halfHour in row.halfHours" ng-click="showAppointmentDetail($event, halfHour.appointment)">
                 </td>
               </tr>
               </tbody>

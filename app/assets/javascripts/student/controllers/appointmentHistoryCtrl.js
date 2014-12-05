@@ -35,7 +35,7 @@ Geek.controller('AppointmentHistoryController',['$scope','$rootScope','Appointme
      * Obtiene la una lista de citas anteriores a la fecha actual
      * */
     $scope.getPastAppointmentList = function(){
-        AppointmentService.all().then(
+        AppointmentService.previous().then(
             function(data){
                 if(data){
                     for(var groupIndex = 0; groupIndex < data.length; groupIndex++){

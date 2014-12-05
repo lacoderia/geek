@@ -455,7 +455,11 @@ h3.section-title{
   .reject-class{
     background-color: $color-light-red;
     color: white;
+  }
 
+  .report-class{
+    background-color: $color-light-blue;
+    color: white;
   }
 }
 
@@ -629,7 +633,7 @@ h3.section-title{
       padding: 1rem;
       text-align: center;
       text-transform: uppercase;
-      width: 25%;
+      width: 20%;
     }
 
     .history-list-day-info-row{
@@ -813,6 +817,7 @@ h3.section-title{
   }
 
   .view-selector{
+    display: inline-block;
     font-size: 0px;
     list-style: none;
     margin: 2em 0em 0em 0em;
@@ -1453,7 +1458,6 @@ footer{
 
   li{
     background-color: rgba(166,168,171,0.2);
-    border-radius: 10px 10px 0px 0px;
     display: inline-block;
     font-size: 16px;
     font-weight: 500;

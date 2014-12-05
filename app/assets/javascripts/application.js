@@ -17,6 +17,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap-sprockets
+//= require lib/spin
 
 // Librerias de Angular requeridas en el proyecto
 //= require lib/angular/angular.js
@@ -36,3 +37,4 @@
 //= require lib/angular/angular-translate
 //= require lib/angular/angular-translate-loader-static-files
 //= require lib/angular/angular-translate-storage-local
+//= require lib/angular/angular-spinner

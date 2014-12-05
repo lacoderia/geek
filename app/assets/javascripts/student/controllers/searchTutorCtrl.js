@@ -1,4 +1,4 @@
-Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$timeout", "$location", "$anchorScroll", "TutorService", "AppointmentService", "AuthService", "SessionService", "DEFAULT_VALUES", function($scope, $rootScope, $filter, $timeout, $location, $anchorScroll, TutorService, AppointmentService, AuthService, SessionService, DEFAULT_VALUES){
+Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$timeout", "$location", "$anchorScroll", "TutorService", "AppointmentService", "AuthService", "SessionService", "usSpinnerService", "DEFAULT_VALUES", function($scope, $rootScope, $filter, $timeout, $location, $anchorScroll, TutorService, AppointmentService, AuthService, SessionService, usSpinnerService, DEFAULT_VALUES){
 
     //Subject inputted by the user
     $scope.subjectInput = undefined;
@@ -191,7 +191,8 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
         if(halfHour && halfHour.available) {
             var options = {
                 posX: event.pageX - $('#modal-parent').offset().left,
-                posY: $(event.target).offset().top - $('#modal-parent').offset().top - 5
+                posY: $(event.target).offset().top - $('#modal-parent').offset().top - 5,
+                sendAppointmentRequest: $scope.sendAppointmentRequest
             };
 
             $timeout(function(){
@@ -260,59 +261,82 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
 
 
     $scope.sendAppointmentRequest = function() {
+        var now = new Date();
+        var classDate = new Date($scope.selectedClass.dateTimeISO);
 
-        if($scope.selectedCategory.id){
+        if(now <= classDate){
+            if($scope.selectedCategory.id){
 
-            var appointment = {
-                'tutorId': $scope.selectedTutor.id,
-                'start': $scope.selectedClass.dateTimeISO,
-                'duration': 1,
-                'studentId': SessionService.getId(),
-                'description': $scope.selectedCategory.name,
-                'cost': $scope.selectedCategory.cost
+                var appointment = {
+                    'tutorId': $scope.selectedTutor.id,
+                    'start': $scope.selectedClass.dateTimeISO,
+                    'duration': 1,
+                    'studentId': SessionService.getId(),
+                    'description': $scope.selectedCategory.name,
+                    'cost': $scope.selectedCategory.cost
+                };
+
+                var currentClass = $scope.selectedClass;
+                usSpinnerService.spin('request-appointment-spinner');
+                $scope.closeAppointmentRequest();
+
+                AppointmentService.sendAppointmentRequest(appointment).then(
+                    function(data){
+
+                        if(data.success == false){
+                            $scope.appointmentAlertParams = {
+                                type: 'warning',
+                                message: 'El horario de la clase expiró, por favor, selecciona otro horario',
+                                icon: true
+                            }
+                        }else{
+
+                            for(var i=0; i<currentClass.halfHours.length; i++) {
+                                currentClass.halfHours[i].available = false;
+                            }
+
+                            $scope.appointmentAlertParams = {
+                                type: 'success',
+                                message: 'La cita fue agendada con éxito',
+                                icon: true
+                            };
+
+                            $timeout(function(){
+                                $location.hash('appointment-alert');
+                                $anchorScroll();
+                            }, 0);
+                        }
+                    },
+                    function (response){
+                        $scope.appointmentAlertParams = {
+                            type: 'danger',
+                            message: 'Hubo un error al solicitar una cita, por favor, intenta de nuevo.',
+                            icon: true
+                        }
+
+                        $timeout(function(){
+                            $location.hash('appointment-alert');
+                            $anchorScroll();
+                        }, 0);
+
+                        console.log('Error saving an appointment: ' + response);
+                    }
+                ).finally(function(){
+                        usSpinnerService.stop('request-appointment-spinner');
+                    });
+            }else{
+
+                $scope.appointmentAlertMessagesParams = {
+                    type: 'warning',
+                    message: 'Debes seleccionar un tema',
+                    icon: true
+                };
             }
-
-            AppointmentService.sendAppointmentRequest(appointment).then(
-                function(data){
-
-                    for(var i=0; i<$scope.selectedClass.halfHours.length; i++) {
-                        $scope.selectedClass.halfHours[i].available = false;
-                    }
-
-                    $scope.closeAppointmentRequest();
-
-                    $scope.appointmentAlertParams = {
-                        type: 'success',
-                        message: 'La cita fue agendada con éxito',
-                        icon: true
-                    }
-
-                    $timeout(function(){
-                        $location.hash('appointment-alert');
-                        $anchorScroll();
-                    }, 0);
-
-                },
-                function (response){
-                    $scope.appointmentAlertParams = {
-                        type: 'danger',
-                        message: 'Hubo un error al solicitar una cita, por favor, intenta de nuevo.',
-                        icon: true
-                    }
-
-                    $timeout(function(){
-                        $location.hash('appointment-alert');
-                        $anchorScroll();
-                    }, 0);
-
-                    console.log('Error saving an appointment: ' + response);
-                }
-            );
         }else{
 
             $scope.appointmentAlertMessagesParams = {
                 type: 'warning',
-                message: 'Debes seleccionar un tema',
+                message: 'El horario de la clase expiró, por favor, selecciona otro horario',
                 icon: true
             };
         }

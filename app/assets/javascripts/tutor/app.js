@@ -1,6 +1,6 @@
 'use strict';
 
-var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'angucomplete-alt-geek', 'ui.router', 'ui.bootstrap.showErrors', 'ui.bootstrap', 'ng-currency', 'pascalprecht.translate', 'mgcrea.ngStrap'])
+var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'angucomplete-alt-geek', 'ui.router', 'ui.bootstrap.showErrors', 'ui.bootstrap', 'ng-currency', 'pascalprecht.translate', 'mgcrea.ngStrap', 'angularSpinner'])
 
         .constant('DEFAULT_VALUES',{
         'PROFILE_IMAGE': '/assets/site/person.png',
@@ -10,7 +10,8 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
             'CATEGORY_SERVICE_URL': '/categories.json',
             'COUNTY_SERVICE_URL': '/counties.json',
             'PROFILE_GET_STATUS_URL': '/tutors/status.json',
-            'PROFILE_GET_PROFILE_URL': '/tutors/profile.json'
+            'PROFILE_GET_PROFILE_URL': '/tutors/profile.json',
+            'ANOMALY_REPORT': 'registered_anomalies/from_tutor.json'
         },
         'HOURS': [  '00:00', '00:30', '01:00', '01:30', '02:00', '02:30', '03:00', '03:30',
                     '04:00', '04:30', '05:00', '05:30', '06:00', '06:30', '07:00', '07:30',

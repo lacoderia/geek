@@ -1,6 +1,6 @@
 'use strict';
 
-var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-geek', 'ui.router', 'ui.bootstrap.showErrors', 'angular-ellipsis', 'pascalprecht.translate'])
+var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-geek', 'ui.router', 'ui.bootstrap.showErrors', 'angular-ellipsis', 'pascalprecht.translate', 'angularSpinner'])
 
     .constant('DEFAULT_VALUES',{
         'PROFILE_IMAGE': '/assets/site/person.png',
@@ -11,7 +11,8 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
             'COUNTY_SERVICE_URL': '/counties.json',
             'TUTOR_SERVICE_URL': '/tutors/by_county_and_category_ids.json',
             'PROFILE_GET_SESSION_URL': '/students/profile.json',
-            'TUTOR_BY_GOOGLE_SERVICE_URL': '/tutors/by_query_params_for_google.json'
+            'TUTOR_BY_GOOGLE_SERVICE_URL': '/tutors/by_query_params_for_google.json',
+            'ANOMALY_REPORT': 'registered_anomalies/from_student.json'
         },
         'HOURS': [  '00:00', '00:30', '01:00', '01:30', '02:00', '02:30', '03:00', '03:30',
             '04:00', '04:30', '05:00', '05:30', '06:00', '06:30', '07:00', '07:30',
@@ -172,6 +173,34 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
             .state('dashboard.my-classes', {
                 url: "/my-classes",
                 templateUrl: "/assets/student/partial_dashboard_layout.my_classes.html",
+                resolve: {
+                    isAuthenticated: function($state, AuthService, SessionService){
+                        if(AuthService.isAuthenticated()){
+                            return true;
+                        }else{
+                            AuthService.getSession().then(
+                                function(data){
+                                    if(data && data.id){
+                                        SessionService.createSession(data.id, data.email, data.first_name, data.last_name, data.gender, data.phone_number);
+                                        return true;
+
+                                    }else{
+                                        $state.go('student');
+                                    }
+                                },
+                                function(response){
+                                    console.log('Error getting tutor\'s request status: ' + response);
+                                    $state.go('home');
+                                }
+                            )
+                        }
+                    }
+                }
+
+            })
+            .state('dashboard.history', {
+                url: "/history",
+                templateUrl: "/assets/student/partial_dashboard_layout.history.html",
                 resolve: {
                     isAuthenticated: function($state, AuthService, SessionService){
                         if(AuthService.isAuthenticated()){
