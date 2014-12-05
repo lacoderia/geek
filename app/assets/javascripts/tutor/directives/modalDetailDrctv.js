@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.directive('ngModalDetail', ["$timeout", "$window", "$document", function($timeout, $window, $document){
+Geek.directive('ngModalDetail', ["$timeout", "$window", "$document", "$filter", function($timeout, $window, $document, $filter){
     return{
         restrict: 'A',
         replace: true,
@@ -49,7 +49,7 @@ Geek.directive('ngModalDetail', ["$timeout", "$window", "$document", function($t
                 $timeout(function(){
                     scope.clickedAppointment = appointment;
                     scope.clickedAppointment.title =  appointment.subject + ' - ' + appointment.student.first_name + ' '  + appointment.student.last_name;
-                    scope.clickedAppointment.date = DEFAULT_VALUES.DAYS[appointment.day].title + ', ' + appointment.numberDay + ' de ' + DEFAULT_VALUES.MONTHS[appointment.month];
+                    scope.clickedAppointment.date = $filter('translate')(DEFAULT_VALUES.DAYS[appointment.day].title) + ', ' + appointment.numberDay + ' de ' + $filter('translate')(DEFAULT_VALUES.MONTHS[appointment.month]);
                     scope.clickedAppointment.time = 'De ' + appointment.startHour + ' a ' + appointment.endHour;
 
                     scope.clickedAppointment.address = 'Dirección por confirmar';
