@@ -12,6 +12,64 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
     $scope.tutorList = [];
     $scope.suggestedTutorList = [];
 
+    // TEST
+    $scope.tutorList = [{"id":2,"first_name":"Ricardo","last_name":"Rosas","details":null,"references":null,"background":"Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación","calendar_id":"tlcsbhj0n819cer3d4q1r2spr4@group.calendar.google.com","picture_url":"/assets/site/person.png","email":"rosas.schultz@gmail.com","counties":[{"id":452,"postal_code_id":333,"name":"Condesa"}],"categories":[{"id":7,"name":"MATE","category_id":1,"picture_url":null,"cost":300},{"id":8,"name":"ALGEBRA","category_id":1,"picture_url":null,"cost":320.5}],"preference":{"id":3,"online":true,"office":true,"public":true,"student_place":true},"appointments":{"classes=":4,"students=":1},"show":true,"costRange":"$300.00 - $320.50",
+        "reviews": {
+            "average": 2,
+            "comments": [
+                {
+                    "user" : {
+                        "picture_url": '/assets/site/person.png',
+                        "name": 'Juanito Perez'
+                    },
+                    "score": 3,
+                    "text": 'El profesor es muy bueno, aclaró todas mis dudas y aprendí justo lo que necesitaba para poder pasar mi examen. Lo recomiendo mucho a otros estudiantes que deseen aprender Matemáticas Avanzadas para Astronautas.',
+                    "timestamp": '4 de diciembre, 2014'
+                },
+                {
+                    "user" : {
+                        "picture_url": '/assets/site/person.png',
+                        "name": 'Ramiro Hernández'
+                    },
+                    "score": 1,
+                    "text": 'El profesor es muy bueno, aclaró todas mis dudas y aprendí justo lo que necesitaba para poder pasar mi examen. Lo recomiendo mucho a otros estudiantes que deseen aprender Matemáticas Avanzadas para Astronautas.',
+                    "timestamp": '6 de diciembre, 2014'
+                }
+            ]
+        }
+    }];
+    $scope.suggestedTutorList = [{"id":1,"first_name":"Ramiro","last_name":"Tutor","details":"tutor details","references":"tutor references","background":"tutor background","calendar_id":"232342af","picture_url":"http://learnunity3d.com/wp-content/uploads//2012/06/Digital_Tutors.png","email":"ramiro@tutor.com","counties":[{"id":585,"postal_code_id":447,"name":"Nueva Industrial Vallejo"},{"id":587,"postal_code_id":449,"name":"Torres Lindavista"}],"categories":[{"id":1,"name":"Académico","category_id":null,"picture_url":"/assets/site/cat-academico.png","cost":0},{"id":2,"name":"Matemáticas","category_id":1,"picture_url":"","cost":0}],"preference":{"id":2,"online":false,"office":true,"public":null,"student_place":null},"appointments":{"classes=":1,"students=":1},"show":true,"costRange":"$0.00",
+        "reviews": {
+            "average": 3.5,
+            "comments": [
+                {
+                    "user" : {
+                        "picture_url": '/assets/site/person.png',
+                        "name": 'Juanito Perez'
+                    },
+                    "score": 3,
+                    "text": 'El profesor es muy bueno, aclaró todas mis dudas y aprendí justo lo que necesitaba para poder pasar mi examen. Lo recomiendo mucho a otros estudiantes que deseen aprender Matemáticas Avanzadas para Astronautas.',
+                    "timestamp": '4 de diciembre, 2014'
+                },
+                {
+                    "user" : {
+                        "picture_url": '/assets/site/person.png',
+                        "name": 'Ramiro Hernández'
+                    },
+                    "score": 4,
+                    "text": 'El profesor es muy bueno, aclaró todas mis dudas y aprendí justo lo que necesitaba para poder pasar mi examen. Lo recomiendo mucho a otros estudiantes que deseen aprender Matemáticas Avanzadas para Astronautas.',
+                    "timestamp": '6 de diciembre, 2014'
+                }
+            ]
+        }
+    }];
+    $timeout(
+        function(){
+            $rootScope.tutorResultListVisible = true;
+            $scope.showTopSearchbar = true;
+        }
+    );
+
     $scope.PROFILE_IMAGE = DEFAULT_VALUES.PROFILE_IMAGE;
     $scope.DEFAULT_CATEGORY_NAME = 'TEMA';
     $scope.selectedCategory = undefined;
@@ -105,9 +163,9 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
 
         $scope.showTopSearchbar = true;
 
-        var categoryId = undefined
+        var categoryId = undefined;
         if($scope.subjectInput){
-            categoryId = $scope.subjectInput.originalObject.id
+            categoryId = $scope.subjectInput.originalObject.id;
         }
 
         TutorService.getTutorByQueryParamsForGoogle($scope.components_address, categoryId).then(
@@ -144,11 +202,13 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
             for(var i in $scope.tutorList) {
                 if($scope.tutorList[i].id != tutor.id){
                     $scope.tutorList[i].show = false;
+                    $scope.tutorList[i].showComments = false;
                 }
             }
             for(var i in $scope.suggestedTutorList) {
                 if($scope.suggestedTutorList[i].id != tutor.id){
                     $scope.suggestedTutorList[i].show = false;
+                    $scope.suggestedTutorList[i].showComments = false;
                 }
             }
             $scope.selectedTutor = tutor;
@@ -170,10 +230,12 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
 
         for(var i in $scope.tutorList) {
             $scope.tutorList[i].show = true;
+            $scope.tutorList[i].showComments = false;
         }
 
         for(var i in $scope.suggestedTutorList) {
             $scope.suggestedTutorList[i].show = true;
+            $scope.suggestedTutorList[i].showComments = false;
         }
 
         $timeout(function(){
@@ -183,6 +245,11 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
 
     $scope.resetTutorSearch = function() {
         $scope.selectedTutor = null;
+    }
+
+    // Function that toggles tutor's comments
+    $scope.toggleComments = function(tutor) {
+        tutor.showComments = !tutor.showComments;
     }
 
     $scope.showAppointmentRequestModal = function(event, row, column, day){
