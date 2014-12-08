@@ -32,7 +32,7 @@ Geek.factory('MessageService', ["$http", "$q", "DEFAULT_VALUES", function($http,
         },
         {
             user: {
-                id: 5,
+                id: 6,
                 first_name: 'Luis Antonio',
                 last_name: 'Sánchez',
                 picture_url: '',
@@ -45,8 +45,52 @@ Geek.factory('MessageService', ["$http", "$q", "DEFAULT_VALUES", function($http,
         }]
     };
 
+    var getConversationByUserId = function(userId){
+        var deferred = $q.defer();
+        var promise = deferred.promise;
+
+        return[{
+                text: 'You think water moves fast? You should see ice. It moves like it has a mind. Like it knows it killed the world once and got a taste for murder. After the avalanche, it took us a week to climb out. Now, I dont know exactly when we turned on each other, but I know that seven of us survived the slide... and only five made it out.',
+                timestamp: '4 de Diciembre, 18:50',
+                status: false,
+                senderId: 5,
+                receiverId: 6
+            },
+            {
+                text: 'You think water moves fast? You should see ice. It moves like it has a mind. Like it knows it killed the world once and got a taste for murder. After the avalanche, it took us a week to climb out. Now, I dont know exactly when we turned on each other, but I know that seven of us survived the slide... and only five made it out.',
+                timestamp: '4 de Diciembre, 18:50',
+                status: false,
+                senderId: 6,
+                receiverId: 5
+            },
+            {
+                text: 'You think water moves fast? You should see ice. It moves like it has a mind. Like it knows it killed the world once and got a taste for murder. After the avalanche, it took us a week to climb out. Now, I dont know exactly when we turned on each other, but I know that seven of us survived the slide... and only five made it out.',
+                timestamp: '4 de Diciembre, 18:50',
+                status: true,
+                senderId: 5,
+                receiverId: 6
+            },
+            {
+                text: 'You think water moves fast? You should see ice. It moves like it has a mind. Like it knows it killed the world once and got a taste for murder. After the avalanche, it took us a week to climb out. Now, I dont know exactly when we turned on each other, but I know that seven of us survived the slide... and only five made it out.',
+                timestamp: '4 de Diciembre, 18:50',
+                status: true,
+                senderId: 6,
+                receiverId: 5
+            },
+        ]
+    };
+
+    var saveMessage = function(message){
+        var deferred = $q.defer();
+        var promise = deferred.promise;
+
+        return message;
+    };
+
     return{
         getConversations: getConversations,
+        getConversationByUserId: getConversationByUserId,
+        saveMessage: saveMessage
 
     }
 

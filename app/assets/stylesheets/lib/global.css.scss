@@ -209,6 +209,10 @@ h3.section-title{
   padding: 0.7rem 1rem;
 }
 
+.action-button:hover{
+  text-decoration: none;
+}
+
 .action-button-dark-gray{
   background-color: $color-dark-gray;
   color: $color-light-gray;
@@ -553,6 +557,15 @@ h3.section-title{
 
 .bgcolor-landing-light-red{
   background-color: $color-landing-light-red;
+}
+
+.action-send-message{
+  background-color: #79AADB;
+  bottom: 0px;
+  color: #FFF;
+  left: 0px;
+  text-transform: uppercase;
+  text-align: center;
 }
 
 .action-button-upload {
@@ -1501,7 +1514,7 @@ footer{
       clear: both;
       display: table;
       margin-bottom: 0.5em;
-      padding: 0.8em;
+      padding: 1em;
       text-transform: uppercase;
       width: 100%;
 
@@ -1521,9 +1534,9 @@ footer{
 
         box-sizing: border-box;
         display: inline-block;
-        padding: 1em;
+        padding: 0.6em;
         vertical-align: top;
-        width: 88%;
+        width: 86%;
 
         .content{
           min-height: 100px;
@@ -1556,14 +1569,172 @@ footer{
 
           .conversation-info{
             color: $color-medium-gray;
-            font-size: 12px;
+            font-size: 0px;
             margin: 0;
             padding: 0;
-            text-align: right;
+
+            .message-button{
+              display: inline-block;
+              font-size: 12px;
+              text-align: right;
+              vertical-align: top;
+              width: 20%;
+            }
 
             .timestamp{
+              display: inline-block;
+              font-size: 12px;
+              text-align: left;
+              vertical-align: top;
+              width: 80%;
 
             }
+          }
+
+        }
+      }
+    }
+  }
+
+  .selected-conversation{
+
+    .conversationTextarea{
+      margin-bottom: 2.5em;
+
+      textarea{
+        background: white;
+        background-color: $color-input-gray-bgcolor;
+        border: 0;
+        border-radius: 6px;
+        color: $color-dark-gray;
+        display: inline-block;
+        margin: 0 0 1em;
+        outline: 0;
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-top: 7px;
+        resize: none;
+        width: 100%;
+      }
+
+      .conversation-button{
+        text-align: right;
+      }
+
+    }
+
+    .conversation-tools{
+      background-color: rgba(166,168,171,0.1);
+      border-radius: 10px 10px 0px 0px;
+      padding: 1em;
+      margin: 0em 0em 1em;
+
+      .btn-back {
+        cursor: pointer;
+        font-weight: bold;
+      }
+    }
+
+    .conversation{
+      box-sizing: border-box;
+      clear: both;
+      display: table;
+      margin-bottom: 0.5em;
+      padding: 1em;
+      text-transform: uppercase;
+      width: 100%;
+
+      .user-info{
+
+        text-align: right;
+
+        .user_picture_container{
+          display: inline-block;
+          height: 100%;
+          margin-right: 1%;
+          vertical-align: middle;
+          width: 30px;
+
+          .user_picture{
+            height: 100%;
+          }
+        }
+
+        .user-personal-info{
+          box-sizing: border-box;
+          display: inline-block;
+          padding: 0;
+          vertical-align: middle;
+        }
+      }
+
+      .messages{
+        box-sizing: border-box;
+        border-top: 1px dotted $color-input-gray;
+        padding:  3em 3em;
+
+        .user_picture_container{
+          display: inline-block;
+          height: 100%;
+          margin: 0% 1%;
+          vertical-align: middle;
+          width: 30px;
+
+          .user_picture{
+            height: 100%;
+          }
+        }
+
+        .user-info{
+          display: inline-block;
+          text-align: left;
+          vertical-align: middle;
+        }
+
+        .message-user-name{
+          margin: 0;
+        }
+
+        .message-status{
+          display: block;
+          color: $color-dark-gray;
+          font-size: 10px;
+          font-weight: 500;
+          margin: 0 0 0.4em;
+
+          .timestamp{
+            margin-right: 1em;
+          }
+        }
+
+        p{
+          border-radius: 10px;
+          box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.55);
+          display: inline-block;
+          padding: 2em;
+          text-align: left;
+          vertical-align: top;
+          width: 85%;
+        }
+
+        .user-message{
+          margin: 0 0 4em 0;
+          text-align: left;
+          width: 100%;
+
+          p{
+            background-color: $color-landing-light-blue;
+
+          }
+        }
+
+        .my-message{
+          margin: 0 0 4em 0;
+          text-align: right;
+          width: 100%;
+
+          p{
+            background-color: rgba(250, 174, 64, 0.1);
           }
         }
       }
@@ -1584,6 +1755,7 @@ footer{
     color: #28479C;
     cursor: pointer;
     position: absolute;
+    right: 16px;
     right: 16px;
     top: 18px;
   }
