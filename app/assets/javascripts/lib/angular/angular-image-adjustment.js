@@ -49,7 +49,6 @@ Geek.directive('ngImageAdjustment', ["$timeout",'DEFAULT_VALUES', function($time
                 });
             };
 
-
             scope.resizeImage();
         }
     }

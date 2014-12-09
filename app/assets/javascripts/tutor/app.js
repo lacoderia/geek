@@ -102,13 +102,17 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
                 url: "/history",
                 templateUrl: "/assets/tutor/partial_dashboard_layout.history.html"
             })
+            .state('dashboard.messages', {
+                url: "/messages",
+                templateUrl: "/assets/tutor/partial_dashboard_layout.messages.html"
+            })
             .state('dashboard.profile', {
                 url: "/profile",
                 templateUrl: "/assets/tutor/partial_dashboard_layout.profile.html"
             })
-            .state('dashboard.messages', {
-                url: "/messages",
-                templateUrl: "/assets/tutor/partial_dashboard_layout.messages.html"
+            .state('dashboard.reviews', {
+                url: "/reviews",
+                templateUrl: "/assets/tutor/partial_dashboard_layout.reviews.html"
             });
     })
 

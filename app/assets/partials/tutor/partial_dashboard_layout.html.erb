@@ -27,8 +27,9 @@
 <div class="container" ng-show="tutor.request.approved">
   <div class="row">
     <ul class="menu-tabs col-lg-12 col-md-12 col-sm-12 col-xs-12">
-      <li><a ui-sref=".calendar" title="Busca una clase" translate="{{ 'MY_CALENDAR' }}"></a></li>
-      <li><a ui-sref=".history" title="Mis clases" translate="{{ 'MY_HISTORY' }}"></a></li>
+      <li><a ui-sref=".calendar" title="{{ 'MY_CALENDAR' | translate }}" translate="MY_CALENDAR"></a></li>
+      <li><a ui-sref=".history" title="{{ 'MY_HISTORY' | translate }}" translate="MY_HISTORY"></a></li>
+      <li><a ui-sref=".reviews" title="{{ 'MY_REVIEWS' | translate }}" translate="MY_REVIEWS"></a></li>
     </ul>
   </div>
 </div>

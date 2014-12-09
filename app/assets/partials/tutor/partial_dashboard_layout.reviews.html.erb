@@ -1,0 +1,45 @@
+<div class="reviews" ng-controller="ReviewsController">
+  <h2 class="section-title" translate="REVIEWS"></h2>
+  <!-- Sección de listado de calificaciones vacío -->
+  <div class="unavailable-message" ng-hide="reviews">
+    <div class="unavailable-message-content">
+      <h3>Lo sentimos, no encontramos calificaciones</h3>
+    </div>
+  </div>
+
+  <!-- Sección de listado de calificaciones -->
+  <div class="reviews-list">
+    <div class="score-average">
+      <span>Mi promedio: </span>
+      <span class="icon-star1" ng-class="tutor.reviews.average >= 1 ? 'star-full': 'star-empty'"></span>
+      <span class="icon-star1" ng-class="tutor.reviews.average >= 2 ? 'star-full': 'star-empty'"></span>
+      <span class="icon-star1" ng-class="tutor.reviews.average >= 3 ? 'star-full': 'star-empty'"></span>
+      <span class="icon-star1" ng-class="tutor.reviews.average >= 4 ? 'star-full': 'star-empty'"></span>
+      <span class="icon-star1" ng-class="tutor.reviews.average >= 5 ? 'star-full': 'star-empty'"></span>
+    </div>
+    <div class="review" class="col-lg-12 col-md-12 col-sm-12" ng-repeat="review in reviews" ng-image-adjustment image-container="user_picture" image-src="{{ review.user.picture_url }}">
+      <div class="user_picture_container">
+        <div class="user_picture">
+          <img/>
+        </div>
+      </div>
+      <div class="user-personal-info">
+        <div class="content">
+          <h4 class="user-name">{{ review.user.name }}</h4>
+          <p class="user-last-message">{{ review.text }}</p>
+          <div class="review-info">
+            <em class="timestamp">{{ review.timestamp }}</em>
+          </div>
+          <div class="score">
+            <span class="icon-star1" ng-class="review.score >= 1 ? 'star-full': 'star-empty'"></span>
+            <span class="icon-star1" ng-class="review.score >= 2 ? 'star-full': 'star-empty'"></span>
+            <span class="icon-star1" ng-class="review.score >= 3 ? 'star-full': 'star-empty'"></span>
+            <span class="icon-star1" ng-class="review.score >= 4 ? 'star-full': 'star-empty'"></span>
+            <span class="icon-star1" ng-class="review.score >= 5 ? 'star-full': 'star-empty'"></span>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

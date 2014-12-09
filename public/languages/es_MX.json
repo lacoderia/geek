@@ -27,10 +27,14 @@
     "NOVEMBER": "Noviembre",
     "DECEMBER": "Diciembre",
 
+    "ENGLISH_SPANISH": "English/Español",
+    "REVIEWS" : "Calificaciones",
     "MESSAGES": "Mensajes",
     "MY_CALENDAR" : "Mi Calendario",
+    "MY_REVIEWS" : "Mis calificaciones",
     "MY_HISTORY" : "Historial",
     "SEARCH_A_CLASS": "Busca una clase",
     "SIGN_IN": "Ingresa",
+    "SIGN_UP": "Regístrate",
     "WANT_TO_TEACH": "¿Quieres dar clases en geek?"
 }

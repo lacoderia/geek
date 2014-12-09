@@ -145,7 +145,6 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
             .state('dashboard.search-tutor', {
                 url: "/search-tutor",
                 templateUrl: "/assets/student/partial_dashboard_layout.search_tutor.html",
-                controller: 'SearchTutorController',
                 resolve: {
                     isAuthenticated: function($state, AuthService, SessionService){
                         if(AuthService.isAuthenticated()){
