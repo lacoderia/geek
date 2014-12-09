@@ -102,7 +102,7 @@ status_anomalia = AppointmentStatus.create(name: "Anomalía", code: "9")
 address = Address.create(description: "Casa privada", line1: "Sucre Norte 234", line2: "Col. Cigarras de Nuevo Leon", county_id: County.joins(:postal_code).where("code = ?", "06600").first)
 appointment = Appointment.create(appointment_status_id: status_confirmado.id, student_id: student.id, tutor_id: tutor.id, start: Time.now, end: Time.now + 1.hour, details: "Detalles de la cita", address_id: address.id, subject: "Artes")
 
-Message.create(sender_id: student.user.id, recipient_id: tutor.user.id, text: "hola", status: "entregado")
+Message.create(student_id: student.id, tutor_id: tutor.id, text: "hola")
 
 purchase = Purchase.create(openpay_id: "0239490382", description: "purchase description", authorization: "purchase auth", transaction_type: "type test", operation_type: "operation type", method: "credito", creation_date: Time.now, order_id: "234lklj", status: "confirmada", amount: 342, error_message: "mensaje de error", customer_id: "au3kfja", currency: "MXN", is_card: true )
 

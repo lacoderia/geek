@@ -36,7 +36,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :messages
+  resources :messages do
+    collection do
+      get 'conversations'
+    end
+  end
 
   resources :reviews
 

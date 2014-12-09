@@ -61,6 +61,22 @@ class MessagesController < ApplicationController
     end
   end
 
+  # Obtiene las conversaciones de un usuario
+  # Recibe cualquier de estos parámetros:
+  # student_id - El ID del estudiante 
+  # tutor_id - El ID del tutor
+  def conversations
+    if params[:tutor_id]
+      condition = 'tutor_id'
+      value = params[:tutor_id]
+    elsif params[:student_id]
+      condition = 'student_id'
+      value = params[:student_id]
+    end 
+    query = "select * from messages where id in (select id from (select max(id) as id, student_id, tutor_id from messages where #{condition} = #{value} group by student_id, tutor_id) as sub)"
+    @messages = Message.find_by_sql(query)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_message
