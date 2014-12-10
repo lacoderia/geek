@@ -19,7 +19,7 @@ Geek.directive('ngModalReview', ["$timeout", "$window", "$document", "$rootScope
                 left:0
             };
 
-            scope.selectedAppointment = null;
+            scope.selectedTutor = null;
             scope.tutorReview = {};
 
             scope.sendReview = null;
@@ -28,7 +28,7 @@ Geek.directive('ngModalReview', ["$timeout", "$window", "$document", "$rootScope
                 scope.modalStyle.top = 0;
                 scope.modalStyle.left = 0;
 
-                scope.selectedAppointment = null;
+                scope.selectedTutor = null;
                 scope.tutorReview = {};
 
                 scope.sendReview = null;
@@ -44,7 +44,7 @@ Geek.directive('ngModalReview', ["$timeout", "$window", "$document", "$rootScope
                 $document.unbind('click', scope.closeReviewDetail);
             };
 
-            scope.openReviewDetail = function($event, appointment, options, DEFAULT_VALUES){
+            scope.openReviewDetail = function($event, tutor, options, DEFAULT_VALUES){
                 // Primero cerramos todos los modales que están abiertos para evitar ver parpadear información del modal anterior
                 $timeout(function(){
                     $rootScope.$broadcast('closeAllModals');
@@ -54,7 +54,7 @@ Geek.directive('ngModalReview', ["$timeout", "$window", "$document", "$rootScope
                 $event.stopPropagation();
 
                 $timeout(function(){
-                    scope.selectedAppointment = appointment;
+                    scope.selectedTutor = tutor;
                     scope.tutorReview = {};
 
                     scope.sendReview = options.sendReview;
