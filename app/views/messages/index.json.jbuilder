@@ -1,4 +1,4 @@
 json.array!(@messages) do |message|
-  json.extract! message, :id, :sender_id, :recipient_id, :text, :status
+  json.extract! message, :id, :student_id, :tutor_id, :text, :read
   json.url message_url(message, format: :json)
 end
