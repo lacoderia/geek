@@ -1,12 +1,29 @@
 'use strict';
 
-Geek.controller('AppointmentHistoryController',['$scope','$rootScope','AppointmentService', 'AnomalyService', 'DEFAULT_VALUES' ,function($scope, $rootScope, AppointmentService, AnomalyService, DEFAULT_VALUES){
+Geek.controller('AppointmentHistoryController',['$scope','$rootScope','AppointmentService', 'AnomalyService', 'ReviewsService', 'SessionService', 'DEFAULT_VALUES' ,function($scope, $rootScope, AppointmentService, AnomalyService, ReviewsService, SessionService, DEFAULT_VALUES){
 
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.MONTHS = DEFAULT_VALUES.MONTHS;
 
     $scope.appointmentsGroups = [];
 
+    /*
+     * Obtiene la posición donde el usuario hiczo click y abre el popupd del detalle del appointment
+     * */
+    $scope.showReviewDetail = function($event, appointment){
+        $event.stopPropagation();
+        var options = {
+            posX: $event.clientX,
+            posY: $event.pageY,
+            sendReview: $scope.sendReview
+        };
+
+        $scope.openReviewDetail($event, appointment, options, DEFAULT_VALUES);
+    };
+
+    /*
+     * Obtiene la posición donde el usuario hiczo click y abre el popupd del detalle del appointment
+     * */
     $scope.showAnomalyDetail = function($event, appointment){
         $event.stopPropagation();
         var options = {
@@ -81,6 +98,31 @@ Geek.controller('AppointmentHistoryController',['$scope','$rootScope','Appointme
 
       $scope.closeAnomalyDetail();
       //console.log("appointment " + appointment_id + " anomaly " + anomaly_code + " description " + description);
+    };
+
+    $scope.sendReview = function(appointment, tutorReview) {
+
+        var review = {
+            'student_id': SessionService.getId(),
+            'tutor_id': appointment.tutor.id,
+            'knowledge' : tutorReview.knowledge,
+            'communication': tutorReview.communication,
+            'presentation': tutorReview.presentation,
+            'comment': tutorReview.comment
+        };
+
+        console.log(review);
+
+        /*ReviewsService.sendReview(review).then(
+            function(data){
+                console.log(data);
+            },
+            function(response){
+                console.log(response);
+            }
+        );*/
+
+        $scope.closeReviewDetail();
     };
 
     $scope.getAppointments = function(appointments){

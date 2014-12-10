@@ -26,6 +26,7 @@ Geek.directive('ngModalAnomaly', ["$timeout", "$window", "$document", function($
             };
 
             scope.selectedAppointment = null;
+            scope.reportAnomaly = null;
             scope.selectedAnomaly = scope.anomalyList[0];
 
             scope.selectAnomaly = function(anomaly) {
@@ -37,6 +38,7 @@ Geek.directive('ngModalAnomaly', ["$timeout", "$window", "$document", function($
                 scope.modalStyle.left = 0;
 
                 scope.selectedAppointment = null;
+                scope.reportAnomaly = null;
 
                 if(!scope.$$phase){
                     scope.$apply();
@@ -50,9 +52,10 @@ Geek.directive('ngModalAnomaly', ["$timeout", "$window", "$document", function($
             };
 
             scope.openAnomalyDetail = function($event, appointment, options, DEFAULT_VALUES){
-                // Primero cerramos el modal que está abierto para evitar ver parpadear información del modal anterior
-                scope.closeAnomalyDetail();
-                scope.closeAppointmentDetail();
+                // Primero cerramos todos los modales que están abiertos para evitar ver parpadear información del modal anterior
+                $timeout(function(){
+                    $rootScope.$broadcast('closeAllModals');
+                },0);
 
                 // Detenemos la propagación del evento click para evitar que el bind al final del metodo se ejecute
                 $event.stopPropagation();
@@ -84,6 +87,11 @@ Geek.directive('ngModalAnomaly', ["$timeout", "$window", "$document", function($
 
                 // Si detectamos un click sobre $document cerramos el modal
                 $document.bind('click', scope.closeAnomalyDetail());
+
+                // Listener que realiza las acciones necesarias para cerrar este modal
+                scope.$on('closeAllModals', function(){
+                    scope.closeAnomalyDetail()
+                });
 
             };
         }

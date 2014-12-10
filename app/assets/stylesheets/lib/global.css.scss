@@ -461,7 +461,12 @@ h3.section-title{
     color: white;
   }
 
-  .report-class{
+  .report-class {
+    background-color: $color-medium-orange;
+    color: white;
+  }
+
+  .review-class, .send-message{
     background-color: $color-light-blue;
     color: white;
   }
@@ -1777,6 +1782,26 @@ footer{
     color: $color-medium-gray;
     font-size: 1rem;
     padding: 1em;
+
+    .score-table {
+      td {
+        font-size: 14px;
+        padding-top: 5px;
+      }
+
+      .score {
+        .star-empty {
+          color: $color-search-medium-blue;
+          cursor: pointer;
+        }
+
+        .star-full {
+          color: $color-search-dark-blue;
+          cursor: pointer;
+        }
+      }
+    }
+
 
     table{
       width: 100%;

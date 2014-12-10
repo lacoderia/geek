@@ -23,6 +23,7 @@ Rails.application.config.assets.precompile += %w( student/services/authService.j
 Rails.application.config.assets.precompile += %w( student/services/availabilityService.js )
 Rails.application.config.assets.precompile += %w( student/services/categoryService.js )
 Rails.application.config.assets.precompile += %w( student/services/countyService.js )
+Rails.application.config.assets.precompile += %w( student/services/reviewsService.js )
 Rails.application.config.assets.precompile += %w( student/services/sessionService.js )
 Rails.application.config.assets.precompile += %w( student/services/tutorService.js )
 
@@ -38,18 +39,21 @@ Rails.application.config.assets.precompile += %w( tutor/services/reviewsService.
 Rails.application.config.assets.precompile += %w( tutor/services/sessionService.js )
 
 #Import Directives
-Rails.application.config.assets.precompile += %w( lib/angular/angular-onready-directive.js )
-Rails.application.config.assets.precompile += %w( lib/angular/angular-form-alert-directive.js )
 Rails.application.config.assets.precompile += %w( lib/angular/angular-alert-message-directive.js )
+Rails.application.config.assets.precompile += %w( lib/angular/angular-form-alert-directive.js )
+Rails.application.config.assets.precompile += %w( lib/angular/angular-image-adjustment.js )
+Rails.application.config.assets.precompile += %w( lib/angular/angular-onready-directive.js )
 Rails.application.config.assets.precompile += %w( lib/angular/angular-spinner.js )
 Rails.application.config.assets.precompile += %w( lib/angular/ng-currency.js )
-Rails.application.config.assets.precompile += %w( student/directives/modalTutorDetailDrctv.js )
-Rails.application.config.assets.precompile += %w( student/directives/modalDetailDrctv.js )
+
 Rails.application.config.assets.precompile += %w( student/directives/modalAnomalyDrctv.js )
 Rails.application.config.assets.precompile += %w( student/directives/modalAppointmentRequestDrctv.js )
-Rails.application.config.assets.precompile += %w( tutor/directives/modalDetailDrctv.js )
+Rails.application.config.assets.precompile += %w( student/directives/modalDetailDrctv.js )
+Rails.application.config.assets.precompile += %w( student/directives/modalReviewDrctv.js )
+Rails.application.config.assets.precompile += %w( student/directives/modalTutorDetailDrctv.js )
+
 Rails.application.config.assets.precompile += %w( tutor/directives/modalAnomalyDrctv.js )
-Rails.application.config.assets.precompile += %w( lib/angular/angular-image-adjustment.js )
+Rails.application.config.assets.precompile += %w( tutor/directives/modalDetailDrctv.js )
 
 #Import Controllers
 Rails.application.config.assets.precompile += %w( student/controllers/appointmentHistoryCtrl.js )
