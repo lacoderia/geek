@@ -20,9 +20,9 @@ class Student < ActiveRecord::Base
     result = {}
 
     if previous
-      where = "appointments.end < ?"
+      where = "appointments.start < ?"
     else
-      where = "appointments.end >= ?"
+      where = "appointments.start >= ?"
     end
 
     appointments = student.appointments.select("*, EXTRACT(year from appointments.end) as per_year, EXTRACT(month from appointments.end) as per_month, EXTRACT(day from appointments.end) as per_day").includes(:tutor, :address, :appointment_status, :registered_anomalies => [:anomaly, :registered_anomaly_status]).where(where, Time.now ).order("start DESC")

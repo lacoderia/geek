@@ -126,12 +126,7 @@ class AppointmentsController < ApplicationController
     status = AppointmentStatus.find_by_code(params[:code])
     @appointment.appointment_status_id = status.id
     if @appointment.save
-      if status.code == "1" or status.code == "2" or status.code == "4" or status.code == "5"
-        puts '---------------------------------ahuevo--------------------'
-        #@appointment.tutor.delete_appointment @appointment 
-      end
-      #UserMailer.tutor_notification_email(@appointment.tutor_id, @appointment.appointment_status_id, @appointment.subject).deliver
-      #UserMailer.student_notification_email(@appointment.student_id, @appointment.appointment_status_id, @appointment.subject).deliver
+      @appointment.update_cancelled_rejected_appointment status 
       render :show, status: :ok, location: @appointment
     else
       render json: @appointment.errors, status: :unprocessable_entity

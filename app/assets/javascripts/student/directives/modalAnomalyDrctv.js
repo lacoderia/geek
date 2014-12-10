@@ -17,7 +17,6 @@ Geek.directive('ngModalAnomaly', ["$timeout", "$window", "$document", function($
 
             scope.anomalyList = [ {name: "Late Show", code: "0"},
                                   {name: "No Show", code: "1"},
-                                  {name: "Cancelación", code: "2"}, 
                                   {name: "Otro", code: "3"}];
 
             scope.detailArrowClass = scope.DEFAULT_ARROW_CLASSES[0];
