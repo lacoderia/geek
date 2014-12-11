@@ -39,6 +39,8 @@ Rails.application.routes.draw do
   resources :messages do
     collection do
       get 'conversations'
+      get 'by_conversation'
+      post 'mark_read'
     end
   end
 

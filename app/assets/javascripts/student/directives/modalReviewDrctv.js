@@ -1,10 +1,10 @@
 'use strict';
 
-Geek.directive('ngModalDetail', ["$timeout", "$window", "$document", function($timeout, $window, $document){
+Geek.directive('ngModalReview', ["$timeout", "$window", "$document", "$rootScope", function($timeout, $window, $document, $rootScope){
     return{
         restrict: 'A',
         replace: true,
-        templateUrl: '/assets/student/template_appointment_detail.html',
+        templateUrl: '/assets/student/template_review_detail.html',
         link: function(scope, element, attrs){
 
             scope.DEFAULT_ARROW_CLASSES = ['modal-detail-arrow-left', 'modal-detail-arrow-right'];
@@ -19,13 +19,19 @@ Geek.directive('ngModalDetail', ["$timeout", "$window", "$document", function($t
                 left:0
             };
 
-            scope.clickedAppointment = null;
+            scope.selectedTutor = null;
+            scope.tutorReview = {};
 
-            scope.closeAppointmentDetail = function(){
+            scope.sendReview = null;
+
+            scope.closeReviewDetail = function(){
                 scope.modalStyle.top = 0;
                 scope.modalStyle.left = 0;
 
-                scope.clickedAppointment = null;
+                scope.selectedTutor = null;
+                scope.tutorReview = {};
+
+                scope.sendReview = null;
 
                 if(!scope.$$phase){
                     scope.$apply();
@@ -35,10 +41,10 @@ Geek.directive('ngModalDetail', ["$timeout", "$window", "$document", function($t
                 element.unbind('click');
 
                 // Dejamos de detectar el click en $document que cierra el modal
-                $document.unbind('click', scope.closeAppointmentDetail);
+                $document.unbind('click', scope.closeReviewDetail);
             };
 
-            scope.openAppointmentDetail = function($event, appointment, options, DEFAULT_VALUES){
+            scope.openReviewDetail = function($event, tutor, options, DEFAULT_VALUES){
                 // Primero cerramos todos los modales que están abiertos para evitar ver parpadear información del modal anterior
                 $timeout(function(){
                     $rootScope.$broadcast('closeAllModals');
@@ -48,21 +54,10 @@ Geek.directive('ngModalDetail', ["$timeout", "$window", "$document", function($t
                 $event.stopPropagation();
 
                 $timeout(function(){
-                    scope.clickedAppointment = appointment;
-                    scope.clickedAppointment.title =  appointment.subject + ' - ' + appointment.tutor.first_name + ' '  + appointment.tutor.last_name;
-                    scope.clickedAppointment.date = DEFAULT_VALUES.DAYS[appointment.day].title + ', ' + appointment.numberDay + ' de ' + DEFAULT_VALUES.MONTHS[appointment.month];
-                    scope.clickedAppointment.time = 'De ' + appointment.startHour + ' a ' + appointment.endHour;
+                    scope.selectedTutor = tutor;
+                    scope.tutorReview = {};
 
-                    scope.clickedAppointment.address = 'Dirección por confirmar';
-                    if(appointment.address.line1 || appointment.address.line2){
-                        scope.clickedAppointment.address = '';
-                        if(appointment.address.line1){
-                            scope.clickedAppointment.address += appointment.address.line1 + ' ';
-                        }
-                        if(appointment.address.line2){
-                            scope.clickedAppointment.address += appointment.address.line2;
-                        }
-                    }
+                    scope.sendReview = options.sendReview;
                 },0);
 
                 $timeout(function(){
@@ -78,9 +73,6 @@ Geek.directive('ngModalDetail', ["$timeout", "$window", "$document", function($t
                         scope.modalStyle.left = options.posX - 37;
                         scope.detailArrowClass = scope.DEFAULT_ARROW_CLASSES[0];
                     }
-
-                    scope.changeAppointmentStatus = options.changeAppointmentStatus;
-
                 },0);
 
                 // Detenemos la propagación para que el evento click sobre $document no cierre el modal
@@ -89,14 +81,30 @@ Geek.directive('ngModalDetail', ["$timeout", "$window", "$document", function($t
                 });
 
                 // Si detectamos un click sobre $document cerramos el modal
-                $document.bind('click', scope.closeAppointmentDetail);
+                $document.bind('click', scope.closeReviewDetail());
 
                 // Listener que realiza las acciones necesarias para cerrar este modal
                 scope.$on('closeAllModals', function(){
-                    scope.closeAppointmentDetail();
+                    scope.closeReviewDetail()
                 });
 
             };
+
+            scope.selectReviewScore = function(topic, score) {
+                switch(topic) {
+                    case 'knowledge':
+                        scope.tutorReview.knowledge = score;
+                        break;
+                    case 'communication':
+                        scope.tutorReview.communication = score;
+                        break;
+                    case 'presentation':
+                        scope.tutorReview.presentation = score;
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
     }
 }]);

@@ -1,0 +1,35 @@
+<div class="student-tutors-container">
+  <h2 class="section-title" translate="MY_TUTORS"></h2>
+  <div class="student-tutors" ng-controller="MyTutorsController as MyTutorsCtrl">
+    <div class="unavailable-message" ng-hide="tutorList.length">
+      <div class="unavailable-message-content">
+        <h3>No tienes tutores</h3>
+      </div>
+    </div>
+    <div class="tutors-list-view-row" ng-show="tutorList.length">
+      <table>
+        <thead>
+        <tr class="tutors-list-title-row">
+          <th class="info-title">Tutor</th>
+          <th class="info-title">Acciones</th>
+        </tr>
+        </thead>
+      </table>
+      <table>
+        <tbody>
+            <tr ng-repeat="tutor in tutorList" class="tutors-list-info-row" ng-click="showReviewDetail($event, tutor)">
+                <td class="tutor-info" ng-image-adjustment image-container="user_picture" image-src="{{ tutor.picture_url }}">
+
+                  {{ tutor.name }}
+                </td>
+                <td class="tutor-info">
+                    <div class="appointment-button">
+                      <a class="review-class" ng-click="showReviewDetail($event, tutor)">Calificar</a>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

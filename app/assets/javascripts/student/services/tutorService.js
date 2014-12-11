@@ -2,6 +2,21 @@
 
 Geek.factory('TutorService', ["$http", "$q", "DEFAULT_VALUES", function($http, $q, DEFAULT_VALUES){
 
+    var getMyTutors = function(studentId) {
+        return [
+            {
+                "id": 1,
+                "picture_url": '/assets/site/person.png',
+                "name": 'El mejor profesor'
+            },
+            {
+                "id": 2,
+                "picture_url": '/assets/site/person.png',
+                "name": 'Profesor Increíble'
+            }
+        ];
+    }
+
     var getTutorByCategoryAndCountyIds = function(categoryId, countyId){
         var deferred = $q.defer();
         var promise = deferred.promise;
@@ -49,10 +64,10 @@ Geek.factory('TutorService', ["$http", "$q", "DEFAULT_VALUES", function($http, $
 
         return promise
 
-
     }
 
     return{
+        getMyTutors: getMyTutors,
         getTutorByCategoryAndCountyIds: getTutorByCategoryAndCountyIds,
         getTutorByQueryParamsForGoogle: getTutorByQueryParamsForGoogle
     }

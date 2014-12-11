@@ -1,0 +1,63 @@
+<div ng-class="[DEFAULT_CLASS, detailArrowClass]" ng-style="modalStyle" ng-show="selectedTutor">
+  <span class="icon-close modal-detail-close" ng-click="closeReviewDetail()"></span>
+  <div class="modal-detail-header">Calificar al tutor</div>
+  <div class="modal-detail-content">
+    <div>
+      <label style="font-weight: normal">Califica a tu tutor segun los siguientes rubros:</label><br/>
+    </div>
+
+    <table class="score-table">
+      <tr>
+        <td>
+          <span translate="KNOWLEDGE"></span>
+        </td>
+        <td>
+          <div class="score">
+            <span class="icon-star1" ng-click="selectReviewScore('knowledge', 1)" ng-class="tutorReview.knowledge >= 1 ? 'star-full': 'star-empty'"></span>
+            <span class="icon-star1" ng-click="selectReviewScore('knowledge', 2)" ng-class="tutorReview.knowledge >= 2 ? 'star-full': 'star-empty'"></span>
+            <span class="icon-star1" ng-click="selectReviewScore('knowledge', 3)" ng-class="tutorReview.knowledge >= 3 ? 'star-full': 'star-empty'"></span>
+            <span class="icon-star1" ng-click="selectReviewScore('knowledge', 4)" ng-class="tutorReview.knowledge >= 4 ? 'star-full': 'star-empty'"></span>
+            <span class="icon-star1" ng-click="selectReviewScore('knowledge', 5)" ng-class="tutorReview.knowledge >= 5 ? 'star-full': 'star-empty'"></span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span translate="COMMUNICATION"></span>
+        </td>
+        <td>
+          <div class="score">
+            <span class="icon-star1" ng-click="selectReviewScore('communication', 1)" ng-class="tutorReview.communication >= 1 ? 'star-full': 'star-empty'"></span>
+            <span class="icon-star1" ng-click="selectReviewScore('communication', 2)" ng-class="tutorReview.communication >= 2 ? 'star-full': 'star-empty'"></span>
+            <span class="icon-star1" ng-click="selectReviewScore('communication', 3)" ng-class="tutorReview.communication >= 3 ? 'star-full': 'star-empty'"></span>
+            <span class="icon-star1" ng-click="selectReviewScore('communication', 4)" ng-class="tutorReview.communication >= 4 ? 'star-full': 'star-empty'"></span>
+            <span class="icon-star1" ng-click="selectReviewScore('communication', 5)" ng-class="tutorReview.communication >= 5 ? 'star-full': 'star-empty'"></span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span translate="PRESENTATION"></span>
+        </td>
+        <td>
+          <div class="score">
+            <span class="icon-star1" ng-click="selectReviewScore('presentation', 1)" ng-class="tutorReview.presentation >= 1 ? 'star-full': 'star-empty'"></span>
+            <span class="icon-star1" ng-click="selectReviewScore('presentation', 2)" ng-class="tutorReview.presentation >= 2 ? 'star-full': 'star-empty'"></span>
+            <span class="icon-star1" ng-click="selectReviewScore('presentation', 3)" ng-class="tutorReview.presentation >= 3 ? 'star-full': 'star-empty'"></span>
+            <span class="icon-star1" ng-click="selectReviewScore('presentation', 4)" ng-class="tutorReview.presentation >= 4 ? 'star-full': 'star-empty'"></span>
+            <span class="icon-star1" ng-click="selectReviewScore('presentation', 5)" ng-class="tutorReview.presentation >= 5 ? 'star-full': 'star-empty'"></span>
+          </div>
+        </td>
+      </tr>
+    </table>
+
+    <br/>
+      <label style="font-weight: normal">Comentario</label><br/>
+      <textarea  class="form-textarea form-control" rows="4" ng-model="tutorReview.comment" required></textarea>
+    <br/>
+    <div style="text-align: center;">
+      <a class="action-button action-button-medium-gray" ng-click="sendReview(selectedTutor, tutorReview)">Calificar</a>
+    </div>
+  </div>
+  <div class="modal-detail-footer"></div>
+</div>

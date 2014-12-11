@@ -986,6 +986,82 @@
   }
 }
 
+.student-tutors{
+  border: 2px solid $color-input-gray-bgcolor;
+  min-height: 300px;
+  margin: 2em 0em 0em 0em;
+
+  .tutors-list-view-row{
+    table{
+      border-collapse: collapse;
+      padding: 0px;
+      width: 100%;
+
+      td{
+        padding: 0px;
+      }
+
+      th{
+        font-weight: normal;
+      }
+    }
+
+    .tutors-list-title-row{
+      border-bottom: 2px solid $color-input-gray-bgcolor;
+      border-left: 2px solid $color-input-gray-bgcolor;
+      border-right: 2px solid $color-input-gray-bgcolor;
+      box-sizing: border-box;
+      color: $color-dark-gray;
+      font-size: 2rem;
+      font-weight: 400;
+      padding: 0px;
+      text-align: center;
+      width: 100%;
+
+      .info-title{
+        background-color: $color-input-gray-bgcolor;
+        color: $color-dark-green;
+        font-size: 1rem;
+        font-weight: 500;
+        padding: 1rem;
+        text-align: center;
+        text-transform: uppercase;
+        width: 20%;
+      }
+    }
+
+    .tutors-list-info-row{
+      background-color: white;
+      padding: 1em;
+      width: 100%;
+
+      .tutor-info{
+        color: $color-light-blue;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        padding: 0.5em;
+        text-align: center;
+        width: 50px;
+
+        .user_picture_container{
+          display: inline-block;
+          height: 50px;
+          margin-right: 1%;
+          vertical-align: top;
+          width: 50px;
+
+          .user_picture{
+            height: 50px;
+            width: 50px;
+          }
+        }
+      }
+    }
+
+  }
+}
+
 @media (min-width: $screen-sm-min) {
   footer{
     padding: 1em 0em;

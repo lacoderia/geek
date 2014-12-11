@@ -7,6 +7,9 @@ Geek.controller('AppointmentHistoryController',['$scope','$rootScope','Appointme
 
     $scope.appointmentsGroups = [];
 
+    /*
+     * Obtiene la posición donde el usuario hiczo click y abre el popupd del detalle del appointment
+     * */
     $scope.showAnomalyDetail = function($event, appointment){
         $event.stopPropagation();
         var options = {

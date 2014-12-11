@@ -34,6 +34,7 @@
               <td class="day-info appointment-button">
                 <a class="report-class" ng-click="showAnomalyDetail($event, appointment)" ng-show="!appointment.anomaly && appointment.status.code == 3">Reportar queja</a>
                 <span ng-show="appointment.anomaly">Reportado</span>
+                <a class="review-class" ng-click="showReviewDetail($event, appointment)">Calificar</a>
               </td>
             </tr>
         </tbody>
