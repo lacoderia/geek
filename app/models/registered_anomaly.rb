@@ -8,6 +8,7 @@ class RegisteredAnomaly < ActiveRecord::Base
   def self.from_student appointment_id, anomaly_code, description
     anomaly = Anomaly.find_by_code(anomaly_code)
     appointment = Appointment.find(appointment_id)
+    appointment.update_attribute(:anomaly, true)
     #Creada con pending registered anomaly status
     RegisteredAnomaly.create(anomaly_id: anomaly.id, user_id: appointment.tutor.user.id, source_id: appointment.student.user.id, appointment_id: appointment.id, description: description, registered_anomaly_status_id: 1)
   end
@@ -15,6 +16,7 @@ class RegisteredAnomaly < ActiveRecord::Base
   def self.from_tutor appointment_id, anomaly_code, description
     anomaly = Anomaly.find_by_code(anomaly_code)
     appointment = Appointment.find(appointment_id)
+    appointment.update_attribute(:anomaly, true)
     #Creada con pending registered anomaly status
     RegisteredAnomaly.create(anomaly_id: anomaly.id, user_id: appointment.student.user.id, source_id: appointment.tutor.user.id, appointment_id: appointment.id, description: description, registered_anomaly_status_id: 1)
 
@@ -28,6 +30,7 @@ class RegisteredAnomaly < ActiveRecord::Base
       anomaly = Anomaly.find_by_code "2"
     end
 
+    appointment.update_attribute(:anomaly, true)
     description = "Cancelada por estudiante"
     ra = RegisteredAnomaly.create(anomaly_id: anomaly.id, user_id: appointment.student.user.id, source_id: appointment.student.user.id, appointment_id: appointment.id, description: description, registered_anomaly_status_id: 1)
     ra.assign
@@ -35,52 +38,83 @@ class RegisteredAnomaly < ActiveRecord::Base
 
   def self.cancelled_from_tutor appointment
     anomaly = Anomaly.find_by_code "2"
+    appointment.update_attribute(:anomaly, true)
     description = "Cancelada por tutor"
     ra = RegisteredAnomaly.create(anomaly_id: anomaly.id, user_id: appointment.tutor.user.id, source_id: appointment.tutor.user.id, appointment_id: appointment.id, description: description, registered_anomaly_status_id: 1)
     ra.assign
   end
 
   def assign fee_student = nil, fee_tutor = nil
+
+    valid_anomaly_status = RegisteredAnomalyStatus.find_by_code("1")
+    
     case self.anomaly.code
     when "0" #late show
-      puts "late show"
       # Se cobra normal y cambia a válida
-      self.update_attributes({:registered_anomaly_status_id => 2, :fee_student => 100, :fee_tutor => 100 }) 
+      self.update_attributes({:registered_anomaly_status_id => valid_anomaly_status.id, :fee_student => 100, :fee_tutor => 100 }) 
+      # Código simulado para pagar pagar aquí
+      self.appointment.update_attribute(:charged, true)
+      self.appointment.update_attribute(:paid, true)
+      # #### 
+      # ####
     when "1" #no show
-      puts "no show"
       if self.source.client_type == "Student"
         # El tutor no llegó, no se cobra y se cambia a válida
-        self.update_attributes({:registered_anomaly_status_id => 2, :fee_student => 0, :fee_tutor => 0 }) 
+        self.update_attributes({:registered_anomaly_status_id => valid_anomaly_status.id, :fee_student => 0, :fee_tutor => 0 }) 
       elsif self.source.client_type == "Tutor"
         # El estudiante no llegó, se cobra todo, se asigna 50% al tutor y se cambia a válida
-        self.update_attributes({:registered_anomaly_status_id => 2, :fee_student => 100, :fee_tutor => 50 }) 
+        self.update_attributes({:registered_anomaly_status_id => valid_anomaly_status.id, :fee_student => 100, :fee_tutor => 50 }) 
+        # Código simulado para pagar pagar aquí
+        self.appointment.update_attribute(:charged, true)
+        self.appointment.update_attribute(:paid, true)
+        # #### 
+        # ####
       end
     when "2" #cancelacion
-      puts "cancelacion"
       if self.user.client_type == "Tutor"
         # El tutor canceló, no se cobra y se cambia a válida
-        self.update_attributes({:registered_anomaly_status_id => 2, :fee_student => 0, :fee_tutor => 0 }) 
+        self.update_attributes({:registered_anomaly_status_id => valid_anomaly_status.id, :fee_student => 0, :fee_tutor => 0 }) 
       elsif self.user.client_type == "Student"
         # El estudiante canceló, se cobra el 25%, se asigna 50% al tutor y se cambia a válida
-        self.update_attributes({:registered_anomaly_status_id => 2, :fee_student => 25, :fee_tutor => 50 }) 
+        self.update_attributes({:registered_anomaly_status_id => valid_anomaly_status.id, :fee_student => 25, :fee_tutor => 50 }) 
+        # Código simulado para pagar pagar aquí
+        self.appointment.update_attribute(:charged, true)
+        self.appointment.update_attribute(:paid, true)
+        # #### 
+        # ####
       end   
     when "3" #otro
       if fee_student and fee_tutor
-        puts "otro"
-        self.update_attributes({:registered_anomaly_status_id => 2, :fee_student => fee_student, :fee_tutor => fee_tutor }) 
+        self.update_attributes({:registered_anomaly_status_id => valid_anomaly_status.id, :fee_student => fee_student, :fee_tutor => fee_tutor }) 
+        # Código simulado para pagar pagar aquí
+        self.appointment.update_attribute(:charged, true)
+        self.appointment.update_attribute(:paid, true)
+        # #### 
+        # ####
       else
         raise 'Resolución de tipo OTRO necesita fee de estudiante y de tutor'
       end
     when "4" #Cancelada por estudiante, entre 2 y 0 horas
-      puts "Cancelada por estudiante entre 2 y 0 horas"
       if self.user.client_type == "Student"
         # El estudiante canceló, se cobra el 50%, se asigna 50% al tutor y se cambia a válida
-        self.update_attributes({:registered_anomaly_status_id => 2, :fee_student => 50, :fee_tutor => 50 }) 
+        self.update_attributes({:registered_anomaly_status_id => valid_anomaly_status.id, :fee_student => 50, :fee_tutor => 50 }) 
+        # Código simulado para pagar pagar aquí
+        self.appointment.update_attribute(:charged, true)
+        self.appointment.update_attribute(:paid, true)
+        # #### 
+        # ####
       else
         #Este caso no debería de pasar
         raise "Caso de cancelado por estudiante donde el user no es él mismo"
       end
     end
+  end
+  
+  def reject
+
+    invalid_anomaly_status = RegisteredAnomalyStatus.find_by_code("2")
+    self.update_attributes({:registered_anomaly_status_id => invalid_anomaly_status.id}) 
+
   end
 
 end

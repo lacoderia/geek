@@ -24,9 +24,9 @@ class Appointment < ActiveRecord::Base
   def delete_and_send_emails
     self.tutor.delete_appointment self 
     # Envio de correos solo en produccion 
-    #if Rails.env.production?
+    if Rails.env.production?
       UserMailer.tutor_notification_email(self.tutor_id, self.appointment_status_id, self.subject).deliver
       UserMailer.student_notification_email(self.student_id, self.appointment_status_id, self.subject).deliver
-    #end
+    end
   end
 end

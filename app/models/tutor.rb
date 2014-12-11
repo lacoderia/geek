@@ -51,10 +51,10 @@ class Tutor < ActiveRecord::Base
       appointment = Appointment.create(student_id: student.id, tutor_id: self.id, appointment_id: JSON.parse(result.response.body)["id"], start: start_date, end: start_date + length_in_hours.hour, appointment_status_id: 1, subject: name, cost: cost)
 
       # Envio de correos solo en produccion
-      #if Rails.env.production?
+      if Rails.env.production?
         UserMailer.tutor_notification_email(appointment.tutor_id, appointment.appointment_status_id, name).deliver
         UserMailer.student_notification_email(appointment.student_id, appointment.appointment_status_id, name).deliver
-      #end
+      end
 
       return appointment
     rescue Exception => e

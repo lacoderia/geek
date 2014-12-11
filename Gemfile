@@ -25,6 +25,7 @@ gem 'openpay'
 gem 'activeadmin', github: 'gregbell/active_admin'
 gem 'newrelic_rpm'
 gem 'cloudinary'
+gem 'clockwork'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
