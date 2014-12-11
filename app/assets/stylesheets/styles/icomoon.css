@@ -1,97 +1,103 @@
 @font-face {
-	font-family: 'icomoon';
-	src:url('/assets/icomoon.eot?skgfhw');
-	src:url('/assets/icomoon.eot?#iefixskgfhw') format('embedded-opentype'),
-		url('/assets/icomoon.woff?skgfhw') format('woff'),
-		url('/assets/icomoon.ttf?skgfhw') format('truetype'),
-		url('/assets/icomoon.svg?skgfhw#icomoon') format('svg');
-	font-weight: normal;
-	font-style: normal;
+    font-family: 'icomoon';
+    src:url('/assets/icomoon.eot?5ynifj');
+    src:url('/assets/icomoon.eot?#iefix5ynifj') format('embedded-opentype'),
+    url('/assets/icomoon.woff?5ynifj') format('woff'),
+    url('/assets/icomoon.ttf?5ynifj') format('truetype'),
+    url('/assets/icomoon.svg?5ynifj#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
 }
 
 [class^="icon-"], [class*=" icon-"] {
-	font-family: 'icomoon';
-	speak: none;
-	font-style: normal;
-	font-weight: normal;
-	font-variant: normal;
-	text-transform: none;
-	line-height: 1;
+    font-family: 'icomoon';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
 
-	/* Better Font Rendering =========== */
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-review:before {
+    content: "\e617";
+}
 .icon-bubble:before {
-	content: "\e615";
+    content: "\e615";
 }
 .icon-bubbles:before {
-	content: "\e616";
+    content: "\e616";
 }
 .icon-linkedin:before {
-	content: "\e611";
+    content: "\e611";
 }
 .icon-coffee:before {
-	content: "\f0f4";
+    content: "\f0f4";
 }
 .icon-school:before {
-	content: "\e613";
+    content: "\e613";
 }
 .icon-earth:before {
-	content: "\e614";
+    content: "\e614";
 }
 .icon-home:before {
-	content: "\e610";
+    content: "\e610";
 }
 .icon-user:before {
-	content: "\e60f";
+    content: "\e60f";
 }
 .icon-alert:before {
-	content: "\e60d";
+    content: "\e60d";
 }
 .icon-instagram:before {
-	content: "\e60c";
+    content: "\e60c";
 }
 .icon-twitter:before {
-	content: "\e60b";
+    content: "\e60b";
 }
 .icon-close-big:before {
-	content: "\e60a";
+    content: "\e60a";
 }
 .icon-table:before {
-	content: "\e609";
+    content: "\e609";
 }
 .icon-list:before {
-	content: "\e608";
+    content: "\e608";
 }
 .icon-close:before {
-	content: "\e605";
+    content: "\e605";
 }
 .icon-star1:before {
-	content: "\e601";
+    content: "\e601";
 }
 .icon-star2:before {
-	content: "\e602";
+    content: "\e602";
 }
 .icon-facebook3:before {
-	content: "\e603";
+    content: "\e603";
 }
 .icon-facebook4:before {
-	content: "\e604";
+    content: "\e604";
 }
 .icon-googleplus:before {
-	content: "\e600";
+    content: "\e600";
 }
 .icon-teach:before {
-	content: "\e612";
-}
-.icon-exclamation:before {
-	content: "\e60e";
+    content: "\e612";
 }
 .icon-accept:before {
-	content: "\e607";
+    content: "\e607";
+}
+.icon-exclamation:before {
+    content: "\e60e";
+}
+.icon-accept:before {
+    content: "\e607";
 }
 .icon-help:before {
-	content: "\e606";
+    content: "\e606";
 }
