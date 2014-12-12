@@ -1,9 +1,9 @@
 <div ng-class="[DEFAULT_CLASS, detailArrowClass]" ng-style="modalStyle" ng-show="selectedAppointment">
   <span class="icon-close modal-detail-close" ng-click="closeAnomalyDetail()"></span>
-  <div class="modal-detail-header">Reporte de Anomalía</div>
+  <div class="modal-detail-header" translate="POPUP_ANOMALY_REPORT_TITLE"></div>
   <div class="modal-detail-content">
     <div class="dropdown form-dropdown">
-      <label style="font-weight: normal">Motivo</label><br/>
+      <label style="font-weight: normal" translate="POPUP_ANOMALY_REPORT_REASON"></label><br/>
       <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
         {{selectedAnomaly.name}} 
         <span class="caret"></span>
@@ -13,11 +13,11 @@
       </ul>
     </div>
     <br/>
-      <label style="font-weight: normal">Descripción</label><br/>
+      <label style="font-weight: normal" translate="POPUP_ANOMALY_REPORT_DESCRIPTION"></label><br/>
       <textarea  class="form-textarea form-control" rows="4" ng-model="anomalyDescription" required></textarea>
     <br/>
     <div style="text-align: center;">
-      <a class="action-button action-button-medium-gray" ng-click="reportAnomaly(selectedAppointment, selectedAnomaly.code, anomalyDescription)">Reportar</a>
+      <a class="action-button action-button-medium-gray" ng-click="reportAnomaly(selectedAppointment, selectedAnomaly.code, anomalyDescription)" translate="POPUP_ANOMALY_REPORT_SEND"></a>
     </div>
   </div>
   <div class="modal-detail-footer"></div>

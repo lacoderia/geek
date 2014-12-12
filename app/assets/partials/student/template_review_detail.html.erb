@@ -1,15 +1,15 @@
 <div ng-class="[DEFAULT_CLASS, detailArrowClass]" ng-style="modalStyle" ng-show="selectedTutor">
   <span class="icon-close modal-detail-close" ng-click="closeReviewDetail()"></span>
-  <div class="modal-detail-header">Calificar al tutor</div>
+  <div class="modal-detail-header" translate="POPUP_REVIEW_TITLE"></div>
   <div class="modal-detail-content">
     <div>
-      <label style="font-weight: normal">Califica a tu tutor segun los siguientes rubros:</label><br/>
+      <label style="font-weight: normal" translate="POPUP_REVIEW_TEXT"></label><br/>
     </div>
 
     <table class="score-table">
       <tr>
         <td>
-          <span translate="KNOWLEDGE"></span>
+          <span translate="POPUP_REVIEW_KNOWLEDGE"></span>
         </td>
         <td>
           <div class="score">
@@ -23,7 +23,7 @@
       </tr>
       <tr>
         <td>
-          <span translate="COMMUNICATION"></span>
+          <span translate="POPUP_REVIEW_COMMUNICATION"></span>
         </td>
         <td>
           <div class="score">
@@ -37,7 +37,7 @@
       </tr>
       <tr>
         <td>
-          <span translate="PRESENTATION"></span>
+          <span translate="POPUP_REVIEW_PRESENTATION"></span>
         </td>
         <td>
           <div class="score">
@@ -52,11 +52,11 @@
     </table>
 
     <br/>
-      <label style="font-weight: normal">Comentario</label><br/>
+      <label style="font-weight: normal" translate="POPUP_REVIEW_COMMENT"></label><br/>
       <textarea  class="form-textarea form-control" rows="4" ng-model="tutorReview.comment" required></textarea>
     <br/>
     <div style="text-align: center;">
-      <a class="action-button action-button-medium-gray" ng-click="sendReview(selectedTutor, tutorReview)">Calificar</a>
+      <a class="action-button action-button-medium-gray" ng-click="sendReview(selectedTutor, tutorReview)" translate="POPUP_REVIEW_SEND"></a>
     </div>
   </div>
   <div class="modal-detail-footer"></div>
