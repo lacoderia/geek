@@ -1,21 +1,21 @@
 <div class="student-calendar-container">
-  <h2 class="section-title">Historial</h2>
+  <h2 class="section-title" translate="HISTORY"></h2>
   <div class="appointment-history" ng-controller="AppointmentHistoryController as AppointmentHistoryCtrl">
     <div class="history-list-view-unavailable" ng-hide="appointmentsGroups.length">
       <div class="history-list-view-unavailable-content">
-        <h3>No tienes citas anteriores</h3>
+        <h3 translate="UNAVAILABLE_MESSAGE_APPOINTMENTS"></h3>
       </div>
     </div>
     <div class="history-list-view-row" ng-show="appointmentsGroups.length">
       <table>
         <thead>
-            <tr class="history-list-title-row">
-              <th class="info-title">Horario</th>
-              <th class="info-title">Tutor</th>
-              <th class="info-title">Materia</th>
-              <th class="info-title">Estatus</th>
-              <th class="info-title">Acciones</th>
-            </tr>
+        <tr class="history-list-title-row">
+          <th class="info-title" translate="TABLE_TITLE_TIME"></th>
+          <th class="info-title" translate="TABLE_TITLE_TUTOR"></th>
+          <th class="info-title" translate="TABLE_TITLE_SUBJECT"></th>
+          <th class="info-title" translate="TABLE_TITLE_STATUS"></th>
+          <th class="info-title" translate="TABLE_TITLE_ACTIONS"></th>
+        </tr>
         </thead>
       </table>
       <table ng-repeat="appointmentGroup in appointmentsGroups" class="week-list-day-row" ng-show="appointmentGroup.appointments.length">

@@ -10,8 +10,8 @@
       <table>
         <thead>
         <tr class="tutors-list-title-row">
-          <th class="info-title">Tutor</th>
-          <th class="info-title">Acciones</th>
+          <th class="info-title" translate="TABLE_TITLE_TUTOR"></th>
+          <th class="info-title" translate="TABLE_TITLE_ACTIONS"></th>
         </tr>
         </thead>
       </table>
@@ -19,7 +19,6 @@
         <tbody>
             <tr ng-repeat="tutor in tutorList" class="tutors-list-info-row" ng-click="showReviewDetail($event, tutor)">
                 <td class="tutor-info" ng-image-adjustment image-container="user_picture" image-src="{{ tutor.picture_url }}">
-
                   {{ tutor.name }}
                 </td>
                 <td class="tutor-info">
