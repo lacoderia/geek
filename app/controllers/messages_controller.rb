@@ -93,8 +93,8 @@ class MessagesController < ApplicationController
   # Recibe:
   #   message_id - el ID del mensaje más reciente de la conversación
   def mark_read
-    msg = Message.find(params[:message_id])
-    Message.where("id <= #{msg.id} and tutor_id = #{msg.tutor_id} and student_id = #{msg.student_id}").update_all("read = true")
+    msg = Message.find(params[:message_id])    
+    Message.where("id <= #{msg.id} and tutor_id = #{msg.tutor_id} and student_id = #{msg.student_id} and from_student = #{msg.from_student}").update_all("read = true")
     render json: "", status: :ok
   end
 
@@ -106,6 +106,6 @@ class MessagesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def message_params
-      params.require(:message).permit(:student_id, :tutor_id, :text, :read)
+      params.require(:message).permit(:student_id, :tutor_id, :text, :read, :from_student)
     end
 end

@@ -1,5 +1,5 @@
 json.array!(@messages) do |message|
-  json.extract! message, :id, :text, :read, :created_at
+  json.extract! message, :id, :text, :read, :from_student, :created_at
   json.set! :student do
   	json.extract! message.student, :id, :first_name, :last_name, :picture_url
   end
