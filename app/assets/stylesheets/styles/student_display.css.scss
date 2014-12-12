@@ -90,6 +90,7 @@
 
 #sign-in-modal {
   text-align: center;
+  text-transform: uppercase;
 
   .modal-dialog {
     font-family: "gotham";
@@ -238,6 +239,7 @@
           font-size: 18px;
           margin-top: 12px;
           padding-top: 10px;
+          text-transform: lowercase;
         }
 
         .form-checkbox {
@@ -258,10 +260,22 @@
           }
         }
 
-        ::-webkit-input-placeholder { color: $color-sign-up-input-blue; }
-        ::-moz-placeholder { color: $color-sign-up-input-blue; } /* firefox 19+ */
-        :-ms-input-placeholder { color: $color-sign-up-input-blue; } /* ie */
-        input:-moz-placeholder { color: $color-sign-up-input-blue; }
+        ::-webkit-input-placeholder {
+          color: $color-sign-up-input-blue;
+          text-transform: uppercase;
+        }
+        ::-moz-placeholder {
+          color: $color-sign-up-input-blue;
+          text-transform: uppercase;
+        } /* firefox 19+ */
+        :-ms-input-placeholder {
+          color: $color-sign-up-input-blue;
+          text-transform: uppercase;
+        } /* ie */
+        input:-moz-placeholder {
+          color: $color-sign-up-input-blue;
+          text-transform: uppercase;
+        }
 
         .form-submit {
           background-color: $color-sign-up-input-blue;

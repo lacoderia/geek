@@ -9,18 +9,18 @@
     <nav class="navigation col-lg-10 col-md-10 col-sm-9 col-xs-12" role="navigation" ng-controller="NavigationController as navigationCtrl">
       <ul class="hidden-xs">
         <li>
-          <a href="/tutor" title="¿Quieres dar clases en geek?" class="text-color-dark-blue" translate="WANT_TO_TEACH"></a>
+          <a href="/tutor" title="{{ 'WANT_TO_TEACH' | translate}}" class="text-color-dark-blue" translate="WANT_TO_TEACH"></a>
         </li>
-        <li><a title="Ingresa" class="signin" ng-click="showSignInModal('signIn')" translate="SIGN_IN"></a></li>
-        <li><a title="Regístrate" class="signup" ng-click="showSignInModal('signUp')" translate="SIGN_UP"></a></li>
-        <li><a title="Cambiar idioma" class="text-color-light-blue" translate="ENGLISH_SPANISH"></a></li>
+        <li><a title="{{ 'SIGN_IN' | translate }}" class="signin" ng-click="showSignInModal('signIn')" translate="SIGN_IN"></a></li>
+        <li><a title="{{ 'SIGN_UP' | translate }}" class="signup" ng-click="showSignInModal('signUp')" translate="SIGN_UP"></a></li>
+        <li><a title="{{ 'CHOOSE_LANGUAGE' | translate }}" class="text-color-light-blue" translate="ENGLISH_SPANISH"></a></li>
       </ul>
       <ul class="hidden-md hidden-lg hidden-sm">
         <li>
-          <a href="/tutor" title="¿Quieres dar clases en geek?" class="text-color-dark-blue">Tutor</a>
+          <a href="/tutor" title="{{ 'WANT_TO_TEACH' | translate }}" class="text-color-dark-blue" translate="TUTOR"></a>
         </li>
-        <li><a href="#" title="Ingresa" translate="SIGN_IN"></a></li>
-        <li><a href="#" title="Regístrate" translate="SIGN_UP"></a></li>
+        <li><a href="#" title="{{ 'SIGN_IN' | translate }}" translate="SIGN_IN"></a></li>
+        <li><a href="#" title="{{ 'SIGN_UP' | translate }}" translate="SIGN_UP"></a></li>
       </ul>
       <div class="modal fade" id="sign-in-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -31,10 +31,10 @@
               </div>
               <div class="tabs">
                 <div class="tab left-tab" ng-class="{active: selectedTab == 'signIn'}" ng-click="selectTab('signUp')">
-                  <span>REGÍSTRARTE</span>
+                  <span translate="MODAL_SIGN_IN"></span>
                 </div>
                 <div class="tab right-tab" ng-class="{active: selectedTab == 'signUp'}" ng-click="selectTab('signIn')">
-                  <span>INICIAR SESIÓN</span>
+                  <span translate="MODAL_SIGN_UP"></span>
                 </div>
               </div>
               <div class="owl-hands">
@@ -45,7 +45,7 @@
               <div class="sign-up-container noselect" ng-show="selectedTab == 'signUp'">
                 <div ng-hide="userData">
                   <div class="form-button-fb">
-                    <div ng-click="registerFacebook()">REGÍSTRATE CON FACEBOOK <span class="icon-facebook"></span></div>
+                    <div ng-click="registerFacebook()">{{ 'MODAL_SING_UP_FACEBOOK' | translate }}<span class="icon-facebook2"></span></div>
                   </div>
                   <div class="form-text">
                     o
@@ -53,20 +53,20 @@
                 </div>
                 <form name="signUpForm" id="student-form" accept-charset="UTF-8" action="/users" method="post">
                   <div class="form-group" show-errors>
-                    <input type="text" id="sign-up-name" name="user[first_name]" ng-model="signUpName" class="form-input form-control" placeholder="NOMBRE" required/>
+                    <input type="text" id="sign-up-name" name="user[first_name]" ng-model="signUpName" class="form-input form-control" placeholder="{{ 'SIGN_UP_NAME' | translate }}" required/>
                   </div>
                   <div class="form-group" show-errors>
-                    <input type="text" id="sign-up-mail" name="user[email]" ng-model="signUpMail" class="form-input form-control" placeholder="CORREO" ng-pattern="/^[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\.)+[A-Za-z]{2,4}$/" required/>
+                    <input type="text" id="sign-up-mail" name="user[email]" ng-model="signUpMail" class="form-input form-control" placeholder="{{ 'SIGN_UP_MAIL' | translate }}" ng-pattern="/^[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\.)+[A-Za-z]{2,4}$/" required/>
                   </div>
                   <div class="form-group" show-errors>
-                    <input type="password" id="sign-up-password" name="user[password]" ng-model="signUpPassword" class="form-input form-control" placeholder="PASSWORD" required/>
+                    <input type="password" id="sign-up-password" name="user[password]" ng-model="signUpPassword" class="form-input form-control" placeholder="{{ 'SIGN_UP_PASSWORD' | translate }}" required/>
                   </div>
                   <div class="form-group" show-errors>
-                    <input type="password" id="sign-up-confirmation" name="user[password_confirmation]" ng-model="signUpConfirmation" class="form-input form-control" placeholder="CONFIRMAR PASSWORD" pw-check="sign-up-password" required/>
+                    <input type="password" id="sign-up-confirmation" name="user[password_confirmation]" ng-model="signUpConfirmation" class="form-input form-control" placeholder="{{ 'SIGN_UP_CONFIRMATION' | translate }}" pw-check="sign-up-password" required/>
                   </div>
                   <div class="form-group form-checkbox custom-checkbox" show-errors>
                     <input type="checkbox" id="sign-up-terms" name="sign-up-terms" ng-model="signUpTerms" class="form-control" required>
-                    <label for="sign-up-terms">HE LEÍDO Y ACEPTO LOS TÉRMINOS Y CONDICIONES</label>
+                    <label for="sign-up-terms" translate="TERMS_AND_CONDITIONS"></label>
                   </div>
                   <div>
                     <input id="user_uid" name="user[uid]" type="hidden" value="{{signUpUID}}" />
@@ -76,7 +76,7 @@
                     <input id="user_role_ids" multiple="multiple" name="user[role_ids][]" type="hidden" value="{{roleIds}}" />
                   </div>
                   <div class="form-submit" ng-click="submitStudentForm()">
-                    <div>REGÍSTRATE</div>
+                    <div translate="SIGN_UP"></div>
                   </div>
                 </form>
               </div>
@@ -84,7 +84,7 @@
                 <label ng-show='loginError' ng-bind='loginError'></label>
                 <div ng-hide="userData">
                   <div class="form-button-fb">
-                    <div ng-click="registerFacebook()">INICIA CON FACEBOOK <span class="icon-facebook"></span></div>
+                    <div ng-click="registerFacebook()">{{ 'MODAL_SING_IN_FACEBOOK' | translate }}<span class="icon-facebook2"></span></div>
                   </div>
                   <div class="form-text">
                     o
@@ -92,14 +92,14 @@
                 </div>
                 <form name="studentLoginForm" id="student-login-form" accept-charset="UTF-8" action="/users/sign_in" id="login-form" method="post">
                   <div class="form-group" show-errors>
-                    <input type="text" name="student[email]" class="form-input form-control" placeholder="CORREO" required/>
+                    <input type="text" name="student[email]" class="form-input form-control" placeholder="{{ 'SIGN_UP_MAIL' | translate }}" required/>
                   </div>
                   <div class="form-group" show-errors>
-                    <input type="password" name="student[password]" class="form-input form-control" placeholder="PASSWORD" required/>
+                    <input type="password" name="student[password]" class="form-input form-control" placeholder="{{ 'SIGN_UP_PASSWORD' | translate }}" required/>
                   </div>
                   <input id="tutor_role_ids" multiple="multiple" name="student[role_ids][]" type="hidden" value="3" >
                   <div class="form-submit" ng-click="loginStudent()">
-                    <div>INICIAR SESIÓN</div>
+                    <div translate="SIGN_IN"></div>
                   </div>
                 </form>
               </div>
@@ -118,7 +118,7 @@
         <h2 class="col-lg-2 col-md-3 hidden-sm hidden-xs">geek</h2>
         <form class="col-lg-10 col-md-9 col-sm-12 col-xs-12">
           <angucomplete-alt-geek id="topics"
-                                 placeholder="Me interesaría aprender..."
+                                 placeholder="{{ 'AUTOCOMPLETE_TOPIC' | translate }}"
                                  pause="600"
                                  selected-object="subjectInput"
                                  local-data="categories"
@@ -127,8 +127,8 @@
                                  minlength="1"
                                  input-class="category">
           </angucomplete-alt-geek>
-          <input class="county" type="text" ng-model="chosenPlace" details="chosenPlaceDetails" on-place-change="onPlaceChanged" placeholder="En la zona de..." googleplace>
-          <a class="search-button icon-pointer" ng-click="searchTutor()">Buscar</a>
+          <input class="county" type="text" ng-model="chosenPlace" details="chosenPlaceDetails" on-place-change="onPlaceChanged" placeholder="{{ 'AUTOCOMPLETE_ZONE' | translate }}" googleplace>
+          <a class="search-button icon-pointer" ng-click="searchTutor()" translate="SEARCH"></a>
         </form>
         <div class="clearfix"></div>
       </div>
@@ -137,12 +137,12 @@
         <div class="unavailable-message" ng-hide
                 ="tutorList.length || suggestedTutorList.length">
           <div class="unavailable-message-content">
-            <h3>Lo sentimos, no encontramos tutores</h3>
+            <h3 translate="UNAVAILABLE_MESSAGE_SEARCH_TUTORS"></h3>
           </div>
         </div>
         <div class="search-results-tools" ng-show="selectedTutor">
-          <span ng-hide="selectedTutor">Filtros:</span>
-          <span class="btn-back" ng-click="showSearchResults()" ng-show="selectedTutor"><< MOSTRAR TODOS</span>
+          <span ng-hide="selectedTutor">{{ FILTERS | translate}}:</span>
+          <span class="btn-back" ng-click="showSearchResults()" ng-show="selectedTutor"><< {{ 'SHOW_ALL' | translate}}</span>
         </div>
         <div class="search-result-list" ng-show="tutorList.length || suggestedTutorList.length">
           <div class="tutor col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-repeat="tutor in tutorList" on-tutor-search-render>
@@ -155,7 +155,7 @@
               <div class="content">
                 <h4 class="tutor-name">{{ tutor.first_name }} {{ tutor.last_name }}</h4>
                 <h5 class="tutor-county"><span ng-repeat="county in tutor.counties">{{ county.name }}{{ $last ? '' : ', ' }}</span></h5>
-                <p class="resume" ng-class="{ 'expanded' : tutor.id == selectedTutor.id }" ng-bind="tutor.background" ellipsis ellipsis-append="ver mas..." ellipsis-symbol="... " ellipsis-append-click="showTutorDetails(tutor)" ellipsis-id="tutor.id"></p>
+                <p class="resume" ng-class="{ 'expanded' : tutor.id == selectedTutor.id }" ng-bind="tutor.background" ellipsis ellipsis-append="{{ 'MORE' | translate }}" ellipsis-symbol="... " ellipsis-append-click="showTutorDetails(tutor)" ellipsis-id="tutor.id"></p>
               </div>
               <div class="clearfix"></div>
             </div>
@@ -173,23 +173,23 @@
                 <div class="content-price">
                   <h4 class="price">
                     {{ tutor.costRange }} <br>
-                    Por hora
+                    {{ 'EACH_HOUR' | translate }}
                   </h4>
                   <div class="preferences">
-                    <span class="icon-earth" ng-class="{'active' : tutor.preference.online}" title="En línea"></span>
-                    <span class="icon-teach" ng-class="{'active' : tutor.preference.office}" title="Casa del tutor"></span>
-                    <span class="icon-school" ng-class="{'active' : tutor.preference.student_place}" title="Casa del estudiante"></span>
-                    <span class="icon-coffee" ng-class="{'active' : tutor.preference.public}" title="Lugar público"></span>
+                    <span class="icon-earth" ng-class="{'active' : tutor.preference.online}" title="{{ 'TUTOR_PREFERENCE_ONLINE' | translate }}"></span>
+                    <span class="icon-teach" ng-class="{'active' : tutor.preference.office}" title="{{ 'TUTOR_PREFERENCE_OFFICE' | translate }}"></span>
+                    <span class="icon-school" ng-class="{'active' : tutor.preference.student_place}" title="{{ 'TUTOR_PREFERENCE_STUDENT' | translate }}"></span>
+                    <span class="icon-coffee" ng-class="{'active' : tutor.preference.public}" title="{{ 'TUTOR_PREFERENCE_PUBLIC' | translate }}"></span>
                   </div>
                 </div>
                 <div class="content-button" ng-hide="selectedTutor">
-                  <button class="action-button send-message" ng-click="showTutorDetails(tutor)" >Ver disponibilidad</button>
+                  <button class="action-button send-message" ng-click="showTutorDetails(tutor)" translate="SHOW_AVAILABILITY"></button>
                 </div>
               </div>
             </div>
           </div>
 
-          <h3 class="col-lg-12 col-md-12 col-sm-12 col-xs-12 section-title" ng-show="suggestedTutorList.length > 0 && !selectedTutor" >También te recomendamos</h3>
+          <h3 class="col-lg-12 col-md-12 col-sm-12 col-xs-12 section-title" ng-show="suggestedTutorList.length > 0 && !selectedTutor" translate="WE_RECOMMEND"></h3>
 
           <div class="tutor col-lg-12 col-md-12 col-sm-12 col-xs-12 suggested-tutors" ng-show="suggestedTutorList.length > 0 && !selectedTutor" ng-repeat="tutor in suggestedTutorList" on-tutor-search-render>
             <div class="tutor_picture_container col-lg-2 col-md-2 col-sm-12 col-xs-12">
@@ -201,7 +201,7 @@
               <div class="content">
                 <h4 class="tutor-name">{{ tutor.first_name }} {{ tutor.last_name }}</h4>
                 <h5 class="tutor-county"><span ng-repeat="county in tutor.counties">{{ county.name }}{{ $last ? '' : ', ' }}</span></h5>
-                <p class="resume" ng-class="{ 'expanded' : tutor.id == selectedTutor.id }" ng-bind="tutor.background" ellipsis ellipsis-append="ver mas..." ellipsis-symbol="... " ellipsis-append-click="showTutorDetails(tutor)" ellipsis-id="tutor.id"></p>
+                <p class="resume" ng-class="{ 'expanded' : tutor.id == selectedTutor.id }" ng-bind="tutor.background" ellipsis ellipsis-append="{{ 'MORE' | translate }}" ellipsis-symbol="... " ellipsis-append-click="showTutorDetails(tutor)" ellipsis-id="tutor.id"></p>
               </div>
               <div class="clearfix"></div>
             </div>
@@ -219,17 +219,17 @@
                 <div class="content-price">
                   <h4 class="price">
                     {{ tutor.costRange }} <br>
-                    Por hora
+                    {{ 'EACH_HOUR' | translate }}
                   </h4>
                   <div class="preferences">
-                    <span class="icon-earth" ng-class="{'active' : tutor.preference.online}" title="En línea"></span>
-                    <span class="icon-teach" ng-class="{'active' : tutor.preference.office}" title="Casa del tutor"></span>
-                    <span class="icon-school" ng-class="{'active' : tutor.preference.student_place}" title="Casa del estudiante"></span>
-                    <span class="icon-coffee" ng-class="{'active' : tutor.preference.public}" title="Lugar público"></span>
+                    <span class="icon-earth" ng-class="{'active' : tutor.preference.online}" title="{{ 'TUTOR_PREFERENCE_ONLINE' | translate }}"></span>
+                    <span class="icon-teach" ng-class="{'active' : tutor.preference.office}" title="{{ 'TUTOR_PREFERENCE_OFFICE' | translate }}"></span>
+                    <span class="icon-school" ng-class="{'active' : tutor.preference.student_place}" title="{{ 'TUTOR_PREFERENCE_STUDENT' | translate }}"></span>
+                    <span class="icon-coffee" ng-class="{'active' : tutor.preference.public}" title="{{ 'TUTOR_PREFERENCE_PUBLIC' | translate }}"></span>
                   </div>
                 </div>
                 <div class="content-button" ng-hide="selectedTutor">
-                  <button class="action-button send-message" ng-click="showTutorDetails(tutor)" >Ver disponibilidad</button>
+                  <button class="action-button send-message" ng-click="showTutorDetails(tutor)" translate="SHOW_AVAILABILITY"></button>
                 </div>
               </div>
             </div>
@@ -244,10 +244,10 @@
         <img src="/assets/site/geek.png" alt="Geek" class="search-image hidden-xs">
         <div>
           <h2 class="hidden-xs">geek</h2>
-          <h3>¿Qué quieres aprender?</h3>
+          <h3 translate="WHAT_TO_LEARN"></h3>
           <form>
             <angucomplete-alt-geek id="topics"
-                                   placeholder="Me interesaría aprender..."
+                                   placeholder="{{ 'AUTOCOMPLETE_TOPIC' | translate }}"
                                    pause="600"
                                    selected-object="subjectInput"
                                    local-data="categories"
@@ -256,7 +256,7 @@
                                    minlength="1"
                                    input-class="category">
             </angucomplete-alt-geek>
-            <input class="county" type="text" ng-model="chosenPlace" details="chosenPlaceDetails" on-place-change="onPlaceChanged" placeholder="En la zona de..." googleplace>
+            <input class="county" type="text" ng-model="chosenPlace" details="chosenPlaceDetails" on-place-change="onPlaceChanged" placeholder="{{ 'AUTOCOMPLETE_ZONE' | translate }}" googleplace>
             <a class="search-button icon-pointer" ng-click="searchTutor()">Buscar</a>
           </form>
         </div>
@@ -276,26 +276,26 @@
       <div class="col-lg-4 col-md-4 col-sm-4 columns text-color-dark-green how-item">
         <div class="title-content">
           <span class="number">1</span>
-          <span class="title">Busca</span>
+          <span class="title" translate="HOW_STEP_1_TITLE"></span>
         </div>
-        <p>Decide qué te gustaría prender y en qué parte de la ciudad</p>
-        <img src="/assets/site/student-how-search.png" alt="Busca">
+        <p translate="HOW_STEP_1"></p>
+        <img src="/assets/site/student-how-search.png" alt="{{ 'HOW_STEP_1_TITLE' | translate}}">
       </div>
       <div class="col-lg-4 col-md-4 col-sm-4 columns text-color-dark-green how-item">
         <div class="title-content">
           <span class="number">2</span>
-          <span class="title">Compara</span>
+          <span class="title" translate="HOW_STEP_2_TITLE"></span>
         </div>
-        <p>Ve un perfil detallado de los tutores con sus reseñas, ratings, precio y disponibilidad</p>
-        <img src="/assets/site/student-how-compare.png" alt="Compara">
+        <p translate="HOW_STEP_2"></p>
+        <img src="/assets/site/student-how-compare.png" alt="{{ 'HOW_STEP_2_TITLE' | translate}}">
       </div>
       <div class="col-lg-4 col-md-4 col-sm-4 columns text-color-dark-green how-item">
         <div class="title-content">
           <span class="number">3</span>
-          <span class="title">Agenda</span>
+          <span class="title" translate="HOW_STEP_3_TITLE"></span>
         </div>
-        <p>Elige el horario que más te convenga; agenda y paga con un solo click</p>
-        <img src="/assets/site/student-how-book.png" alt="Agenda">
+        <p translate="HOW_STEP_3"></p>
+        <img src="/assets/site/student-how-book.png" alt="{{ 'HOW_STEP_3_TITLE' | translate}}">
       </div>
       <div class="clearfix"></div>
     </div>
@@ -304,16 +304,15 @@
       <div class="col-lg-8 col-md-8 col-sm-12 columns text-color-dark-green how-item">
         <div class="title-content">
           <span class="number">4</span>
-          <span class="title">Pasa tu examen de álgebra</span>
+          <span class="title" translate="HOW_STEP_4_TITLE"></span>
         </div>
-        <img src="/assets/site/landing-how-4.png" alt="Pasa tu examen">
-        <img src="/assets/site/landing-how-5.png" alt="Pasa tu examen">
-        <img src="/assets/site/landing-how-6.png" alt="Pasa tu examen">
+        <img src="/assets/site/landing-how-4.png" alt="{{ 'HOW_STEP_4_TITLE' | translate}}">
+        <img src="/assets/site/landing-how-5.png" alt="{{ 'HOW_STEP_4_TITLE' | translate}}">
+        <img src="/assets/site/landing-how-6.png" alt="{{ 'HOW_STEP_4_TITLE' | translate}}">
       </div>
       <div class="col-lg-4 col-md-4 col-sm-4 columns text-color-dark-green bgcolor-dark-green how-item-testimony">
-
-          "El tutor era un gran comunicador, muy paciente y excelente resolviendo problemas específicos."
-          <span class="">- Lucero Lachica</span>
+          {{ 'HOW_REVIEW_TEXT' | translate }}
+          <span translate="HOW_REVIEW_NAME"></span>
       </div>
     </div>
   </div>
@@ -323,23 +322,23 @@
   <div class="row bgcolor-light-blue">
     <div class="section-where">
       <div class="col-lg-12 col-md-12 col-sm-12 columns">
-        <h3 class="title-element text-color-white">¿Dónde van a ser mis clases?</h3>
-        <h4 class="subtitle-element text-color-dark-blue">En geek te damos flexibilidad para que elijas dónde tomar tus clases. ¡Tú decides!</h4>
+        <h3 class="title-element text-color-white" translate="WHERE_TITLE"></h3>
+        <h4 class="subtitle-element text-color-dark-blue" translate="WHERE_TEXT"></h4>
       </div>
       <div class="col-lg-3 col-md-3 col-sm-12 columns where-item">
-        <p>En tu casa o en la suya</p>
+        <p translate="WHERE_PREFERENCE_HOME"></p>
         <img src="/assets/site/landing-home.png" alt="En tu casa o en la suya">
       </div>
       <div class="col-lg-3 col-md-3 col-sm-12 columns where-item">
-        <p>En un espacio público</p>
+        <p translate="WHERE_PREFERENCE_PUBLIC"></p>
         <img src="/assets/site/landing-public.png" alt="En un espacio público">
       </div>
       <div class="col-lg-3 col-md-3 col-sm-12 columns where-item">
-        <p>Online</p>
+        <p translate="WHERE_PREFERENCE_ONLINE"></p>
         <img src="/assets/site/landing-online.png" alt="Online">
       </div>
       <div class="col-lg-3 col-md-3 col-sm-12 columns where-item">
-        <p>Próximamente: espacios Geek</p>
+        <p translate="WHERE_PREFERENCE_GEEK"></p>
         <img src="/assets/site/landing-geek.png" alt="Online">
       </div>
     </div>
@@ -350,14 +349,14 @@
   <div class="row">
     <div class="section-video">
       <div class="col-lg-12 col-md-12 col-sm-12 columns">
-        <h3 class="title-element text-color-white">Geek te acerca a esa ayuda extra que necesitas</h3>
+        <h3 class="title-element text-color-white" translate="WHAT_TITLE"></h3>
       </div>
       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-container columns">
         <ul>
-          <li class="text-color-landing-dark-red"><span><img src="/assets/site/video-opt-1.png" alt="Encuentra a tu tutor ideal"></span><span>Encuentra a  tu tutor ideal</span></li>
-          <li class="text-color-white bgcolor-landing-medium-red"><span><img src="/assets/site/video-opt-2.png" alt="Encuentra a tu tutor ideal"></span><span>Agenda clases de manera ágil y sencilla</span></li>
-          <li class="text-color-white bgcolor-landing-medium-2-red"><span><img src="/assets/site/video-opt-3.png" alt="Encuentra a tu tutor ideal"></span><span>Olvídate del proceso de pago</span></li>
-          <li class="text-color-landing-medium-red"><span><img src="/assets/site/video-opt-4.png" alt="Encuentra a tu tutor ideal"></span><span>Potencia tu conocimiento</span></li>
+          <li class="text-color-landing-dark-red"><span><img src="/assets/site/video-opt-1.png" alt="{{ 'WHAT_STEP_1' | translate }}"></span><span translate="WHAT_STEP_1"></span></li>
+          <li class="text-color-white bgcolor-landing-medium-red"><span><img src="/assets/site/video-opt-2.png" alt="{{ 'WHAT_STEP_2' | translate }}"></span><span translate="WHAT_STEP_2"></span></li>
+          <li class="text-color-white bgcolor-landing-medium-2-red"><span><img src="/assets/site/video-opt-3.png" alt="{{ 'WHAT_STEP_3' | translate }}"></span><span translate="WHAT_STEP_3"></span></li>
+          <li class="text-color-landing-medium-red"><span><img src="/assets/site/video-opt-4.png" alt="{{ 'WHAT_STEP_4' | translate }}"></span><span translate="WHAT_STEP_4"></span></li>
         </ul>
       </div>
       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 video-container columns">
@@ -372,11 +371,11 @@
   <div class="row bgcolor-light-orange">
     <div class="section-guaranty">
       <div class="col-lg-1 col-md-3 col-sm-12 columns">
-        <img src="/assets/site/landing-guaranty.png" alt="Garantía Geek">
+        <img src="/assets/site/landing-guaranty.png" alt="{{ 'GEEK_WARRANTY' | translate }}">
       </div>
       <div class="col-lg-11 col-md-9 col-sm-12 columns">
-        <h3 class="title-element text-color-medium-orange">Conocemos y aprobamos a cada tutor Geek para</h3>
-        <h3 class="title-element text-color-medium-orange">darte la mayor seguridad y calidad posible</h3>
+        <h3 class="title-element text-color-medium-orange" translate="GEEK_WARRANTY_1"></h3>
+        <h3 class="title-element text-color-medium-orange" translate="GEEK_WARRANTY_2"></h3>
       </div>
       <div class="clearfix"></div>
     </div>
@@ -387,30 +386,30 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-12 hidden-lg hidden-md hidden-sm language">
-        <a href="#" title="¿Quieres dar clases en geek?" class="text-color-light-blue">English/Español</a>
+        <a href="#" title="{{ 'CHOOSE_LANGUAGE' | translate }}" class="text-color-light-blue" translate="ENGLISH_SPANISH"></a>
       </div>
       <div class="col-lg-6 col-md-3 social-icons columns uppercase">
-        <p>Síguenos en nuestras redes sociales</p>
+        <p translate="FOOTER_SOCIAL"></p>
         <ul>
           <li><a href="" title="Twitter"><span class="icon-twitter text-color-light-blue"></span></a></li>
-          <li><a href="" title="Facebook"><span class="icon-facebook3 text-color-light-green"></span></a></li>
+          <li><a href="" title="Facebook"><span class="icon-facebook1 text-color-light-green"></span></a></li>
           <li><a href="" title="LinkedIn"><span class="icon-linkedin text-color-light-orange"></span></a></li>
         </ul>
       </div>
       <div class="col-lg-6 col-md-3 columns links">
         <div class="col-lg-6 col-md-6 columns uppercase">
           <ul>
-            <li>¿Quiénes somos?</li>
-            <li>Contacto</li>
-            <li>Ayuda</li>
+            <li translate="FOOTER_WE"></li>
+            <li translate="FOOTER_CONTACT"></li>
+            <li translate="FOOTER_HELP"></li>
           </ul>
         </div>
         <div class="col-lg-6 col-md-6 columns right uppercase">
           <ul>
-            <li>FAQS</li>
-            <li>Blog</li>
-            <li>Términos y condiciones</li>
-            <li>Aviso de privacidad</li>
+            <li translate="FOOTER_FAQ"></li>
+            <li translate="FOOTER_BLOG"></li>
+            <li translate="FOOTER_TERMS_AND_CONDITIONS"></li>
+            <li translate="FOOTER_PRIVACY"></li>
           </ul>
         </div>
       </div>
