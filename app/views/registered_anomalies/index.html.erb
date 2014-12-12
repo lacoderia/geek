@@ -3,9 +3,15 @@
 <table>
   <thead>
     <tr>
+      <th>Id</th>
       <th>Anomaly</th>
+      <th>Description</th>
       <th>User</th>
+      <th>Source</th>
       <th>Appointment</th>
+      <th>Registered Anomaly Status</th>
+      <th>Fee Student</th>
+      <th>Fee Tutor</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -13,9 +19,15 @@
   <tbody>
     <% @registered_anomalies.each do |registered_anomaly| %>
       <tr>
+        <td><%= registered_anomaly.id %></td>
         <td><%= registered_anomaly.anomaly_id %></td>
+        <td><%= registered_anomaly.description %></td>
         <td><%= registered_anomaly.user_id %></td>
+        <td><%= registered_anomaly.source_id %></td>
         <td><%= registered_anomaly.appointment_id %></td>
+        <td><%= registered_anomaly.registered_anomaly_status_id %></td>
+        <td><%= registered_anomaly.fee_student %></td>
+        <td><%= registered_anomaly.fee_tutor %></td>
         <td><%= link_to 'Show', registered_anomaly %></td>
         <td><%= link_to 'Edit', edit_registered_anomaly_path(registered_anomaly) %></td>
         <td><%= link_to 'Destroy', registered_anomaly, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -5,6 +5,9 @@ Rails.application.routes.draw do
     collection do
       post 'from_student'
       post 'from_tutor'
+      post 'assign'
+      post 'assign_other'
+      post 'reject'
     end
   end
 
