@@ -16,8 +16,19 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
 
     $scope.userName = DEFAULT_VALUES.USER_NAME;
 
-    $rootScope.changeLanguage = function(langKey){
-        $translate.use(langKey);
+    $rootScope.toggleLanguage = function(){
+        var languageCode = $translate.use();
+
+        switch(languageCode) {
+            case 'es_MX':
+                $translate.use('en_US');
+                break;
+            case 'en_US':
+                $translate.use('es_MX');
+                break;
+            default:
+                break;
+        }
     };
 
     $(document).ready(function() {
