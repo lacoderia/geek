@@ -13,7 +13,7 @@
         </li>
         <li><a title="{{ 'SIGN_IN' | translate }}" class="signin" ng-click="showSignInModal('signIn')" translate="SIGN_IN"></a></li>
         <li><a title="{{ 'SIGN_UP' | translate }}" class="signup" ng-click="showSignInModal('signUp')" translate="SIGN_UP"></a></li>
-        <li><a title="{{ 'CHOOSE_LANGUAGE' | translate }}" class="text-color-light-blue" translate="ENGLISH_SPANISH"></a></li>
+        <li><a title="{{ 'CHOOSE_LANGUAGE' | translate }}" class="text-color-light-blue" ng-click="toggleLanguage()" translate="ENGLISH_SPANISH"></a></li>
       </ul>
       <ul class="hidden-md hidden-lg hidden-sm">
         <li>
@@ -30,10 +30,10 @@
                 <img src="/assets/site/signup-owl.png" alt="Geek owl" class="">
               </div>
               <div class="tabs">
-                <div class="tab left-tab" ng-class="{active: selectedTab == 'signIn'}" ng-click="selectTab('signUp')">
+                <div class="tab left-tab" ng-class="{active: selectedTab == 'signIn'}" ng-click="selectTab('signIn')">
                   <span translate="MODAL_SIGN_IN"></span>
                 </div>
-                <div class="tab right-tab" ng-class="{active: selectedTab == 'signUp'}" ng-click="selectTab('signIn')">
+                <div class="tab right-tab" ng-class="{active: selectedTab == 'signUp'}" ng-click="selectTab('signUp')">
                   <span translate="MODAL_SIGN_UP"></span>
                 </div>
               </div>
@@ -45,7 +45,7 @@
               <div class="sign-up-container noselect" ng-show="selectedTab == 'signUp'">
                 <div ng-hide="userData">
                   <div class="form-button-fb">
-                    <div ng-click="registerFacebook()">{{ 'MODAL_SING_UP_FACEBOOK' | translate }}<span class="icon-facebook2"></span></div>
+                    <div ng-click="registerFacebook()">{{ 'MODAL_SIGN_UP_FACEBOOK' | translate }}<span class="icon-facebook2"></span></div>
                   </div>
                   <div class="form-text">
                     o
@@ -84,7 +84,7 @@
                 <label ng-show='loginError' ng-bind='loginError'></label>
                 <div ng-hide="userData">
                   <div class="form-button-fb">
-                    <div ng-click="registerFacebook()">{{ 'MODAL_SING_IN_FACEBOOK' | translate }}<span class="icon-facebook2"></span></div>
+                    <div ng-click="registerFacebook()">{{ 'MODAL_SIGN_IN_FACEBOOK' | translate }}<span class="icon-facebook2"></span></div>
                   </div>
                   <div class="form-text">
                     o
@@ -276,26 +276,26 @@
       <div class="col-lg-4 col-md-4 col-sm-4 columns text-color-dark-green how-item">
         <div class="title-content">
           <span class="number">1</span>
-          <span class="title" translate="HOW_STEP_1_TITLE"></span>
+          <span class="title" translate="STUDENT_HOW_STEP_1_TITLE"></span>
         </div>
-        <p translate="HOW_STEP_1"></p>
-        <img src="/assets/site/student-how-search.png" alt="{{ 'HOW_STEP_1_TITLE' | translate}}">
+        <p translate="STUDENT_HOW_STEP_1"></p>
+        <img src="/assets/site/student-how-search.png" alt="{{ 'STUDENT_HOW_STEP_1_TITLE' | translate}}">
       </div>
       <div class="col-lg-4 col-md-4 col-sm-4 columns text-color-dark-green how-item">
         <div class="title-content">
           <span class="number">2</span>
-          <span class="title" translate="HOW_STEP_2_TITLE"></span>
+          <span class="title" translate="STUDENT_HOW_STEP_2_TITLE"></span>
         </div>
-        <p translate="HOW_STEP_2"></p>
-        <img src="/assets/site/student-how-compare.png" alt="{{ 'HOW_STEP_2_TITLE' | translate}}">
+        <p translate="STUDENT_HOW_STEP_2"></p>
+        <img src="/assets/site/student-how-compare.png" alt="{{ 'STUDENT_HOW_STEP_2_TITLE' | translate}}">
       </div>
       <div class="col-lg-4 col-md-4 col-sm-4 columns text-color-dark-green how-item">
         <div class="title-content">
           <span class="number">3</span>
-          <span class="title" translate="HOW_STEP_3_TITLE"></span>
+          <span class="title" translate="STUDENT_HOW_STEP_3_TITLE"></span>
         </div>
-        <p translate="HOW_STEP_3"></p>
-        <img src="/assets/site/student-how-book.png" alt="{{ 'HOW_STEP_3_TITLE' | translate}}">
+        <p translate="STUDENT_HOW_STEP_3"></p>
+        <img src="/assets/site/student-how-book.png" alt="{{ 'STUDENT_HOW_STEP_3_TITLE' | translate}}">
       </div>
       <div class="clearfix"></div>
     </div>
@@ -304,15 +304,15 @@
       <div class="col-lg-8 col-md-8 col-sm-12 columns text-color-dark-green how-item">
         <div class="title-content">
           <span class="number">4</span>
-          <span class="title" translate="HOW_STEP_4_TITLE"></span>
+          <span class="title" translate="STUDENT_HOW_STEP_4_TITLE"></span>
         </div>
-        <img src="/assets/site/landing-how-4.png" alt="{{ 'HOW_STEP_4_TITLE' | translate}}">
-        <img src="/assets/site/landing-how-5.png" alt="{{ 'HOW_STEP_4_TITLE' | translate}}">
-        <img src="/assets/site/landing-how-6.png" alt="{{ 'HOW_STEP_4_TITLE' | translate}}">
+        <img src="/assets/site/landing-how-4.png" alt="{{ 'STUDENT_HOW_STEP_4_TITLE' | translate}}">
+        <img src="/assets/site/landing-how-5.png" alt="{{ 'STUDENT_HOW_STEP_4_TITLE' | translate}}">
+        <img src="/assets/site/landing-how-6.png" alt="{{ 'STUDENT_HOW_STEP_4_TITLE' | translate}}">
       </div>
       <div class="col-lg-4 col-md-4 col-sm-4 columns text-color-dark-green bgcolor-dark-green how-item-testimony">
-          {{ 'HOW_REVIEW_TEXT' | translate }}
-          <span translate="HOW_REVIEW_NAME"></span>
+          {{ 'STUDENT_HOW_REVIEW_TEXT' | translate }}
+          <span translate="STUDENT_HOW_REVIEW_NAME"></span>
       </div>
     </div>
   </div>
@@ -349,14 +349,14 @@
   <div class="row">
     <div class="section-video">
       <div class="col-lg-12 col-md-12 col-sm-12 columns">
-        <h3 class="title-element text-color-white" translate="WHAT_TITLE"></h3>
+        <h3 class="title-element text-color-white" translate="STUDENT_WHAT_TITLE"></h3>
       </div>
       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-container columns">
         <ul>
-          <li class="text-color-landing-dark-red"><span><img src="/assets/site/video-opt-1.png" alt="{{ 'WHAT_STEP_1' | translate }}"></span><span translate="WHAT_STEP_1"></span></li>
-          <li class="text-color-white bgcolor-landing-medium-red"><span><img src="/assets/site/video-opt-2.png" alt="{{ 'WHAT_STEP_2' | translate }}"></span><span translate="WHAT_STEP_2"></span></li>
-          <li class="text-color-white bgcolor-landing-medium-2-red"><span><img src="/assets/site/video-opt-3.png" alt="{{ 'WHAT_STEP_3' | translate }}"></span><span translate="WHAT_STEP_3"></span></li>
-          <li class="text-color-landing-medium-red"><span><img src="/assets/site/video-opt-4.png" alt="{{ 'WHAT_STEP_4' | translate }}"></span><span translate="WHAT_STEP_4"></span></li>
+          <li class="text-color-landing-dark-red"><span><img src="/assets/site/video-opt-1.png" alt="{{ 'STUDENT_WHAT_STEP_1' | translate }}"></span><span translate="STUDENT_WHAT_STEP_1"></span></li>
+          <li class="text-color-white bgcolor-landing-medium-red"><span><img src="/assets/site/video-opt-2.png" alt="{{ 'STUDENT_WHAT_STEP_2' | translate }}"></span><span translate="STUDENT_WHAT_STEP_2"></span></li>
+          <li class="text-color-white bgcolor-landing-medium-2-red"><span><img src="/assets/site/video-opt-3.png" alt="{{ 'STUDENT_WHAT_STEP_3' | translate }}"></span><span translate="STUDENT_WHAT_STEP_3"></span></li>
+          <li class="text-color-landing-medium-red"><span><img src="/assets/site/video-opt-4.png" alt="{{ 'STUDENT_WHAT_STEP_4' | translate }}"></span><span translate="STUDENT_WHAT_STEP_4"></span></li>
         </ul>
       </div>
       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 video-container columns">
@@ -386,7 +386,7 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-12 hidden-lg hidden-md hidden-sm language">
-        <a href="#" title="{{ 'CHOOSE_LANGUAGE' | translate }}" class="text-color-light-blue" translate="ENGLISH_SPANISH"></a>
+        <a href="#" title="{{ 'CHOOSE_LANGUAGE' | translate }}" class="text-color-light-blue" ng-click="toggleLanguage()" translate="ENGLISH_SPANISH"></a>
       </div>
       <div class="col-lg-6 col-md-3 social-icons columns uppercase">
         <p translate="FOOTER_SOCIAL"></p>

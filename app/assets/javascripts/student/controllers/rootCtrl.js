@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "DEFAULT_VALUES", "AuthService", "SessionService", "CountyService", "CategoryService", function($scope, $rootScope, $timeout, DEFAULT_VALUES, AuthService, SessionService, CountyService, CategoryService){
+Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$translate", "DEFAULT_VALUES", "AuthService", "SessionService", "CountyService", "CategoryService", function($scope, $rootScope, $timeout, $translate, DEFAULT_VALUES, AuthService, SessionService, CountyService, CategoryService){
 
     //Variable que determina si el overlay es visible
     $rootScope.showOverlay = false;
@@ -25,8 +25,19 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "DEFAULT_
     $scope.HOURS = DEFAULT_VALUES.HOURS;
 
 
-    $rootScope.changeLanguage = function(langKey){
-        $translate.use(langKey);
+    $rootScope.toggleLanguage = function(){
+        var languageCode = $translate.use();
+
+        switch(languageCode) {
+            case 'es_MX':
+                $translate.use('en_US');
+                break;
+            case 'en_US':
+                $translate.use('es_MX');
+                break;
+            default:
+                break;
+        }
     };
 
     $scope.$on('showResultList', function(){

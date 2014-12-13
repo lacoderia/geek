@@ -13,7 +13,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
     $scope.suggestedTutorList = [];
 
     // TEST
-    $scope.tutorList = [{"id":2,"first_name":"Ricardo","last_name":"Rosas","details":null,"references":null,"background":"Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación","calendar_id":"tlcsbhj0n819cer3d4q1r2spr4@group.calendar.google.com","picture_url":"/assets/site/person.png","email":"rosas.schultz@gmail.com","counties":[{"id":452,"postal_code_id":333,"name":"Condesa"}],"categories":[{"id":7,"name":"MATE","category_id":1,"picture_url":null,"cost":300},{"id":8,"name":"ALGEBRA","category_id":1,"picture_url":null,"cost":320.5}],"preference":{"id":3,"online":true,"office":true,"public":true,"student_place":true},"appointments":{"classes=":4,"students=":1},"show":true,"costRange":"$300.00 - $320.50",
+    /*$scope.tutorList = [{"id":2,"first_name":"Ricardo","last_name":"Rosas","details":null,"references":null,"background":"Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación Mi formación","calendar_id":"tlcsbhj0n819cer3d4q1r2spr4@group.calendar.google.com","picture_url":"/assets/site/person.png","email":"rosas.schultz@gmail.com","counties":[{"id":452,"postal_code_id":333,"name":"Condesa"}],"categories":[{"id":7,"name":"MATE","category_id":1,"picture_url":null,"cost":300},{"id":8,"name":"ALGEBRA","category_id":1,"picture_url":null,"cost":320.5}],"preference":{"id":3,"online":true,"office":true,"public":true,"student_place":true},"appointments":{"classes=":4,"students=":1},"show":true,"costRange":"$300.00 - $320.50",
         "reviews": {
             "average": 2,
             "comments": [
@@ -68,7 +68,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
             $rootScope.tutorResultListVisible = true;
             $scope.showTopSearchbar = true;
         }
-    );
+    );*/
 
     $scope.PROFILE_IMAGE = DEFAULT_VALUES.PROFILE_IMAGE;
     $scope.DEFAULT_CATEGORY_NAME = 'TEMA';
