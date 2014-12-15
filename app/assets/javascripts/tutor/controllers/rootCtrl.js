@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state", "$translate", "DEFAULT_VALUES", "CategoryService", "ProfileService", function($scope, $rootScope, $timeout, $state, $translate, DEFAULT_VALUES, CategoryService, ProfileService){
+Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state", "$translate", "MessageService", "DEFAULT_VALUES", "CategoryService", "ProfileService", function($scope, $rootScope, $timeout, $state, $translate, MessageService, DEFAULT_VALUES, CategoryService, ProfileService){
 
     // Objeto que tiene los datos del perfil del tutor
     $rootScope.tutor = {};
@@ -15,6 +15,9 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
     $rootScope.tutorProfileLoaded = false;
 
     $scope.userName = DEFAULT_VALUES.USER_NAME;
+
+    $scope.conversations = [];
+    $scope.newConversationMessages = 0;
 
     $rootScope.toggleLanguage = function(){
         var languageCode = $translate.use();

@@ -9,6 +9,7 @@
     <nav class="navigation col-lg-10 col-md-10 col-sm-9 col-xs-12" role="navigation" ng-controller="NavigationController as navigationCtrl">
       <ul>
         <li ng-show="tutor.request.approved">
+          <span class="messages-alert" ng-show="conversations.length">{{ newConversationMessages }}</span>
           <a ui-sref=".messages" title="Mensajes" class="text-color-dark-blue" translate="{{ 'MESSAGES' }}"></a>
         </li>
         <li class="dropdown"><a title="Perfil" class="dropdown-toggle" data-toggle="dropdown" type="button"><span ng-bind="userName"></span> <span class="caret"></span>
@@ -80,3 +81,4 @@
 
 <div ng-modal-detail></div>
 <div ng-modal-anomaly></div>
+<div ng-modal-message></div>

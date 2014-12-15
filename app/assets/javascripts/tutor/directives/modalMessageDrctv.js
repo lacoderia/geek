@@ -1,10 +1,10 @@
 'use strict';
 
-Geek.directive('ngModalAnomaly', ["$timeout", "$window", "$document", function($timeout, $window, $document){
+Geek.directive('ngModalMessage', ["$rootScope", "$timeout", "$window", "$document", "usSpinnerService", "$translate", function($rootScope, $timeout, $window, $document, usSpinnerService, $translate){
     return{
         restrict: 'A',
         replace: true,
-        templateUrl: '/assets/tutor/template_anomaly_detail.html',
+        templateUrl: '/assets/tutor/template_message.html',
         link: function(scope, element, attrs){
 
             scope.DEFAULT_ARROW_CLASSES = ['modal-detail-arrow-left', 'modal-detail-arrow-right'];
@@ -13,30 +13,20 @@ Geek.directive('ngModalAnomaly', ["$timeout", "$window", "$document", function($
             scope.window = angular.element($window);
             scope.maxWidth = scope.window.width();
 
-            scope.anomalyDescription = undefined;
-
-            scope.anomalyList = [ {name: "Late Show", code: "0"},
-                                  {name: "No Show", code: "1"},
-                                  {name: "Otro", code: "3"}];
-
             scope.detailArrowClass = scope.DEFAULT_ARROW_CLASSES[0];
             scope.modalStyle = {
                 top:0,
                 left:0
             };
 
-            scope.selectedAppointment = null;
-            scope.selectedAnomaly = scope.anomalyList[0];
+            scope.selectedAppointmentMessage = null;
+            scope.message = undefined;
 
-            scope.selectAnomaly = function(anomaly) {
-              scope.selectedAnomaly = anomaly;
-            };
-
-            scope.closeAnomalyDetail = function(){
+            scope.closeMessage = function(){
                 scope.modalStyle.top = 0;
                 scope.modalStyle.left = 0;
 
-                scope.selectedAppointment = null;
+                scope.selectedAppointmentMessage = null;
 
                 if(!scope.$$phase){
                     scope.$apply();
@@ -46,10 +36,10 @@ Geek.directive('ngModalAnomaly', ["$timeout", "$window", "$document", function($
                 element.unbind('click');
 
                 // Dejamos de detectar el click en $document que cierra el modal
-                $document.unbind('click', scope.closeAnomalyDetail);
+                $document.unbind('click', scope.closeMessage);
             };
 
-            scope.openAnomalyDetail = function($event, appointment, options, DEFAULT_VALUES){
+            scope.openMessage = function($event, appointment, options, DEFAULT_VALUES){
                 // Primero cerramos el modal que está abierto para evitar ver parpadear información del modal anterior
                 $timeout(function(){
                     $rootScope.$broadcast('closeAllModals');
@@ -59,9 +49,17 @@ Geek.directive('ngModalAnomaly', ["$timeout", "$window", "$document", function($
                 $event.stopPropagation();
 
                 $timeout(function(){
-                    scope.selectedAppointment = appointment;
-                    scope.reportAnomaly = options.reportAnomaly;
+                    scope.selectedAppointmentMessage = appointment;
+                    scope.sendMessage = options.sendMessage;
+                    scope.resetMessage();
+                    scope.messageAlertMessagesParams = undefined;
+                    $translate('SEND_MESSAGE').then(
+                        function(SEND_MESSAGE){
+                            scope.modalTitle = SEND_MESSAGE;
+                        }
+                    );
                 },0);
+
 
                 $timeout(function(){
                     var dialogHeight = angular.element(element).prop('offsetHeight');
@@ -84,13 +82,29 @@ Geek.directive('ngModalAnomaly', ["$timeout", "$window", "$document", function($
                 });
 
                 // Si detectamos un click sobre $document cerramos el modal
-                $document.bind('click', scope.closeAnomalyDetail());
+                $document.bind('click', scope.closeMessage);
 
                 // Listener que realiza las acciones necesarias para cerrar este modal
                 scope.$on('closeAllModals', function(){
-                    scope.closeAnomalyDetail();
+                    scope.closeMessage()
                 });
 
+            };
+
+            scope.setAlert = function(alertParams){
+                scope.messageAlertMessagesParams = alertParams;
+            };
+
+            scope.resetMessage = function(){
+                scope.message = undefined;
+            };
+
+            scope.showSpinner = function(){
+                usSpinnerService.spin('send-message-spinner');
+            };
+
+            scope.hideSpinner = function(){
+                usSpinnerService.stop('send-message-spinner');
             };
         }
     }

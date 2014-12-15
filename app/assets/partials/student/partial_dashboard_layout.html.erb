@@ -9,6 +9,7 @@
     <nav class="navigation col-lg-10 col-md-10 col-sm-9 col-xs-12" role="navigation" ng-controller="NavigationController as navigationCtrl">
       <ul>
         <li>
+          <span class="messages-alert" ng-show="conversations.length">{{ newConversationMessages }}</span>
           <a ui-sref=".messages" class="text-color-dark-blue" translate="MESSAGES"></a>
         </li>
         <li class="dropdown"><a title="Perfil" class="dropdown-toggle" data-toggle="dropdown" type="button"><span ng-bind="userName"></span> <span class="caret"></span>
@@ -46,30 +47,30 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-12 hidden-lg hidden-md hidden-sm language">
-        <a href="#" title="{{'CHOOSE_LANGUAGE' | translate}}" class="text-color-light-blue" translate="ENGLISH_SPANISH"></a>
+        <a href="#" title="¿Quieres dar clases en geek?" class="text-color-light-blue">English/Español</a>
       </div>
       <div class="col-lg-6 col-md-3 social-icons columns uppercase">
-        <p translate="FOOTER_SOCIAL"></p>
+        <p>Síguenos en nuestras redes sociales</p>
         <ul>
           <li><a href="" title="Twitter"><span class="icon-twitter text-color-light-blue"></span></a></li>
-          <li><a href="" title="Facebook"><span class="icon-facebook1 text-color-light-green"></span></a></li>
+          <li><a href="" title="Facebook"><span class="icon-facebook3 text-color-light-green"></span></a></li>
           <li><a href="" title="LinkedIn"><span class="icon-linkedin text-color-light-orange"></span></a></li>
         </ul>
       </div>
       <div class="col-lg-6 col-md-3 columns links">
         <div class="col-lg-6 col-md-6 columns uppercase">
           <ul>
-            <li translate="FOOTER_WE"></li>
-            <li translate="FOOTER_CONTACT"></li>
-            <li translate="FOOTER_HELP"></li>
+            <li>¿Quiénes somos?</li>
+            <li>Contacto</li>
+            <li>Ayuda</li>
           </ul>
         </div>
         <div class="col-lg-6 col-md-6 columns right uppercase">
           <ul>
-            <li translate="FOOTER_FAQ"></li>
-            <li translate="FOOTER_BLOG"></li>
-            <li translate="FOOTER_TERMS_AND_CONDITIONS"></li>
-            <li translate="FOOTER_PRIVACY"></li>
+            <li>FAQS</li>
+            <li>Blog</li>
+            <li>Términos y condiciones</li>
+            <li>Aviso de privacidad</li>
           </ul>
         </div>
       </div>
@@ -81,3 +82,4 @@
 <div ng-modal-detail ></div>
 <div ng-modal-anomaly></div>
 <div ng-modal-review></div>
+<div ng-modal-message></div>

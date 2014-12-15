@@ -442,8 +442,12 @@ h3.section-title{
     display: inline-block;
     font-size: 14px;
     margin-right: 0.3em;
-    padding: 0.3em 0.8em 0.2em;
+    padding: 0.6em;
     vertical-align: top;
+  }
+
+  a:hover{
+    text-decoration: none;
   }
 
   .cancel-class{
@@ -451,9 +455,17 @@ h3.section-title{
     color: white;
   }
 
+  .cancel-class:hover{
+    background-color: $color-light-red;
+  }
+
   .confirm-class{
     background-color: $color-light-green;
     color: white;
+  }
+
+  .confirm-class:hover{
+    background-color: $color-dark-green;
   }
 
   .reject-class{
@@ -461,8 +473,17 @@ h3.section-title{
     color: white;
   }
 
+  .reject-class:hover{
+    background-color: $color-dark-red;
+  }
+
   .report-class {
     background-color: $color-medium-orange;
+    color: white;
+  }
+
+  .report-class:hover {
+    background-color: $color-dark-orange;
     color: white;
   }
 
@@ -470,6 +491,11 @@ h3.section-title{
     background-color: $color-light-blue;
     color: white;
   }
+
+  .review-class:hover, .send-message:hover{
+    background-color: $color-dark-blue;
+  }
+
 }
 
 .appointment-status-canceled{
@@ -1509,6 +1535,23 @@ footer{
   }
 }
 
+.messages-alert{
+  background: transparent url("/assets/site/geek_sprite.png") no-repeat -20px -36px;
+  color: white;
+  position: absolute;
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 500;
+  height: 25px;
+  margin-left: 10px;
+  padding-right: 0.4em;
+  padding-top: 0.2em;
+  right: 5px;
+  top: -12px;
+  text-align: center;
+  width: 25px;
+}
+
 .messages{
   .conversations{
     .conversation{
@@ -1564,7 +1607,7 @@ footer{
             height: 40px;
             line-clamp: 2;
             overflow: hidden;
-            margin: 1em 0em 2em;
+            margin: 0.2em 0em 2em;
             max-height: 40px;
             padding: 0em;
             text-overflow: ellipsis;
@@ -1581,17 +1624,21 @@ footer{
               font-size: 12px;
               text-align: right;
               vertical-align: top;
-              width: 20%;
+              width: 100%;
             }
 
-            .timestamp{
-              display: inline-block;
-              font-size: 12px;
-              text-align: left;
-              vertical-align: top;
-              width: 80%;
+          }
 
-            }
+          .timestamp{
+            display: inline-block;
+            color: #808184;
+            font-style: normal;
+            font-size: 12px;
+            font-weight: 600;
+            text-align: left;
+            vertical-align: top;
+            width: 100%;
+
           }
 
         }
@@ -1603,6 +1650,7 @@ footer{
 
     .conversationTextarea{
       margin-bottom: 2.5em;
+      position: relative;
 
       textarea{
         background: white;
@@ -1631,6 +1679,7 @@ footer{
       border-radius: 10px 10px 0px 0px;
       padding: 1em;
       margin: 0em 0em 1em;
+      text-transform: uppercase;
 
       .btn-back {
         cursor: pointer;
@@ -1690,6 +1739,7 @@ footer{
 
         .user-info{
           display: inline-block;
+          margin-top: 0.3em;
           text-align: left;
           vertical-align: middle;
         }
@@ -1702,7 +1752,7 @@ footer{
           display: block;
           color: $color-dark-gray;
           font-size: 10px;
-          font-weight: 500;
+          font-weight: 600;
           margin: 0 0 0.4em;
 
           .timestamp{
@@ -1721,7 +1771,7 @@ footer{
         }
 
         .user-message{
-          margin: 0 0 4em 0;
+          margin: 0 0 3em 0;
           text-align: left;
           width: 100%;
 
@@ -1732,7 +1782,7 @@ footer{
         }
 
         .my-message{
-          margin: 0 0 4em 0;
+          margin: 0 0 3em 0;
           text-align: right;
           width: 100%;
 
@@ -1773,7 +1823,10 @@ footer{
     color: #28479C;
     font-size: 1.4rem;
     font-weight: 500;
+    overflow: hidden;
     padding: 0.6rem 1em;
+    text-overflow: ellipsis;
+    width: 100%;
   }
 
   .modal-detail-content{
@@ -1781,25 +1834,9 @@ footer{
     font-size: 1rem;
     padding: 1em;
 
-    .score-table {
-      td {
-        font-size: 14px;
-        padding-top: 5px;
-      }
-
-      .score {
-        .star-empty {
-          color: $color-search-medium-blue;
-          cursor: pointer;
-        }
-
-        .star-full {
-          color: $color-search-dark-blue;
-          cursor: pointer;
-        }
-      }
+    .form-textarea{
+      margin-bottom: 0.5em;
     }
-
 
     table{
       width: 100%;
@@ -1911,6 +1948,7 @@ footer{
         background-color: rgba(166,168,171,0.1);
         display: inline-block;
         margin: 0.4em 0px 0px;
+        position: relative;
         vertical-align: top;
 
         > a{
@@ -2016,10 +2054,6 @@ footer{
           margin: 0;
           padding: 0;
           text-align: right;
-
-          .timestamp{
-
-          }
         }
 
         .score {
@@ -2250,6 +2284,7 @@ footer{
 .unavailable-message{
   background-color: $color-input-gray-bgcolor;
   border: 1px solid $color-input-gray;
+  box-sizing: border-box;
   display: table;
   height: 300px;
   margin-bottom: 2em;
@@ -2260,6 +2295,7 @@ footer{
     color: $color-medium-gray;
     display: table-cell;
     font-size: 2.5em;
+    padding: 1em;
     vertical-align: middle;
   }
 }

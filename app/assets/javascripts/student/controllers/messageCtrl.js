@@ -1,22 +1,23 @@
 'use strict';
 
-Geek.controller('MessageController',['$scope','$rootScope', '$timeout', '$filter', 'MessageService', 'usSpinnerService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $timeout, $filter, MessageService, usSpinnerService, DEFAULT_VALUES){
+Geek.controller('MessageController',['$scope','$rootScope', '$timeout', '$filter', 'MessageService', 'usSpinnerService', 'SessionService', 'AuthService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $timeout, $filter, MessageService, usSpinnerService, SessionService, AuthService, DEFAULT_VALUES){
 
     $scope.selectedConversation = undefined;
     $scope.userSelected = undefined;
+    $scope.studentName = undefined;
     $scope.textMessage = '';
     $scope.lastMessage = undefined;
 
     // Inicializamos los broadcasts y listeners del controlador
-    $scope.$watch('tutorProfileLoaded', function(){
-        if($rootScope.tutorProfileLoaded){
+    $scope.$watch('SessionService.session', function(){
+        if(AuthService.isAuthenticated()){
             $scope.getConversations();
         }
     });
 
     $scope.getConversations = function(){
 
-        MessageService.getConversations($rootScope.tutor.id).then(
+        MessageService.getConversations(SessionService.getId()).then(
             function(data){
                 $scope.newConversationMessages = 0;
                 $scope.conversations = data;
@@ -33,22 +34,21 @@ Geek.controller('MessageController',['$scope','$rootScope', '$timeout', '$filter
 
     };
 
-    $scope.selectConversation = function(student){
-        MessageService.getConversationByUserId(student.id, $rootScope.tutor.id).then(
+    $scope.selectConversation = function(tutor){
+        MessageService.getConversationByUserId(SessionService.getId(), tutor.id).then(
             function(data){
                 if(data){
                     $scope.selectedConversation = data;
-                    console.log(data)
+                    $scope.studentName = SessionService.getFirstName() + " " + SessionService.getLastName();
                     for(var indexMessage=0; indexMessage<$scope.selectedConversation.length; indexMessage++){
                         var message = $scope.selectedConversation[indexMessage];
                         message.timestamp = new Date(message.created_at);
-                        if(!$scope.lastMessage && message.from_student && !message.read){
+                        if(!$scope.lastMessage && !message.from_student && !message.read){
                             $scope.lastMessage = message;
                         }
                     }
-                    $scope.userSelected = student;
+                    $scope.userSelected = tutor;
                     $scope.resizeImage();
-
                     $timeout(function(){
                         if($scope.lastMessage){
 
@@ -56,7 +56,7 @@ Geek.controller('MessageController',['$scope','$rootScope', '$timeout', '$filter
                                 function(data){
                                     for(var indexMessage=0; indexMessage<$scope.selectedConversation.length; indexMessage++){
                                         var message = $scope.selectedConversation[indexMessage];
-                                        if(!message.read && message.from_student){
+                                        if(!message.read && !message.from_student){
                                             message.read = true;
                                         }
                                     }
@@ -85,11 +85,13 @@ Geek.controller('MessageController',['$scope','$rootScope', '$timeout', '$filter
         if($scope.textMessage){
 
             var message = {
-                tutor_id: $rootScope.tutor.id,
-                student_id: $scope.userSelected.id,
+                tutor_id: $scope.userSelected.id,
+                student_id: SessionService.getId(),
                 text: $scope.textMessage,
-                from_student: false
+                from_student: true
             };
+
+            console.log(message)
 
             usSpinnerService.spin('send-message-spinner');
 
@@ -100,6 +102,7 @@ Geek.controller('MessageController',['$scope','$rootScope', '$timeout', '$filter
                         $scope.selectedConversation.splice(0,0,data);
                         $scope.textMessage = '';
                         usSpinnerService.stop('send-message-spinner');
+                        console.log(data)
                     }
                 },
                 function(response){

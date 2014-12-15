@@ -1,0 +1,11 @@
+<div ng-class="[DEFAULT_CLASS, detailArrowClass]" ng-style="modalStyle" ng-show="selectedTutorMessage">
+  <span class="icon-close modal-detail-close" ng-click="closeMessage()"></span>
+  <div class="modal-detail-header" ng-bind="modalTitle"></div>
+  <div class="modal-detail-content">
+    <ng-alert-message alert-params="messageAlertMessagesParams"></ng-alert-message>
+    <textarea class="form-textarea form-control" rows="4" placeholder="{{ 'SEND_MESSAGE_TO' | translate }}{{ selectedTutorMessage.first_name }} {{ selectedTutorMessage.last_name }}" ng-model="message" required></textarea>
+    <a class="action-button action-send-message" ng-click="sendMessage(selectedTutorMessage, message)">Enviar mensaje</a>
+  </div>
+  <div class="modal-detail-footer"></div>
+  <span us-spinner spinner-key="send-message-spinner"></span>
+</div>
