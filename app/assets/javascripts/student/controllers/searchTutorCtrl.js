@@ -257,13 +257,8 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
         var halfHour = $scope.getHalfHour(row, column);
 
         if(halfHour && halfHour.available) {
-            var options = {
-                posX: event.pageX - $('#modal-parent').offset().left,
-                posY: $(event.target).offset().top - $('#modal-parent').offset().top - 5,
-                sendAppointmentRequest: $scope.sendAppointmentRequest
-            };
-
             $timeout(function(){
+
 
                 $scope.selectedClass = {
                     'halfHours': new Array(),
@@ -291,7 +286,6 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
                         message: 'Las clases deben durar al menos 1 hora, por favor, intenta en otro horario.',
                         icon: true
                     };
-                    return;
                 }
 
                 var firstHalfhour = $scope.selectedClass.halfHours[0];
@@ -305,7 +299,6 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
                     'name' : $scope.DEFAULT_CATEGORY_NAME,
                     'cost' : 0
                 };
-
 
                 var now = new Date();
                 var classDate = new Date($scope.selectedClass.dateTimeISO);
@@ -321,12 +314,24 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
                         icon: true
                     };
                     $scope.validAppointmentDate = false;
-                    return;
                 }
 
+                var options = {
+                    posX: event.pageX - $('#modal-parent').offset().left,
+                    posY: $(event.target).offset().top - $('#modal-parent').offset().top - 5,
+                    sendAppointmentRequest: $scope.sendAppointmentRequest,
+                    selectCategory: $scope.selectCategory,
+                    selectedClass: $scope.selectedClass,
+                    validAppointmentDate: $scope.validAppointmentDate,
+                    selectedCategory : $scope.selectedCategory,
+                    selectedTutor : $scope.selectedTutor,
+                    appointmentAlertMessagesParams: $scope.appointmentAlertMessagesParams
+                };
+
+
+                $scope.openAppointmentRequest(event, options);
             },0);
 
-            $scope.openAppointmentRequest(event, options);
         }
     };
 
@@ -343,7 +348,6 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
     $scope.selectCategory = function(category){
         $scope.selectedCategory = category;
     };
-
 
     $scope.sendAppointmentRequest = function() {
 

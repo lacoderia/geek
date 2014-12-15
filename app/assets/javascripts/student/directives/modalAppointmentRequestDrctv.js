@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.directive('ngModalAppointmentRequest', ["$timeout", "$window", "$document", "$filter", function($timeout, $window, $document, $filter){
+Geek.directive('ngModalAppointmentRequest', ["$document", "$filter", "$rootScope", "$timeout", "$window", function($document, $filter, $rootScope, $timeout, $window){
     return{
         restrict: 'A',
         replace: true,
@@ -43,11 +43,18 @@ Geek.directive('ngModalAppointmentRequest', ["$timeout", "$window", "$document",
             };
 
             scope.openAppointmentRequest = function($event, options){
-                // Primero cerramos el modal que está abierto para evitar ver parpadear información del modal anterior
-                scope.closeAppointmentRequest();
-
                 // Detenemos la propagación del evento click para evitar que el bind al final del metodo se ejecute
                 $event.stopPropagation();
+
+                // Primero cerramos todos los modales que están abiertos para evitar ver parpadear información del modal anterior
+                $timeout(function(){
+                    $rootScope.$broadcast('closeAllModals');
+                    scope.selectedClass = options.selectedClass;
+                    scope.validAppointmentDate = options.validAppointmentDate;
+                    scope.selectedCategory = options.selectedCategory;
+                    scope.selectedTutor = options.selectedTutor;
+                    scope.appointmentAlertMessagesParams = options.appointmentAlertMessagesParams;
+                },0);
 
                 $timeout(function(){
                     var dialogHeight = angular.element(element).prop('offsetHeight');
@@ -63,7 +70,8 @@ Geek.directive('ngModalAppointmentRequest', ["$timeout", "$window", "$document",
                         scope.detailArrowClass = scope.DEFAULT_ARROW_CLASSES[0];
                     }
 
-                    scope.sendAppointmentRequest = options.sendAppointmentRequest
+                    scope.sendAppointmentRequest = options.sendAppointmentRequest;
+                    scope.remoteSelectCategory = options.selectCategory;
 
                 },0);
 
@@ -76,6 +84,16 @@ Geek.directive('ngModalAppointmentRequest', ["$timeout", "$window", "$document",
                 $document.bind('click', scope.closeAppointmentRequest);
 
             };
+
+            scope.selectCategory = function(category){
+                scope.selectedCategory = category;
+                scope.remoteSelectCategory(category);
+            }
+
+            // Listener que realiza las acciones necesarias para cerrar este modal
+            scope.$on('closeAllModals', function(){
+                scope.closeAppointmentRequest()
+            });
 
             $timeout(function(){
                 element.find('.dropdown-toggle').dropdown();

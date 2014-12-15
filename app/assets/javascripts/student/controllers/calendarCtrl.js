@@ -388,7 +388,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
                     'available': false,
                     'appointment': undefined,
                     'id': id,
-                    'highlighted': false
+                    'highlight': false
                 };
 
                 id++;

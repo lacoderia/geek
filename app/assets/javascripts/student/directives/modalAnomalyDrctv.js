@@ -88,12 +88,12 @@ Geek.directive('ngModalAnomaly', ["$timeout", "$window", "$document", function($
                 // Si detectamos un click sobre $document cerramos el modal
                 $document.bind('click', scope.closeAnomalyDetail());
 
-                // Listener que realiza las acciones necesarias para cerrar este modal
-                scope.$on('closeAllModals', function(){
-                    scope.closeAnomalyDetail()
-                });
-
             };
+
+            // Listener que realiza las acciones necesarias para cerrar este modal
+            scope.$on('closeAllModals', function(){
+                scope.closeAnomalyDetail()
+            });
         }
     }
 }]);
