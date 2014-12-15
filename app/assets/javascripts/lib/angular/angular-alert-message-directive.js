@@ -14,7 +14,9 @@ Geek.directive('ngAlertMessage', ["$rootScope", function($rootScope){
             };
             scope.$watch('alertParams',function(){
 
-                scope.alertStyle.visibility = 'visible';
+                if(scope.alertParams){
+                    scope.alertStyle.visibility = 'visible';
+                }
             },true);
 
 

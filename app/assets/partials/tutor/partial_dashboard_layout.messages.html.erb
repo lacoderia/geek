@@ -1,9 +1,9 @@
 <div class="messages" ng-controller="MessageController">
   <h2 class="section-title" translate="MESSAGES"></h2>
   <!-- Sección de listado de conversaciones vacío -->
-  <div class="unavailable-message" ng-hide="conversations">
+  <div class="unavailable-message" ng-hide="conversations.length">
     <div class="unavailable-message-content">
-      <h3>Lo sentimos, no encontramos conversaciones</h3>
+      <h3 translate="WITHOUT_CONVERSATIONS"></h3>
     </div>
   </div>
 
@@ -18,12 +18,12 @@
       </div>
       <div class="user-personal-info">
         <div class="content">
-          <h4 class="user-name">{{ conversation.user.first_name }} {{ conversation.user.last_name }}</h4>
-          <p class="user-last-message">{{ conversation.last_message.text }}</p>
+          <h4 class="user-name">{{ conversation.student.first_name }} {{ conversation.student.last_name }}</h4>
+          <em class="timestamp">{{ conversation.timestamp | dateByLanguageFilter:'en'}}</em>
+          <p class="user-last-message">{{ conversation.text }}</p>
           <div class="conversation-info">
-            <em class="timestamp">{{ conversation.last_message.timestamp }}</em>
             <div class="message-button">
-              <a class="action-button action-send-message" ng-click="selectConversation(conversation.user)">Ver conversación</a>
+              <a class="action-button action-send-message" ng-click="selectConversation(conversation.student)" translate="SHOW_CONVERSATION">Ver conversación</a>
             </div>
           </div>
         </div>
@@ -35,35 +35,38 @@
   <!-- Sección de conversación seleccionada -->
   <div class="selected-conversation"ng-show="selectedConversation">
     <div class="conversation-tools">
-      <span class="btn-back" ng-click="showConversations()"><< MOSTRAR TODOS</span>
+      <span class="btn-back" ng-click="showConversations()"><< <span translate="SHOW_ALL"></span></span>
     </div>
 
     <div class="conversation" class="col-lg-12 col-md-12 col-sm-12" ng-image-adjustment image-container="user_picture" image-src="{{ userSelected.picture_url }}">
 
       <div class="conversationTextarea">
-        <textarea placeholder="Escribe tu mensaje a {{ userSelected.first_name }} {{ userSelected.last_name }}..." rows="8" ng-model="messageText"></textarea>
+        <textarea placeholder="{{ 'SEND_MESSAGE_TO' | translate }} {{ userSelected.first_name }} {{ userSelected.last_name }}..." rows="8" ng-model="textMessage"></textarea>
         <div class="conversation-button">
-          <a ng-if="selectedConversation" class="action-button action-send-message" ng-click="sendMessage()">Responder</a>
+          <a ng-if="selectedConversation.length" class="action-button action-send-message" ng-click="sendMessage()" translate="REPLY">Responder</a>
+          <a ng-if="!selectedConversation.length" class="action-button action-send-message" ng-click="sendMessage()">Enviar mensaje</a>
         </div>
+        <span us-spinner spinner-key="send-message-spinner"></span>
       </div>
 
       <div class="messages">
-        <div ng-class="[{ true:'user-message', false:'my-message' }[message.senderId == userSelected.id],message-container]" ng-repeat="message in selectedConversation | orderBy:message.timestamp" ng-image-adjustment image-container="user_picture" image-src="{{ userSelected.picture_url }}">
+        <div ng-class="[{ true:'user-message', false:'my-message' }[!message.from_student],message-container]" ng-repeat="message in selectedConversation" ng-image-adjustment image-container="user_picture" image-src="{{ userSelected.picture_url }}">
           <div class="user_picture_container">
             <div class="user_picture">
               <img/>
             </div>
           </div>
           <div class="user-info">
-              <h4 ng-if="message.senderId == userSelected.id" class="message-user-name">{{ userSelected.first_name }} {{ userSelected.last_name }}</h4>
-              <h4 ng-if="message.senderId != userSelected.id" class="message-user-name">{{ tutor.firstName }} {{ tutor.lastName }}</h4>
-              <span class="message-status"><span class="timestamp">{{ message.timestamp }}</span> <span class="icon-bubbles" ng-show="message.status"> Leído</span></span>
+              <h4 ng-if="message.from_student" class="message-user-name">{{ userSelected.first_name }} {{ userSelected.last_name }}</h4>
+              <h4 ng-if="!message.from_student" class="message-user-name">{{ tutor.firstName }} {{ tutor.lastName }}</h4>
+              <span class="message-status"><span class="timestamp">{{ message.timestamp | dateByLanguageFilter:'en' }}</span> <span class="icon-bubbles" ng-show="message.read && message.from_student"> {{ 'SEEN' | translate }}</span></span>
           </div>
-          <p>{{ message.text }}</p>
+          <div>
+            <p>{{ message.text }}</p>
+          </div>
         </div>
       </div>
       <div class="send-message-container"></div>
     </div>
-
   </div>
 </div>

@@ -26,6 +26,7 @@ Rails.application.config.assets.precompile += %w( student/services/countyService
 Rails.application.config.assets.precompile += %w( student/services/reviewsService.js )
 Rails.application.config.assets.precompile += %w( student/services/sessionService.js )
 Rails.application.config.assets.precompile += %w( student/services/tutorService.js )
+Rails.application.config.assets.precompile += %w( student/services/messageService.js )
 
 Rails.application.config.assets.precompile += %w( tutor/services/anomalyService.js )
 Rails.application.config.assets.precompile += %w( tutor/services/appointmentService.js )
@@ -51,13 +52,16 @@ Rails.application.config.assets.precompile += %w( student/directives/modalAppoin
 Rails.application.config.assets.precompile += %w( student/directives/modalDetailDrctv.js )
 Rails.application.config.assets.precompile += %w( student/directives/modalReviewDrctv.js )
 Rails.application.config.assets.precompile += %w( student/directives/modalTutorDetailDrctv.js )
+Rails.application.config.assets.precompile += %w( student/directives/modalMessageDrctv.js )
 
 Rails.application.config.assets.precompile += %w( tutor/directives/modalAnomalyDrctv.js )
 Rails.application.config.assets.precompile += %w( tutor/directives/modalDetailDrctv.js )
+Rails.application.config.assets.precompile += %w( tutor/directives/modalMessageDrctv.js )
 
 #Import Controllers
 Rails.application.config.assets.precompile += %w( student/controllers/appointmentHistoryCtrl.js )
 Rails.application.config.assets.precompile += %w( student/controllers/calendarCtrl.js )
+Rails.application.config.assets.precompile += %w( student/controllers/messageCtrl.js )
 Rails.application.config.assets.precompile += %w( student/controllers/myAppointmentsCtrl.js )
 Rails.application.config.assets.precompile += %w( student/controllers/myTutorsCtrl.js )
 Rails.application.config.assets.precompile += %w( student/controllers/navigationCtrl.js )
@@ -71,6 +75,11 @@ Rails.application.config.assets.precompile += %w( tutor/controllers/navigationCt
 Rails.application.config.assets.precompile += %w( tutor/controllers/profileCtrl.js )
 Rails.application.config.assets.precompile += %w( tutor/controllers/reviewsCtrl.js )
 Rails.application.config.assets.precompile += %w( tutor/controllers/rootCtrl.js )
+
+#Import Filters
+Rails.application.config.assets.precompile += %w( student/filters/dateByLanguageFilter.js )
+
+Rails.application.config.assets.precompile += %w( tutor/filters/dateByLanguageFilter.js )
 
 
 

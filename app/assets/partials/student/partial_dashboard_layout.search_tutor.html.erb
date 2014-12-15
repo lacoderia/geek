@@ -73,7 +73,7 @@
             </div>
             <div class="content-button">
               <button class="action-button see-availability" ng-click="showTutorDetails(tutor)" ng-hide="selectedTutor">Ver disponibilidad</button>
-              <button class="action-button send-message" ng-click="showTutorDetails(tutor)" ng-show="selectedTutor">Enviar mensaje</button>
+              <button class="action-button send-message" ng-show="selectedTutor" ng-click="openModalMessage($event,tutor)">Enviar mensaje</button>
             </div>
           </div>
         </div>
@@ -150,7 +150,7 @@
             </div>
             <div class="content-button">
               <button class="action-button see-availability" ng-click="showTutorDetails(tutor)" ng-hide="selectedTutor">Ver disponibilidad</button>
-              <button class="action-button send-message" ng-click="showTutorDetails(tutor)" ng-show="selectedTutor">Enviar mensaje</button>
+              <button class="action-button send-message" ng-click="openModalMessage($event,tutor)" ng-show="selectedTutor">Enviar mensaje</button>
             </div>
           </div>
         </div>

@@ -11,6 +11,7 @@
                              'student/app',
                              'student/controllers/appointmentHistoryCtrl',
                              'student/controllers/calendarCtrl',
+                             'student/controllers/messageCtrl',
                              'student/controllers/myAppointmentsCtrl',
                              'student/controllers/myTutorsCtrl',
                              'student/controllers/navigationCtrl',
@@ -22,19 +23,22 @@
                              'student/services/availabilityService',
                              'student/services/categoryService',
                              'student/services/countyService',
+                             'student/services/messageService',
                              'student/services/reviewsService',
                              'student/services/sessionService',
                              'student/services/tutorService',
                              'student/directives/modalAnomalyDrctv',
                              'student/directives/modalAppointmentRequestDrctv',
                              'student/directives/modalDetailDrctv',
+                             'student/directives/modalMessageDrctv',
                              'student/directives/modalReviewDrctv',
                              'student/directives/modalTutorDetailDrctv',
                              'lib/angular/angular-form-alert-directive',
                              'lib/angular/angular-alert-message-directive',
                              'lib/angular/angular-image-adjustment',
                              'lib/angular/angular-onready-directive',
-                             'lib/angular/angular-spinner'%>
+                             'lib/angular/angular-spinner',
+                             'student/filters/dateByLanguageFilter'%>
   <%= yield :head_script %>
   <%= csrf_meta_tags %>
 </head>

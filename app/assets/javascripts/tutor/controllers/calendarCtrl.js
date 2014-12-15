@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeout', '$location', '$anchorScroll', 'AppointmentService', 'AvailabilityService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $compile, $timeout, $location, $anchorScroll, AppointmentService, AvailabilityService, DEFAULT_VALUES){
+Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeout', '$location', '$anchorScroll', 'AppointmentService', 'AvailabilityService', 'MessageService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $compile, $timeout, $location, $anchorScroll, AppointmentService, AvailabilityService, MessageService, DEFAULT_VALUES){
 
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.MONTHS = DEFAULT_VALUES.MONTHS;
@@ -24,6 +24,75 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
     $scope.appointments = [];
     $scope.weekView = false;
     $scope.calendarAlertMessagesParams = undefined;
+    $scope.messageAlertMessagesParams = undefined;
+    $scope.appointmentButtons = DEFAULT_VALUES.APPOINTMENT_BUTTONS;
+
+    $scope.STATUS_BUTTONS_RELATION = {
+        '0' : {
+            'confirm' : true,
+            'cancel' : false,
+            'reject' : true,
+            'send-message' : true,
+            'report-anomaly' : false,
+            'review' : false
+        },
+        '1' : {
+            'confirm' : false,
+            'cancel' : false,
+            'reject' : false,
+            'send-message' : true,
+            'report-anomaly' : false,
+            'review' : false
+        },
+        '2' : {
+            'confirm' : false,
+            'cancel' : false,
+            'reject' : false,
+            'send-message' : true,
+            'report-anomaly' : false,
+            'review' : false
+        },
+        '3' : {
+            'confirm' : false,
+            'cancel' : true,
+            'reject' : false,
+            'send-message' : true,
+            'report-anomaly' : false,
+            'review' : false
+        },
+        '4' : {
+            'confirm' : false,
+            'cancel' : false,
+            'reject' : false,
+            'send-message' : true,
+            'report-anomaly' : false,
+            'review' : false
+        },
+        '5' : {
+            'confirm' : false,
+            'cancel' : true,
+            'reject' : false,
+            'send-message' : true,
+            'report-anomaly' : false,
+            'review' : false
+        },
+        '6' : {
+            'confirm' : false,
+            'cancel' : false,
+            'reject' : false,
+            'send-message' : true,
+            'report-anomaly' : true,
+            'review' : false
+        },
+        '9' : {
+            'confirm' : false,
+            'cancel' : false,
+            'reject' : false,
+            'send-message' : false,
+            'report-anomaly' : false,
+            'review' : false
+        }
+    }
 
     // Inicializamos los broadcasts y listeners del controlador
     $scope.$watch('tutorProfileLoaded', function(){
@@ -317,12 +386,90 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
         }
     };
 
+    /*
+     * Cambia el status de un un appointment determinado
+     * */
+    $scope.callButtonAction = function($event,action,appointment){
+        $event.stopPropagation();
+
+        switch (action){
+            case 'cancel':
+                $scope.changeAppointmentStatus(action, appointment);
+                break;
+            case 'confirm':
+                $scope.changeAppointmentStatus(action, appointment);
+                break;
+            case 'reject':
+                $scope.changeAppointmentStatus(action, appointment);
+                break;
+            case 'report-anomaly':
+                break;
+            case 'review':
+                break;
+            case 'send-message':
+                $scope.openModalMessage($event,appointment);
+                break;
+        }
+    };
+
+    $scope.openModalMessage = function($event,appointment){
+
+        if(appointment){
+
+            var options = {
+                posX: $event.clientX,
+                posY: $event.pageY,
+                sendMessage: $scope.sendMessage
+            };
+
+            $scope.openMessage($event, appointment, options, DEFAULT_VALUES);
+
+        }
+    };
+
+    $scope.sendMessage = function(appointment, textMessage){
+        if(appointment && textMessage){
+
+            var message = {
+                tutor_id: $rootScope.tutor.id,
+                student_id: appointment.student.id,
+                text: textMessage,
+                from_student: false
+            }
+
+            $scope.showSpinner();
+
+            MessageService.saveMessage(message).then(
+                function(data){
+                    if(data){
+                        $scope.hideSpinner();
+                        $scope.resetMessage();
+                        $scope.messageAlertMessagesParams = {
+                            type: 'success',
+                            message: 'El mensaje ha sido enviado con éxito',
+                            icon: true
+                        };
+                        $scope.setAlert($scope.messageAlertMessagesParams);
+                    }
+                },
+                function(response){
+                    $scope.messageAlertMessagesParams = {
+                        type: 'danger',
+                        message: 'Ocurrió un error an guardar el mensaje. Por favor, intenta de nuevo',
+                        icon: true
+                    };
+                    $scope.setAlert($scope.messageAlertMessagesParams);
+                    console.log('Error saving a message: ' + response);
+                }
+            );
+
+        }
+    };
 
     /*
      * Cambia el status de un un appointment determinado
      * */
-    $scope.changeAppointmentStatus = function($event,action,appointment){
-        $event.stopPropagation();
+    $scope.changeAppointmentStatus = function(action,appointment){
 
         var now = new Date();
 
@@ -367,7 +514,6 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
                     var statusId = appointment.status.id;
                     appointment.status = status;
                     appointment.status.id = statusId;
-                    $scope.showActionButtons(appointment);
                 },
                 function (response){
                     console.log('Error setting appointment status: ' + response);
@@ -376,31 +522,8 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
         }
     };
 
-    $scope.showActionButtons = function(appointment){
-        appointment.buttons = new Array();
-        if(appointment.status.code == DEFAULT_VALUES.APPOINTMENT_STATUS[0].code){
-            appointment.buttons.push({
-                'class': 'confirm-class',
-                'title': 'Confirmar clase',
-                'action': 'confirm',
-                'text': 'Confirmar'
-            });
-
-            appointment.buttons.push({
-                'class': 'reject-class',
-                'title': 'Rechazar clase',
-                'action': 'reject',
-                'text': 'Rechazar'
-            });
-
-        } else if(appointment.status.code == DEFAULT_VALUES.APPOINTMENT_STATUS[3].code){
-            appointment.buttons.push({
-                'class': 'cancel-class',
-                'title': 'Cancelar clase',
-                'action': 'cancel',
-                'text': 'Cancelar'
-            });
-        }
+    $scope.showActionButtons = function(appointmentStatus, action){
+        return $scope.STATUS_BUTTONS_RELATION[appointmentStatus.code][action];
     };
 
     /*
@@ -508,15 +631,6 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
                             }
                         }
 
-                        /*if(!$scope.selectedDate && day.isCurrentDay){
-                            day.dayClass = 'current-day';
-                            if(!$scope.selectedDate){
-                                $scope.selectDate(day);
-                            }
-                        }else if($scope.selectedDate && $scope.isSelectedDay(day)){
-                            day.dayClass = 'current-day';
-                            $scope.selectDate(day);
-                        }*/
                         numberDay++;
 
                     }else if(indexDay < firstDay){
@@ -642,7 +756,6 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
                         }
 
                         $scope.setDayAppointment(appointment);
-                        $scope.showActionButtons(appointment);
                     }
 
                     $scope.existstWeekAppoinments = $scope.existsAppointmentsByWeek($scope.selectedWeek);

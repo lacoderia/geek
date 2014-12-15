@@ -30,7 +30,16 @@
     "MESSAGES": "Messages",
     "MY_CALENDAR" : "My Calendar",
     "MY_HISTORY" : "My History",
+    "REPLY": "Reply",
     "SEARCH_A_CLASS": "Search a class",
+    "SEEN": "Seen",
+    "SEND_MESSAGE": "Send message",
+    "SEND_MESSAGE_TO": "Send message to ",
+    "SHOW_CONVERSATION": "Show conversation",
+    "SHOW_ALL": "Show all",
     "SIGN_IN": "Sign In",
-    "WANT_TO_TEACH": "Do you want to teach?"
+    "TODAY": "Today",
+    "WANT_TO_TEACH": "Do you want to teach?",
+    "WITHOUT_CONVERSATIONS": "There are not conversations yet. <br> To start a new one, please go to your calendar and choose an appointment",
+    "WITHOUT_CONVERSATIONS_STUDENT": "There are not conversations yet. <br> To start a new one, please search a tutor and send him a message"
 }

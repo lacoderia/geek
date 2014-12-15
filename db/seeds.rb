@@ -66,11 +66,11 @@ sunday = WeekDay.create(day: "sunday", day_number: 0)
 availability = Availability.create(week_day_id: monday.id, preference_id: preference.id, start: Time.now, end: Time.now + 2.hour + 30.minute)
 
 bank_account = BankAccount.create(openpay_id: "3123123", alias: "bank account tutor", holder_name: "Ramiro Tutor", clabe: "234234234234", bank_code: "BMX", bank_name: "BANAMEX", creation_date: Time.now)
-tutor = Tutor.create(details: "tutor details", references: "tutor references", background: "tutor background", preference_id: preference.id ,bank_account_id: bank_account.id, calendar_id: "232342af", user: user_tutor, tier1_rate: 20, tier2_rate: 18, tier3_rate: 15)
+tutor = Tutor.create(details: "tutor details", references: "tutor references", background: "tutor background", preference_id: preference.id ,bank_account_id: bank_account.id, calendar_id: "232342af", user: user_tutor)
 
 specific_availability = SpecificAvailability.create(tutor_id: tutor.id, start: Time.now + 1.day, end: Time.now + 1.day + 3.hour + 30.minute)
 
-Review.create(student_id: student.id, tutor_id: tutor.id, grade: 10, description: "abcdefg")
+Review.create(student_id: student.id, tutor_id: tutor.id, description: "abcdefg")
 
 Vacation.create(tutor_id: tutor.id, start: Time.now, end: Time.now)
 
@@ -91,7 +91,7 @@ tutor.counties << County.joins(:postal_code).where("code = ?", "07700").first
 status_pendiente = AppointmentStatus.create(name: "Pendiente", code: "0")
 status_rechazado_es = AppointmentStatus.create(name: "Rechazada Estudiante", code: "1")
 status_rechazado_tu = AppointmentStatus.create(name: "Rechazada Tutor", code: "2")
-status_confirmado = AppointmentStatus.create(name: "confirmada", code: "3")
+status_confirmado = AppointmentStatus.create(name: "Confirmada", code: "3")
 status_cancelado_stu = AppointmentStatus.create(name: "Cancelada Estudiante", code: "4")
 status_cancelado_tu = AppointmentStatus.create(name: "Cancelada Tutor", code: "5")
 status_completado = AppointmentStatus.create(name: "Completada", code: "6")
