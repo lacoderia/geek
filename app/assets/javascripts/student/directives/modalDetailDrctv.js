@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.directive('ngModalDetail', ["$rootScope", "$timeout", "$window", "$document", function($rootScope, $timeout, $window, $document){
+Geek.directive('ngModalDetail', ["$document", "$filter", "$rootScope", "$timeout", "$window", function($document, $filter, $rootScope, $timeout, $window){
     return{
         restrict: 'A',
         replace: true,
@@ -50,10 +50,9 @@ Geek.directive('ngModalDetail', ["$rootScope", "$timeout", "$window", "$document
                 $timeout(function(){
                     scope.clickedAppointment = appointment;
                     scope.clickedAppointment.title =  appointment.subject + ' - ' + appointment.tutor.first_name + ' '  + appointment.tutor.last_name;
-                    scope.clickedAppointment.date = DEFAULT_VALUES.DAYS[appointment.day].title + ', ' + appointment.numberDay + ' de ' + DEFAULT_VALUES.MONTHS[appointment.month];
-                    scope.clickedAppointment.time = 'De ' + appointment.startHour + ' a ' + appointment.endHour;
+                    scope.clickedAppointment.time = $filter('translate')('FROM') + ' ' + appointment.startHour + ' ' + $filter('translate')('TO') + ' ' + appointment.endHour;
 
-                    scope.clickedAppointment.address = 'Dirección por confirmar';
+                    scope.clickedAppointment.address = $filter('translate')('POPUP_APPOINTMENT_DETAIL_DEFAULT_ADDRESS');
                     if(appointment.address.line1 || appointment.address.line2){
                         scope.clickedAppointment.address = '';
                         if(appointment.address.line1){

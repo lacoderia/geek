@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('MyAppointmentsController',['$scope','$rootScope','$compile','AppointmentService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $compile, AppointmentService, DEFAULT_VALUES){
+Geek.controller('MyAppointmentsController',['$compile', '$filter', '$scope','$rootScope','AppointmentService', 'DEFAULT_VALUES' ,function($compile, $filter, $scope, $rootScope, AppointmentService, DEFAULT_VALUES){
 
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.MONTHS = DEFAULT_VALUES.MONTHS;

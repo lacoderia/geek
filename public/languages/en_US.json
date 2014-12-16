@@ -27,6 +27,13 @@
     "NOVEMBER": "November",
     "DECEMBER": "December",
 
+    "APPOINTMENT_STATUS_PENDING": "Pending",
+    "APPOINTMENT_STATUS_REJECTED_STUDENT": "Rejected",
+    "APPOINTMENT_STATUS_REJECTED_TUTOR": "Rejected",
+    "APPOINTMENT_STATUS_CONFIRMED": "Confirmed",
+    "APPOINTMENT_STATUS_CANCELLED_STUDENT": "Cancelled",
+    "APPOINTMENT_STATUS_CANCELLED_TUTOR": "Cancelled",
+    "APPOINTMENT_STATUS_COMPLETED": "Completed",
     "MESSAGES": "Messages",
     "MY_CALENDAR" : "My Calendar",
     "MY_HISTORY" : "My History",

@@ -1,8 +1,8 @@
-Geek.filter('timestampTranslateFilter', function($translate, DEFAULT_VALUES){
+Geek.filter('timestampTranslateFilter', function($filter, $translate, DEFAULT_VALUES){
     return function(date){
 
         var filteredDate = '';
-        var dateStr =  DEFAULT_VALUES.MONTHS[date.getMonth()] + ' ' + date.getDate() + ', ' + (date.getYear() + DEFAULT_VALUES.START_YEAR) + ' ' + date.getHours() + ':' + date.getMinutes();
+        var dateStr =  $filter('translate')(DEFAULT_VALUES.MONTHS[date.getMonth()]) + ' ' + date.getDate() + ', ' + (date.getYear() + DEFAULT_VALUES.START_YEAR) + ' ' + date.getHours() + ':' + date.getMinutes();
         var timeStr = date.getHours() + ':' + date.getMinutes();
         var now = new Date();
 

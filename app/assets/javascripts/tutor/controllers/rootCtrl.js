@@ -14,7 +14,7 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
     // Estatus de la carga del perfíl del tutor
     $rootScope.tutorProfileLoaded = false;
 
-    $scope.userName = DEFAULT_VALUES.USER_NAME;
+    $scope.userName = $filter('translate')('USER_NAME');
 
     $scope.conversations = [];
     $scope.newConversationMessages = 0;

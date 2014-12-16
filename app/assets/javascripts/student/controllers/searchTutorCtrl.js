@@ -260,7 +260,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
 
                 $scope.selectedClass = {
                     'halfHours': new Array(),
-                    'title': $filter('translate')('MODAL_APPOINTMENT_REQUEST_TITLE')
+                    'title': $filter('translate')('POPUP_APPOINTMENT_REQUEST_TITLE')
                 };
 
                 var currentHalfHour = $scope.getHalfHour(row, column);
@@ -289,12 +289,11 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
                 var firstHalfhour = $scope.selectedClass.halfHours[0];
                 var lastHalfhour = $scope.selectedClass.halfHours[$scope.selectedClass.halfHours.length - 1];
 
-                $scope.selectedClass.date = DEFAULT_VALUES.DAYS[day.day].title + ', ' + day.numberDay + ' de ' + DEFAULT_VALUES.MONTHS[day.month];                
-                $scope.selectedClass.time = 'De ' + firstHalfhour.startTime + ' a ' + lastHalfhour.endTime ;
+                $scope.selectedClass.time = $filter('translate')('FROM') + ' ' + firstHalfhour.startTime + ' ' + $filter('translate')('TO') + ' ' + lastHalfhour.endTime ;
                 $scope.selectedClass.dateTimeISO = new Date(day.year, day.month, day.numberDay, firstHalfhour.startTime.split(':')[0], firstHalfhour.startTime.split(':')[1]).toISOString();
 
                 $scope.selectedCategory = {
-                    'name' : $filter('translate')('MODAL_APPOINTMENT_REQUEST_CATEGORY_NAME'),
+                    'name' : $filter('translate')('POPUP_APPOINTMENT_REQUEST_CATEGORY_NAME'),
                     'cost' : 0
                 };
 

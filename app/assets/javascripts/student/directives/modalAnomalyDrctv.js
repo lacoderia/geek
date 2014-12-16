@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.directive('ngModalAnomaly', ["$timeout", "$window", "$document", function($timeout, $window, $document){
+Geek.directive('ngModalAnomaly', ["$filter", "$timeout", "$window", "$document", function($filter, $timeout, $window, $document){
     return{
         restrict: 'A',
         replace: true,
@@ -15,9 +15,9 @@ Geek.directive('ngModalAnomaly', ["$timeout", "$window", "$document", function($
 
             scope.anomalyDescription = undefined;
 
-            scope.anomalyList = [ {name: "Late Show", code: "0"},
-                                  {name: "No Show", code: "1"},
-                                  {name: "Otro", code: "3"}];
+            scope.anomalyList = [ {name: $filter('translate')('POPUP_ANOMALY_REPORT_LATE_SHOW'), code: "0"},
+                                  {name: $filter('translate')('POPUP_ANOMALY_REPORT_NO_SHOW'), code: "1"},
+                                  {name: $filter('translate')('POPUP_ANOMALY_REPORT_OTHER'), code: "3"}];
 
             scope.detailArrowClass = scope.DEFAULT_ARROW_CLASSES[0];
             scope.modalStyle = {

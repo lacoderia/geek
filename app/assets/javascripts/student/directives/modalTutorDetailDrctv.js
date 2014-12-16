@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.directive('ngModalTutorDetail', ["$timeout", "$rootScope", function($timeout, $rootScope){
+Geek.directive('ngModalTutorDetail', ["$rootScope", "$timeout", function($rootScope, $timeout){
     return{
         restrict: 'A',
         replace: true,

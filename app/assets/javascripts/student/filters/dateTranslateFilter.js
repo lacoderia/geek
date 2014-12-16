@@ -1,28 +1,24 @@
-Geek.filter('dateTranslateFilter', function($translate, DEFAULT_VALUES){
-    return function(date){
+Geek.filter('dateTranslateFilter', function($filter, $translate, DEFAULT_VALUES){
+    return function(isoDate){
 
         var filteredDate = '';
-        var dateStr =  DEFAULT_VALUES.MONTHS[date.getMonth()] + ' ' + date.getDate() + ', ' + (date.getYear() + DEFAULT_VALUES.START_YEAR) + ' ' + date.getHours() + ':' + date.getMinutes();
-        var timeStr = date.getHours() + ':' + date.getMinutes();
-        var now = new Date();
 
-        var isToday = function(date){
-            return now.getDate() == date.getDate() && now.getMonth() == date.getMonth() && now.getFullYear() == date.getFullYear();
-        };
+        if (isoDate) {
+            var date = new Date(isoDate);
 
-        switch ($translate.use()){
-            case 'en_US':
-                filteredDate = isToday(date)? 'Today ' + timeStr : dateStr ;
-                break;
-            case 'es_MX':
-                filteredDate = isToday(date)? 'Hoy ' + timeStr : dateStr;
-                break;
-            default :
-                filteredDate = isToday(date)? 'Hoy ' + timeStr : dateStr;
-                break;
+            switch ($translate.use()){
+                case 'en_US':
+                    filteredDate = $filter('translate')(DEFAULT_VALUES.MONTHS[date.getMonth()]) + ' ' + date.getDate() + ', ' + (date.getYear() + DEFAULT_VALUES.START_YEAR);
+                    break;
+                case 'es_MX':
+                    filteredDate = $filter('translate')(DEFAULT_VALUES.DAYS[date.getDay()].title) + ', ' + date.getDate() + ' de ' + $filter('translate')(DEFAULT_VALUES.MONTHS[date.getMonth()]);
+                    break;
+                default :
+                    filteredDate = $filter('translate')(DEFAULT_VALUES.DAYS[date.getDay()].title) + ', ' + date.getDate() + ' de ' + $filter('translate')(DEFAULT_VALUES.MONTHS[date.getMonth()]);
+                    break;
+            }
         }
 
         return filteredDate;
-
     }
 });

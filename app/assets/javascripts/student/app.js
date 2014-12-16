@@ -4,7 +4,6 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
 
     .constant('DEFAULT_VALUES',{
         'PROFILE_IMAGE': '/assets/site/person.png',
-        'USER_NAME': 'Usuario',
         'URL_SERVICES': {
             'APPOINTMENT_SERVICE_URL': 'appointments/by_student.json',
             'CATEGORY_SERVICE_URL': '/categories.json',
@@ -24,7 +23,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
             '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30',
             '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30',
             '20:00', '20:30', '21:00', '21:30', '22:00', '22:30', '23:00', '23:30'],
-        'DAYS': [{'title':'Domingo', 'minTitle' : 'D'}, {'title':'Lunes', 'minTitle' : 'L'}, {'title':'Martes', 'minTitle' : 'M'}, {'title':'Miércoles', 'minTitle' : 'M'}, {'title':'Jueves', 'minTitle' : 'J'}, {'title':'Viernes', 'minTitle' : 'V'}, {'title':'Sábado', 'minTitle' : 'S'}],
+        'DAYS': [{'title':'SUNDAY', 'minTitle' : 'SUNDAY_MIN'}, {'title':'MONDAY', 'minTitle' : 'MONDAY_MIN'}, {'title':'TUESDAY', 'minTitle' : 'TUESDAY_MIN'}, {'title':'WEDNESDAY', 'minTitle' : 'WEDNESDAY_MIN'}, {'title':'THURSDAY', 'minTitle' : 'THURSDAY_MIN'}, {'title':'FRIDAY', 'minTitle' : 'FRIDAY_MIN'}, {'title':'SATURDAY', 'minTitle' : 'SATURDAY_MIN'}],
         'MONTHS': ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'],
         'START_YEAR': 1900,
         'TOTAL_CALENDAR_ROWS': 6,
@@ -32,43 +31,43 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
         'APPOINTMENT_STATUS': [
             {
                 code: 0,
-                name: 'pending',
+                name: 'APPOINTMENT_STATUS_PENDING',
                 class: 'appointment-status-pending',
                 icon_class: 'icon-help'
             },
             {
                 code: 1,
-                name: 'rejected',
+                name: 'APPOINTMENT_STATUS_REJECTED_STUDENT',
                 class: 'appointment-status-rejected',
                 icon_class: 'icon-close'
             },
             {
                 code: 2,
-                name: 'rejected',
+                name: 'APPOINTMENT_STATUS_REJECTED_TUTOR',
                 class: 'appointment-status-rejected',
                 icon_class: 'icon-close'
             },
             {
                 code: 3,
-                name: 'confirmed',
+                name: 'APPOINTMENT_STATUS_CONFIRMED',
                 class: 'appointment-status-confirmed',
                 icon_class: 'icon-accept'
             },
             {
                 code: 4,
-                name: 'cancelled',
+                name: 'APPOINTMENT_STATUS_CANCELLED_STUDENT',
                 class: 'appointment-status-canceled',
                 icon_class: 'icon-close'
             },
             {
                 code: 5,
-                name: 'cancelled',
+                name: 'APPOINTMENT_STATUS_CANCELLED_TUTOR',
                 class: 'appointment-status-canceled',
                 icon_class: 'icon-accept'
             },
             {
                 code: 6,
-                name: 'completed',
+                name: 'APPOINTMENT_STATUS_COMPLETED',
                 class: 'appointment-status-completed',
                 icon_class: 'icon-accept'
             }

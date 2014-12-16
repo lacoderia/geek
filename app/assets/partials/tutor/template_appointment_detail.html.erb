@@ -3,7 +3,7 @@
   <div class="modal-detail-header" ng-bind="clickedAppointment.title"></div>
   <div class="modal-detail-content">
     <table>
-      <tr><td class="appointment-detail-content" ng-bind="clickedAppointment.date"></td></tr>
+      <tr><td class="appointment-detail-content" ng-bind="clickedAppointment.date | dateTranslateFilter"></td></tr>
       <tr><td class="appointment-detail-content" ng-bind="clickedAppointment.time"></td></tr>
       <tr><td class="appointment-detail-content" ng-bind="clickedAppointment.address"></td></tr>
       <tr><td class="appointment-detail-content">

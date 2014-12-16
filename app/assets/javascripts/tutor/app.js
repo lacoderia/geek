@@ -4,7 +4,6 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
 
     .constant('DEFAULT_VALUES',{
         'PROFILE_IMAGE': '/assets/site/person.png',
-        'USER_NAME': 'Usuario',
         'URL_SERVICES': {
             'APPOINTMENT_SERVICE_URL': 'appointments/by_tutor.json',
             'CATEGORY_SERVICE_URL': '/categories.json',
@@ -30,43 +29,43 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
         'APPOINTMENT_STATUS': [
             {
                 code: 0,
-                name: 'pending',
+                name: 'APPOINTMENT_STATUS_PENDING',
                 class: 'appointment-status-pending',
                 icon_class: 'icon-help'
             },
             {
                 code: 1,
-                name: 'rejected',
+                name: 'APPOINTMENT_STATUS_REJECTED_STUDENT',
                 class: 'appointment-status-rejected',
                 icon_class: 'icon-close'
             },
             {
                 code: 2,
-                name: 'rejected',
+                name: 'APPOINTMENT_STATUS_REJECTED_TUTOR',
                 class: 'appointment-status-rejected',
                 icon_class: 'icon-close'
             },
             {
                 code: 3,
-                name: 'confirmed',
+                name: 'APPOINTMENT_STATUS_CONFIRMED',
                 class: 'appointment-status-confirmed',
                 icon_class: 'icon-accept'
             },
             {
                 code: 4,
-                name: 'cancelled',
+                name: 'APPOINTMENT_STATUS_CANCELLED_STUDENT',
                 class: 'appointment-status-canceled',
                 icon_class: 'icon-close'
             },
             {
                 code: 5,
-                name: 'cancelled',
+                name: 'APPOINTMENT_STATUS_CANCELLED_TUTOR',
                 class: 'appointment-status-canceled',
                 icon_class: 'icon-accept'
             },
             {
                 code: 6,
-                name: 'completed',
+                name: 'APPOINTMENT_STATUS_COMPLETED',
                 class: 'appointment-status-completed',
                 icon_class: 'icon-accept'
             }

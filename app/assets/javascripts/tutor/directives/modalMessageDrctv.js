@@ -53,11 +53,6 @@ Geek.directive('ngModalMessage', ["$rootScope", "$timeout", "$window", "$documen
                     scope.sendMessage = options.sendMessage;
                     scope.resetMessage();
                     scope.messageAlertMessagesParams = undefined;
-                    $translate('SEND_MESSAGE').then(
-                        function(SEND_MESSAGE){
-                            scope.modalTitle = SEND_MESSAGE;
-                        }
-                    );
                 },0);
 
 

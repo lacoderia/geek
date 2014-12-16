@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$translate", "DEFAULT_VALUES", "AuthService", "SessionService", "CountyService", "CategoryService", function($scope, $rootScope, $timeout, $translate, DEFAULT_VALUES, AuthService, SessionService, CountyService, CategoryService){
+Geek.controller('RootController', ["$filter", "$scope", "$rootScope", "$timeout", "$translate", "DEFAULT_VALUES", "AuthService", "SessionService", "CountyService", "CategoryService", function($filter, $scope, $rootScope, $timeout, $translate, DEFAULT_VALUES, AuthService, SessionService, CountyService, CategoryService){
 
     //Variable que determina si el overlay es visible
     $rootScope.showOverlay = false;
@@ -19,7 +19,7 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$transla
 
     $scope.tutorResultListVisible = false;
 
-    $scope.userName = DEFAULT_VALUES.USER_NAME;
+    $scope.userName = $filter('translate')('USER_NAME');
 
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.HOURS = DEFAULT_VALUES.HOURS;
