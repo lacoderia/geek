@@ -47,7 +47,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :reviews
+  resources :reviews do
+    collection do
+      get 'by_tutor'
+    end
+  end
 
   resources :bank_accounts
 
@@ -83,6 +87,7 @@ Rails.application.routes.draw do
       match 'by_query_params_for_google', :via => [:get, :post]
       get 'profile'
       get 'status'
+      get 'by_student'
     end
     member do
       get 'availability_list'

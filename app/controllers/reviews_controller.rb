@@ -61,6 +61,16 @@ class ReviewsController < ApplicationController
     end
   end
 
+  # Obtiene las evaluaciones de un tutor
+  # Recibe:
+  # tutor_id - el ID del tutor
+  # Regresa una lista de evaluaciones
+  def by_tutor
+    if params[:tutor_id]
+      @reviews = Review.where("tutor_id = ?", params[:tutor_id]).includes(:student, :tutor)
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_review

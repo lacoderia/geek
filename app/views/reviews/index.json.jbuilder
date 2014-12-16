@@ -1,4 +1,3 @@
 json.array!(@reviews) do |review|
-  json.extract! review, :id, :student_id, :tutor_id, :grade, :description
-  json.url review_url(review, format: :json)
+  json.extract! review, :id, :student_id, :tutor_id, :grade_knowledge, :grade_communication, :grade_presentation, :description
 end
