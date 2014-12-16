@@ -1,4 +1,4 @@
-Geek.filter('dateByLanguageFilter', function($translate, DEFAULT_VALUES){
+Geek.filter('timestampTranslateFilter', function($translate, DEFAULT_VALUES){
     return function(date, language){
 
         var filteredDate = '';

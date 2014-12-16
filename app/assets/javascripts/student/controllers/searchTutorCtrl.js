@@ -71,7 +71,6 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
     );*/
 
     $scope.PROFILE_IMAGE = DEFAULT_VALUES.PROFILE_IMAGE;
-    $scope.DEFAULT_CATEGORY_NAME = 'TEMA';
     $scope.selectedCategory = undefined;
 
     $scope.appointmentAlertMessagesParams = undefined;
@@ -261,7 +260,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
 
                 $scope.selectedClass = {
                     'halfHours': new Array(),
-                    'title': 'Agendar clase'
+                    'title': $filter('translate')('MODAL_APPOINTMENT_REQUEST_TITLE')
                 };
 
                 var currentHalfHour = $scope.getHalfHour(row, column);
@@ -282,7 +281,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
 
                     $scope.appointmentAlertMessagesParams = {
                         type: 'warning',
-                        message: 'Las clases deben durar al menos 1 hora, por favor, intenta en otro horario.',
+                        message: $filter('translate')('ERROR_MODAL_APPOINTMENT_REQUEST_ONE_HOUR'),
                         icon: true
                     };
                 }
@@ -295,7 +294,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
                 $scope.selectedClass.dateTimeISO = new Date(day.year, day.month, day.numberDay, firstHalfhour.startTime.split(':')[0], firstHalfhour.startTime.split(':')[1]).toISOString();
 
                 $scope.selectedCategory = {
-                    'name' : $scope.DEFAULT_CATEGORY_NAME,
+                    'name' : $filter('translate')('MODAL_APPOINTMENT_REQUEST_CATEGORY_NAME'),
                     'cost' : 0
                 };
 
@@ -309,7 +308,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
 
                     $scope.appointmentAlertMessagesParams = {
                         type: 'warning',
-                        message: 'El horario de la clase expiró, por favor, selecciona otro horario',
+                        message: $filter('translate')('ERROR_MODAL_APPOINTMENT_REQUEST_EXPIRED'),
                         icon: true
                     };
                     $scope.validAppointmentDate = false;
@@ -326,7 +325,6 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
                     selectedTutor : $scope.selectedTutor,
                     appointmentAlertMessagesParams: $scope.appointmentAlertMessagesParams
                 };
-
 
                 $scope.openAppointmentRequest(event, options);
             },0);
@@ -381,7 +379,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
                         $scope.resetMessage();
                         $scope.messageAlertMessagesParams = {
                             type: 'success',
-                            message: 'El mensaje ha sido enviado con éxito',
+                            message: $filter('translate')('SUCCESS_MODAL_APPOINTMENT_REQUEST_MESSAGE_SENT'),
                             icon: true
                         };
                         $scope.setAlert($scope.messageAlertMessagesParams);
@@ -390,7 +388,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
                 function(response){
                     $scope.messageAlertMessagesParams = {
                         type: 'danger',
-                        message: 'Ocurrió un error an guardar el mensaje. Por favor, intenta de nuevo',
+                        message: 'ERROR_MODAL_APPOINTMENT_REQUEST_MESSAGE_FAILED',
                         icon: true
                     };
                     $scope.setAlert($scope.messageAlertMessagesParams);
@@ -424,7 +422,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
                     if(data.success == false){
                         $scope.appointmentAlertParams = {
                             type: 'warning',
-                            message: 'El horario de la clase expiró, por favor, selecciona otro horario',
+                            message: $filter('translate')('ERROR_MODAL_APPOINTMENT_REQUEST_EXPIRED'),
                             icon: true
                         }
                     }else{
@@ -435,7 +433,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
 
                         $scope.appointmentAlertParams = {
                             type: 'success',
-                            message: 'La cita fue agendada con éxito',
+                            message: $filter('translate')('SUCCESS_MODAL_APPOINTMENT_REQUEST_SENT'),
                             icon: true
                         };
 
@@ -448,7 +446,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
                 function (response){
                     $scope.appointmentAlertParams = {
                         type: 'danger',
-                        message: 'Hubo un error al solicitar una cita, por favor, intenta de nuevo.',
+                        message: $filter('translate')('ERROR_MODAL_APPOINTMENT_REQUEST_FAILED'),
                         icon: true
                     }
 
@@ -462,11 +460,12 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
             ).finally(function(){
                     usSpinnerService.stop('request-appointment-spinner');
                 });
-        }else{
+
+        } else {
 
             $scope.appointmentAlertMessagesParams = {
                 type: 'warning',
-                message: 'Debes seleccionar un tema',
+                message: $filter('translate')('ERROR_MODAL_APPOINTMENT_REQUEST_EMPTY_TOPIC'),
                 icon: true
             };
         }

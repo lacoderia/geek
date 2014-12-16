@@ -7,6 +7,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
     $scope.START_YEAR = DEFAULT_VALUES.START_YEAR;
     $scope.TOTAL_CALENDAR_ROWS = DEFAULT_VALUES.TOTAL_CALENDAR_ROWS;
     $scope.HOURS = DEFAULT_VALUES.HOURS;
+    $scope.CALENDAR_LOCATION_HASH = DEFAULT_VALUES.CALENDAR_LOCATION_HASH;
 
     $scope.currentDate = new Date();
 
@@ -27,7 +28,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
         $scope.createWeekCalendar();
 
         $timeout(function(){
-            $location.hash('week-row-07:00');
+            $location.hash($scope.CALENDAR_LOCATION_HASH);
             $anchorScroll();
             $location.url($location.path());
             $anchorScroll();

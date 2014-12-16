@@ -77,9 +77,11 @@ Rails.application.config.assets.precompile += %w( tutor/controllers/reviewsCtrl.
 Rails.application.config.assets.precompile += %w( tutor/controllers/rootCtrl.js )
 
 #Import Filters
-Rails.application.config.assets.precompile += %w( student/filters/dateByLanguageFilter.js )
+Rails.application.config.assets.precompile += %w( student/filters/dateTranslateFilter.js )
+Rails.application.config.assets.precompile += %w( student/filters/timestampTranslateFilter.js )
 
-Rails.application.config.assets.precompile += %w( tutor/filters/dateByLanguageFilter.js )
+Rails.application.config.assets.precompile += %w( tutor/filters/dateTranslateFilter.js )
+Rails.application.config.assets.precompile += %w( tutor/filters/timestampTranslateFilter.js )
 
 
 

@@ -19,7 +19,7 @@
       <div class="user-personal-info">
         <div class="content">
           <h4 class="user-name">{{ conversation.student.first_name }} {{ conversation.student.last_name }}</h4>
-          <em class="timestamp">{{ conversation.timestamp | dateByLanguageFilter:'en'}}</em>
+          <em class="timestamp">{{ conversation.timestamp | timestampTranslateFilter}}</em>
           <p class="user-last-message">{{ conversation.text }}</p>
           <div class="conversation-info">
             <div class="message-button">
@@ -59,7 +59,7 @@
           <div class="user-info">
               <h4 ng-if="message.from_student" class="message-user-name">{{ userSelected.first_name }} {{ userSelected.last_name }}</h4>
               <h4 ng-if="!message.from_student" class="message-user-name">{{ tutor.firstName }} {{ tutor.lastName }}</h4>
-              <span class="message-status"><span class="timestamp">{{ message.timestamp | dateByLanguageFilter:'en' }}</span> <span class="icon-bubbles" ng-show="message.read && message.from_student"> {{ 'SEEN' | translate }}</span></span>
+              <span class="message-status"><span class="timestamp">{{ message.timestamp | timestampTranslateFilter }}</span> <span class="icon-bubbles" ng-show="message.read && message.from_student"> {{ 'SEEN' | translate }}</span></span>
           </div>
           <div>
             <p>{{ message.text }}</p>

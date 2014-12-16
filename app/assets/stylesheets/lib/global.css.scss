@@ -1834,6 +1834,10 @@ footer{
     font-size: 1rem;
     padding: 1em;
 
+    .dropdown {
+      text-transform: uppercase;
+    }
+
     .form-textarea{
       margin-bottom: 0.5em;
     }
