@@ -379,7 +379,7 @@ class Tutor < ActiveRecord::Base
 
     #Dos parametros de busqueda
     if not county_ids.empty? and not category_ids.empty?
-      tutors = Tutor.joins(:categories, :counties).where("county_id in (#{county_ids.map(&:inspect).join(',')}) and (categories.category_id in (#{category_ids.map(&:inspect).join(',')}) OR categories.id in (#{category_ids.map(&:inspect).join(',')}))")
+      tutors = Tutor.joins(:categories, :counties, :reviews).where("county_id in (#{county_ids.map(&:inspect).join(',')}) and (categories.category_id in (#{category_ids.map(&:inspect).join(',')}) OR categories.id in (#{category_ids.map(&:inspect).join(',')}))")
 
       if tutors.count < FALLBACK_NUMBER #fallback a sublocality
         fallback_county_ids = Tutor.fallback_counties zone_obj[:sublocality], nil
@@ -528,4 +528,20 @@ class Tutor < ActiveRecord::Base
     obj
   end
 
+  def self.profile email
+    tutor = Tutor.joins("INNER JOIN preferences ON preferences.id = tutors.preference_id").joins("LEFT OUTER JOIN availabilities ON preferences.id = availabilities.preference_id").where('email = ? ', email).first
+  end
+
+  def self.status email
+    tutor = Tutor.where('email = ? ', email)[0]
+  end
+
+  def self.by_student student
+    tutors = []
+    appointments = student.appointments.select(:tutor_id).where("appointment_status_id = 6 AND charged = false AND paid = false").uniq(:tutor_id).includes(:tutor => :reviews)
+    appointments.each do |appointment|
+      tutors.push(appointment.tutor)
+    end
+    tutors
+  end
 end

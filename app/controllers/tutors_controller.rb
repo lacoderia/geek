@@ -1,6 +1,5 @@
 class TutorsController < ApplicationController
   before_action :set_tutor, only: [:show, :edit, :update, :destroy]
-  skip_before_filter :verify_authenticity_token, :only => [:update]
 
   # GET /tutors
   # GET /tutors.json
@@ -172,7 +171,7 @@ class TutorsController < ApplicationController
   def profile
     #@tutor = Tutor.last
     if current_user
-      @tutor = Tutor.joins("INNER JOIN preferences ON preferences.id = tutors.preference_id").joins("LEFT OUTER JOIN availabilities ON preferences.id = availabilities.preference_id").where('email = ? ', current_user.email).first
+      @tutor = Tutor.profile(current_user.email)
     end
   end
 
@@ -181,7 +180,18 @@ class TutorsController < ApplicationController
   # tutor un objeto tutor con la información de si tiene autorización y si envió su solicitud
   def status
     if current_user
-      @tutor = Tutor.where('email = ? ', current_user.email)[0]
+      @tutor = Tutor.status(current_user.email)
+    end
+  end
+
+  # Obtiene los tutores con los que un estudiante ha tomado clases
+  # Recibe:
+  # student_id - el ID del estudiante
+  # Regresa: lista de tutores
+  def by_student
+    if params[:student_id]
+      @student = Student.find(params[:student_id])
+      @tutors = Tutor.by_student(@student)
     end
   end
 

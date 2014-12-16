@@ -7,7 +7,7 @@ json.message @message
 json.set! :tutors do
 
   json.array!(@tutors) do |tutor|
-    json.extract! tutor, :id, :first_name, :last_name, :details, :references, :background, :calendar_id, :picture_url, :email
+    json.extract! tutor, :id, :first_name, :last_name, :details, :references, :background, :picture_url, :email
     json.set! :counties do
       json.array! (tutor.counties) do |county|
         json.extract! county, :id, :postal_code_id, :name
@@ -30,7 +30,7 @@ json.set! :tutors do
       counter = 0
       sum = 0.0
       tutor.reviews.each do |review|
-        sum += review.grade
+        sum += (review.grade_knowledge + review.grade_presentation + review.grade_communication)/3
         counter += 1
       end
       json.average (sum/counter) if counter > 0
@@ -54,7 +54,7 @@ end
 json.set! :suggested_tutors do
 
   json.array!(@suggested_tutors) do |tutor|
-    json.extract! tutor, :id, :first_name, :last_name, :details, :references, :background, :calendar_id, :picture_url, :email
+    json.extract! tutor, :id, :first_name, :last_name, :details, :references, :background, :picture_url, :email
     json.set! :counties do
       json.array! (tutor.counties) do |county|
         json.extract! county, :id, :postal_code_id, :name
@@ -76,10 +76,10 @@ json.set! :suggested_tutors do
     json.set! :reviews do
       counter = 0
       sum = 0.0
-      tutor.reviews.each do |review|
-        sum += review.grade
-        counter += 1
-      end
+      #tutor.reviews.each do |review|
+        #sum += review.grade
+        #counter += 1
+      #end
       json.average (sum/counter) if counter > 0
     end
     json.set! :appointments do
