@@ -25,7 +25,7 @@
       </div>
     </div>
     <div class="search-results-tools" ng-show="selectedTutor">
-      <span ng-hide="selectedTutor">{{ FILTERS | translate}}:</span>
+      <span ng-hide="selectedTutor">{{ 'FILTERS' | translate}}:</span>
       <span class="btn-back" ng-click="showSearchResults()" ng-show="selectedTutor"><< {{ 'SHOW_ALL' | translate }}</span>
     </div>
     <div class="search-result-list" ng-show="tutorList.length || suggestedTutorList.length">
@@ -193,7 +193,7 @@
             <tbody>
             <tr class="week-title">
               <td class="control"><span class="control-arrow control-left-arrow" ng-click="changeWeek('previous')" ng-show="showPreviousWeek"></span></td>
-              <td class="title">Semana del {{ selectedWeek[0].numberDay }} de {{ MONTHS[selectedWeek[0].month] | translate }} al {{ selectedWeek[6].numberDay }} de {{ MONTHS[selectedWeek[6].month] | translate }}</td>
+              <td class="title">{{ translateWeeklyCalendarTitle(selectedWeek[0].numberDay, MONTHS[selectedWeek[0].month], selectedWeek[6].numberDay, MONTHS[selectedWeek[6].month]) }}</td>
               <td class="control"><span class="control-arrow control-right-arrow" ng-click="changeWeek('next')"></span></td>
             </tr>
             </tbody>
