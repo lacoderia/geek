@@ -67,7 +67,7 @@ class ReviewsController < ApplicationController
   # Regresa una lista de evaluaciones
   def by_tutor
     if params[:tutor_id]
-      @reviews = Review.where("tutor_id = ?", params[:tutor_id]).includes(:student, :tutor)
+      @reviews = Review.by_tutor(params[:tutor_id])
     end
   end
 
