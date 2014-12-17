@@ -4,6 +4,7 @@ class Appointment < ActiveRecord::Base
   belongs_to :tutor
   belongs_to :address
   has_many :registered_anomalies
+  accepts_nested_attributes_for :registered_anomalies
 
   def update_cancelled_rejected_appointment status
     case status.code

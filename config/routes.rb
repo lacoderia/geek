@@ -43,6 +43,7 @@ Rails.application.routes.draw do
     collection do
       get 'conversations'
       get 'by_conversation'
+      get 'pending_conversations'
       post 'mark_read'
     end
   end

@@ -22,8 +22,8 @@ every(30.minutes, 'finish_and_pay_appointments', :at => ['**:30', '**:00']) {
       # pagar el appointment
         appointment.update_attribute(:charged, true)
         appointment.update_attribute(:paid, true)
-    else
-      # revisar si ya está resuelta la anomalía, itera sobre las registradas y busca una con RegisteredAnomalyStatus valida
+    elsif appointment.anomaly and appointment.resolved_anomaly
+      #Busca que anomalía es para pagar con la resolución
       appointment.registered_anomalies.each do |ra|
         if ra.registered_anomaly_status == valid_anomaly
           # pagar el appointment
