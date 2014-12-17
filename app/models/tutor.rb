@@ -379,20 +379,19 @@ class Tutor < ActiveRecord::Base
 
     #Dos parametros de busqueda
     if not county_ids.empty? and not category_ids.empty?
-      tutors = Tutor.joins(:categories, :counties, :reviews).where("county_id in (#{county_ids.map(&:inspect).join(',')}) and (categories.category_id in (#{category_ids.map(&:inspect).join(',')}) OR categories.id in (#{category_ids.map(&:inspect).join(',')}))")
+      tutors = Tutor.joins(:categories, :counties).where("county_id in (#{county_ids.map(&:inspect).join(',')}) and (categories.category_id in (#{category_ids.map(&:inspect).join(',')}) OR categories.id in (#{category_ids.map(&:inspect).join(',')}))").includes(:reviews => :student)
 
       if tutors.count < FALLBACK_NUMBER #fallback a sublocality
         fallback_county_ids = Tutor.fallback_counties zone_obj[:sublocality], nil
         message += "Fallback con sublocality."
       end
-
       if not fallback_county_ids.empty?
-        suggested_tutors = Tutor.joins(:categories, :counties).where("county_id in (#{fallback_county_ids.map(&:inspect).join(',')}) and (categories.category_id in (#{category_ids.map(&:inspect).join(',')}) OR categories.id in (#{category_ids.map(&:inspect).join(',')}))")
+        suggested_tutors = Tutor.joins(:categories, :counties).where("county_id in (#{fallback_county_ids.map(&:inspect).join(',')}) and (categories.category_id in (#{category_ids.map(&:inspect).join(',')}) OR categories.id in (#{category_ids.map(&:inspect).join(',')}))").includes(:reviews => :student)
         suggested_tutors = suggested_tutors - tutors
 
         if suggested_tutors.count < FALLBACK_NUMBER #fallback a locality
           fallback_county_ids = Tutor.fallback_counties nil, zone_obj[:locality]
-          suggested_tutors = Tutor.joins(:categories, :counties).where("county_id in (#{fallback_county_ids.map(&:inspect).join(',')}) and (categories.category_id in (#{category_ids.map(&:inspect).join(',')}) OR categories.id in (#{category_ids.map(&:inspect).join(',')}))")
+          suggested_tutors = Tutor.joins(:categories, :counties).where("county_id in (#{fallback_county_ids.map(&:inspect).join(',')}) and (categories.category_id in (#{category_ids.map(&:inspect).join(',')}) OR categories.id in (#{category_ids.map(&:inspect).join(',')}))").includes(:reviews => :student)
           suggested_tutors = suggested_tutors - tutors
           message += "Fallback con locality."
         end
@@ -408,14 +407,14 @@ class Tutor < ActiveRecord::Base
 
     #Solo resultados de ubicacion
     elsif not county_ids.empty?
-      tutors = Tutor.joins(:counties).where("county_id in (#{county_ids.map(&:inspect).join(',')})")
+      tutors = Tutor.joins(:counties).where("county_id in (#{county_ids.map(&:inspect).join(',')})").includes(:reviews => :student)
 
       if tutors.count < FALLBACK_NUMBER #fallback a sublocality
         fallback_county_ids = Tutor.fallback_counties zone_obj[:sublocality], nil
       end
 
       if not fallback_county_ids.empty?
-        suggested_tutors = Tutor.joins(:counties).where("county_id in (#{fallback_county_ids.map(&:inspect).join(',')})")
+        suggested_tutors = Tutor.joins(:counties).where("county_id in (#{fallback_county_ids.map(&:inspect).join(',')})").includes(:reviews => :student)
         suggested_tutors = suggested_tutors - tutors
 
         # Fallback hasta sublocality (delegación) en caso que no se incluyan temas
@@ -437,7 +436,7 @@ class Tutor < ActiveRecord::Base
 
     #Solo resultados de categoria
     elsif not category_ids.empty?
-      tutors = Tutor.joins(:categories).where("categories.id in (#{category_ids.map(&:inspect).join(',')}) OR categories.category_id in (#{category_ids.map(&:inspect).join(',')})")
+      tutors = Tutor.joins(:categories).where("categories.id in (#{category_ids.map(&:inspect).join(',')}) OR categories.category_id in (#{category_ids.map(&:inspect).join(',')})").includes(:reviews => :student)
 
       if zone_obj
         message = "No se encontraron zonas asociadas a ese texto."
@@ -543,5 +542,17 @@ class Tutor < ActiveRecord::Base
       tutors.push(appointment.tutor)
     end
     tutors
+  end
+
+  def self.update_grade tutor_id
+    tutor = Tutor.find(tutor_id)
+    count = 0
+    avg = 0.0
+    tutor.reviews.each do |review|
+      count += 1
+      avg += ((review.grade_knowledge + review.grade_presentation + review.grade_communication)/3)
+    end
+    grade = avg/count
+    tutor.update_attribute(:grade, grade)
   end
 end

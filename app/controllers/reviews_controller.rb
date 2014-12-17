@@ -1,6 +1,6 @@
 class ReviewsController < ApplicationController
   before_action :set_review, only: [:show, :edit, :update, :destroy]
-
+  
   # GET /reviews
   # GET /reviews.json
   def index
@@ -25,9 +25,9 @@ class ReviewsController < ApplicationController
   # POST /reviews.json
   def create
     @review = Review.new(review_params)
-
     respond_to do |format|
       if @review.save
+        Tutor.update_grade(@review.tutor_id)
         format.html { redirect_to @review, notice: 'Review was successfully created.' }
         format.json { render :show, status: :created, location: @review }
       else
@@ -67,7 +67,7 @@ class ReviewsController < ApplicationController
   # Regresa una lista de evaluaciones
   def by_tutor
     if params[:tutor_id]
-      @reviews = Review.where("tutor_id = ?", params[:tutor_id]).includes(:student, :tutor)
+      @reviews = Review.by_tutor(params[:tutor_id])
     end
   end
 
