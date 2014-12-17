@@ -27,13 +27,17 @@ json.set! :tutors do
       json.extract! (tutor.preference), :id, :online, :office, :public, :student_place
     end
     json.set! :reviews do
-      counter = 0
-      sum = 0.0
-      tutor.reviews.each do |review|
-        sum += (review.grade_knowledge + review.grade_presentation + review.grade_communication)/3
-        counter += 1
+      json.set! :comments do
+        json.array!(tutor.reviews) do |review|
+          json.description review.description if review.visible
+          json.set! :student do
+            json.first_name review.student.first_name
+            json.last_name review.student.last_name
+            json.picture_url review.student.picture_url
+          end
+        end
       end
-      json.average (sum/counter) if counter > 0
+      json.average tutor.grade
     end
     json.set! :appointments do
       class_counter = 0
@@ -74,13 +78,17 @@ json.set! :suggested_tutors do
       json.extract! (tutor.preference), :id, :online, :office, :public, :student_place
     end
     json.set! :reviews do
-      counter = 0
-      sum = 0.0
-      #tutor.reviews.each do |review|
-        #sum += review.grade
-        #counter += 1
-      #end
-      json.average (sum/counter) if counter > 0
+      json.set! :comments do
+        json.array!(tutor.reviews) do |review|
+          json.description review.description if review.visible
+          json.set! :student do
+            json.first_name review.student.first_name
+            json.last_name review.student.last_name
+            json.picture_url review.student.picture_url
+          end
+        end
+      end
+      json.average tutor.grade
     end
     json.set! :appointments do
       class_counter = 0

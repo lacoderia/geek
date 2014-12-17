@@ -12,7 +12,7 @@ class Message < ActiveRecord::Base
 	end
 
 	def self.mark_read message_id
-		msg = Message.find(params[:message_id])    
+		msg = Message.find(message_id)
     Message.where("id <= #{msg.id} and tutor_id = #{msg.tutor_id} and student_id = #{msg.student_id} and from_student = #{msg.from_student}").update_all("read = true")
 	end
 

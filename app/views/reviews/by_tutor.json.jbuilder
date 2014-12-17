@@ -1,7 +1,7 @@
-grade = 0
-grade_knowledge = 0
-grade_presentation = 0
-grade_communication = 0
+grade = 0.0
+grade_knowledge = 0.0
+grade_presentation = 0.0
+grade_communication = 0.0
 count = 0
 json.set! :reviews do
 	json.array!(@reviews) do |review|
