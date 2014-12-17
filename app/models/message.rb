@@ -17,7 +17,8 @@ class Message < ActiveRecord::Base
 	end
 
 	def self.get_pending_conversations condition, value
-		query = "select * from messages where id in (select id from (select max(id) as id, student_id, tutor_id from messages where #{condition} = #{value} and read = false group by student_id, tutor_id) as sub)"
+		from_student = (condition == 'tutor_id' ? true : false)
+		query = "select * from messages where id in (select id from (select max(id) as id, student_id, tutor_id from messages where #{condition} = #{value} and read = false and from_student = #{from_student} group by student_id, tutor_id) as sub)"
 		messages = Message.find_by_sql(query)
 	end
 end
