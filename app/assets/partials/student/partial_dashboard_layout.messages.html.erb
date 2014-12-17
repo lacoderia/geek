@@ -3,7 +3,7 @@
   <!-- Sección de listado de conversaciones vacío -->
   <div class="unavailable-message" ng-hide="conversations.length">
     <div class="unavailable-message-content">
-      <h3 translate="WITHOUT_CONVERSATIONS_STUDENT"></h3>
+      <h3 translate="UNAVAILABLE_MESSAGE_CONVERSATIONS_STUDENT"></h3>
     </div>
   </div>
 
@@ -23,7 +23,7 @@
           <p class="user-last-message">{{ conversation.text }}</p>
           <div class="conversation-info">
             <div class="message-button">
-              <a class="action-button action-send-message" ng-click="selectConversation(conversation.tutor)" translate="SHOW_CONVERSATION">Ver conversación</a>
+              <a class="action-button action-send-message" ng-click="selectConversation(conversation.tutor)" translate="SHOW_CONVERSATION"></a>
             </div>
           </div>
         </div>

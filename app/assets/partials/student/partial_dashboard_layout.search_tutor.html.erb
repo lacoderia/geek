@@ -3,7 +3,7 @@
     <h2 class="col-lg-2 col-md-3 hidden-sm hidden-xs">geek</h2>
     <form class="col-lg-9 col-md-8 col-sm-12 col-xs-12">
       <angucomplete-alt-geek id="topics"
-                        placeholder="Me interesaría aprender..."
+                        placeholder="{{ 'AUTOCOMPLETE_TOPIC' | translate }}"
                         pause="600"
                         selected-object="subjectInput"
                         local-data="categories"
@@ -12,8 +12,8 @@
                         minlength="1"
                         input-class="category">
       </angucomplete-alt-geek>
-      <input class="county" type="text" ng-model="chosenPlace" details="chosenPlaceDetails" on-place-change="onPlaceChanged" placeholder="En la zona de..." googleplace>
-      <a class="search-button icon-pointer" ng-click="searchTutor()">Buscar</a>
+      <input class="county" type="text" ng-model="chosenPlace" details="chosenPlaceDetails" on-place-change="onPlaceChanged" placeholder="{{ 'AUTOCOMPLETE_ZONE' | translate }}" googleplace>
+      <a class="search-button icon-pointer" ng-click="searchTutor()" translate="SEARCH"></a>
     </form>
     <div class="clearfix"></div>
   </div>
@@ -21,12 +21,12 @@
   <div class="search-results-list" ng-show="showTopSearchbar">
     <div class="unavailable-message" ng-hide="tutorList.length || suggestedTutorList.length">
       <div class="unavailable-message-content">
-        <h3>Lo sentimos, no encontramos tutores</h3>
+        <h3 translate="UNAVAILABLE_MESSAGE_SEARCH_TUTORS"></h3>
       </div>
     </div>
     <div class="search-results-tools" ng-show="selectedTutor">
-      <span ng-hide="selectedTutor">Filtros:</span>
-      <span class="btn-back" ng-click="showSearchResults()" ng-show="selectedTutor"><< MOSTRAR TODOS</span>
+      <span ng-hide="selectedTutor">{{ FILTERS | translate}}:</span>
+      <span class="btn-back" ng-click="showSearchResults()" ng-show="selectedTutor"><< {{ 'SHOW_ALL' | translate }}</span>
     </div>
     <div class="search-result-list" ng-show="tutorList.length || suggestedTutorList.length">
       <div class="tutor" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-repeat="tutor in tutorList" ng-show="tutor.show" on-tutor-search-render>
@@ -39,10 +39,10 @@
           <div class="content">
             <h4 class="tutor-name">{{ tutor.first_name }} {{ tutor.last_name }}</h4>
             <h5 class="tutor-county"><span ng-repeat="county in tutor.counties">{{ county.name }}{{ $last ? '' : ', ' }}</span></h5>
-            <p class="resume" ng-class="{ 'expanded' : tutor.id == selectedTutor.id }" ng-bind="tutor.background" ellipsis ellipsis-append="ver mas..." ellipsis-symbol="... " ellipsis-append-click="showTutorDetails(tutor)" ellipsis-id="tutor.id"></p>
+            <p class="resume" ng-class="{ 'expanded' : tutor.id == selectedTutor.id }" ng-bind="tutor.background" ellipsis ellipsis-append="{{ 'MORE' | translate }}" ellipsis-symbol="... " ellipsis-append-click="showTutorDetails(tutor)" ellipsis-id="tutor.id"></p>
             <div class="given-classes">
-              <div>Horas de clase: {{tutor.appointments.classes || 0}}</div>
-              <div>Estudiantes: {{tutor.appointments.classes || 0}}</div>
+              <div>{{ 'TUTOR_SEARCH_CLASS_COUNT' | translate }}: {{tutor.appointments.classes || 0}}</div>
+              <div>{{ 'TUTOR_SEARCH_STUDENTS_COUNT' | translate }}: {{tutor.appointments.classes || 0}}</div>
             </div>
           </div>
         </div>
@@ -57,23 +57,23 @@
                 <span class="icon-star1" ng-class="tutor.reviews.average >= 5 ? 'star-full': 'star-empty'"></span>
               </div>
             </div>
-            <div class="score-more" ng-hide="tutor.showComments" ng-click="toggleComments(tutor)">Ver comentarios</div>
-            <div class="score-more" ng-show="tutor.showComments" ng-click="toggleComments(tutor)">Ocultar comentarios</div>
+            <div class="score-more" ng-hide="tutor.showComments" ng-click="toggleComments(tutor)" translate="TUTOR_SEARCH_SHOW_COMMENTS"></div>
+            <div class="score-more" ng-show="tutor.showComments" ng-click="toggleComments(tutor)" translate="TUTOR_SEARCH_HIDE_COMMENTS"></div>
             <div class="content-price">
               <h4 class="price">
                 {{ tutor.costRange }} <br>
-                Por hora
+                {{ 'EACH_HOUR' | translate }}
               </h4>
               <div class="preferences">
-                <span class="icon-earth" ng-class="{'active' : tutor.preference.online}" title="En línea"></span>
-                <span class="icon-teach" ng-class="{'active' : tutor.preference.office}" title="Casa del tutor"></span>
-                <span class="icon-school" ng-class="{'active' : tutor.preference.student_place}" title="Casa del estudiante"></span>
-                <span class="icon-coffee" ng-class="{'active' : tutor.preference.public}" title="Lugar público"></span>
+                <span class="icon-earth" ng-class="{'active' : tutor.preference.online}" title="{{ 'TUTOR_PREFERENCE_ONLINE' | translate }}"></span>
+                <span class="icon-teach" ng-class="{'active' : tutor.preference.office}" title="{{ 'TUTOR_PREFERENCE_OFFICE' | translate }}"></span>
+                <span class="icon-school" ng-class="{'active' : tutor.preference.student_place}" title="{{ 'TUTOR_PREFERENCE_STUDENT' | translate }}"></span>
+                <span class="icon-coffee" ng-class="{'active' : tutor.preference.public}" title="{{ 'TUTOR_PREFERENCE_PUBLIC' | translate }}"></span>
               </div>
             </div>
             <div class="content-button">
-              <button class="action-button see-availability" ng-click="showTutorDetails(tutor)" ng-hide="selectedTutor">Ver disponibilidad</button>
-              <button class="action-button send-message" ng-show="selectedTutor" ng-click="openModalMessage($event,tutor)">Enviar mensaje</button>
+              <button class="action-button see-availability" ng-click="showTutorDetails(tutor)" ng-hide="selectedTutor" translate="SHOW_AVAILABILITY"></button>
+              <button class="action-button send-message" ng-show="selectedTutor" ng-click="openModalMessage($event,tutor)" translate="TUTOR_SEARCH_SEND_MESSAGE"></button>
             </div>
           </div>
         </div>
@@ -105,7 +105,7 @@
           </div>
         </div>
       </div>
-      <h3 class="col-lg-12 col-md-12 col-sm-12 col-xs-12 section-title" ng-hide="selectedTutor || !suggestedTutorList.length">También te recomendamos</h3>
+      <h3 class="col-lg-12 col-md-12 col-sm-12 col-xs-12 section-title" ng-hide="selectedTutor || !suggestedTutorList.length" translate="WE_RECOMMEND"></h3>
       <div class="tutor" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-repeat="tutor in suggestedTutorList" ng-show="tutor.show" on-tutor-search-render>
         <div class="tutor_picture_container col-lg-2 col-md-2 col-sm-12 col-xs-12">
           <div class="tutor_picture">
@@ -116,10 +116,10 @@
           <div class="content">
             <h4 class="tutor-name">{{ tutor.first_name }} {{ tutor.last_name }}</h4>
             <h5 class="tutor-county"><span ng-repeat="county in tutor.counties">{{ county.name }}{{ $last ? '' : ', ' }}</span></h5>
-            <p class="resume" ng-class="{ 'expanded' : tutor.id == selectedTutor.id }" ng-bind="tutor.background" ellipsis ellipsis-append="ver mas..." ellipsis-symbol="... " ellipsis-append-click="showTutorDetails(tutor)" ellipsis-id="tutor.id"></p>
+            <p class="resume" ng-class="{ 'expanded' : tutor.id == selectedTutor.id }" ng-bind="tutor.background" ellipsis ellipsis-append="{{ 'MORE' | translate }}" ellipsis-symbol="... " ellipsis-append-click="showTutorDetails(tutor)" ellipsis-id="tutor.id"></p>
             <div class="given-classes">
-              <div>Horas de clase: {{tutor.appointments.classes || 0}}</div>
-              <div>Estudiantes: {{tutor.appointments.classes || 0}}</div>
+              <div>{{ 'TUTOR_SEARCH_CLASS_COUNT' | translate }}: {{tutor.appointments.classes || 0}}</div>
+              <div>{{ 'TUTOR_SEARCH_STUDENTS_COUNT' | translate }}: {{tutor.appointments.classes || 0}}</div>
             </div>
           </div>
         </div>
@@ -134,23 +134,23 @@
                 <span class="icon-star1" ng-class="tutor.reviews.average >= 5 ? 'star-full': 'star-empty'"></span>
               </div>
             </div>
-            <div class="score-more" ng-hide="tutor.showComments" ng-click="toggleComments(tutor)">Ver comentarios</div>
-            <div class="score-more" ng-show="tutor.showComments" ng-click="toggleComments(tutor)">Ocultar comentarios</div>
+            <div class="score-more" ng-hide="tutor.showComments" ng-click="toggleComments(tutor)" translate="TUTOR_SEARCH_SHOW_COMMENTS"></div>
+            <div class="score-more" ng-show="tutor.showComments" ng-click="toggleComments(tutor)" translate="TUTOR_SEARCH_HIDE_COMMENTS"></div>
             <div class="content-price">
               <h4 class="price">
                 {{ tutor.costRange }} <br>
-                Por hora
+                {{ 'EACH_HOUR' | translate }}
               </h4>
               <div class="preferences">
-                <span class="icon-earth" ng-class="{'active' : tutor.preference.online}" title="En línea"></span>
-                <span class="icon-teach" ng-class="{'active' : tutor.preference.office}" title="Casa del tutor"></span>
-                <span class="icon-school" ng-class="{'active' : tutor.preference.student_place}" title="Casa del estudiante"></span>
-                <span class="icon-coffee" ng-class="{'active' : tutor.preference.public}" title="Lugar público"></span>
+                <span class="icon-earth" ng-class="{'active' : tutor.preference.online}" title="{{ 'TUTOR_PREFERENCE_ONLINE' | translate }}"></span>
+                <span class="icon-teach" ng-class="{'active' : tutor.preference.office}" title="{{ 'TUTOR_PREFERENCE_OFFICE' | translate }}"></span>
+                <span class="icon-school" ng-class="{'active' : tutor.preference.student_place}" title="{{ 'TUTOR_PREFERENCE_STUDENT' | translate }}"></span>
+                <span class="icon-coffee" ng-class="{'active' : tutor.preference.public}" title="{{ 'TUTOR_PREFERENCE_PUBLIC' | translate }}"></span>
               </div>
             </div>
             <div class="content-button">
-              <button class="action-button see-availability" ng-click="showTutorDetails(tutor)" ng-hide="selectedTutor">Ver disponibilidad</button>
-              <button class="action-button send-message" ng-click="openModalMessage($event,tutor)" ng-show="selectedTutor">Enviar mensaje</button>
+              <button class="action-button see-availability" ng-click="showTutorDetails(tutor)" ng-hide="selectedTutor" translate="SHOW_AVAILABILITY"></button>
+              <button class="action-button send-message" ng-click="openModalMessage($event,tutor)" ng-show="selectedTutor" translate="TUTOR_SEARCH_SEND_MESSAGE"></button>
             </div>
           </div>
         </div>
@@ -185,7 +185,7 @@
     </div>
 
     <div class="calendar" ng-show="selectedTutor">
-      <h3 class="section-title">Agenda una clase con {{ selectedTutor.first_name }}</h3>
+      <h3 class="section-title">{{ 'TUTOR_SEARCH_SCHEDULE_CLASS_WITH' | translate }} {{ selectedTutor.first_name }}</h3>
       <ng-alert id="appointment-alert" alert-params="appointmentAlertParams"></ng-alert>
       <div class="week-view tutor-calendar-section" ng-controller="CalendarController">
         <div class="week-row tutor-calendar-title-day">
@@ -203,8 +203,8 @@
             <tr>
               <td class="week-day-title"></td>
               <td class="week-day-title" ng-repeat="day in DAYS">
-                <span class="hidden-sm hidden-xs">{{ day.title }}</span>
-                <span class="hidden-md hidden-lg">{{ day.minTitle }}</span>
+                <span class="hidden-sm hidden-xs">{{ day.title | translate }}</span>
+                <span class="hidden-md hidden-lg">{{ day.minTitle | translate }}</span>
               </td>
             </tr>
             </tbody>
@@ -230,10 +230,10 @@
       <img src="/assets/site/geek.png" alt="Geek" class="search-image hidden-xs">
       <div>
         <h2 class="hidden-xs">geek</h2>
-        <h3>¿Qué quieres aprender?</h3>
+        <h3 translate="WHAT_TO_LEARN"></h3>
         <form>
           <angucomplete-alt-geek id="topics"
-                            placeholder="Me interesaría aprender..."
+                            placeholder="{{ 'AUTOCOMPLETE_TOPIC' | translate }}"
                             pause="600"
                             selected-object="subjectInput"
                             local-data="categories"
@@ -242,8 +242,8 @@
                             minlength="1"
                             input-class="category">
           </angucomplete-alt-geek>
-          <input class="county" type="text" ng-model="chosenPlace" details="chosenPlaceDetails" on-place-change="onPlaceChanged" placeholder="En la zona de..." googleplace>
-          <a class="search-button icon-pointer" ng-click="searchTutor()">Buscar</a>
+          <input class="county" type="text" ng-model="chosenPlace" details="chosenPlaceDetails" on-place-change="onPlaceChanged" placeholder="{{ 'AUTOCOMPLETE_ZONE' | translate }}" googleplace>
+          <a class="search-button icon-pointer" ng-click="searchTutor()" translate="SEARCH"></a>
         </form>
       </div>
       <img src="/assets/site/geek.png" alt="Geek" class="search-image hidden-lg hidden-md hidden-sm">

@@ -21,13 +21,13 @@
       <table ng-repeat="appointmentGroup in appointmentsGroups" class="week-list-day-row" ng-show="appointmentGroup.appointments.length">
         <thead>
             <tr class="history-list-day-title-row">
-              <td class="hidden-sm hidden-xs day-title" colspan="6">{{ DAYS[appointmentGroup.day].title | translate }}, {{ appointmentGroup.numberDay }} de {{ MONTHS[appointmentGroup.month] | translate }}</td>
-              <td class="hidden-md hidden-lg day-title" colspan="6">{{ DAYS[appointmentGroup.day].minTitle | translate}}, {{ appointmentGroup.numberDay }}</td>
+              <td class="hidden-sm hidden-xs day-title" colspan="6">{{appointmentGroup.date | dateTranslateFilter}}</td>
+              <td class="hidden-md hidden-lg day-title" colspan="6">{{appointmentGroup.date | dateTranslateFilter}}</td>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="appointment in appointmentGroup.appointments" class="history-list-day-info-row" ng-click="showAppointmentDetail($event,appointment)">
-              <td class="day-info">De {{ appointment.startHour }} a {{ appointment.endHour }}</td>
+              <td class="day-info">{{ 'FROM' | translate }} {{ appointment.startHour }} {{ 'TO' | translate }} {{ appointment.endHour }}</td>
               <td class="day-info">{{ appointment.tutor.first_name }} {{ appointment.tutor.last_name }}</td>
               <td class="day-info">{{ appointment.subject }}</td>
               <td class="day-info"><span ng-class="[appointment.status.class,appointment.status.icon_class]"> {{ appointment.status.name | translate }}</span></td>
