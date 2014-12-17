@@ -5,6 +5,16 @@ class RegisteredAnomaly < ActiveRecord::Base
   belongs_to :source, :foreign_key => "source_id", :class_name => "User"
   belongs_to :registered_anomaly_status
 
+  after_create :resolve_other_anomaly
+
+  def resolve_other_anomaly
+    other_anomaly = Anomaly.find_by_code "3"
+    valid_anomaly_status = RegisteredAnomalyStatus.find_by_code "1"
+    if self.anomaly_id == other_anomaly.id and self.registered_anomaly_status_id == valid_anomaly_status.id
+      self.assign self.fee_student, self.fee_tutor
+    end
+  end
+
   def self.from_student appointment_id, anomaly_code, description
     anomaly = Anomaly.find_by_code(anomaly_code)
     appointment = Appointment.find(appointment_id)
@@ -45,8 +55,8 @@ class RegisteredAnomaly < ActiveRecord::Base
   end
 
   def self.assign_other appointment_id, user_id, description, fee_student, fee_tutor
-    anomaly = Anomaly.find_by_code "3"
-    ra = RegisteredAnomaly.create(anomaly_id: anomaly.id, user_id: user_id, appointment_id: appointment_id, description: description, registered_anomaly_status_id: 1)
+    other_anomaly = Anomaly.find_by_code "3"
+    ra = RegisteredAnomaly.create(anomaly_id: other_anomaly.id, user_id: user_id, appointment_id: appointment_id, description: description, registered_anomaly_status_id: 1)
     ra.assign fee_student, fee_tutor
     return ra
   end
@@ -57,6 +67,8 @@ class RegisteredAnomaly < ActiveRecord::Base
     valid_anomaly_status = RegisteredAnomalyStatus.find_by_code("1")
     invalid_anomaly_status = RegisteredAnomalyStatus.find_by_code("2")
     self.update_attributes({:registered_anomaly_status_id => valid_anomaly_status.id, :fee_student => fee_student, :fee_tutor => fee_tutor }) 
+
+    self.appointment.update_attribute(:resolved_anomaly, true)
 
     # TODO: Código para pagar
     if fee_student and fee_tutor and fee_student > 0 and fee_tutor > 0
@@ -115,6 +127,17 @@ class RegisteredAnomaly < ActiveRecord::Base
 
     invalid_anomaly_status = RegisteredAnomalyStatus.find_by_code("2")
     self.update_attributes({:registered_anomaly_status_id => invalid_anomaly_status.id}) 
+
+    resolved_by_rejection = true
+    self.appointment.registered_anomalies.where("id != ?", self.id).each do |ra|
+      if ra.registered_anomaly_status_id != invalid_anomaly_status.id
+        resolved_by_rejection = false
+      end
+    end
+
+    if resolved_by_rejection
+      self.appointment.update_attribute(:resolved_anomaly, true)
+    end
 
   end
 
