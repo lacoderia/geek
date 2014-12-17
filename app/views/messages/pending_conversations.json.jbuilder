@@ -1,0 +1,1 @@
+json.pending @messages.size

@@ -74,8 +74,7 @@ class MessagesController < ApplicationController
       condition = 'student_id'
       value = params[:student_id]
     end 
-    query = "select * from messages where id in (select id from (select max(id) as id, student_id, tutor_id from messages where #{condition} = #{value} group by student_id, tutor_id) as sub)"
-    @messages = Message.find_by_sql(query)
+    @messages = Message.get_conversations(condition, value)
   end
 
   # Obtiene los mensajes de una conversación
@@ -84,18 +83,28 @@ class MessagesController < ApplicationController
   #   tutor_id - El ID del tutor
   # Regresa una lista de mensajes entre el tutor y el estudiante
   def by_conversation
-    tutor_id = params[:tutor_id]
     student_id = params[:student_id]
-    @messages = Message.where('student_id = ? and tutor_id = ?', student_id, tutor_id).order(created_at: :desc) 
+    tutor_id = params[:tutor_id]
+    @messages = Message.get_conversation(student_id, tutor_id)
   end
 
   # Marca los mensajes de una conversación como leidos
   # Recibe:
   #   message_id - el ID del mensaje más reciente de la conversación
   def mark_read
-    msg = Message.find(params[:message_id])    
-    Message.where("id <= #{msg.id} and tutor_id = #{msg.tutor_id} and student_id = #{msg.student_id} and from_student = #{msg.from_student}").update_all("read = true")
+    Message.mark_read(params[:message_id])
     render json: "", status: :ok
+  end
+
+  def pending_conversations
+    if params[:tutor_id]
+      condition = 'tutor_id'
+      id = params[:tutor_id]
+    elsif params[:student_id]
+      condition = 'student_id'
+      id = params[:student_id]
+    end
+    @messages = Message.get_pending_conversations(condition, id)
   end
 
   private
