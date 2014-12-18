@@ -38,7 +38,6 @@ Geek.controller('MessageController',['$scope','$rootScope', '$timeout', '$filter
             function(data){
                 if(data){
                     $scope.selectedConversation = data;
-                    console.log(data)
                     for(var indexMessage=0; indexMessage<$scope.selectedConversation.length; indexMessage++){
                         var message = $scope.selectedConversation[indexMessage];
                         message.timestamp = new Date(message.created_at);
@@ -60,6 +59,16 @@ Geek.controller('MessageController',['$scope','$rootScope', '$timeout', '$filter
                                             message.read = true;
                                         }
                                     }
+
+                                    MessageService.getPendingConversationsByUserId($rootScope.tutor.id).then(
+                                        function(data){
+                                            $rootScope.newConversationMessages = data.pending;
+
+                                        },
+                                        function(response){
+                                            console.log('Error retrieving de number of pending conversations ' + response);
+                                        }
+                                    );
                                 },
                                 function(response){
                                     console.log("Error marking messages as read " + response);
