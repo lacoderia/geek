@@ -24,6 +24,28 @@ Geek.factory('MessageService', ["$http", "$q", "DEFAULT_VALUES", function($http,
         
     };
 
+    var getPendingConversationsByUserId = function(tutorId){
+        var deferred = $q.defer();
+        var promise = deferred.promise;
+
+        $http.get(DEFAULT_VALUES.URL_SERVICES.PENDING_CONVERSATIONS_SERVICE_URL,{
+            params: {
+                'tutor_id':  tutorId
+            }
+        }).
+            success(function(data){
+                deferred.resolve(data);
+            }).
+
+            error(function(response){
+                deferred.reject(response);
+            });
+
+        return promise;
+
+
+    };
+
     var getConversationByUserId = function(studentId, tutorId){
         var deferred = $q.defer();
         var promise = deferred.promise;
@@ -70,7 +92,7 @@ Geek.factory('MessageService', ["$http", "$q", "DEFAULT_VALUES", function($http,
         var promise = deferred.promise;
 
         $http.post(DEFAULT_VALUES.URL_SERVICES.MARK_AS_SERVICE_URL,{
-            'message_id': lastMessageId
+                'message_id': lastMessageId
         }).
             success(function(data){
                 deferred.resolve(data);
@@ -87,6 +109,7 @@ Geek.factory('MessageService', ["$http", "$q", "DEFAULT_VALUES", function($http,
     return{
         getConversations: getConversations,
         getConversationByUserId: getConversationByUserId,
+        getPendingConversationsByUserId: getPendingConversationsByUserId,
         saveMessage: saveMessage,
         markAsRead: markAsRead
 

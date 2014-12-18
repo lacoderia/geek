@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state", "$translate", "MessageService", "DEFAULT_VALUES", "CategoryService", "ProfileService", function($scope, $rootScope, $timeout, $state, $translate, MessageService, DEFAULT_VALUES, CategoryService, ProfileService){
+Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state", "$translate", "$filter", "MessageService", "DEFAULT_VALUES", "CategoryService", "ProfileService", "SessionService", function($scope, $rootScope, $timeout, $state, $translate, $filter, MessageService, DEFAULT_VALUES, CategoryService, ProfileService, SessionService){
 
     // Objeto que tiene los datos del perfil del tutor
     $rootScope.tutor = {};
@@ -15,9 +15,7 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
     $rootScope.tutorProfileLoaded = false;
 
     $scope.userName = $filter('translate')('USER_NAME');
-
-    $scope.conversations = [];
-    $scope.newConversationMessages = 0;
+    $rootScope.newConversationMessages = 0;
 
     $rootScope.toggleLanguage = function(){
         var languageCode = $translate.use();
@@ -31,6 +29,15 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
                 break;
             default:
                 break;
+        }
+    };
+
+    $scope.compareCurrentDate = function(date){
+        var now = new Date();
+        if(now <= date){
+            return true;
+        }else{
+            return false;
         }
     };
 
@@ -118,6 +125,14 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
 
             $rootScope.tutorProfileLoaded = true;
             $scope.userName = $rootScope.tutor.firstName;
+            MessageService.getPendingConversationsByUserId($rootScope.tutor.id).then(
+                function(data){
+                    $rootScope.newConversationMessages = data.pending;
+                },
+                function(response){
+                  console.log('Error retrieving de number of pending conversations ' + response);
+                }
+            );
 
         };
 
