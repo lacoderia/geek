@@ -503,11 +503,11 @@ h3.section-title{
 }
 
 .appointment-status-confirmed{
-  color: $color-dark-green;
+  color: $color-light-green;
 }
 
 .appointment-status-completed{
-  color: $color-light-green;
+  color: $color-dark-green;
 }
 
 .appointment-status-pending{
@@ -1031,11 +1031,11 @@ h3.section-title{
       }
 
       .week-day.available {
-        background-color: $color-profile-light-blue;
+        background-color: $color-profile-light-blue !important;
       }
 
       .week-day.highlighted {
-        background-color: $color-profile-medium-blue;
+        background-color: $color-profile-medium-blue !important ;
       }
 
       .week-day.no-cursor {
@@ -1321,23 +1321,23 @@ h3.section-title{
   }
 
   .appointment-status-canceled{
-    background-color: $color-dark-red !important;
+    background-color: $color-dark-red;
   }
 
   .appointment-status-confirmed{
-    background-color: $color-dark-green !important;
+    background-color: $color-light-green;
   }
 
   .appointment-status-completed{
-    background-color: $color-light-green !important;
+    background-color: $color-dark-green;
   }
 
   .appointment-status-pending{
-    background-color: $color-light-orange !important;
+    background-color: $color-light-orange;
   }
 
   .appointment-status-rejected{
-    background-color: $color-light-red !important;
+    background-color: $color-light-red;
   }
 }
 

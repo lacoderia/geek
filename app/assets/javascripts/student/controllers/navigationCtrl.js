@@ -45,6 +45,11 @@ Geek.controller('NavigationController', ["$scope", "$rootScope", "DEFAULT_VALUES
         $scope.userData = false;
 	    $scope.roleIds = 3;
 
+        //TODO: no dejar pasar al usuario
+        if ($("#error-data").data()){
+          alert("Usuario bloqueado");
+        }
+
         if ($("#user-data").data()){
             $scope.userData = true;
             $scope.showSignInModal('signUp'); 

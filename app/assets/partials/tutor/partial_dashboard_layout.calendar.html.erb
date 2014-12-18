@@ -87,7 +87,8 @@
                   <td class="day-info"><span ng-class="[appointment.status.class,appointment.status.icon_class]"> {{ appointment.status.name }}</span></td>
                   <td class="day-info">
                     <div class="appointment-button">
-                      <a ng-repeat="button in appointmentButtons" ng-show="showActionButtons(appointment.status, button.action)" ng-class="[button.class, button.icon]" title=" {{ button.title }}" ng-click="callButtonAction($event, button.action, appointment)"> {{ button.text }}</a>
+                      <a ng-repeat="button in appointmentButtons" ng-if="showActionButtons(appointment, button.action)" ng-class="[button.class, button.icon]" title=" {{ button.title }}" ng-click="callButtonAction($event, button.action, appointment)"> {{ button.text }}</a>
+                      <!--a ng-if="showActionButtons(appointment, appointmentButtons['ANOMALY_BUTTON'].action)" ng-class="[appointmentButtons['ANOMALY_BUTTON'].class, appointmentButtons['ANOMALY_BUTTON'].icon]" title=" {{ appointmentButtons['ANOMALY_BUTTON'].title }}" ng-click="callButtonAction($event, appointmentButtons['ANOMALY_BUTTON'].action, appointment)"> {{ appointmentButtons['ANOMALY_BUTTON'].text }}</a -->
                     </div>
                   </td>
                 </tr>

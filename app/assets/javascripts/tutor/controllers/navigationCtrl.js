@@ -3,10 +3,17 @@
 Geek.controller('NavigationController', ["$scope", "$rootScope", "DEFAULT_VALUES", function($scope, $rootScope, DEFAULT_VALUES){
 
     $scope.selectedTab = 'signUp';
-
+ 
     // Inicializamos los broadcasts y listeners del controlador
     $scope.$on("rootControllerReady", function() {
         $scope.userData = false;
+
+         //TODO: no dejar pasar al usuario
+        if ($("#error-data").data()){
+          alert("Usuario bloqueado");
+        }
+
+
         if ($("#user-data").data()){
             $scope.userData = true;
             $scope.showSignInModal('signUp');

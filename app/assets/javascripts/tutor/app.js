@@ -15,6 +15,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
             'MESSAGE_SAVE_SERVICE_URL': 'messages.json',
             'MESSAGES_BY_CONVERSATION_SERVICE_URL': 'messages/by_conversation.json',
             'MARK_AS_SERVICE_URL': 'messages/mark_read.json',
+            'PENDING_CONVERSATIONS_SERVICE_URL': 'messages/pending_conversations.json',
         },
         'HOURS': [  '00:00', '00:30', '01:00', '01:30', '02:00', '02:30', '03:00', '03:30',
                     '04:00', '04:30', '05:00', '05:30', '06:00', '06:30', '07:00', '07:30',

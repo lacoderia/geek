@@ -9,20 +9,20 @@ Geek.directive('ngModalDetail', ["$rootScope", "$timeout", "$window", "$document
 
             scope.DEFAULT_ARROW_CLASSES = ['modal-detail-arrow-left', 'modal-detail-arrow-right'];
             scope.DEFAULT_CLASS = 'modal-detail';
-
             scope.window = angular.element($window);
             scope.maxWidth = scope.window.width();
-
             scope.detailArrowClass = scope.DEFAULT_ARROW_CLASSES[0];
             scope.modalStyle = {
                 top:0,
                 left:0
             };
-
             scope.clickedAppointment = null;
+            scope.appointmentButtons = [];
+            scope.changeAppointmentStatus = undefined;
+            scope.callButtonAction = undefined;
+            scope.showActionButtons = undefined;
 
             scope.closeAppointmentDetail = function(){
-                console.log('ENTRE')
                 scope.modalStyle.top = 0;
                 scope.modalStyle.left = 0;
 
@@ -79,7 +79,6 @@ Geek.directive('ngModalDetail', ["$rootScope", "$timeout", "$window", "$document
                         scope.modalStyle.left = options.posX - 37;
                         scope.detailArrowClass = scope.DEFAULT_ARROW_CLASSES[0];
                     }
-                    scope.changeAppointmentStatus = options.changeAppointmentStatus;
 
                 },0);
 
