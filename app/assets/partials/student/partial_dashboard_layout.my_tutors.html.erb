@@ -25,8 +25,7 @@
                   <div class="appointment-button" ng-hide="tutor.has_evaluation">
                     <a class="review-class" ng-click="showReviewDetail($event, tutor)">Calificar</a>
                   </div>
-                  <div ng-show="tutor.has_evaluation">
-                    {{ 'MY_TUTORS_REVIEWED' | translate }}
+                  <div ng-show="tutor.has_evaluation" translate="MY_TUTORS_REVIEWED">
                   </div>
                 </td>
             </tr>

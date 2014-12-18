@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('MyTutorsController',['$scope','$rootScope','$compile', 'ReviewsService', 'SessionService', 'TutorService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $compile, ReviewsService, SessionService, TutorService, DEFAULT_VALUES){
+Geek.controller('MyTutorsController',['$scope','$rootScope','$compile', '$translate', 'ReviewsService', 'SessionService', 'TutorService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $compile, $translate, ReviewsService, SessionService, TutorService, DEFAULT_VALUES){
 
     $scope.tutorList = [];
 
@@ -40,24 +40,22 @@ Geek.controller('MyTutorsController',['$scope','$rootScope','$compile', 'Reviews
         var review = {
             'student_id': SessionService.getId(),
             'tutor_id': tutor.id,
-            'knowledge' : tutorReview.knowledge,
-            'communication': tutorReview.communication,
-            'presentation': tutorReview.presentation,
-            'comment': tutorReview.comment
+            'grade_knowledge' : tutorReview.knowledge,
+            'grade_communication': tutorReview.communication,
+            'grade_presentation': tutorReview.presentation,
+            'description': tutorReview.comment
         };
 
-        console.log(review);
-
-        /*ReviewsService.sendReview(review).then(
-         function(data){
-         console.log(data);
-         },
-         function(response){
-         console.log(response);
-         }
-         );*/
-
-        $scope.closeReviewDetail();
+        ReviewsService.sendReview(review).then(
+            function(data){
+                if(data.student_id) {
+                    tutor.has_evaluation = true;
+                    $scope.closeReviewDetail();
+                }
+            },
+            function(response){
+            }
+        );
     };
 
     $scope.getTutorList();

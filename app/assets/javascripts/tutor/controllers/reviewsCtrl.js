@@ -11,8 +11,20 @@ Geek.controller('ReviewsController',['$scope','$rootScope', '$timeout', 'Reviews
         }
     });
 
+    // Función que obtiene los reviews del tutor
     $scope.getReviews = function(){
-        $scope.reviews = ReviewsService.getReviews();
+        ReviewsService.getReviews($rootScope.tutor.id).then(
+            function(data){
+                if(data){
+                    $scope.reviews = data.reviews;
+                    console.log($scope.reviews);
+                }
+
+            },
+            function (response){
+                console.log('Error retrieving the appointments: ' + response);
+            }
+        );
     };
 
 }]);
