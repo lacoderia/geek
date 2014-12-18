@@ -6,7 +6,7 @@ Geek.factory('ReviewsService', ["$http", "$q", "DEFAULT_VALUES", function($http,
         var deferred = $q.defer();
         var promise = deferred.promise;
 
-        /*$http.get(DEFAULT_VALUES.URL_SERVICES.COUNTY_SERVICE_URL).
+        $http.post(DEFAULT_VALUES.URL_SERVICES.REVIEW_SEND_URL, review).
             success(function(data){
                 deferred.resolve(data);
             }).
@@ -15,9 +15,7 @@ Geek.factory('ReviewsService', ["$http", "$q", "DEFAULT_VALUES", function($http,
                 deferred.reject(response);
             });
 
-        return promise*/
-
-        return review;
+        return promise;
     };
 
     return{

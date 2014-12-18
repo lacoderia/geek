@@ -1842,6 +1842,25 @@ footer{
       margin-bottom: 0.5em;
     }
 
+    .score-table {
+      td {
+        font-size: 14px;
+        padding-top: 5px;
+      }
+
+      .score {
+        .star-empty {
+          color: $color-search-medium-blue;
+          cursor: pointer;
+        }
+
+        .star-full {
+          color: $color-search-dark-blue;
+          cursor: pointer;
+        }
+      }
+    }
+
     table{
       width: 100%;
     }

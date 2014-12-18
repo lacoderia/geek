@@ -12,6 +12,7 @@
           <span class="messages-alert" ng-show="newConversationMessages">{{ newConversationMessages }}</span>
           <a ui-sref=".messages" title="Mensajes" class="text-color-dark-blue" translate="{{ 'MESSAGES' }}"></a>
         </li>
+        <li><a title="{{ 'CHOOSE_LANGUAGE' | translate }}" ng-click="toggleLanguage()" translate="ENGLISH_SPANISH"></a></li>
         <li class="dropdown"><a title="Perfil" class="dropdown-toggle" data-toggle="dropdown" type="button"><span ng-bind="userName"></span> <span class="caret"></span>
         </a>
           <ul class="dropdown-menu" role="menu">
