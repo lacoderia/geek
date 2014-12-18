@@ -29,11 +29,14 @@ json.set! :tutors do
     json.set! :reviews do
       json.set! :comments do
         json.array!(tutor.reviews) do |review|
-          json.description review.description if review.visible
-          json.set! :student do
-            json.first_name review.student.first_name
-            json.last_name review.student.last_name
-            json.picture_url review.student.picture_url
+          if review.visible
+            json.description review.description
+            json.timestamp review.created_at
+            json.set! :student do
+              json.first_name review.student.first_name
+              json.last_name review.student.last_name
+              json.picture_url review.student.picture_url
+            end
           end
         end
       end
@@ -80,11 +83,14 @@ json.set! :suggested_tutors do
     json.set! :reviews do
       json.set! :comments do
         json.array!(tutor.reviews) do |review|
-          json.description review.description if review.visible
-          json.set! :student do
-            json.first_name review.student.first_name
-            json.last_name review.student.last_name
-            json.picture_url review.student.picture_url
+          if review.visible
+            json.description review.description
+            json.timestamp review.created_at
+            json.set! :student do
+              json.first_name review.student.first_name
+              json.last_name review.student.last_name
+              json.picture_url review.student.picture_url
+            end
           end
         end
       end
