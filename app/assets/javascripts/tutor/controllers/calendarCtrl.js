@@ -491,8 +491,14 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
     $scope.showActionButtons = function(appointment, action){
 
         var actionAvailable = true;
-        if(action == 'send-message' || action == 'report-anomaly'){
+        if(action == 'send-message'){
             actionAvailable = true;
+        }else if(action == 'report-anomaly'){
+            if(!appointment.anomaly){
+                actionAvailable = true;
+            }else{
+                actionAvailable = false;
+            }
         }else{
             if($scope.compareCurrentDate(appointment.start)){
                 actionAvailable = true;

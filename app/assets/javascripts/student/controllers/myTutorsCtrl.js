@@ -1,9 +1,11 @@
 'use strict';
 
-Geek.controller('MyTutorsController',['$scope','$rootScope','$compile', '$translate', 'ReviewsService', 'SessionService', 'TutorService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $compile, $translate, ReviewsService, SessionService, TutorService, DEFAULT_VALUES){
+Geek.controller('MyTutorsController',['$scope','$rootScope','$compile', '$translate', 'MessageService', 'ReviewsService', 'SessionService', 'TutorService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $compile, $translate, MessageService, ReviewsService, SessionService, TutorService, DEFAULT_VALUES){
 
     $scope.tutorList = [];
+    $scope.appointmentButtons = DEFAULT_VALUES.APPOINTMENT_BUTTONS;
 
+    console.log($scope.appointmentButtons)
     /*
      * Obtiene la posición donde el usuario hizo click y abre el popup con la forma para calificar al tutor
      * */
@@ -56,6 +58,75 @@ Geek.controller('MyTutorsController',['$scope','$rootScope','$compile', '$transl
             function(response){
             }
         );
+    };
+
+    /*
+     * Cambia el status de un un appointment determinado
+     * */
+    $scope.callButtonAction = function($event,action,tutor){
+        $event.stopPropagation();
+
+        switch (action){
+            case 'review':
+                $scope.showReviewDetail($event, tutor);
+                break;
+            case 'send-message':
+                $scope.openModalMessage($event,tutor);
+                break;
+        }
+    };
+
+    $scope.openModalMessage = function($event,tutor){
+
+        var options = {
+            posX: $event.clientX,
+            posY: $event.pageY,
+            sendMessage: $scope.sendMessage
+        };
+
+        $scope.openMessage($event, tutor, options, DEFAULT_VALUES);
+
+
+    };
+
+    $scope.sendMessage = function(tutor, textMessage){
+
+        if(textMessage){
+
+            var message = {
+                tutor_id: tutor.id,
+                student_id: SessionService.getId(),
+                text: textMessage,
+                from_student: false
+            }
+
+            $scope.showSpinner();
+
+            MessageService.saveMessage(message).then(
+                function(data){
+                    if(data){
+                        $scope.hideSpinner();
+                        $scope.resetMessage();
+                        $scope.messageAlertMessagesParams = {
+                            type: 'success',
+                            message: 'El mensaje ha sido enviado con éxito',
+                            icon: true
+                        };
+                        $scope.setAlert($scope.messageAlertMessagesParams);
+                    }
+                },
+                function(response){
+                    $scope.messageAlertMessagesParams = {
+                        type: 'danger',
+                        message: 'Ocurrió un error an guardar el mensaje. Por favor, intenta de nuevo',
+                        icon: true
+                    };
+                    $scope.setAlert($scope.messageAlertMessagesParams);
+                    console.log('Error saving a message: ' + response);
+                }
+            );
+
+        }
     };
 
     $scope.getTutorList();

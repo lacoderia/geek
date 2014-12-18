@@ -8,8 +8,7 @@ every(30.minutes, 'finish_and_pay_appointments', :at => ['**:30', '**:00']) {
 
   # Marcar como completadas las clases que ya acabaron
 
-  #TODO: cancelar clases que siguen pendientes y ya deberían de haber empezado
-
+  pending_appointment = AppointmentStatus.find_by_code("0")
   confirmed_appointment = AppointmentStatus.find_by_code("3")
   completed_appointment = AppointmentStatus.find_by_code("6")
   valid_anomaly = RegisteredAnomalyStatus.find_by_code("1")
@@ -17,6 +16,11 @@ every(30.minutes, 'finish_and_pay_appointments', :at => ['**:30', '**:00']) {
   Appointment.where("appointments.appointment_status_id = ? AND appointments.end < ?", confirmed_appointment.id, Time.now).each do |appointment|
     appointment.update_attribute(:appointment_status_id, completed_appointment.id) 
   end
+  
+  # Cancelar - con nuevo status?- clases que siguen pendientes y no se han confirmado 
+  #Appointment.where("appointments.appointment_status_id = ? AND appointments.start < ?", pending_appointment.id, Time.now + 12.hour).each do |appointment|
+  # appointment.update_attribute(:appointment_status_id, nuevo_status.id) 
+  #end
 
   # Cobrar y pagar las clases sin anomalías, y pagar las que tengan anomalías resueltas
   Appointment.where("appointments.appointment_status_id = ? AND appointments.charged = ? AND appointments.paid = ? AND appointments.end < ?", completed_appointment.id, false, false, Time.now - 12.hour).each do |appointment|

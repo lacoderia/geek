@@ -15,9 +15,10 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
             'CONVERSATION_SERVICE_URL': 'messages/conversations.json',
             'MESSAGE_SAVE_SERVICE_URL': 'messages.json',
             'MESSAGES_BY_CONVERSATION_SERVICE_URL': 'messages/by_conversation.json',
-            'MARK_AS_SERVICE_URL': 'messages/mark_read.json',
-            'MY_TUTORS_SERVICE_URL': '/tutors/by_student.json',
-            'REVIEW_SEND_URL': "reviews.json"
+            'MARK_AS_SERVICE_URL': 'messages/mark_read.json',            
+            'REVIEW_SEND_URL': "reviews.json",
+            'PENDING_CONVERSATIONS_SERVICE_URL': 'messages/pending_conversations.json',
+            'MY_TUTORS_SERVICE_URL': '/tutors/by_student.json'
         },
         'HOURS': [  '00:00', '00:30', '01:00', '01:30', '02:00', '02:30', '03:00', '03:30',
             '04:00', '04:30', '05:00', '05:30', '06:00', '06:30', '07:00', '07:30',
@@ -73,7 +74,51 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                 class: 'appointment-status-completed',
                 icon_class: 'icon-accept'
             }
-        ]
+        ],
+        'APPOINTMENT_BUTTONS': {
+            'CONFIRM_BUTTON': {
+                'class': 'confirm-class',
+                'title': 'Confirmar clase',
+                'action': 'confirm',
+                'icon': 'icon-accept',
+                'text': 'Confirmar'
+            },
+            'CANCEL_BUTTON': {
+                'class': 'cancel-class',
+                'title': 'Cancelar clase',
+                'action': 'cancel',
+                'icon': 'icon-close',
+                'text': 'Cancelar'
+            },
+            'REJECT_BUTTON': {
+                'class': 'reject-class',
+                'title': 'Rechazar clase',
+                'action': 'reject',
+                'icon': 'icon-close',
+                'text': 'Rechazar'
+            },
+            'MESSAGE_BUTTON': {
+                'class': 'send-message',
+                'title': 'Enviar mensaje',
+                'action': 'send-message',
+                'icon': 'icon-bubble',
+                'text': 'Mensaje'
+            },
+            'ANOMALY_BUTTON': {
+                'class': 'report-class',
+                'title': 'Reportar clase',
+                'action': 'report-anomaly',
+                'icon': 'icon-alert',
+                'text': 'Reportar'
+            },
+            'REVIEW_BUTTON': {
+                'class': 'review-class',
+                'title': 'Calificar clase',
+                'action': 'review',
+                'icon': 'icon-review',
+                'text': 'Calificar'
+            }
+        },
     })
 
     .config(['$stateProvider','$urlRouterProvider', function($stateProvider, $urlRouterProvider){

@@ -34,6 +34,7 @@
     "APPOINTMENT_STATUS_CANCELLED_STUDENT": "Cancelled",
     "APPOINTMENT_STATUS_CANCELLED_TUTOR": "Cancelled",
     "APPOINTMENT_STATUS_COMPLETED": "Completed",
+    "CHOOSE_LANGUAGE": "Change language",
     "MESSAGES": "Messages",
     "MY_CALENDAR" : "My Calendar",
     "MY_HISTORY" : "My History",
