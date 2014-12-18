@@ -17,14 +17,17 @@
       </table>
       <table>
         <tbody>
-            <tr ng-repeat="tutor in tutorList" class="tutors-list-info-row" ng-click="showReviewDetail($event, tutor)">
+            <tr ng-repeat="tutor in tutorList" class="tutors-list-info-row">
                 <td class="tutor-info" ng-image-adjustment image-container="user_picture" image-src="{{ tutor.picture_url }}">
-                  {{ tutor.name }}
+                  {{ tutor.first_name }} {{ tutor.last_name }}
                 </td>
                 <td class="tutor-info">
-                    <div class="appointment-button">
-                      <a class="review-class" ng-click="showReviewDetail($event, tutor)">Calificar</a>
-                    </div>
+                  <div class="appointment-button" ng-hide="tutor.has_evaluation">
+                    <a class="review-class" ng-click="showReviewDetail($event, tutor)">Calificar</a>
+                  </div>
+                  <div ng-show="tutor.has_evaluation">
+                    {{ 'MY_TUTORS_REVIEWED' | translate }}
+                  </div>
                 </td>
             </tr>
         </tbody>
