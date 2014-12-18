@@ -130,7 +130,6 @@ Geek.controller('AppointmentHistoryController',['$scope','$rootScope','Appointme
 
       AnomalyService.reportAnomaly(reportedAnomaly).then(
         function(data){
-          console.log(data);
           appointment.anomaly = data;
         },
         function(response){
@@ -163,13 +162,7 @@ Geek.controller('AppointmentHistoryController',['$scope','$rootScope','Appointme
             appointment.month = startDate.getMonth();
             appointment.year = startDate.getYear() + $scope.START_YEAR;
             var statusId = appointment.status.id;
-            //appointment.status = DEFAULT_VALUES.APPOINTMENT_STATUS[appointment.status.code];
-            appointment.status = {
-                code: 6,
-                name: 'APPOINTMENT_STATUS_COMPLETED',
-                class: 'appointment-status-completed',
-                icon_class: 'icon-accept'
-            }
+            appointment.status = DEFAULT_VALUES.APPOINTMENT_STATUS[appointment.status.code];
             appointment.status.id = statusId;
 
             if(!appointment.address){
