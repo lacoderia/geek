@@ -4,8 +4,6 @@ Geek.controller('MyTutorsController',['$scope','$rootScope','$compile', '$transl
 
     $scope.tutorList = [];
     $scope.appointmentButtons = DEFAULT_VALUES.APPOINTMENT_BUTTONS;
-
-    console.log($scope.appointmentButtons)
     /*
      * Obtiene la posición donde el usuario hizo click y abre el popup con la forma para calificar al tutor
      * */
