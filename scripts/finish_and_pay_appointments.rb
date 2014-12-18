@@ -8,6 +8,8 @@ every(30.minutes, 'finish_and_pay_appointments', :at => ['**:30', '**:00']) {
 
   # Marcar como completadas las clases que ya acabaron
 
+  #TODO: cancelar clases que siguen pendientes y ya deberían de haber empezado
+
   confirmed_appointment = AppointmentStatus.find_by_code("3")
   completed_appointment = AppointmentStatus.find_by_code("6")
   valid_anomaly = RegisteredAnomalyStatus.find_by_code("1")

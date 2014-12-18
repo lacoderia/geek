@@ -183,8 +183,10 @@ class Tutor < ActiveRecord::Base
       result[sa.start.day].sort!
     end
 
-    # cuarto, quitar contra clases en request y en agendadas
-    appointments = tutor.appointments.where("EXTRACT(month from start) = ? AND EXTRACT(year from start) = ?", month, year)
+    confirmed_appointment = AppointmentStatus.find_by_code("3")
+    pending_appointment = AppointmentStatus.find_by_code("0")
+    # cuarto, quitar contra clases en request y agendadas
+    appointments = tutor.appointments.where("EXTRACT(month from start) = ? AND EXTRACT(year from start) = ? AND appointment_status_id in (?,?)", month, year, confirmed_appointment.id, pending_appointment.id)
     appointments.each do |appointment|
       dif_hour = appointment.end.hour - appointment.start.hour
       start_min = appointment.start.min > 0 ? 0.5 : 0.0
