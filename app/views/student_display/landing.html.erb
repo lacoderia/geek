@@ -8,6 +8,11 @@
 <% if @user %>
   <div id="user-data" data-email="<%= @user.email %>" data-first-name="<%= @user.first_name %>" data-last-name="<%= @user.last_name %>" data-uid="<%= @user.uid %>" data-token="<%= @user.token %>" data-refresh-token="<%= @user.refresh_token %>"></div>
 <% end %>
+
 <% if @login %>
   <div id="login-data" data-error="Usuario o contraseña incorrecta."></div>
+<% end %>
+
+<% if @error %>
+  <div id="error-data" data-error="Estudiante desactivado. Favor de ponerse en contacto con el administrador para más información."></div>
 <% end %>
