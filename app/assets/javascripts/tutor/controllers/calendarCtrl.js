@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeout', '$location', '$anchorScroll', 'AppointmentService', 'AvailabilityService', 'MessageService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $compile, $timeout, $location, $anchorScroll, AppointmentService, AvailabilityService, MessageService, DEFAULT_VALUES){
+Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter', '$timeout', '$location', '$anchorScroll', 'AppointmentService', 'AvailabilityService', 'MessageService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $compile, $filter, $timeout, $location, $anchorScroll, AppointmentService, AvailabilityService, MessageService, DEFAULT_VALUES){
 
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.MONTHS = DEFAULT_VALUES.MONTHS;
@@ -436,7 +436,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
                         $scope.resetMessage();
                         $scope.messageAlertMessagesParams = {
                             type: 'success',
-                            message: 'El mensaje ha sido enviado con éxito',
+                            message: $filter('translate')('SUCCESS_MODAL_APPOINTMENT_REQUEST_MESSAGE_SENT'),
                             icon: true
                         };
                         $scope.setAlert($scope.messageAlertMessagesParams);
@@ -445,7 +445,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
                 function(response){
                     $scope.messageAlertMessagesParams = {
                         type: 'danger',
-                        message: 'Ocurrió un error an guardar el mensaje. Por favor, intenta de nuevo',
+                        message: $filter('translate')('ERROR_MODAL_APPOINTMENT_REQUEST_MESSAGE_FAILED'),
                         icon: true
                     };
                     $scope.setAlert($scope.messageAlertMessagesParams);

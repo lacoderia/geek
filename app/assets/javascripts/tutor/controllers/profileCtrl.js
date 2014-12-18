@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", "$timeout", "$location", "$anchorScroll", "CategoryService", "CountyService", "ProfileService", function($scope, $rootScope, DEFAULT_VALUES, $timeout, $location, $anchorScroll, CategoryService, CountyService, ProfileService){
+Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeout", "$location", "$anchorScroll", "DEFAULT_VALUES", "CategoryService", "CountyService", "ProfileService", function($scope, $rootScope, $filter, $timeout, $location, $anchorScroll, DEFAULT_VALUES, CategoryService, CountyService, ProfileService){
 
     //Categories catalog
     $scope.parentCategories = [];
@@ -11,11 +11,11 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
     $scope.TOTAL_WEEKLY_CALENDAR_ROWS = DEFAULT_VALUES.TOTAL_WEEKLY_CALENDAR_ROWS;
     $scope.PROFILE_IMAGE = DEFAULT_VALUES.PROFILE_IMAGE;
     $scope.help = {
-        formation: '¡Cuéntanos un poco sobre ti! ¿Qué te hace un buen tutor? <br><br> Sé lo más detallado posible e incluye información relevante que te pueda diferenciar del resto detutores en la plataforma',
-        topics: 'Qué materias quieres enseñar en Geek? <br><br> Agrega una por una las materias que quisieras enseñar. Escribe el nombre de la materia, define una categoría a la que pertenece (Académico, Lenguas, Artes, Exámenes, y Computación) y fija un costo por hora. <br><br> Puedes ser tan específico o general como tu quieras',
-        preferences: '¿En qué modalidades puedes/quieres dar tus tutorías? Elige una o varias de las opciones: <ol type="i"><li>Casa tutor- las tutorías pueden ser en tu casa</li><li>Casa estudiante-estás dispuesto a ir a la casa de tus alumnos</li><li>Espacio público- puedes dar tus tutorías en un café, biblioteca, escuela o otro espacio público</li><li> En línea-puedes ofrecer dar tus clases en línea</li></ol>',
-        zones: '¿En qué zonas de la ciudad puedes/quieres dar tus tutorías? <br><br> Recuerda que los estudiantes van a buscar materias de interés por zonas particulares de la ciudad. Puedes elegir varias colonias específicas y/o delegaciones. <br><br> Mientras más detallado seas en tus preferencias, ¡mejor!',
-        availability: '¿En qué días y horarios estás disponible?<br><br> Elige tu disponibilidad default que se replicará para el resto de las semanas del calendario. <br><br> Recuerda que si quieres cambiar tu disponibilidad en semanas específicas, lo podrás hacer al terminareste perfil y entrar a tu calendario'
+        formation: $filter('translate')('HELP_FORMATION'),
+        topics: $filter('translate')('HELP_TOPICS'),
+        preferences: $filter('translate')('HELP_PREFERENCES'),
+        zones: $filter('translate')('HELP_ZONES'),
+        availability: $filter('translate')('HELP_AVAILABILITY')
     };
 
     $scope.tutorRequestAlertParams = undefined;
@@ -42,10 +42,8 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
     $scope.setZonesAvailabilities = function(){
         if($rootScope.tutor.preference.classLocation.office || $rootScope.tutor.preference.classLocation.student_place || $rootScope.tutor.preference.classLocation.public){
             $scope.zonesAvailable = true;
-            console.log(true)
         }else{
             $scope.zonesAvailable = false;
-            console.log(false)
         }
     }
 
@@ -183,7 +181,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
 
                         $scope.tutorRequestAlertParams = {
                             type: 'success',
-                            message: 'La solicitud fue enviada con éxito',
+                            message: $filter('translate')('SUCCESS_PROFILE_TUTOR_REQUEST'),
                             icon: true
                         };
 
@@ -192,7 +190,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
                 function(response){
                     $scope.tutorRequestAlertParams = {
                         type: 'danger',
-                        message: 'Ocurrió un error al enviar la actualización del perfil, por favor, intenta nuevamente',
+                        message: $filter('translate')('ERROR_PROFILE_TUTOR_UPDATE'),
                         icon: true
                     };
 
@@ -202,7 +200,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
         }else{
             $scope.tutorRequestAlertParams = {
                 type: 'danger',
-                message: 'Ocurrió un error al enviar la solicitud, por favor, intenta nuevamente',
+                message: $filter('translate')('ERROR_PROFILE_TUTOR_REQUEST'),
                 icon: true
             };
 
@@ -283,7 +281,8 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
                         $scope.updatedCalendar = true;
                         $scope.tutorProfileAlertParams = {
                             type: 'success',
-                            message: '¡Felicidades, ya quedó listo y guardado tu perfil! Siempre pordrás editarlo y ajustarlo desde la liga "Perfil" en la página de inicio.',                            icon: true
+                            message: $filter('translate')('ERROR_PROFILE_TUTOR_CONGRATULATIONS'),
+                            icon: true
                         };
                         $scope.calendarErrorClass = '';
                         $scope.calendarAlertMessagesParams = undefined;
@@ -292,7 +291,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
                 function(response){
                     $scope.tutorProfileAlertParams = {
                         type: 'danger',
-                        message: 'Ocurrió un error al guardar las preferencias de calendario.',
+                        message: $filter('translate')('ERROR_PROFILE_TUTOR_UPDATE_CALENDAR'),
                         icon: true
                     };
                     $scope.calendarErrorClass = 'border-error';
@@ -304,7 +303,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
             $scope.calendarErrorClass = 'border-error';
             $scope.calendarAlertMessagesParams = {
                 type: 'danger',
-                message: 'Las clases deben durar al menos 1 hora, por favor, selecciona al menos dos horarios contiguos.',
+                message: $filter('translate')('ERROR_PROFILE_TUTOR_MINIMUM_CLASS_DURATION'),
                 icon: true
             };
 
@@ -339,7 +338,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
                         $rootScope.tutor.picture_url = data.picture_url;
                         $scope.tutorProfileAlertParams = {
                             type: 'success',
-                            message: '¡Felicidades, ya quedó listo y guardado tu perfil! Siempre pordrás editarlo y ajustarlo desde la liga "Perfil" en la página de inicio.',
+                            message: $filter('translate')('ERROR_PROFILE_TUTOR_CONGRATULATIONS'),
                             icon: true
                         };
 
@@ -348,7 +347,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
                 function(response){
                     $scope.tutorProfileAlertParams = {
                         type: 'danger',
-                        message: 'Ocurrió un error al enviar la actualización del perfil, por favor, intenta nuevamente',
+                        message: $filter('translate')('ERROR_PROFILE_TUTOR_UPDATE'),
                         icon: true
                     };
 
@@ -365,7 +364,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "DEFAULT_VALUES", 
 
             $scope.tutorProfileAlertParams = {
                 type: 'danger',
-                message: 'Ocurrió un error al enviar la actualización del perfil, por favor, corrige los errores en la forma e intenta nuevamente',
+                message: $filter('translate')('ERROR_PROFILE_TUTOR_UPDATE'),
                 icon: true
             };
 

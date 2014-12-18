@@ -17,7 +17,6 @@ Geek.controller('ReviewsController',['$scope','$rootScope', '$timeout', 'Reviews
             function(data){
                 if(data){
                     $scope.reviews = data.reviews;
-                    console.log($scope.reviews);
                 }
 
             },

@@ -54,7 +54,7 @@ Geek.directive('ngModalDetail', ["$rootScope", "$timeout", "$window", "$document
                     scope.clickedAppointment.date = $filter('translate')(DEFAULT_VALUES.DAYS[appointment.day].title) + ', ' + appointment.numberDay + ' de ' + $filter('translate')(DEFAULT_VALUES.MONTHS[appointment.month]);
                     scope.clickedAppointment.time = 'De ' + appointment.startHour + ' a ' + appointment.endHour;
 
-                    scope.clickedAppointment.address = 'Dirección por confirmar';
+                    scope.clickedAppointment.address = $filter('translate')('POPUP_APPOINTMENT_DETAIL_DEFAULT_ADDRESS');
                     if(appointment.address.line1 || appointment.address.line2){
                         scope.clickedAppointment.address = '';
                         if(appointment.address.line1){

@@ -1,8 +1,8 @@
-Geek.filter('timestampTranslateFilter', function($translate, DEFAULT_VALUES){
-    return function(date, language){
+Geek.filter('timestampTranslateFilter', function($filter, $translate, DEFAULT_VALUES){
+    return function(date){
 
         var filteredDate = '';
-        var dateStr =  DEFAULT_VALUES.MONTHS[date.getMonth()] + ' ' + date.getDate() + ', ' + (date.getYear() + DEFAULT_VALUES.START_YEAR) + ' ' + date.getHours() + ':' + date.getMinutes();
+        var dateStr =  $filter('translate')(DEFAULT_VALUES.MONTHS[date.getMonth()]) + ' ' + date.getDate() + ', ' + (date.getYear() + DEFAULT_VALUES.START_YEAR) + ' ' + date.getHours() + ':' + date.getMinutes();
         var timeStr = date.getHours() + ':' + date.getMinutes();
         var now = new Date();
 
@@ -10,15 +10,15 @@ Geek.filter('timestampTranslateFilter', function($translate, DEFAULT_VALUES){
             return now.getDate() == date.getDate() && now.getMonth() == date.getMonth() && now.getFullYear() == date.getFullYear();
         };
 
-        switch (language){
-            case 'en':
+        switch ($translate.use()){
+            case 'en_US':
                 filteredDate = isToday(date)? 'Today ' + timeStr : dateStr ;
                 break;
-            case 'mx':
+            case 'es_MX':
                 filteredDate = isToday(date)? 'Hoy ' + timeStr : dateStr;
                 break;
             default :
-                filteredDate = isToday(date)? 'Today ' + timeStr : dateStr;
+                filteredDate = isToday(date)? 'Hoy ' + timeStr : dateStr;
                 break;
         }
 
