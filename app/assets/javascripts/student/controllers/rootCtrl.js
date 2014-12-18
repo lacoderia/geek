@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('RootController', ["$filter", "$scope", "$rootScope", "$timeout", "$translate", "DEFAULT_VALUES", "AuthService", "SessionService", "CountyService", "CategoryService", function($filter, $scope, $rootScope, $timeout, $translate, DEFAULT_VALUES, AuthService, SessionService, CountyService, CategoryService){
+Geek.controller('RootController', ["$filter", "$scope", "$rootScope", "$timeout", "$translate", "MessageService", "DEFAULT_VALUES", "AuthService", "SessionService", "CountyService", "CategoryService", function($filter, $scope, $rootScope, $timeout, $translate, MessageService, DEFAULT_VALUES, AuthService, SessionService, CountyService, CategoryService){
 
     //Variable que determina si el overlay es visible
     $rootScope.showOverlay = false;
@@ -20,6 +20,7 @@ Geek.controller('RootController', ["$filter", "$scope", "$rootScope", "$timeout"
     $scope.tutorResultListVisible = false;
 
     $scope.userName = $filter('translate')('USER_NAME');
+    $rootScope.newConversationMessages = 0;
 
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.HOURS = DEFAULT_VALUES.HOURS;
@@ -40,6 +41,15 @@ Geek.controller('RootController', ["$filter", "$scope", "$rootScope", "$timeout"
         }
     };
 
+    $scope.compareCurrentDate = function(date){
+        var now = new Date();
+        if(now <= date){
+            return true;
+        }else{
+            return false;
+        }
+    };
+
     $scope.$on('showResultList', function(){
         $scope.tutorResultListVisible = true;
     });
@@ -47,6 +57,15 @@ Geek.controller('RootController', ["$filter", "$scope", "$rootScope", "$timeout"
     $scope.$watch('SessionService.session', function(){
         if(AuthService.isAuthenticated()){
             $scope.userName = SessionService.getFirstName();
+
+            MessageService.getPendingConversationsByUserId(SessionService.getId()).then(
+                function(data){
+                    $rootScope.newConversationMessages = data.pending;
+                },
+                function(response){
+                    console.log('Error retrieving de number of pending conversations ' + response);
+                }
+            );
         }
     }, true);
 

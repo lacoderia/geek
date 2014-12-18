@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.directive('ngModalAnomaly', ["$timeout", "$window", "$document", "$filter", function($timeout, $window, $document, $filter){
+Geek.directive('ngModalAnomaly', ["$timeout", "$window", "$document", "$filter", "$rootScope", function($timeout, $window, $document, $filter, $rootScope){
     return{
         restrict: 'A',
         replace: true,

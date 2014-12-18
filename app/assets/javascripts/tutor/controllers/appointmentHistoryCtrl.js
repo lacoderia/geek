@@ -1,11 +1,70 @@
 'use strict';
 
-Geek.controller('AppointmentHistoryController',['$scope','$rootScope','AppointmentService', 'AnomalyService', 'DEFAULT_VALUES' ,function($scope, $rootScope, AppointmentService, AnomalyService, DEFAULT_VALUES){
+Geek.controller('AppointmentHistoryController',['$scope','$rootScope','AppointmentService', 'AnomalyService', 'MessageService', 'DEFAULT_VALUES' ,function($scope, $rootScope, AppointmentService, AnomalyService, MessageService, DEFAULT_VALUES){
 
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.MONTHS = DEFAULT_VALUES.MONTHS;
 
     $scope.appointmentsGroups = [];
+    $scope.appointmentButtons = DEFAULT_VALUES.APPOINTMENT_BUTTONS;
+    $scope.STATUS_BUTTONS_RELATION = {
+        '0' : {
+            'confirm' : false,
+            'cancel' : false,
+            'reject' : false,
+            'send-message' : true,
+            'review' : false,
+            'report-anomaly' : false
+        },
+        '1' : {
+            'confirm' : false,
+            'cancel' : false,
+            'reject' : false,
+            'send-message' : true,
+            'review' : false,
+            'report-anomaly' : false
+        },
+        '2' : {
+            'confirm' : false,
+            'cancel' : false,
+            'reject' : false,
+            'send-message' : true,
+            'review' : false,
+            'report-anomaly' : false
+        },
+        '3' : {
+            'confirm' : false,
+            'cancel' : false,
+            'reject' : false,
+            'send-message' : true,
+            'review' : false,
+            'report-anomaly' : false
+        },
+        '4' : {
+            'confirm' : false,
+            'cancel' : false,
+            'reject' : false,
+            'send-message' : true,
+            'review' : false,
+            'report-anomaly' : false
+        },
+        '5' : {
+            'confirm' : false,
+            'cancel' : false,
+            'reject' : false,
+            'send-message' : true,
+            'review' : false,
+            'report-anomaly' : false
+        },
+        '6' : {
+            'confirm' : false,
+            'cancel' : false,
+            'reject' : false,
+            'send-message' : true,
+            'review' : false,
+            'report-anomaly' : true
+        }
+    };
 
     $scope.showAnomalyDetail = function($event, appointment){
         $event.stopPropagation();
@@ -104,9 +163,14 @@ Geek.controller('AppointmentHistoryController',['$scope','$rootScope','Appointme
             appointment.month = startDate.getMonth();
             appointment.year = startDate.getYear() + $scope.START_YEAR;
             var statusId = appointment.status.id;
-            appointment.status = DEFAULT_VALUES.APPOINTMENT_STATUS[appointment.status.code];
+            //appointment.status = DEFAULT_VALUES.APPOINTMENT_STATUS[appointment.status.code];
+            appointment.status = {
+                code: 6,
+                name: 'APPOINTMENT_STATUS_COMPLETED',
+                class: 'appointment-status-completed',
+                icon_class: 'icon-accept'
+            }
             appointment.status.id = statusId;
-            appointment.buttons = new Array();
 
             if(!appointment.address){
                 appointment.address = appointment.address = {};
@@ -123,6 +187,141 @@ Geek.controller('AppointmentHistoryController',['$scope','$rootScope','Appointme
         }
 
         return appointments;
+    };
+
+    /*
+     * Cambia el status de un un appointment determinado
+     * */
+    $scope.callButtonAction = function($event,action,appointment){
+        $event.stopPropagation();
+
+        switch (action){
+            case 'cancel':
+            case 'confirm':
+            case 'reject':
+                if($scope.compareCurrentDate(appointment.start)){
+                    $scope.changeAppointmentStatus(action, appointment);
+                }else{
+                    $scope.showActionButtons(appointment,action);
+                }
+                break;
+            case 'report-anomaly':
+                $scope.showAnomalyDetail($event, appointment);
+                break;
+            case 'review':
+                break;
+            case 'send-message':
+                $scope.openModalMessage($event,appointment);
+                break;
+        }
+    };
+
+    $scope.openModalMessage = function($event,appointment){
+
+        if(appointment){
+
+            var options = {
+                posX: $event.clientX,
+                posY: $event.pageY,
+                sendMessage: $scope.sendMessage
+            };
+
+            $scope.openMessage($event, appointment, options, DEFAULT_VALUES);
+
+        }
+    };
+
+    $scope.sendMessage = function(appointment, textMessage){
+        if(appointment && textMessage){
+
+            var message = {
+                tutor_id: $rootScope.tutor.id,
+                student_id: appointment.student.id,
+                text: textMessage,
+                from_student: false
+            }
+
+            $scope.showSpinner();
+
+            MessageService.saveMessage(message).then(
+                function(data){
+                    if(data){
+                        $scope.hideSpinner();
+                        $scope.resetMessage();
+                        $scope.messageAlertMessagesParams = {
+                            type: 'success',
+                            message: 'El mensaje ha sido enviado con éxito',
+                            icon: true
+                        };
+                        $scope.setAlert($scope.messageAlertMessagesParams);
+                    }
+                },
+                function(response){
+                    $scope.messageAlertMessagesParams = {
+                        type: 'danger',
+                        message: 'Ocurrió un error an guardar el mensaje. Por favor, intenta de nuevo',
+                        icon: true
+                    };
+                    $scope.setAlert($scope.messageAlertMessagesParams);
+                    console.log('Error saving a message: ' + response);
+                }
+            );
+
+        }
+    };
+
+    /*
+     * Cambia el status de un un appointment determinado
+     * */
+    $scope.changeAppointmentStatus = function(action,appointment){
+
+        var status = '';
+
+        switch (action){
+            case 'cancel':
+                status = DEFAULT_VALUES.APPOINTMENT_STATUS[5];
+                break;
+            case 'confirm':
+                status = DEFAULT_VALUES.APPOINTMENT_STATUS[3];
+                break;
+            case 'reject':
+                status = DEFAULT_VALUES.APPOINTMENT_STATUS[2];
+                break;
+        }
+
+        AppointmentService.setAppointmentStatus(appointment.id, status.code).then(
+            function (data){
+                var statusId = appointment.status.id;
+                appointment.status = status;
+                appointment.status.id = statusId;
+            },
+            function (response){
+                console.log('Error setting appointment status: ' + response);
+            }
+        );
+
+    };
+
+    $scope.showActionButtons = function(appointment, action){
+
+        var actionAvailable = true;
+        if(action == 'send-message'){
+            actionAvailable = true;
+        }else if(action == 'report-anomaly'){
+            if(!appointment.anomaly){
+                actionAvailable = true;
+            }else{
+                actionAvailable = false;
+            }
+        }else{
+            if($scope.compareCurrentDate(appointment.start)){
+                actionAvailable = true;
+            }else{
+                actionAvailable = false;
+            }
+        }
+
+        return $scope.STATUS_BUTTONS_RELATION[appointment.status.code][action] && actionAvailable;
     };
 
     $scope.getPastAppointmentList();

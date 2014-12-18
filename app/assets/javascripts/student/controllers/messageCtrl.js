@@ -60,6 +60,15 @@ Geek.controller('MessageController',['$scope','$rootScope', '$timeout', '$filter
                                             message.read = true;
                                         }
                                     }
+
+                                    MessageService.getPendingConversationsByUserId(SessionService.getId()).then(
+                                        function(data){
+                                            $rootScope.newConversationMessages = data.pending;
+                                        },
+                                        function(response){
+                                            console.log('Error retrieving de number of pending conversations ' + response);
+                                        }
+                                    );
                                 },
                                 function(response){
                                     console.log("Error marking messages as read " + response);
@@ -91,8 +100,6 @@ Geek.controller('MessageController',['$scope','$rootScope', '$timeout', '$filter
                 from_student: true
             };
 
-            console.log(message)
-
             usSpinnerService.spin('send-message-spinner');
 
             MessageService.saveMessage(message).then(
@@ -102,7 +109,6 @@ Geek.controller('MessageController',['$scope','$rootScope', '$timeout', '$filter
                         $scope.selectedConversation.splice(0,0,data);
                         $scope.textMessage = '';
                         usSpinnerService.stop('send-message-spinner');
-                        console.log(data)
                     }
                 },
                 function(response){

@@ -5,16 +5,9 @@
     <table>
       <tr><td class="appointment-detail-content" ng-bind="clickedAppointment.start | dateTranslateFilter"></td></tr>
       <tr><td class="appointment-detail-content" ng-bind="clickedAppointment.time"></td></tr>
-      <tr><td class="appointment-detail-content" ng-bind="clickedAppointment.address"></td></tr>
       <tr><td class="appointment-detail-content">
         <span class="{{clickedAppointment.status.class}} {{clickedAppointment.status.icon_class}}"> {{ clickedAppointment.status.name | translate }}</span>
       </td></tr>
-      <td class="appointment-detail-content">
-        <div class="appointment-button">
-          <a ng-repeat="button in clickedAppointment.buttons" ng-class="button.class" title="button.title" ng-click="changeAppointmentStatus($event, button.action, clickedAppointment)">{{ button.text }}</a>
-        </div>
-      </td>
-      <tr><td class="appointment-detail-content" ng-bind="clickedAppointment.details"></td></tr>
     </table>
   </div>
   <div class="modal-detail-footer"></div>

@@ -357,7 +357,6 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
                     for(var availabilityIndex=0; availabilityIndex<$scope.weekAvailability.length; availabilityIndex++){
                         var availability = $scope.weekAvailability[availabilityIndex];
                         availability.month--;
-
                         $scope.setDayAvailability(availability);
                         $scope.setWeekAvailabilities();
                     }
