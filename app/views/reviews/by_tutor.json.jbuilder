@@ -12,6 +12,7 @@ json.set! :reviews do
 		grade_communication += review.grade_communication
 		if review.visible
 	  	json.description review.description
+	  	json.timestamp review.created_at
 	  	json.set! :student do
 	  		json.extract! review.student, :id, :first_name, :last_name, :picture_url
 	  	end
