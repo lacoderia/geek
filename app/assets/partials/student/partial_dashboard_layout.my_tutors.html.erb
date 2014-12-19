@@ -19,7 +19,14 @@
         <tbody>
             <tr ng-repeat="tutor in tutorList" class="tutors-list-info-row">
                 <td class="tutor-info" ng-image-adjustment image-container="user_picture" image-src="{{ tutor.picture_url }}">
-                  {{ tutor.first_name }} {{ tutor.last_name }}
+                    <div class="user_picture_container">
+                      <div class="user_picture">
+                        <img/>
+                      </div>
+                    </div>
+                    <div class="user_name">
+                      {{ tutor.first_name }} {{ tutor.last_name }}
+                    </div>
                 </td>
                 <td class="tutor-info">
                   <div class="appointment-button" ng-hide="tutor.has_evaluation">

@@ -56,7 +56,7 @@ Geek.controller('RootController', ["$filter", "$scope", "$rootScope", "$timeout"
 
     $scope.$watch('SessionService.session', function(){
         if(AuthService.isAuthenticated()){
-            $scope.userName = SessionService.getFirstName();
+            $scope.userName = SessionService.getFirstName() + " " + SessionService.getLastName();
 
             MessageService.getPendingConversationsByUserId(SessionService.getId()).then(
                 function(data){

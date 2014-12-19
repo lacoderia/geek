@@ -1061,13 +1061,19 @@
           display: inline-block;
           height: 50px;
           margin-right: 1%;
-          vertical-align: top;
+          vertical-align: middle;
           width: 50px;
 
           .user_picture{
             height: 50px;
             width: 50px;
           }
+        }
+
+        .user_name{
+          display: inline-block;
+          margin-left: 1em;
+          vertical-align: middle;
         }
       }
     }
