@@ -1209,10 +1209,22 @@ h3.section-title{
     font-size: 1.5em;
   }
 
-  ::-webkit-input-placeholder { color: $color-input-gray; }
-  ::-moz-placeholder { color: $color-input-gray; } /* firefox 19+ */
-  :-ms-input-placeholder { color: $color-input-gray; } /* ie */
-  input:-moz-placeholder { color: $color-input-gray; }
+  ::-webkit-input-placeholder {
+    color: $color-input-gray;
+    text-transform: uppercase;
+  }
+  ::-moz-placeholder {
+    color: $color-input-gray;
+    text-transform: uppercase;
+  } /* firefox 19+ */
+  :-ms-input-placeholder {
+    color: $color-input-gray;
+    text-transform: uppercase;
+  } /* ie */
+  input:-moz-placeholder {
+    color: $color-input-gray;
+    text-transform: uppercase;
+  }
 
   .form-group {
     text-align: center;

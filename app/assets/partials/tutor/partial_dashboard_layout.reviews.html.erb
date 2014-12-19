@@ -3,14 +3,14 @@
   <!-- Sección de listado de calificaciones vacío -->
   <div class="unavailable-message" ng-hide="reviews.reviews.length">
     <div class="unavailable-message-content">
-      <h3>Lo sentimos, aun no cuentas con ninguna calificación</h3>
+      <h3 translate="UNAVAILABLE_MESSAGE_REVIEWS"></h3>
     </div>
   </div>
 
   <!-- Sección de listado de calificaciones -->
   <div class="reviews-list" ng-show="reviews.reviews.length">
     <div class="score-average">
-      <span>Mi promedio: </span>
+      <span>{{ 'REVIEWS_MY_AVERAGE' | translate }}:</span>
       <span class="icon-star1" ng-class="reviews.grade >= 1 ? 'star-full': 'star-empty'"></span>
       <span class="icon-star1" ng-class="reviews.grade >= 2 ? 'star-full': 'star-empty'"></span>
       <span class="icon-star1" ng-class="reviews.grade >= 3 ? 'star-full': 'star-empty'"></span>

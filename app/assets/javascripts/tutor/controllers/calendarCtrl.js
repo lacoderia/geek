@@ -585,6 +585,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
                     if(indexDay >= firstDay && numberDay <= lastDay){
 
                         day = {
+                            'date': new Date(year,month,numberDay),
                             'day': new Date(year,month,numberDay).getDay(),
                             'numberDay': numberDay,
                             'isCurrentDay': $scope.isCurrentDay(year,month,numberDay),

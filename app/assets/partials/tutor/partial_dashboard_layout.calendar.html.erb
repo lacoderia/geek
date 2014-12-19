@@ -66,28 +66,28 @@
                     <tr class="week-list-title-row">
                         <th class="info-title" translate="TABLE_TITLE_TIME"></th>
                         <th class="info-title" translate="TABLE_TITLE_TUTOR"></th>
-                        <th class="info-title" translate="TABLE_TITLE_SUBJECT">Materia</th>
-                        <th class="info-title" translate="TABLE_TITLE_STATUS">Estatus</th>
-                        <th class="info-title" translate="TABLE_TITLE_ACTIONS">Acciones</th>
+                        <th class="info-title" translate="TABLE_TITLE_SUBJECT"></th>
+                        <th class="info-title" translate="TABLE_TITLE_STATUS"></th>
+                        <th class="info-title" translate="TABLE_TITLE_ACTIONS"></th>
                     </tr>
                 </thead>
             </table>
             <table ng-repeat="day in selectedWeek" class="week-list-day-row" ng-show="day.appointments.length">
               <thead>
                 <tr class="week-list-day-title-row">
-                  <th class="hidden-sm hidden-xs day-title" colspan="6">{{ DAYS[day.day].title | translate }}, {{ day.numberDay }} de {{ MONTHS[day.month] }}</th>
+                  <th class="hidden-sm hidden-xs day-title" colspan="6">{{ day.date | dateTranslateFilter }}</th>
                   <th class="hidden-md hidden-lg day-title" colspan="6">{{ DAYS[day.day].minTitle }}, {{ day.numberDay }}</th>
                 </tr>
               </thead>
               <tbody>
                 <tr ng-repeat="appointment in day.appointments" class="week-list-day-info-row" ng-click="showAppointmentDetail($event, appointment)">
-                  <td class="day-info">De {{ appointment.startHour }} a {{ appointment.endHour }}</td>
+                  <td class="day-info">{{ 'FROM' | translate }} {{ appointment.startHour }} {{ 'TO' | translate }} {{ appointment.endHour }}</td>
                   <td class="day-info">{{ appointment.student.first_name }} {{ appointment.student.last_name }}</td>
                   <td class="day-info">{{ appointment.subject }}</td>
                   <td class="day-info"><span ng-class="[appointment.status.class,appointment.status.icon_class]"> {{ appointment.status.name | translate }}</span></td>
                   <td class="day-info">
                     <div class="appointment-button">
-                      <a ng-repeat="button in appointmentButtons" ng-if="showActionButtons(appointment, button.action)" ng-class="[button.class, button.icon]" title=" {{ button.title }}" ng-click="callButtonAction($event, button.action, appointment)"> {{ button.text || translate }}</a>
+                      <a ng-repeat="button in appointmentButtons" ng-if="showActionButtons(appointment, button.action)" ng-class="[button.class, button.icon]" title=" {{ button.title }}" ng-click="callButtonAction($event, button.action, appointment)"> {{ button.text | translate }}</a>
                       <!--a ng-if="showActionButtons(appointment, appointmentButtons['ANOMALY_BUTTON'].action)" ng-class="[appointmentButtons['ANOMALY_BUTTON'].class, appointmentButtons['ANOMALY_BUTTON'].icon]" title=" {{ appointmentButtons['ANOMALY_BUTTON'].title }}" ng-click="callButtonAction($event, appointmentButtons['ANOMALY_BUTTON'].action, appointment)"> {{ appointmentButtons['ANOMALY_BUTTON'].text }}</a -->
                     </div>
                   </td>
@@ -103,8 +103,8 @@
               <tr>
                 <td class="week-day-title"></td>
                 <td class="week-day-title" ng-repeat="day in DAYS">
-                  <span class="hidden-sm hidden-xs">{{ day.title }}</span>
-                  <span class="hidden-md hidden-lg">{{ day.minTitle }}</span>
+                  <span class="hidden-sm hidden-xs">{{ day.title | translate }}</span>
+                  <span class="hidden-md hidden-lg">{{ day.minTitle | translate }}</span>
                 </td>
               </tr>
               </tbody>

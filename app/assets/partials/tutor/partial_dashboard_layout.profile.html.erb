@@ -1,59 +1,55 @@
 <div ng-controller="ProfileController">
 <div class="tutor-profile-container" ng-show="tutor && !tutor.request.sent">
-  <h2 class="section-title">Enviar solicitud</h2>
+  <h2 class="section-title" translate="TUTOR_PROFILE_REQUEST_SEND_TITLE"></h2>
   <ng-alert id="tutor-request-form" alert-params="tutorRequestAlertParams"></ng-alert>
-  <p class="section-message">
-    ¡Hola! Antes de crear un perfil completo como tutor en Geek deberás llenar una solicitud sencilla con
-    información básica. Una vez que hayas llenado y enviado esta solicitud, el equipo de Geek te contactará
-    en los próximos días paracontinuar con el proceso.
-  </p>
+  <p class="section-message" translate="TUTOR_PROFILE_REQUEST_SEND_DESCRIPTION"></p>
   <form name="tutorRequestForm" id="tutor_request_form" class="dashboard-form validation-form">
     <fieldset>
-      <legend>Información personal</legend>
+      <legend translate="TUTOR_PROFILE_SUBTITLE_PERSONAL"></legend>
       <div class="tutor_picture">
         <div class="profile_picture_container">
           <div class="profile_picture">
             <img src="">
           </div>
-          <div class="action-button-upload" ng-click="openProfilePictureSelector($event)">CAMBIAR FOTO</div>
+          <div class="action-button-upload" ng-click="openProfilePictureSelector($event)" translate="TUTOR_PROFILE_CHANGE_PICTURE"></div>
           <input type='file' accept="image/*" onchange="angular.element(this).scope().selectProfilePicture(this)" name="picture" enctype="multipart/form-data" runat="server" style="display: none"/>
         </div>
       </div>
       <div class="form-group" show-errors>
         <div class="left">
-          <label>Nombre:</label>
+          <label>{{ 'TUTOR_PROFILE_LABEL_NAME' | translate }}:</label>
         </div>
         <div class="right">
-          <input type="text" name="tutor_name" ng-model="tutor.firstName" class="form-input form-control" placeholder="NOMBRE" popover="{{tutorProfileForm.tutor_name.popoverMessage}}" popover-trigger="click" popover-animation="false" required/>
+          <input type="text" name="tutor_name" ng-model="tutor.firstName" class="form-input form-control" placeholder="{{ 'TUTOR_PROFILE_PLACEHOLDER_NAME' | translate }}" popover="{{tutorProfileForm.tutor_name.popoverMessage}}" popover-trigger="click" popover-animation="false" required/>
         </div>
       </div>
       <div class="form-group" show-errors>
         <div class="left">
-          <label>Apellido:</label>
+          <label>{{ 'TUTOR_PROFILE_LABEL_LAST_NAME' | translate }}:</label>
         </div>
         <div class="right">
-          <input type="text" name="tutor_last_name" ng-model="tutor.lastName" class="form-input form-control" placeholder="APELLIDO" popover="{{tutorProfileForm.tutor_last_name.popoverMessage}}" popover-trigger="click" popover-animation="false" required/>
+          <input type="text" name="tutor_last_name" ng-model="tutor.lastName" class="form-input form-control" placeholder="{{ 'TUTOR_PROFILE_PLACEHOLDER_LAST_NAME' | translate }}" popover="{{tutorProfileForm.tutor_last_name.popoverMessage}}" popover-trigger="click" popover-animation="false" required/>
         </div>
       </div>
 
       <div class="form-group" show-errors>
         <div class="left">
-          <label>Teléfono (Celular o fijo):</label>
+          <label>{{ 'TUTOR_PROFILE_LABEL_PHONE' | translate }}:</label>
         </div>
         <div class="right">
-          <input type="text" name="tutor_phone" ng-model="tutor.phone_number" ng-pattern="/^[0-9]+$/" ng-minlength="8" ng-maxlength="10" maxlength="10" class="form-input form-control" placeholder="TELÉFONO" popover="{{tutorProfileForm.tutor_phone.popoverMessage}}" popover-trigger="click" popover-animation="false" />
+          <input type="text" name="tutor_phone" ng-model="tutor.phone_number" ng-pattern="/^[0-9]+$/" ng-minlength="8" ng-maxlength="10" maxlength="10" class="form-input form-control" placeholder="{{ 'TUTOR_PROFILE_PLACEHOLDER_PHONE' | translate }}" popover="{{tutorProfileForm.tutor_phone.popoverMessage}}" popover-trigger="click" popover-animation="false" />
         </div>
       </div>
     </fieldset>
     <fieldset>
-      <legend>Información académica</legend>
+      <legend translate="TUTOR_PROFILE_SUBTITLE_ACADEMIC"></legend>
       <div class="form-group" show-errors>
         <div class="left">
-          <label><span class="icon-help icon-pointer" data-placement="top-left" data-content="{{ help.formation }}" data-trigger="click" html="true" bs-popover ></span> Formación y Experiencia:</label>
+          <label><span class="icon-help icon-pointer" data-placement="top-left" data-content="{{ help.formation }}" data-trigger="click" html="true" bs-popover ></span> {{ 'TUTOR_PROFILE_LABEL_BACKGROUND' | translate }}:</label>
         </div>
         <div class="right">
           <textarea name="tutor_studies" rows="10" ng-model="tutor.studies" class="form-textarea form-control"
-                    placeholder="Ej. Estudié Matemáticas Aplicadas en la Universidad Iberoamericana en México DF, con especialización en alemán, economía, y escritura. Estando ahí, fui tutor de estudiantes en todo, desde sumar y restar hasta cálculo diferencial e integral. Obtuve una Maestría en Artes en Enseñanza de Bard College en el '07. He estado dando tutoría desde hace 10 años, y de tiempo completo por más de 6. He tenido estudiantes entre las edades de 6 y 66 años, con un enfoque en los estudiantes de secundaria aunque estoy muy cómodo con cualquier curso de matemáticas."
+                    placeholder="{{ 'TUTOR_PROFILE_PLACEHOLDER_BACKGROUND' | translate }}"
                     popover="{{tutorProfileForm.tutor_studies.popoverMessage}}"
                     popover-trigger="focus"
                     popover-animation="false"
@@ -63,7 +59,7 @@
       </div>
       <div class="form-group" show-errors show-errors-params="tutor.topics" show-errors-validation-type="arrayLength">
         <div class="left">
-          <label><span class="icon-help icon-pointer" data-placement="top-left" data-content="{{ help.topics }}" data-trigger="click" html="true" bs-popover ></span> Temas:</label>
+          <label><span class="icon-help icon-pointer" data-placement="top-left" data-content="{{ help.topics }}" data-trigger="click" html="true" bs-popover ></span> {{ 'TUTOR_PROFILE_LABEL_TOPICS' | translate }}:</label>
         </div>
         <div class="right">
           <div>
@@ -77,9 +73,9 @@
                 <li role="presentation" ng-repeat="category in parentCategories"><a role="menuitem" tabindex="{{$index}}"  ng-click="selectCategory(category)">{{ category.name }}</a></li>
               </ul>
             </div>
-            <input type="text" placeholder="Ej. Álgebra" ng-model="selectedTopic.name" name="tutor_topic_name" class="form-input form-input-third form-control">
-            <input type="text" placeholder="Ej. 400" ng-model="selectedTopic.cost" name="tutor_topic_cost" class="form-input form-input-fifth form-control" ng-currency>
-            <a class="action-button action-button-medium-gray" ng-click="addTutorTopic()">Añadir</a>
+            <input type="text" placeholder="{{ 'TUTOR_PROFILE_PLACEHOLDER_TOPICS_NAME' | translate }}" ng-model="selectedTopic.name" name="tutor_topic_name" class="form-input form-input-third form-control">
+            <input type="text" placeholder="{{ 'TUTOR_PROFILE_PLACEHOLDER_TOPICS_PRICE' | translate }}" ng-model="selectedTopic.cost" name="tutor_topic_cost" class="form-input form-input-fifth form-control" ng-currency>
+            <a class="action-button action-button-medium-gray" ng-click="addTutorTopic()" translate="ADD"></a>
             <div id="tutor_topics" class="items-added-group">
               <div id="tutor_topic_{{$index}}" ng-repeat="tutorTopic in tutor.topics" class="item-added">{{tutorTopic.name}} - {{tutorTopic.cost | currency : '$'}}<span ng-click="removeTutorTopic($index)" class="icon-close close-item"></span></div>
             </div>
@@ -88,80 +84,78 @@
       </div>
     </fieldset>
     <div class="send-form">
-      <a class="action-button action-button-light-green" ng-click="submitTutorRequest()">Enviar solicitud</a>
+      <a class="action-button action-button-light-green" ng-click="submitTutorRequest()" translate="TUTOR_PROFILE_REQUEST_SEND"></a>
     </div>
   </form>
 </div>
 <div class="tutor-profile-container" ng-show="tutor && tutor.request.sent && !tutor.request.approved">
-  <h2 class="section-title">Solicitud enviada</h2>
+  <h2 class="section-title" translate="TUTOR_PROFILE_REQUEST_SEND_TITLE"></h2>
   <div>
-    <p class="section-message">
-      ¡Tu solicitud ha sido enviada! En poco tiempo alguien del equipo de Geek se pondrá en contacto contigo para continuar con el proceso. ¡Gracias!
-    </p>
+    <p class="section-message" translate="TUTOR_PROFILE_REQUEST_SENT_DESCRIPTION"></p>
   </div>
 </div>
 <div class="tutor-profile-container" ng-show="tutor && tutor.request.sent && tutor.request.approved">
-  <h2 class="section-title">Mi perfil</h2>
+  <h2 class="section-title" translate="TUTOR_PROFILE_TITLE"></h2>
   <ng-alert id="tutor-profile-form" alert-params="tutorProfileAlertParams"></ng-alert>
   <form name="tutorProfileForm" id="tutor_profile_form" class="dashboard-form validation-form">
     <fieldset>
-      <legend>Información personal</legend>
+      <legend translate="TUTOR_PROFILE_SUBTITLE_PERSONAL"></legend>
       <div class="tutor_picture">
         <div class="profile_picture_container">
           <div class="profile_picture">
             <img src="">
           </div>
-          <div class="action-button-upload" ng-click="openProfilePictureSelector($event)">CAMBIAR FOTO</div>
+          <div class="action-button-upload" ng-click="openProfilePictureSelector($event)" translate="TUTOR_PROFILE_CHANGE_PICTURE"></div>
           <input type="file" accept="image/*" onchange="angular.element(this).scope().selectProfilePicture(this)" name="picture" enctype="multipart/form-data" runat="server" style="display: none"/>
         </div>
       </div>
       <div class="form-group" show-errors>
         <div class="left">
-          <label>Nombre:</label>
+          <label>{{ 'TUTOR_PROFILE_LABEL_NAME' | translate }}:</label>
         </div>
         <div class="right">
-          <input type="text" name="tutor_name" ng-model="tutor.firstName" class="form-input form-control" placeholder="NOMBRE" popover="{{tutorProfileForm.tutor_name.popoverMessage}}" popover-trigger="click" popover-animation="false" required/>
+          <input type="text" name="tutor_name" ng-model="tutor.firstName" class="form-input form-control" placeholder="{{ 'TUTOR_PROFILE_PLACEHOLDER_NAME' | translate }}" popover="{{tutorProfileForm.tutor_name.popoverMessage}}" popover-trigger="click" popover-animation="false" required/>
         </div>
       </div>
       <div class="form-group" show-errors>
         <div class="left">
-          <label>Apellido:</label>
+          <label>{{ 'TUTOR_PROFILE_LABEL_LAST_NAME' | translate }}:</label>
         </div>
         <div class="right">
-          <input type="text" name="tutor_last_name" ng-model="tutor.lastName" class="form-input form-control" placeholder="APELLIDO" popover="{{tutorProfileForm.tutor_last_name.popoverMessage}}" popover-trigger="click" popover-animation="false" required/>
+          <input type="text" name="tutor_last_name" ng-model="tutor.lastName" class="form-input form-control" placeholder="{{ 'TUTOR_PROFILE_PLACEHOLDER_LAST_NAME' | translate }}" popover="{{tutorProfileForm.tutor_last_name.popoverMessage}}" popover-trigger="click" popover-animation="false" required/>
         </div>
       </div>
       <div class="form-group" show-errors>
         <div class="left">
-          <label>Teléfono  (Celular o fijo):</label>
+          <label>{{ 'TUTOR_PROFILE_LABEL_PHONE' | translate }}:</label>
         </div>
         <div class="right">
-          <input type="text" name="tutor_phone" ng-model="tutor.phone_number" ng-pattern="/^[0-9]+$/" ng-minlength="8" ng-maxlength="10" maxlength="10" class="form-input form-control" placeholder="TELÉFONO" popover="{{tutorProfileForm.tutor_phone.popoverMessage}}" popover-trigger="click" popover-animation="false" />
+          <input type="text" name="tutor_phone" ng-model="tutor.phone_number" ng-pattern="/^[0-9]+$/" ng-minlength="8" ng-maxlength="10" maxlength="10" class="form-input form-control" placeholder="{{ 'TUTOR_PROFILE_PLACEHOLDER_PHONE' | translate }}" popover="{{tutorProfileForm.tutor_phone.popoverMessage}}" popover-trigger="click" popover-animation="false" />
         </div>
       </div>
       <div class="form-group" show-errors>
         <div class="left">
-          <label>Sexo:</label>
+          <label>{{ 'TUTOR_PROFILE_LABEL_GENDER' | translate }}:</label>
         </div>
         <div class="right form-radio custom-radio">
           <div popover="{{tutorProfileForm.tutor_gender.popoverMessage}}" popover-trigger="click" popover-animation="false">
-            <input type="radio" id="tutor_gender_h" name="tutor_gender" placeholder="sexo" ng-model="tutor.gender" class="form-control" value="H" required>
-            <label for="tutor_gender_h">Hombre</label>
-            <input type="radio" id="tutor_gender_m" name="tutor_gender" placeholder="sexo" ng-model="tutor.gender" class="form-control" value="M" required>
-            <label for="tutor_gender_m">Mujer</label>
+            <input type="radio" id="tutor_gender_h" name="tutor_gender" placeholder="{{ 'TUTOR_PROFILE_LABEL_GENDER' | translate }}" ng-model="tutor.gender" class="form-control" value="H" required>
+            <label for="tutor_gender_h" translate="TUTOR_PROFILE_LABEL_GENDER_MALE"></label>
+            <input type="radio" id="tutor_gender_m" name="tutor_gender" placeholder="{{ 'TUTOR_PROFILE_LABEL_GENDER' | translate }}" ng-model="tutor.gender" class="form-control" value="M" required>
+            <label for="tutor_gender_m" translate="TUTOR_PROFILE_LABEL_GENDER_FEMALE"></label>
           </div>
         </div>
       </div>
     </fieldset>
     <fieldset>
-      <legend>Información académica</legend>
+      <legend translate="TUTOR_PROFILE_SUBTITLE_ACADEMIC"></legend>
       <div class="form-group" show-errors>
         <div class="left">
-          <label><span class="icon-help icon-pointer" data-placement="top-left" data-content="{{ help.formation }}" data-trigger="click" html="true" bs-popover ></span> Formación y Experiencia:</label>
+          <label><span class="icon-help icon-pointer" data-placement="top-left" data-content="{{ help.formation }}" data-trigger="click" html="true" bs-popover ></span> {{ 'TUTOR_PROFILE_LABEL_BACKGROUND' | translate }}:</label>
         </div>
         <div class="right">
           <textarea name="tutor_studies" rows="10" ng-model="tutor.studies" class="form-textarea form-control"
-                    placeholder="Ej. Estudié Matemáticas Aplicadas en la Universidad Iberoamericana en México DF, con especialización en alemán, economía, y escritura. Estando ahí, fui tutor de estudiantes en todo, desde sumar y restar hasta cálculo diferencial e integral. Obtuve una Maestría en Artes en Enseñanza de Bard College en el '07. He estado dando tutoría desde hace 10 años, y de tiempo completo por más de 6. He tenido estudiantes entre las edades de 6 y 66 años, con un enfoque en los estudiantes de secundaria aunque estoy muy cómodo con cualquier curso de matemáticas."
+                    placeholder="{{ 'TUTOR_PROFILE_PLACEHOLDER_BACKGROUND' | translate }}"
                     popover="{{tutorProfileForm.tutor_studies.popoverMessage}}"
                     popover-trigger="focus"
                     popover-animation="false"
@@ -171,7 +165,7 @@
       </div>
       <div class="form-group" show-errors show-errors-params="tutor.topics" show-errors-validation-type="arrayLength">
         <div class="left">
-          <label><span class="icon-help icon-pointer" data-placement="top-left" data-content="{{ help.topics }}" data-trigger="click" html="true" bs-popover ></span> Temas:</label>
+          <label><span class="icon-help icon-pointer" data-placement="top-left" data-content="{{ help.topics }}" data-trigger="click" html="true" bs-popover ></span> {{ 'TUTOR_PROFILE_LABEL_TOPICS' | translate }}:</label>
         </div>
         <div class="right">
           <div>
@@ -185,9 +179,9 @@
                     <li role="presentation" ng-repeat="category in parentCategories"><a role="menuitem" tabindex="{{$index}}"  ng-click="selectCategory(category)">{{ category.name }}</a></li>
                 </ul>
             </div>
-            <input type="text" placeholder="Ej. Algebra" ng-model="selectedTopic.name" name="tutor_topic_name" class="form-input form-input-third form-control">
-            <input type="text" placeholder="Ej. 400" ng-model="selectedTopic.cost" name="tutor_topic_cost" class="form-input form-input-fifth form-control" ng-currency>
-            <a class="action-button action-button-medium-gray" ng-click="addTutorTopic()">Añadir</a>
+            <input type="text" placeholder="{{ 'TUTOR_PROFILE_PLACEHOLDER_TOPICS_NAME' | translate }}" ng-model="selectedTopic.name" name="tutor_topic_name" class="form-input form-input-third form-control">
+            <input type="text" placeholder="{{ 'TUTOR_PROFILE_PLACEHOLDER_TOPICS_PRICE' | translate }}" ng-model="selectedTopic.cost" name="tutor_topic_cost" class="form-input form-input-fifth form-control" ng-currency>
+            <a class="action-button action-button-medium-gray" ng-click="addTutorTopic()" translate="ADD"></a>
             <div id="tutor_topics" class="items-added-group">
                 <div id="tutor_topic_{{$index}}" ng-repeat="tutorTopic in tutor.topics" class="item-added">{{tutorTopic.name}} - {{tutorTopic.cost | currency : '$'}}<span ng-click="removeTutorTopic($index)" class="icon-close close-item"></span></div>
             </div>
@@ -196,37 +190,37 @@
       </div>
     </fieldset>
     <fieldset>
-      <legend>Información de clases</legend>
+      <legend translate="TUTOR_PROFILE_SUBTITLE_CLASSES"></legend>
       <div class="form-group">
         <div class="form-group" show-errors="{'trigger':'change'}" show-errors-params="tutor.preference.classLocation" show-errors-validation-type="checkboxGroup">
           <div class="left">
-            <label><span class="icon-help icon-pointer" data-placement="top-left" data-content="{{ help.preferences }}" data-trigger="click" html="true" bs-popover ></span> Modalidad:</label>
+            <label><span class="icon-help icon-pointer" data-placement="top-left" data-content="{{ help.preferences }}" data-trigger="click" html="true" bs-popover ></span> {{ 'TUTOR_PROFILE_LABEL_CLASS_PREFERENCE' | translate }}:</label>
           </div>
 
         <div class="right form-radio custom-checkbox custom-checkbox-profile">
           <div popover="{{tutorProfileForm.tutor_class_mode.popoverMessage}}" popover-trigger="mouseenter" popover-animation="false">
             <input type="checkbox" id="tutor_class_mode_online" name="tutor_class_mode" ng-model="tutor.preference.classLocation.online" ng-change="changeClassLocation()" class="form-control">
-            <label for="tutor_class_mode_online">EN LÍNEA</label>
+            <label for="tutor_class_mode_online" translate="TUTOR_PROFILE_LABEL_CLASS_PREFERENCE_ONLINE"></label>
 
             <input type="checkbox" id="tutor_class_mode_tutor_home" name="tutor_class_mode" ng-model="tutor.preference.classLocation.office" ng-change="changeClassLocation()" class="form-control">
-            <label for="tutor_class_mode_tutor_home">EN MI CASA</label>
+            <label for="tutor_class_mode_tutor_home" translate="TUTOR_PROFILE_LABEL_CLASS_PREFERENCE_OFFICE"></label>
 
             <input type="checkbox" id="tutor_class_mode_student_home" name="tutor_class_mode" ng-model="tutor.preference.classLocation.student_place" ng-change="changeClassLocation()" class="form-control">
-            <label for="tutor_class_mode_student_home">EN CASA DEL ESTUDIANTE</label>
+            <label for="tutor_class_mode_student_home" translate="TUTOR_PROFILE_LABEL_CLASS_PREFERENCE_STUDENT"></label>
 
             <input type="checkbox" id="tutor_class_mode_public" name="tutor_class_mode" ng-model="tutor.preference.classLocation.public" ng-change="changeClassLocation()" class="form-control">
-            <label for="tutor_class_mode_public">PÚBLICA</label>
+            <label for="tutor_class_mode_public" translate="TUTOR_PROFILE_LABEL_CLASS_PREFERENCE_PUBLIC"></label>
           </div>
         </div>
 
         </div>
         <div class="form-group" ng-show="zonesAvailable">
           <div class="left">
-            <label><span class="icon-help icon-pointer" data-placement="top-left" data-content="{{ help.zones }}" data-trigger="click" html="true" bs-popover ></span> Zonas:</label>
+            <label><span class="icon-help icon-pointer" data-placement="top-left" data-content="{{ help.zones }}" data-trigger="click" html="true" bs-popover ></span> {{ 'TUTOR_PROFILE_LABEL_ZONE' | translate }}:</label>
           </div>
           <div class="right profile-zones">
             <angucomplete-alt-geek id="counties"
-                                   placeholder="EJ. CONDESA"
+                                   placeholder="{{ 'TUTOR_PROFILE_PLACEHOLDER_ZONE' | translate }}"
                                    pause="600"
                                    selected-object="selectedZone"
                                    local-data="counties"
@@ -238,7 +232,7 @@
                                    showerrors="true"
                                    object-validation="tutor.zones">
             </angucomplete-alt-geek>
-            <a class="action-button action-button-medium-gray" ng-click="addTutorZone()" ng-show="zonesAvailable">Añadir</a>
+            <a class="action-button action-button-medium-gray" ng-click="addTutorZone()" ng-show="zonesAvailable" translate="ADD"></a>
             <div id="tutor_zones" class="items-added-group">
               <div id="tutor_zone_{{$index}}" ng-repeat="tutorZone in tutor.zones" class="item-added">{{tutorZone.name}} <span ng-click="removeTutorZone($index)" class="icon-close close-item"></span></div>
             </div>
@@ -248,7 +242,7 @@
     </fieldset>
     <div class="calendar">
       <div class="left">
-        <label><span class="icon-help icon-pointer" data-placement="top-left" data-content="{{ help.preferences }}" data-trigger="click" html="true" bs-popover ></span> Disponibilidad:</label>
+        <label><span class="icon-help icon-pointer" data-placement="top-left" data-content="{{ help.preferences }}" data-trigger="click" html="true" bs-popover ></span> {{ 'TUTOR_PROFILE_LABEL_AVAILABILITY' | translate}}:</label>
       </div>
       <div class="right">
         <ng-alert-message alert-params="calendarAlertMessagesParams"></ng-alert-message>
@@ -281,7 +275,7 @@
       </div>
     </div>
     <div class="send-form">
-      <a class="action-button action-button-light-green" ng-click="submitTutorProfile()">Guardar</a>
+      <a class="action-button action-button-light-green" ng-click="submitTutorProfile()" translate="SAVE"></a>
     </div>
   </form>
 </div>
