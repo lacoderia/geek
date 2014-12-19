@@ -81,42 +81,42 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                 'title': 'Confirmar clase',
                 'action': 'confirm',
                 'icon': 'icon-accept',
-                'text': 'Confirmar'
+                'text': 'CONFIRMO'
             },
             'CANCEL_BUTTON': {
                 'class': 'cancel-class',
                 'title': 'Cancelar clase',
                 'action': 'cancel',
                 'icon': 'icon-close',
-                'text': 'Cancelar'
+                'text': 'CANCELO'
             },
             'REJECT_BUTTON': {
                 'class': 'reject-class',
                 'title': 'Rechazar clase',
                 'action': 'reject',
                 'icon': 'icon-close',
-                'text': 'Rechazar'
+                'text': 'REJECTO'
             },
             'MESSAGE_BUTTON': {
                 'class': 'send-message',
                 'title': 'Enviar mensaje',
                 'action': 'send-message',
                 'icon': 'icon-bubble',
-                'text': 'Mensaje'
+                'text': 'MESSAGEO'
             },
             'ANOMALY_BUTTON': {
                 'class': 'report-class',
                 'title': 'Reportar clase',
                 'action': 'report-anomaly',
                 'icon': 'icon-alert',
-                'text': 'Reportar'
+                'text': 'REPORTO'
             },
             'REVIEW_BUTTON': {
                 'class': 'review-class',
                 'title': 'Calificar clase',
                 'action': 'review',
                 'icon': 'icon-review',
-                'text': 'Calificar'
+                'text': 'REVIEWO'
             }
         },
     })

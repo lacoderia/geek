@@ -19,7 +19,7 @@
       <div class="user-personal-info">
         <div class="content">
           <h4 class="user-name">{{ conversation.student.first_name }} {{ conversation.student.last_name }}</h4>
-          <em class="timestamp">{{ conversation.timestamp | timestampTranslateFilter}}</em>
+          <em class="timestamp">{{ conversation.created_at | timestampTranslateFilter}}</em>
           <p class="user-last-message">{{ conversation.text }}</p>
           <div class="conversation-info">
             <div class="message-button">

@@ -90,7 +90,7 @@
                 <h4 class="user-name">{{ review.student.first_name }} {{ review.student.last_name }}</h4>
                 <p class="user-last-message">{{ review.description }}</p>
                 <div class="review-info">
-                  <em class="timestamp">{{ review.timestamp }}</em>
+                  <em class="timestamp">{{ review.timestamp | timestampTranslateFilter }}</em>
                 </div>
                 <div class="score">
                   <span class="icon-star1" ng-class="review.score >= 1 ? 'star-full': 'star-empty'"></span>
@@ -167,7 +167,7 @@
                 <h4 class="user-name">{{ review.user.name }}</h4>
                 <p class="user-last-message">{{ review.text }}</p>
                 <div class="review-info">
-                  <em class="timestamp">{{ review.timestamp }}</em>
+                  <em class="timestamp">{{ review.timestamp | timestampTranslateFilter }}</em>
                 </div>
                 <div class="score">
                   <span class="icon-star1" ng-class="review.score >= 1 ? 'star-full': 'star-empty'"></span>

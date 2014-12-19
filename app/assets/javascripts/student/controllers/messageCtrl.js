@@ -24,7 +24,6 @@ Geek.controller('MessageController',['$scope','$rootScope', '$timeout', '$filter
 
                 for(var conversationIndex=0; conversationIndex<$scope.conversations.length; conversationIndex++){
                     var conversation = $scope.conversations[conversationIndex];
-                    conversation.timestamp = new Date(conversation.created_at);
                 }
             },
             function(response){

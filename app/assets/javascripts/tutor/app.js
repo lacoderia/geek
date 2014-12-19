@@ -78,42 +78,42 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
                 'title': 'Confirmar clase',
                 'action': 'confirm',
                 'icon': 'icon-accept',
-                'text': 'Confirmar'
+                'text': 'CONFIRM'
             },
             'CANCEL_BUTTON': {
                 'class': 'cancel-class',
                 'title': 'Cancelar clase',
                 'action': 'cancel',
                 'icon': 'icon-close',
-                'text': 'Cancelar'
+                'text': 'CANCEL'
             },
             'REJECT_BUTTON': {
                 'class': 'reject-class',
                 'title': 'Rechazar clase',
                 'action': 'reject',
                 'icon': 'icon-close',
-                'text': 'Rechazar'
+                'text': 'REJECT'
             },
             'MESSAGE_BUTTON': {
                 'class': 'send-message',
                 'title': 'Enviar mensaje',
                 'action': 'send-message',
                 'icon': 'icon-bubble',
-                'text': 'Mensaje'
+                'text': 'MESSAGE'
             },
             'ANOMALY_BUTTON': {
                 'class': 'report-class',
                 'title': 'Reportar clase',
                 'action': 'report-anomaly',
                 'icon': 'icon-alert',
-                'text': 'Reportar'
+                'text': 'REPORT'
             },
             'REVIEW_BUTTON': {
                 'class': 'review-class',
                 'title': 'Calificar clase',
                 'action': 'review',
                 'icon': 'icon-review',
-                'text': 'Calificar'
+                'text': 'REVIEW'
             }
         },
     })
