@@ -103,10 +103,7 @@ Geek.controller('AppointmentHistoryController',['$scope','$rootScope','Appointme
                         var groupDateArray = groupDateKey.split('-');
                         var groupDate = new Date(parseInt(groupDateArray[0]), parseInt(groupDateArray[1])-1, parseInt(groupDateArray[2]));
                         var appointmentGroup = {
-                            numberDay: groupDate.getDate(),
-                            day: groupDate.getDay(),
-                            month: groupDate.getMonth(),
-                            year: groupDate.getYear(),
+                            date: groupDate.toString(),
                             appointments: $scope.getAppointments(data[groupIndex][groupDateKey])
                         };
                         $scope.appointmentsGroups.push(appointmentGroup);

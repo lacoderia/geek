@@ -1,36 +1,36 @@
 <div class="tutor-calendar-container">
-  <h2 class="section-title">Historial</h2>
+  <h2 class="section-title" translate="MY_HISTORY"></h2>
   <div class="appointment-history" ng-controller="AppointmentHistoryController as AppointmentHistoryCtrl">
     <div class="history-list-view-unavailable" ng-hide="appointmentsGroups.length">
       <div class="history-list-view-unavailable-content">
-        <h3>No tienes citas anteriores</h3>
+        <h3 translate="UNAVAILABLE_MESSAGE_APPOINTMENTS"></h3>
       </div>
     </div>
     <div class="history-list-view-row" ng-show="appointmentsGroups.length">
       <table>
         <thead>
             <tr class="history-list-title-row">
-              <th class="info-title">Horario</th>
-              <th class="info-title">Alumno</th>
-              <th class="info-title">Materia</th>
-              <th class="info-title">Estatus</th>
-              <th class="info-title">Acciones</th>
+              <th class="info-title" translate="TABLE_TITLE_TIME"></th>
+              <th class="info-title" translate="TABLE_TITLE_STUDENT"></th>
+              <th class="info-title" translate="TABLE_TITLE_SUBJECT"></th>
+              <th class="info-title" translate="TABLE_TITLE_STATUS"></th>
+              <th class="info-title" translate="TABLE_TITLE_ACTIONS"></th>
             </tr>
         </thead>
       </table>
       <table ng-repeat="appointmentGroup in appointmentsGroups" class="week-list-day-row" ng-show="appointmentGroup.appointments.length">
         <thead>
             <tr class="history-list-day-title-row">
-              <td class="hidden-sm hidden-xs day-title" colspan="6">{{ DAYS[appointmentGroup.day].title | translate }}, {{ appointmentGroup.numberDay }} de {{ MONTHS[appointmentGroup.month] | translate }}</td>
-              <td class="hidden-md hidden-lg day-title" colspan="6">{{ DAYS[appointmentGroup.day].minTitle | translate}}, {{ appointmentGroup.numberDay }}</td>
+              <td class="hidden-sm hidden-xs day-title" colspan="6">{{appointmentGroup.date | dateTranslateFilter}}</td>
+              <td class="hidden-md hidden-lg day-title" colspan="6">{{appointmentGroup.date | dateTranslateFilter}}</td>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="appointment in appointmentGroup.appointments" class="history-list-day-info-row" ng-click="showAppointmentDetail($event,appointment)">
-              <td class="day-info">De {{ appointment.startHour }} a {{ appointment.endHour }}</td>
+              <td class="day-info">{{ 'FROM' | translate }} {{ appointment.startHour }} {{ 'TO' | translate }} {{ appointment.endHour }}</td>
               <td class="day-info">{{ appointment.student.first_name }} {{ appointment.student.last_name }}</td>
               <td class="day-info">{{ appointment.subject }}</td>
-              <td class="day-info"><span ng-class="[appointment.status.class,appointment.status.icon_class]"> {{ appointment.status.name }}</span></td>
+              <td class="day-info"><span ng-class="[appointment.status.class,appointment.status.icon_class]"> {{ appointment.status.name | translate }}</span></td>
               <td class="day-info appointment-button">
                 <a ng-repeat="button in appointmentButtons" ng-if="showActionButtons(appointment, button.action)" ng-class="[button.class, button.icon]" title=" {{ button.title }}" ng-click="callButtonAction($event, button.action, appointment)"> {{ button.text | translate }}</a>
                 <!--a class="report-class" ng-click="showAnomalyDetail($event, appointment)" ng-show="!appointment.anomaly && appointment.status.code == 3">Reportar queja</a>

@@ -16,7 +16,7 @@ Geek.controller('ReviewsController',['$scope','$rootScope', '$timeout', 'Reviews
         ReviewsService.getReviews($rootScope.tutor.id).then(
             function(data){
                 if(data){
-                    $scope.reviews = data.reviews;
+                    $scope.reviews = data;
                 }
 
             },
