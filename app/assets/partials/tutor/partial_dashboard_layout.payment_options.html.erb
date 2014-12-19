@@ -1,0 +1,78 @@
+<div ng-controller="PaymentController">
+  <h2 class="section-title">{{ 'PAYMENT_OPTIONS' | translate}}</h2>
+  <ng-alert id="tutor-request-form" alert-params="tutorRequestAlertParams"></ng-alert>
+  <div class="tutor-profile-container">
+    <form name="tutorPaymentOptionsForm" id="tutor_payment_options_form" class="dashboard-form validation-form">
+      <fieldset>
+        <legend translate="PAYMENT_METHODS"></legend>
+        <div class="form-group">
+          <div class="form-radio custom-radio">
+            <div>
+              <input type="radio" id="payment_method_debit_card" name="payment_method_option" placeholder="Debit card" ng-change="changePaymentMethod()" ng-model="paymentMethodOption" class="form-control" value="0" required>
+              <label for="payment_method_debit_card" translate="DEBIT_CARD"></label>
+              <input type="radio" id="payment_method_bank_account" name="payment_method_option" placeholder="Bank account" ng-change="changePaymentMethod()" ng-model="paymentMethodOption" class="form-control" value="1" required>
+              <label for="payment_method_bank_account" translate="BANK_ACCOUNT"></label>
+            </div>
+          </div>
+        </div>
+        <div ng-if="paymentMethodOption == 0">
+          <div class="form-group">
+            <div class="left">
+              <label> {{ 'DEBIT_CARD_HOLDER_NAME' | translate }}:</label>
+            </div>
+            <div class="right">
+              <input type="text" name="debit_card_number" data-openpay-card="holder_name" ng-model="debitCardHolder"  class="form-input form-control" placeholder="NOMBRE EN LA TARJETA" popover="{{tutorProfileForm.tutor_phone.popoverMessage}}" popover-trigger="click" popover-animation="false" />
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="left">
+              <label>{{ 'DEBIT_CARD_NUMBER' | translate }}:</label>
+            </div>
+            <div class="right">
+              <input type="text" name="debit_card_number" data-openpay-card="card_number" ng-model="debitCardNumber" ng-pattern="/^[0-9]+$/" ng-minlength="16" ng-maxlength="16" maxlength="16" class="form-input form-control" placeholder="NÚMERO DE TARJETA DE DÉBITO" popover="{{tutorProfileForm.tutor_phone.popoverMessage}}" popover-trigger="click" popover-animation="false" />
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="left">
+              <label>Expira:</label>
+            </div>
+            <div class="right">
+
+              <div class="dropdown form-dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                  MES
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li role="presentation" ng-repeat="month in MONTHS"><a role="menuitem" tabindex="{{$index}}"  ng-click="">{{ $index < 9 ? '0' + ($index+1) : ($index+1) }}</a></li>
+                </ul>
+              </div>
+
+              <div class="dropdown form-dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                  Año
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li role="presentation" ng-repeat="year in availableYears"><a role="menuitem" tabindex="{{ year }}"  ng-click="">{{ year }}</a></li>
+                </ul>
+              </div>
+
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="left">
+              <label> {{ 'DEBIT_CARD_HOLDER_NAME' | translate }}:</label>
+            </div>
+            <div class="right">
+              <input type="text" name="debit_card_number" data-openpay-card="holder_name" ng-model="debitCardHolder"  class="form-input form-control" placeholder="NOMBRE EN LA TARJETA" popover="{{tutorProfileForm.tutor_phone.popoverMessage}}" popover-trigger="click" popover-animation="false" />
+            </div>
+          </div>
+        </div>
+        <div ng-if="paymentMethodOption == 1">
+          ENTRE
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>

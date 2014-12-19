@@ -72,6 +72,7 @@ Rails.application.config.assets.precompile += %w( tutor/controllers/appointmentH
 Rails.application.config.assets.precompile += %w( tutor/controllers/calendarCtrl.js )
 Rails.application.config.assets.precompile += %w( tutor/controllers/messageCtrl.js )
 Rails.application.config.assets.precompile += %w( tutor/controllers/navigationCtrl.js )
+Rails.application.config.assets.precompile += %w( tutor/controllers/paymentCtrl.js )
 Rails.application.config.assets.precompile += %w( tutor/controllers/profileCtrl.js )
 Rails.application.config.assets.precompile += %w( tutor/controllers/reviewsCtrl.js )
 Rails.application.config.assets.precompile += %w( tutor/controllers/rootCtrl.js )

@@ -316,7 +316,6 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
 
                     for(var hourIndex=0; hourIndex<$scope.HOURS.length; hourIndex++){
                         var timeObject = $scope.weekRows[hourIndex].halfHours[dayIndex];
-                        console.log(appointment.status.code)
                         if(!straightHourTime){
                             if(appointment.startHour == timeObject.startTime){
                                 if(appointment.status.code != 1 && appointment.status.code != 2 && appointment.status.code != 4 && appointment.status.code != 5){

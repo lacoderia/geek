@@ -150,6 +150,10 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
             .state('dashboard.reviews', {
                 url: "/reviews",
                 templateUrl: "/assets/tutor/partial_dashboard_layout.reviews.html"
+            })
+            .state('dashboard.payment-options', {
+                url: "/payment-options",
+                templateUrl: "/assets/tutor/partial_dashboard_layout.payment_options.html"
             });
     })
 
