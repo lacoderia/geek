@@ -12,10 +12,11 @@
           <span class="messages-alert" ng-show="newConversationMessages">{{ newConversationMessages }}</span>
           <a ui-sref=".messages" class="text-color-dark-blue" translate="MESSAGES"></a>
         </li>
-        <li class="dropdown"><a title="Perfil" class="dropdown-toggle" data-toggle="dropdown" type="button"><span ng-bind="userName"></span> <span class="caret"></span>
+        <li class="dropdown"><a title="{{ 'PROFILE' | translate }}" class="dropdown-toggle" data-toggle="dropdown" type="button"><span ng-bind="userName"></span> <span class="caret"></span>
         </a>
           <ul class="dropdown-menu" role="menu">
             <li role="presentation" ui-sref=".profile"><a role="menuitem"><span class="icon-user"></span> {{'PROFILE' | translate}}</a></li>
+            <li role="presentation" ui-sref=".payment-options"><a role="menuitem" translate="PAYMENT_OPTIONS"></a></li>
             <li><a title="{{ 'CHOOSE_LANGUAGE' | translate }}" ng-click="toggleLanguage()" translate="CHOOSE_LANGUAGE"></a></li>
             <li role="presentation"><a role="menuitem"  href="/logout" translate="SIGN_OUT"></a></li>
           </ul>

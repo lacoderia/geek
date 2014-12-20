@@ -1136,6 +1136,7 @@ h3.section-title{
   }
 }
 
+
 .custom-radio {
   /* Base for label styling */
   [type="radio"]:not(:checked),
@@ -1153,12 +1154,14 @@ h3.section-title{
   /* checkbox aspect */
   [type="radio"]:not(:checked) + label:before,
   [type="radio"]:checked + label:before {
+    background: $color-input-gray;
     content: '';
     position: absolute;
     left:0; top: 2px;
     width: 16px; height: 16px;
     border-radius: 8px;
   }
+
   /* checked mark aspect */
   [type="radio"]:not(:checked) + label:after,
   [type="radio"]:checked + label:after {
@@ -1195,6 +1198,12 @@ h3.section-title{
   [type="radio"]:checked:focus + label:before,
   [type="radio"]:not(:checked):focus + label:before {
     border: 1px dotted blue;
+  }
+
+  label {
+    color: $color-dark-gray;
+    margin-right: 2em;
+    text-transform: uppercase;
   }
 }
 
@@ -1434,6 +1443,29 @@ footer{
   img{
     max-width: 38px;
     width: 100%;
+  }
+}
+
+.form {
+
+  .left{
+    display: inline-block;
+    margin-right: 1%;
+    vertical-align: top;
+    text-align: right;
+    width: 18%;
+  }
+
+  .right, .left{
+    padding: 18px 0px;
+  }
+
+  .right{
+    display: inline-block;
+    vertical-align: top;
+    text-align: left;
+    width: 80%;
+    position: relative;
   }
 }
 
@@ -2337,6 +2369,51 @@ footer{
 
 .uppercase {
   text-transform: uppercase;
+}
+
+.validation-form {
+
+  .popover.top > .arrow{
+    left: 90% !important;
+  }
+
+  .form-group{
+    position: relative;
+  }
+
+  .has-error {
+    .form-input, .form-input-half, .form-textarea, .form-span{
+      border: solid 1px red;
+    }
+
+    [type="radio"]:not(:checked) + label:before,
+    [type="radio"]:checked + label:before {
+      border: solid 1px red;
+    }
+
+    [type="checkbox"]:not(:checked) + label:before,
+    [type="checkbox"]:checked + label:before {
+      border: solid 1px red;
+    }
+  }
+
+  .has-error:before{
+    background-color: $color-light-red;
+    border-radius: 50% 50%;
+    color: white;
+    content: "!";
+    font-size: 13px;
+    font-weight: 500;
+    display: inline-block;
+    height: 15px;
+    position: absolute;
+    right: 15px;
+    text-align: center;
+    top: 25px;
+    width: 15px;
+    z-index: 100;
+  }
+
 }
 
 

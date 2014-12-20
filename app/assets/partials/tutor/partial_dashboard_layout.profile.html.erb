@@ -1,5 +1,5 @@
 <div ng-controller="ProfileController">
-<div class="tutor-profile-container" ng-show="tutor && !tutor.request.sent">
+<div class="tutor-profile-container form" ng-show="tutor && !tutor.request.sent">
   <h2 class="section-title" translate="TUTOR_PROFILE_REQUEST_SEND_TITLE"></h2>
   <ng-alert id="tutor-request-form" alert-params="tutorRequestAlertParams"></ng-alert>
   <p class="section-message" translate="TUTOR_PROFILE_REQUEST_SEND_DESCRIPTION"></p>
@@ -88,13 +88,13 @@
     </div>
   </form>
 </div>
-<div class="tutor-profile-container" ng-show="tutor && tutor.request.sent && !tutor.request.approved">
+<div class="tutor-profile-container form" ng-show="tutor && tutor.request.sent && !tutor.request.approved">
   <h2 class="section-title" translate="TUTOR_PROFILE_REQUEST_SEND_TITLE"></h2>
   <div>
     <p class="section-message" translate="TUTOR_PROFILE_REQUEST_SENT_DESCRIPTION"></p>
   </div>
 </div>
-<div class="tutor-profile-container" ng-show="tutor && tutor.request.sent && tutor.request.approved">
+<div class="tutor-profile-container form" ng-show="tutor && tutor.request.sent && tutor.request.approved">
   <h2 class="section-title" translate="TUTOR_PROFILE_TITLE"></h2>
   <ng-alert id="tutor-profile-form" alert-params="tutorProfileAlertParams"></ng-alert>
   <form name="tutorProfileForm" id="tutor_profile_form" class="dashboard-form validation-form">

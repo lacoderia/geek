@@ -65,6 +65,7 @@ Rails.application.config.assets.precompile += %w( student/controllers/messageCtr
 Rails.application.config.assets.precompile += %w( student/controllers/myAppointmentsCtrl.js )
 Rails.application.config.assets.precompile += %w( student/controllers/myTutorsCtrl.js )
 Rails.application.config.assets.precompile += %w( student/controllers/navigationCtrl.js )
+Rails.application.config.assets.precompile += %w( student/controllers/paymentCtrl.js )
 Rails.application.config.assets.precompile += %w( student/controllers/rootCtrl.js )
 Rails.application.config.assets.precompile += %w( student/controllers/searchTutorCtrl.js )
 
