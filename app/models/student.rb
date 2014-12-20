@@ -4,6 +4,7 @@ class Student < ActiveRecord::Base
   has_many :reviews
   has_and_belongs_to_many :purchases
   has_many :appointments
+  has_many :cards
 
   # month, year, previous pueden ser nil. 
   def self.list_appointments_by_month_and_year student_id, month, year 
@@ -35,5 +36,15 @@ class Student < ActiveRecord::Base
     result.sort
   end
 
+  def self.register student_id
+    student = Student.find(student_id)
+    unless student.openpay_id?
+      result = Payment.create_student student
+      if result[:success] == true
+        student.update_attribute(:openpay_id, result[:result])
+      end
+    end
+    student.openpay_id
+  end
 
 end

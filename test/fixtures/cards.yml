@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  openpay_id: MyString
+  token_id: MyString
+  alias: MyString
+  student_id: 1
+  active: false
+
+two:
+  openpay_id: MyString
+  token_id: MyString
+  alias: MyString
+  student_id: 1
+  active: false
