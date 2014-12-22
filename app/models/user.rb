@@ -14,9 +14,20 @@ class User < ActiveRecord::Base
 
   has_many :sent_messages, :foreign_key => "sender_id", :class_name => "Message"
   has_many :received_messages, :foreign_key => "recipient_id", :class_name => "Message"
+  has_many :cards
 
   def role?(role)
     return !!self.roles.find_by_name(role)
+  end
+
+  def get_openpay_id 
+    unless self.openpay_id?
+      result = Payment.create_user self
+      if result[:success] == true
+        self.update_attribute(:openpay_id, result[:result])
+      end
+    end
+    self.openpay_id
   end
 
 end

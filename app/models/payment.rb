@@ -1,22 +1,22 @@
 class Payment
 
-  # Crea un estudiante en Openpay
+  # Crea un usuario en Openpay
   # Recibe:
-  # student - un objeto Student
+  # user - un objeto User
   # Regresa un hash:
   # success - true si la operación se realizó con éxito, false de lo contrario
   # result - el id del estudiante creado en Openpay
   # error - el mensaje de error si la operación falló
-  def self.create_student student
+  def self.create_user user
     op = set_openpay
     customers = op.create(:customers)
     request_hash = {
-      'external_id' => student.user.id,
-      "name" => student.first_name,
-      "last_name" => student.last_name,
-      "email" => student.email,
+      'external_id' => user.id,
+      "name" => user.first_name,
+      "last_name" => user.last_name,
+      "email" => user.email,
       "requires_account" => true,
-      "phone_number" => student.phone_number
+      "phone_number" => user.phone_number
     }
     result = {:success => true, :result => nil, :error => nil}
     begin
@@ -29,11 +29,11 @@ class Payment
     return result
   end
 
-  # Registra una tarjeta a un estudiante
+  # Registra una tarjeta a un usuario
   # Recibe:
-  # student_id - el id de openpay del estudiante
+  # user_id - el id de openpay del usuario
   # card_token - el token de la tarjeta de crédito/débito
-  def self.add_card student_id, card_token
+  def self.add_card user_id, card_token
     op = set_openpay
     cards = op.create(:cards)
     request_hash = {
@@ -41,7 +41,7 @@ class Payment
     }
     result = {:success => true, :result => nil, :error => nil}
     begin
-      result_hash = cards.create(request_hash, student_id)
+      result_hash = cards.create(request_hash, user_id)
       result[:result] = result_hash["id"]
     rescue => error
       result[:success] = false
@@ -69,35 +69,6 @@ class Payment
     result = {:success => true, :result => nil, :error => nil}
     begin
       result_hash = charges.create(request_hash, student_id)
-      result[:result] = result_hash["id"]
-    rescue => error
-      result[:success] = false
-      result[:error] = error
-    end
-    return result
-  end
-
-  # Crea un tutor en Openpay
-  # Recibe:
-  # tutor - un objeto  Tutor
-  # Regresa un hash:
-  # success - true si la operación se realizó con éxito, false de lo contrario
-  # result - el id del tutor creado en Openpay
-  # error - el mensaje de error si la operación falló
-  def self.create_tutor tutor
-    op = set_openpay
-    customers = op.create(:customers)
-    request_hash = {
-      'external_id' => tutor.user.id,
-      "name" => tutor.first_name,
-      "last_name" => tutor.last_name,
-      "email" => tutor.email,
-      "requires_account" => true,
-      "phone_number" => tutor.phone_number
-    }
-    result = {:success => true, :result => nil, :error => nil}
-    begin
-      result_hash = customers.create(request_hash)
       result[:result] = result_hash["id"]
     rescue => error
       result[:success] = false

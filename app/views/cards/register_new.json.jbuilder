@@ -1,2 +1,2 @@
-json.extract! @card, :id, :openpay_id, :token_id, :alias, :student_id, :active
+json.extract! @card, :id, :openpay_id, :alias, :active
 

@@ -1,14 +1,14 @@
 class Card < ActiveRecord::Base
-	belongs_to :student
+	belongs_to :user
 
-	def self.register_card student_id, token
-    student_openpay = Student.register(student_id)
-    result = Payment.add_card(student_openpay, token)
+	def self.register_card user, token
+    user_openpay_id = user.get_openpay_id
+    result = Payment.add_card(user_openpay_id, token)
     card = nil
     puts result.to_yaml
     if result[:success] == true
-    	Card.where("student_id = ?", student_id).update_all(:active => false)
-    	card = Card.create(:openpay_id => result[:result], :token_id => token, :student_id => student_id, :active => true)
+    	Card.where("user_id = ?", user.id).update_all(:active => false)
+    	card = Card.create(:openpay_id => result[:result], :user_id => user.id, :active => true)
     end
     card.to_yaml
     card

@@ -1,6 +1,5 @@
 class CardsController < ApplicationController
   before_action :set_card, only: [:show, :edit, :update, :destroy]
-  skip_before_filter :verify_authenticity_token, :only => [:register_new]
 
   # GET /cards
   # GET /cards.json
@@ -65,9 +64,15 @@ class CardsController < ApplicationController
   # Crea una tarjeta y la asocia a un usuario
   # Recibe:
   # student_id - el id del estudiante al que se registra la tarjeta
+  # tutor_id - el id del tutor al que se registra la tarjeta
   # token- el token de la tarjeta generado por Openpay
   def register_new
-  	@card = Card.register_card(params[:student_id], params[:token])
+  	if params[:tutor_id]
+      user = Tutor.find(params[:tutor_id]).user
+    elsif params[:student_id]
+      user = Student.find(params[:student_id]).user
+    end
+  	@card = Card.register_card(user, params[:token])
   end
 
   private
