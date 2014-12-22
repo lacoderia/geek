@@ -18,7 +18,6 @@ gem 'pg'
 gem 'devise'
 gem 'cancan'
 gem 'omniauth-facebook'
-#gem 'omniauth-twitter'
 gem 'omniauth-google-oauth2'
 gem 'google-api-client'
 gem 'openpay'
@@ -41,6 +40,8 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 
 gem 'bootstrap-sass', '~> 3.2.0'
+
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 
 #Use livereload for living changes
 group :development do

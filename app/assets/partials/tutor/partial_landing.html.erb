@@ -45,7 +45,7 @@
             <div class="modal-body">
               <div class="sign-up-container noselect" ng-show="selectedTab == 'signUp'">
                 <div class="form-button-gp" ng-hide="userData">
-                  <div ng-click="registerGooglePlus()">{{ 'MODAL_SIGN_UP_GOOGLE' | translate }}<span class="icon-googleplus"></span></div>
+                  <div ng-click="registerGooglePlus()">{{ 'MODAL_SIGN_UP_GOOGLE' | translate }}<span class="icon-google"></span></div>
                 </div>
                 <form name="signUpForm" id="tutor-form" class="validation-form" ng-show="userData" accept-charset="UTF-8" action="/users" method="post">
                   <div class="form-group" show-errors>
@@ -81,7 +81,7 @@
                 <label ng-show='loginError' ng-bind='loginError'></label>
                 <div ng-hide="userData">
                   <div class="form-button-gp">
-                    <div ng-click="registerGooglePlus()">{{ 'MODAL_SIGN_IN_GOOGLE' | translate }}<span class="icon-googleplus"></span></div>
+                    <div ng-click="registerGooglePlus()">{{ 'MODAL_SIGN_IN_GOOGLE' | translate }}<span class="icon-google"></span></div>
                   </div>
                   <div class="form-text">
                     o

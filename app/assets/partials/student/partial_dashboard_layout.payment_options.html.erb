@@ -1,17 +1,15 @@
 <div ng-controller="PaymentController">
   <h2 class="section-title">{{ 'PAYMENT_OPTIONS' | translate}}</h2>
   <ng-alert id="tutor-request-form" alert-params="tutorRequestAlertParams"></ng-alert>
-  <div class="tutor-profile-container form">
+  <div class="form">
     <form name="tutorPaymentOptionsForm" id="tutor_payment_options_form" class="dashboard-form validation-form">
       <fieldset>
         <legend translate="PAYMENT_METHODS"></legend>
         <div class="form-group">
-          <div class="form-radio custom-radio">
-            <div>
-              <input type="radio" id="payment_method_debit_card" name="payment_method_option" placeholder="Debit card" ng-change="changePaymentMethod()" ng-model="paymentMethodOption" class="form-control" value="0" required>
-              <label for="payment_method_debit_card" translate="DEBIT_CARD"></label>
-              <input type="radio" id="payment_method_bank_account" name="payment_method_option" placeholder="Bank account" ng-change="changePaymentMethod()" ng-model="paymentMethodOption" class="form-control" value="1" required>
-              <label for="payment_method_bank_account" translate="BANK_ACCOUNT"></label>
+          <div class="form-group">
+            <div class="left"></div>
+            <div class="right">
+              {{ 'PAYMENT_NO_METHODS' | translate }}
             </div>
           </div>
         </div>
@@ -21,7 +19,7 @@
               <label> {{ 'DEBIT_CARD_HOLDER_NAME' | translate }}:</label>
             </div>
             <div class="right">
-              <input type="text" name="debit_card_number" data-openpay-card="holder_name" ng-model="debitCardHolder"  class="form-input form-control" placeholder="NOMBRE EN LA TARJETA" popover="{{tutorProfileForm.tutor_phone.popoverMessage}}" popover-trigger="click" popover-animation="false" />
+              <input type="text" name="debit_card_holder" data-openpay-card="holder_name" ng-model="debitCardHolder"  class="form-input form-control" placeholder="NOMBRE EN LA TARJETA" popover="{{tutorProfileForm.tutor_phone.popoverMessage}}" popover-trigger="click" popover-animation="false" />
             </div>
           </div>
           <div class="form-group">
@@ -62,17 +60,17 @@
           </div>
           <div class="form-group">
             <div class="left">
-              <label> {{ 'DEBIT_CARD_HOLDER_NAME' | translate }}:</label>
+              <label> {{ 'PAYMENT_LABEL_VERIFICATION_NUMBER' | translate }}:</label>
             </div>
             <div class="right">
-              <input type="text" name="debit_card_number" data-openpay-card="holder_name" ng-model="debitCardHolder"  class="form-input form-control" placeholder="NOMBRE EN LA TARJETA" popover="{{tutorProfileForm.tutor_phone.popoverMessage}}" popover-trigger="click" popover-animation="false" />
+              <input type="text" name="debit_card_cvv" data-openpay-card="cvv2" ng-model="debitCardValidationNumber" ng-pattern="/^[0-9]+$/" ng-minlength="3" ng-maxlength="4" maxlength="4" class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_VERIFICATION_NUMBER' | translate }}" />
             </div>
           </div>
         </div>
-        <div ng-if="paymentMethodOption == 1">
-          ENTRE
-        </div>
       </fieldset>
+      <div class="send-form">
+        <a class="action-button action-button-light-green" ng-click="submitTutorProfile()" translate="SAVE"></a>
+      </div>
     </form>
   </div>
 </div>
