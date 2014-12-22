@@ -63,7 +63,7 @@ class Appointment < ActiveRecord::Base
 
     transferfunds = Payment.transfer_funds student_openpay_id, tutor_openpay_id, amount # (cantidad menos comisión de Openpay ?)
     collectfee = Payment.charge_fee tutor_openpay_id, (amount * ((100.0-fee_tutor)/100.0)) # (comisión de GEEK)
-    paytutor = Payment.pay_tutor openpay_id, account_id, (amount * ((fee_tutor)/100.0)) #(total a pagar después de la comisión de GEEK)
+    paytutor = Payment.pay_tutor tutor_openpay_id, account_id, (amount * ((fee_tutor)/100.0)) #(total a pagar después de la comisión de GEEK)
     # actualizar bandera de pagado
     self.update_attribute(:paid, true)
   end
