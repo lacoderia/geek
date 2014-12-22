@@ -48,6 +48,26 @@ class Appointment < ActiveRecord::Base
   	end
   end
 
+  # card_id = fuente
+  # acocunt_id = destino
+  def pay fee_student, fee_tutor
+    student_openpay_id = self.student.openpay_id 
+    tutor_openpay_id = self.tutor.openpay_id
+    card_id = self.student.cards.where("active = ?", true).first.id
+    account_id = self.tutor.cards.where("active = ?", true).first.id
+    amount = (self.cost * (fee_student/100)) 
+
+    chargestudent = Payment.charge_student student_openpay_id, card_id, amount # (total a cobrar del estudiante, con operanciones con fee_student)
+    #actualizar bandera de cobrado
+    self.update_attribute(:charged, true)
+
+    transferfunds = Payment.transfer_funds student_openpay_id, tutor_openpay_id, amount # (cantidad menos comisión de Openpay ?)
+    collectfee = Payment.charge_fee tutor_openpay_id, (amount * ((100-fee_tutor)/100)) # (comisión de GEEK)
+    paytutor = Payment.pay_tutor openpay_id, account_id, (amount * ((fee_tutor)/100)) #(total a pagar después de la comisión de GEEK)
+    # actualizar bandera de pagado
+    self.update_attribute(:paid, true)
+  end
+
   private
   def get_valid_anomalies
 		anomalies = self.registered_anomalies.select{ |anomaly| anomaly.registered_anomaly_status.code == 1}
