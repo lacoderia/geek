@@ -34,7 +34,6 @@
               <td class="day-info appointment-button">
                 <div class="appointment-button">
                   <a ng-repeat="button in appointmentButtons" ng-if="showActionButtons(appointment, button.action)" ng-class="[button.class, button.icon]" title=" {{ button.title }}" ng-click="callButtonAction($event, button.action, appointment)"> {{ button.text | translate}}</a>
-                  <a ng-if="showActionButtons(appointment, appointmentButtons['ANOMALY_BUTTON'].action)" ng-class="[appointmentButtons['ANOMALY_BUTTON'].class, appointmentButtons['ANOMALY_BUTTON'].icon]" title=" {{ appointmentButtons['ANOMALY_BUTTON'].title }}" ng-click="callButtonAction($event, appointmentButtons['ANOMALY_BUTTON'].action, appointment)"> {{ appointmentButtons['ANOMALY_BUTTON'].text | translate }}</a>
                 </div>
               </td>
             </tr>
