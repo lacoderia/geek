@@ -24,17 +24,19 @@
               <label> {{ 'PAYMENT_LABEL_DEBIT_CARD_HOLDER_NAME' | translate }}:</label>
             </div>
             <div class="right">
-              <input type="text" name="debit_card_holder" data-openpay-card="holder_name" ng-model="debitCardHolder"  class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_DEBIT_CARD_HOLDER_NAME' | translate }}" />
+              <input type="text" name="debit_card_holder" data-openpay-card="holder_name" ng-model="$parent.debitCardHolder"  class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_DEBIT_CARD_HOLDER_NAME' | translate }}" />
             </div>
           </div>
+
           <div class="form-group">
             <div class="left">
               <label>{{ 'PAYMENT_LABEL_DEBIT_CARD_NUMBER' | translate }}:</label>
             </div>
             <div class="right">
-              <input type="text" name="debit_card_number" data-openpay-card="card_number" ng-model="debitCardNumber" ng-minlength="16" ng-maxlength="16" maxlength="16" class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_DEBIT_CARD_NUMBER' | translate }}" />
+              <input type="text" name="debit_card_number" data-openpay-card="card_number" ng-model="$parent.debitCardNumber" ng-minlength="16" ng-maxlength="16" maxlength="16" class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_DEBIT_CARD_NUMBER' | translate }}" />
             </div>
           </div>
+
           <div class="form-group">
             <div class="left">
               <label>{{'PAYMENT_LABEL_EXPIRATION_DATE' | translate }}:</label>
@@ -73,8 +75,61 @@
             </div>
             <div class="right">
               <div class="small-input-container">
-                <input type="text" name="verification_number" data-openpay-card="cvv2" ng-model="debitCardValidationNumber" ng-maxlength="5" maxlength="5" class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_VERIFICATION_NUMBER' | translate }}" />
+                <input type="text" name="verification_number" data-openpay-card="cvv2" ng-model="$parent.debitCardValidationNumber" ng-maxlength="5" maxlength="5" class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_VERIFICATION_NUMBER' | translate }}" />
               </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="left">
+              <label> {{ 'PAYMENT_LABEL_ADDRESS' | translate }}:</label>
+            </div>
+            <div class="right">
+              <input type="text" name="address_line_1" data-openpay-card-address="line1" ng-model="$parent.addressLine1"  class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_ADDRESS' | translate }}" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="left"></div>
+            <div class="right">
+                <input type="text" name="address_number" data-openpay-card="line2" ng-model="$parent.addressLine2" class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_ADDRESS' | translate }}" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="left">
+              <label> {{ 'PAYMENT_LABEL_CITY' | translate }}:</label>
+            </div>
+            <div class="right">
+              <input type="text" name="city" data-openpay-card-address="city" ng-model="$parent.city"  class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_CITY' | translate }}" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="left">
+              <label> {{ 'PAYMENT_LABEL_STATE' | translate }}:</label>
+            </div>
+            <div class="right">
+              <div class="dropdown form-dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                  <span ng-if="state">{{ state }}</span>
+                  <span ng-if="!state" translate="STATE"></span>
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="setState()"><span translate="STATE"></span></a></li>
+                  <li role="presentation" ng-repeat="state in LIST_OF_STATES"><a role="menuitem" tabindex="{{ $index+1 }}"  ng-click="setState(state)">{{ state }}</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="left">
+              <label> {{ 'PAYMENT_LABEL_POSTAL_CODE' | translate }}:</label>
+            </div>
+            <div class="right">
+              <input type="text" name="postal_code" data-openpay-card-address="postal_code" ng-model="$parent.postalCode"  class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_POSTAL_CODE' | translate }}" />
             </div>
           </div>
 
@@ -105,7 +160,7 @@
               <label> {{ 'PAYMENT_LABEL_BANK_ACCOUNT_OWNER_NAME' | translate }}:</label>
             </div>
             <div class="right">
-              <input type="text" name="bank_account_owner" data-openpay-card="bank_account_owner" ng-model="bankAccountOwner"  class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_BANK_ACCOUNT_OWNER_NAME' | translate }}" />
+              <input type="text" name="bank_account_owner" data-openpay-card="bank_account_owner" ng-model="$parent.bankAccountOwner"  class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_BANK_ACCOUNT_OWNER_NAME' | translate }}" />
             </div>
           </div>
 
@@ -114,7 +169,7 @@
               <label> {{ 'PAYMENT_PLACEHOLDER_BANK_ACCOUNT_CLABE' | translate }}:</label>
             </div>
             <div class="right">
-              <input type="text" name="bank_account_clabe" data-openpay-card="bank_account_clabe" ng-model="clabe"  class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_BANK_ACCOUNT_CLABE' | translate }}" />
+              <input type="text" name="bank_account_clabe" data-openpay-card="bank_account_clabe" ng-model="$parent.debitCardHolder"  class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_BANK_ACCOUNT_OWNER_NAME' | translate }}" />
             </div>
           </div>
 

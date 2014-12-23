@@ -6,6 +6,8 @@ Geek.controller('PaymentController',['$scope','$rootScope', 'DEFAULT_VALUES' ,fu
     $scope.CARD_METHOD = 0;
     $scope.BANK_ACCOUNT_METHOD = 1;
     $scope.LIST_OF_BANKS = DEFAULT_VALUES.LIST_OF_BANKS;
+    $scope.LIST_OF_STATES = DEFAULT_VALUES.LIST_OF_STATES;
+    $scope.COUNTRY_CODE = 'MX';
 
     $scope.paymentMethodOption = $scope.CARD_METHOD;
     $scope.debitCardHolder = '';
@@ -13,7 +15,13 @@ Geek.controller('PaymentController',['$scope','$rootScope', 'DEFAULT_VALUES' ,fu
     $scope.expirationMonth = undefined;
     $scope.expirationYear = undefined;
     $scope.debitCardValidationNumber = undefined;
+    $scope.city = '';
+    $scope.postalCode = '';
+    $scope.addressLine1 = '';
+    $scope.addressLine2 = '';
+    $scope.state = undefined;
     $scope.availableYears = [];
+
     $scope.clabe = '';
     $scope.bankAccountOwner = '';
     $scope.bankName = undefined;
@@ -35,25 +43,26 @@ Geek.controller('PaymentController',['$scope','$rootScope', 'DEFAULT_VALUES' ,fu
                 "expiration_month": $scope.expirationMonth,
                 "cvv2": $scope.debitCardValidationNumber,
                 "address": {
-                    "city":"Querétaro",
-                    "line3":"Queretaro",
-                    "postal_code":"76900",
-                    "line1":"Av 5 de Febrero",
-                    "line2":"Roble 207",
-                    "state":"Queretaro",
-                    "country_code":"MX"
+                    "city": $scope.city,
+                    "line3":"",
+                    "postal_code": $scope.city,
+                    "line1": $scope.addressLine1,
+                    "line2": $scope.addressLine2,
+                    "state": $scope.state,
+                    "country_code": $scope.COUNTRY_CODE
                 }
             };
             console.log(card)
 
-            /*OpenPay.token.create(,
+            OpenPay.token.create(card,
                 function(data){
                     console.log(data);
                 },
                 function(response){
                     console.log(response);
                 }
-            );*/
+            );
+
         }else{
 
         }
@@ -73,6 +82,14 @@ Geek.controller('PaymentController',['$scope','$rootScope', 'DEFAULT_VALUES' ,fu
             $scope.expirationYear = year - 2000;
         }else{
             $scope.expirationYear = undefined;
+        }
+    };
+
+    $scope.setState = function(state){
+        if(state){
+            $scope.state = state;
+        }else{
+            $scope.state = undefined;
         }
     };
 
