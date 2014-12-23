@@ -45,7 +45,7 @@ Geek.controller('PaymentController',['$scope','$rootScope', 'DEFAULT_VALUES' ,fu
                 "address": {
                     "city": $scope.city,
                     "line3":"",
-                    "postal_code": $scope.city,
+                    "postal_code": $scope.postalCode,
                     "line1": $scope.addressLine1,
                     "line2": $scope.addressLine2,
                     "state": $scope.state,
@@ -105,6 +105,7 @@ Geek.controller('PaymentController',['$scope','$rootScope', 'DEFAULT_VALUES' ,fu
         OpenPay.setId(DEFAULT_VALUES.MERCHANT_ID);
         OpenPay.setApiKey(DEFAULT_VALUES.PUBLIC_KEY);
         OpenPay.setSandboxMode(true);
+
     });
 
 }]);

@@ -17,6 +17,8 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
             'MARK_AS_SERVICE_URL': 'messages/mark_read.json',
             'REVIEWS_SERVICE_URL': 'reviews/by_tutor.json',
             'PENDING_CONVERSATIONS_SERVICE_URL': 'messages/pending_conversations.json',
+            'OPENPAY_SANDBOX_API_URL': 'https://sandbox-api.openpay.mx',
+            'OPENPAY_API_URL': 'https://api.openpay.mx',
         },
         'HOURS': [  '00:00', '00:30', '01:00', '01:30', '02:00', '02:30', '03:00', '03:30',
                     '04:00', '04:30', '05:00', '05:30', '06:00', '06:30', '07:00', '07:30',
