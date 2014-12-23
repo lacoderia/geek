@@ -136,7 +136,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                             AuthService.getSession().then(
                                 function(data){
                                     if(data && data.id){
-                                        SessionService.createSession(data.id, data.email, data.first_name, data.last_name, data.gender, data.phone_number);
+                                        SessionService.createSession(data.id, data.email, data.first_name, data.last_name, data.gender, data.phone_number, data.picture_url);
                                         $state.go('dashboard.search-tutor');
 
                                     }else{
@@ -164,7 +164,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                             AuthService.getSession().then(
                                 function(data){
                                     if(data && data.id){
-                                        SessionService.createSession(data.id, data.email, data.first_name, data.last_name, data.gender, data.phone_number);
+                                        SessionService.createSession(data.id, data.email, data.first_name, data.last_name, data.gender, data.phone_number, data.picture_url);
                                         $state.go('dashboard.search-tutor');
 
                                     }else{
@@ -191,7 +191,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                             AuthService.getSession().then(
                                 function(data){
                                     if(data && data.id){
-                                        SessionService.createSession(data.id, data.email, data.first_name, data.last_name, data.gender, data.phone_number);
+                                        SessionService.createSession(data.id, data.email, data.first_name, data.last_name, data.gender, data.phone_number, data.picture_url);
                                         return true;
 
                                     }else{
@@ -218,7 +218,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                             AuthService.getSession().then(
                                 function(data){
                                     if(data && data.id){
-                                        SessionService.createSession(data.id, data.email, data.first_name, data.last_name, data.gender, data.phone_number);
+                                        SessionService.createSession(data.id, data.email, data.first_name, data.last_name, data.gender, data.phone_number, data.picture_url);
                                         return true;
 
                                     }else{
@@ -246,7 +246,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                             AuthService.getSession().then(
                                 function(data){
                                     if(data && data.id){
-                                        SessionService.createSession(data.id, data.email, data.first_name, data.last_name, data.gender, data.phone_number);
+                                        SessionService.createSession(data.id, data.email, data.first_name, data.last_name, data.gender, data.phone_number, data.picture_url);
                                         return true;
 
                                     }else{
@@ -274,7 +274,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                             AuthService.getSession().then(
                                 function(data){
                                     if(data && data.id){
-                                        SessionService.createSession(data.id, data.email, data.first_name, data.last_name, data.gender, data.phone_number);
+                                        SessionService.createSession(data.id, data.email, data.first_name, data.last_name, data.gender, data.phone_number, data.picture_url);
                                         return true;
 
                                     }else{
@@ -292,7 +292,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
 
             })
             .state('dashboard.profile', {
-                url: "/account",
+                url: "/profile",
                 templateUrl: "/assets/student/partial_dashboard_layout.profile.html",
                 resolve: {
                     isAuthenticated: function($state, AuthService, SessionService){

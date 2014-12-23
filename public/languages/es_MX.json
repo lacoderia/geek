@@ -60,7 +60,6 @@
     "ERROR_MODAL_APPOINTMENT_REQUEST_EMPTY_TOPIC": "Debes seleccionar un tema",
     "ERROR_PROFILE_TUTOR_MINIMUM_CLASS_DURATION": "Las clases deben durar al menos 1 hora, por favor, selecciona al menos dos horarios contiguos.",
     "ERROR_PROFILE_TUTOR_UPDATE_CALENDAR": "Ocurrió un error al guardar las preferencias de calendario.",
-    "ERROR_PROFILE_TUTOR_CONGRATULATIONS": "¡Felicidades, ya quedó listo y guardado tu perfil! Siempre pordrás editarlo y ajustarlo desde la liga 'Perfil' en la página de inicio.",
     "ERROR_PROFILE_TUTOR_REQUEST": "Ocurrió un error al enviar la solicitud, por favor, intenta nuevamente",
     "ERROR_PROFILE_TUTOR_UPDATE": "Ocurrió un error al enviar la actualización del perfil, por favor, intenta nuevamente",
     "GEEK_WARRANTY": "Garantía Geek",
@@ -157,6 +156,19 @@
     "STUDENT_HOW_STEP_4_TITLE": "Pasa tu examen de álgebra",
     "STUDENT_HOW_REVIEW_TEXT": "El tutor era un gran comunicador, muy paciente y excelente resolviendo problemas específicos.",
     "STUDENT_HOW_REVIEW_NAME": "- Lucero Lachica",
+
+
+    "STUDENT_PROFILE_CHANGE_PICTURE": "CAMBIAR FOTO",
+    "STUDENT_PROFILE_LABEL_NAME": "Nombre",
+    "STUDENT_PROFILE_LABEL_LAST_NAME": "Apellido",
+    "STUDENT_PROFILE_LABEL_PHONE": "Teléfono (Celular o fijo)",
+    "STUDENT_PROFILE_PLACEHOLDER_NAME": "Nombre",
+    "STUDENT_PROFILE_PLACEHOLDER_LAST_NAME": "Apellido",
+    "STUDENT_PROFILE_PLACEHOLDER_PHONE": "Teléfono",
+    "STUDENT_PROFILE_SUBTITLE_PERSONAL": "Información personal",
+    "STUDENT_PROFILE_TITLE": "Mi perfil",
+
+
     "STUDENT_WHAT_STEP_1": "Encuentra a  tu tutor ideal",
     "STUDENT_WHAT_STEP_2": "Agenda clases de manera ágil y sencilla",
     "STUDENT_WHAT_STEP_3": "Olvídate del proceso de pago",
@@ -164,7 +176,9 @@
     "STUDENT_WHAT_TITLE": "Geek te acerca a esa ayuda extra que necesitas",
     "SUCCESS_MODAL_APPOINTMENT_REQUEST_MESSAGE_SENT": "El mensaje ha sido enviado con éxito",
     "SUCCESS_MODAL_APPOINTMENT_REQUEST_SENT": "La cita fue agendada con éxito",
-    "SUCCESS_PROFILE_TUTOR_REQUEST": "La solicitud fue enviada con éxito",
+    "SUCCESS_STUDENT_PROFILE_CONGRATULATIONS": "¡Felicidades, ya quedó listo y guardado tu perfil! Siempre pordrás editarlo y ajustarlo desde la liga 'Perfil' en la página de inicio.",
+    "SUCCESS_TUTOR_PROFILE_CONGRATULATIONS": "¡Felicidades, ya quedó listo y guardado tu perfil! Siempre pordrás editarlo y ajustarlo desde la liga 'Perfil' en la página de inicio.",
+    "SUCCESS_TUTOR_PROFILE_REQUEST": "La solicitud fue enviada con éxito",
     "TABLE_TITLE_TIME": "Horario",
     "TABLE_TITLE_TUTOR": "Tutor",
     "TABLE_TITLE_SUBJECT": "Materia",

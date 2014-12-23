@@ -23,6 +23,7 @@ Rails.application.config.assets.precompile += %w( student/services/authService.j
 Rails.application.config.assets.precompile += %w( student/services/availabilityService.js )
 Rails.application.config.assets.precompile += %w( student/services/categoryService.js )
 Rails.application.config.assets.precompile += %w( student/services/countyService.js )
+Rails.application.config.assets.precompile += %w( student/services/profileService.js )
 Rails.application.config.assets.precompile += %w( student/services/reviewsService.js )
 Rails.application.config.assets.precompile += %w( student/services/sessionService.js )
 Rails.application.config.assets.precompile += %w( student/services/tutorService.js )
@@ -66,6 +67,7 @@ Rails.application.config.assets.precompile += %w( student/controllers/myAppointm
 Rails.application.config.assets.precompile += %w( student/controllers/myTutorsCtrl.js )
 Rails.application.config.assets.precompile += %w( student/controllers/navigationCtrl.js )
 Rails.application.config.assets.precompile += %w( student/controllers/paymentCtrl.js )
+Rails.application.config.assets.precompile += %w( student/controllers/profileCtrl.js )
 Rails.application.config.assets.precompile += %w( student/controllers/rootCtrl.js )
 Rails.application.config.assets.precompile += %w( student/controllers/searchTutorCtrl.js )
 
