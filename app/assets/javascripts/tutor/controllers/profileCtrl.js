@@ -181,7 +181,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
 
                         $scope.tutorRequestAlertParams = {
                             type: 'success',
-                            message: $filter('translate')('SUCCESS_PROFILE_TUTOR_REQUEST'),
+                            message: $filter('translate')('SUCCESS_TUTOR_PROFILE_REQUEST'),
                             icon: true
                         };
 
@@ -281,7 +281,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
                         $scope.updatedCalendar = true;
                         $scope.tutorProfileAlertParams = {
                             type: 'success',
-                            message: $filter('translate')('ERROR_PROFILE_TUTOR_CONGRATULATIONS'),
+                            message: $filter('translate')('SUCCESS_TUTOR_PROFILE_CONGRATULATIONS'),
                             icon: true
                         };
                         $scope.calendarErrorClass = '';
@@ -338,7 +338,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
                         $rootScope.tutor.picture_url = data.picture_url;
                         $scope.tutorProfileAlertParams = {
                             type: 'success',
-                            message: $filter('translate')('ERROR_PROFILE_TUTOR_CONGRATULATIONS'),
+                            message: $filter('translate')('SUCCESS_TUTOR_PROFILE_CONGRATULATIONS'),
                             icon: true
                         };
 

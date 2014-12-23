@@ -1,1 +1,47 @@
-PERFIL
+<div ng-controller="ProfileController">
+<div class="student-profile-container form">
+  <h2 class="section-title" translate="STUDENT_PROFILE_TITLE"></h2>
+  <ng-alert id="student-profile-form" alert-params="studentProfileAlertParams"></ng-alert>
+  <form name="studentProfileForm" id="student_profile_form" class="dashboard-form validation-form">
+    <fieldset>
+      <legend translate="STUDENT_PROFILE_SUBTITLE_PERSONAL"></legend>
+      <div class="student_picture">
+        <div class="profile_picture_container">
+          <div class="profile_picture">
+            <img src="">
+          </div>
+          <div class="action-button-upload" ng-click="openProfilePictureSelector($event)" translate="STUDENT_PROFILE_CHANGE_PICTURE"></div>
+          <input type="file" accept="image/*" onchange="angular.element(this).scope().selectProfilePicture(this)" name="picture" enctype="multipart/form-data" runat="server" style="display: none"/>
+        </div>
+      </div>
+      <div class="form-group" show-errors>
+        <div class="left">
+          <label>{{ 'STUDENT_PROFILE_LABEL_NAME' | translate }}:</label>
+        </div>
+        <div class="right">
+          <input type="text" name="student_name" ng-model="student.first_name" class="form-input form-control" placeholder="{{ 'STUDENT_PROFILE_PLACEHOLDER_NAME' | translate }}" popover="{{studentProfileForm.student_name.popoverMessage}}" popover-trigger="click" popover-animation="false" required/>
+        </div>
+      </div>
+      <div class="form-group" show-errors>
+        <div class="left">
+          <label>{{ 'STUDENT_PROFILE_LABEL_LAST_NAME' | translate }}:</label>
+        </div>
+        <div class="right">
+          <input type="text" name="student_last_name" ng-model="student.last_name" class="form-input form-control" placeholder="{{ 'STUDENT_PROFILE_PLACEHOLDER_LAST_NAME' | translate }}" popover="{{studentProfileForm.student_last_name.popoverMessage}}" popover-trigger="click" popover-animation="false" required/>
+        </div>
+      </div>
+      <div class="form-group" show-errors>
+        <div class="left">
+          <label>{{ 'STUDENT_PROFILE_LABEL_PHONE' | translate }}:</label>
+        </div>
+        <div class="right">
+          <input type="text" name="student_phone" ng-model="student.phone_number" ng-pattern="/^[0-9]+$/" ng-minlength="8" ng-maxlength="10" maxlength="10" class="form-input form-control" placeholder="{{ 'STUDENT_PROFILE_PLACEHOLDER_PHONE' | translate }}" popover="{{ProfileForm.student_phone.popoverMessage}}" popover-trigger="click" popover-animation="false" />
+        </div>
+      </div>
+    </fieldset>
+    <div class="send-form">
+      <a class="action-button action-button-light-green" ng-click="submitStudentProfile()" translate="SAVE"></a>
+    </div>
+  </form>
+</div>
+</div>
