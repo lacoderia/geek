@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  
+  resources :cards do
+    collection do
+      post 'register_new'
+    end
+  end
+
   resources :registered_anomaly_statuses
 
   resources :registered_anomalies do

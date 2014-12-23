@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Openpay:</strong>
+  <%= @card.openpay_id %>
+</p>
+
+<p>
+  <strong>Alias:</strong>
+  <%= @card.alias %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @card.user_id %>
+</p>
+
+<p>
+  <strong>Active:</strong>
+  <%= @card.active %>
+</p>
+
+<%= link_to 'Edit', edit_card_path(@card) %> |
+<%= link_to 'Back', cards_path %>

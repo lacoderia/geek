@@ -35,5 +35,4 @@ class Student < ActiveRecord::Base
     result.sort
   end
 
-
 end
