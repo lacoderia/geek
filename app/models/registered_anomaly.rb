@@ -70,12 +70,10 @@ class RegisteredAnomaly < ActiveRecord::Base
 
     self.appointment.update_attribute(:resolved_anomaly, true)
 
-    # TODO: Código para pagar
+    # Pagar el appointment
     if fee_student and fee_tutor and fee_student > 0 and fee_tutor > 0
-      self.appointment.update_attribute(:charged, true)
-      self.appointment.update_attribute(:paid, true)
+      self.appointment.pay fee_student, fee_tutor
     end
-    # ####
 
     self.appointment.registered_anomalies.where("id != ?", self.id).each do |ra|
       ra.update_attribute(:registered_anomaly_status_id, invalid_anomaly_status.id)
