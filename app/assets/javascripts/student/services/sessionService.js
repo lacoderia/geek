@@ -8,10 +8,11 @@ Geek.factory('SessionService', [function(){
         first_name: undefined,
         last_name: undefined,
         gender: undefined,
-        phone_number: undefined
+        phone_number: undefined,
+        picture_url: undefined
     };
 
-    var createSession = function(id, email, firstName, lastName, gender, phoneNumber){
+    var createSession = function(id, email, firstName, lastName, gender, phoneNumber, pictureUrl){
 
         session = {
             id: id,
@@ -19,7 +20,8 @@ Geek.factory('SessionService', [function(){
             first_name: firstName,
             last_name: lastName,
             gender: gender,
-            phone_number: phoneNumber
+            phone_number: phoneNumber,
+            picture_url: pictureUrl
         };
     };
 
@@ -69,6 +71,14 @@ Geek.factory('SessionService', [function(){
 
     var setPhoneNumber = function(phoneNumber){
         session.phone_number = phoneNumber;
+    };
+
+    var getPictureUrl = function(){
+        return session.picture_url;
+    };
+
+    var setPictureUrl = function(pictureUrl){
+        session.picture_url = pictureUrl;
     };
 
     var destroySession = function(){
