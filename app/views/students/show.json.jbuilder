@@ -1,1 +1,1 @@
-json.extract! @student, :id, :first_name, :last_name, :phone_number, :picture_url
+json.extract! @student, :id, :first_name, :last_name, :email, :gender, :phone_number, :picture_url
