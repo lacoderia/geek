@@ -1,1 +1,1 @@
-json.extract! @student, :id, :credits, :openpay_id, :created_at, :updated_at
+json.extract! @student, :id, :first_name, :last_name, :phone_number, :picture_url

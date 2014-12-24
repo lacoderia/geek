@@ -41,6 +41,15 @@ class StudentsController < ApplicationController
   # PATCH/PUT /students/1.json
   def update
     respond_to do |format|
+    
+      if params[:picture]
+        if @student.picture_id
+          Cloudinary::Api.delete_resources(["#{@student.picture_id}"])
+        end
+        image = Cloudinary::Uploader.upload(params[:picture], :width => 375, :height => 800, :crop => :limit)
+        @student.update_attributes({:picture_url => image["url"], :picture_id => image["public_id"]})
+      end
+
       if @student.update(student_params)
         format.html { redirect_to @student, notice: 'Student was successfully updated.' }
         format.json { render :show, status: :ok, location: @student }
@@ -78,6 +87,6 @@ class StudentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def student_params
-      params.require(:student).permit(:credits, :openpay_id)
+      params.permit(:first_name, :last_name, :phone_number)
     end
 end
