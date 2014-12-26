@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('PaymentController',['$filter', '$scope','$rootScope', 'DEFAULT_VALUES' ,function($filter, $scope, $rootScope, DEFAULT_VALUES){
+Geek.controller('PaymentController',['$filter', '$scope','$rootScope', '$timeout', '$location', '$anchorScroll', 'PaymentService', 'SessionService', 'DEFAULT_VALUES' ,function($filter, $scope, $rootScope, $timeout, $location, $anchorScroll, PaymentService, SessionService, DEFAULT_VALUES){
 
     $scope.MONTHS = DEFAULT_VALUES.MONTHS;
     $scope.LIST_OF_STATES = DEFAULT_VALUES.LIST_OF_STATES;
@@ -20,6 +20,19 @@ Geek.controller('PaymentController',['$filter', '$scope','$rootScope', 'DEFAULT_
 
     $scope.expirationErrorClass = '';
     $scope.stateErrorClass = '';
+
+    // TEST
+
+    $scope.debitCardHolder = 'Ricardo Rosas Schultz';
+    $scope.debitCardNumber = '4242424242424242';
+    $scope.expirationMonth = '10';
+    $scope.expirationYear = '15';
+    $scope.debitCardValidationNumber = '432';
+    $scope.city = 'Veracruz';
+    $scope.postalCode = '91940';
+    $scope.addressLine1 = 'Mango 26';
+    $scope.addressLine2 = 'Fraccionamiento Floresta';
+    $scope.state = 'Veracruz';
 
 
     var currentYear = new Date().getYear() + DEFAULT_VALUES.START_YEAR;
@@ -46,16 +59,20 @@ Geek.controller('PaymentController',['$filter', '$scope','$rootScope', 'DEFAULT_
     $scope.validateExpirationDate = function() {
         if(!$scope.expirationMonth || !$scope.expirationYear) {
             $scope.expirationErrorClass = 'has-error';
+            return false;
         } else {
             $scope.expirationErrorClass = '';
+            return true;
         }
     }
 
     $scope.validateState = function() {
         if(!$scope.state) {
             $scope.stateErrorClass = 'has-error';
+            return false;
         } else {
             $scope.stateErrorClass = '';
+            return true;
         }
     }
 
@@ -79,19 +96,65 @@ Geek.controller('PaymentController',['$filter', '$scope','$rootScope', 'DEFAULT_
                     "country_code": $scope.COUNTRY_CODE
                 }
             };
-
-            console.log(card);
         }
 
 
-        /*OpenPay.token.create(card,
+        OpenPay.token.create(card,
             function(data){
-                console.log(data);
+
+                var cardData = {
+                    'student_id': SessionService.getId(),
+                    'token': data.data.id
+                }
+
+                PaymentService.saveCard(cardData).then(
+                    function(data){
+                        if(data && data.id) {
+                            $scope.studentPaymentAlertParams = {
+                                type: 'success',
+                                message: $filter('translate')('SUCCESS_STUDENT_PAYMENT_METHOD_SAVE'),
+                                icon: true
+                            };
+
+                            $timeout(function(){
+                                $location.hash('student-payment-form');
+                                $anchorScroll();
+                            }, 0);
+                        }
+                    },
+                    function(response){
+
+                        $scope.studentPaymentAlertParams = {
+                            type: 'danger',
+                            message: $filter('translate')('ERROR_STUDENT_PAYMENT_METHOD_SAVE'),
+                            icon: true
+                        };
+
+                        $timeout(function(){
+                            $location.hash('student-payment-form');
+                            $anchorScroll();
+                        }, 0);
+
+                        console.log('Error saving students payment method: ' + response);
+                    }
+                );
+
             },
             function(response){
+                $scope.studentPaymentAlertParams = {
+                    type: 'danger',
+                    message: response.data.description,
+                    icon: true
+                };
+
+                $timeout(function(){
+                    $location.hash('student-payment-form');
+                    $anchorScroll();
+                }, 0);
+
                 console.log(response);
             }
-        );*/
+        );
 
     };
 

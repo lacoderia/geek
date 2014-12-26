@@ -23,6 +23,7 @@ Rails.application.config.assets.precompile += %w( student/services/authService.j
 Rails.application.config.assets.precompile += %w( student/services/availabilityService.js )
 Rails.application.config.assets.precompile += %w( student/services/categoryService.js )
 Rails.application.config.assets.precompile += %w( student/services/countyService.js )
+Rails.application.config.assets.precompile += %w( student/services/paymentService.js )
 Rails.application.config.assets.precompile += %w( student/services/profileService.js )
 Rails.application.config.assets.precompile += %w( student/services/reviewsService.js )
 Rails.application.config.assets.precompile += %w( student/services/sessionService.js )
