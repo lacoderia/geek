@@ -31,3 +31,12 @@
   r = confirm("Are you sure?")
   if r is true
     window.location.href = "#{path}?appointment_id=#{appointment_id}"
+
+@changeVisible = (review_id, activate) ->
+  $.ajax "/reviews/#{review_id}/activate?activate=#{activate}",
+    type: 'POST'
+    dataType: 'html'
+    error: (jqXHR, textStatus, errorThrown) ->
+      alert('Error. Intenta de nuevo.')
+    success: (data, textStatus, jqXHR) ->
+      $("#visible_link_#{review_id}").attr('onclick', "changeVisible(#{review_id}, #{!activate})")

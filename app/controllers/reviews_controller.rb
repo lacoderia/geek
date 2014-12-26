@@ -71,6 +71,17 @@ class ReviewsController < ApplicationController
     end
   end
 
+  def activate
+    review = Review.find(params[:id])
+    if review 
+      review.update_attribute(:visible, params[:activate])
+      render json: {:review => review}
+      return
+    else
+      render plain: "Error", status: 401
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_review

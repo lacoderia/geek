@@ -55,27 +55,31 @@ ActiveAdmin.register Appointment, :as => "Citas" do
       row :charged
       row :paid
       row :anomaly
-      table_for appointment.registered_anomalies do 
-        column 'Reported by' do |ra|
-          "#{ra.source.first_name} #{ra.source.last_name}" if ra.source
-        end
-        column 'Against' do |ra|
-          "#{ra.user.first_name} #{ra.user.last_name}"
-        end
-        column 'Type' do |ra|
-          "#{ra.anomaly.name}"
-        end
-        column 'Description' do |ra|
-          "#{ra.description}"
-        end
-        column 'Student Fee' do |ra|
-          "#{ra.fee_student}"
-        end
-        column 'Tutor Fee' do |ra|
-          "#{ra.fee_tutor}"
-        end
-        column 'Resolved' do |ra|
-          "#{ra.registered_anomaly_status.name}"
+      if appointment.registered_anomalies.count > 0
+        panel "Anomalies" do
+          table_for appointment.registered_anomalies do 
+            column 'Reported by' do |ra|
+              "#{ra.source.first_name} #{ra.source.last_name}" if ra.source
+            end
+            column 'Against' do |ra|
+              "#{ra.user.first_name} #{ra.user.last_name}"
+            end
+            column 'Type' do |ra|
+              "#{ra.anomaly.name}"
+            end
+            column 'Description' do |ra|
+              "#{ra.description}"
+            end
+            column 'Student Fee' do |ra|
+              "#{ra.fee_student}"
+            end
+            column 'Tutor Fee' do |ra|
+              "#{ra.fee_tutor}"
+            end
+            column 'Resolved' do |ra|
+              "#{ra.registered_anomaly_status.name}"
+            end
+          end
         end
       end
     end
@@ -106,7 +110,7 @@ END
 
       if f.object.anomaly and not f.object.resolved_anomaly
         f.form_buffers.last << "<table><thead><tr><th>Reported by</th><th>Against</th><th>Type</th><th>Description</th><th>Student Fee</th><th>Tutor Fee</th><th>Resolve</th></thead><tbody>".html_safe
-        f.has_many :registered_anomalies, :allow_destroy => false, :heading => 'Anomalías', :new_record => false do |cf|
+        f.has_many :registered_anomalies, :allow_destroy => false, :heading => 'Anomalies', :new_record => false do |cf|
           user = User.find(cf.object.user_id)
           anomaly = Anomaly.find(cf.object.anomaly_id)
           #Si tiene source
@@ -135,8 +139,8 @@ END
         f.form_buffers.last << "<a href='#' onclick='assign_other(#{f.object.id}, \"#{new_admin_anomalias_registrada_path}\")'>New Resolution</a>".html_safe
       elsif f.object.anomaly and f.object.resolved_anomaly
         f.form_buffers.last << "<table><thead><tr><th>Reported by</th><th>Against</th><th>Type</th><th>Description</th><th>Resolution</th></thead><tbody>".html_safe
-        f.has_many :registered_anomalies, :allow_destroy => false, :heading => 'Anomalías', :new_record => false do |cf|
-         source = User.find(cf.object.source_id)
+        f.has_many :registered_anomalies, :allow_destroy => false, :heading => 'Anomalies', :new_record => false do |cf|
+          source = User.find(cf.object.source_id)
           user = User.find(cf.object.user_id)
           anomaly = Anomaly.find(cf.object.anomaly_id)
           cf.form_buffers.last << "<tr><td>#{source.first_name} #{source.last_name}</td><td>#{user.first_name} #{user.last_name}</td><td>#{anomaly.name}</td><td>#{cf.object.description}</td><td>#{cf.object.registered_anomaly_status.name}</td></tr>".html_safe

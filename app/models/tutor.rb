@@ -15,6 +15,7 @@ class Tutor < ActiveRecord::Base
   has_many :specific_availabilities
   has_many :availabilities, through: :preference
   has_many :categories_tutors
+  accepts_nested_attributes_for :reviews
 
   after_create :set_default_preferences
 
