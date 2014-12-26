@@ -59,6 +59,9 @@ Rails.application.routes.draw do
     collection do
       get 'by_tutor'
     end
+    member do
+      post 'activate'
+    end
   end
 
   resources :bank_accounts
