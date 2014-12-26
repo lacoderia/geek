@@ -1305,7 +1305,6 @@ h3.section-title{
 }
 
 .dropdown{
-
   display: inline-block;
 
   a {
@@ -1320,6 +1319,7 @@ h3.section-title{
     padding: 0.3rem 1.5rem;
     text-transform: uppercase;
   }
+
 }
 
 .events{
@@ -1498,6 +1498,18 @@ footer{
 
 .icon-pointer{
   cursor: pointer;
+}
+
+.input-container-small{
+  display: inline-block;
+  vertical-align: top;
+  width: 90px !important;
+}
+
+.input-container-medium{
+  display: inline-block;
+  vertical-align: top;
+  width: 240px !important;
 }
 
 .input-message{
@@ -2153,12 +2165,6 @@ footer{
   padding: 2.5em 2em;
 }
 
-.small-input-container{
-  display: inline-block;
-  vertical-align: top;
-  width: 90px;
-}
-
 .text-color-black{
   color: black;
 }
@@ -2401,6 +2407,10 @@ footer{
     [type="checkbox"]:checked + label:before {
       border: solid 1px red;
     }
+
+    .dropdown-button {
+      border: solid 1px red;
+    }
   }
 
   .has-error:before{
@@ -2421,7 +2431,6 @@ footer{
   }
 
 }
-
 
 @media (min-width: $screen-sm-min) {
   .navbar{

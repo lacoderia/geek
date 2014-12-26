@@ -190,7 +190,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
                 function(response){
                     $scope.tutorRequestAlertParams = {
                         type: 'danger',
-                        message: $filter('translate')('ERROR_PROFILE_TUTOR_UPDATE'),
+                        message: $filter('translate')('ERROR_TUTOR_PROFILE_UPDATE'),
                         icon: true
                     };
 
@@ -200,7 +200,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
         }else{
             $scope.tutorRequestAlertParams = {
                 type: 'danger',
-                message: $filter('translate')('ERROR_PROFILE_TUTOR_REQUEST'),
+                message: $filter('translate')('ERROR_TUTOR_PROFILE_REQUEST'),
                 icon: true
             };
 
@@ -291,7 +291,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
                 function(response){
                     $scope.tutorProfileAlertParams = {
                         type: 'danger',
-                        message: $filter('translate')('ERROR_PROFILE_TUTOR_UPDATE_CALENDAR'),
+                        message: $filter('translate')('ERROR_TUTOR_PROFILE_UPDATE_CALENDAR'),
                         icon: true
                     };
                     $scope.calendarErrorClass = 'border-error';
@@ -303,7 +303,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
             $scope.calendarErrorClass = 'border-error';
             $scope.calendarAlertMessagesParams = {
                 type: 'danger',
-                message: $filter('translate')('ERROR_PROFILE_TUTOR_MINIMUM_CLASS_DURATION'),
+                message: $filter('translate')('ERROR_TUTOR_PROFILE_MINIMUM_CLASS_DURATION'),
                 icon: true
             };
 
@@ -347,7 +347,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
                 function(response){
                     $scope.tutorProfileAlertParams = {
                         type: 'danger',
-                        message: $filter('translate')('ERROR_PROFILE_TUTOR_UPDATE'),
+                        message: $filter('translate')('ERROR_TUTOR_PROFILE_UPDATE'),
                         icon: true
                     };
 
@@ -364,7 +364,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
 
             $scope.tutorProfileAlertParams = {
                 type: 'danger',
-                message: $filter('translate')('ERROR_PROFILE_TUTOR_UPDATE'),
+                message: $filter('translate')('ERROR_TUTOR_PROFILE_UPDATE'),
                 icon: true
             };
 

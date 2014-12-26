@@ -6,14 +6,14 @@ Geek.factory('ProfileService', ["$http", "$q", "DEFAULT_VALUES", function($http,
         var deferred = $q.defer();
         var promise = deferred.promise;
 
-        /*$http.put("/tutors/" + tutor.id + ".json", tutor).
+        $http.put("/students/" + student.id + ".json", student).
             success(function(data){
                 deferred.resolve(data);
             }).
 
             error(function(response){
                 deferred.reject(response);
-            });*/
+            });
 
         return promise
     };

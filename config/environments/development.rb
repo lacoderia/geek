@@ -17,6 +17,9 @@ Rails.application.configure do
   ENV['CLOUDINARY_SECRET'] = '4-P1g7NIPDQh0mlr0JfiW260Gs4'
   ENV['CLOUDINARY_NAME'] = 'hylpaitbl'
 
+  ENV['OPENPAY_CLIENT_ID'] = "mvqfexabrjznvdfpdter"
+  ENV['OPENPAY_CLIENT_SECRET'] = "sk_413a69afdc3f44789b32ebca111f44bf"
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on

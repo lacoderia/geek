@@ -1,6 +1,6 @@
 'use strict';
 
-var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-geek', 'ui.router', 'ui.bootstrap.showErrors', 'angular-ellipsis', 'pascalprecht.translate', 'angularSpinner'])
+var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-geek', 'ui.router', 'ui.bootstrap.showErrors', 'ui.bootstrap', 'angular-ellipsis', 'pascalprecht.translate', 'mgcrea.ngStrap', 'angularSpinner'])
 
     .constant('DEFAULT_VALUES',{
         'PROFILE_IMAGE': '/assets/site/person.png',
@@ -322,7 +322,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                             AuthService.getSession().then(
                                 function(data){
                                     if(data && data.id){
-                                        SessionService.createSession(data.id, data.email, data.first_name, data.last_name, data.gender, data.phone_number);
+                                        SessionService.createSession(data.id, data.email, data.first_name, data.last_name, data.gender, data.phone_number, data.picture_url);
                                         return true;
 
                                     }else{
@@ -349,7 +349,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                             AuthService.getSession().then(
                                 function(data){
                                     if(data && data.id){
-                                        SessionService.createSession(data.id, data.email, data.first_name, data.last_name, data.gender, data.phone_number);
+                                        SessionService.createSession(data.id, data.email, data.first_name, data.last_name, data.gender, data.phone_number, data.picture_url);
                                         return true;
 
                                     }else{
@@ -376,7 +376,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                             AuthService.getSession().then(
                                 function(data){
                                     if(data && data.id){
-                                        SessionService.createSession(data.id, data.email, data.first_name, data.last_name, data.gender, data.phone_number);
+                                        SessionService.createSession(data.id, data.email, data.first_name, data.last_name, data.gender, data.phone_number, data.picture_url);
                                         return true;
 
                                     }else{
