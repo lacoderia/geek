@@ -1,15 +1,16 @@
 'use strict';
 
-Geek.controller('PaymentController',['$scope','$rootScope', 'DEFAULT_VALUES' ,function($scope, $rootScope, DEFAULT_VALUES){
+Geek.controller('PaymentController',['$scope','$rootScope', 'PaymentService', 'DEFAULT_VALUES' ,function($scope, $rootScope, PaymentService, DEFAULT_VALUES){
 
     $scope.MONTHS = DEFAULT_VALUES.MONTHS;
-    $scope.CARD_METHOD = 0;
-    $scope.BANK_ACCOUNT_METHOD = 1;
+    $scope.PAYMENT_METHODS = DEFAULT_VALUES.PAYMENT_METHODS;
+    $scope.PAYMENT_METHODS_BUTTONS = DEFAULT_VALUES.PAYMENT_METHODS_BUTTONS;
     $scope.LIST_OF_BANKS = DEFAULT_VALUES.LIST_OF_BANKS;
     $scope.LIST_OF_STATES = DEFAULT_VALUES.LIST_OF_STATES;
     $scope.COUNTRY_CODE = 'MX';
 
-    $scope.paymentMethodOption = $scope.CARD_METHOD;
+    $scope.paymentMethodsList = [];
+    $scope.paymentMethodOption = undefined;
     $scope.debitCardHolder = '';
     $scope.debitCardNumber = '';
     $scope.expirationMonth = undefined;
@@ -26,17 +27,70 @@ Geek.controller('PaymentController',['$scope','$rootScope', 'DEFAULT_VALUES' ,fu
     $scope.bankAccountOwner = '';
     $scope.bankName = undefined;
 
-    var currentYear = new Date().getYear() + DEFAULT_VALUES.START_YEAR;
-    for(var yearIndex=0; yearIndex<=16; yearIndex++){
-        $scope.availableYears.push(currentYear);
-        currentYear++;
+    $scope.getPaymentMethodsList = function(){
+        $scope.paymentMethodsList = PaymentService.getPaymentMethodsList();
+        angular.forEach($scope.paymentMethodsList, function(payment){
+            payment.showInfo = false;
+            switch (payment.method_info.brand){
+                case 'visa':
+                    payment.brandClass = 'icon-cc-visa';
+                    break;
+                case 'mastercard':
+                    payment.brandClass = 'icon-cc-mastercard';
+                    break;
+            }
+        });
+    };
+
+    $scope.togglePaymentMethodInfo = function(paymentItem){
+        angular.forEach($scope.paymentMethodsList, function(payment){
+            if(paymentItem.id != payment.id){
+                payment.showInfo = false;
+            }else{
+                if(payment.showInfo){
+                    payment.showInfo = false;
+                }else{
+                    payment.showInfo = true;
+                }
+            }
+        });
+
+    };
+
+    $scope.createPaymentMethod = function(paymentMethodType){
+        switch (paymentMethodType){
+            case $scope.PAYMENT_METHODS.CARD_METHOD.code:
+                console.log('ENTRE AQUI')
+                break;
+            case $scope.PAYMENT_METHODS.BANK_ACCOUNT_METHOD.code:
+                console.log('ENTRE ACA')
+                break;
+        }
     }
+
+
+    $scope.createCard = function(){
+        var currentYear = new Date().getYear() + DEFAULT_VALUES.START_YEAR;
+        for(var yearIndex=0; yearIndex<=16; yearIndex++){
+            $scope.availableYears.push(currentYear);
+            currentYear++;
+        }
+
+        $scope.card = {
+            card_info : undefined,
+            isNew: true
+        }
+    };
+
+    $scope.cancelCardCreation = function(){
+        $scope.card = undefined;
+    };
 
     $scope.saveCard = function(){
 
         if($scope.paymentMethodOption == $scope.CARD_METHOD){
 
-            var card = {
+            var cardInfo = {
                 "card_number": $scope.debitCardNumber,
                 "holder_name": $scope.debitCardHolder,
                 "expiration_year": $scope.expirationYear,
@@ -52,21 +106,39 @@ Geek.controller('PaymentController',['$scope','$rootScope', 'DEFAULT_VALUES' ,fu
                     "country_code": $scope.COUNTRY_CODE
                 }
             };
-            console.log(card)
-
-            OpenPay.token.create(card,
-                function(data){
-                    console.log(data);
-                },
-                function(response){
-                    console.log(response);
-                }
-            );
+            $scope.card.card_info = cardInfo;
+            $scope.card.isNew = false;
+            console.log($scope.card)
+            /*OpenPay.token.create(card,
+             function(data){
+             $scope.card.isNew = false;
+             console.log(data);
+             },
+             function(response){
+             console.log(response);
+             }
+             );*/
 
         }else{
 
         }
 
+    };
+
+    $scope.showActionButtons = function(isMainAccount, action){
+        var buttonVisibility = true;
+        switch (action){
+            case 'change-main-account':
+                if(isMainAccount){
+                    buttonVisibility = false;
+                }
+                break;
+            case  'delete-account':
+                buttonVisibility =  true;
+                break;
+        }
+
+        return buttonVisibility;
     };
 
     $scope.setExpirationMonth = function(indexMonth){
@@ -106,6 +178,17 @@ Geek.controller('PaymentController',['$scope','$rootScope', 'DEFAULT_VALUES' ,fu
         OpenPay.setApiKey(DEFAULT_VALUES.PUBLIC_KEY);
         OpenPay.setSandboxMode(true);
 
+        /*PaymentService.getCardById('kkb4llxaxdmkayti7a8w').then(
+         function(data){
+         console.log(data)
+         },
+         function(response){
+         console.log(response)
+         }
+         );*/
+
     });
+
+    $scope.getPaymentMethodsList();
 
 }]);
