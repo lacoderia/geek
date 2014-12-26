@@ -36,6 +36,7 @@ Rails.application.config.assets.precompile += %w( tutor/services/availabilitySer
 Rails.application.config.assets.precompile += %w( tutor/services/categoryService.js )
 Rails.application.config.assets.precompile += %w( tutor/services/countyService.js )
 Rails.application.config.assets.precompile += %w( tutor/services/messageService.js )
+Rails.application.config.assets.precompile += %w( tutor/services/paymentService.js )
 Rails.application.config.assets.precompile += %w( tutor/services/profileService.js )
 Rails.application.config.assets.precompile += %w( tutor/services/reviewsService.js )
 Rails.application.config.assets.precompile += %w( tutor/services/sessionService.js )

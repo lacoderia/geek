@@ -3,182 +3,68 @@
   <ng-alert id="tutor-request-form" alert-params="tutorRequestAlertParams"></ng-alert>
   <div class="tutor-profile-container form">
     <form name="tutorPaymentOptionsForm" id="tutor_payment_options_form" class="dashboard-form validation-form">
-      <fieldset>
-        <legend translate="PAYMENT_METHOD_SUBTITLE"></legend>
 
-        <div class="form-group">
-          <div class="form-radio custom-radio">
-            <div>
-              <input type="radio" id="payment_method_debit_card" name="payment_method_option" placeholder="Debit card" ng-change="changePaymentMethod()" ng-model="paymentMethodOption" class="form-control" value="0" required>
-              <label for="payment_method_debit_card" translate="PAYMENT_LABEL_DEBIT_CARD"></label>
-              <input type="radio" id="payment_method_bank_account" name="payment_method_option" placeholder="Bank account" ng-change="changePaymentMethod()" ng-model="paymentMethodOption" class="form-control" value="1" required>
-              <label for="payment_method_bank_account" translate="PAYMENT_LABEL_BANK_ACCOUNT"></label>
-            </div>
-          </div>
+      <!-- Sección de listado de calificaciones vacío -->
+      <div class="unavailable-message" ng-hide="paymentMethodsList.length">
+        <div class="unavailable-message-content">
+          <h3 translate="UNAVAILABLE_MESSAGE_CARDS"></h3>
+          <a class="action-button action-button-light-green" title="" ng-click="createPaymentMethod(PAYMENT_METHODS.CARD_METHOD.code)"><span class="icon-credit-card"></span> {{ 'PAYMENT_ADD_A_CARD' | translate }}</a>
+          <a class="action-button action-button-light-green" title="" ng-click="createPaymentMethod(PAYMENT_METHODS.BANK_ACCOUNT_METHOD.code)"><span class="icon-pig"></span> {{ 'PAYMENT_ADD_AN_BANK_ACCOUNT' | translate }}</a>
         </div>
-
-        <div ng-if="paymentMethodOption == CARD_METHOD">
-
-          <div class="form-group">
-            <div class="left">
-              <label> {{ 'PAYMENT_LABEL_DEBIT_CARD_HOLDER_NAME' | translate }}:</label>
-            </div>
-            <div class="right">
-              <input type="text" name="debit_card_holder" data-openpay-card="holder_name" ng-model="$parent.debitCardHolder"  class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_DEBIT_CARD_HOLDER_NAME' | translate }}" />
-            </div>
-          </div>
-
-          <div class="form-group">
-            <div class="left">
-              <label>{{ 'PAYMENT_LABEL_DEBIT_CARD_NUMBER' | translate }}:</label>
-            </div>
-            <div class="right">
-              <input type="text" name="debit_card_number" data-openpay-card="card_number" ng-model="$parent.debitCardNumber" ng-minlength="16" ng-maxlength="16" maxlength="16" class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_DEBIT_CARD_NUMBER' | translate }}" />
-            </div>
-          </div>
-
-          <div class="form-group">
-            <div class="left">
-              <label>{{'PAYMENT_LABEL_EXPIRATION_DATE' | translate }}:</label>
-            </div>
-            <div class="right">
-
-              <div class="dropdown form-dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-                  <span ng-if="expirationMonth">{{ expirationMonth }}</span>
-                  <span ng-if="!expirationMonth" translate="MONTH"></span>
-                  <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu">
-                  <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="setExpirationMonth(-1)"><span translate="MONTH"></span></a></li>
-                  <li role="presentation" ng-repeat="month in MONTHS"><a role="menuitem" tabindex="{{ $index+1 }}"  ng-click="setExpirationMonth($index+1)">{{ ($index+1) }}</a></li>
-                </ul>
-              </div>
-
-              <div class="dropdown form-dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-                  <span ng-if="expirationYear">{{ expirationYear }}</span>
-                  <span ng-if="!expirationYear" translate="YEAR"></span>
-                  <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu">
-                  <li role="presentation"><a role="menuitem" tabindex="-1"  ng-click="setExpirationYear(-1)"><span translate="YEAR"></span></a></li>
-                  <li role="presentation" ng-repeat="year in availableYears"><a role="menuitem" tabindex="{{ year }}"  ng-click="setExpirationYear(year)">{{ year }}</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <div class="left">
-              <label>{{ 'PAYMENT_LABEL_VERIFICATION_NUMBER' | translate }}:</label>
-            </div>
-            <div class="right">
-              <div class="small-input-container">
-                <input type="text" name="verification_number" data-openpay-card="cvv2" ng-model="$parent.debitCardValidationNumber" ng-maxlength="5" maxlength="5" class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_VERIFICATION_NUMBER' | translate }}" />
-              </div>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <div class="left">
-              <label> {{ 'PAYMENT_LABEL_ADDRESS' | translate }}:</label>
-            </div>
-            <div class="right">
-              <input type="text" name="address_line_1" data-openpay-card-address="line1" ng-model="$parent.addressLine1"  class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_ADDRESS' | translate }}" />
-            </div>
-          </div>
-
-          <div class="form-group">
-            <div class="left"></div>
-            <div class="right">
-                <input type="text" name="address_number" data-openpay-card="line2" ng-model="$parent.addressLine2" class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_ADDRESS' | translate }}" />
-            </div>
-          </div>
-
-          <div class="form-group">
-            <div class="left">
-              <label> {{ 'PAYMENT_LABEL_CITY' | translate }}:</label>
-            </div>
-            <div class="right">
-              <input type="text" name="city" data-openpay-card-address="city" ng-model="$parent.city"  class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_CITY' | translate }}" />
-            </div>
-          </div>
-
-          <div class="form-group">
-            <div class="left">
-              <label> {{ 'PAYMENT_LABEL_STATE' | translate }}:</label>
-            </div>
-            <div class="right">
-              <div class="dropdown form-dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-                  <span ng-if="state">{{ state }}</span>
-                  <span ng-if="!state" translate="STATE"></span>
-                  <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu">
-                  <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="setState()"><span translate="STATE"></span></a></li>
-                  <li role="presentation" ng-repeat="state in LIST_OF_STATES"><a role="menuitem" tabindex="{{ $index+1 }}"  ng-click="setState(state)">{{ state }}</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <div class="left">
-              <label> {{ 'PAYMENT_LABEL_POSTAL_CODE' | translate }}:</label>
-            </div>
-            <div class="right">
-              <input type="text" name="postal_code" data-openpay-card-address="postal_code" ng-model="$parent.postalCode"  class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_POSTAL_CODE' | translate }}" />
-            </div>
-          </div>
-
-        </div>
-        <div ng-if="paymentMethodOption == BANK_ACCOUNT_METHOD">
-          <div class="form-group">
-            <div class="left">
-              <label>{{'PAYMENT_LABEL_BANK' | translate }}:</label>
-            </div>
-            <div class="right">
-
-              <div class="dropdown form-dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-                  <span ng-if="bankName">{{ bankName }}</span>
-                  <span ng-if="!bankName" translate="PAYMENT_LABEL_BANK"></span>
-                  <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu">
-                  <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="setBank()"><span translate="PAYMENT_LABEL_BANK"></span></a></li>
-                  <li role="presentation" ng-repeat="bank in LIST_OF_BANKS"><a role="menuitem" tabindex="{{ $index+1 }}"  ng-click="setBank(bank)">{{ bank }}</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <div class="left">
-              <label> {{ 'PAYMENT_LABEL_BANK_ACCOUNT_OWNER_NAME' | translate }}:</label>
-            </div>
-            <div class="right">
-              <input type="text" name="bank_account_owner" data-openpay-card="bank_account_owner" ng-model="$parent.bankAccountOwner"  class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_BANK_ACCOUNT_OWNER_NAME' | translate }}" />
-            </div>
-          </div>
-
-          <div class="form-group">
-            <div class="left">
-              <label> {{ 'PAYMENT_PLACEHOLDER_BANK_ACCOUNT_CLABE' | translate }}:</label>
-            </div>
-            <div class="right">
-              <input type="text" name="bank_account_clabe" data-openpay-card="bank_account_clabe" ng-model="$parent.debitCardHolder"  class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_BANK_ACCOUNT_OWNER_NAME' | translate }}" />
-            </div>
-          </div>
-
-        </div>
-      </fieldset>
-
-      <div class="send-form">
-        <a class="action-button action-button-light-green" ng-click="saveCard()" translate="SAVE"></a>
       </div>
+
+      <!-- Listado de métodos de pago actuales -->
+      <div ng-show="paymentMethodsList.length">
+        <div class="payment-methods-list">
+          <div class="payment-method-headers">
+            <div class="type"></div>
+            <div class="number">{{ 'PAYMENT_LABEL_CARD_BANK_ACCOUNT' | translate }}</div>
+            <div class="main">{{ 'PAYMENT_LABEL_MAIN_ACCOUNT' | translate }}</div>
+            <div class="control"></div>
+          </div>
+          <div ng-repeat="paymentMethod in paymentMethodsList" class="payment-method-item">
+            <div class="payment-method-resume">
+              <div class="type"><span class="{{ PAYMENT_METHODS[paymentMethod.type].icon }}"></span></div>
+              <div class="number">{{ paymentMethod.number }}</div>
+              <div class="main"><span class="icon-accept" ng-if="paymentMethod.is_main_account"></span></div>
+              <span ng-click="togglePaymentMethodInfo(paymentMethod)"><span class="control-arrow" ng-class="{ true:'control-down-arrow', false:'control-right-arrow'}[paymentMethod.showInfo]"></span></span>
+            </div>
+            <div class="payment-method-info" ng-show="paymentMethod.showInfo">
+              <div>
+                <table>
+                  <thead>
+                  <tr>
+                    <th class="brand"></th>
+                    <th class="holder-name">Name of Account</th>
+                    <th class="more-info">Address</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td class="brand"><span ng-class="paymentMethod.brandClass"></span></td>
+                    <td class="holder-name">{{ paymentMethod.method_info.holder_name }}</td>
+                    <td class="more-info">{{ paymentMethod.method_info.bank_name }}<br>{{ paymentMethod.method_info.expiration_month }}/{{ paymentMethod.method_info.expiration_year }}</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="appointment-button">
+                <a ng-repeat="button in PAYMENT_METHODS_BUTTONS" ng-if="showActionButtons(paymentMethod.is_main_account, button.action)"  ng-class="[button.class, button.icon]" title=" {{ button.title }}" ng-click="callButtonAction($event, button.action, appointment)"> {{ button.text | translate }}</a>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="payment-buttons-container">
+          <a class="action-button action-button-light-green" title="" ng-click="createPaymentMethod(PAYMENT_METHODS.CARD_METHOD.code)"><span class="icon-credit-card"></span> {{ 'PAYMENT_ADD_A_CARD' | translate }}</a>
+          <a class="action-button action-button-light-green" title="" ng-click="createPaymentMethod(PAYMENT_METHODS.BANK_ACCOUNT_METHOD.code)"><span class="icon-pig"></span> {{ 'PAYMENT_ADD_AN_BANK_ACCOUNT' | translate }}</a>
+        </div>
+
+      </div>
+
+
     </form>
   </div>
 </div>

@@ -50,6 +50,32 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
             'Sonora', 'Tabasco', 'Tamaulipas', 'Tlaxcala', 'Veracruz', 'Yucatán', 'Zacatecas'],
         'MERCHANT_ID': 'mvqfexabrjznvdfpdter',
         'PUBLIC_KEY': 'pk_e2ab053d051e4990ad55d8d67c4de4be',
+        'PAYMENT_METHODS': {
+            'CARD_METHOD': {
+                'code': 0,
+                'icon': 'icon-credit-card'
+            },
+           'BANK_ACCOUNT_METHOD':{
+                'code': 1,
+                'icon': 'icon-pig'
+            }
+        },
+        'PAYMENT_METHODS_BUTTONS': {
+            'MAIN_BUTTON': {
+                'class': 'confirm-class',
+                'title': 'Cambiar cuenta principal',
+                'action': 'change-main-account',
+                'icon': 'icon-accept',
+                'text': 'PAYMENT_LABEL_MAIN_ACCOUNT_BUTTON'
+            },
+            'DELETE_BUTTON': {
+                'class': 'cancel-class',
+                'title': 'Eliminar cuenta',
+                'action': 'delete-account',
+                'icon': 'icon-close',
+                'text': 'PAYMENT_LABEL_DELETE_ACCOUNT_BUTTON'
+            }
+        },
         'APPOINTMENT_STATUS': [
             {
                 code: 0,

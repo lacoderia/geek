@@ -284,7 +284,7 @@ Geek.controller('AppointmentHistoryController',['$filter', '$scope', '$rootScope
                 tutor_id: tutor.id,
                 student_id: SessionService.getId(),
                 text: textMessage,
-                from_student: false
+                from_student: true
             }
 
             $scope.showSpinner();

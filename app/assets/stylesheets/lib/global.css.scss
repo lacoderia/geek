@@ -426,6 +426,108 @@ h3.section-title{
   border: 2px solid $color-light-red !important;
 }
 
+.payment-buttons-container{
+  margin-top: 4em;
+  text-align: right;
+}
+
+.payment-methods-list{
+  font-size: 0px;
+  list-style: none;
+  margin: 2em;
+  width: 50%;
+
+  .payment-method-headers{
+
+    margin-bottom: 8px;
+
+    > div{
+      display: inline-block;
+      font-size: 16px;
+      font-weight: 600;
+      vertical-align: top;
+    }
+
+    .main{
+      text-align: center;
+      width: 20%;
+    }
+
+    .number{
+      width: 60%;
+    }
+
+    .type{
+      width: 10%;
+    }
+  }
+
+  .payment-method-item{
+    .payment-method-resume{
+      background: $color-input-gray;
+      box-sizing: border-box;
+      font-weight: 500;
+      margin-bottom: 8px;
+      padding: 16px 12px 12px;
+      position: relative;
+
+      > div{
+        display: inline-block;
+        font-size: 16px;
+        vertical-align: top;
+      }
+
+      .main{
+        text-align: center;
+        width: 20%;
+      }
+
+      .number{
+        width: 60%;
+      }
+
+      .type{
+        width: 10%;
+      }
+    }
+
+    .payment-method-info{
+      background: white;
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: 1.5em;
+      padding: 1em 2em;
+
+      table{
+        width: 100%;
+      }
+
+      th{
+        font-weight: 600;
+      }
+
+      .brand{
+        width: 20%;
+      }
+      .holder-name, .more-info{
+        width: 40%;
+      }
+
+      td{
+        font-weight: 400;
+        vertical-align: top;
+        width: 50%;
+      }
+
+      .appointment-button{
+        margin: 16px 0px 8px;
+        text-align: right;
+        width: 100%;
+      }
+    }
+  }
+}
+
 .modal-alert-message{
   display: inline-block;
   min-height: 16px;
@@ -1072,6 +1174,10 @@ h3.section-title{
 
 .control-right-arrow{
   background-position: 0px -18px;
+}
+
+.control-down-arrow{
+  background-position: -38px 0;
 }
 
 .custom-checkbox {
@@ -2370,6 +2476,10 @@ footer{
     font-size: 2.5em;
     padding: 1em;
     vertical-align: middle;
+  }
+
+  .action-button{
+    font-size: 16px;
   }
 }
 
