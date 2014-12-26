@@ -50,6 +50,11 @@ Geek.directive('ngModalAppointmentRequest', ["$document", "$filter", "$rootScope
                 $timeout(function(){
                     $rootScope.$broadcast('closeAllModals');
                     scope.selectedClass = options.selectedClass;
+
+                    for(var i=0; i<scope.selectedClass.halfHours.length; i++){
+                        scope.selectedClass.halfHours[i].highlight = true;
+                    }
+
                     scope.validAppointmentDate = options.validAppointmentDate;
                     scope.selectedCategory = options.selectedCategory;
                     scope.selectedTutor = options.selectedTutor;
