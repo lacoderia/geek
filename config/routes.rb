@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   
   resources :cards do
     collection do
-      post 'register_new'
+      post 'register_card'
+      post 'register_bank_account'
+      get 'by_user'
     end
   end
 

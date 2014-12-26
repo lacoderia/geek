@@ -66,13 +66,36 @@ class CardsController < ApplicationController
   # student_id - el id del estudiante al que se registra la tarjeta
   # tutor_id - el id del tutor al que se registra la tarjeta
   # token- el token de la tarjeta generado por Openpay
-  def register_new
+  def register_card
   	if params[:tutor_id]
       user = Tutor.find(params[:tutor_id]).user
     elsif params[:student_id]
       user = Student.find(params[:student_id]).user
     end
   	@card = Card.register_card(user, params[:token])
+  end
+
+  # Crea una cuenta bancaria y la asocia a un usuario
+  # Recibe:
+  # tutor_id - el id del tutor al que se registra la cuenta bancaria
+  # clabe - la cuenta clabe del usuario
+  # holder_name - nombre del titular de la cuenta
+  def register_bank_account
+  	user = Tutor.find(params[:tutor_id]).user
+  	@card = Card.register_bank_account(user, params[:clabe], params[:holder_name])
+  end
+
+  # Obtiene los medios de oago de un usuario
+  # Recibe:
+  # student_id - el id del estudiante 
+  # tutor_id - el id del tutor 
+  def by_user
+  	if params[:tutor_id]
+      user = Tutor.find(params[:tutor_id]).user
+    elsif params[:student_id]
+      user = Student.find(params[:student_id]).user
+    end
+    @cards = Card.find_by_user(user)
   end
 
   private
