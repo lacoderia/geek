@@ -502,13 +502,6 @@
       color: $color-dark-green;
     }
 
-    .send-form{
-      margin: 2em;
-      float: right;
-      text-align: right;
-      width: 20%;
-    }
-
     .student_picture {
       line-height: 0;
       text-align: center;
@@ -542,6 +535,13 @@
         width:  100%
       }
     }
+  }
+
+  .send-form{
+    margin: 2em;
+    float: right;
+    text-align: right;
+    width: 20%;
   }
 }
 

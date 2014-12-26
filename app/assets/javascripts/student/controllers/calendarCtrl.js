@@ -134,6 +134,8 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
     // Función que cambia la semana actual de acuerdo al botón presionado en el calendario semanal
     $scope.changeWeek = function(time){
 
+        $rootScope.$broadcast('closeAllModals');
+
         switch (time){
             case('previous'):
                 $scope.selectedWeek = $scope.getPreviousWeek($scope.selectedWeek);
@@ -288,6 +290,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
             for(var hourIndex=0; hourIndex<$scope.HOURS.length; hourIndex++){
                 var timeObject = $rootScope.weekRows[hourIndex].halfHours[dayIndex];
                 timeObject.available = false;
+                timeObject.highlight = false;
             }
         }
 

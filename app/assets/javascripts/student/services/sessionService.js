@@ -13,7 +13,6 @@ Geek.factory('SessionService', [function(){
     };
 
     var createSession = function(id, email, firstName, lastName, gender, phoneNumber, pictureUrl){
-
         session = {
             id: id,
             email: email,
@@ -104,7 +103,9 @@ Geek.factory('SessionService', [function(){
         getGender: getGender,
         setGender: setGender,
         getPhoneNumber: getPhoneNumber,
-        setPhoneNumber: setPhoneNumber
+        setPhoneNumber: setPhoneNumber,
+        getPictureUrl: getPictureUrl,
+        setPictureUrl: setPictureUrl
 
     }
 

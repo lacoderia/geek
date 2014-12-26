@@ -4,8 +4,6 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
 
     $scope.student = SessionService.getSession();
 
-    console.log($scope.student);
-
     $scope.studentProfileAlertParams = undefined;
 
     // Función que simula el click en el input type file
@@ -61,12 +59,14 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
                 last_name: $scope.student.last_name,
                 gender: $scope.student.gender,
                 phone_number: $scope.student.phone_number,
-                picture_url: $scope.student.picture_url
+                picture: $scope.student.picture_url
             };
 
             ProfileService.submitProfile(student).then(
                 function(data){
                     if(data && data.id) {
+
+                        console.log(data);
 
                         SessionService.setFirstName(data.first_name);
                         SessionService.setLastName(data.first_name);
@@ -84,7 +84,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
                 function(response){
                     $scope.studentProfileAlertParams = {
                         type: 'danger',
-                        message: $filter('translate')('ERROR_PROFILE_TUTOR_UPDATE'),
+                        message: $filter('translate')('ERROR_STUDENT_PROFILE_UPDATE'),
                         icon: true
                     };
 
@@ -101,7 +101,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
 
             $scope.tutorProfileAlertParams = {
                 type: 'danger',
-                message: $filter('translate')('ERROR_PROFILE_TUTOR_UPDATE'),
+                message: $filter('translate')('ERROR_TUTOR_PROFILE_UPDATE'),
                 icon: true
             };
 
@@ -115,15 +115,15 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
 
     $scope.$watch('student.picture_url', function(){
 
-        if($rootScope.student && $rootScope.student.picture_url) {
+        if($scope.student && $scope.student.picture_url) {
             var imageContainer = $('.profile_picture');
             var image = imageContainer.find('img');
             image.hide();
 
             $('<img/>')
-                .attr("src", $rootScope.student.picture_url)
+                .attr("src", $scope.student.picture_url)
                 .load(function() {
-                    image.attr('src', $rootScope.student.picture_url);
+                    image.attr('src', $scope.student.picture_url);
 
                     var ratio = this.width / this.height;
 

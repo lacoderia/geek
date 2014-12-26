@@ -20,7 +20,9 @@ class RegisteredAnomaly < ActiveRecord::Base
     appointment = Appointment.find(appointment_id)
     appointment.update_attribute(:anomaly, true)
     #Creada con pending registered anomaly status
-    RegisteredAnomaly.create(anomaly_id: anomaly.id, user_id: appointment.tutor.user.id, source_id: appointment.student.user.id, appointment_id: appointment.id, description: description, registered_anomaly_status_id: 1)
+    ra = RegisteredAnomaly.create(anomaly_id: anomaly.id, user_id: appointment.tutor.user.id, source_id: appointment.student.user.id, appointment_id: appointment.id, description: description, registered_anomaly_status_id: 1)
+    ra.update_fees
+    return ra
   end
 
   def self.from_tutor appointment_id, anomaly_code, description
@@ -28,15 +30,16 @@ class RegisteredAnomaly < ActiveRecord::Base
     appointment = Appointment.find(appointment_id)
     appointment.update_attribute(:anomaly, true)
     #Creada con pending registered anomaly status
-    RegisteredAnomaly.create(anomaly_id: anomaly.id, user_id: appointment.student.user.id, source_id: appointment.tutor.user.id, appointment_id: appointment.id, description: description, registered_anomaly_status_id: 1)
-
+    ra = RegisteredAnomaly.create(anomaly_id: anomaly.id, user_id: appointment.student.user.id, source_id: appointment.tutor.user.id, appointment_id: appointment.id, description: description, registered_anomaly_status_id: 1)
+    ra.update_fees
+    return ra
   end
 
   def self.cancelled_from_student appointment
     
-    if ((appointment.start - Time.now)/3600) <= 2 # cancelando de ultima hora, entre 0 y 2 horas
+    if ((appointment.start - Time.now)/3600) <= Appointment.hours_afer_business_rules_max # cancelando de ultima hora, entre 0 y 2 horas
       anomaly = Anomaly.find_by_code "4"
-    elsif ((appointment.start - Time.now)/3600) <= 12 # cancelando entre 2 y 12 horas
+    elsif ((appointment.start - Time.now)/3600) <= Appointment.hours_afer_business_rules # cancelando entre 2 y 12 horas
       anomaly = Anomaly.find_by_code "2"
     end
 
@@ -78,6 +81,38 @@ class RegisteredAnomaly < ActiveRecord::Base
     self.appointment.registered_anomalies.where("id != ?", self.id).each do |ra|
       ra.update_attribute(:registered_anomaly_status_id, invalid_anomaly_status.id)
     end
+  end
+
+  def update_fees
+    case self.anomaly.code
+    when "0" #late show
+      self.update_attributes({:fee_student => 100, :fee_tutor => 80}) 
+    when "1" #no show
+      if self.source.client_type == "Student"
+        # El tutor no llegó, no se cobra y se cambia a válida
+        self.update_attributes({:fee_student => 0, :fee_tutor => 0}) 
+      elsif self.source.client_type == "Tutor"
+        # El estudiante no llegó, se cobra todo, se asigna 50% al tutor y se cambia a válida
+        self.update_attributes({:fee_student => 100, :fee_tutor => 50}) 
+      end
+    when "2" #cancelacion
+      if self.user.client_type == "Tutor"
+        # El tutor canceló, no se cobra y se cambia a válida
+        self.update_attributes({:fee_student => 0, :fee_tutor => 0}) 
+      elsif self.user.client_type == "Student"
+        # El estudiante canceló, se cobra el 25%, se asigna 50% al tutor y se cambia a válida
+        self.update_attributes({:fee_student => 25, :fee_tutor => 50}) 
+      end   
+    when "4" #Cancelada por estudiante, entre 2 y 0 horas
+      if self.user.client_type == "Student"
+        # El estudiante canceló, se cobra el 50%, se asigna 50% al tutor y se cambia a válida
+        self.update_attributes({:fee_student => 50, :fee_tutor => 50}) 
+      else
+        #Este caso no debería de pasar
+        raise "Caso de cancelado por estudiante donde el user no es él mismo"
+      end
+    end
+
   end
 
   def assign fee_student = nil, fee_tutor = nil
