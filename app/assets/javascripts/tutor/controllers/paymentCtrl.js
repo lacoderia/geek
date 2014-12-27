@@ -23,6 +23,9 @@ Geek.controller('PaymentController',['$scope','$rootScope', 'PaymentService', 'D
     $scope.state = undefined;
     $scope.availableYears = [];
 
+    $scope.showNewBankAccount = false;
+    $scope.showNewCard = false;
+
     $scope.clabe = '';
     $scope.bankAccountOwner = '';
     $scope.bankName = undefined;
@@ -60,10 +63,13 @@ Geek.controller('PaymentController',['$scope','$rootScope', 'PaymentService', 'D
     $scope.createPaymentMethod = function(paymentMethodType){
         switch (paymentMethodType){
             case $scope.PAYMENT_METHODS.CARD_METHOD.code:
-                console.log('ENTRE AQUI')
+                $scope.showNewCard = true;
+                $scope.showNewBankAccount = false;
+                $scope.createCard();
                 break;
             case $scope.PAYMENT_METHODS.BANK_ACCOUNT_METHOD.code:
-                console.log('ENTRE ACA')
+                $scope.showNewCard = false;
+                $scope.showNewBankAccount = true;
                 break;
         }
     }
@@ -76,14 +82,27 @@ Geek.controller('PaymentController',['$scope','$rootScope', 'PaymentService', 'D
             currentYear++;
         }
 
-        $scope.card = {
-            card_info : undefined,
-            isNew: true
-        }
     };
 
-    $scope.cancelCardCreation = function(){
-        $scope.card = undefined;
+    $scope.cancelPaymentMethodCreation = function(){
+        $scope.showNewCard = false;
+        $scope.showNewBankAccount = false;
+
+        $scope.paymentMethodOption = undefined;
+        $scope.debitCardHolder = '';
+        $scope.debitCardNumber = '';
+        $scope.expirationMonth = undefined;
+        $scope.expirationYear = undefined;
+        $scope.debitCardValidationNumber = undefined;
+        $scope.city = '';
+        $scope.postalCode = '';
+        $scope.addressLine1 = '';
+        $scope.addressLine2 = '';
+        $scope.state = undefined;
+
+        $scope.clabe = '';
+        $scope.bankAccountOwner = '';
+        $scope.bankName = undefined;
     };
 
     $scope.saveCard = function(){
@@ -123,6 +142,17 @@ Geek.controller('PaymentController',['$scope','$rootScope', 'PaymentService', 'D
 
         }
 
+    };
+
+    $scope.callButtonAction = function($event, action, paymentMethod){
+        switch (action){
+            case 'change-main-account':
+                console.log('ACA')
+                break;
+            case  'delete-account':
+                console.log('AQUI')
+                break;
+        }
     };
 
     $scope.showActionButtons = function(isMainAccount, action){
