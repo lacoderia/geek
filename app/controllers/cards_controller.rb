@@ -98,6 +98,13 @@ class CardsController < ApplicationController
     @cards = Card.find_by_user(user)
   end
 
+  # Selecciona una opción de pago/cobro como activa
+  # Recibe:
+  # id - el id de la forma de pago
+  def activate
+  	@card = Card.activate(params[:id])
+  end
+
   private
 
     def card_params

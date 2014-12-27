@@ -36,4 +36,11 @@ class Card < ActiveRecord::Base
   	end  	
   	result
   end
+
+  def self.activate card_id
+  	card = Card.find(card_id)
+  	Card.where("user_id = ?", card.user_id).update_all(:active => false)
+  	card.update_attribute(:active, true)
+  	card
+  end
 end

@@ -1,0 +1,1 @@
+json.extract! @card, :id, :alias, :active, :is_bank_account

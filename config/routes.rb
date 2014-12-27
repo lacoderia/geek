@@ -6,6 +6,9 @@ Rails.application.routes.draw do
       post 'register_bank_account'
       get 'by_user'
     end
+    member do
+      post 'activate'
+    end
   end
 
   resources :registered_anomaly_statuses
