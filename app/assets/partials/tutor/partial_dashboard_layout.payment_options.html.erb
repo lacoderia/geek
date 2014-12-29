@@ -38,36 +38,19 @@
 
           <div class="payment-method-info" ng-show="paymentMethod.showInfo">
             <div>
-              <table ng-if="!paymenthMethod.is_bank_account">
+              <table>
                 <thead>
                 <tr>
                   <th class="brand"></th>
-                  <th class="holder-name">Name of Account</th>
-                  <th class="more-info">Address</th>
+                  <th class="holder-name">{{ 'PAYMENT_LABEL_ACCOUNT_NAME' | translate }}</th>
+                  <th class="more-info" ng-if="!paymenthMethod.is_bank_account">{{ 'PAYMENT_LABEL_EXPIRATION_DATE' | translate }}</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
                   <td class="brand"><span ng-class="paymentMethod.brandClass"></span></td>
                   <td class="holder-name">{{ paymentMethod.holder_name }}</td>
-                  <td class="more-info">{{ paymentMethod.bank_name }}<br>{{ paymentMethod.expiration_month }}/{{ paymentMethod.expiration_year }}</td>
-                </tr>
-                </tbody>
-              </table>
-
-              <table ng-if="paymenthMethod.is_bank_account">
-                <thead>
-                <tr>
-                  <th class="brand"></th>
-                  <th class="holder-name">Name of Account</th>
-                  <th class="more-info">Address</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <td class="brand"><span ng-class="paymentMethod.brandClass"></span></td>
-                  <td class="holder-name">{{ paymentMethod.method_info.holder_name }}</td>
-                  <td class="more-info">{{ paymentMethod.method_info.bank_name }}<br>{{ paymentMethod.method_info.expiration_month }}/{{ paymentMethod.method_info.expiration_year }}</td>
+                  <td class="more-info" ng-if="!paymenthMethod.is_bank_account">{{ paymentMethod.expiration_month }}/{{ paymentMethod.expiration_year }}</td>
                 </tr>
                 </tbody>
               </table>
@@ -234,25 +217,6 @@
       <form name="tutorPaymentOptionsForm" id="tutor_payment_options_form" class="dashboard-form validation-form">
         <fieldset>
           <legend translate="PAYMENT_LABEL_NEW_CARD_SUBTITLE"></legend>
-          <div class="form-group">
-            <div class="left">
-              <label>{{'PAYMENT_LABEL_BANK' | translate }}:</label>
-            </div>
-            <div class="right">
-
-              <div class="dropdown form-dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-                  <span ng-if="bankName">{{ bankName }}</span>
-                  <span ng-if="!bankName" translate="PAYMENT_LABEL_BANK"></span>
-                  <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu">
-                  <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="setBank()"><span translate="PAYMENT_LABEL_BANK"></span></a></li>
-                  <li role="presentation" ng-repeat="bank in LIST_OF_BANKS"><a role="menuitem" tabindex="{{ $index+1 }}"  ng-click="setBank(bank)">{{ bank }}</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
 
           <div class="form-group">
             <div class="left">
@@ -268,7 +232,7 @@
               <label> {{ 'PAYMENT_PLACEHOLDER_BANK_ACCOUNT_CLABE' | translate }}:</label>
             </div>
             <div class="right">
-              <input type="text" name="bank_account_clabe" data-openpay-card="bank_account_clabe" ng-model="debitCardHolder"  class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_BANK_ACCOUNT_OWNER_NAME' | translate }}" />
+              <input type="text" name="bank_account_clabe" data-openpay-card="bank_account_clabe" ng-model="clabe"  class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_BANK_ACCOUNT_OWNER_NAME' | translate }}" />
             </div>
           </div>
 

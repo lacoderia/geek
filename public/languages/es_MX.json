@@ -105,6 +105,7 @@
     "PAYMENT_ADD_A_CARD" : "Agregar una tarjeta",
     "PAYMENT_ADD_AN_BANK_ACCOUNT": "Agregar una cuenta",
     "PAYMENT_ADDRESS_SUBTITLE" : "Dirección",
+    "PAYMENT_LABEL_ACCOUNT_NAME" : "Nombre",
     "PAYMENT_LABEL_ADDRESS": "Dirección",
     "PAYMENT_LABEL_BANK": "Banco",
     "PAYMENT_LABEL_BANK_ACCOUNT": "Cuenta de banco",

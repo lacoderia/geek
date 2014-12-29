@@ -41,7 +41,6 @@ Geek.controller('PaymentController',['$scope','$rootScope', '$timeout', '$locati
 
     $scope.clabe = '';
     $scope.bankAccountOwner = '';
-    $scope.bankName = undefined;
 
     // Inicializamos los broadcasts y listeners del controlador
     $scope.$watch('tutorProfileLoaded', function(){
@@ -219,9 +218,18 @@ Geek.controller('PaymentController',['$scope','$rootScope', '$timeout', '$locati
                     $anchorScroll();
                 }, 0);
 
-                console.log(response);
             }
         );
+    };
+
+    $scope.saveBankAccount = function(){
+        var bankAccount = {
+            "holder_name": $scope.holder_name,
+            "clabe": $scope.clabe
+        };
+
+        console.log(bankAccount)
+
     };
 
     $scope.callButtonAction = function($event, action, paymentMethod){
@@ -272,14 +280,6 @@ Geek.controller('PaymentController',['$scope','$rootScope', '$timeout', '$locati
             $scope.state = state;
         }else{
             $scope.state = undefined;
-        }
-    };
-
-    $scope.setBank = function(bank){
-        if(bank){
-            $scope.bankName = bank;
-        }else{
-            $scope.bankName = undefined;
         }
     };
 
