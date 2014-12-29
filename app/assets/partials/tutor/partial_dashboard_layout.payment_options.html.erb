@@ -1,6 +1,6 @@
 <div ng-controller="PaymentController" class="tutor-profile-container form">
     <h2 class="section-title">{{ 'PAYMENT_TITLE' | translate}}</h2>
-    <ng-alert id="student-payment-form" alert-params="studentPaymentAlertParams"></ng-alert>
+    <ng-alert id="tutor-request-form" alert-params="tutorPaymentAlertParams"></ng-alert>
 
     <!-- Sección de listado de métodos de pago vacío -->
     <div class="unavailable-message" ng-hide="paymentMethodsList.length || showNewBankAccount || showNewCard">

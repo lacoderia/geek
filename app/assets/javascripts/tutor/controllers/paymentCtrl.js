@@ -68,9 +68,7 @@ Geek.controller('PaymentController',['$scope','$rootScope', '$timeout', '$locati
 
                     (payment.is_bank_account) ? payment.type = $scope.PAYMENT_METHODS.BANK_ACCOUNT_METHOD : payment.type = $scope.PAYMENT_METHODS.CARD_METHOD ;
 
-
                 });
-                console.log($scope.paymentMethodsList)
             },
             function(response){
                 console.log(response)

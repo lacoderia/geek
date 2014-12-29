@@ -40,18 +40,30 @@ Geek.controller('PaymentController',['$filter', '$scope','$rootScope', '$timeout
     $scope.state = 'Veracruz';
 
     $scope.getPaymentMethodsList = function(){
-        $scope.paymentMethodsList = PaymentService.getPaymentMethodsList();
-        angular.forEach($scope.paymentMethodsList, function(payment){
-            payment.showInfo = false;
-            switch (payment.method_info.brand){
-                case 'visa':
-                    payment.brandClass = 'icon-cc-visa';
-                    break;
-                case 'mastercard':
-                    payment.brandClass = 'icon-cc-mastercard';
-                    break;
+
+        PaymentService.getPaymentMethodsList(SessionService.getId()).then(
+            function(data){
+                $scope.paymentMethodsList = data;
+                angular.forEach($scope.paymentMethodsList, function(payment){
+                    payment.showInfo = false;
+
+                    switch (payment.brand){
+                        case 'visa':
+                            payment.brandClass = 'icon-cc-visa';
+                            break;
+                        case 'mastercard':
+                            payment.brandClass = 'icon-cc-mastercard';
+                            break;
+                    }
+
+                    (payment.is_bank_account) ? payment.type = $scope.PAYMENT_METHODS.BANK_ACCOUNT_METHOD : payment.type = $scope.PAYMENT_METHODS.CARD_METHOD ;
+
+                });
+            },
+            function(response){
+                console.log(response)
             }
-        });
+        );
     };
 
     $scope.togglePaymentMethodInfo = function(paymentItem){

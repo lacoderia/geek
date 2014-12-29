@@ -3,7 +3,6 @@
 Geek.factory('PaymentService', ["$http", "$q", "DEFAULT_VALUES", function($http, $q, DEFAULT_VALUES){
 
     var getPaymentMethodsList = function(tutorId){
-        console.log(tutorId)
         var deferred = $q.defer();
         var promise = deferred.promise;
 
