@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('PaymentController',['$scope','$rootScope', 'PaymentService', 'DEFAULT_VALUES' ,function($scope, $rootScope, PaymentService, DEFAULT_VALUES){
+Geek.controller('PaymentController',['$scope','$rootScope', '$timeout', '$location', '$anchorScroll', '$filter', 'PaymentService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $timeout, $location, $anchorScroll, $filter, PaymentService, DEFAULT_VALUES){
 
     $scope.MONTHS = DEFAULT_VALUES.MONTHS;
     $scope.PAYMENT_METHODS = DEFAULT_VALUES.PAYMENT_METHODS;
@@ -23,6 +23,19 @@ Geek.controller('PaymentController',['$scope','$rootScope', 'PaymentService', 'D
     $scope.state = undefined;
     $scope.availableYears = [];
 
+    // TEST
+
+    $scope.debitCardHolder = 'Ricardo Rosas Schultz';
+    $scope.debitCardNumber = '4242424242424242';
+    $scope.expirationMonth = '10';
+    $scope.expirationYear = '15';
+    $scope.debitCardValidationNumber = '432';
+    $scope.city = 'Veracruz';
+    $scope.postalCode = '91940';
+    $scope.addressLine1 = 'Mango 26';
+    $scope.addressLine2 = 'Fraccionamiento Floresta';
+    $scope.state = 'Veracruz';
+
     $scope.showNewBankAccount = false;
     $scope.showNewCard = false;
 
@@ -30,19 +43,40 @@ Geek.controller('PaymentController',['$scope','$rootScope', 'PaymentService', 'D
     $scope.bankAccountOwner = '';
     $scope.bankName = undefined;
 
+    // Inicializamos los broadcasts y listeners del controlador
+    $scope.$watch('tutorProfileLoaded', function(){
+        if($rootScope.tutorProfileLoaded){
+            $scope.getPaymentMethodsList();
+        }
+    });
+
     $scope.getPaymentMethodsList = function(){
-        $scope.paymentMethodsList = PaymentService.getPaymentMethodsList();
-        angular.forEach($scope.paymentMethodsList, function(payment){
-            payment.showInfo = false;
-            switch (payment.method_info.brand){
-                case 'visa':
-                    payment.brandClass = 'icon-cc-visa';
-                    break;
-                case 'mastercard':
-                    payment.brandClass = 'icon-cc-mastercard';
-                    break;
+
+        PaymentService.getPaymentMethodsList($rootScope.tutor.id).then(
+            function(data){
+                $scope.paymentMethodsList = data;
+                angular.forEach($scope.paymentMethodsList, function(payment){
+                    payment.showInfo = false;
+
+                    switch (payment.brand){
+                        case 'visa':
+                            payment.brandClass = 'icon-cc-visa';
+                            break;
+                        case 'mastercard':
+                            payment.brandClass = 'icon-cc-mastercard';
+                            break;
+                    }
+
+                    (payment.is_bank_account) ? payment.type = $scope.PAYMENT_METHODS.BANK_ACCOUNT_METHOD : payment.type = $scope.PAYMENT_METHODS.CARD_METHOD ;
+
+
+                });
+                console.log($scope.paymentMethodsList)
+            },
+            function(response){
+                console.log(response)
             }
-        });
+        );
     };
 
     $scope.togglePaymentMethodInfo = function(paymentItem){
@@ -107,41 +141,86 @@ Geek.controller('PaymentController',['$scope','$rootScope', 'PaymentService', 'D
 
     $scope.saveCard = function(){
 
-        if($scope.paymentMethodOption == $scope.CARD_METHOD){
+        var card = {
+            "card_number": $scope.debitCardNumber,
+            "holder_name": $scope.debitCardHolder,
+            "expiration_year": $scope.expirationYear,
+            "expiration_month": $scope.expirationMonth,
+            "cvv2": $scope.debitCardValidationNumber,
+            "address": {
+                "city": $scope.city,
+                "line3":"",
+                "postal_code": $scope.postalCode,
+                "line1": $scope.addressLine1,
+                "line2": $scope.addressLine2,
+                "state": $scope.state,
+                "country_code": $scope.COUNTRY_CODE
+            }
+        };
 
-            var cardInfo = {
-                "card_number": $scope.debitCardNumber,
-                "holder_name": $scope.debitCardHolder,
-                "expiration_year": $scope.expirationYear,
-                "expiration_month": $scope.expirationMonth,
-                "cvv2": $scope.debitCardValidationNumber,
-                "address": {
-                    "city": $scope.city,
-                    "line3":"",
-                    "postal_code": $scope.postalCode,
-                    "line1": $scope.addressLine1,
-                    "line2": $scope.addressLine2,
-                    "state": $scope.state,
-                    "country_code": $scope.COUNTRY_CODE
+        OpenPay.token.create(card,
+            function(data){
+
+                var cardData = {
+                    'tutor_id': $rootScope.tutor.id,
+                    'token': data.data.id
                 }
-            };
-            $scope.card.card_info = cardInfo;
-            $scope.card.isNew = false;
-            console.log($scope.card)
-            /*OpenPay.token.create(card,
-             function(data){
-             $scope.card.isNew = false;
-             console.log(data);
-             },
-             function(response){
-             console.log(response);
-             }
-             );*/
 
-        }else{
+                console.log(cardData)
 
-        }
+                PaymentService.saveCard(cardData).then(
+                    function(data){
+                        if(data && data.id) {
 
+                            $timeout(function(){
+
+                                $scope.cancelPaymentMethodCreation();
+                                $scope.studentPaymentAlertParams = {
+                                    type: 'success',
+                                    message: $filter('translate')('SUCCESS_STUDENT_PAYMENT_METHOD_SAVE'),
+                                    icon: true
+                                };
+
+                                $location.hash('student-payment-form');
+                                $anchorScroll();
+
+                                $scope.getPaymentMethodsList();
+                            }, 0);
+                        }
+                    },
+                    function(response){
+
+                        $scope.studentPaymentAlertParams = {
+                            type: 'danger',
+                            message: $filter('translate')('ERROR_STUDENT_PAYMENT_METHOD_SAVE'),
+                            icon: true
+                        };
+
+                        $timeout(function(){
+                            $location.hash('student-payment-form');
+                            $anchorScroll();
+                        }, 0);
+
+                        console.log('Error saving students payment method: ' + response);
+                    }
+                );
+
+            },
+            function(response){
+                $scope.studentPaymentAlertParams = {
+                    type: 'danger',
+                    message: response.data.description,
+                    icon: true
+                };
+
+                $timeout(function(){
+                    $location.hash('student-payment-form');
+                    $anchorScroll();
+                }, 0);
+
+                console.log(response);
+            }
+        );
     };
 
     $scope.callButtonAction = function($event, action, paymentMethod){
@@ -218,7 +297,5 @@ Geek.controller('PaymentController',['$scope','$rootScope', 'PaymentService', 'D
          );*/
 
     });
-
-    $scope.getPaymentMethodsList();
 
 }]);
