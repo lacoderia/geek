@@ -81,7 +81,6 @@ Geek.controller('PaymentController',['$scope','$rootScope', 'PaymentService', 'D
             $scope.availableYears.push(currentYear);
             currentYear++;
         }
-
     };
 
     $scope.cancelPaymentMethodCreation = function(){
@@ -103,6 +102,8 @@ Geek.controller('PaymentController',['$scope','$rootScope', 'PaymentService', 'D
         $scope.clabe = '';
         $scope.bankAccountOwner = '';
         $scope.bankName = undefined;
+
+        $rootScope.$broadcast('closeAllAlerts');
     };
 
     $scope.saveCard = function(){

@@ -63,14 +63,14 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
         'PAYMENT_METHODS_BUTTONS': {
             'MAIN_BUTTON': {
                 'class': 'confirm-class',
-                'title': 'Cambiar cuenta principal',
+                'title': 'PAYMENT_LABEL_MAIN_ACCOUNT_BUTTON',
                 'action': 'change-main-account',
                 'icon': 'icon-accept',
                 'text': 'PAYMENT_LABEL_MAIN_ACCOUNT_BUTTON'
             },
             'DELETE_BUTTON': {
                 'class': 'cancel-class',
-                'title': 'Eliminar cuenta',
+                'title': 'PAYMENT_LABEL_DELETE_ACCOUNT_BUTTON',
                 'action': 'delete-account',
                 'icon': 'icon-close',
                 'text': 'PAYMENT_LABEL_DELETE_ACCOUNT_BUTTON'
