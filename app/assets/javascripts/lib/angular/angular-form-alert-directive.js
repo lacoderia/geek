@@ -16,6 +16,10 @@ Geek.directive('ngAlert', ["$rootScope", function($rootScope){
                 scope.alertParams = null;
             }
 
+            scope.$on('closeAllAlerts', function() {
+                scope.closeAlert();
+            });
+
         },
         scope: {
             alertParams: '=alertParams'

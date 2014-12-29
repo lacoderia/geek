@@ -2,10 +2,10 @@
     <h2 class="section-title">{{ 'PAYMENT_TITLE' | translate}}</h2>
     <ng-alert id="student-payment-form" alert-params="studentPaymentAlertParams"></ng-alert>
 
-    <!-- Sección de listado de calificaciones vacío -->
+    <!-- Sección de listado de métodos de pago vacío -->
     <div class="unavailable-message" ng-hide="paymentMethodsList.length || showNewBankAccount || showNewCard">
       <div class="unavailable-message-content">
-        <h3 translate="UNAVAILABLE_MESSAGE_CARDS"></h3>
+        <h3 translate="UNAVAILABLE_MESSAGE_PAYMENTS_NO_METHODS_TUTOR"></h3>
         <a class="action-button action-button-light-green" title="" ng-click="createPaymentMethod(PAYMENT_METHODS.CARD_METHOD.code)"><span class="icon-credit-card"></span> {{ 'PAYMENT_ADD_A_CARD' | translate }}</a>
         <a class="action-button action-button-light-green" title="" ng-click="createPaymentMethod(PAYMENT_METHODS.BANK_ACCOUNT_METHOD.code)"><span class="icon-pig"></span> {{ 'PAYMENT_ADD_AN_BANK_ACCOUNT' | translate }}</a>
       </div>
@@ -74,7 +74,7 @@
             </div>
 
             <div class="appointment-button">
-              <a ng-repeat="button in PAYMENT_METHODS_BUTTONS" ng-if="showActionButtons(paymentMethod.is_main_account, button.action)"  ng-class="[button.class, button.icon]" title=" {{ button.title }}" ng-click="callButtonAction($event, button.action, paymentMethod)"> {{ button.text | translate }}</a>
+              <a ng-repeat="button in PAYMENT_METHODS_BUTTONS" ng-if="showActionButtons(paymentMethod.is_main_account, button.action)"  ng-class="[button.class, button.icon]" title=" {{ button.title | translate }}" ng-click="callButtonAction($event, button.action, paymentMethod)"> {{ button.text | translate }}</a>
             </div>
 
           </div>
