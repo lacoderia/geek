@@ -169,7 +169,6 @@ Geek.controller('AppointmentHistoryController',['$scope','$rootScope','Appointme
             if(!appointment.details){
                 appointment.details = '';
             }
-
         }
 
         if(!$scope.$$phase){

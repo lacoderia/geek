@@ -182,6 +182,10 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
                 templateUrl: "/assets/tutor/partial_dashboard_layout.html",
                 controller: "RootController"
             })
+            .state('dashboard.resume',{
+                url: "/resume",
+                templateUrl: "/assets/tutor/partial_dashboard_layout.resume.html"
+            })
             .state('dashboard.calendar', {
                 url: "/calendar",
                 templateUrl: "/assets/tutor/partial_dashboard_layout.calendar.html"

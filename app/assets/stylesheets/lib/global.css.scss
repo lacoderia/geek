@@ -422,6 +422,11 @@ h3.section-title{
   color: $color-dark-green;
 }
 
+.anomaly-reported{
+  color: $color-dark-orange;
+  margin-right: 4px;
+}
+
 .border-error{
   border: 2px solid $color-light-red !important;
 }
@@ -1673,7 +1678,7 @@ footer{
       color: $color-light-green;
       display: inline-block;
       padding: 1.5em 3em;
-      min-width: 280px;
+      min-width: 230.5px;
     }
 
     a:hover{

@@ -10,7 +10,7 @@
             <span class="{{clickedAppointment.status.class}} {{clickedAppointment.status.icon_class}}"> {{ clickedAppointment.status.name | translate }}</span>
         </td>
       </tr>
-      <tr><td class="appointment-detail-content" ng-bind="clickedAppointment.details"></td></tr>
+      <tr><td class="appointment-detail-content"><span class="icon-alert anomaly-reported"> Anomalía reportada:</span> {{ clickedAppointment.anomaly.description }}</td></tr>
     </table>
   </div>
   <div class="modal-detail-footer"></div>
