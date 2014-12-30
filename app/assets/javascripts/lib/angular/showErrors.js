@@ -63,6 +63,17 @@
                         return blurred = false;
                     }, 0, false);
                 });
+                scope.$on('show-errors-reset-by-form', function(event, currentForm) {
+                    return $timeout(function() {
+                        el.removeClass('has-error');
+                        el.removeClass('has-success');
+
+                        if (currentForm[inputName]) {
+                            formCtrl[inputName].popoverMessage = '';
+                        }
+                        return blurred = false;
+                    }, 0, false);
+                });
 
 
                 return toggleClasses = function(invalid) {

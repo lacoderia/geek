@@ -23,24 +23,11 @@ Geek.controller('PaymentController',['$scope','$rootScope', '$timeout', '$locati
     $scope.state = undefined;
     $scope.availableYears = [];
 
-    // TEST
-
-    $scope.debitCardHolder = 'Ricardo Rosas Schultz';
-    $scope.debitCardNumber = '4242424242424242';
-    $scope.expirationMonth = '10';
-    $scope.expirationYear = '15';
-    $scope.debitCardValidationNumber = '432';
-    $scope.city = 'Veracruz';
-    $scope.postalCode = '91940';
-    $scope.addressLine1 = 'Mango 26';
-    $scope.addressLine2 = 'Fraccionamiento Floresta';
-    $scope.state = 'Veracruz';
-
     $scope.showNewBankAccount = false;
     $scope.showNewCard = false;
 
-    $scope.clabe = '';
     $scope.bankAccountOwner = '';
+    $scope.clabe = '';
 
     // Inicializamos los broadcasts y listeners del controlador
     $scope.$watch('tutorProfileLoaded', function(){
@@ -131,114 +118,186 @@ Geek.controller('PaymentController',['$scope','$rootScope', '$timeout', '$locati
         $scope.addressLine2 = '';
         $scope.state = undefined;
 
+        $scope.expirationErrorClass = '';
+        $scope.stateErrorClass = '';
+
         $scope.clabe = '';
         $scope.bankAccountOwner = '';
-        $scope.bankName = undefined;
 
         $rootScope.$broadcast('closeAllAlerts');
+        $rootScope.$broadcast('show-errors-reset-by-form', $scope.tutorPaymentOptionsCardForm);
+        $rootScope.$broadcast('show-errors-reset-by-form', $scope.tutorPaymentOptionsBankForm);
     };
+
+    $scope.validatePaymentCardForm = function() {
+        var validPaymentForm = true;
+
+        if(!$scope.validateExpirationDate()){
+            validPaymentForm = false;
+        }
+
+        if(!$scope.validateState()){
+            validPaymentForm = false;
+        }
+
+        return validPaymentForm;
+
+    }
+
+    $scope.validateExpirationDate = function() {
+        if(!$scope.expirationMonth || !$scope.expirationYear) {
+            $scope.expirationErrorClass = 'has-error';
+            return false;
+        } else {
+            $scope.expirationErrorClass = '';
+            return true;
+        }
+    }
+
+    $scope.validateState = function() {
+        if(!$scope.state) {
+            $scope.stateErrorClass = 'has-error';
+            return false;
+        } else {
+            $scope.stateErrorClass = '';
+            return true;
+        }
+    }
 
     $scope.saveCard = function(){
 
-        var card = {
-            "card_number": $scope.debitCardNumber,
-            "holder_name": $scope.debitCardHolder,
-            "expiration_year": $scope.expirationYear,
-            "expiration_month": $scope.expirationMonth,
-            "cvv2": $scope.debitCardValidationNumber,
-            "address": {
-                "city": $scope.city,
-                "line3":"",
-                "postal_code": $scope.postalCode,
-                "line1": $scope.addressLine1,
-                "line2": $scope.addressLine2,
-                "state": $scope.state,
-                "country_code": $scope.COUNTRY_CODE
-            }
-        };
+        $scope.$broadcast('show-errors-check-validity', $scope.tutorPaymentOptionsCardForm);
 
-        OpenPay.token.create(card,
-            function(data){
-
-                var cardData = {
-                    'tutor_id': $rootScope.tutor.id,
-                    'token': data.data.id
+        if ($scope.tutorPaymentOptionsCardForm.$valid & $scope.validatePaymentCardForm()) {
+            var card = {
+                "card_number": $scope.debitCardNumber,
+                "holder_name": $scope.debitCardHolder,
+                "expiration_year": $scope.expirationYear,
+                "expiration_month": $scope.expirationMonth,
+                "cvv2": $scope.debitCardValidationNumber,
+                "address": {
+                    "city": $scope.city,
+                    "line3":"",
+                    "postal_code": $scope.postalCode,
+                    "line1": $scope.addressLine1,
+                    "line2": $scope.addressLine2,
+                    "state": $scope.state,
+                    "country_code": $scope.COUNTRY_CODE
                 }
+            };
 
+            OpenPay.token.create(card,
+                function(data){
 
-                PaymentService.saveCard(cardData).then(
-                    function(data){
-                        if(data && data.id) {
+                    var cardData = {
+                        'tutor_id': $rootScope.tutor.id,
+                        'token': data.data.id
+                    }
+
+                    console.log(cardData)
+
+                    PaymentService.saveCard(cardData).then(
+                        function(data){
+                            if(data && data.id) {
+
+                                $timeout(function(){
+
+                                    $scope.cancelPaymentMethodCreation();
+                                    $scope.studentPaymentAlertParams = {
+                                        type: 'success',
+                                        message: $filter('translate')('SUCCESS_STUDENT_PAYMENT_METHOD_SAVE'),
+                                        icon: true
+                                    };
+
+                                    $location.hash('student-payment-form');
+                                    $anchorScroll();
+
+                                    $scope.getPaymentMethodsList();
+                                }, 0);
+                            }
+                        },
+                        function(response){
+
+                            $scope.studentPaymentAlertParams = {
+                                type: 'danger',
+                                message: $filter('translate')('ERROR_STUDENT_PAYMENT_METHOD_SAVE'),
+                                icon: true
+                            };
 
                             $timeout(function(){
-
-                                $scope.cancelPaymentMethodCreation();
-                                $scope.studentPaymentAlertParams = {
-                                    type: 'success',
-                                    message: $filter('translate')('SUCCESS_STUDENT_PAYMENT_METHOD_SAVE'),
-                                    icon: true
-                                };
-
                                 $location.hash('student-payment-form');
                                 $anchorScroll();
-
-                                $scope.getPaymentMethodsList();
                             }, 0);
+
+                            console.log('Error saving students payment method: ' + response);
                         }
-                    },
-                    function(response){
+                    );
 
-                        $scope.studentPaymentAlertParams = {
-                            type: 'danger',
-                            message: $filter('translate')('ERROR_STUDENT_PAYMENT_METHOD_SAVE'),
-                            icon: true
-                        };
+                },
+                function(response){
+                    $scope.studentPaymentAlertParams = {
+                        type: 'danger',
+                        message: response.data.description,
+                        icon: true
+                    };
 
-                        $timeout(function(){
-                            $location.hash('student-payment-form');
-                            $anchorScroll();
-                        }, 0);
+                    $timeout(function(){
+                        $location.hash('student-payment-form');
+                        $anchorScroll();
+                    }, 0);
 
-                        console.log('Error saving students payment method: ' + response);
-                    }
-                );
+                }
+            );
+        }
 
-            },
-            function(response){
-                $scope.studentPaymentAlertParams = {
-                    type: 'danger',
-                    message: response.data.description,
-                    icon: true
-                };
-
-                $timeout(function(){
-                    $location.hash('student-payment-form');
-                    $anchorScroll();
-                }, 0);
-
-            }
-        );
     };
 
     $scope.saveBankAccount = function(){
 
-        var bankAccount = {
-            "tutor_id": $rootScope.tutor.id,
-            "clabe": $scope.clabe,
-            "holder_name": $scope.bankAccountOwner
-        };
+        $scope.$broadcast('show-errors-check-validity', $scope.tutorPaymentOptionsBankForm);
 
-        PaymentService.saveBankAccount(bankAccount).then(
-            function(data){
-                if(data && data.id) {
-                    $scope.cancelPaymentMethodCreation();
-                    $scope.getPaymentMethodsList();
+        if ($scope.tutorPaymentOptionsBankForm.$valid) {
+            var bankAccount = {
+                "tutor_id": $rootScope.tutor.id,
+                "clabe": $scope.clabe,
+                "holder_name": $scope.bankAccountOwner
+            };
+
+            PaymentService.saveBankAccount(bankAccount).then(
+                function(data){
+                    if(data && data.id) {
+                        $scope.cancelPaymentMethodCreation();
+
+                        $scope.studentPaymentAlertParams = {
+                            type: 'success',
+                            message: $filter('translate')('SUCCESS_STUDENT_PAYMENT_METHOD_SAVE'),
+                            icon: true
+                        };
+
+                        $location.hash('student-payment-form');
+                        $anchorScroll();
+
+                        $scope.getPaymentMethodsList();
+                    }
+                },
+                function(response){
+
+                    $scope.studentPaymentAlertParams = {
+                        type: 'danger',
+                        message: response.data.description,
+                        icon: true
+                    };
+
+                    $timeout(function(){
+                        $location.hash('student-payment-form');
+                        $anchorScroll();
+                    }, 0);
+
+                    console.log('Error saving bank account ' + response);
                 }
-            },
-            function(response){
-                console.log('Error saving bank account ' + response);
-            }
-        );
+            );
+        }
+
     };
 
     $scope.callButtonAction = function($event, action, paymentMethod){

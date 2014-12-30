@@ -134,14 +134,14 @@
                 <label> {{ 'PAYMENT_LABEL_ADDRESS' | translate }}:</label>
               </div>
               <div class="right">
-                <input type="text" name="address_line_1" ng-model="$parent.addressLine1"  class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_ADDRESS_LINE_1' | translate }}" popover="{{studentPaymentOptionsForm.address_line_1.popoverMessage}}" popover-trigger="click" popover-animation="false" required/>
+                <input type="text" name="address_line_1" ng-model="addressLine1"  class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_ADDRESS_LINE_1' | translate }}" popover="{{studentPaymentOptionsForm.address_line_1.popoverMessage}}" popover-trigger="click" popover-animation="false" required/>
               </div>
             </div>
 
             <div class="form-group" show-errors>
               <div class="left"></div>
               <div class="right">
-                <input type="text" name="address_line_2" ng-model="$parent.addressLine2" class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_ADDRESS_LINE_2' | translate }}" popover="{{studentPaymentOptionsForm.address_line_2.popoverMessage}}" popover-trigger="click" popover-animation="false" required/>
+                <input type="text" name="address_line_2" ng-model="addressLine2" class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_ADDRESS_LINE_2' | translate }}" popover="{{studentPaymentOptionsForm.address_line_2.popoverMessage}}" popover-trigger="click" popover-animation="false" required/>
               </div>
             </div>
 
@@ -150,11 +150,11 @@
                 <label> {{ 'PAYMENT_LABEL_CITY' | translate }}:</label>
               </div>
               <div class="right">
-                <input type="text" name="city" ng-model="$parent.city"  class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_CITY' | translate }}" popover="{{studentPaymentOptionsForm.city.popoverMessage}}" popover-trigger="click" popover-animation="false" required/>
+                <input type="text" name="city" ng-model="city"  class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_CITY' | translate }}" popover="{{studentPaymentOptionsForm.city.popoverMessage}}" popover-trigger="click" popover-animation="false" required/>
               </div>
             </div>
 
-            <div class="form-group"  ng-class="stateErrorClass">
+            <div class="form-group" ng-class="stateErrorClass">
               <div class="left">
                 <label> {{ 'PAYMENT_LABEL_STATE' | translate }}:</label>
               </div>
@@ -178,7 +178,7 @@
                 <label> {{ 'PAYMENT_LABEL_POSTAL_CODE' | translate }}:</label>
               </div>
               <div class="right">
-                <input type="text" name="postal_code" ng-model="$parent.postalCode" class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_POSTAL_CODE' | translate }}" ng-pattern="/^[0-9]+$/" ng-minlength="5" ng-maxlength="5" maxlength="5" popover="{{studentPaymentOptionsForm.postal_code.popoverMessage}}" popover-trigger="click" popover-animation="false" required/>
+                <input type="text" name="postal_code" ng-model="postalCode" class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_POSTAL_CODE' | translate }}" ng-pattern="/^[0-9]+$/" ng-minlength="5" ng-maxlength="5" maxlength="5" popover="{{studentPaymentOptionsForm.postal_code.popoverMessage}}" popover-trigger="click" popover-animation="false" required/>
               </div>
             </div>
           </div>

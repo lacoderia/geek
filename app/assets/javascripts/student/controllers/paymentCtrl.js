@@ -26,19 +26,6 @@ Geek.controller('PaymentController',['$filter', '$scope','$rootScope', '$timeout
     $scope.expirationErrorClass = '';
     $scope.stateErrorClass = '';
 
-    // TEST
-
-    $scope.debitCardHolder = 'Ricardo Rosas Schultz';
-    $scope.debitCardNumber = '4242424242424242';
-    $scope.expirationMonth = '10';
-    $scope.expirationYear = '15';
-    $scope.debitCardValidationNumber = '432';
-    $scope.city = 'Veracruz';
-    $scope.postalCode = '91940';
-    $scope.addressLine1 = 'Mango 26';
-    $scope.addressLine2 = 'Fraccionamiento Floresta';
-    $scope.state = 'Veracruz';
-
     $scope.getPaymentMethodsList = function(){
 
         PaymentService.getPaymentMethodsList(SessionService.getId()).then(
@@ -119,6 +106,7 @@ Geek.controller('PaymentController',['$filter', '$scope','$rootScope', '$timeout
         $scope.stateErrorClass = '';
 
         $rootScope.$broadcast('closeAllAlerts');
+        $rootScope.$broadcast('show-errors-reset-by-form', $scope.studentPaymentOptionsForm);
 
     };
 
@@ -177,70 +165,69 @@ Geek.controller('PaymentController',['$filter', '$scope','$rootScope', '$timeout
                     "country_code": $scope.COUNTRY_CODE
                 }
             };
-        }
 
+            OpenPay.token.create(card,
+                function(data){
 
-        OpenPay.token.create(card,
-            function(data){
+                    var cardData = {
+                        'student_id': SessionService.getId(),
+                        'token': data.data.id
+                    }
 
-                var cardData = {
-                    'student_id': SessionService.getId(),
-                    'token': data.data.id
-                }
+                    PaymentService.saveCard(cardData).then(
+                        function(data){
+                            if(data && data.id) {
 
-                PaymentService.saveCard(cardData).then(
-                    function(data){
-                        if(data && data.id) {
+                                $timeout(function() {
+                                    $scope.cancelPaymentMethodCreation();
 
-                            $timeout(function() {
-                                $scope.cancelPaymentMethodCreation();
+                                    $scope.studentPaymentAlertParams = {
+                                        type: 'success',
+                                        message: $filter('translate')('SUCCESS_STUDENT_PAYMENT_METHOD_SAVE'),
+                                        icon: true
+                                    };
 
-                                $scope.studentPaymentAlertParams = {
-                                    type: 'success',
-                                    message: $filter('translate')('SUCCESS_STUDENT_PAYMENT_METHOD_SAVE'),
-                                    icon: true
-                                };
+                                    $location.hash('student-payment-form');
+                                    $anchorScroll();
 
+                                    $scope.getPaymentMethodsList();
+
+                                }, 0);
+                            }
+                        },
+                        function(response){
+
+                            $scope.studentPaymentAlertParams = {
+                                type: 'danger',
+                                message: $filter('translate')('ERROR_STUDENT_PAYMENT_METHOD_SAVE'),
+                                icon: true
+                            };
+
+                            $timeout(function(){
                                 $location.hash('student-payment-form');
                                 $anchorScroll();
-
-                                $scope.getPaymentMethodsList();
-
                             }, 0);
+
+                            console.log('Error saving students payment method: ' + response);
                         }
-                    },
-                    function(response){
+                    );
 
-                        $scope.studentPaymentAlertParams = {
-                            type: 'danger',
-                            message: $filter('translate')('ERROR_STUDENT_PAYMENT_METHOD_SAVE'),
-                            icon: true
-                        };
+                },
+                function(response){
+                    $scope.studentPaymentAlertParams = {
+                        type: 'danger',
+                        message: response.data.description,
+                        icon: true
+                    };
 
-                        $timeout(function(){
-                            $location.hash('student-payment-form');
-                            $anchorScroll();
-                        }, 0);
+                    $timeout(function(){
+                        $location.hash('student-payment-form');
+                        $anchorScroll();
+                    }, 0);
 
-                        console.log('Error saving students payment method: ' + response);
-                    }
-                );
-
-            },
-            function(response){
-                $scope.studentPaymentAlertParams = {
-                    type: 'danger',
-                    message: response.data.description,
-                    icon: true
-                };
-
-                $timeout(function(){
-                    $location.hash('student-payment-form');
-                    $anchorScroll();
-                }, 0);
-
-            }
-        );
+                }
+            );
+        }
 
     };
 
