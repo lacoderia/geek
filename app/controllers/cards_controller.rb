@@ -82,7 +82,12 @@ class CardsController < ApplicationController
   # holder_name - nombre del titular de la cuenta
   def register_bank_account
   	user = Tutor.find(params[:tutor_id]).user
-  	@card = Card.register_bank_account(user, params[:clabe], params[:holder_name])
+    result = Card.register_bank_account(user, params[:clabe], params[:holder_name]) 
+    if (result[:error].nil?)
+  	   @card = result[:card]
+    else
+      render json: result[:error], status: 500
+    end
   end
 
   # Obtiene los medios de oago de un usuario

@@ -3,7 +3,7 @@ class Message < ActiveRecord::Base
 	belongs_to :student
 
 	def self.get_conversations condition, value
-		query = "select * from messages where id in (select id from (select max(id) as id, student_id, tutor_id from messages where #{condition} = #{value} group by student_id, tutor_id) as sub)"
+		query = "select * from messages where id in (select id from (select max(id) as id, student_id, tutor_id from messages where #{condition} = #{value} group by student_id, tutor_id) as sub) order by id desc"
     messages = Message.find_by_sql(query)
 	end
 

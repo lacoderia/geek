@@ -16,11 +16,14 @@ class Card < ActiveRecord::Base
     user_openpay_id = user.get_openpay_id
     result = Payment.add_account(user_openpay_id, clabe, holder_name)
     card = nil
+    error = nil
     if result[:success] == true
     	Card.where("user_id = ?", user.id).update_all(:active => false)
     	card = Card.create(:openpay_id => result[:result], :user_id => user.id, :active => true, :is_bank_account => true)
+    else 
+      error = result[:error]
     end
-    card
+    {:card => card, :error => error}
   end
 
   def self.find_by_user user
