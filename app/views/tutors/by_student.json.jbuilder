@@ -4,7 +4,10 @@ json.array!(@tutors) do |tutor|
   tutor.reviews.each do |review|
   	has_evaluation = review.student_id == @student.id
   	if has_evaluation
-  		break
+  		json.set! :evaluation do
+  			json.extract! review, :description, :grade_knowledge, :grade_communication, :grade_presentation
+  			json.timestamp review.created_at
+  		end
   	end
   end
   json.has_evaluation has_evaluation
