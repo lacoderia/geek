@@ -1,10 +1,10 @@
 'use strict';
 
-Geek.directive('ngModalReview', ["$timeout", "$window", "$document", "$rootScope", function($timeout, $window, $document, $rootScope){
+Geek.directive('ngModalReviewDetail', ["$timeout", "$window", "$document", "$rootScope", function($timeout, $window, $document, $rootScope){
     return{
         restrict: 'A',
         replace: true,
-        templateUrl: '/assets/student/template_send_review.html',
+        templateUrl: '/assets/student/template_review_detail.html',
         link: function(scope, element, attrs){
 
             scope.DEFAULT_ARROW_CLASSES = ['modal-detail-arrow-left', 'modal-detail-arrow-right'];
@@ -20,18 +20,12 @@ Geek.directive('ngModalReview', ["$timeout", "$window", "$document", "$rootScope
             };
 
             scope.selectedTutor = null;
-            scope.tutorReview = {};
 
-            scope.sendReview = null;
-
-            scope.closeReviewModal = function(){
+            scope.closeReviewDetail = function(){
                 scope.modalStyle.top = 0;
                 scope.modalStyle.left = 0;
 
                 scope.selectedTutor = null;
-                scope.tutorReview = {};
-
-                scope.sendReview = null;
 
                 if(!scope.$$phase){
                     scope.$apply();
@@ -41,10 +35,10 @@ Geek.directive('ngModalReview', ["$timeout", "$window", "$document", "$rootScope
                 element.unbind('click');
 
                 // Dejamos de detectar el click en $document que cierra el modal
-                $document.unbind('click', scope.closeReviewModal);
+                $document.unbind('click', scope.closeReviewDetail);
             };
 
-            scope.openReviewModal = function($event, tutor, options, DEFAULT_VALUES){
+            scope.openReviewDetail = function($event, tutor, options, DEFAULT_VALUES){
                 // Primero cerramos todos los modales que están abiertos para evitar ver parpadear información del modal anterior
                 $timeout(function(){
                     $rootScope.$broadcast('closeAllModals');
@@ -55,9 +49,6 @@ Geek.directive('ngModalReview', ["$timeout", "$window", "$document", "$rootScope
 
                 $timeout(function(){
                     scope.selectedTutor = tutor;
-                    scope.tutorReview = {};
-
-                    scope.sendReview = options.sendReview;
                 },0);
 
                 $timeout(function(){
@@ -81,30 +72,14 @@ Geek.directive('ngModalReview', ["$timeout", "$window", "$document", "$rootScope
                 });
 
                 // Si detectamos un click sobre $document cerramos el modal
-                $document.bind('click', scope.closeReviewModal());
+                $document.bind('click', scope.closeReviewDetail());
 
                 // Listener que realiza las acciones necesarias para cerrar este modal
                 scope.$on('closeAllModals', function(){
-                    scope.closeReviewModal()
+                    scope.closeReviewDetail()
                 });
 
             };
-
-            scope.selectReviewScore = function(topic, score) {
-                switch(topic) {
-                    case 'knowledge':
-                        scope.tutorReview.knowledge = score;
-                        break;
-                    case 'communication':
-                        scope.tutorReview.communication = score;
-                        break;
-                    case 'presentation':
-                        scope.tutorReview.presentation = score;
-                        break;
-                    default:
-                        break;
-                }
-            }
         }
     }
 }]);
