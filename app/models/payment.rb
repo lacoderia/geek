@@ -11,7 +11,7 @@ class Payment
     op = set_openpay
     customers = op.create(:customers)
     request_hash = {
-      'external_id' => user.id,
+      'external_id' => Time.now.to_s,#user.id,
       "name" => user.first_name,
       "last_name" => user.last_name,
       "email" => user.email,
@@ -33,6 +33,10 @@ class Payment
   # Recibe:
   # user_id - el id de openpay del usuario
   # card_token - el token de la tarjeta de crédito/débito
+  # Regresa un hash:
+  # success - true si la operación se realizó con éxito, false de lo contrario
+  # result - el id de la tarjeta registrada
+  # error - el mensaje de error si la operación falló
   def self.add_card user_id, card_token
     op = set_openpay
     cards = op.create(:cards)
@@ -43,6 +47,28 @@ class Payment
     begin
       result_hash = cards.create(request_hash, user_id)
       result[:result] = result_hash["id"]
+    rescue => error
+      result[:success] = false
+      result[:error] = error
+    end
+    return result
+  end
+
+  # Obtiene la información de una tarjeta en Openpay
+  # Recibe:
+  # card_id - el id de Openpay de la tarjeta
+  # customer_id - el id de Openpay del usuario
+  # Regresa un hash:
+  # success - true si la operación se realizó con éxito, false de lo contrario
+  # result - un objeto tarjeta con la información
+  # error - el mensaje de error si la operación falló
+  def self.get_card card_id, customer_id
+    op = set_openpay
+    cards = op.create(:cards)
+    result = {:success => true, :result => nil, :error => nil}
+    begin
+      result_hash = cards.get(card_id, customer_id)
+      result[:result] = result_hash
     rescue => error
       result[:success] = false
       result[:error] = error
@@ -78,18 +104,40 @@ class Payment
   end
 
   #
-  def self.add_account tutor_id, account_params
+  def self.add_account tutor_id, clabe, holder_name
     op = set_openpay
     accounts = op.create(:bankaccounts)
     request_hash = {
-      "holder_name" => account_params["holder_name"],
+      "holder_name" => holder_name,
       "alias" => "Cuenta principal",
-      "clabe" => account_params["clabe"]
+      "clabe" => clabe
     }
     result = {:success => true, :result => nil, :error => nil}
     begin
       result_hash = accounts.create(request_hash, tutor_id)
       result[:result] = result_hash["id"]
+    rescue => error
+      result[:success] = false
+      result[:error] = error
+    end
+    return result
+  end
+
+  # Obtiene la información de una cuenta bancaria en Openpay
+  # Recibe:
+  # account_id - el id de Openpay de la cuenta bancaria
+  # customer_id - el id de Openpay del usuario
+  # Regresa un hash:
+  # success - true si la operación se realizó con éxito, false de lo contrario
+  # result - un objeto con la información de la cuenta bancaria
+  # error - el mensaje de error si la operación falló
+  def self.get_bank_account account_id, customer_id
+    op = set_openpay
+    accounts = op.create(:bankaccounts)
+    result = {:success => true, :result => nil, :error => nil}
+    begin
+      result_hash = accounts.get(customer_id, account_id)
+      result[:result] = result_hash
     rescue => error
       result[:success] = false
       result[:error] = error

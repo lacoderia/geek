@@ -2,12 +2,14 @@
 
 Geek.factory('PaymentService', ["$http", "$q", "DEFAULT_VALUES", function($http, $q, DEFAULT_VALUES){
 
-    var getPaymentMethodsList = function(){
-
-        /*var deferred = $q.defer();
+    var getPaymentMethodsList = function(tutorId){
+        var deferred = $q.defer();
         var promise = deferred.promise;
 
-        $http.get('https://sandbox-api.openpay.mx/v1/mvqfexabrjznvdfpdter/cards/kkb4llxaxdmkayti7a8w',{
+        $http.get(DEFAULT_VALUES.URL_SERVICES.OPENPAY_GET_CARDS_SERVICE_URL,{
+            params: {
+                tutor_id: tutorId
+            }
         }).
             success(function(data){
                 deferred.resolve(data);
@@ -17,53 +19,66 @@ Geek.factory('PaymentService', ["$http", "$q", "DEFAULT_VALUES", function($http,
                 deferred.reject(response);
             });
 
-        return promise;*/
-
-        return [{
-                'id': 1,
-                'type': 'CARD_METHOD',
-                'is_main_account': true,
-                'number': 'XXXX-XXXX-XXXX-1234',
-                'method_info': {
-                    "id":"kxq1rpdymlcpxekvjsxm",
-                    "card_number":"1118",
-                    "holder_name":"Pedro Paramo",
-                    "expiration_year":"15",
-                    "expiration_month":"12",
-                    "allows_charges":true,
-                    "allows_payouts":true,
-                    "creation_date":"2013-11-20T09:22:25-06:00",
-                    "bank_name":"BBVA BANCOMER",
-                    "bank_code":"012",
-                    "type":"debit",
-                    "brand":"mastercard"
-                }
-            },
-            {
-                'id': 2,
-                'type': 'BANK_ACCOUNT_METHOD',
-                'is_main_account': false,
-                'number': 'XXXXXX4567',
-                'method_info': {
-                    "id":"kxq1rpdymlcpxekvjsxm",
-                    "card_number":"1118",
-                    "holder_name":"Pedro Paramo",
-                    "expiration_year":"15",
-                    "expiration_month":"12",
-                    "allows_charges":true,
-                    "allows_payouts":true,
-                    "creation_date":"2013-11-20T09:22:25-06:00",
-                    "bank_name":"BBVA BANCOMER",
-                    "bank_code":"012",
-                    "type":"debit",
-                    "brand":"mastercard"
-                }
-            }]
+        return promise;
 
     };
 
+    var saveCard = function(payment){
+
+        var deferred = $q.defer();
+        var promise = deferred.promise;
+
+        $http.post(DEFAULT_VALUES.URL_SERVICES.OPENPAY_PAYMENT_SAVE_SERVICE_URL, payment).
+            success(function(data){
+                deferred.resolve(data);
+            }).
+
+            error(function(response){
+                deferred.reject(response);
+            });
+
+        return promise;
+    };
+
+    var saveBankAccount = function(payment){
+
+        var deferred = $q.defer();
+        var promise = deferred.promise;
+
+        $http.post(DEFAULT_VALUES.URL_SERVICES.OPENPAY_SAVE_BANK_ACCOUNT_SERVICE_URL, payment).
+            success(function(data){
+                deferred.resolve(data);
+            }).
+
+            error(function(response){
+                deferred.reject(response);
+            });
+
+        return promise;
+    };
+
+    var activateAccount = function(cardId){
+
+        var deferred = $q.defer();
+        var promise = deferred.promise;
+
+        $http.post('cards/' + cardId + '/activate.json', {}).
+            success(function(data){
+                deferred.resolve(data);
+            }).
+
+            error(function(response){
+                deferred.reject(response);
+            });
+
+        return promise;
+    };
+
     return{
-        getPaymentMethodsList: getPaymentMethodsList
+        getPaymentMethodsList: getPaymentMethodsList,
+        saveBankAccount: saveBankAccount,
+        saveCard: saveCard,
+        activateAccount: activateAccount
     }
 
 }]);

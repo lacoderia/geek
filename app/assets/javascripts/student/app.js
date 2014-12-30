@@ -19,7 +19,8 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
             'REVIEW_SEND_URL': "reviews.json",
             'PENDING_CONVERSATIONS_SERVICE_URL': 'messages/pending_conversations.json',
             'MY_TUTORS_SERVICE_URL': '/tutors/by_student.json',
-            'PAYMENT_SAVE_SERVICE_URL': 'cards/register_new.json'
+            'OPENPAY_GET_CARDS_SERVICE_URL': 'cards/by_user.json',
+            'OPENPAY_PAYMENT_SAVE_SERVICE_URL': 'cards/register_card.json'
         },
         'HOURS': [  '00:00', '00:30', '01:00', '01:30', '02:00', '02:30', '03:00', '03:30',
             '04:00', '04:30', '05:00', '05:30', '06:00', '06:30', '07:00', '07:30',
@@ -52,6 +53,28 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                     'Sonora', 'Tabasco', 'Tamaulipas', 'Tlaxcala', 'Veracruz', 'Yucatán', 'Zacatecas'],
         'MERCHANT_ID': 'mvqfexabrjznvdfpdter',
         'PUBLIC_KEY': 'pk_e2ab053d051e4990ad55d8d67c4de4be',
+        'PAYMENT_METHODS': {
+            'CARD_METHOD': {
+                'code': 0,
+                'icon': 'icon-credit-card'
+            }
+        },
+        'PAYMENT_METHODS_BUTTONS': {
+            'MAIN_BUTTON': {
+                'class': 'confirm-class',
+                'title': 'PAYMENT_LABEL_MAIN_ACCOUNT_BUTTON',
+                'action': 'change-main-account',
+                'icon': 'icon-accept',
+                'text': 'PAYMENT_LABEL_MAIN_ACCOUNT_BUTTON'
+            },
+            'DELETE_BUTTON': {
+                'class': 'cancel-class',
+                'title': 'PAYMENT_LABEL_DELETE_ACCOUNT_BUTTON',
+                'action': 'delete-account',
+                'icon': 'icon-close',
+                'text': 'PAYMENT_LABEL_DELETE_ACCOUNT_BUTTON'
+            }
+        },
         'APPOINTMENT_STATUS': [
             {
                 code: 0,
