@@ -2165,6 +2165,10 @@ footer{
   user-select: none;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 .reviews{
   .score-average {
     color: $color-search-dark-blue;
