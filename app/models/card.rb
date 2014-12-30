@@ -25,7 +25,7 @@ class Card < ActiveRecord::Base
 
   def self.find_by_user user
   	result = []
-  	cards = Card.where("user_id = ?", user.id)
+  	cards = Card.where("user_id = ?", user.id).order(:id)
   	cards.each do |card |
   		if card.is_bank_account
   			ocard = Payment.get_bank_account(card.openpay_id, user.openpay_id)
