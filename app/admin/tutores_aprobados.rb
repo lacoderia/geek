@@ -38,6 +38,11 @@ ActiveAdmin.register Tutor, :as => "Tutores" do
       row :phone_number
       row :background
       row :active
+      row 'Categories' do |tutor|
+        tutor.categories.map { |category|
+          category.name
+        }.join("<br/>").html_safe
+      end
       row 'Counties' do |tutor|
         tutor.counties.map { |county|
           county.name
