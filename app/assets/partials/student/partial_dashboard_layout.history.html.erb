@@ -33,7 +33,7 @@
               <td class="day-info"><span ng-if="appointment.anomaly" class="icon-alert anomaly-reported"></span> <span ng-class="[appointment.status.class,appointment.status.icon_class]"> {{ appointment.status.name | translate }}</span></td>
               <td class="day-info appointment-button">
                 <div class="appointment-button">
-                  <a ng-repeat="button in appointmentButtons" ng-if="showActionButtons(appointment, button.action)" ng-class="[button.class, button.icon]" title=" {{ button.title }}" ng-click="callButtonAction($event, button.action, appointment)"> {{ button.text | translate}}</a>
+                  <a ng-repeat="button in appointmentButtons" ng-if="showActionButtons(appointment, button.action)" ng-class="[button.class, button.icon]" title=" {{ button.title | translate }}" ng-click="callButtonAction($event, button.action, appointment)"> {{ button.text | translate}}</a>
                 </div>
               </td>
             </tr>

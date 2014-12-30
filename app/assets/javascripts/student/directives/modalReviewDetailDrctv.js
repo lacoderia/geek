@@ -19,13 +19,13 @@ Geek.directive('ngModalReviewDetail', ["$timeout", "$window", "$document", "$roo
                 left:0
             };
 
-            scope.selectedTutor = null;
+            scope.tutorReviewDetail = null;
 
             scope.closeReviewDetail = function(){
                 scope.modalStyle.top = 0;
                 scope.modalStyle.left = 0;
 
-                scope.selectedTutor = null;
+                scope.tutorReviewDetail = null;
 
                 if(!scope.$$phase){
                     scope.$apply();
@@ -48,7 +48,7 @@ Geek.directive('ngModalReviewDetail', ["$timeout", "$window", "$document", "$roo
                 $event.stopPropagation();
 
                 $timeout(function(){
-                    scope.selectedTutor = tutor;
+                    scope.tutorReviewDetail = tutor;
                 },0);
 
                 $timeout(function(){

@@ -1,11 +1,7 @@
-<div ng-class="[DEFAULT_CLASS, detailArrowClass]" ng-style="modalStyle" ng-show="selectedTutor">
+<div ng-class="[DEFAULT_CLASS, detailArrowClass]" ng-style="modalStyle" ng-show="tutorReviewDetail">
   <span class="icon-close modal-detail-close" ng-click="closeReviewDetail()"></span>
-  <div class="modal-detail-header" translate="POPUP_REVIEW_TITLE"></div>
+  <div class="modal-detail-header" translate="POPUP_REVIEW_DETAIL_TITLE"></div>
   <div class="modal-detail-content">
-    <div>
-      <label style="font-weight: normal" translate="POPUP_REVIEW_TEXT"></label><br/>
-    </div>
-
     <table class="score-table">
       <tr>
         <td>
@@ -13,11 +9,11 @@
         </td>
         <td>
           <div class="score">
-            <span class="icon-star1" ng-click="selectReviewScore('knowledge', 1)" ng-class="tutorReview.knowledge >= 1 ? 'star-full': 'star-empty'"></span>
-            <span class="icon-star1" ng-click="selectReviewScore('knowledge', 2)" ng-class="tutorReview.knowledge >= 2 ? 'star-full': 'star-empty'"></span>
-            <span class="icon-star1" ng-click="selectReviewScore('knowledge', 3)" ng-class="tutorReview.knowledge >= 3 ? 'star-full': 'star-empty'"></span>
-            <span class="icon-star1" ng-click="selectReviewScore('knowledge', 4)" ng-class="tutorReview.knowledge >= 4 ? 'star-full': 'star-empty'"></span>
-            <span class="icon-star1" ng-click="selectReviewScore('knowledge', 5)" ng-class="tutorReview.knowledge >= 5 ? 'star-full': 'star-empty'"></span>
+            <span class="icon-star1" ng-class="tutorReviewDetail.evaluation.grade_knowledge >= 1 ? 'star-full': 'star-empty'"></span>
+            <span class="icon-star1" ng-class="tutorReviewDetail.evaluation.grade_knowledge >= 2 ? 'star-full': 'star-empty'"></span>
+            <span class="icon-star1" ng-class="tutorReviewDetail.evaluation.grade_knowledge >= 3 ? 'star-full': 'star-empty'"></span>
+            <span class="icon-star1" ng-class="tutorReviewDetail.evaluation.grade_knowledge >= 4 ? 'star-full': 'star-empty'"></span>
+            <span class="icon-star1" ng-class="tutorReviewDetail.evaluation.grade_knowledge >= 5 ? 'star-full': 'star-empty'"></span>
           </div>
         </td>
       </tr>
@@ -27,11 +23,11 @@
         </td>
         <td>
           <div class="score">
-            <span class="icon-star1" ng-click="selectReviewScore('communication', 1)" ng-class="tutorReview.communication >= 1 ? 'star-full': 'star-empty'"></span>
-            <span class="icon-star1" ng-click="selectReviewScore('communication', 2)" ng-class="tutorReview.communication >= 2 ? 'star-full': 'star-empty'"></span>
-            <span class="icon-star1" ng-click="selectReviewScore('communication', 3)" ng-class="tutorReview.communication >= 3 ? 'star-full': 'star-empty'"></span>
-            <span class="icon-star1" ng-click="selectReviewScore('communication', 4)" ng-class="tutorReview.communication >= 4 ? 'star-full': 'star-empty'"></span>
-            <span class="icon-star1" ng-click="selectReviewScore('communication', 5)" ng-class="tutorReview.communication >= 5 ? 'star-full': 'star-empty'"></span>
+            <span class="icon-star1" ng-class="tutorReviewDetail.evaluation.grade_communication >= 1 ? 'star-full': 'star-empty'"></span>
+            <span class="icon-star1" ng-class="tutorReviewDetail.evaluation.grade_communication >= 2 ? 'star-full': 'star-empty'"></span>
+            <span class="icon-star1" ng-class="tutorReviewDetail.evaluation.grade_communication >= 3 ? 'star-full': 'star-empty'"></span>
+            <span class="icon-star1" ng-class="tutorReviewDetail.evaluation.grade_communication >= 4 ? 'star-full': 'star-empty'"></span>
+            <span class="icon-star1" ng-class="tutorReviewDetail.evaluation.grade_communication >= 5 ? 'star-full': 'star-empty'"></span>
           </div>
         </td>
       </tr>
@@ -41,23 +37,20 @@
         </td>
         <td>
           <div class="score">
-            <span class="icon-star1" ng-click="selectReviewScore('presentation', 1)" ng-class="tutorReview.presentation >= 1 ? 'star-full': 'star-empty'"></span>
-            <span class="icon-star1" ng-click="selectReviewScore('presentation', 2)" ng-class="tutorReview.presentation >= 2 ? 'star-full': 'star-empty'"></span>
-            <span class="icon-star1" ng-click="selectReviewScore('presentation', 3)" ng-class="tutorReview.presentation >= 3 ? 'star-full': 'star-empty'"></span>
-            <span class="icon-star1" ng-click="selectReviewScore('presentation', 4)" ng-class="tutorReview.presentation >= 4 ? 'star-full': 'star-empty'"></span>
-            <span class="icon-star1" ng-click="selectReviewScore('presentation', 5)" ng-class="tutorReview.presentation >= 5 ? 'star-full': 'star-empty'"></span>
+            <span class="icon-star1" ng-class="tutorReviewDetail.evaluation.grade_presentation >= 1 ? 'star-full': 'star-empty'"></span>
+            <span class="icon-star1" ng-class="tutorReviewDetail.evaluation.grade_presentation >= 2 ? 'star-full': 'star-empty'"></span>
+            <span class="icon-star1" ng-class="tutorReviewDetail.evaluation.grade_presentation >= 3 ? 'star-full': 'star-empty'"></span>
+            <span class="icon-star1" ng-class="tutorReviewDetail.evaluation.grade_presentation >= 4 ? 'star-full': 'star-empty'"></span>
+            <span class="icon-star1" ng-class="tutorReviewDetail.evaluation.grade_presentation >= 5 ? 'star-full': 'star-empty'"></span>
           </div>
         </td>
       </tr>
     </table>
 
     <br/>
-      <label style="font-weight: normal" translate="POPUP_REVIEW_COMMENT"></label><br/>
-      <textarea  class="form-textarea form-control" rows="4" ng-model="tutorReview.comment" required></textarea>
+      <label style="font-weight: normal">{{ 'POPUP_REVIEW_COMMENT' | translate }}:</label><br/>
+      <div>{{ tutorReviewDetail.evaluation.description }}</div>
     <br/>
-    <div style="text-align: center;">
-      <a class="action-button action-button-medium-gray" ng-click="sendReview(selectedTutor, tutorReview)" translate="POPUP_REVIEW_SEND"></a>
-    </div>
   </div>
   <div class="modal-detail-footer"></div>
 </div>
