@@ -21,9 +21,9 @@
       </div>
       <div ng-repeat="paymentMethod in paymentMethodsList" class="payment-method-item">
         <div class="payment-method-resume">
-          <div class="type"><span class="{{ PAYMENT_METHODS[paymentMethod.type].icon }}"></span></div>
-          <div class="number">{{ paymentMethod.number }}</div>
-          <div class="main"><span class="icon-accept" ng-if="paymentMethod.is_main_account"></span></div>
+          <div class="type"><span class="{{ paymentMethod.type.icon }}"></span></div>
+          <div class="number">XXXX-XXXX-XXXX-{{ paymentMethod.card_number }}</div>
+          <div class="main"><span class="icon-accept" ng-if="paymentMethod.active"></span></div>
           <span ng-click="togglePaymentMethodInfo(paymentMethod)"><span class="control-arrow" ng-class="{ true:'control-down-arrow', false:'control-right-arrow'}[paymentMethod.showInfo]"></span></span>
         </div>
         <div class="payment-method-info" ng-show="paymentMethod.showInfo">
@@ -32,15 +32,15 @@
               <thead>
               <tr>
                 <th class="brand"></th>
-                <th class="holder-name">Name of Account</th>
-                <th class="more-info">Address</th>
+                <th class="holder-name">{{ 'PAYMENT_LABEL_ACCOUNT_NAME' | translate }}</th>
+                <th class="more-info">{{ 'PAYMENT_LABEL_EXPIRATION_DATE' | translate }}</th>
               </tr>
               </thead>
               <tbody>
               <tr>
                 <td class="brand"><span ng-class="paymentMethod.brandClass"></span></td>
-                <td class="holder-name">{{ paymentMethod.method_info.holder_name }}</td>
-                <td class="more-info">{{ paymentMethod.method_info.bank_name }}<br>{{ paymentMethod.method_info.expiration_month }}/{{ paymentMethod.method_info.expiration_year }}</td>
+                <td class="holder-name">{{ paymentMethod.holder_name }}</td>
+                <td class="more-info">{{ paymentMethod.expiration_month }}/{{ paymentMethod.expiration_year }}</td>
               </tr>
               </tbody>
             </table>
