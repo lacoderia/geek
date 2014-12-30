@@ -182,13 +182,13 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                 resolve: {
                     isAuthenticated: function($state, AuthService, SessionService){
                         if(AuthService.isAuthenticated()){
-                            $state.go('dashboard.search-tutor');
+                            $state.go('dashboard.resume');
                         }else{
                             AuthService.getSession().then(
                                 function(data){
                                     if(data && data.id){
                                         SessionService.createSession(data.id, data.email, data.first_name, data.last_name, data.gender, data.phone_number, data.picture_url);
-                                        $state.go('dashboard.search-tutor');
+                                        $state.go('dashboard.resume');
 
                                     }else{
                                         return true;
@@ -210,13 +210,40 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                 resolve: {
                     isAuthenticated: function($state, AuthService, SessionService){
                         if(AuthService.isAuthenticated()){
-                            $state.go('dashboard.search-tutor');
+                            $state.go('dashboard.resume');
                         }else{
                             AuthService.getSession().then(
                                 function(data){
                                     if(data && data.id){
                                         SessionService.createSession(data.id, data.email, data.first_name, data.last_name, data.gender, data.phone_number, data.picture_url);
-                                        $state.go('dashboard.search-tutor');
+                                        $state.go('dashboard.resume');
+
+                                    }else{
+                                        $state.go('student');
+                                    }
+                                },
+                                function(response){
+                                    console.log('Error getting tutor\'s request status: ' + response);
+                                    $state.go('home');
+                                }
+                            )
+                        }
+                    }
+                }
+            })
+            .state('dashboard.resume', {
+                url: "/resume",
+                templateUrl: "/assets/student/partial_dashboard_layout.resume.html",
+                resolve: {
+                    isAuthenticated: function($state, AuthService, SessionService){
+                        if(AuthService.isAuthenticated()){
+                            return true;
+                        }else{
+                            AuthService.getSession().then(
+                                function(data){
+                                    if(data && data.id){
+                                        SessionService.createSession(data.id, data.email, data.first_name, data.last_name, data.gender, data.phone_number, data.picture_url);
+                                        return true;
 
                                     }else{
                                         $state.go('student');
