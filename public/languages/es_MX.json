@@ -120,6 +120,7 @@
     "PAYMENT_LABEL_EXPIRATION_DATE": "Fecha de expiración",
     "PAYMENT_LABEL_MAIN_ACCOUNT": "Principal",
     "PAYMENT_LABEL_MAIN_ACCOUNT_BUTTON": "Usar como principal",
+    "PAYMENT_LABEL_NEW_BANK_ACCOUNT_SUBTITLE": "Nueva cuenta de banco",
     "PAYMENT_LABEL_NEW_CARD_SUBTITLE": "Nueva tarjeta",
     "PAYMENT_LABEL_DELETE_ACCOUNT_BUTTON": "Eliminar cuenta",
     "PAYMENT_LABEL_POSTAL_CODE": "Código postal",

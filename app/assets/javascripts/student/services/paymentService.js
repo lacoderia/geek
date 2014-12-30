@@ -40,9 +40,27 @@ Geek.factory('PaymentService', ["$http", "$q", "DEFAULT_VALUES", function($http,
         return promise;
     };
 
+    var activateAccount = function(cardId){
+
+        var deferred = $q.defer();
+        var promise = deferred.promise;
+
+        $http.post('cards/' + cardId + '/activate.json', {}).
+            success(function(data){
+                deferred.resolve(data);
+            }).
+
+            error(function(response){
+                deferred.reject(response);
+            });
+
+        return promise;
+    };
+
     return{
         getPaymentMethodsList: getPaymentMethodsList,
-        saveCard: saveCard
+        saveCard: saveCard,
+        activateAccount: activateAccount
     }
 
 }]);

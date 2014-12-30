@@ -304,15 +304,6 @@ Geek.controller('PaymentController',['$scope','$rootScope', '$timeout', '$locati
         OpenPay.setApiKey(DEFAULT_VALUES.PUBLIC_KEY);
         OpenPay.setSandboxMode(true);
 
-        /*PaymentService.getCardById('kkb4llxaxdmkayti7a8w').then(
-         function(data){
-         console.log(data)
-         },
-         function(response){
-         console.log(response)
-         }
-         );*/
-
     });
 
 }]);

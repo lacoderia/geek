@@ -20,7 +20,6 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
             'OPENPAY_SANDBOX_API_URL': 'https://sandbox-api.openpay.mx',
             'OPENPAY_API_URL': 'https://api.openpay.mx',
             'OPENPAY_GET_CARDS_SERVICE_URL': 'cards/by_user.json',
-            'OPENPAY_PAYMENT_SAVE_SERVICE_URL': 'cards/register_card.json'
             'OPENPAY_PAYMENT_SAVE_SERVICE_URL': 'cards/register_card.json',
             'OPENPAY_SAVE_BANK_ACCOUNT_SERVICE_URL': 'cards/register_bank_account.json',
         },

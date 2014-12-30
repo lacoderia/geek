@@ -19,7 +19,7 @@
         <div class="main">{{ 'PAYMENT_LABEL_MAIN_ACCOUNT' | translate }}</div>
         <div class="control"></div>
       </div>
-      <div ng-repeat="paymentMethod in paymentMethodsList" class="payment-method-item">
+      <div ng-repeat="paymentMethod in paymentMethodsList | orderBy:paymenthMethod.active" class="payment-method-item">
         <div class="payment-method-resume">
           <div class="type"><span class="{{ paymentMethod.type.icon }}"></span></div>
           <div class="number">XXXX-XXXX-XXXX-{{ paymentMethod.card_number }}</div>
@@ -47,7 +47,7 @@
           </div>
 
           <div class="appointment-button">
-            <a ng-repeat="button in PAYMENT_METHODS_BUTTONS" ng-if="showActionButtons(paymentMethod.is_main_account, button.action)"  ng-class="[button.class, button.icon]" title=" {{ button.title | translate }}" ng-click="callButtonAction($event, button.action, paymentMethod)"> {{ button.text | translate }}</a>
+            <a ng-repeat="button in PAYMENT_METHODS_BUTTONS" ng-if="showActionButtons(paymentMethod.active, button.action)"  ng-class="[button.class, button.icon]" title=" {{ button.title | translate }}" ng-click="callButtonAction($event, button.action, paymentMethod)"> {{ button.text | translate }}</a>
           </div>
 
         </div>

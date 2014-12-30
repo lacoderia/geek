@@ -247,7 +247,14 @@ Geek.controller('PaymentController',['$filter', '$scope','$rootScope', '$timeout
     $scope.callButtonAction = function($event, action, paymentMethod){
         switch (action){
             case 'change-main-account':
-                console.log('ACA')
+                PaymentService.activateAccount(paymentMethod.id).then(
+                    function(data){
+                        $scope.getPaymentMethodsList();
+                    },
+                    function(response){
+                        console.log('Error activating account ' + response);
+                    }
+                );
                 break;
             case  'delete-account':
                 console.log('AQUI')
@@ -255,11 +262,11 @@ Geek.controller('PaymentController',['$filter', '$scope','$rootScope', '$timeout
         }
     };
 
-    $scope.showActionButtons = function(isMainAccount, action){
+    $scope.showActionButtons = function(active, action){
         var buttonVisibility = true;
         switch (action){
             case 'change-main-account':
-                if(isMainAccount){
+                if(active){
                     buttonVisibility = false;
                 }
                 break;
