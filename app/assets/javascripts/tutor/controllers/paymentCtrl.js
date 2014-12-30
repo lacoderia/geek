@@ -194,8 +194,6 @@ Geek.controller('PaymentController',['$scope','$rootScope', '$timeout', '$locati
                         'token': data.data.id
                     }
 
-                    console.log(cardData)
-
                     PaymentService.saveCard(cardData).then(
                         function(data){
                             if(data && data.id) {

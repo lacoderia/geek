@@ -130,7 +130,6 @@ Geek.controller('AppointmentHistoryController',['$filter', '$scope', '$rootScope
 
       AnomalyService.reportAnomaly(reportedAnomaly).then(
         function(data){
-          console.log(data);
           appointment.anomaly = data;
         },
         function(response){

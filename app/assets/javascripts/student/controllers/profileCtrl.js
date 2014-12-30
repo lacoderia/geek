@@ -66,8 +66,6 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
                 function(data){
                     if(data && data.id) {
 
-                        console.log(data);
-
                         SessionService.setFirstName(data.first_name);
                         SessionService.setLastName(data.first_name);
                         SessionService.setPhoneNumber(data.phone_number);
