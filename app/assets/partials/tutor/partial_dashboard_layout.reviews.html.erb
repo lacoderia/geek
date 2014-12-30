@@ -17,6 +17,30 @@
       <span class="icon-star1" ng-class="reviews.grade >= 4 ? 'star-full': 'star-empty'"></span>
       <span class="icon-star1" ng-class="reviews.grade >= 5 ? 'star-full': 'star-empty'"></span>
     </div>
+    <div class="score-average-topic">
+      <span>{{ 'REVIEWS_MY_AVERAGE_KNOWLEDGE' | translate }}:</span>
+      <span class="icon-star1" ng-class="reviews.grade_knowledge >= 1 ? 'star-full': 'star-empty'"></span>
+      <span class="icon-star1" ng-class="reviews.grade_knowledge >= 2 ? 'star-full': 'star-empty'"></span>
+      <span class="icon-star1" ng-class="reviews.grade_knowledge >= 3 ? 'star-full': 'star-empty'"></span>
+      <span class="icon-star1" ng-class="reviews.grade_knowledge >= 4 ? 'star-full': 'star-empty'"></span>
+      <span class="icon-star1" ng-class="reviews.grade_knowledge >= 5 ? 'star-full': 'star-empty'"></span>
+    </div>
+    <div class="score-average-topic">
+      <span>{{ 'REVIEWS_MY_AVERAGE_COMMUNICATION' | translate }}:</span>
+      <span class="icon-star1" ng-class="reviews.grade_presentation >= 1 ? 'star-full': 'star-empty'"></span>
+      <span class="icon-star1" ng-class="reviews.grade_presentation >= 2 ? 'star-full': 'star-empty'"></span>
+      <span class="icon-star1" ng-class="reviews.grade_presentation >= 3 ? 'star-full': 'star-empty'"></span>
+      <span class="icon-star1" ng-class="reviews.grade_presentation >= 4 ? 'star-full': 'star-empty'"></span>
+      <span class="icon-star1" ng-class="reviews.grade_presentation >= 5 ? 'star-full': 'star-empty'"></span>
+    </div>
+    <div class="score-average-topic">
+      <span>{{ 'REVIEWS_MY_AVERAGE_PRESENTATION' | translate }}:</span>
+      <span class="icon-star1" ng-class="reviews.grade_communication >= 1 ? 'star-full': 'star-empty'"></span>
+      <span class="icon-star1" ng-class="reviews.grade_communication >= 2 ? 'star-full': 'star-empty'"></span>
+      <span class="icon-star1" ng-class="reviews.grade_communication >= 3 ? 'star-full': 'star-empty'"></span>
+      <span class="icon-star1" ng-class="reviews.grade_communication >= 4 ? 'star-full': 'star-empty'"></span>
+      <span class="icon-star1" ng-class="reviews.grade_communication >= 5 ? 'star-full': 'star-empty'"></span>
+    </div>
     <div class="review" class="col-lg-12 col-md-12 col-sm-12" ng-repeat="review in reviews.reviews" ng-image-adjustment image-container="user_picture" image-src="{{ review.student.picture_url }}">
       <div class="user_picture_container">
         <div class="user_picture">
@@ -28,14 +52,7 @@
           <h4 class="user-name">{{ review.student.first_name }} {{ review.student.last_name }}</h4>
           <p class="user-last-message">{{ review.description }}</p>
           <div class="review-info">
-            <em class="timestamp">{{ review.timestamp }}</em>
-          </div>
-          <div class="score">
-            <span class="icon-star1" ng-class="review.score >= 1 ? 'star-full': 'star-empty'"></span>
-            <span class="icon-star1" ng-class="review.score >= 2 ? 'star-full': 'star-empty'"></span>
-            <span class="icon-star1" ng-class="review.score >= 3 ? 'star-full': 'star-empty'"></span>
-            <span class="icon-star1" ng-class="review.score >= 4 ? 'star-full': 'star-empty'"></span>
-            <span class="icon-star1" ng-class="review.score >= 5 ? 'star-full': 'star-empty'"></span>
+            <em class="timestamp">{{ review.timestamp | timestampTranslateFilter }}</em>
           </div>
         </div>
       </div>
