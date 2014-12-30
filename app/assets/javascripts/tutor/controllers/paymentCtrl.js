@@ -56,21 +56,21 @@ Geek.controller('PaymentController',['$scope','$rootScope', '$timeout', '$locati
                 $scope.paymentMethodsList = data;
                 angular.forEach($scope.paymentMethodsList, function(payment){
                     payment.showInfo = false;
-
-                    switch (payment.brand){
-                        case 'visa':
-                            payment.brandClass = 'icon-cc-visa';
-                            break;
-                        case 'mastercard':
-                            payment.brandClass = 'icon-cc-mastercard';
-                            break;
+                    if(!payment.is_bank_account){
+                        switch (payment.brand){
+                            case 'visa':
+                                payment.brandClass = 'icon-cc-visa';
+                                break;
+                            case 'mastercard':
+                                payment.brandClass = 'icon-cc-mastercard';
+                                break;
+                        }
                     }
 
                     (payment.is_bank_account) ? payment.type = $scope.PAYMENT_METHODS.BANK_ACCOUNT_METHOD : payment.type = $scope.PAYMENT_METHODS.CARD_METHOD ;
 
 
                 });
-                console.log($scope.paymentMethodsList)
             },
             function(response){
                 console.log(response)
@@ -166,7 +166,6 @@ Geek.controller('PaymentController',['$scope','$rootScope', '$timeout', '$locati
                     'token': data.data.id
                 }
 
-                console.log(cardData)
 
                 PaymentService.saveCard(cardData).then(
                     function(data){
@@ -223,19 +222,37 @@ Geek.controller('PaymentController',['$scope','$rootScope', '$timeout', '$locati
     };
 
     $scope.saveBankAccount = function(){
+
         var bankAccount = {
-            "holder_name": $scope.holder_name,
-            "clabe": $scope.clabe
+            "tutor_id": $rootScope.tutor.id,
+            "clabe": $scope.clabe,
+            "holder_name": $scope.bankAccountOwner
         };
 
-        console.log(bankAccount)
-
+        PaymentService.saveBankAccount(bankAccount).then(
+            function(data){
+                if(data && data.id) {
+                    $scope.cancelPaymentMethodCreation();
+                    $scope.getPaymentMethodsList();
+                }
+            },
+            function(response){
+                console.log('Error saving bank account ' + response);
+            }
+        );
     };
 
     $scope.callButtonAction = function($event, action, paymentMethod){
         switch (action){
             case 'change-main-account':
-                console.log('ACA')
+                PaymentService.activateAccount(paymentMethod.id).then(
+                    function(data){
+                        $scope.getPaymentMethodsList();
+                    },
+                    function(response){
+                        console.log('Error activating account ' + response);
+                    }
+                );
                 break;
             case  'delete-account':
                 console.log('AQUI')
@@ -243,11 +260,11 @@ Geek.controller('PaymentController',['$scope','$rootScope', '$timeout', '$locati
         }
     };
 
-    $scope.showActionButtons = function(isMainAccount, action){
+    $scope.showActionButtons = function(active, action){
         var buttonVisibility = true;
         switch (action){
             case 'change-main-account':
-                if(isMainAccount){
+                if(active){
                     buttonVisibility = false;
                 }
                 break;

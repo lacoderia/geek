@@ -21,6 +21,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
             'OPENPAY_API_URL': 'https://api.openpay.mx',
             'OPENPAY_GET_CARDS_SERVICE_URL': 'cards/by_user.json',
             'OPENPAY_PAYMENT_SAVE_SERVICE_URL': 'cards/register_card.json',
+            'OPENPAY_SAVE_BANK_ACCOUNT_SERVICE_URL': 'cards/register_bank_account.json',
         },
         'HOURS': [  '00:00', '00:30', '01:00', '01:30', '02:00', '02:30', '03:00', '03:30',
                     '04:00', '04:30', '05:00', '05:30', '06:00', '06:30', '07:00', '07:30',
