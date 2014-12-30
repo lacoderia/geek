@@ -6,8 +6,8 @@ class Appointment < ActiveRecord::Base
   has_many :registered_anomalies
   accepts_nested_attributes_for :registered_anomalies
 
-  @@hours_before_scheduling = 24
-  @@hours_before_confirming = 14
+  #@@hours_before_scheduling = 24
+  @@hours_before_confirming = 12
   @@hours_before_business_rules = 12
   @@hours_afer_business_rules = 12
   @@hours_afer_business_rules_max = 2

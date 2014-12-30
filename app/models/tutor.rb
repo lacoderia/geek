@@ -236,9 +236,8 @@ class Tutor < ActiveRecord::Base
 
   def self.request_class tutor_id, start, length, student_id, description, cost
     start_date = DateTime.iso8601(start).in_time_zone
-    # TODO: Confirmar si se valida con 24 horas de anticipacion
-    if start_date >= (DateTime.now + Appointment.hours_before_scheduling.hour)
-    #if start_date > DateTime.now
+    #if start_date >= (DateTime.now + Appointment.hours_before_scheduling.hour)
+    if start_date > DateTime.now
       tutor = Tutor.find(tutor_id)
       student = Student.find(student_id)
       tutor.refresh_token_action
