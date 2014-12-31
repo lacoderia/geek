@@ -65,4 +65,15 @@ class Appointment < ActiveRecord::Base
 
   end
 
+  def self.get_latest_by_tutor tutor_id, status_id
+    total = Appointment.where('tutor_id = ? and appointment_status_id = ?', tutor_id, status_id).size
+    appointments = Appointment.where('tutor_id = ? and appointment_status_id = ?', tutor_id, status_id).includes(:student).last(3).reverse
+    {:total => total, :appointments => appointments}
+  end
+
+  def self.get_latest_by_student student_id, status_id
+    total = Appointment.where('student_id = ? and appointment_status_id = ?', student_id, status_id).size
+    appointments = Appointment.where('student_id = ? and appointment_status_id = ?', student_id, status_id).includes(:tutor).last(3).reverse
+    {:total => total, :appointments => appointments}
+  end
 end

@@ -5,7 +5,7 @@ class Payment
   # user - un objeto User
   # Regresa un hash:
   # success - true si la operación se realizó con éxito, false de lo contrario
-  # result - el id del estudiante creado en Openpay
+  # result - el id del usuario creado en Openpay
   # error - el mensaje de error si la operación falló
   def self.create_user user
     op = set_openpay
@@ -16,7 +16,6 @@ class Payment
       "last_name" => user.last_name,
       "email" => user.email,
       "requires_account" => true,
-      "phone_number" => user.phone_number
     }
     result = {:success => true, :result => nil, :error => nil}
     begin
@@ -31,13 +30,13 @@ class Payment
 
   # Registra una tarjeta a un usuario
   # Recibe:
-  # user_id - el id de openpay del usuario
+  # user_openpay_id - el id de openpay del usuario
   # card_token - el token de la tarjeta de crédito/débito
   # Regresa un hash:
   # success - true si la operación se realizó con éxito, false de lo contrario
   # result - el id de la tarjeta registrada
   # error - el mensaje de error si la operación falló
-  def self.add_card user_id, card_token
+  def self.add_card user_openpay_id, card_token
     op = set_openpay
     cards = op.create(:cards)
     request_hash = {
@@ -45,7 +44,35 @@ class Payment
     }
     result = {:success => true, :result => nil, :error => nil}
     begin
-      result_hash = cards.create(request_hash, user_id)
+      result_hash = cards.create(request_hash, user_openpay_id)
+      result[:result] = result_hash["id"]
+    rescue => error
+      result[:success] = false
+      result[:error] = error
+    end
+    return result
+  end
+
+  # Registra una cuenta bancaria a un usuario
+  # Recibe:
+  # user_openpay_id - el id de openpay del usuario
+  # clabe - la clabe de la cuenta
+  # holder_name - el nombre del titular de la cuenta
+  # Regresa un hash:
+  # success - true si la operación se realizó con éxito, false de lo contrario
+  # result - el id de la tarjeta registrada
+  # error - el mensaje de error si la operación falló
+  def self.add_account user_openpay_id, clabe, holder_name
+    op = set_openpay
+    accounts = op.create(:bankaccounts)
+    request_hash = {
+      "holder_name" => holder_name,
+      "alias" => "Cuenta bancaria",
+      "clabe" => clabe
+    }
+    result = {:success => true, :result => nil, :error => nil}
+    begin
+      result_hash = accounts.create(request_hash, user_openpay_id)
       result[:result] = result_hash["id"]
     rescue => error
       result[:success] = false
@@ -57,17 +84,39 @@ class Payment
   # Obtiene la información de una tarjeta en Openpay
   # Recibe:
   # card_id - el id de Openpay de la tarjeta
-  # customer_id - el id de Openpay del usuario
+  # user_openpay_id - el id de Openpay del usuario
   # Regresa un hash:
   # success - true si la operación se realizó con éxito, false de lo contrario
   # result - un objeto tarjeta con la información
   # error - el mensaje de error si la operación falló
-  def self.get_card card_id, customer_id
+  def self.get_card card_id, user_openpay_id
     op = set_openpay
     cards = op.create(:cards)
     result = {:success => true, :result => nil, :error => nil}
     begin
-      result_hash = cards.get(card_id, customer_id)
+      result_hash = cards.get(card_id, user_openpay_id)
+      result[:result] = result_hash
+    rescue => error
+      result[:success] = false
+      result[:error] = error
+    end
+    return result
+  end
+
+  # Obtiene la información de una cuenta bancaria en Openpay
+  # Recibe:
+  # user_openpay_id - el id de Openpay de la cuenta bancaria
+  # user_id - el id de Openpay del usuario
+  # Regresa un hash:
+  # success - true si la operación se realizó con éxito, false de lo contrario
+  # result - un objeto con la información de la cuenta bancaria
+  # error - el mensaje de error si la operación falló
+  def self.get_bank_account account_id, user_openpay_id
+    op = set_openpay
+    accounts = op.create(:bankaccounts)
+    result = {:success => true, :result => nil, :error => nil}
+    begin
+      result_hash = accounts.get(user_openpay_id, account_id)
       result[:result] = result_hash
     rescue => error
       result[:success] = false
@@ -78,10 +127,14 @@ class Payment
 
   # Realiza cargo a la tarjeta de un estudiante 
   # Recibe: 
-  # student_id - el id de openpay del estudiante
+  # user_openpay_id - el id de openpay del estudiante
   # card_id - el id de openpay de la tarjeta del estudiante
   # amount - la cantidad a cobrar
-  def self.charge_student student_id, card_id, amount
+  # Regresa un hash:
+  # success - true si la operación se realizó con éxito, false de lo contrario
+  # result - el id de la operación
+  # error - el mensaje de error si la operación falló
+  def self.charge_student user_openpay_id, card_id, amount
     op = set_openpay
     charges = op.create(:charges)
     request_hash = {
@@ -90,11 +143,9 @@ class Payment
       "amount" => amount,
       "description" => "Pago de clase en Geek"
     }
-      #"order_id" => "oid-00051", #claseid
-      #"device_session_id" => "kR1MiQhz2otdIuUlQkbEyitIqVMiI16f"
     result = {:success => true, :result => nil, :error => nil}
     begin
-      result_hash = charges.create(request_hash, student_id)
+      result_hash = charges.create(request_hash, user_openpay_id)
       result[:result] = result_hash["id"]
     rescue => error
       result[:success] = false
@@ -103,18 +154,26 @@ class Payment
     return result
   end
 
-  #
-  def self.add_account tutor_id, clabe, holder_name
+  # Transfiere fondos de la cuenta del estudiante a la del tutor en Openpay
+  # Recibe:
+  # student_openpay_id - el id de openpay del estudiante
+  # tutor_openpay_id - el id de openpay del tutor
+  # amount - el monto a transferir
+  # Regresa un hash:
+  # success - true si la operación se realizó con éxito, false de lo contrario
+  # result - el id de la operación
+  # error - el mensaje de error si la operación falló
+  def self.transfer_funds student_openpay_id, tutor_openpay_id, amount
     op = set_openpay
-    accounts = op.create(:bankaccounts)
+    transfers = op.create(:transfers)
     request_hash = {
-      "holder_name" => holder_name,
-      "alias" => "Cuenta principal",
-      "clabe" => clabe
+      "customer_id" => tutor_openpay_id,
+      "amount" => amount,
+      "description" => "Transferencia estudiante-tutor"
     }
     result = {:success => true, :result => nil, :error => nil}
     begin
-      result_hash = accounts.create(request_hash, tutor_id)
+      result_hash = transfers.create(request_hash, student_openpay_id)
       result[:result] = result_hash["id"]
     rescue => error
       result[:success] = false
@@ -123,21 +182,26 @@ class Payment
     return result
   end
 
-  # Obtiene la información de una cuenta bancaria en Openpay
+  # Cobra la comisión de Geek al tutor
   # Recibe:
-  # account_id - el id de Openpay de la cuenta bancaria
-  # customer_id - el id de Openpay del usuario
+  # user_openpay_id - el id de openpay del tutor
+  # amount - el monto a cobrar
   # Regresa un hash:
   # success - true si la operación se realizó con éxito, false de lo contrario
-  # result - un objeto con la información de la cuenta bancaria
+  # result - el id de la operación
   # error - el mensaje de error si la operación falló
-  def self.get_bank_account account_id, customer_id
+  def self.charge_fee user_openpay_id, amount
     op = set_openpay
-    accounts = op.create(:bankaccounts)
+    fees = op.create(:fees)
+    request_hash = {
+      "customer_id" => user_openpay_id,
+      "amount" => amount,
+      "description" => "Cobro de comisión Geek"
+    }
     result = {:success => true, :result => nil, :error => nil}
     begin
-      result_hash = accounts.get(customer_id, account_id)
-      result[:result] = result_hash
+      result_hash = fees.create(request_hash)
+      result[:result] = result_hash["id"]
     rescue => error
       result[:success] = false
       result[:error] = error
@@ -145,62 +209,27 @@ class Payment
     return result
   end
 
-  #
-  def self.pay_tutor tutor_id, account_id, amount
+  # Realiza una transferencia a la cuenta bancaria o tarjeta de débito de un tutor
+  # Recibe:
+  # user_openpay_id - el id de openpay del tutor
+  # account_id - el id de openpay de la cuenta bancaria o tarjeta de débito
+  # amount - el monto a transferir
+  # Regresa un hash:
+  # success - true si la operación se realizó con éxito, false de lo contrario
+  # result - el id de la operación
+  # error - el mensaje de error si la operación falló
+  def self.pay_tutor user_openpay_id, account_id, amount
     op = set_openpay
     payouts = op.create(:payouts)
     request_hash={
       "method" => "bank_account",
       "destination_id" => account_id,   
       "amount" => amount,
-      "description" => "Retiro de saldo semanal"
+      "description" => "Retiro de saldo"
     }
-    #"order_id" => "oid-00021"
     result = {:success => true, :result => nil, :error => nil}
     begin
-      result_hash = payouts.create(request_hash, tutor_id)
-      result[:result] = result_hash["id"]
-    rescue => error
-      result[:success] = false
-      result[:error] = error
-    end
-    return result
-  end
-
-  #
-  def self.transfer_funds student_id, tutor_id, amount
-    op = set_openpay
-    transfers = op.create(:transfers)
-    request_hash = {
-      "customer_id" => tutor_id,
-      "amount" => amount,
-      "description" => "Transferencia estudiante-tutor"
-    }
-      #"order_id" => "oid-00051", #claseid
-    result = {:success => true, :result => nil, :error => nil}
-    begin
-      result_hash = transfers.create(request_hash, student_id)
-      result[:result] = result_hash["id"]
-    rescue => error
-      result[:success] = false
-      result[:error] = error
-    end
-    return result
-  end
-
-  #
-  def self.charge_fee tutor_id, amount
-    op = set_openpay
-    fees = op.create(:fees)
-    request_hash = {
-      "customer_id" => tutor_id,
-      "amount" => amount,
-      "description" => "Cobro de comisión Geek"
-    }
-      #"order_id" => "oid-00051", #claseid
-    result = {:success => true, :result => nil, :error => nil}
-    begin
-      result_hash = fees.create(request_hash)
+      result_hash = payouts.create(request_hash, user_openpay_id)
       result[:result] = result_hash["id"]
     rescue => error
       result[:success] = false
