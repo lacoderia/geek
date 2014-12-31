@@ -7,7 +7,7 @@ Geek.controller('MyTutorsController',['$scope','$rootScope','$compile', '$transl
     /*
      * Obtiene la posición donde el usuario hizo click y abre el popup con la forma para calificar al tutor
      * */
-    $scope.showReviewDetail = function($event, tutor){
+    $scope.showReviewModal = function($event, tutor){
         $event.stopPropagation();
         var options = {
             posX: $event.clientX,
@@ -15,7 +15,7 @@ Geek.controller('MyTutorsController',['$scope','$rootScope','$compile', '$transl
             sendReview: $scope.sendReview
         };
 
-        $scope.openReviewDetail($event, tutor, options, DEFAULT_VALUES);
+        $scope.openReviewModal($event, tutor, options, DEFAULT_VALUES);
     };
 
     /*
@@ -50,12 +50,24 @@ Geek.controller('MyTutorsController',['$scope','$rootScope','$compile', '$transl
             function(data){
                 if(data.student_id) {
                     tutor.has_evaluation = true;
-                    $scope.closeReviewDetail();
+                    $scope.closeReviewModal();
                 }
             },
             function(response){
             }
         );
+    };
+
+    // Muestra el detalle de la calificación que se asignó al tutor
+    $scope.showReviewDetail = function($event, tutor){
+        $event.stopPropagation();
+        var options = {
+            posX: $event.clientX,
+            posY: $event.pageY,
+            sendReview: $scope.sendReview
+        };
+
+        $scope.openReviewDetail($event, tutor, options, DEFAULT_VALUES);
     };
 
     /*
@@ -66,10 +78,15 @@ Geek.controller('MyTutorsController',['$scope','$rootScope','$compile', '$transl
 
         switch (action){
             case 'review':
+                $scope.showReviewModal($event, tutor);
+                break;
+            case 'review-detail':
                 $scope.showReviewDetail($event, tutor);
                 break;
             case 'send-message':
                 $scope.openModalMessage($event,tutor);
+                break;
+            default:
                 break;
         }
     };

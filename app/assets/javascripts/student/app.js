@@ -122,47 +122,54 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
         'APPOINTMENT_BUTTONS': {
             'CONFIRM_BUTTON': {
                 'class': 'confirm-class',
-                'title': 'Confirmar clase',
+                'title': 'CONFIRM',
                 'action': 'confirm',
                 'icon': 'icon-accept',
                 'text': 'CONFIRM'
             },
             'CANCEL_BUTTON': {
                 'class': 'cancel-class',
-                'title': 'Cancelar clase',
+                'title': 'CANCEL',
                 'action': 'cancel',
                 'icon': 'icon-close',
                 'text': 'CANCEL'
             },
             'REJECT_BUTTON': {
                 'class': 'reject-class',
-                'title': 'Rechazar clase',
+                'title': 'REJECT',
                 'action': 'reject',
                 'icon': 'icon-close',
                 'text': 'REJECT'
             },
             'MESSAGE_BUTTON': {
                 'class': 'send-message',
-                'title': 'Enviar mensaje',
+                'title': 'MESSAGE',
                 'action': 'send-message',
                 'icon': 'icon-bubble',
                 'text': 'MESSAGE'
             },
             'ANOMALY_BUTTON': {
                 'class': 'report-class',
-                'title': 'Reportar clase',
+                'title': 'REPORT',
                 'action': 'report-anomaly',
                 'icon': 'icon-alert',
                 'text': 'REPORT'
             },
             'REVIEW_BUTTON': {
                 'class': 'review-class',
-                'title': 'Calificar clase',
+                'title': 'REVIEW',
                 'action': 'review',
                 'icon': 'icon-review',
                 'text': 'REVIEW'
+            },
+            'REVIEW_DETAIL_BUTTON': {
+                'class': 'review-class',
+                'title': 'REVIEW_DETAIL',
+                'action': 'review-detail',
+                'icon': 'icon-review',
+                'text': 'REVIEW_DETAIL'
             }
-        },
+        }
     })
 
     .config(['$stateProvider','$urlRouterProvider', function($stateProvider, $urlRouterProvider){

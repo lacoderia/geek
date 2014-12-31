@@ -56,6 +56,7 @@ Rails.application.config.assets.precompile += %w( student/directives/modalAnomal
 Rails.application.config.assets.precompile += %w( student/directives/modalAppointmentRequestDrctv.js )
 Rails.application.config.assets.precompile += %w( student/directives/modalDetailDrctv.js )
 Rails.application.config.assets.precompile += %w( student/directives/modalReviewDrctv.js )
+Rails.application.config.assets.precompile += %w( student/directives/modalReviewDetailDrctv.js )
 Rails.application.config.assets.precompile += %w( student/directives/modalTutorDetailDrctv.js )
 Rails.application.config.assets.precompile += %w( student/directives/modalMessageDrctv.js )
 

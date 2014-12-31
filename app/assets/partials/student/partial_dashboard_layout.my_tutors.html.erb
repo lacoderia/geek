@@ -30,11 +30,11 @@
                 </td>
                 <td class="tutor-info">
                   <div class="appointment-button" ng-hide="tutor.has_evaluation">
-                    <!--a class="review-class" ng-click="showReviewDetail($event, tutor)">Calificar</a-->
-                    <a ng-class="[appointmentButtons['MESSAGE_BUTTON'].class, appointmentButtons['MESSAGE_BUTTON'].icon]" title=" {{ appointmentButtons['MESSAGE_BUTTON'].title }}" ng-click="callButtonAction($event, appointmentButtons['MESSAGE_BUTTON'].action, tutor)"> {{ appointmentButtons['MESSAGE_BUTTON'].text | translate}}</a>
-                    <a ng-class="[appointmentButtons['REVIEW_BUTTON'].class, appointmentButtons['REVIEW_BUTTON'].icon]" title=" {{ appointmentButtons['REVIEW_BUTTON'].title }}" ng-click="callButtonAction($event, appointmentButtons['REVIEW_BUTTON'].action, tutor)"> {{ appointmentButtons['REVIEW_BUTTON'].text | translate }}</a>
+                    <a ng-class="[appointmentButtons['MESSAGE_BUTTON'].class, appointmentButtons['MESSAGE_BUTTON'].icon]" title=" {{ appointmentButtons['MESSAGE_BUTTON'].title | translate }}" ng-click="callButtonAction($event, appointmentButtons['MESSAGE_BUTTON'].action, tutor)"> {{ appointmentButtons['MESSAGE_BUTTON'].text | translate}}</a>
+                    <a ng-class="[appointmentButtons['REVIEW_BUTTON'].class, appointmentButtons['REVIEW_BUTTON'].icon]" title=" {{ appointmentButtons['REVIEW_BUTTON'].title | translate }}" ng-click="callButtonAction($event, appointmentButtons['REVIEW_BUTTON'].action, tutor)"> {{ appointmentButtons['REVIEW_BUTTON'].text | translate }}</a>
                   </div>
-                  <div ng-show="tutor.has_evaluation" translate="MY_TUTORS_REVIEWED">
+                  <div class="appointment-button" ng-show="tutor.has_evaluation">
+                    <a ng-class="[appointmentButtons['REVIEW_DETAIL_BUTTON'].class, appointmentButtons['REVIEW_DETAIL_BUTTON'].icon]" title=" {{ appointmentButtons['REVIEW_DETAIL_BUTTON'].title | translate }}" ng-click="callButtonAction($event, appointmentButtons['REVIEW_DETAIL_BUTTON'].action, tutor)"> {{ appointmentButtons['REVIEW_DETAIL_BUTTON'].text | translate }}</a>
                   </div>
                 </td>
             </tr>
