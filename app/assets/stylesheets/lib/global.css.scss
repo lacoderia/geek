@@ -1588,6 +1588,116 @@ footer{
   padding: 0.3rem 1.5rem;
 }
 
+.link{
+  cursor: pointer;
+}
+
+.resume{
+  .resume-group{
+    background-color: white;
+    border: 1px solid $color-input-gray-bgcolor;
+    border-radius: 0px 0px 10px 10px;
+    box-sizing: border-box;
+    margin-bottom: 4em;
+    overflow: hidden;
+
+    h3{
+      font-size: 1.5em;
+      font-weight: 400;
+      margin: 1.5em 1.5em 1em;
+    }
+
+    .resume-group-actions{
+      background-color: $color-sign-up-dark-blue;
+      font-size: 0px;
+      padding: 16px 38px;
+
+      .resume-total-info{
+        display: inline-block;
+        font-size: 18px;
+        font-weight: 500;
+        vertical-align: middle;
+        width: 60%;
+      }
+
+      .resume-actions{
+        display: inline-block;
+        font-size: 16px;
+        text-align: right;
+        vertical-align: middle;
+        width: 40%;
+      }
+
+    }
+
+    .resume-items-group{
+      box-sizing: border-box;
+      padding: 1em;
+
+      .resume-item{
+        background-color: $color-input-gray-bgcolor;
+        box-sizing: border-box;
+        clear: both;
+        margin: 0 1em 0.5em;
+        padding: 0em 1em;
+        text-transform: uppercase;
+
+
+        .user-personal-info{
+
+          box-sizing: border-box;
+          display: inline-block;
+          padding: 0em 2em;
+          vertical-align: top;
+          width: 100%;
+
+          .content{
+            overflow: hidden;
+            width: 100%;
+
+            .user-name{
+              color: $color-dark-gray;
+              display: inline-block;
+              font-size: 14px;
+              font-weight: 500;
+              margin: 0em;
+              padding: 0em;
+              vertical-align: middle;
+              width: 33%;
+            }
+
+            .user-last-message{
+              color: $color-dark-gray;
+              display: inline-block;
+              display: inline-block;
+              font-size: 14px;
+              font-weight: 400;
+              overflow: hidden;
+              padding: 0em;
+              text-overflow: ellipsis;
+              vertical-align: middle;
+              width: 33%;
+            }
+
+            .timestamp{
+              color: #808184;
+              display: inline-block;
+              font-style: normal;
+              font-size: 14px;
+              font-weight: 400;
+              text-align: left;
+              vertical-align: middle;
+              width: 33%;
+
+            }
+
+          }
+        }
+      }
+    }
+  }
+}
+
 .separator{
   height: 12px;
   margin-bottom: 0.4em;
@@ -2490,6 +2600,17 @@ footer{
   text-align: center;
   text-transform: uppercase;
   width: 50%;
+}
+
+.unavailable-resume-items-message{
+  background-color: $color-input-gray-bgcolor;
+  box-sizing: border-box;
+  color: $color-medium-gray;
+  clear: both;
+  font-size: 1em;
+  margin: 0 1em 0.5em;
+  padding: 1em;
+  text-transform: uppercase;
 }
 
 .unavailable-message{

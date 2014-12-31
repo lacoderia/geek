@@ -4,6 +4,7 @@ Geek.controller('AppointmentHistoryController',['$scope','$rootScope','Appointme
 
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.MONTHS = DEFAULT_VALUES.MONTHS;
+    $scope.START_YEAR = DEFAULT_VALUES.START_YEAR;
 
     $scope.appointmentsGroups = [];
     $scope.appointmentButtons = DEFAULT_VALUES.APPOINTMENT_BUTTONS;
@@ -158,17 +159,11 @@ Geek.controller('AppointmentHistoryController',['$scope','$rootScope','Appointme
             appointment.day = startDate.getDay();
             appointment.month = startDate.getMonth();
             appointment.year = startDate.getYear() + $scope.START_YEAR;
+
             var statusId = appointment.status.id;
             appointment.status = DEFAULT_VALUES.APPOINTMENT_STATUS[appointment.status.code];
             appointment.status.id = statusId;
 
-            if(!appointment.address){
-                appointment.address = appointment.address = {};
-            }
-
-            if(!appointment.details){
-                appointment.details = '';
-            }
         }
 
         if(!$scope.$$phase){

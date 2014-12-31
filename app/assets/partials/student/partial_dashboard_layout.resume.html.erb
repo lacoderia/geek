@@ -1,10 +1,82 @@
-<div class="messages" ng-controller="ResumeController">
+<div class="resume" ng-controller="ResumeController">
   <h2 class="section-title" translate="DASHBOARD_TITLE"></h2>
 
-  <!-- Sección de listado de conversaciones vacío -->
-  <div class="unavailable-message" ng-hide="conversations.length">
-    <div class="unavailable-message-content">
-      <h3 translate="UNAVAILABLE_MESSAGE_RESUME"></h3>
+  <!-- Últimas citas no confirmadas -->
+  <div class="resume-group">
+    <h3>{{ 'RESUME_LAST_REQUESTS_TITLE' | translate }}</h3>
+    <div class="resume-items-group">
+      <div class="resume-item" ng-repeat="request in resume.requests.latest" ng-show="resume.requests.latest.length">
+        <div class="user-personal-info">
+          <div class="content">
+            <em class="timestamp">{{ 'FROM' | translate }} {{ request.startHour }} {{ 'TO' | translate }} {{ request.endHour }}</em>
+            <h4 class="user-name">{{ request.student.first_name }} {{ request.student.last_name }}</h4>
+            <p class="user-last-message">{{ request.subject }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="unavailable-resume-items-message" ng-hide="resume.requests.latest.length">
+        {{ 'RESUME_UNAVAILABLE_REQUESTS_MESSAGE' | translate }}
+      </div>
+    </div>
+
+    <div class="resume-group-actions" ng-if="resume.requests.latest.length">
+      <div class="resume-total-info"><span translate="TOTAL"></span>: {{ resume.requests.total }}</div>
+      <div class="resume-actions">
+        <a class="link" ui-sref="dashboard.calendar" translate="RESUME_SHOW_ALL_REQUESTS_BUTTON"></a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Últimas citas confirmadas -->
+  <div class="resume-group">
+    <h3>{{ 'RESUME_LAST_APPOINTMENTS_TITLE' | translate }}</h3>
+    <div class="resume-items-group">
+      <div class="resume-item" ng-repeat="appointment in resume.appointments.latest" ng-show="resume.appointments.latest.length">
+        <div class="user-personal-info">
+          <div class="content">
+            <em class="timestamp">{{ 'FROM' | translate }} {{ appointment.startHour }} {{ 'TO' | translate }} {{ appointment.endHour }}</em>
+            <h4 class="user-name">{{ appointment.student.first_name }} {{ appointment.student.last_name }}</h4>
+            <p class="user-last-message">{{ appointment.subject }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="unavailable-resume-items-message" ng-hide="resume.appointments.latest.length">
+        {{ 'RESUME_UNAVAILABLE_REQUESTS_MESSAGE' | translate }}
+      </div>
+    </div>
+
+    <div class="resume-group-actions" ng-if="resume.appointments.latest.length">
+      <div class="resume-total-info"><span class="resume-total-label" translate="TOTAL"></span>: {{ resume.appointments.total }}</div>
+      <div class="resume-actions">
+        <a class="link" ui-sref="dashboard.calendar" translate="RESUME_SHOW_ALL_APPOINTMENTS_BUTTON"></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Últimos mensajes -->
+  <div class="resume-group">
+    <h3>{{ 'RESUME_LAST_MESSAGES_TITLE' | translate }}</h3>
+    <div class="resume-items-group">
+      <div class="resume-item" ng-repeat="message in resume.messages.latest" ng-show="resume.messages.latest.length">
+        <div class="user-personal-info">
+          <div class="content">
+            <em class="timestamp">{{ message.created_at | timestampTranslateFilter}}</em>
+            <h4 class="user-name">{{ message.student.first_name }} {{ message.student.last_name }}</h4>
+            <p class="user-last-message">{{ message.text }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="unavailable-resume-items-message" ng-hide="resume.messages.latest.length">
+        {{ 'RESUME_UNAVAILABLE_MESSAGES_MESSAGE' | translate }}
+      </div>
+    </div>
+
+    <div class="resume-group-actions" ng-if="resume.messages.latest.length">
+      <div class="resume-total-info"><span class="resume-total-label" translate="TOTAL"></span>: {{ resume.messages.total }}</div>
+      <div class="resume-actions">
+        <a class="link" ui-sref="dashboard.messages" translate="RESUME_SHOW_ALL_MESSAGES_BUTTON"></a>
+      </div>
     </div>
   </div>
 

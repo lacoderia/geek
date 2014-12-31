@@ -2,11 +2,12 @@
 
 Geek.factory('ResumeService', ["$http", "$q", "DEFAULT_VALUES", function($http, $q, DEFAULT_VALUES){
 
-    /*var getReviews = function(tutorId){
+    var getUserResume = function(tutorId){
+
         var deferred = $q.defer();
         var promise = deferred.promise;
 
-        $http.get(DEFAULT_VALUES.URL_SERVICES.REVIEWS_SERVICE_URL,{
+        $http.get(DEFAULT_VALUES.URL_SERVICES.RESUME_GET_DASHBOARD_SERVICE_URL,{
             params: {
                 'tutor_id':  tutorId
             }
@@ -23,11 +24,7 @@ Geek.factory('ResumeService', ["$http", "$q", "DEFAULT_VALUES", function($http, 
     };
 
     return{
-        getReviews: getReviews
-    }*/
-
-    return{
-
+        getUserResume: getUserResume,
     }
 
 }]);

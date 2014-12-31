@@ -730,14 +730,6 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
                         appointment.status = DEFAULT_VALUES.APPOINTMENT_STATUS[appointment.status.code];
                         appointment.status.id = statusId;
 
-                        if(!appointment.address){
-                            appointment.address = appointment.address = {};
-                        }
-
-                        if(!appointment.details){
-                            appointment.details = '';
-                        }
-
                         $scope.setDayAppointment(appointment);
                     }
 
