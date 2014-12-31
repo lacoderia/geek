@@ -24,6 +24,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
     $scope.showTopSearchbar = false;
     $scope.validAppointmentDate = true;
 
+    $scope.appointmentRequestSent = false;
 
     $scope.onPlaceChanged = function(place){
 
@@ -270,19 +271,89 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
         }
     };
 
-    $scope.getHalfHour = function(row, column) {
-        var halfHour = null;
-
-        if ($rootScope.weekRows[row]) {
-            halfHour = $rootScope.weekRows[row].halfHours[column];
-        }
-
-        return halfHour;
-    };
-
     $scope.selectCategory = function(category){
         $scope.selectedCategory = category;
     };
+
+    $scope.sendAppointmentRequest = function() {
+
+        if($scope.selectedCategory.id){
+
+            var appointment = {
+                'tutorId': $scope.selectedTutor.id,
+                'start': $scope.selectedClass.dateTimeISO,
+                'duration': 1,
+                'studentId': SessionService.getId(),
+                'description': $scope.selectedCategory.name,
+                'cost': $scope.selectedCategory.cost
+            };
+
+            var currentClass = $scope.selectedClass;
+            usSpinnerService.spin('request-appointment-spinner');
+            $scope.closeAppointmentRequest();
+
+            AppointmentService.sendAppointmentRequest(appointment).then(
+                function(data){
+
+                    if(data.success == false){
+                        $scope.appointmentAlertParams = {
+                            type: 'warning',
+                            message: $filter('translate')('ERROR_MODAL_APPOINTMENT_REQUEST_EXPIRED'),
+                            icon: true
+                        }
+                    }else{
+
+                        for(var i=0; i<currentClass.halfHours.length; i++) {
+                            currentClass.halfHours[i].available = false;
+                        }
+
+                        $scope.appointmentRequestSent = true;
+
+                        /*$scope.appointmentAlertParams = {
+                            type: 'success',
+                            message: $filter('translate')('SUCCESS_MODAL_APPOINTMENT_REQUEST_SENT'),
+                            icon: true
+                        };
+
+                        $timeout(function(){
+                            $location.hash('appointment-alert');
+                            $anchorScroll();
+                        }, 0);*/
+                    }
+                },
+                function (response){
+                    $scope.appointmentAlertParams = {
+                        type: 'danger',
+                        message: $filter('translate')('ERROR_MODAL_APPOINTMENT_REQUEST_FAILED'),
+                        icon: true
+                    }
+
+                    $timeout(function(){
+                        $location.hash('appointment-alert');
+                        $anchorScroll();
+                    }, 0);
+
+                    console.log('Error saving an appointment: ' + response);
+                }
+            ).finally(function(){
+                    usSpinnerService.stop('request-appointment-spinner');
+                });
+
+        } else {
+
+            $scope.appointmentAlertMessagesParams = {
+                type: 'warning',
+                message: $filter('translate')('ERROR_MODAL_APPOINTMENT_REQUEST_EMPTY_TOPIC'),
+                icon: true
+            };
+        }
+
+
+    };
+
+    $scope.showSelectedTutorCalendar = function() {
+        $scope.appointmentRequestSent = false;
+    }
 
     $scope.openModalMessage = function($event,tutor){
 
@@ -336,78 +407,14 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
         }
     };
 
-    $scope.sendAppointmentRequest = function() {
+    $scope.getHalfHour = function(row, column) {
+        var halfHour = null;
 
-        if($scope.selectedCategory.id){
-
-            var appointment = {
-                'tutorId': $scope.selectedTutor.id,
-                'start': $scope.selectedClass.dateTimeISO,
-                'duration': 1,
-                'studentId': SessionService.getId(),
-                'description': $scope.selectedCategory.name,
-                'cost': $scope.selectedCategory.cost
-            };
-
-            var currentClass = $scope.selectedClass;
-            usSpinnerService.spin('request-appointment-spinner');
-            $scope.closeAppointmentRequest();
-
-            AppointmentService.sendAppointmentRequest(appointment).then(
-                function(data){
-
-                    if(data.success == false){
-                        $scope.appointmentAlertParams = {
-                            type: 'warning',
-                            message: $filter('translate')('ERROR_MODAL_APPOINTMENT_REQUEST_EXPIRED'),
-                            icon: true
-                        }
-                    }else{
-
-                        for(var i=0; i<currentClass.halfHours.length; i++) {
-                            currentClass.halfHours[i].available = false;
-                        }
-
-                        $scope.appointmentAlertParams = {
-                            type: 'success',
-                            message: $filter('translate')('SUCCESS_MODAL_APPOINTMENT_REQUEST_SENT'),
-                            icon: true
-                        };
-
-                        $timeout(function(){
-                            $location.hash('appointment-alert');
-                            $anchorScroll();
-                        }, 0);
-                    }
-                },
-                function (response){
-                    $scope.appointmentAlertParams = {
-                        type: 'danger',
-                        message: $filter('translate')('ERROR_MODAL_APPOINTMENT_REQUEST_FAILED'),
-                        icon: true
-                    }
-
-                    $timeout(function(){
-                        $location.hash('appointment-alert');
-                        $anchorScroll();
-                    }, 0);
-
-                    console.log('Error saving an appointment: ' + response);
-                }
-            ).finally(function(){
-                    usSpinnerService.stop('request-appointment-spinner');
-                });
-
-        } else {
-
-            $scope.appointmentAlertMessagesParams = {
-                type: 'warning',
-                message: $filter('translate')('ERROR_MODAL_APPOINTMENT_REQUEST_EMPTY_TOPIC'),
-                icon: true
-            };
+        if ($rootScope.weekRows[row]) {
+            halfHour = $rootScope.weekRows[row].halfHours[column];
         }
 
-
+        return halfHour;
     };
 
     $scope.translateWeeklyCalendarTitle = function(startDay, startMonth, endDay, endMonth) {

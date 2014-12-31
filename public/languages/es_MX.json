@@ -31,6 +31,15 @@
     "APPOINTMENT_LEGEND_CONFIRMED": "Cita confirmada",
     "APPOINTMENT_LEGEND_PENDING": "Cita pendiente",
     "APPOINTMENT_LEGEND_CANCELLED": "Cita cancelada",
+
+    "APPOINTMENT_REQUEST_FEEDBACK_SUBTITLE": "¡Has solicitado una clase!",
+    "APPOINTMENT_REQUEST_FEEDBACK_DETAILS": "Los detalles de tu clase son:",
+    "APPOINTMENT_REQUEST_FEEDBACK_DETAILS_TUTOR": "Tutor",
+    "APPOINTMENT_REQUEST_FEEDBACK_DETAILS_CLASS": "Clase",
+    "APPOINTMENT_REQUEST_FEEDBACK_DETAILS_DATE": "Fecha",
+    "APPOINTMENT_REQUEST_FEEDBACK_DETAILS_TIME": "Hora",
+    "APPOINTMENT_REQUEST_FEEDBACK_POLICIES": "Recuerda que cuentas con 12 horas antes de la cita para cancelarla sin cargos a tu cuenta.",
+
     "APPOINTMENT_STATUS_PENDING": "Pendiente",
     "APPOINTMENT_STATUS_REJECTED_STUDENT": "Rechazada",
     "APPOINTMENT_STATUS_REJECTED_TUTOR": "Rechazada",
