@@ -13,7 +13,7 @@ ActiveAdmin.register Appointment, :as => "Citas" do
   filter :paid
   filter :anomaly
   filter :resolved_anomaly
-
+  filter :log, :label => "Payment Error"
   index :title => "Citas" do
     column :start
     column :end
@@ -38,6 +38,13 @@ ActiveAdmin.register Appointment, :as => "Citas" do
        "<span class='status_tag no'>No</span>".html_safe
       end
     end
+    column "Payment Error" do |appointment|
+      if appointment.log
+       "<span class='status_tag yes'>Yes</span>".html_safe
+      else
+       "<span class='status_tag no'>No</span>".html_safe
+      end
+    end
     actions :defaults => true
   end
 
@@ -55,6 +62,9 @@ ActiveAdmin.register Appointment, :as => "Citas" do
       row :charged
       row :paid
       row :anomaly
+      row "payment error" do |appointment|
+        appointment.log
+      end
       if appointment.registered_anomalies.count > 0
         panel "Anomalies" do
           table_for appointment.registered_anomalies do 
@@ -102,8 +112,24 @@ END
 END
 ).html_safe
       f.input :cost
-      f.input :charged
-      f.input :paid
+      f.input :log, :label => "Payment Error", :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
+      if f.object.log
+
+        if f.object.charged and f.object.paid
+          f.input :charged, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
+          f.input :paid, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
+        elsif f.object.charged
+          f.input :charged, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
+          f.form_buffers.last << "<li class='string input optional stringish'> <label class>&nbsp;</label> <a href='#' onclick='forcePayment(#{f.object.id})'>Pay</a></li>".html_safe
+        else
+          # f.input :charged
+          f.form_buffers.last << "<li class='string input optional stringish'> <label class>&nbsp;</label> <a href='#' onclick='forceCharge(#{f.object.id})'>Charge</a></li>".html_safe
+          f.input :paid, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
+        end
+      else
+        f.input :charged, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
+        f.input :paid, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
+      end
       f.input :anomaly, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
 
       pending_anomaly = RegisteredAnomalyStatus.find_by_code("0")

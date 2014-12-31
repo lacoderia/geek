@@ -133,6 +133,28 @@ class AppointmentsController < ApplicationController
     end
   end
 
+  # Forza el cargo a un estudiante
+  # Recibe:
+  # id = el ID del appointment
+  # Regresa:
+  # success - true si se logró cobrar, success - false con error - description
+  def force_charge
+    @appointment = Appointment.find(params[:id])
+    @appointment.force_charge
+  end
+
+  # Forza el cargo a un estudiante
+  # Recibe:
+  # id = el ID del appointment
+  # fee_student = el porcentaje que se le va a cobrar al estudiante. Default es 100 del costo de la clase
+  # fee_tutor = el porcentaje que le corresponde al tutor. Default es 80 de lo que se le cobre al estudiante
+  # Regresa:
+  # success - true si se logró cobrar, success - false con error - description
+  def force_pay
+    @appointment = Appointment.find(params[:id])
+    @appointment.force_pay 
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_appointment

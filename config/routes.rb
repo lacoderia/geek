@@ -48,6 +48,8 @@ Rails.application.routes.draw do
     end
     member do
       post 'change_status'
+      post 'force_charge'
+      post 'force_pay'
     end
   end
 
