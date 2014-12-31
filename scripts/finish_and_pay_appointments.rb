@@ -64,7 +64,8 @@ every(30.minutes, 'finish_and_pay_appointments', :at => ['**:30', '**:00']) {
 
   # Cobrar y pagar las clases sin anomalías, y pagar las que tengan anomalías resueltas
   Appointment.where("appointments.appointment_status_id = ? AND appointments.charged = ? AND appointments.paid = ? AND appointments.end < ?", completed_appointment.id, false, false, Time.now - Appointment.hours_afer_business_rules.hour).each do |appointment|
-    if not appointment.anomaly
+    #si no tiene anomalias ni log de errores
+    if not appointment.anomaly and not appointment.log
       # pagar el appointment
       appointment.pay 100, 80
     elsif appointment.anomaly and appointment.resolved_anomaly
