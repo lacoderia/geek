@@ -9,7 +9,7 @@
         <div class="user-personal-info">
           <div class="content">
             <em class="timestamp">{{ 'FROM' | translate }} {{ request.startHour }} {{ 'TO' | translate }} {{ request.endHour }}</em>
-            <h4 class="user-name">{{ request.student.first_name }} {{ request.student.last_name }}</h4>
+            <h4 class="user-name">{{ request.tutor.first_name }} {{ request.tutor.last_name }}</h4>
             <p class="user-last-message">{{ request.subject }}</p>
           </div>
         </div>
@@ -36,7 +36,7 @@
         <div class="user-personal-info">
           <div class="content">
             <em class="timestamp">{{ 'FROM' | translate }} {{ appointment.startHour }} {{ 'TO' | translate }} {{ appointment.endHour }}</em>
-            <h4 class="user-name">{{ appointment.student.first_name }} {{ appointment.student.last_name }}</h4>
+            <h4 class="user-name">{{ appointment.tutor.first_name }} {{ appointment.tutor.last_name }}</h4>
             <p class="user-last-message">{{ appointment.subject }}</p>
           </div>
         </div>
@@ -62,7 +62,7 @@
         <div class="user-personal-info">
           <div class="content">
             <em class="timestamp">{{ message.created_at | timestampTranslateFilter}}</em>
-            <h4 class="user-name">{{ message.student.first_name }} {{ message.student.last_name }}</h4>
+            <h4 class="user-name">{{ message.tutor.first_name }} {{ message.tutor.last_name }}</h4>
             <p class="user-last-message">{{ message.text }}</p>
           </div>
         </div>

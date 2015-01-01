@@ -63,7 +63,7 @@
         </div>
         <div class="right">
           <div>
-          <!-- <div popover="{{tutorProfileForm.tutor_topic.popoverMessage}}" popover-trigger="click" popover-animation="false"> -->
+            <!-- <div popover="{{tutorProfileForm.tutor_topic.popoverMessage}}" popover-trigger="click" popover-animation="false"> -->
             <div class="dropdown form-dropdown">
               <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
                 {{selectedCategory.name}}
@@ -169,21 +169,21 @@
         </div>
         <div class="right">
           <div>
-          <!-- <div popover="{{tutorProfileForm.tutor_topic.popoverMessage}}" popover-trigger="click" popover-animation="false"> -->
+            <!-- <div popover="{{tutorProfileForm.tutor_topic.popoverMessage}}" popover-trigger="click" popover-animation="false"> -->
             <div class="dropdown form-dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-                    {{selectedCategory.name}}
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu">
-                    <li role="presentation" ng-repeat="category in parentCategories"><a role="menuitem" tabindex="{{$index}}"  ng-click="selectCategory(category)">{{ category.name }}</a></li>
-                </ul>
+              <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                {{selectedCategory.name}}
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu">
+                <li role="presentation" ng-repeat="category in parentCategories"><a role="menuitem" tabindex="{{$index}}"  ng-click="selectCategory(category)">{{ category.name }}</a></li>
+              </ul>
             </div>
             <input type="text" placeholder="{{ 'TUTOR_PROFILE_PLACEHOLDER_TOPICS_NAME' | translate }}" ng-model="selectedTopic.name" name="tutor_topic_name" class="form-input form-input-third form-control">
             <input type="text" placeholder="{{ 'TUTOR_PROFILE_PLACEHOLDER_TOPICS_PRICE' | translate }}" ng-model="selectedTopic.cost" name="tutor_topic_cost" class="form-input form-input-fifth form-control" ng-currency>
             <a class="action-button action-button-medium-gray" ng-click="addTutorTopic()" translate="ADD"></a>
             <div id="tutor_topics" class="items-added-group">
-                <div id="tutor_topic_{{$index}}" ng-repeat="tutorTopic in tutor.topics" class="item-added">{{tutorTopic.name}} - {{tutorTopic.cost | currency : '$'}}<span ng-click="removeTutorTopic($index)" class="icon-close close-item"></span></div>
+              <div id="tutor_topic_{{$index}}" ng-repeat="tutorTopic in tutor.topics" class="item-added">{{tutorTopic.name}} - {{tutorTopic.cost | currency : '$'}}<span ng-click="removeTutorTopic($index)" class="icon-close close-item"></span></div>
             </div>
           </div>
         </div>
@@ -197,21 +197,21 @@
             <label><span class="icon-help icon-pointer" data-placement="top-left" data-content="{{ help.preferences }}" data-trigger="click" html="true" bs-popover ></span> {{ 'TUTOR_PROFILE_LABEL_CLASS_PREFERENCE' | translate }}:</label>
           </div>
 
-        <div class="right form-radio custom-checkbox custom-checkbox-profile">
-          <div popover="{{tutorProfileForm.tutor_class_mode.popoverMessage}}" popover-trigger="mouseenter" popover-animation="false">
-            <input type="checkbox" id="tutor_class_mode_online" name="tutor_class_mode" ng-model="tutor.preference.classLocation.online" ng-change="changeClassLocation()" class="form-control">
-            <label for="tutor_class_mode_online" translate="TUTOR_PROFILE_LABEL_CLASS_PREFERENCE_ONLINE"></label>
+          <div class="right form-radio custom-checkbox custom-checkbox-profile">
+            <div popover="{{tutorProfileForm.tutor_class_mode.popoverMessage}}" popover-trigger="mouseenter" popover-animation="false">
+              <input type="checkbox" id="tutor_class_mode_online" name="tutor_class_mode" ng-model="tutor.preference.classLocation.online" ng-change="changeClassLocation()" class="form-control">
+              <label for="tutor_class_mode_online" translate="TUTOR_PROFILE_LABEL_CLASS_PREFERENCE_ONLINE"></label>
 
-            <input type="checkbox" id="tutor_class_mode_tutor_home" name="tutor_class_mode" ng-model="tutor.preference.classLocation.office" ng-change="changeClassLocation()" class="form-control">
-            <label for="tutor_class_mode_tutor_home" translate="TUTOR_PROFILE_LABEL_CLASS_PREFERENCE_OFFICE"></label>
+              <input type="checkbox" id="tutor_class_mode_tutor_home" name="tutor_class_mode" ng-model="tutor.preference.classLocation.office" ng-change="changeClassLocation()" class="form-control">
+              <label for="tutor_class_mode_tutor_home" translate="TUTOR_PROFILE_LABEL_CLASS_PREFERENCE_OFFICE"></label>
 
-            <input type="checkbox" id="tutor_class_mode_student_home" name="tutor_class_mode" ng-model="tutor.preference.classLocation.student_place" ng-change="changeClassLocation()" class="form-control">
-            <label for="tutor_class_mode_student_home" translate="TUTOR_PROFILE_LABEL_CLASS_PREFERENCE_STUDENT"></label>
+              <input type="checkbox" id="tutor_class_mode_student_home" name="tutor_class_mode" ng-model="tutor.preference.classLocation.student_place" ng-change="changeClassLocation()" class="form-control">
+              <label for="tutor_class_mode_student_home" translate="TUTOR_PROFILE_LABEL_CLASS_PREFERENCE_STUDENT"></label>
 
-            <input type="checkbox" id="tutor_class_mode_public" name="tutor_class_mode" ng-model="tutor.preference.classLocation.public" ng-change="changeClassLocation()" class="form-control">
-            <label for="tutor_class_mode_public" translate="TUTOR_PROFILE_LABEL_CLASS_PREFERENCE_PUBLIC"></label>
+              <input type="checkbox" id="tutor_class_mode_public" name="tutor_class_mode" ng-model="tutor.preference.classLocation.public" ng-change="changeClassLocation()" class="form-control">
+              <label for="tutor_class_mode_public" translate="TUTOR_PROFILE_LABEL_CLASS_PREFERENCE_PUBLIC"></label>
+            </div>
           </div>
-        </div>
 
         </div>
         <div class="form-group" ng-show="zonesAvailable">
