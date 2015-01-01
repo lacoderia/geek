@@ -18,7 +18,7 @@
     <div class="clearfix"></div>
   </div>
 
-  <div class="search-results-list" ng-show="showTopSearchbar">
+  <div class="search-results-list" ng-show="showTopSearchbar && !appointmentRequestSent">
     <div class="unavailable-message" ng-hide="tutorList.length || suggestedTutorList.length">
       <div class="unavailable-message-content">
         <h3 translate="UNAVAILABLE_MESSAGE_SEARCH_TUTORS"></h3>
@@ -210,6 +210,26 @@
         </div>
         <span us-spinner spinner-key="request-appointment-spinner"></span>
       </div>
+    </div>
+  </div>
+
+  <div class="appointment-request-feedback" ng-show="appointmentRequestSent">
+    <div>
+      {{'APPOINTMENT_REQUEST_FEEDBACK_SUBTITLE' | translate}}
+      <br/><br/>
+      {{'APPOINTMENT_REQUEST_FEEDBACK_DETAILS' | translate}}
+        <ul>
+          <li>{{'APPOINTMENT_REQUEST_FEEDBACK_DETAILS_TUTOR' | translate}}: {{ selectedTutor.first_name }} {{ selectedTutor.last_name }}</li>
+          <li>{{'APPOINTMENT_REQUEST_FEEDBACK_DETAILS_CLASS' | translate}}: {{ selectedCategory.name }}</li>
+          <li>{{'APPOINTMENT_REQUEST_FEEDBACK_DETAILS_DATE' | translate}}: {{ selectedClass.dateTimeISO | dateTranslateFilter }}</li>
+          <li>{{'APPOINTMENT_REQUEST_FEEDBACK_DETAILS_TIME' | translate}}: {{ selectedClass.time }}</li>
+        </ul>
+      {{'APPOINTMENT_REQUEST_FEEDBACK_POLICIES' | translate}}
+      <br/><br/>
+    </div>
+
+    <div class="action-buttons">
+      <a class="action-button action-accept" ng-click="showSelectedTutorCalendar()">Aceptar</a>
     </div>
   </div>
 

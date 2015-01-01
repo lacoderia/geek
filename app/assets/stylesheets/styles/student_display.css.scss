@@ -18,12 +18,14 @@
 }
 
 .calendar{
+
   .week-day.unavailable{
     background-image: linear-gradient(-45deg, transparent 45%, $color-input-gray 50%, transparent 55%, transparent 100%);
     background-size: 8px 8px;
     background-position: 2px 2px;
     cursor: default !important;
   }
+
 }
 
 .tutor-calendar-section{
@@ -624,6 +626,16 @@
 
 .section-search-results{
 
+  .appointment-request-feedback {
+    color: $color-medium-gray;
+    font-size: 1.2em;
+    padding: 1em;
+
+    .action-buttons {
+      text-align: right;
+    }
+  }
+
   .light-search{
     background-color: rgba(166,168,171,0.1);
     padding: 1.5em 1em;
@@ -904,6 +916,7 @@
 
       }
     }
+
 
   }
 
