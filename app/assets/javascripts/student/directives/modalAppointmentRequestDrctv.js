@@ -58,7 +58,6 @@ Geek.directive('ngModalAppointmentRequest', ["$document", "$filter", "$rootScope
                     scope.validAppointmentDate = options.validAppointmentDate;
                     scope.selectedCategory = options.selectedCategory;
                     scope.selectedTutor = options.selectedTutor;
-                    scope.appointmentAlertMessagesParams = options.appointmentAlertMessagesParams;
                 },0);
 
                 $timeout(function(){
@@ -93,6 +92,19 @@ Geek.directive('ngModalAppointmentRequest', ["$document", "$filter", "$rootScope
             scope.selectCategory = function(category){
                 scope.selectedCategory = category;
                 scope.remoteSelectCategory(category);
+            }
+
+            scope.setAlertMessage = function(type, message) {
+
+                if(type !== undefined) {
+                    scope.appointmentAlertMessagesParams = {
+                        type: type,
+                        message: message,
+                        icon: true
+                    };
+                } else {
+                    scope.appointmentAlertMessagesParams = undefined;
+                }
             }
 
             // Listener que realiza las acciones necesarias para cerrar este modal
