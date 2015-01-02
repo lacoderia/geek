@@ -112,6 +112,7 @@ Rails.application.routes.draw do
       get 'ranged_availability_list'
       match 'request_class', :via => [:get, :post]
       match 'save_availabilities', :via => [:get, :post]
+      match 'save_specific_availabilities', :via => [:get, :post]
     end
   end
 

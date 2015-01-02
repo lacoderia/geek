@@ -478,14 +478,16 @@ class Tutor < ActiveRecord::Base
   # TODO: Incluir metodo para borrar disponibilidades o alterar las existentes si se interrumpen
   def self.save_specific_availabilities tutor_id, specific_availabilities
 
-    tutor = Tutor.joins(:preference).find tutor_id
+    tutor = Tutor.find tutor_id
+    tutor.specific_availabilities.destroy_all
 
     specific_availabilities.each do |sa|
       start_datetime = DateTime.iso8601(sa["start"]).in_time_zone
       end_datetime = DateTime.iso8601(sa["end"]).in_time_zone
-      SpecificAvailability.create(tutor_id: tutor.id, start: start_datetime, end: end_datetime)
+      tutor.specific_availabilities << SpecificAvailability.create(tutor_id: tutor.id, start: start_datetime, end: end_datetime)
     end
 
+    tutor.specific_availabilities
   end
 
   def create_dummy_appointments month, year, cost
