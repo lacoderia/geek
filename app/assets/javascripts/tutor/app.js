@@ -183,6 +183,10 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
                 templateUrl: "/assets/tutor/partial_dashboard_layout.html",
                 controller: "RootController"
             })
+            .state('dashboard.user-blocked', {
+                url: "/user-blocked",
+                templateUrl: "/assets/tutor/partial_dashboard_layout.user_blocked.html",
+            })
             .state('dashboard.resume',{
                 url: "/resume",
                 templateUrl: "/assets/tutor/partial_dashboard_layout.resume.html"

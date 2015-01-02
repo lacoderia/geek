@@ -17,6 +17,8 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
     $scope.userName = $filter('translate')('USER_NAME');
     $rootScope.newConversationMessages = 0;
 
+    $rootScope.isUserBlocked = false;
+
     $rootScope.toggleLanguage = function(){
         var languageCode = $translate.use();
 
@@ -137,73 +139,78 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
         };
 
         // Obtenemos la información de perfil del tutor
-        ProfileService.getStatus().then(
-            function(data){
-                if(data && data.id){
-                    $rootScope.tutor = {
-                        'id': data.id,
-                        'request': {
-                            'approved': data.approved,
-                            'sent': data.request_sent
-                            //'approved': true,
-                            //'sent': true
-                        },
-                        'firstName': data.first_name,
-                        'lastName': data.last_name,
-                        'email': data.email,
-                        'topics': [],
-                        'zones': []
-                    }
+        if ($("#error-data").data()){
+            $rootScope.isUserBlocked = true;
+            $state.go('dashboard.user-blocked');
+        }else{
+            ProfileService.getStatus().then(
+                function(data){
+                    if(data && data.id){
+                        $rootScope.tutor = {
+                            'id': data.id,
+                            'request': {
+                                'approved': data.approved,
+                                'sent': data.request_sent
+                                //'approved': true,
+                                //'sent': true
+                            },
+                            'firstName': data.first_name,
+                            'lastName': data.last_name,
+                            'email': data.email,
+                            'topics': [],
+                            'zones': []
+                        }
 
-                    // Revisamos si el tutor ya envió su solicitud
-                    if ($rootScope.tutor.request.sent) {
+                        // Revisamos si el tutor ya envió su solicitud
+                        if ($rootScope.tutor.request.sent) {
 
-                        // Si el tutor ya envió el request y ya fue aceptado obtenemos su perfil completo
-                        if ($rootScope.tutor.request.approved) {
+                            // Si el tutor ya envió el request y ya fue aceptado obtenemos su perfil completo
+                            if ($rootScope.tutor.request.approved) {
 
-                            ProfileService.getProfile().then(
-                                function(data){
-                                    if(data && data.id){
-                                        $rootScope.tutor.gender = data.gender;
-                                        $rootScope.tutor.email = data.email;
-                                        $rootScope.tutor.phone_number = data.phone_number;
-                                        $rootScope.tutor.details = data.details;
-                                        $rootScope.tutor.references = data.references;
-                                        $rootScope.tutor.studies = data.background;
-                                        $rootScope.tutor.topics = data.categories;
-                                        $rootScope.tutor.zones = data.counties;
-                                        $rootScope.tutor.picture_url = data.picture_url;
-                                        $rootScope.tutor.preference = {
-                                            'cost': data.preference.cost,
-                                            'classLocation': {
-                                                'online': data.preference.online,
-                                                'office': data.preference.office,
-                                                'public': data.preference.public,
-                                                'student_place': data.preference.student_place
-                                            },
-                                            'availabilities': data.preference.availabilities
-                                        };
+                                ProfileService.getProfile().then(
+                                    function(data){
+                                        if(data && data.id){
+                                            $rootScope.tutor.gender = data.gender;
+                                            $rootScope.tutor.email = data.email;
+                                            $rootScope.tutor.phone_number = data.phone_number;
+                                            $rootScope.tutor.details = data.details;
+                                            $rootScope.tutor.references = data.references;
+                                            $rootScope.tutor.studies = data.background;
+                                            $rootScope.tutor.topics = data.categories;
+                                            $rootScope.tutor.zones = data.counties;
+                                            $rootScope.tutor.picture_url = data.picture_url;
+                                            $rootScope.tutor.preference = {
+                                                'cost': data.preference.cost,
+                                                'classLocation': {
+                                                    'online': data.preference.online,
+                                                    'office': data.preference.office,
+                                                    'public': data.preference.public,
+                                                    'student_place': data.preference.student_place
+                                                },
+                                                'availabilities': data.preference.availabilities
+                                            };
 
-                                        $scope.createWeekCalendar();
+                                            $scope.createWeekCalendar();
+                                        }
+                                    },
+                                    function(response){
+                                        console.log('Error getting tutor\'s request status: ' + response);
                                     }
-                                },
-                                function(response){
-                                    console.log('Error getting tutor\'s request status: ' + response);
-                                }
-                            );
+                                );
+                            } else {
+                                $state.go('dashboard.profile');
+                            }
                         } else {
                             $state.go('dashboard.profile');
                         }
-                    } else {
-                        $state.go('dashboard.profile');
-                    }
 
+                    }
+                },
+                function(response){
+                    console.log('Error getting tutor\'s request status: ' + response);
                 }
-            },
-            function(response){
-                console.log('Error getting tutor\'s request status: ' + response);
-            }
-        );
+            );
+        }
 
 		
 	    $timeout(function() {

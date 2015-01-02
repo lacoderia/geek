@@ -34,6 +34,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
             'postal_code': undefined
         };
 
+
         for(var componentIndex=0; componentIndex<place.address_components.length; componentIndex++){
             var addressComponent = place.address_components[componentIndex];
             for(var typeIndex=0; typeIndex<addressComponent.types.length; typeIndex++){

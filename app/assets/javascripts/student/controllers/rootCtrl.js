@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('RootController', ["$filter", "$scope", "$rootScope", "$timeout", "$translate", "MessageService", "DEFAULT_VALUES", "AuthService", "SessionService", "CountyService", "CategoryService", function($filter, $scope, $rootScope, $timeout, $translate, MessageService, DEFAULT_VALUES, AuthService, SessionService, CountyService, CategoryService){
+Geek.controller('RootController', ["$filter", "$scope", "$rootScope", "$state", "$timeout", "$translate", "MessageService", "DEFAULT_VALUES", "AuthService", "SessionService", "CountyService", "CategoryService", function($filter, $scope, $rootScope, $state, $timeout, $translate, MessageService, DEFAULT_VALUES, AuthService, SessionService, CountyService, CategoryService){
 
     //Variable que determina si el overlay es visible
     $rootScope.showOverlay = false;
@@ -18,6 +18,8 @@ Geek.controller('RootController', ["$filter", "$scope", "$rootScope", "$timeout"
     $rootScope.weekRows = new Array();
 
     $scope.tutorResultListVisible = false;
+
+    $rootScope.isUserBlocked = false;
 
     $scope.userName = $filter('translate')('USER_NAME');
     $rootScope.newConversationMessages = 0;
@@ -54,18 +56,23 @@ Geek.controller('RootController', ["$filter", "$scope", "$rootScope", "$timeout"
         $scope.tutorResultListVisible = true;
     });
 
-    $scope.$watch('SessionService.session', function(){
-        if(AuthService.isAuthenticated()){
+    $scope.$watch('SessionService.sessionLoaded', function(){
+        if(AuthService.isAuthenticated() && $rootScope.sessionLoaded){
             $scope.userName = SessionService.getFirstName() + " " + SessionService.getLastName();
 
-            MessageService.getPendingConversationsByUserId(SessionService.getId()).then(
-                function(data){
-                    $rootScope.newConversationMessages = data.pending;
-                },
-                function(response){
-                    console.log('Error retrieving de number of pending conversations ' + response);
-                }
-            );
+            if ($("#error-data").data()){
+                $rootScope.isUserBlocked = true;
+                $state.go('dashboard.user-blocked');
+            }else{
+                MessageService.getPendingConversationsByUserId(SessionService.getId()).then(
+                    function(data){
+                        $rootScope.newConversationMessages = data.pending;
+                    },
+                    function(response){
+                        console.log('Error retrieving de number of pending conversations ' + response);
+                    }
+                );
+            }
         }
     }, true);
 

@@ -15,8 +15,8 @@
         <li class="dropdown"><a title="Perfil" class="dropdown-toggle" data-toggle="dropdown" type="button"><span ng-bind="userName"></span> <span class="caret"></span>
         </a>
           <ul class="dropdown-menu" role="menu">
-            <li role="presentation" ui-sref=".profile"><a role="menuitem"><span class="icon-user"></span> {{'PROFILE' | translate}}</a></li>
-            <li role="presentation" ui-sref=".payment-options"><a role="menuitem" translate="PAYMENT_OPTIONS"></a></li>
+            <li ng-if="!isUserBlocked" role="presentation" ui-sref=".profile"><a role="menuitem"><span class="icon-user"></span> {{'PROFILE' | translate}}</a></li>
+            <li ng-if="!isUserBlocked" role="presentation" ui-sref=".payment-options"><a role="menuitem" translate="PAYMENT_OPTIONS"></a></li>
             <li><a title="{{ 'CHOOSE_LANGUAGE' | translate }}" ng-click="toggleLanguage()" translate="CHOOSE_LANGUAGE"></a></li>
             <li role="presentation"><a role="menuitem" href="/logout" translate="SIGN_OUT"></a></li>
           </ul>
@@ -55,7 +55,7 @@
         <p translate="FOOTER_SOCIAL"></p>
         <ul>
           <li><a href="" title="Twitter"><span class="icon-twitter text-color-light-blue"></span></a></li>
-          <li><a href="" title="Facebook"><span class="icon-facebook3 text-color-light-green"></span></a></li>
+          <li><a href="" title="Facebook"><span class="icon-facebook1 text-color-light-green"></span></a></li>
           <li><a href="" title="LinkedIn"><span class="icon-linkedin text-color-light-orange"></span></a></li>
         </ul>
       </div>

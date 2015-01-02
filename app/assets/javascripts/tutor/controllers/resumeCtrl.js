@@ -56,7 +56,10 @@ Geek.controller('ResumeController',['$scope','$rootScope', 'ResumeService', 'DEF
                     appointment.year = startDate.getYear() + $scope.START_YEAR;
                 });
 
-                console.log($scope.resume)
+                angular.forEach($scope.resume.messages.latest, function(message){
+                    message.timestamp = new Date(message.timestamp);
+                });
+
             },
             function(response){
                 console.log('Error retrieving the dashboard ' + response);

@@ -42,32 +42,61 @@ class Appointment < ActiveRecord::Base
   #fee_student es normalmente 100
   def force_charge 
 
-    #fee_student = 
-    #student_openpay_id = self.student.openpay_id 
-    #card_id = self.student.cards.where("active = ?", true).first.openpay_id
-    #amount = (self.cost * (fee_student/100.0)) 
+    fee_student = nil
+    if not self.anomaly
+      fee_student = 100
+    elsif self.anomaly and self.resolved_anomaly
+      #Busca que anomalía es para pagar con la resolución
+      self.registered_anomalies.each do |ra|
+        if ra.registered_anomaly_status == valid_anomaly
+          # pagar el appointment
+          if ra.fee_student and ra.fee_tutor and ra.fee_student > 0 and ra.fee_tutor > 0
+            fee_student = ra.fee_student
+          end
+        end
+      end
+    end
+    
+    student_openpay_id = self.student.openpay_id 
+    card_id = self.student.cards.where("active = ?", true).first.openpay_id
+    amount = (self.cost * (fee_student/100.0)) 
 
-    #chargestudent = Payment.charge_student student_openpay_id, card_id, amount 
-    #if chargestudent[:error]
-    #  self.update_attribute(:log, chargestudent[:error]["description"])
-    #else
+    chargestudent = Payment.charge_student student_openpay_id, card_id, amount 
+    if chargestudent[:error]
+      self.update_attribute(:log, chargestudent[:error]["description"])
+    else
       self.update_attribute(:charged, true)
-    #end
+    end
 
   end
 
   #fee student es normalmente 100, fee_tutor es normalmente 80
   def force_pay
-
-    #fee_student =
-    #fee_tutor = 
+  
+    fee_student = nil
+    fee_tutor = nil
+    if not self.anomaly
+      fee_student = 100
+      fee_tutor = 80
+    elsif self.anomaly and self.resolved_anomaly
+      #Busca que anomalía es para pagar con la resolución
+      self.registered_anomalies.each do |ra|
+        if ra.registered_anomaly_status == valid_anomaly
+          # pagar el appointment
+          if ra.fee_student and ra.fee_tutor and ra.fee_student > 0 and ra.fee_tutor > 0
+            fee_student = ra.fee_student
+            fee_tutor = ra.fee_tutor
+          end
+        end
+      end
+    end
     
-    #student_openpay_id = self.student.openpay_id 
-    #tutor_openpay_id = self.tutor.openpay_id
-    #amount = (self.cost * (fee_student/100.0)) 
+    student_openpay_id = self.student.openpay_id 
+    tutor_openpay_id = self.tutor.openpay_id
+    amount = (self.cost * (fee_student/100.0)) 
 
-    #transferfunds = Payment.transfer_funds student_openpay_id, tutor_openpay_id, amount 
-    #collectfee = Payment.charge_fee tutor_openpay_id, (amount * ((100.0-fee_tutor)/100.0)) 
+    transferfunds = Payment.transfer_funds student_openpay_id, tutor_openpay_id, amount 
+    collectfee = Payment.charge_fee tutor_openpay_id, (amount * ((100.0-fee_tutor)/100.0)) 
     self.update_attribute(:paid, true)
 
   end

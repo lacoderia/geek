@@ -8,11 +8,6 @@ Geek.controller('NavigationController', ["$scope", "$rootScope", "DEFAULT_VALUES
     $scope.$on("rootControllerReady", function() {
         $scope.userData = false;
 
-         //TODO: no dejar pasar al usuario
-        if ($("#error-data").data()){
-          alert("Usuario bloqueado");
-        }
-
 
         if ($("#user-data").data()){
             $scope.userData = true;
