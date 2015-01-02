@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Prueba Openpay</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <script type="text/javascript" src="https://openpay.s3.amazonaws.com/openpay.v1.min.js"></script>
+  <script type="text/javascript">
+  	OpenPay.setId('mvqfexabrjznvdfpdter');
+		OpenPay.setApiKey('pk_e2ab053d051e4990ad55d8d67c4de4be');
+		OpenPay.setSandboxMode(true);
+
+		function generateToken() {
+			OpenPay.token.create({
+	      "card_number":"5105105105105100",
+	      "holder_name":"Juan Perez Ramirez",
+	      "expiration_year":"18",
+	      "expiration_month":"12",
+	      "cvv2":"110",
+	      "address":{
+	         "city":"Querétaro",
+	         "line3":"Queretaro",
+	         "postal_code":"76900",
+	         "line1":"Av 5 de Febrero",
+	         "line2":"Roble 207",
+	         "state":"Queretaro",
+	         "country_code":"MX"
+	      }
+			}, onSuccess);
+		}
+
+		var a,b;
+		function onSuccess(response) {
+			a = response;
+			console.log("success");
+	    console.log(a.data.id);
+		}
+
+  </script>
+</head>
+
+<body>
+</body>
+</html>
