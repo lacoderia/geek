@@ -179,6 +179,8 @@ Geek.controller('PaymentController',['$filter', '$scope','$rootScope', '$timeout
                             if(data && data.id) {
 
                                 $timeout(function() {
+
+                                    SessionService.setHasCard(true);
                                     $scope.cancelPaymentMethodCreation();
 
                                     $scope.studentPaymentAlertParams = {
