@@ -60,7 +60,6 @@ Geek.controller('RootController', ["$filter", "$scope", "$rootScope", "$state", 
         if(AuthService.isAuthenticated() && $rootScope.sessionLoaded){
             $scope.userName = SessionService.getFirstName() + " " + SessionService.getLastName();
 
-            console.log($("#error-data").data())
             if ($("#error-data").data()){
                 $rootScope.isUserBlocked = true;
                 $state.go('dashboard.user-blocked');

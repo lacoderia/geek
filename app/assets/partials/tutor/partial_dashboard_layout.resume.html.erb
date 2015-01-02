@@ -61,7 +61,7 @@
       <div class="resume-item" ng-repeat="message in resume.messages.latest" ng-show="resume.messages.latest.length">
         <div class="user-personal-info">
           <div class="content">
-            <em class="timestamp">{{ message.created_at | timestampTranslateFilter}}</em>
+            <em class="timestamp">{{ message.timestamp | timestampTranslateFilter}}</em>
             <h4 class="user-name">{{ message.student.first_name }} {{ message.student.last_name }}</h4>
             <p class="user-last-message">{{ message.text }}</p>
           </div>
