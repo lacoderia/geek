@@ -1,14 +1,16 @@
 <div class="reviews" ng-controller="ReviewsController">
+  <span us-spinner spinner-key="reviews-spinner"></span>
+
   <h2 class="section-title" translate="REVIEWS"></h2>
   <!-- Sección de listado de calificaciones vacío -->
-  <div class="unavailable-message" ng-hide="reviews.reviews.length">
+  <div class="unavailable-message" ng-show="reviews && reviews.reviews.length == 0">
     <div class="unavailable-message-content">
       <h3 translate="UNAVAILABLE_MESSAGE_REVIEWS"></h3>
     </div>
   </div>
 
   <!-- Sección de listado de calificaciones -->
-  <div class="reviews-list" ng-show="reviews.reviews.length">
+  <div class="reviews-list" ng-show="reviews && reviews.reviews.length">
     <div class="score-average">
       <span>{{ 'REVIEWS_MY_AVERAGE' | translate }}:</span>
       <span class="icon-star1" ng-class="reviews.grade >= 1 ? 'star-full': 'star-empty'"></span>

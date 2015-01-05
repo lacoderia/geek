@@ -1,8 +1,8 @@
 'use strict';
 
-Geek.controller('MyTutorsController',['$scope','$rootScope','$compile', '$translate', 'MessageService', 'ReviewsService', 'SessionService', 'TutorService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $compile, $translate, MessageService, ReviewsService, SessionService, TutorService, DEFAULT_VALUES){
+Geek.controller('MyTutorsController',['$scope','$rootScope','$compile', '$timeout', '$translate', 'MessageService', 'ReviewsService', 'SessionService', 'TutorService', 'usSpinnerService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $compile, $timeout, $translate, MessageService, ReviewsService, SessionService, TutorService, usSpinnerService, DEFAULT_VALUES){
 
-    $scope.tutorList = [];
+    $scope.tutorList = undefined;
     $scope.appointmentButtons = DEFAULT_VALUES.APPOINTMENT_BUTTONS;
     /*
      * Obtiene la posición donde el usuario hizo click y abre el popup con la forma para calificar al tutor
@@ -22,10 +22,16 @@ Geek.controller('MyTutorsController',['$scope','$rootScope','$compile', '$transl
      * Obtiene la una lista de tutores que le han dado clase al estudiante
      * */
     $scope.getTutorList = function(){
+        $timeout(function(){
+            usSpinnerService.spin('my-tutors-spinner');
+        }, 0);
+
         TutorService.getMyTutors(SessionService.getId()).then(
             function(data){
                 if(data){
                     $scope.tutorList = data;
+
+                    usSpinnerService.stop('my-tutors-spinner');
                 }
 
             },

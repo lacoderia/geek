@@ -1,12 +1,12 @@
 'use strict';
 
-Geek.controller('AppointmentHistoryController',['$scope','$rootScope','AppointmentService', 'AnomalyService', 'MessageService', 'DEFAULT_VALUES' ,function($scope, $rootScope, AppointmentService, AnomalyService, MessageService, DEFAULT_VALUES){
+Geek.controller('AppointmentHistoryController',['$scope','$rootScope', '$timeout', 'AppointmentService', 'AnomalyService', 'MessageService', 'usSpinnerService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $timeout, AppointmentService, AnomalyService, MessageService, usSpinnerService, DEFAULT_VALUES){
 
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.MONTHS = DEFAULT_VALUES.MONTHS;
     $scope.START_YEAR = DEFAULT_VALUES.START_YEAR;
 
-    $scope.appointmentsGroups = [];
+    $scope.appointmentsGroups = undefined;
     $scope.appointmentButtons = DEFAULT_VALUES.APPOINTMENT_BUTTONS;
     $scope.STATUS_BUTTONS_RELATION = {
         '0' : {
@@ -95,9 +95,16 @@ Geek.controller('AppointmentHistoryController',['$scope','$rootScope','Appointme
      * Obtiene la una lista de citas anteriores a la fecha actual
      * */
     $scope.getPastAppointmentList = function(){
+
+        $timeout(function(){
+            usSpinnerService.spin('history-spinner');
+        }, 0);
+
         AppointmentService.all().then(
             function(data){
                 if(data){
+                    $scope.appointmentsGroups = [];
+
                     for(var groupIndex = 0; groupIndex < data.length; groupIndex++){
                         var appointmentsGroup = data[groupIndex];
                         var groupDateKey = Object.keys(appointmentsGroup)[0];
@@ -109,6 +116,8 @@ Geek.controller('AppointmentHistoryController',['$scope','$rootScope','Appointme
                         };
                         $scope.appointmentsGroups.push(appointmentGroup);
                     }
+
+                    usSpinnerService.stop('history-spinner');
                 }
 
             },

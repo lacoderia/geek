@@ -1,9 +1,10 @@
 <div ng-controller="PaymentController">
+  <span us-spinner spinner-key="payments-spinner"></span>
   <h2 class="section-title">{{ 'PAYMENT_TITLE' | translate}}</h2>
   <ng-alert id="student-payment-form" alert-params="studentPaymentAlertParams"></ng-alert>
 
   <!-- Sección de listado de métodos de pago vacío -->
-  <div class="unavailable-message" ng-hide="paymentMethodsList.length || showNewCard">
+  <div class="unavailable-message" ng-show="paymentMethodsList && paymentMethodsList.length == 0 && !showNewCard">
     <div class="unavailable-message-content">
       <h3 translate="UNAVAILABLE_MESSAGE_PAYMENTS_NO_METHODS_STUDENT"></h3>
       <a class="action-button action-button-light-green" title="" ng-click="createPaymentMethod(PAYMENT_METHODS.CARD_METHOD.code)"><span class="icon-credit-card"></span> {{ 'PAYMENT_ADD_A_CARD' | translate }}</a>
@@ -11,7 +12,7 @@
   </div>
 
   <!-- Listado de métodos de pago actuales -->
-  <div ng-show="paymentMethodsList.length && !showNewCard">
+  <div ng-show="paymentMethodsList && paymentMethodsList.length && !showNewCard">
     <div class="payment-methods-list">
       <div class="payment-method-headers">
         <div class="type"></div>

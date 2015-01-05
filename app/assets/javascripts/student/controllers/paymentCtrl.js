@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('PaymentController',['$filter', '$scope','$rootScope', '$timeout', '$location', '$anchorScroll', 'PaymentService', 'SessionService', 'DEFAULT_VALUES' ,function($filter, $scope, $rootScope, $timeout, $location, $anchorScroll, PaymentService, SessionService, DEFAULT_VALUES){
+Geek.controller('PaymentController',['$filter', '$scope','$rootScope', '$timeout', '$location', '$anchorScroll', 'PaymentService', 'SessionService', 'usSpinnerService', 'DEFAULT_VALUES' ,function($filter, $scope, $rootScope, $timeout, $location, $anchorScroll, PaymentService, SessionService, usSpinnerService, DEFAULT_VALUES){
 
     $scope.MONTHS = DEFAULT_VALUES.MONTHS;
     $scope.PAYMENT_METHODS = DEFAULT_VALUES.PAYMENT_METHODS;
@@ -8,7 +8,7 @@ Geek.controller('PaymentController',['$filter', '$scope','$rootScope', '$timeout
     $scope.LIST_OF_STATES = DEFAULT_VALUES.LIST_OF_STATES;
     $scope.COUNTRY_CODE = 'MX';
 
-    $scope.paymentMethodsList = [];
+    $scope.paymentMethodsList = undefined;
     $scope.debitCardHolder = '';
     $scope.debitCardNumber = '';
     $scope.expirationMonth = undefined;
@@ -28,6 +28,10 @@ Geek.controller('PaymentController',['$filter', '$scope','$rootScope', '$timeout
 
     $scope.getPaymentMethodsList = function(){
 
+        $timeout(function(){
+            usSpinnerService.spin('payments-spinner');
+        }, 0);
+
         PaymentService.getPaymentMethodsList(SessionService.getId()).then(
             function(data){
                 $scope.paymentMethodsList = data;
@@ -46,6 +50,8 @@ Geek.controller('PaymentController',['$filter', '$scope','$rootScope', '$timeout
                     (payment.is_bank_account) ? payment.type = $scope.PAYMENT_METHODS.BANK_ACCOUNT_METHOD : payment.type = $scope.PAYMENT_METHODS.CARD_METHOD ;
 
                 });
+
+                usSpinnerService.stop('payments-spinner');
             },
             function(response){
                 console.log(response)

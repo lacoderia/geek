@@ -9,8 +9,8 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
     //Zona ingresada por el usuario
     $scope.countyInput = '';
 
-    $scope.tutorList = [];
-    $scope.suggestedTutorList = [];
+    $scope.tutorList = undefined;
+    $scope.suggestedTutorList = undefined;
 
     $scope.PROFILE_IMAGE = DEFAULT_VALUES.PROFILE_IMAGE;
     $scope.selectedCategory = undefined;
@@ -110,6 +110,10 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
             categoryId = $scope.subjectInput.originalObject.id;
         }
 
+        $timeout(function(){
+            usSpinnerService.spin('search-tutor-spinner');
+        }, 0)
+
         TutorService.getTutorByQueryParamsForGoogle($scope.components_address, categoryId).then(
             function(data){
                 if(data){
@@ -127,6 +131,9 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
                     }
 
                     $rootScope.$broadcast('showResultList');
+
+                    usSpinnerService.stop('search-tutor-spinner');
+
                 }
             },
             function(response){

@@ -19,7 +19,9 @@
   </div>
 
   <div class="search-results-list" ng-show="showTopSearchbar && !appointmentRequestSent">
-    <div class="unavailable-message" ng-hide="tutorList.length || suggestedTutorList.length">
+    <span us-spinner spinner-key="search-tutor-spinner"></span>
+
+    <div class="unavailable-message" ng-show="tutorList && tutorList && tutorList.length == 0 && suggestedTutorList.length == 0">
       <div class="unavailable-message-content">
         <h3 translate="UNAVAILABLE_MESSAGE_SEARCH_TUTORS"></h3>
       </div>
