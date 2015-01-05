@@ -1,10 +1,10 @@
 @font-face {
     font-family: 'icomoon';
-    src:url('/assets/icomoon.eot?-y3gc69');
-    src:url('/assets/icomoon.eot?#iefix-y3gc69') format('embedded-opentype'),
-    url('/assets/icomoon.woff?-y3gc69') format('woff'),
-    url('/assets/icomoon.ttf?-y3gc69') format('truetype'),
-    url('/assets/icomoon.svg?-y3gc69#icomoon') format('svg');
+    src:url('/assets/icomoon.eot?-nh1n2r');
+    src:url('/assets/icomoon.eot?#iefix-nh1n2r') format('embedded-opentype'),
+    url('/assets/icomoon.woff?-nh1n2r') format('woff'),
+    url('/assets/icomoon.ttf?-nh1n2r') format('truetype'),
+    url('/assets/icomoon.svg?-nh1n2r#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -43,6 +43,9 @@
 }
 .icon-accept:before {
     content: "\e607";
+}
+.icon-cogs:before {
+    content: "\e61d";
 }
 .icon-credit-card:before {
     content: "\e619";

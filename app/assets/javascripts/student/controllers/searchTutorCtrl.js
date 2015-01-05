@@ -453,7 +453,6 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
     };
 
     $scope.translateWeeklyCalendarTitle = function(startDay, startMonth, endDay, endMonth) {
-        // Semana del {{ selectedWeek[0].numberDay }} de {{ MONTHS[selectedWeek[0].month] | translate }} al {{ selectedWeek[6].numberDay }} de {{ MONTHS[selectedWeek[6].month] | translate }}
 
         var translatedTitle = '';
 
@@ -462,7 +461,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
                 translatedTitle = $filter('translate')('WEEK_FROM') + ' ' + startDay + ' ' + $filter('translate')('WEEK_OF') + ' ' + $filter('translate')(startMonth) + ' ' + $filter('translate')('WEEK_TO') + ' ' + endDay + ' ' + $filter('translate')('WEEK_OF') + ' ' + $filter('translate')(endMonth);
                 break;
             case 'en_US':
-                translatedTitle = $filter('translate')('WEEK_FROM') + ' ' + $filter('translate')(startMonth) + ' ' + startDay + ' ' + $filter('translate')('WEEK_TO') + ' ' + $filter('translate')(startMonth) + ' ' + endDay;
+                translatedTitle = $filter('translate')('WEEK_FROM') + ' ' + $filter('translate')(startMonth) + ' ' + startDay + ' ' + $filter('translate')('WEEK_TO') + ' ' + $filter('translate')(endMonth) + ' ' + endDay;
                 break;
             default:
                 break;

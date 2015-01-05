@@ -211,6 +211,10 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
                 url: "/reviews",
                 templateUrl: "/assets/tutor/partial_dashboard_layout.reviews.html"
             })
+            .state('dashboard.balance', {
+                url: "/balance",
+                templateUrl: "/assets/tutor/partial_dashboard_layout.balance.html"
+            })
             .state('dashboard.payment-options', {
                 url: "/payment-options",
                 templateUrl: "/assets/tutor/partial_dashboard_layout.payment_options.html"
