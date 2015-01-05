@@ -3,7 +3,7 @@ if @grouped
   json.array! (@appointments) do |key, value|
     json.set! key do
       json.array!(value) do |appointment|
-        json.extract! appointment, :id, :start, :end, :details, :subject
+        json.extract! appointment, :id, :start, :end, :details, :subject, :charged, :paid
         json.set! :student do 
           json.extract! appointment.student, :id, :first_name, :last_name
         end
@@ -31,7 +31,7 @@ if @grouped
 else
 
   json.array!(@appointments) do |appointment|
-    json.extract! appointment, :id, :start, :end, :details, :subject
+    json.extract! appointment, :id, :start, :end, :details, :subject, :charged, :paid
     json.set! :student do 
       json.extract! appointment.student, :id, :first_name, :last_name
     end
