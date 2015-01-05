@@ -26,8 +26,23 @@
         <h3 translate="UNAVAILABLE_MESSAGE_SEARCH_TUTORS"></h3>
       </div>
     </div>
+    <div class="search-results-tools" ng-hide="selectedTutor">
+      <span>{{ 'FILTERS' | translate}}:</span>
+
+      <input type="checkbox" id="tutor_class_mode_online" name="tutor_class_mode" ng-model="filters.online" ng-change="filterSearch()">
+      <label for="tutor_class_mode_online" translate="TUTOR_PROFILE_LABEL_CLASS_PREFERENCE_ONLINE"></label>
+
+      <input type="checkbox" id="tutor_class_mode_tutor_home" name="tutor_class_mode" ng-model="filters.office" ng-change="filterSearch()">
+      <label for="tutor_class_mode_tutor_home" translate="TUTOR_PROFILE_LABEL_CLASS_PREFERENCE_OFFICE"></label>
+
+      <input type="checkbox" id="tutor_class_mode_student_home" name="tutor_class_mode" ng-model="filters.student" ng-change="filterSearch()">
+      <label for="tutor_class_mode_student_home" translate="TUTOR_PROFILE_LABEL_CLASS_PREFERENCE_STUDENT"></label>
+
+      <input type="checkbox" id="tutor_class_mode_public" name="tutor_class_mode" ng-model="filters.public" ng-change="filterSearch()">
+      <label for="tutor_class_mode_public" translate="TUTOR_PROFILE_LABEL_CLASS_PREFERENCE_PUBLIC"></label>
+
+    </div>
     <div class="search-results-tools" ng-show="selectedTutor">
-      <span ng-hide="selectedTutor">{{ 'FILTERS' | translate}}:</span>
       <span class="btn-back" ng-click="showSearchResults()" ng-show="selectedTutor"><< {{ 'SHOW_ALL' | translate }}</span>
     </div>
     <div class="search-result-list" ng-show="tutorList.length || suggestedTutorList.length">

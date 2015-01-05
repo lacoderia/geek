@@ -9,6 +9,14 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
     //Zona ingresada por el usuario
     $scope.countyInput = '';
 
+    //Filtros de la búsqueda
+    $scope.filters = {
+        'online': false,
+        'office': false,
+        'student': false,
+        'public': false
+    }
+
     $scope.tutorList = undefined;
     $scope.suggestedTutorList = undefined;
 
@@ -58,6 +66,22 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
         }
 
     };
+
+    $scope.filterSearch = function() {
+
+        $timeout(function(){
+            //Activamos el loader para mostrarlo en lo que obtenemos información
+            usSpinnerService.spin('search-tutor-spinner');
+
+            //Se realiza la búsqueda con los filtros seleccionados
+
+            //Se esconde el loader después de obtener los resultados de la búsqueda
+            $timeout(function() {
+                usSpinnerService.stop('search-tutor-spinner');
+            }, 500);
+        }, 0);
+
+    }
 
     $scope.getTutorCostRange = function(tutor){
         tutor.show = true;
@@ -112,7 +136,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
 
         $timeout(function(){
             usSpinnerService.spin('search-tutor-spinner');
-        }, 0)
+        }, 0);
 
         TutorService.getTutorByQueryParamsForGoogle($scope.components_address, categoryId).then(
             function(data){
