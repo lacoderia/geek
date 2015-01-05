@@ -22,7 +22,7 @@ class Tutor < ActiveRecord::Base
 
   def set_defaults
     set_default_preferences
-    Payment.create_user(self)
+    self.get_openpay_id
   end
 
   def set_default_preferences
