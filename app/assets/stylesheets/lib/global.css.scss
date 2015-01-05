@@ -1811,20 +1811,23 @@ footer{
   list-style: none;
   margin: 0px;
   padding: 0px;
+  font-size: 0px;
 
   li{
-    background-color: rgba(166,168,171,0.2);
     display: inline-block;
     font-size: 16px;
     font-weight: 500;
+    min-width: 20%;
+    overflow: hidden;
     text-align: center;
     text-transform: uppercase;
 
     a{
+      background-color: rgba(166,168,171,0.2);
       color: $color-light-green;
       display: inline-block;
-      padding: 1.5em 3em;
-      min-width: 230.5px;
+      padding: 1.5em;
+      width: 99%;
     }
 
     a:hover{

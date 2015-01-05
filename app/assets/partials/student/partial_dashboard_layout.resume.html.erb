@@ -1,11 +1,12 @@
 <div class="resume" ng-controller="ResumeController">
+  <span us-spinner spinner-key="resume-spinner"></span>
   <h2 class="section-title" translate="DASHBOARD_TITLE"></h2>
 
   <!-- Últimas citas no confirmadas -->
   <div class="resume-group">
     <h3>{{ 'RESUME_LAST_REQUESTS_TITLE' | translate }}</h3>
     <div class="resume-items-group">
-      <div class="resume-item" ng-repeat="request in resume.requests.latest" ng-show="resume.requests.latest.length">
+      <div class="resume-item" ng-repeat="request in resume.requests.latest" ng-show="resume.requests.latest && resume.requests.latest.length">
         <div class="user-personal-info">
           <div class="content">
             <em class="timestamp">{{ 'FROM' | translate }} {{ request.startHour }} {{ 'TO' | translate }} {{ request.endHour }}</em>
@@ -14,7 +15,7 @@
           </div>
         </div>
       </div>
-      <div class="unavailable-resume-items-message" ng-hide="resume.requests.latest.length">
+      <div class="unavailable-resume-items-message" ng-show="resume.requests.latest && resume.requests.latest.length == 0">
         {{ 'RESUME_UNAVAILABLE_REQUESTS_MESSAGE' | translate }}
       </div>
     </div>
@@ -32,7 +33,7 @@
   <div class="resume-group">
     <h3>{{ 'RESUME_LAST_APPOINTMENTS_TITLE' | translate }}</h3>
     <div class="resume-items-group">
-      <div class="resume-item" ng-repeat="appointment in resume.appointments.latest" ng-show="resume.appointments.latest.length">
+      <div class="resume-item" ng-repeat="appointment in resume.appointments.latest" ng-show="resume.appointments.latest && resume.appointments.latest.length">
         <div class="user-personal-info">
           <div class="content">
             <em class="timestamp">{{ 'FROM' | translate }} {{ appointment.startHour }} {{ 'TO' | translate }} {{ appointment.endHour }}</em>
@@ -41,7 +42,7 @@
           </div>
         </div>
       </div>
-      <div class="unavailable-resume-items-message" ng-hide="resume.appointments.latest.length">
+      <div class="unavailable-resume-items-message" ng-show="resume.appointments.latest && resume.appointments.latest.length == 0">
         {{ 'RESUME_UNAVAILABLE_REQUESTS_MESSAGE' | translate }}
       </div>
     </div>
@@ -58,7 +59,7 @@
   <div class="resume-group">
     <h3>{{ 'RESUME_LAST_MESSAGES_TITLE' | translate }}</h3>
     <div class="resume-items-group">
-      <div class="resume-item" ng-repeat="message in resume.messages.latest" ng-show="resume.messages.latest.length">
+      <div class="resume-item" ng-repeat="message in resume.messages.latest" ng-show="resume.messages.latest && resume.messages.latest.length">
         <div class="user-personal-info">
           <div class="content">
             <em class="timestamp">{{ message.timestamp | timestampTranslateFilter}}</em>
@@ -67,7 +68,7 @@
           </div>
         </div>
       </div>
-      <div class="unavailable-resume-items-message" ng-hide="resume.messages.latest.length">
+      <div class="unavailable-resume-items-message" ng-show="resume.messages.latest && resume.messages.latest.length == 0">
         {{ 'RESUME_UNAVAILABLE_MESSAGES_MESSAGE' | translate }}
       </div>
     </div>
