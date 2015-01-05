@@ -24,7 +24,7 @@
 				"code": 58908,
 				"name": "notifications"
 			},
-			"setIdx": 0,
+			"setIdx": 3,
 			"iconIdx": 0
 		},
 		{
@@ -47,11 +47,11 @@
 			"properties": {
 				"order": 1,
 				"id": 1,
-				"prevSize": 28,
+				"prevSize": 32,
 				"code": 58907,
 				"name": "cc-visa"
 			},
-			"setIdx": 1,
+			"setIdx": 4,
 			"iconIdx": 0
 		},
 		{
@@ -74,11 +74,11 @@
 			"properties": {
 				"order": 2,
 				"id": 0,
-				"prevSize": 28,
+				"prevSize": 32,
 				"code": 58906,
 				"name": "cc-mastercard"
 			},
-			"setIdx": 1,
+			"setIdx": 4,
 			"iconIdx": 1
 		},
 		{
@@ -105,11 +105,11 @@
 			"properties": {
 				"order": 6,
 				"id": 0,
-				"prevSize": 28,
+				"prevSize": 32,
 				"code": 58903,
 				"name": "review"
 			},
-			"setIdx": 4,
+			"setIdx": 7,
 			"iconIdx": 0
 		},
 		{
@@ -137,7 +137,7 @@
 				"code": 58904,
 				"name": "pig"
 			},
-			"setIdx": 2,
+			"setIdx": 5,
 			"iconIdx": 0
 		},
 		{
@@ -166,7 +166,7 @@
 				"code": 58894,
 				"name": "exclamation"
 			},
-			"setIdx": 4,
+			"setIdx": 7,
 			"iconIdx": 23
 		},
 		{
@@ -195,8 +195,69 @@
 				"code": 58887,
 				"name": "accept"
 			},
-			"setIdx": 4,
+			"setIdx": 7,
 			"iconIdx": 24
+		},
+		{
+			"icon": {
+				"paths": [
+					"M480 64c-265.096 0-480 214.904-480 480 0 265.098 214.904 480 480 480 265.098 0 480-214.902 480-480 0-265.096-214.902-480-480-480zM480 928c-212.078 0-384-171.922-384-384s171.922-384 384-384c212.078 0 384 171.922 384 384s-171.922 384-384 384zM512 512v-128h128v-64h-128v-64h-64v64h-128v256h128v128h-128v64h128v64h64v-64h128.002l-0.002-256h-128zM448 512h-64v-128h64v128zM576.002 704h-64.002v-128h64.002v128z"
+				],
+				"attrs": [
+					{}
+				],
+				"tags": [
+					"coin-dollar",
+					"money",
+					"cash",
+					"currency-dollar"
+				],
+				"grid": 16
+			},
+			"attrs": [
+				{}
+			],
+			"properties": {
+				"order": 1,
+				"id": 2,
+				"prevSize": 16,
+				"code": 58910,
+				"name": "coin-dollar"
+			},
+			"setIdx": 6,
+			"iconIdx": 0
+		},
+		{
+			"icon": {
+				"paths": [
+					"M363.722 722.052l41.298-57.816-45.254-45.256-57.818 41.296c-10.722-5.994-22.204-10.774-34.266-14.192l-11.682-70.084h-64l-11.68 70.086c-12.062 3.418-23.544 8.198-34.266 14.192l-57.818-41.298-45.256 45.256 41.298 57.816c-5.994 10.72-10.774 22.206-14.192 34.266l-70.086 11.682v64l70.086 11.682c3.418 12.060 8.198 23.544 14.192 34.266l-41.298 57.816 45.254 45.256 57.818-41.296c10.722 5.994 22.204 10.774 34.266 14.192l11.682 70.084h64l11.68-70.086c12.062-3.418 23.544-8.198 34.266-14.192l57.818 41.296 45.254-45.256-41.298-57.816c5.994-10.72 10.774-22.206 14.192-34.266l70.088-11.68v-64l-70.086-11.682c-3.418-12.060-8.198-23.544-14.192-34.266zM224 864c-35.348 0-64-28.654-64-64s28.652-64 64-64 64 28.654 64 64-28.652 64-64 64zM1024 384v-64l-67.382-12.25c-1.242-8.046-2.832-15.978-4.724-23.79l57.558-37.1-24.492-59.128-66.944 14.468c-4.214-6.91-8.726-13.62-13.492-20.13l39.006-56.342-45.256-45.254-56.342 39.006c-6.512-4.766-13.22-9.276-20.13-13.494l14.468-66.944-59.128-24.494-37.1 57.558c-7.812-1.892-15.744-3.482-23.79-4.724l-12.252-67.382h-64l-12.252 67.382c-8.046 1.242-15.976 2.832-23.79 4.724l-37.098-57.558-59.128 24.492 14.468 66.944c-6.91 4.216-13.62 8.728-20.13 13.494l-56.342-39.006-45.254 45.254 39.006 56.342c-4.766 6.51-9.278 13.22-13.494 20.13l-66.944-14.468-24.492 59.128 57.558 37.1c-1.892 7.812-3.482 15.742-4.724 23.79l-67.384 12.252v64l67.382 12.25c1.242 8.046 2.832 15.978 4.724 23.79l-57.558 37.1 24.492 59.128 66.944-14.468c4.216 6.91 8.728 13.618 13.494 20.13l-39.006 56.342 45.254 45.256 56.342-39.006c6.51 4.766 13.22 9.276 20.13 13.492l-14.468 66.944 59.128 24.492 37.102-57.558c7.81 1.892 15.742 3.482 23.788 4.724l12.252 67.384h64l12.252-67.382c8.044-1.242 15.976-2.832 23.79-4.724l37.1 57.558 59.128-24.492-14.468-66.944c6.91-4.216 13.62-8.726 20.13-13.492l56.342 39.006 45.256-45.256-39.006-56.342c4.766-6.512 9.276-13.22 13.492-20.13l66.944 14.468 24.492-59.13-57.558-37.1c1.892-7.812 3.482-15.742 4.724-23.79l67.382-12.25zM672 491.2c-76.878 0-139.2-62.322-139.2-139.2s62.32-139.2 139.2-139.2 139.2 62.322 139.2 139.2c0 76.878-62.32 139.2-139.2 139.2z"
+				],
+				"attrs": [
+					{}
+				],
+				"tags": [
+					"cogs",
+					"gears",
+					"preferences",
+					"settings",
+					"generate",
+					"control",
+					"options"
+				],
+				"grid": 16
+			},
+			"attrs": [
+				{}
+			],
+			"properties": {
+				"order": 1,
+				"id": 1,
+				"prevSize": 16,
+				"code": 58909,
+				"name": "cogs"
+			},
+			"setIdx": 6,
+			"iconIdx": 1
 		},
 		{
 			"icon": {
@@ -220,12 +281,12 @@
 			"properties": {
 				"order": 5,
 				"id": 0,
-				"prevSize": 32,
+				"prevSize": 16,
 				"code": 58905,
 				"name": "credit-card"
 			},
-			"setIdx": 3,
-			"iconIdx": 0
+			"setIdx": 6,
+			"iconIdx": 2
 		},
 		{
 			"icon": {
@@ -245,11 +306,11 @@
 			"properties": {
 				"order": 7,
 				"id": 370,
-				"prevSize": 32,
+				"prevSize": 16,
 				"code": 58901,
 				"name": "bubble"
 			},
-			"setIdx": 4,
+			"setIdx": 7,
 			"iconIdx": 1
 		},
 		{
@@ -271,11 +332,11 @@
 			"properties": {
 				"order": 8,
 				"id": 371,
-				"prevSize": 32,
+				"prevSize": 16,
 				"code": 58902,
 				"name": "bubbles"
 			},
-			"setIdx": 4,
+			"setIdx": 7,
 			"iconIdx": 2
 		},
 		{
@@ -294,11 +355,11 @@
 			"properties": {
 				"order": 9,
 				"id": 369,
-				"prevSize": 32,
+				"prevSize": 16,
 				"code": 58897,
 				"name": "linkedin"
 			},
-			"setIdx": 4,
+			"setIdx": 7,
 			"iconIdx": 3
 		},
 		{
@@ -318,11 +379,11 @@
 			"properties": {
 				"order": 10,
 				"id": 365,
-				"prevSize": 32,
+				"prevSize": 16,
 				"code": 61684,
 				"name": "coffee"
 			},
-			"setIdx": 4,
+			"setIdx": 7,
 			"iconIdx": 4
 		},
 		{
@@ -340,11 +401,11 @@
 			"properties": {
 				"order": 11,
 				"id": 366,
-				"prevSize": 32,
+				"prevSize": 16,
 				"code": 58899,
 				"name": "school"
 			},
-			"setIdx": 4,
+			"setIdx": 7,
 			"iconIdx": 5
 		},
 		{
@@ -367,11 +428,11 @@
 			"properties": {
 				"order": 12,
 				"id": 363,
-				"prevSize": 32,
+				"prevSize": 16,
 				"code": 58900,
 				"name": "earth"
 			},
-			"setIdx": 4,
+			"setIdx": 7,
 			"iconIdx": 6
 		},
 		{
@@ -391,11 +452,11 @@
 			"properties": {
 				"order": 13,
 				"id": 360,
-				"prevSize": 32,
+				"prevSize": 16,
 				"code": 58896,
 				"name": "home"
 			},
-			"setIdx": 4,
+			"setIdx": 7,
 			"iconIdx": 7
 		},
 		{
@@ -418,11 +479,11 @@
 			"properties": {
 				"order": 14,
 				"id": 0,
-				"prevSize": 32,
+				"prevSize": 16,
 				"code": 58895,
 				"name": "user"
 			},
-			"setIdx": 4,
+			"setIdx": 7,
 			"iconIdx": 8
 		},
 		{
@@ -447,11 +508,11 @@
 			"properties": {
 				"order": 15,
 				"id": 0,
-				"prevSize": 32,
+				"prevSize": 16,
 				"code": 58893,
 				"name": "alert"
 			},
-			"setIdx": 4,
+			"setIdx": 7,
 			"iconIdx": 9
 		},
 		{
@@ -476,11 +537,11 @@
 			"properties": {
 				"order": 16,
 				"id": 1,
-				"prevSize": 32,
+				"prevSize": 16,
 				"code": 58892,
 				"name": "instagram"
 			},
-			"setIdx": 4,
+			"setIdx": 7,
 			"iconIdx": 10
 		},
 		{
@@ -505,11 +566,11 @@
 			"properties": {
 				"order": 17,
 				"id": 0,
-				"prevSize": 32,
+				"prevSize": 16,
 				"code": 58891,
 				"name": "twitter"
 			},
-			"setIdx": 4,
+			"setIdx": 7,
 			"iconIdx": 11
 		},
 		{
@@ -531,11 +592,11 @@
 			"properties": {
 				"order": 18,
 				"id": 359,
-				"prevSize": 32,
+				"prevSize": 16,
 				"code": 58890,
 				"name": "close-big"
 			},
-			"setIdx": 4,
+			"setIdx": 7,
 			"iconIdx": 12
 		},
 		{
@@ -560,11 +621,11 @@
 			"properties": {
 				"order": 19,
 				"id": 1,
-				"prevSize": 32,
+				"prevSize": 16,
 				"code": 58889,
 				"name": "table"
 			},
-			"setIdx": 4,
+			"setIdx": 7,
 			"iconIdx": 13
 		},
 		{
@@ -589,11 +650,11 @@
 			"properties": {
 				"order": 20,
 				"id": 0,
-				"prevSize": 32,
+				"prevSize": 16,
 				"code": 58888,
 				"name": "list"
 			},
-			"setIdx": 4,
+			"setIdx": 7,
 			"iconIdx": 14
 		},
 		{
@@ -618,12 +679,12 @@
 			"properties": {
 				"order": 21,
 				"id": 2,
-				"prevSize": 32,
+				"prevSize": 16,
 				"code": 58885,
 				"name": "close",
 				"ligatures": ""
 			},
-			"setIdx": 4,
+			"setIdx": 7,
 			"iconIdx": 15
 		},
 		{
@@ -648,12 +709,12 @@
 			"properties": {
 				"order": 22,
 				"id": 1,
-				"prevSize": 32,
+				"prevSize": 16,
 				"code": 58881,
 				"name": "star1",
 				"ligatures": ""
 			},
-			"setIdx": 4,
+			"setIdx": 7,
 			"iconIdx": 16
 		},
 		{
@@ -678,12 +739,12 @@
 			"properties": {
 				"order": 23,
 				"id": 0,
-				"prevSize": 32,
+				"prevSize": 16,
 				"code": 58882,
 				"name": "star2",
 				"ligatures": ""
 			},
-			"setIdx": 4,
+			"setIdx": 7,
 			"iconIdx": 17
 		},
 		{
@@ -702,12 +763,12 @@
 			"properties": {
 				"order": 24,
 				"id": 357,
-				"prevSize": 32,
+				"prevSize": 16,
 				"code": 58883,
 				"name": "facebook1",
 				"ligatures": ""
 			},
-			"setIdx": 4,
+			"setIdx": 7,
 			"iconIdx": 18
 		},
 		{
@@ -726,12 +787,12 @@
 			"properties": {
 				"order": 25,
 				"id": 358,
-				"prevSize": 32,
+				"prevSize": 16,
 				"code": 58884,
 				"name": "facebook2",
 				"ligatures": ""
 			},
-			"setIdx": 4,
+			"setIdx": 7,
 			"iconIdx": 19
 		},
 		{
@@ -750,12 +811,12 @@
 			"properties": {
 				"id": 356,
 				"order": 26,
-				"prevSize": 32,
+				"prevSize": 16,
 				"code": 58880,
 				"name": "googleplus",
 				"ligatures": ""
 			},
-			"setIdx": 4,
+			"setIdx": 7,
 			"iconIdx": 20
 		},
 		{
@@ -775,12 +836,12 @@
 			"properties": {
 				"id": 1291,
 				"order": 4,
-				"prevSize": 32,
+				"prevSize": 16,
 				"code": 60039,
 				"ligatures": "google, brand",
 				"name": "google"
 			},
-			"setIdx": 4,
+			"setIdx": 7,
 			"iconIdx": 21
 		},
 		{
@@ -807,11 +868,11 @@
 			"properties": {
 				"order": 27,
 				"id": 368,
-				"prevSize": 28,
+				"prevSize": 32,
 				"code": 58898,
 				"name": "teach"
 			},
-			"setIdx": 4,
+			"setIdx": 7,
 			"iconIdx": 22
 		},
 		{
@@ -841,7 +902,7 @@
 				"code": 58886,
 				"name": "help"
 			},
-			"setIdx": 4,
+			"setIdx": 7,
 			"iconIdx": 25
 		}
 	],
