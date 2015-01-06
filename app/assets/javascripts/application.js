@@ -18,6 +18,7 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require lib/spin
+//= require moment
 
 // Librerias de Angular requeridas en el proyecto
 //= require lib/angular/angular.js

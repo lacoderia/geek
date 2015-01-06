@@ -1176,6 +1176,32 @@ h3.section-title{
         cursor: default;
       }
 
+      .week-day-config{
+        border-bottom: 1px solid $color-input-gray-bgcolor;
+        border-left: 1px solid $color-input-gray-bgcolor;
+        border-right: 1px solid $color-input-gray-bgcolor;
+        box-sizing: border-box;
+        color: $color-dark-gray;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 400;
+        padding: 0px;
+        text-align: center;
+        width: 12.5%;
+      }
+
+      .week-day-config.available {
+        background-color: $color-profile-light-blue !important;
+      }
+
+      .week-day-config.highlighted {
+        background-color: $color-profile-medium-blue !important ;
+      }
+
+      .week-day-config.no-cursor {
+        cursor: default;
+      }
+
       .week-day-title{
         background-color: $color-input-gray-bgcolor;
         color: $color-dark-green;

@@ -23,7 +23,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
     $scope.weekRows = [];
     $scope.calendarRows = [];
     $scope.appointments = [];
-    $scope.weekView = $scope.CALENDAR_VIEWS.CALENDAR_VIEW_LIST;
+    $scope.weekView = $scope.CALENDAR_VIEWS.CALENDAR_VIEW_CONFIG;
     $scope.messageAlertMessagesParams = undefined;
     $scope.appointmentButtons = DEFAULT_VALUES.APPOINTMENT_BUTTONS;
 
@@ -265,6 +265,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
                 var timeObject = $scope.weekRows[hourIndex].halfHours[dayIndex];
                 timeObject.available = false;
                 timeObject.availabilityClass = 'unavailable';
+                timeObject.specificAvailabilityClass = 'unavailable';
             }
         }
 
@@ -292,6 +293,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
                             if(availability.start == timeObject.startTime){
                                 timeObject.available = true;
                                 timeObject.availabilityClass = 'available';
+                                timeObject.specificAvailabilityClass = 'available';
                                 straightHourTime = true;
                                 if(availability.end == timeObject.endTime){
                                     straightHourTime = false;
@@ -300,6 +302,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
                         }else{
                             timeObject.available = true;
                             timeObject.availabilityClass = 'available';
+                            timeObject.specificAvailabilityClass = 'available';
                             if(availability.end == timeObject.endTime){
                                 straightHourTime = false;
                                 break;
@@ -321,8 +324,10 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
                             if(appointment.startHour == timeObject.startTime){
                                 if(appointment.status.code != 1 && appointment.status.code != 2 && appointment.status.code != 4 && appointment.status.code != 5){
                                     timeObject.availabilityClass = 'unavailable-with-appointment';
+                                    timeObject.specificAvailabilityClass = 'unavailable-with-appointment';
                                 }else{
                                     timeObject.availabilityClass = 'available';
+                                    timeObject.specificAvailabilityClass = 'available';
                                 }
                                 straightHourTime = true;
                                 if(appointment.endHour == timeObject.endTime){
@@ -332,8 +337,10 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
                         } else{
                             if(appointment.status.code != 1 && appointment.status.code != 2 && appointment.status.code != 4 && appointment.status.code != 5){
                                 timeObject.availabilityClass = 'unavailable-with-appointment';
+                                timeObject.specificAvailabilityClass = 'unavailable-with-appointment';
                             }else{
                                 timeObject.availabilityClass = 'available';
+                                timeObject.specificAvailabilityClass = 'available';
                             }
                             timeObject.appointment = appointment;
                             if(appointment.endHour == timeObject.endTime){
@@ -673,20 +680,20 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
             }
         }
 
-
     };
 
     $scope.getWeekAvailability = function(){
         AvailabilityService.getTutorAvailabilityByRange($scope.selectedWeek[0], $scope.selectedWeek[$scope.selectedWeek.length-1],$scope.tutor.id).then(
             function(data){
                 $scope.weekAvailability = data;
+
                 if(data){
                     for(var availabilityIndex=0; availabilityIndex<$scope.weekAvailability.length; availabilityIndex++){
                         var availability = $scope.weekAvailability[availabilityIndex];
                         availability.month--;
-
                         $scope.setDayAvailability(availability);
                     }
+
                     $scope.setWeekAvailabilities();
 
                     if(!$scope.$$phase){
@@ -769,5 +776,107 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
 
         return translatedTitle;
     };
+
+    $scope.toggleSpecificAvailability = function(halfHour) {
+
+        switch (halfHour.specificAvailabilityClass) {
+            case 'available':
+                halfHour.available = false;
+                halfHour.specificAvailabilityClass = 'unavailable';
+                break;
+            case 'unavailable':
+                halfHour.available = true;
+                halfHour.specificAvailabilityClass = 'available';
+                break;
+            default:
+                break;
+        }
+    }
+
+    $scope.toggleDayAvailability = function(dayIndex) {
+
+        for(var i=0; i<$scope.weekRows.length; i++) {
+            var availabilityClass = $scope.weekRows[i].halfHours[dayIndex].specificAvailabilityClass;
+
+            if (availabilityClass == 'available' || availabilityClass == 'unavailable') {
+                if($scope.DAYS[dayIndex].configSelectAll) {
+                    $scope.weekRows[i].halfHours[dayIndex].available = true;
+                    $scope.weekRows[i].halfHours[dayIndex].specificAvailabilityClass = 'available';
+                } else {
+                    $scope.weekRows[i].halfHours[dayIndex].available = false;
+                    $scope.weekRows[i].halfHours[dayIndex].specificAvailabilityClass = 'unavailable';
+                }
+            }
+
+        }
+    }
+
+    $scope.saveSpecificAvailability = function() {
+
+        // Objeto que será enviado al servicio que actualiza el calendario de disponibilidad específica del tutor
+        var weekCalendar = {
+            'id': $rootScope.tutor.id,
+            'specific_availabilities': []
+        };
+
+        // Lógica que pobla el objeto weekCalendar
+        var validCalendar = true;
+
+        // Recorremos el calendario semanal por día (columnas)
+        for (var i=0; i<$scope.DAYS.length; i++){
+            var straightHalfhours = 0;  // variable que contiene el número de medias horas contiguas
+            var startTime = '';         // Variable que contiene la hora inicial del bloque contiguo
+            var endTime = '';           // Variable que contiene la hora final del bloque contiguo
+
+            // Recorremos cada media hora de cada día de arriba hacia abajo para revisar su contigüidad
+            for(var j=0; j<$scope.weekRows.length; j++) {
+                if ($scope.weekRows[j].halfHours[i].available){
+
+                    endTime = $scope.weekRows[j].halfHours[i].endTime;
+                    var endDate = moment($scope.selectedWeek[i].date);
+                    endDate.hours(endTime.split(':')[0]);
+                    endDate.minutes(endTime.split(':')[1]);
+
+                    // Si comenzamos un bloque agregamos un objeto, si no solamente actualizamos su fecha final
+                    if (straightHalfhours == 0) {
+
+                        startTime = $scope.weekRows[j].halfHours[i].startTime;
+                        var startDate = moment($scope.selectedWeek[i].date);
+                        startDate.hours(startTime.split(':')[0]);
+                        startDate.minutes(startTime.split(':')[1]);
+
+                        weekCalendar.specific_availabilities.push(
+                            {
+                                'start': startDate.format("YYYY-MM-DDTHH:mm:ss"),
+                                'end': endDate.format("YYYY-MM-DDTHH:mm:ss")
+                            }
+                        );
+                    } else {
+                        weekCalendar.specific_availabilities[weekCalendar.specific_availabilities.length - 1].end = endDate.format("YYYY-MM-DDTHH:mm:ss");
+                    }
+
+                    straightHalfhours++;
+
+                    if (!$scope.weekRows[j+1] || !$scope.weekRows[j+1].halfHours[i].available){
+                        if (straightHalfhours == 1) {
+                            validCalendar = false;
+                            break;
+                        }
+                    }
+                } else {
+                    // Reseteamos las variables para buscar un nuevo bloque
+                    straightHalfhours = 0;
+                    startTime = '';
+                    endTime = '';
+                }
+            }
+
+            if (!validCalendar) {
+                break;
+            }
+        }
+
+        console.log(weekCalendar);
+    }
 
 }]);
