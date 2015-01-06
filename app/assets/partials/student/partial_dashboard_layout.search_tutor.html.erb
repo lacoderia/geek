@@ -13,7 +13,7 @@
                         input-class="category">
       </angucomplete-alt-geek>
       <input class="county" type="text" ng-model="chosenPlace" details="chosenPlaceDetails" on-place-change="onPlaceChanged" placeholder="{{ 'AUTOCOMPLETE_ZONE' | translate }}" googleplace>
-      <a class="search-button icon-pointer" ng-click="searchTutor()" translate="SEARCH"></a>
+      <a class="search-button icon-pointer" ng-click="searchTutor(1)" translate="SEARCH"></a>
     </form>
     <div class="clearfix"></div>
   </div>
@@ -46,7 +46,7 @@
       <span class="btn-back" ng-click="showSearchResults()" ng-show="selectedTutor"><< {{ 'SHOW_ALL' | translate }}</span>
     </div>
     <div class="search-result-list" ng-show="tutorList.length || suggestedTutorList.length">
-      <div class="tutor" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-repeat="tutor in tutorList" ng-show="tutor.show" on-tutor-search-render>
+      <div class="tutor" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" dir-paginate="tutor in tutorList | itemsPerPage: tutorsPerPage" total-items="totalTutors" pagination-id="tutorsPagination" on-tutor-search-render>
         <div class="tutor_picture_container col-lg-2 col-md-2 col-sm-12 col-xs-12">
           <div class="tutor_picture">
             <img/>
@@ -115,9 +115,11 @@
             <div class="clearfix"></div>
           </div>
         </div>
+        <dir-pagination-controls pagination-id="tutorsPagination" template-url="/assets/student/dirPagination.tpl.html" on-page-change="pageChanged(newPageNumber)">
+        </dir-pagination-controls>
       </div>
       <h3 class="col-lg-12 col-md-12 col-sm-12 col-xs-12 section-title" ng-hide="selectedTutor || !suggestedTutorList.length" translate="WE_RECOMMEND"></h3>
-      <div class="tutor" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-repeat="tutor in suggestedTutorList" ng-show="tutor.show" on-tutor-search-render>
+      <div class="tutor" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" dir-paginate="tutor in suggestedTutorList | itemsPerPage: tutorsPerPage" total-items="totalSuggestedTutors" pagination-id="suggestedTutorsPagination" on-tutor-search-render>
         <div class="tutor_picture_container col-lg-2 col-md-2 col-sm-12 col-xs-12">
           <div class="tutor_picture">
             <img/>
@@ -186,6 +188,8 @@
             <div class="clearfix"></div>
           </div>
         </div>
+        <dir-pagination-controls pagination-id="suggestedTutorsPagination" template-url="/assets/student/dirPagination.tpl.html" on-page-change="pageChanged(newPageNumber)">
+        </dir-pagination-controls>
       </div>
     </div>
 
@@ -268,7 +272,7 @@
                             input-class="category">
           </angucomplete-alt-geek>
           <input class="county" type="text" ng-model="chosenPlace" details="chosenPlaceDetails" on-place-change="onPlaceChanged" placeholder="{{ 'AUTOCOMPLETE_ZONE' | translate }}" googleplace>
-          <a class="search-button icon-pointer" ng-click="searchTutor()" translate="SEARCH"></a>
+          <a class="search-button icon-pointer" ng-click="searchTutor(1)" translate="SEARCH"></a>
         </form>
       </div>
       <img src="/assets/site/geek.png" alt="Geek" class="search-image hidden-lg hidden-md hidden-sm">

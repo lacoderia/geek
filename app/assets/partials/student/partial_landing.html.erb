@@ -145,7 +145,7 @@
           <span class="btn-back" ng-click="showSearchResults()" ng-show="selectedTutor"><< {{ 'SHOW_ALL' | translate }}</span>
         </div>
         <div class="search-result-list" ng-show="tutorList.length || suggestedTutorList.length">
-          <div class="tutor col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-repeat="tutor in tutorList" on-tutor-search-render>
+          <div class="tutor col-lg-12 col-md-12 col-sm-12 col-xs-12" dir-paginate="tutor in tutorList | itemsPerPage: tutorsPerPage" total-items="totalTutors" pagination-id="tutorsPagination" on-tutor-search-render>
             <div class="tutor_picture_container col-lg-2 col-md-2 col-sm-12 col-xs-12">
               <div class="tutor_picture">
                 <img/>
@@ -187,11 +187,13 @@
                 </div>
               </div>
             </div>
+            <dir-pagination-controls pagination-id="tutorsPagination" template-url="/assets/student/dirPagination.tpl.html" on-page-change="pageChanged(newPageNumber)">
+            </dir-pagination-controls>
           </div>
 
           <h3 class="col-lg-12 col-md-12 col-sm-12 col-xs-12 section-title" ng-show="suggestedTutorList.length > 0 && !selectedTutor" translate="WE_RECOMMEND"></h3>
 
-          <div class="tutor col-lg-12 col-md-12 col-sm-12 col-xs-12 suggested-tutors" ng-show="suggestedTutorList.length > 0 && !selectedTutor" ng-repeat="tutor in suggestedTutorList" on-tutor-search-render>
+          <div class="tutor col-lg-12 col-md-12 col-sm-12 col-xs-12 suggested-tutors" ng-show="suggestedTutorList.length > 0 && !selectedTutor" dir-paginate="tutor in suggestedTutorList | itemsPerPage: tutorsPerPage" total-items="totalSuggestedTutors" pagination-id="suggestedTutorsPagination" on-tutor-search-render>
             <div class="tutor_picture_container col-lg-2 col-md-2 col-sm-12 col-xs-12">
               <div class="tutor_picture">
                 <img/>
@@ -233,6 +235,8 @@
                 </div>
               </div>
             </div>
+            <dir-pagination-controls pagination-id="suggestedTutorsPagination" template-url="/assets/student/dirPagination.tpl.html" on-page-change="pageChanged(newPageNumber)">
+            </dir-pagination-controls>
           </div>
         </div>
 

@@ -38,3 +38,4 @@
 //= require lib/angular/angular-translate-loader-static-files
 //= require lib/angular/angular-translate-storage-local
 //= require lib/angular/angular-spinner
+//= require lib/angular/dirPagination.js
