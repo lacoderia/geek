@@ -1,126 +1,162 @@
 <div class="tutor-calendar-container">
-    <h2 class="section-title" translate="MY_SCHEDULE"></h2>
-    <div class="calendar" ng-controller="CalendarController as CalendarCtrl">
-        <div class="month-view">
-          <ul class="events">
-            <li><span class="event appointment-status-confirmed"></span> {{ 'APPOINTMENT_LEGEND_CONFIRMED' | translate }}</li>
-            <li><span class="event appointment-status-pending"></span> {{ 'APPOINTMENT_LEGEND_PENDING' | translate }}</li>
-            <li><span class="event appointment-status-canceled"></span> {{ 'APPOINTMENT_LEGEND_CANCELLED' | translate }}</li>
-          </ul>
-          <div class="calendar-header">
-            <div class="month-title">
-                <span ng-click="getPreviousMonth()" class="control"><span class="control-arrow control-left-arrow"></span></span>
-                <span class="title"> {{ MONTHS[selectedMonth] | translate}} {{ selectedYear }} </span>
-                <span ng-click="getNextMonth()" class="control"><span class="control-arrow control-right-arrow"></span></span></div>
-                <a class="action-button action-button-dark-green" title="{{ 'EDIT_PREFERENCES' | translate}}" ui-sref="dashboard.profile">{{ 'EDIT_PREFERENCES' | translate }}</a>
-          </div>
-          <div class="month-row">
-            <table>
-              <tbody>
-              <tr>
-                <td class="month-day-title" ng-repeat="day in DAYS">
-                  <span class="hidden-sm hidden-xs">{{ day.title |translate }}</span>
-                  <span class="hidden-md hidden-lg">{{ day.minTitle | translate}}</span>
-                </td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="month-row" ng-repeat="row in calendarRows">
-            <table>
-              <tbody>
-                  <tr>
-                    <td class="month-day" ng-repeat="day in row.days">
-                      <a title="{ 'CALENDAR_DAY' | translate } {{ day.numberDay }}" ng-class="[day.dayClass, { true:'selected-day', false:'' }[day.selected]]" ng-click="selectDate(day)">{{ day.numberDay }}
-                        <div class="events"><span class="event" ng-repeat="appointment in day.appointments" ng-class="appointment.status.class"></span></div>
-                      </a>
-                    </td>
-                  </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="tutor-calendar-tools">
-
-          <div id="tutor-calendar-alert" class="tutor-calendar-alert">
-            <ng-alert-message alert-params="calendarAlertMessagesParams" class="tutor-calendar-alert"></ng-alert-message>
-          </div>
-
-          <div class="tutor-calendar-view-selector">
-            <ul class="view-selector">
-              <li><a title="{{ 'CALENDAR_VIEW_LIST' | translate }}" ng-click="changeView(false)" ng-class="{ true:'', false:'selected' }[weekView]"><span class="icon-list"></span></a></li>
-              <li><a title="{{ 'CALENDAR_VIEW_GRID' | translate }}" ng-click="changeView(true)" ng-class="{ true:'selected', false:'' }[weekView]"><span class="icon-table"></span></a></li>
-            </ul>
-          </div>
-
-        </div>
-        <div class="week-list-view" ng-hide="weekView">
-          <div class="week-list-view-unavailable" ng-hide="existstWeekAppoinments">
-            <div class="week-list-view-unavailable-content">
-                <h3 translate="UNAVAILABLE_CALENDAR_WEEK_APPOINTMENTS"></h3>
-            </div>
-          </div>
-          <div class="week-list-view-row" ng-show="existstWeekAppoinments">
-            <table>
-                <thead>
-                    <tr class="week-list-title-row">
-                        <th class="info-title" translate="TABLE_TITLE_TIME"></th>
-                        <th class="info-title" translate="TABLE_TITLE_TUTOR"></th>
-                        <th class="info-title" translate="TABLE_TITLE_SUBJECT"></th>
-                        <th class="info-title" translate="TABLE_TITLE_STATUS"></th>
-                        <th class="info-title" translate="TABLE_TITLE_ACTIONS"></th>
-                    </tr>
-                </thead>
-            </table>
-            <table ng-repeat="day in selectedWeek" class="week-list-day-row" ng-show="day.appointments.length">
-              <thead>
-                <tr class="week-list-day-title-row">
-                  <th class="hidden-sm hidden-xs day-title" colspan="6">{{ day.date | dateTranslateFilter }}</th>
-                  <th class="hidden-md hidden-lg day-title" colspan="6">{{ DAYS[day.day].minTitle }}, {{ day.numberDay }}</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr ng-repeat="appointment in day.appointments" class="week-list-day-info-row" ng-click="showAppointmentDetail($event, appointment)">
-                  <td class="day-info">{{ 'FROM' | translate }} {{ appointment.startHour }} {{ 'TO' | translate }} {{ appointment.endHour }}</td>
-                  <td class="day-info">{{ appointment.student.first_name }} {{ appointment.student.last_name }}</td>
-                  <td class="day-info">{{ appointment.subject }}</td>
-                  <td class="day-info"><span ng-class="[appointment.status.class,appointment.status.icon_class]"> {{ appointment.status.name | translate }}</span></td>
-                  <td class="day-info">
-                    <div class="appointment-button">
-                      <a ng-repeat="button in appointmentButtons" ng-if="showActionButtons(appointment, button.action)" ng-class="[button.class, button.icon]" title=" {{ button.title }}" ng-click="callButtonAction($event, button.action, appointment)"> {{ button.text | translate }}</a>
-                      <!--a ng-if="showActionButtons(appointment, appointmentButtons['ANOMALY_BUTTON'].action)" ng-class="[appointmentButtons['ANOMALY_BUTTON'].class, appointmentButtons['ANOMALY_BUTTON'].icon]" title=" {{ appointmentButtons['ANOMALY_BUTTON'].title }}" ng-click="callButtonAction($event, appointmentButtons['ANOMALY_BUTTON'].action, appointment)"> {{ appointmentButtons['ANOMALY_BUTTON'].text }}</a -->
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="week-view tutor-calendar-section" ng-show="weekView">
-          <div class="week-row">
-            <table>
-              <tbody>
-              <tr>
-                <td class="week-day-title"></td>
-                <td class="week-day-title" ng-repeat="day in DAYS">
-                  <span class="hidden-sm hidden-xs">{{ day.title | translate }}</span>
-                  <span class="hidden-md hidden-lg">{{ day.minTitle | translate }}</span>
-                </td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="week-row" ng-repeat="row in weekRows" id="week-row-{{ HOURS[$index] }}">
-            <table>
-              <tbody>
-              <tr>
-                <td class="week-day"><span ng-hide="$index%2">{{ HOURS[$index] }}</span>&nbsp;</td>
-                <td class="week-day" ng-class="[halfHour.appointment.status.class, halfHour.availabilityClass, 'no-cursor']" ng-repeat="halfHour in row.halfHours" ng-click="showAppointmentDetail($event, halfHour.appointment)">
-                </td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+  <h2 class="section-title" translate="MY_SCHEDULE"></h2>
+  <div class="calendar" ng-controller="CalendarController as CalendarCtrl">
+    <div class="month-view">
+      <ul class="events">
+        <li><span class="event appointment-status-confirmed"></span> {{ 'APPOINTMENT_LEGEND_CONFIRMED' | translate }}</li>
+        <li><span class="event appointment-status-pending"></span> {{ 'APPOINTMENT_LEGEND_PENDING' | translate }}</li>
+        <li><span class="event appointment-status-canceled"></span> {{ 'APPOINTMENT_LEGEND_CANCELLED' | translate }}</li>
+      </ul>
+      <div class="calendar-header">
+        <div class="month-title">
+          <span ng-click="getPreviousMonth()" class="control"><span class="control-arrow control-left-arrow"></span></span>
+          <span class="title"> {{ MONTHS[selectedMonth] | translate}} {{ selectedYear }} </span>
+          <span ng-click="getNextMonth()" class="control"><span class="control-arrow control-right-arrow"></span></span></div>
+        <a class="action-button action-button-dark-green" title="{{ 'EDIT_PREFERENCES' | translate}}" ui-sref="dashboard.profile">{{ 'EDIT_PREFERENCES' | translate }}</a>
+      </div>
+      <div class="month-row">
+        <table>
+          <tbody>
+          <tr>
+            <td class="month-day-title" ng-repeat="day in DAYS">
+              <span class="hidden-sm hidden-xs">{{ day.title |translate }}</span>
+              <span class="hidden-md hidden-lg">{{ day.minTitle | translate}}</span>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="month-row" ng-repeat="row in calendarRows">
+        <table>
+          <tbody>
+          <tr>
+            <td class="month-day" ng-repeat="day in row.days">
+              <a title="{ 'CALENDAR_DAY' | translate } {{ day.numberDay }}" ng-class="[day.dayClass, { true:'selected-day', false:'' }[day.selected]]" ng-click="selectDate(day)">{{ day.numberDay }}
+                <div class="events"><span class="event" ng-repeat="appointment in day.appointments" ng-class="appointment.status.class"></span></div>
+              </a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
+    <div class="tutor-calendar-tools">
+
+      <div id="tutor-calendar-alert" class="tutor-calendar-alert">
+        <ng-alert-message alert-params="calendarAlertMessagesParams" class="tutor-calendar-alert"></ng-alert-message>
+      </div>
+
+      <div class="tutor-calendar-view-selector">
+        <ul class="view-selector">
+          <li><a title="{{ 'CALENDAR_VIEW_LIST' | translate }}" ng-click="changeView(CALENDAR_VIEWS.CALENDAR_VIEW_LIST)" ng-class="{ true:'selected', false:'' }[weekView == CALENDAR_VIEWS.CALENDAR_VIEW_LIST]"><span class="icon-list"></span></a></li>
+          <li><a title="{{ 'CALENDAR_VIEW_GRID' | translate }}" ng-click="changeView(CALENDAR_VIEWS.CALENDAR_VIEW_GRID)" ng-class="{ true:'selected', false:'' }[weekView == CALENDAR_VIEWS.CALENDAR_VIEW_GRID]"><span class="icon-table"></span></a></li>
+          <li><a title="{{ 'CALENDAR_VIEW_CONFIG' | translate }}" ng-click="changeView(CALENDAR_VIEWS.CALENDAR_VIEW_CONFIG)" ng-class="{ true:'selected', false:'' }[weekView == CALENDAR_VIEWS.CALENDAR_VIEW_CONFIG]"><span class="icon-cogs"></span></a></li>
+        </ul>
+      </div>
+
+    </div>
+    <div class="week-list-view" ng-show="weekView == CALENDAR_VIEWS.CALENDAR_VIEW_LIST" ng-hide="weekView != CALENDAR_VIEWS.CALENDAR_VIEW_LIST">
+      <div class="week-list-view-unavailable" ng-hide="existstWeekAppoinments">
+        <div class="week-list-view-unavailable-content">
+          <h3 translate="UNAVAILABLE_CALENDAR_WEEK_APPOINTMENTS"></h3>
+        </div>
+      </div>
+      <div class="week-list-view-row" ng-show="existstWeekAppoinments">
+        <table>
+          <caption class="calendar-title">{{ 'CALENDAR_VIEW_LIST' | translate }}: {{ translateWeeklyCalendarTitle(selectedWeek[0].numberDay, MONTHS[selectedWeek[0].month], selectedWeek[6].numberDay, MONTHS[selectedWeek[6].month]) }}</caption>
+          <thead>
+          <tr class="week-list-title-row">
+            <th class="info-title" translate="TABLE_TITLE_TIME"></th>
+            <th class="info-title" translate="TABLE_TITLE_TUTOR"></th>
+            <th class="info-title" translate="TABLE_TITLE_SUBJECT"></th>
+            <th class="info-title" translate="TABLE_TITLE_STATUS"></th>
+            <th class="info-title" translate="TABLE_TITLE_ACTIONS"></th>
+          </tr>
+          </thead>
+        </table>
+        <table ng-repeat="day in selectedWeek" class="week-list-day-row" ng-show="day.appointments.length">
+          <thead>
+          <tr class="week-list-day-title-row">
+            <th class="hidden-sm hidden-xs day-title" colspan="6">{{ day.date | dateTranslateFilter }}</th>
+            <th class="hidden-md hidden-lg day-title" colspan="6">{{ DAYS[day.day].minTitle }}, {{ day.numberDay }}</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="appointment in day.appointments" class="week-list-day-info-row" ng-click="showAppointmentDetail($event, appointment)">
+            <td class="day-info">{{ 'FROM' | translate }} {{ appointment.startHour }} {{ 'TO' | translate }} {{ appointment.endHour }}</td>
+            <td class="day-info">{{ appointment.student.first_name }} {{ appointment.student.last_name }}</td>
+            <td class="day-info">{{ appointment.subject }}</td>
+            <td class="day-info"><span ng-class="[appointment.status.class,appointment.status.icon_class]"> {{ appointment.status.name | translate }}</span></td>
+            <td class="day-info">
+              <div class="appointment-button">
+                <a ng-repeat="button in appointmentButtons" ng-if="showActionButtons(appointment, button.action)" ng-class="[button.class, button.icon]" title=" {{ button.title }}" ng-click="callButtonAction($event, button.action, appointment)"> {{ button.text | translate }}</a>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="week-view tutor-calendar-section" ng-show="weekView == CALENDAR_VIEWS.CALENDAR_VIEW_GRID" ng-hide="weekView != CALENDAR_VIEWS.CALENDAR_VIEW_GRID">
+      <div class="week-row view-header">
+        <table>
+          <caption class="calendar-title">{{ 'CALENDAR_VIEW_GRID' | translate }}: {{ translateWeeklyCalendarTitle(selectedWeek[0].numberDay, MONTHS[selectedWeek[0].month], selectedWeek[6].numberDay, MONTHS[selectedWeek[6].month]) }}</caption>
+          <tbody>
+          <tr>
+            <td class="week-day-title"></td>
+            <td class="week-day-title" ng-repeat="day in DAYS">
+              <span class="hidden-sm hidden-xs">{{ day.title | translate }}</span>
+              <span class="hidden-md hidden-lg">{{ day.minTitle | translate }}</span>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div  class="tutor-calendar-section">
+        <div class="week-row" ng-repeat="row in weekRows" id="week-row-{{ HOURS[$index] }}">
+          <table>
+            <tbody>
+            <tr>
+              <td class="week-day"><span ng-hide="$index%2">{{ HOURS[$index] }}</span>&nbsp;</td>
+              <td class="week-day" ng-class="[halfHour.appointment.status.class, halfHour.availabilityClass, 'no-cursor']" ng-repeat="halfHour in row.halfHours" ng-click="showAppointmentDetail($event, halfHour.appointment)">
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="week-config-view tutor-calendar-section" ng-show="weekView == CALENDAR_VIEWS.CALENDAR_VIEW_CONFIG" ng-hide="weekView != CALENDAR_VIEWS.CALENDAR_VIEW_CONFIG">
+      <div class="week-row view-header">
+        <table>
+          <caption class="calendar-title">{{ 'CALENDAR_VIEW_CONFIG' | translate }}: {{ translateWeeklyCalendarTitle(selectedWeek[0].numberDay, MONTHS[selectedWeek[0].month], selectedWeek[6].numberDay, MONTHS[selectedWeek[6].month]) }}</caption>
+          <tbody>
+          <tr>
+            <td class="week-day-title"></td>
+            <td class="week-day-title" ng-repeat="day in DAYS">
+              <span class="hidden-sm hidden-xs"><input type="checkbox"> {{ day.title | translate }}</span>
+              <span class="hidden-md hidden-lg"><input type="checkbox"> {{ day.minTitle | translate }}</span>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tutor-calendar-section">
+        <div class="week-row" ng-repeat="row in weekRows" id="week-row-{{ HOURS[$index] }}">
+          <table>
+            <tbody>
+            <tr>
+              <td class="week-day"><span ng-hide="$index%2">{{ HOURS[$index] }}</span>&nbsp;</td>
+              <td class="week-day" ng-class="[halfHour.appointment.status.class, halfHour.availabilityClass, 'no-cursor']" ng-repeat="halfHour in row.halfHours" ng-click="showAppointmentDetail($event, halfHour.appointment)">
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="week-config-view-tools" ng-show="weekView == CALENDAR_VIEWS.CALENDAR_VIEW_CONFIG" ng-hide="weekView != CALENDAR_VIEWS.CALENDAR_VIEW_CONFIG">
+      <a class="action-button action-button-light-green" ng-click="" translate="SAVE"></a>
+    </div>
+  </div>
 </div>

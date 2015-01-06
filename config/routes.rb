@@ -106,6 +106,8 @@ Rails.application.routes.draw do
       get 'profile'
       get 'status'
       get 'by_student'
+      get 'balance'
+      post 'cash_out'
     end
     member do
       get 'availability_list'

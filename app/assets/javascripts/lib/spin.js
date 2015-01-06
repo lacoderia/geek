@@ -187,9 +187,8 @@
 
             if (target) {
                 var parent = $(target).parent();
-                var parentHeight = parent.outerHeight();
 
-                var overlay = '<div class="spinner-overlay" style="width: 100%; background-color: rgba(0,0,0,0.4); position: absolute; z-index: 199999; top: 0; left: 0; height:' + parentHeight +'px "></div>';
+                var overlay = '<div class="spinner-overlay" style="width: 100%; background-color: rgba(0,0,0,0.4); position: absolute; z-index: 199999; top: 0; left: 0; height:100% "></div>';
                 parent.append(overlay);
 
                 target.insertBefore(el, target.firstChild||null)

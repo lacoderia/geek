@@ -96,6 +96,11 @@ class MessagesController < ApplicationController
     render json: "", status: :ok
   end
 
+  # Obtiene el número de conversaciones que tienen mensajes pendientes
+  # Recibe:
+  #   student_id - El ID del estudiante
+  #   tutor_id - El ID del tutor
+  # Regresa el número de conversaciones con mensajes pendientes
   def pending_conversations
     if params[:tutor_id]
       condition = 'tutor_id'

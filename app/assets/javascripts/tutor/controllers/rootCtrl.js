@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state", "$translate", "$filter", "MessageService", "DEFAULT_VALUES", "CategoryService", "ProfileService", "SessionService", function($scope, $rootScope, $timeout, $state, $translate, $filter, MessageService, DEFAULT_VALUES, CategoryService, ProfileService, SessionService){
+Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state", "$translate", "$filter", "MessageService", "BalanceService", "DEFAULT_VALUES", "CategoryService", "ProfileService", "SessionService", function($scope, $rootScope, $timeout, $state, $translate, $filter, MessageService, BalanceService, DEFAULT_VALUES, CategoryService, ProfileService, SessionService){
 
     // Objeto que tiene los datos del perfil del tutor
     $rootScope.tutor = {};
@@ -127,12 +127,22 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
 
             $rootScope.tutorProfileLoaded = true;
             $scope.userName = $rootScope.tutor.firstName;
+
+            BalanceService.getBalance().then(
+                function(data){
+                    $rootScope.tutor.balanceInfo = data;
+                },
+                function(response){
+                    console.log('Error retrieving the user\'s balance' + response);
+                }
+            );
+
             MessageService.getPendingConversationsByUserId($rootScope.tutor.id).then(
                 function(data){
                     $rootScope.newConversationMessages = data.pending;
                 },
                 function(response){
-                  console.log('Error retrieving de number of pending conversations ' + response);
+                  console.log('Error retrieving the number of pending conversations ' + response);
                 }
             );
 

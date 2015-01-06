@@ -1,13 +1,13 @@
 'use strict';
 
-Geek.controller('MyAppointmentsController',['$compile', '$filter', '$scope','$rootScope','AppointmentService', 'SessionService', 'MessageService', 'DEFAULT_VALUES' ,function($compile, $filter, $scope, $rootScope, AppointmentService, SessionService, MessageService, DEFAULT_VALUES){
+Geek.controller('MyAppointmentsController',['$compile', '$filter', '$scope','$rootScope', '$timeout', 'AppointmentService', 'SessionService', 'MessageService', 'usSpinnerService', 'DEFAULT_VALUES' ,function($compile, $filter, $scope, $rootScope, $timeout, AppointmentService, SessionService, MessageService, usSpinnerService, DEFAULT_VALUES){
 
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.MONTHS = DEFAULT_VALUES.MONTHS;
     $scope.START_YEAR = DEFAULT_VALUES.START_YEAR;
 
 
-    $scope.appointmentsGroups = [];
+    $scope.appointmentsGroups = undefined;
     $scope.appointmentButtons = DEFAULT_VALUES.APPOINTMENT_BUTTONS;
     $scope.STATUS_BUTTONS_RELATION = {
         '0' : {
@@ -87,9 +87,16 @@ Geek.controller('MyAppointmentsController',['$compile', '$filter', '$scope','$ro
      * Obtiene la una lista de citas anteriores a la fecha actual
      * */
     $scope.getAppointmentGroupsList = function(){
+
+        $timeout(function(){
+            usSpinnerService.spin('my-classes-spinner');
+        }, 0);
+
         AppointmentService.all().then(
             function(data){
                 if(data){
+                    $scope.appointmentsGroups = [];
+
                     for(var groupIndex = 0; groupIndex < data.length; groupIndex++){
                         var appointmentsGroup = data[groupIndex];
                         var groupDateKey = Object.keys(appointmentsGroup)[0];
@@ -101,6 +108,8 @@ Geek.controller('MyAppointmentsController',['$compile', '$filter', '$scope','$ro
                         };
                         $scope.appointmentsGroups.push(appointmentGroup);
                     }
+
+                    usSpinnerService.stop('my-classes-spinner');
                 }
 
             },

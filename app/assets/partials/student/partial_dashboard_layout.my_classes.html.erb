@@ -1,12 +1,14 @@
 <div class="student-classes-container">
+  <span us-spinner spinner-key="my-classes-spinner"></span>
+
   <h2 class="section-title" translate="MY_CLASSES"></h2>
   <div class="appointment-history" ng-controller="MyAppointmentsController as MyAppointmentsCtrl">
-    <div class="history-list-view-unavailable" ng-hide="appointmentsGroups.length">
+    <div class="history-list-view-unavailable" ng-show="appointmentsGroups && appointmentsGroups.length == 0">
       <div class="history-list-view-unavailable-content">
         <h3 translate="UNAVAILABLE_MESSAGE_MY_CLASSES"></h3>
       </div>
     </div>
-    <div class="history-list-view-row" ng-show="appointmentsGroups.length">
+    <div class="history-list-view-row" ng-show="appointmentsGroups && appointmentsGroups.length">
       <table>
         <thead>
         <tr class="history-list-title-row">

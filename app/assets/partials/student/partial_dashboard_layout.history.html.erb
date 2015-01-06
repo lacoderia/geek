@@ -1,12 +1,14 @@
 <div class="student-calendar-container">
+  <span us-spinner spinner-key="history-spinner"></span>
+
   <h2 class="section-title" translate="HISTORY"></h2>
   <div class="appointment-history" ng-controller="AppointmentHistoryController as AppointmentHistoryCtrl">
-    <div class="history-list-view-unavailable" ng-hide="appointmentsGroups.length">
+    <div class="history-list-view-unavailable" ng-show="appointmentsGroups && appointmentsGroups.length == 0">
       <div class="history-list-view-unavailable-content">
         <h3 translate="UNAVAILABLE_MESSAGE_APPOINTMENTS"></h3>
       </div>
     </div>
-    <div class="history-list-view-row" ng-show="appointmentsGroups.length">
+    <div class="history-list-view-row" ng-show="appointmentsGroups && appointmentsGroups.length">
       <table>
         <thead>
         <tr class="history-list-title-row">
@@ -30,7 +32,7 @@
               <td class="day-info">{{ 'FROM' | translate }} {{ appointment.startHour }} {{ 'TO' | translate }} {{ appointment.endHour }}</td>
               <td class="day-info">{{ appointment.tutor.first_name }} {{ appointment.tutor.last_name }}</td>
               <td class="day-info">{{ appointment.subject }}</td>
-              <td class="day-info"><span ng-if="appointment.anomaly" class="icon-alert anomaly-reported"></span> <span ng-class="[appointment.status.class,appointment.status.icon_class]"> {{ appointment.status.name | translate }}</span></td>
+              <td class="day-info day-status"><span class="payment-icon"><span ng-if="appointment.paid" class="icon-coin-dollar"></span></span>  <span class="anomaly-reported"><span ng-if="appointment.anomaly" class="icon-alert"></span></span> <span ng-class="[appointment.status.class,appointment.status.icon_class]"> {{ appointment.status.name | translate }}</span></td>
               <td class="day-info appointment-button">
                 <div class="appointment-button">
                   <a ng-repeat="button in appointmentButtons" ng-if="showActionButtons(appointment, button.action)" ng-class="[button.class, button.icon]" title=" {{ button.title | translate }}" ng-click="callButtonAction($event, button.action, appointment)"> {{ button.text | translate}}</a>

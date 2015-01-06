@@ -1,12 +1,12 @@
 'use strict';
 
-Geek.controller('AppointmentHistoryController',['$filter', '$scope', '$rootScope', 'AppointmentService', 'AnomalyService', 'SessionService', 'MessageService', 'DEFAULT_VALUES' ,function($filter, $scope, $rootScope, AppointmentService, AnomalyService, SessionService, MessageService, DEFAULT_VALUES){
+Geek.controller('AppointmentHistoryController',['$filter', '$scope', '$rootScope', '$timeout', 'AppointmentService', 'AnomalyService', 'SessionService', 'MessageService', 'usSpinnerService', 'DEFAULT_VALUES' ,function($filter, $scope, $rootScope, $timeout, AppointmentService, AnomalyService, SessionService, MessageService, usSpinnerService, DEFAULT_VALUES){
 
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.MONTHS = DEFAULT_VALUES.MONTHS;
     $scope.START_YEAR = DEFAULT_VALUES.START_YEAR;
 
-    $scope.appointmentsGroups = [];
+    $scope.appointmentsGroups = undefined;
     $scope.appointmentButtons = DEFAULT_VALUES.APPOINTMENT_BUTTONS;
     $scope.STATUS_BUTTONS_RELATION = {
         '0' : {
@@ -98,9 +98,16 @@ Geek.controller('AppointmentHistoryController',['$filter', '$scope', '$rootScope
      * Obtiene la una lista de citas anteriores a la fecha actual
      * */
     $scope.getPastAppointmentList = function(){
+
+        $timeout(function(){
+            usSpinnerService.spin('history-spinner');
+        }, 0);
+
         AppointmentService.previous().then(
             function(data){
                 if(data){
+                    $scope.appointmentsGroups = [];
+
                     for(var groupIndex = 0; groupIndex < data.length; groupIndex++){
                         var appointmentsGroup = data[groupIndex];
                         var groupDateKey = Object.keys(appointmentsGroup)[0];
@@ -112,6 +119,8 @@ Geek.controller('AppointmentHistoryController',['$filter', '$scope', '$rootScope
                         };
                         $scope.appointmentsGroups.push(appointmentGroup);
                     }
+
+                    usSpinnerService.stop('history-spinner');
                 }
 
             },

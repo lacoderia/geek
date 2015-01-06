@@ -1,12 +1,13 @@
 'use strict';
 
-Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter', '$timeout', '$location', '$anchorScroll', 'AppointmentService', 'AvailabilityService', 'MessageService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $compile, $filter, $timeout, $location, $anchorScroll, AppointmentService, AvailabilityService, MessageService, DEFAULT_VALUES){
+Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter', '$timeout', '$translate', '$location', '$anchorScroll', 'AppointmentService', 'AvailabilityService', 'MessageService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $compile, $filter, $timeout, $translate, $location, $anchorScroll, AppointmentService, AvailabilityService, MessageService, DEFAULT_VALUES){
 
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.MONTHS = DEFAULT_VALUES.MONTHS;
     $scope.START_YEAR = DEFAULT_VALUES.START_YEAR;
     $scope.TOTAL_CALENDAR_ROWS = DEFAULT_VALUES.TOTAL_CALENDAR_ROWS;
     $scope.HOURS = DEFAULT_VALUES.HOURS;
+    $scope.CALENDAR_VIEWS = {'CALENDAR_VIEW_LIST':0, 'CALENDAR_VIEW_GRID':1, 'CALENDAR_VIEW_CONFIG':2};
 
     $scope.currentDate = new Date();
 
@@ -22,7 +23,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
     $scope.weekRows = [];
     $scope.calendarRows = [];
     $scope.appointments = [];
-    $scope.weekView = false;
+    $scope.weekView = $scope.CALENDAR_VIEWS.CALENDAR_VIEW_LIST;
     $scope.messageAlertMessagesParams = undefined;
     $scope.appointmentButtons = DEFAULT_VALUES.APPOINTMENT_BUTTONS;
 
@@ -220,6 +221,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
             var day = $scope.selectedWeek[dayIndex];
 
             if(day.appointments){
+                console.log(day.appointments)
                 for(var appointmentIndex=0; appointmentIndex<day.appointments.length; appointmentIndex++){
                     var appointment = day.appointments[appointmentIndex];
                     var straightHourTime = false;
@@ -513,12 +515,13 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
      * Determina si existen o no citas en una semana determinada
      * */
     $scope.changeView = function(weekView){
+
         $scope.weekView = weekView;
-        $timeout(function(){
+        /*$timeout(function(){
           $location.hash('week-row-07:30');
           $anchorScroll();
           $location.url($location.path());
-        }, 0);
+        }, 0);*/
     };
 
     /*
@@ -620,6 +623,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
                     }else if(indexDay < firstDay){
 
                         day = {
+                            'date': new Date(previousYear,previousMonth,(lastDayOfLastMonth - (firstDay-1) + dayIndex)),
                             'day': new Date(previousYear,previousMonth,(lastDayOfLastMonth - (firstDay-1) + dayIndex)).getDay(),
                             'numberDay': lastDayOfLastMonth - (firstDay-1) + dayIndex,
                             'isCurrentDay': false,
@@ -634,6 +638,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
                         };
                     }else{
                         day = {
+                            'date': new Date(nextYear,nextMonth,nextDay),
                             'day': new Date(nextYear,nextMonth,nextDay).getDay(),
                             'numberDay': nextDay,
                             'isCurrentDay': false,
@@ -668,8 +673,6 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
                 return;
             }
         }
-
-
     };
 
     $scope.getWeekAvailability = function(){
@@ -746,6 +749,24 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
             }
         );
 
+    };
+
+    $scope.translateWeeklyCalendarTitle = function(startDay, startMonth, endDay, endMonth) {
+
+        var translatedTitle = '';
+
+        switch($translate.use()) {
+            case 'es_MX':
+                translatedTitle = $filter('translate')('WEEK_FROM') + ' ' + startDay + ' ' + $filter('translate')('WEEK_OF') + ' ' + $filter('translate')(startMonth) + ' ' + $filter('translate')('WEEK_TO') + ' ' + endDay + ' ' + $filter('translate')('WEEK_OF') + ' ' + $filter('translate')(endMonth);
+                break;
+            case 'en_US':
+                translatedTitle = $filter('translate')('WEEK_FROM') + ' ' + $filter('translate')(startMonth) + ' ' + startDay + ' ' + $filter('translate')('WEEK_TO') + ' ' + $filter('translate')(endMonth) + ' ' + endDay;
+                break;
+            default:
+                break;
+        }
+
+        return translatedTitle;
     };
 
 }]);

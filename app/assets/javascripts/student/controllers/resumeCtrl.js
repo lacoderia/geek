@@ -1,14 +1,18 @@
 'use strict';
 
-Geek.controller('ResumeController',['$scope','$rootScope', 'ResumeService', 'SessionService', 'DEFAULT_VALUES' ,function($scope, $rootScope, ResumeService, SessionService, DEFAULT_VALUES){
+Geek.controller('ResumeController',['$scope','$rootScope', '$timeout', 'ResumeService', 'SessionService', 'usSpinnerService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $timeout, ResumeService, SessionService, usSpinnerService, DEFAULT_VALUES){
 
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.MONTHS = DEFAULT_VALUES.MONTHS;
     $scope.START_YEAR = DEFAULT_VALUES.START_YEAR;
 
-    $scope.resume = {};
+    $scope.resume = undefined;
 
     $scope.getUserResume = function(){
+
+        $timeout(function(){
+            usSpinnerService.spin('resume-spinner');
+        }, 0);
 
         ResumeService.getUserResume(SessionService.getId()).then(
             function(data){
@@ -52,6 +56,8 @@ Geek.controller('ResumeController',['$scope','$rootScope', 'ResumeService', 'Ses
                 angular.forEach($scope.resume.messages.latest, function(message){
                     message.timestamp = new Date(message.timestamp);
                 });
+
+                usSpinnerService.stop('resume-spinner');
 
             },
             function(response){

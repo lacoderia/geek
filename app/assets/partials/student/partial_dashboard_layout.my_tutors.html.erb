@@ -1,12 +1,14 @@
 <div class="student-tutors-container">
+  <span us-spinner spinner-key="my-tutors-spinner"></span>
+
   <h2 class="section-title" translate="MY_TUTORS"></h2>
   <div class="student-tutors" ng-controller="MyTutorsController as MyTutorsCtrl">
-    <div class="unavailable-message" ng-hide="tutorList.length">
+    <div class="unavailable-message" ng-show="tutorList && tutorList.length == 0">
       <div class="unavailable-message-content">
         <h3 translate="UNAVAILABLE_MESSAGE_TUTORS"></h3>
       </div>
     </div>
-    <div class="tutors-list-view-row" ng-show="tutorList.length">
+    <div class="tutors-list-view-row" ng-show="tutorList && tutorList.length">
       <table>
         <thead>
         <tr class="tutors-list-title-row">

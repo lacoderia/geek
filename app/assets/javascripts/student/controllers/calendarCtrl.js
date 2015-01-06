@@ -275,7 +275,6 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
                     };
                     firstNumberDay++;
                 }
-
                 week.push(day);
             }
         }

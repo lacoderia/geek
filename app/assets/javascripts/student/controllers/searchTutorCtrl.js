@@ -22,8 +22,16 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
     //Zona ingresada por el usuario
     $scope.countyInput = '';
 
-    $scope.tutorList = [];
-    $scope.suggestedTutorList = [];
+    //Filtros de la búsqueda
+    $scope.filters = {
+        'online': false,
+        'office': false,
+        'student': false,
+        'public': false
+    }
+
+    $scope.tutorList = undefined;
+    $scope.suggestedTutorList = undefined;
 
     $scope.PROFILE_IMAGE = DEFAULT_VALUES.PROFILE_IMAGE;
     $scope.selectedCategory = undefined;
@@ -77,6 +85,22 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
       
     };
 
+    $scope.filterSearch = function() {
+
+        $timeout(function(){
+            //Activamos el loader para mostrarlo en lo que obtenemos información
+            usSpinnerService.spin('search-tutor-spinner');
+
+            //Se realiza la búsqueda con los filtros seleccionados
+
+            //Se esconde el loader después de obtener los resultados de la búsqueda
+            $timeout(function() {
+                usSpinnerService.stop('search-tutor-spinner');
+            }, 500);
+        }, 0);
+
+    }
+
     $scope.getTutorCostRange = function(tutor){
         tutor.show = true;
 
@@ -128,6 +152,10 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
             categoryId = $scope.subjectInput.originalObject.id;
         }
 
+        $timeout(function(){
+            usSpinnerService.spin('search-tutor-spinner');
+        }, 0);
+
         TutorService.getTutorByQueryParamsForGoogle($scope.components_address, categoryId, pageNumber).then(
             function(data){
                 if(data){
@@ -147,6 +175,9 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
                     }
 
                     $rootScope.$broadcast('showResultList');
+
+                    usSpinnerService.stop('search-tutor-spinner');
+
                 }
             },
             function(response){
@@ -440,7 +471,6 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
     };
 
     $scope.translateWeeklyCalendarTitle = function(startDay, startMonth, endDay, endMonth) {
-        // Semana del {{ selectedWeek[0].numberDay }} de {{ MONTHS[selectedWeek[0].month] | translate }} al {{ selectedWeek[6].numberDay }} de {{ MONTHS[selectedWeek[6].month] | translate }}
 
         var translatedTitle = '';
 
@@ -449,7 +479,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
                 translatedTitle = $filter('translate')('WEEK_FROM') + ' ' + startDay + ' ' + $filter('translate')('WEEK_OF') + ' ' + $filter('translate')(startMonth) + ' ' + $filter('translate')('WEEK_TO') + ' ' + endDay + ' ' + $filter('translate')('WEEK_OF') + ' ' + $filter('translate')(endMonth);
                 break;
             case 'en_US':
-                translatedTitle = $filter('translate')('WEEK_FROM') + ' ' + $filter('translate')(startMonth) + ' ' + startDay + ' ' + $filter('translate')('WEEK_TO') + ' ' + $filter('translate')(startMonth) + ' ' + endDay;
+                translatedTitle = $filter('translate')('WEEK_FROM') + ' ' + $filter('translate')(startMonth) + ' ' + startDay + ' ' + $filter('translate')('WEEK_TO') + ' ' + $filter('translate')(endMonth) + ' ' + endDay;
                 break;
             default:
                 break;

@@ -16,10 +16,15 @@ class Tutor < ActiveRecord::Base
   has_many :categories_tutors
   accepts_nested_attributes_for :reviews
 
-  after_create :set_default_preferences
+  after_create :set_defaults
 
   FALLBACK_NUMBER = 10
   PER_PAGE = 10 
+
+  def set_defaults
+    set_default_preferences
+    self.get_openpay_id
+  end
 
   def set_default_preferences
     self.update_attribute(:preference, Preference.create(cost: 0.00, online: false, office: true))
@@ -574,5 +579,24 @@ class Tutor < ActiveRecord::Base
     end
     grade = avg/count
     tutor.update_attribute(:grade, grade)
+  end
+
+  def self.get_balance email
+    ocard = nil
+    tutor = Tutor.where('email = ? ', email)[0]
+    balance = Payment.get_balance(tutor.openpay_id)
+    card = Card.get_active(tutor.user.id)
+    if card
+      ocard = Card.get_openpay_info(card, tutor.user)
+    end
+    {:balance => balance[:result], :active => {:card => card, :openpay_card => ocard}}
+  end
+
+  def self.cash_out tutor_id
+    result = nil
+    tutor = Tutor.find(tutor_id)
+    balance = Payment.get_balance(tutor.openpay_id)
+    card = Card.get_active(tutor.user.id)
+    pay = Payment.pay_tutor(tutor.openpay_id, card.openpay_id, balance[:result])
   end
 end

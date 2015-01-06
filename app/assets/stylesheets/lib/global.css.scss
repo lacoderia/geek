@@ -427,8 +427,18 @@ h3.section-title{
   margin-right: 4px;
 }
 
+.balance-info{
+  display: inline-block;
+  font-weight: 500;
+  margin: 2.4em 0.5em;
+}
+
 .border-error{
   border: 2px solid $color-light-red !important;
+}
+
+.payment-icon{
+  color: $color-dark-green;
 }
 
 .payment-buttons-container{
@@ -810,6 +820,24 @@ h3.section-title{
         padding: 0.5em;
         text-align: center;
         width: 20%;
+
+
+      }
+
+      .day-status{
+        text-align: left !important;
+
+        .payment-icon{
+          display: inline-block;
+          text-align: center;
+          width: 10%;
+        }
+
+        .icon-alert{
+          display: inline-block;
+          text-align: center;
+          width: 10%;
+        }
       }
     }
 
@@ -986,6 +1014,7 @@ h3.section-title{
 
     li{
       border: 2px solid $color-input-gray-bgcolor;
+      border-right: none;
       border-bottom: none;
       font-size: 16px;
       display: inline-block;
@@ -1015,6 +1044,7 @@ h3.section-title{
 
     li:last-child{
       border-radius: 0px 10px 0px 0px;
+      border-right: 2px solid $color-input-gray-bgcolor;
     }
   }
 
@@ -1120,9 +1150,23 @@ h3.section-title{
     }
   }
 
-  .week-view{
+  .week-config-view-tools{
+    margin: 2em 0em;
+    text-align: right;
+  }
+
+  .week-view, .week-config-view{
     border: 2px solid $color-input-gray-bgcolor;
     margin: 0em;
+    position: relative;
+
+    .view-header{
+      left: 0px;
+      position: absolute;
+      top: 0px;
+      width: 100%;
+      z-index: 999;
+    }
 
     .week-row{
       table{
@@ -1165,7 +1209,7 @@ h3.section-title{
         color: $color-dark-green;
         font-size: 1rem;
         font-weight: 500;
-        padding: 1rem;
+        padding: 1rem 0rem;
         text-align: center;
         text-transform: uppercase;
         width: 12.5%;
@@ -1174,6 +1218,16 @@ h3.section-title{
     }
   }
 
+}
+
+.calendar-title{
+  background-color: $color-light-green;
+  color: white;
+  font-size: 1.5rem;
+  padding: 0.3em;
+  text-align: center;
+  text-transform: uppercase;
+  width: 100%;
 }
 
 .control-arrow{
@@ -1602,8 +1656,8 @@ footer{
   cursor: pointer;
 }
 
-.resume{
-  .resume-group{
+.resume,.balance{
+  .resume-group, .balance-group{
     background-color: white;
     border: 1px solid $color-input-gray-bgcolor;
     border-radius: 0px 0px 10px 10px;
@@ -1617,12 +1671,12 @@ footer{
       margin: 1.5em 1.5em 1em;
     }
 
-    .resume-group-actions{
+    .resume-group-actions, .balance-group-actions{
       background-color: $color-sign-up-dark-blue;
       font-size: 0px;
       padding: 16px 38px;
 
-      .resume-total-info{
+      .resume-total-info, .balance-total-info{
         display: inline-block;
         font-size: 18px;
         font-weight: 500;
@@ -1630,7 +1684,7 @@ footer{
         width: 60%;
       }
 
-      .resume-actions{
+      .resume-actions, .balance-actions{
         display: inline-block;
         font-size: 16px;
         text-align: right;
@@ -1640,16 +1694,33 @@ footer{
 
     }
 
-    .resume-items-group{
+    .resume-items-group, .balance-items-group{
       box-sizing: border-box;
       padding: 1em;
+
+      .current-balance-info{
+        box-sizing: border-box;
+        font-size: 1.3em;
+        padding: 1em 2em;
+        text-transform: uppercase;
+
+        .balance-buttons-container{
+          margin: 2em 0em 0,5em;
+          text-align: right;
+        }
+
+        .card-info{
+          font-size:  0.8em;
+        }
+
+      }
 
       .resume-item{
         background-color: $color-input-gray-bgcolor;
         box-sizing: border-box;
         clear: both;
         margin: 0 1em 0.5em;
-        padding: 0em 1em;
+        padding: 1em;
         text-transform: uppercase;
 
 
@@ -1785,20 +1856,23 @@ footer{
   list-style: none;
   margin: 0px;
   padding: 0px;
+  font-size: 0px;
 
   li{
-    background-color: rgba(166,168,171,0.2);
     display: inline-block;
     font-size: 16px;
     font-weight: 500;
+    min-width: 20%;
+    overflow: hidden;
     text-align: center;
     text-transform: uppercase;
 
     a{
+      background-color: rgba(166,168,171,0.2);
       color: $color-light-green;
       display: inline-block;
-      padding: 1.5em 3em;
-      min-width: 230.5px;
+      padding: 1.5em;
+      width: 99%;
     }
 
     a:hover{

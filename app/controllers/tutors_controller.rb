@@ -195,6 +195,28 @@ class TutorsController < ApplicationController
     end
   end
 
+  # Obtiene el saldo en Openpay de un tutor
+  # Regresa:
+  # Un hash con el saldo y el medio de pago (tarjeta o cuenta bancaria) del tutor
+  def balance
+    if current_user
+      @balance = Tutor.get_balance(current_user.email)
+    end
+  end
+
+  # Realiza una transferencia de la cuenta en Openpay del tutor a su cuenta bancaria o tarjeta de débito
+  def cash_out
+    if current_user
+      tutor = Tutor.where("email = ?", current_user.email)[0]
+      cash_out = Tutor.cash_out(tutor.id)
+      if cash_out[:success]
+        render json: "ok", status: :ok
+      else
+        render json: cash_out[:error], status: 500
+      end
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_tutor
