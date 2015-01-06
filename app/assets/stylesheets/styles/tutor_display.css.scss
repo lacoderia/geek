@@ -51,6 +51,11 @@
       cursor: pointer;
     }
 
+    .week-day-config.available {
+      background-color: transparent;
+      cursor: pointer;
+    }
+
     .appointment-status-canceled{
       background-color: $color-dark-red !important;
     }
@@ -73,6 +78,12 @@
       background-position: 2px 2px;
       cursor: default !important;
     }
+
+    .week-day-config.unavailable{
+      background: none;
+      cursor: pointer !important;
+    }
+
   }
 }
 

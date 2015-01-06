@@ -56,6 +56,7 @@
           <div class="content">
             <h4 class="tutor-name">{{ tutor.first_name }} {{ tutor.last_name }}</h4>
             <h5 class="tutor-county"><span ng-repeat="county in tutor.counties">{{ county.name }}{{ $last ? '' : ', ' }}</span></h5>
+            <p class="tutor-categories"><span ng-repeat="category in tutor.categories">{{ category.name }}{{ $last ? '' : ', ' }}</span></p>
             <p class="resume" ng-class="{ 'expanded' : tutor.id == selectedTutor.id }" ng-bind="tutor.background" ellipsis ellipsis-append="{{ 'MORE' | translate }}" ellipsis-symbol="... " ellipsis-append-click="showTutorDetails(tutor)" ellipsis-id="tutor.id"></p>
             <div class="given-classes">
               <div>{{ 'TUTOR_SEARCH_CLASS_COUNT' | translate }}: {{tutor.appointments.classes || 0}}</div>
@@ -129,6 +130,7 @@
           <div class="content">
             <h4 class="tutor-name">{{ tutor.first_name }} {{ tutor.last_name }}</h4>
             <h5 class="tutor-county"><span ng-repeat="county in tutor.counties">{{ county.name }}{{ $last ? '' : ', ' }}</span></h5>
+            <p class="tutor-categories"><span ng-repeat="category in tutor.categories">{{ category.name }}{{ $last ? '' : ', ' }}</span></p>
             <p class="resume" ng-class="{ 'expanded' : tutor.id == selectedTutor.id }" ng-bind="tutor.background" ellipsis ellipsis-append="{{ 'MORE' | translate }}" ellipsis-symbol="... " ellipsis-append-click="showTutorDetails(tutor)" ellipsis-id="tutor.id"></p>
             <div class="given-classes">
               <div>{{ 'TUTOR_SEARCH_CLASS_COUNT' | translate }}: {{tutor.appointments.classes || 0}}</div>

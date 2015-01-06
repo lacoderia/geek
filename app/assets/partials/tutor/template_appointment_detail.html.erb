@@ -7,11 +7,11 @@
       <tr><td class="appointment-detail-content" ng-bind="clickedAppointment.time"></td></tr>
       <tr>
         <td class="appointment-detail-content">
-            <span class="{{clickedAppointment.status.class}} {{clickedAppointment.status.icon_class}}"> {{ clickedAppointment.status.name | translate }}</span>
+            <span class="{{clickedAppointment.status.class}}"><span class="{{clickedAppointment.status.icon_class}}"></span> {{ clickedAppointment.status.name | translate }}</span>
         </td>
       </tr>
-      <tr><td ng-if="clickedAppointment.anomaly" class="appointment-detail-content"><span class="icon-alert anomaly-reported"> {{ 'ANOMALY_REPORTED' | translate}}:</span> {{ clickedAppointment.anomaly.description }}</td></tr>
-      <tr><td ng-if="clickedAppointment.paid" class="appointment-detail-content payment-icon"><span class="icon-coin-dollar"> {{ 'PAYMENT_LABEL_PAYMENT_RECEIVED' | translate }}</span></td></tr>
+      <tr><td ng-if="clickedAppointment.anomaly" class="appointment-detail-content"><span class="anomaly-reported"><span class="icon-alert"></span> {{ 'ANOMALY_REPORTED' | translate}}:</span> {{ clickedAppointment.anomaly.description }}</td></tr>
+      <tr><td ng-if="clickedAppointment.paid" class="appointment-detail-content payment-icon"><span class="icon-coin-dollar"></span> {{ 'PAYMENT_LABEL_PAYMENT_RECEIVED' | translate }}</td></tr>
     </table>
   </div>
   <div class="modal-detail-footer"></div>

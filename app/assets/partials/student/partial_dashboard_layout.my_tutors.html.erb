@@ -32,11 +32,11 @@
                 </td>
                 <td class="tutor-info">
                   <div class="appointment-button" ng-hide="tutor.has_evaluation">
-                    <a ng-class="[appointmentButtons['MESSAGE_BUTTON'].class, appointmentButtons['MESSAGE_BUTTON'].icon]" title=" {{ appointmentButtons['MESSAGE_BUTTON'].title | translate }}" ng-click="callButtonAction($event, appointmentButtons['MESSAGE_BUTTON'].action, tutor)"> {{ appointmentButtons['MESSAGE_BUTTON'].text | translate}}</a>
-                    <a ng-class="[appointmentButtons['REVIEW_BUTTON'].class, appointmentButtons['REVIEW_BUTTON'].icon]" title=" {{ appointmentButtons['REVIEW_BUTTON'].title | translate }}" ng-click="callButtonAction($event, appointmentButtons['REVIEW_BUTTON'].action, tutor)"> {{ appointmentButtons['REVIEW_BUTTON'].text | translate }}</a>
+                    <a ng-class="[appointmentButtons['MESSAGE_BUTTON'].class]" title=" {{ appointmentButtons['MESSAGE_BUTTON'].title | translate }}" ng-click="callButtonAction($event, appointmentButtons['MESSAGE_BUTTON'].action, tutor)"><span ng-class="[appointmentButtons['MESSAGE_BUTTON'].icon]"></span> {{ appointmentButtons['MESSAGE_BUTTON'].text | translate}}</a>
+                    <a ng-class="[appointmentButtons['REVIEW_BUTTON'].class]" title=" {{ appointmentButtons['REVIEW_BUTTON'].title | translate }}" ng-click="callButtonAction($event, appointmentButtons['REVIEW_BUTTON'].action, tutor)"><span ng-class="[appointmentButtons['REVIEW_BUTTON'].icon]"></span> {{ appointmentButtons['REVIEW_BUTTON'].text | translate }}</a>
                   </div>
                   <div class="appointment-button" ng-show="tutor.has_evaluation">
-                    <a ng-class="[appointmentButtons['REVIEW_DETAIL_BUTTON'].class, appointmentButtons['REVIEW_DETAIL_BUTTON'].icon]" title=" {{ appointmentButtons['REVIEW_DETAIL_BUTTON'].title | translate }}" ng-click="callButtonAction($event, appointmentButtons['REVIEW_DETAIL_BUTTON'].action, tutor)"> {{ appointmentButtons['REVIEW_DETAIL_BUTTON'].text | translate }}</a>
+                    <a ng-class="[appointmentButtons['REVIEW_DETAIL_BUTTON'].class]" title=" {{ appointmentButtons['REVIEW_DETAIL_BUTTON'].title | translate }}" ng-click="callButtonAction($event, appointmentButtons['REVIEW_DETAIL_BUTTON'].action, tutor)"><span ng-class="[appointmentButtons['REVIEW_DETAIL_BUTTON'].icon]"></span> {{ appointmentButtons['REVIEW_DETAIL_BUTTON'].text | translate }}</a>
                   </div>
                 </td>
             </tr>

@@ -32,11 +32,10 @@
           <td class="day-info">{{ 'FROM' | translate }} {{ appointment.startHour }} {{ 'TO' | translate }} {{ appointment.endHour }}</td>
           <td class="day-info">{{ appointment.tutor.first_name }} {{ appointment.tutor.last_name }}</td>
           <td class="day-info">{{ appointment.subject }}</td>
-          <td class="day-info"><span ng-class="[appointment.status.class,appointment.status.icon_class]"> {{ appointment.status.name | translate }}</span></td>
+          <td class="day-info"><span ng-class="[appointment.status.class]"><span ng-class="[appointment.status.icon_class]"></span> {{ appointment.status.name | translate }}</span></td>
           <td class="day-info">
             <div class="appointment-button">
-              <a ng-repeat="button in appointmentButtons" ng-if="showActionButtons(appointment, button.action)" ng-class="[button.class, button.icon]" title=" {{ button.title | translate }}" ng-click="callButtonAction($event, button.action, appointment)"> {{ button.text | translate }}</a>
-              <!--a ng-repeat="button in appointment.buttons" ng-class="button.class" title="button.title" ng-click="changeAppointmentStatus($event, button.action, appointment)">{{ button.text }}</a-->
+              <a ng-repeat="button in appointmentButtons" ng-if="showActionButtons(appointment, button.action)" ng-class="[button.class]" title=" {{ button.title | translate }}" ng-click="callButtonAction($event, button.action, appointment)"><span ng-class="[button.icon]"></span> {{ button.text | translate }}</a>
             </div>
           </td>
         </tr>

@@ -26,6 +26,7 @@ gem 'newrelic_rpm'
 gem 'cloudinary'
 gem 'clockwork'
 gem 'will_paginate'
+gem 'momentjs-rails'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

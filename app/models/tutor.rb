@@ -19,7 +19,6 @@ class Tutor < ActiveRecord::Base
   after_create :set_defaults
 
   FALLBACK_NUMBER = 10
-  PER_PAGE = 10 
 
   def set_defaults
     set_default_preferences
@@ -329,7 +328,11 @@ class Tutor < ActiveRecord::Base
 
   end
 
+<<<<<<< HEAD
   def self.search_by_query_params_for_google zone_obj, category_id, category_str, page, options
+=======
+  def self.search_by_query_params_for_google zone_obj, category_id, category_str
+>>>>>>> da34fa655e8ae81ce08307aabb97b9013f432733
 
     tutors = nil
     message = ""
@@ -379,7 +382,7 @@ class Tutor < ActiveRecord::Base
     if category_id
       category_ids << category_id
     elsif category_str
-      categories = Category.select(:id).where("upper(unaccent(name)) like '%#{I18n.transliterate(category_str).upcase}%'")
+      categories = Category.select(:id).where("lower(unaccent(name)) like '%#{I18n.transliterate(category_str).downcase}%'")
       categories.each do |category|
         category_ids << category.id
       end
@@ -509,21 +512,6 @@ class Tutor < ActiveRecord::Base
       message = "Búsqueda vacía."
     end
 
-    if tutors
-      count = tutors.count
-      if count > PER_PAGE
-        tutors = tutors.paginate(:page => page, :per_page => PER_PAGE)
-      end
-      tutors = {:items => tutors, :count => count}
-    end
-    if suggested_tutors
-      count = suggested_tutors.count
-      if count > PER_PAGE
-        suggested_tutors = suggested_tutors.paginate(:page => page, :per_page => PER_PAGE)
-      end
-      suggested_tutors = {:items => suggested_tutors, :count => count}
-    end
-
     return {:message => message, :tutors => tutors, :suggested_tutors => suggested_tutors}
   end
 
@@ -635,23 +623,24 @@ class Tutor < ActiveRecord::Base
     tutor.update_attribute(:grade, grade)
   end
 
-  def self.get_balance email
-    ocard = nil
-    tutor = Tutor.where('email = ? ', email)[0]
-    balance = Payment.get_balance(tutor.openpay_id)
-    card = Card.get_active(tutor.user.id)
-    if card
-      ocard = Card.get_openpay_info(card, tutor.user)
-    end
-    {:balance => balance[:result], :active => {:card => card, :openpay_card => ocard}}
+  def self.get_balance tutor_openpay_id
+    balance = Payment.get_balance(tutor_openpay_id)[:result]
   end
 
   def self.cash_out tutor_id
-    result = nil
     tutor = Tutor.find(tutor_id)
-    balance = Payment.get_balance(tutor.openpay_id)
-    card = Card.get_active(tutor.user.id)
-    pay = Payment.pay_tutor(tutor.openpay_id, card.openpay_id, balance[:result])
+    balance = Tutor.get_balance(tutor.openpay_id)
+    if balance > 8
+      card = Card.get_active(tutor.user.id)
+      fee = Payment.charge_fee(tutor.openpay_id, 8)
+      if fee[:success]
+        pay = Payment.pay_tutor(tutor.openpay_id, card.openpay_id, (balance - 8))
+      else 
+        fee
+      end
+    else 
+      {:sucess => false, :error => {:description => "Tu saldo no es suficiente para cubrir la comisión", :error_code => 4001}}
+    end
   end
 
   private
