@@ -23,7 +23,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
     $scope.weekRows = [];
     $scope.calendarRows = [];
     $scope.appointments = [];
-    $scope.weekView = $scope.CALENDAR_VIEWS.CALENDAR_VIEW_CONFIG;
+    $scope.weekView = $scope.CALENDAR_VIEWS.CALENDAR_VIEW_LIST;
     $scope.messageAlertMessagesParams = undefined;
     $scope.appointmentButtons = DEFAULT_VALUES.APPOINTMENT_BUTTONS;
 
@@ -679,18 +679,17 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
                 return;
             }
         }
-
     };
 
     $scope.getWeekAvailability = function(){
         AvailabilityService.getTutorAvailabilityByRange($scope.selectedWeek[0], $scope.selectedWeek[$scope.selectedWeek.length-1],$scope.tutor.id).then(
             function(data){
                 $scope.weekAvailability = data;
-
                 if(data){
                     for(var availabilityIndex=0; availabilityIndex<$scope.weekAvailability.length; availabilityIndex++){
                         var availability = $scope.weekAvailability[availabilityIndex];
                         availability.month--;
+
                         $scope.setDayAvailability(availability);
                     }
 

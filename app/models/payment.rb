@@ -125,6 +125,27 @@ class Payment
     return result
   end
 
+  # Obtiene el saldo de una cuenta de Openpay
+  # Recibe:
+  # user_openpay_id - el id de Openpay de la cuenta bancaria
+  # Regresa un hash:
+  # success - true si la operación se realizó con éxito, false de lo contrario
+  # result - el saldo de la cuenta
+  # error - el mensaje de error si la operación falló
+  def self.get_balance user_openpay_id
+    op = set_openpay
+    customers = op.create(:customers)
+    result = {:success => true, :result => nil, :error => nil}
+    begin
+      result_hash = customers.get(user_openpay_id)
+      result[:result] = result_hash["balance"]
+    rescue => error
+      result[:success] = false
+      result[:error] = error
+    end
+    return result
+  end
+
   # Realiza cargo a la tarjeta de un estudiante 
   # Recibe: 
   # user_openpay_id - el id de openpay del estudiante

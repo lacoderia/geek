@@ -263,6 +263,7 @@ angular.module('angucomplete-alt-geek', [] ).directive('angucompleteAltGeek', ['
                 else {
                     if (!scope.searchStr || scope.searchStr === '') {
                         scope.showDropdown = false;
+
                     } else if (scope.searchStr.length >= minlength) {
                         initResults();
 
@@ -439,6 +440,7 @@ angular.module('angucomplete-alt-geek', [] ).directive('angucompleteAltGeek', ['
                 if (dd) {
                     dd.scrollTop = 0;
                 }
+
             }
 
             function initResults() {

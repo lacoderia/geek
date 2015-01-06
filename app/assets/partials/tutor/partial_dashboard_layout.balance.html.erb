@@ -1,9 +1,38 @@
-<div class="balance">
+<div class="balance" ng-controller="BalanceController">
+  <span us-spinner spinner-key="transfer-spinner"></span>
   <h2 class="section-title">{{ 'BALANCE_TITLE' | translate}}</h2>
-  <ng-alert id="tutor-request-form" alert-params="tutorBalanceAlertParams"></ng-alert>
+  <ng-alert id="balance-request" alert-params="tutorBalanceAlertParams"></ng-alert>
 
-    <table>
+  <!-- Saldo -->
+  <div class="balance-group" ng-hide="confirmTransferView" ng-show="tutor.balanceInfo">
+    <div class="balance-items-group">
+      <div class="current-balance-info">
+        <h4 class="current-balance">{{ 'BALANCE_LABEL_CURRENT_BALANCE' | translate }}: {{ tutor.balanceInfo.balance | currency }}</h4>
+        <div ng-if="tutor.balanceInfo.card">
+          <p class="card-info" ng-if="!tutor.balanceInfo.card.is_bank_account">{{ 'BALANCE_LABEL_CURRENT_ACCOUNT' | translate }}: XXXX-XXXX-XXXX-{{ tutor.balanceInfo.card.card_number }}</p>
+          <p class="card-info" ng-if="tutor.balanceInfo.card.is_bank_account">{{ 'BALANCE_LABEL_CURRENT_ACCOUNT' | translate }}: XXXXXXXXXXXXXX{{ tutor.balanceInfo.card.card_number }}</p>
+          <div class="balance-buttons-container">
+            <a class="action-button action-button-light-green" title="{{ 'BALANCE_LABEL_TRANSFER_MONEY' | translate }}" ng-click="confirmTransfer()"><span class="icon-coin-dollar"></span> {{ 'BALANCE_LABEL_TRANSFER_MONEY' | translate }}</a>
+          </div>
+        </div>
+        <div class="unavailable-resume-items-message" ng-show="tutor.balanceInfo && !tutor.balanceInfo.card">
+            <p>{{ 'UNAVAILABLE_MESSAGE_COLLECT_NO_METHODS_TUTOR' | translate }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    </table>
+  <!-- Confirmación de trasnferencia -->
+  <div class="balance-group" ng-show="confirmTransferView">
+    <div class="balance-items-group">
+      <div class="current-balance-info">
+        <h4 class="current-balance">{{ 'BALANCE_CONFIRM_MESSAGE' | translate }}</h4>
+        <div class="balance-buttons-container">
+          <a class="action-button action-button-light-blue" title="{{ 'CANCEL' | translate }}" ng-click="transferMoney()">{{ 'CANCEL' | translate }}</a>
+          <a class="action-button action-button-light-green" title="{{ 'CONFIRM' | translate }}" ng-click="transferMoney()">{{ 'CONFIRM' | translate }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>

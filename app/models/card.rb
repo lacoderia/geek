@@ -46,4 +46,17 @@ class Card < ActiveRecord::Base
   	card.update_attribute(:active, true)
   	card
   end
+
+  def self.get_active user_id
+    card = Card.where("user_id = ? and active = ?", user_id, true)[0]    
+  end
+
+  def self.get_openpay_info card, user
+    if card.is_bank_account
+      ocard = Payment.get_bank_account(card.openpay_id, user.openpay_id)
+    else
+      ocard = Payment.get_card(card.openpay_id, user.openpay_id)
+    end
+    ocard
+  end
 end

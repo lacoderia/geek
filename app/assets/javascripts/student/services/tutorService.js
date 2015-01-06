@@ -50,13 +50,14 @@ Geek.factory('TutorService', ["$http", "$q", "DEFAULT_VALUES", function($http, $
         return promise
     };
 
-    var getTutorByQueryParamsForGoogle = function(queryParams, categoryId){
+    var getTutorByQueryParamsForGoogle = function(queryParams, categoryId, pageNumber){
         var deferred = $q.defer();
         var promise = deferred.promise;
 
         $http.post(DEFAULT_VALUES.URL_SERVICES.TUTOR_BY_GOOGLE_SERVICE_URL,{
             category_str: null,
             category_id: categoryId,
+            page: pageNumber,
             zone_obj: queryParams
         }).
             success(function(data){

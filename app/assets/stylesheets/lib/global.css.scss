@@ -427,8 +427,18 @@ h3.section-title{
   margin-right: 4px;
 }
 
+.balance-info{
+  display: inline-block;
+  font-weight: 500;
+  margin: 2.4em 0.5em;
+}
+
 .border-error{
   border: 2px solid $color-light-red !important;
+}
+
+.payment-icon{
+  color: $color-dark-green;
 }
 
 .payment-buttons-container{
@@ -810,6 +820,24 @@ h3.section-title{
         padding: 0.5em;
         text-align: center;
         width: 20%;
+
+
+      }
+
+      .day-status{
+        text-align: left !important;
+
+        .payment-icon{
+          display: inline-block;
+          text-align: center;
+          width: 10%;
+        }
+
+        .icon-alert{
+          display: inline-block;
+          text-align: center;
+          width: 10%;
+        }
       }
     }
 
@@ -1696,12 +1724,29 @@ footer{
       box-sizing: border-box;
       padding: 1em;
 
-      .resume-item, .balance.item{
+      .current-balance-info{
+        box-sizing: border-box;
+        font-size: 1.3em;
+        padding: 1em 2em;
+        text-transform: uppercase;
+
+        .balance-buttons-container{
+          margin: 2em 0em 0,5em;
+          text-align: right;
+        }
+
+        .card-info{
+          font-size:  0.8em;
+        }
+
+      }
+
+      .resume-item{
         background-color: $color-input-gray-bgcolor;
         box-sizing: border-box;
         clear: both;
         margin: 0 1em 0.5em;
-        padding: 0em 1em;
+        padding: 1em;
         text-transform: uppercase;
 
 

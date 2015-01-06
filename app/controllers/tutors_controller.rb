@@ -107,7 +107,7 @@ class TutorsController < ApplicationController
   # Regresa:
   # Objeto con arreglo de tutores que conforman la búsqueda, arreglo de tutores sugeridos con fallback, y mensaje descriptivo.
   def by_query_params_for_google
-    @result_obj = Tutor.search_by_query_params_for_google(params[:zone_obj], params[:category_id], params[:category_str])
+    @result_obj = Tutor.search_by_query_params_for_google(params[:zone_obj], params[:category_id], params[:category_str], params[:page])
   end
 
   # Recibe:
@@ -192,6 +192,28 @@ class TutorsController < ApplicationController
     if params[:student_id]
       @student = Student.find(params[:student_id])
       @tutors = Tutor.by_student(@student)
+    end
+  end
+
+  # Obtiene el saldo en Openpay de un tutor
+  # Regresa:
+  # Un hash con el saldo y el medio de pago (tarjeta o cuenta bancaria) del tutor
+  def balance
+    if current_user
+      @balance = Tutor.get_balance(current_user.email)
+    end
+  end
+
+  # Realiza una transferencia de la cuenta en Openpay del tutor a su cuenta bancaria o tarjeta de débito
+  def cash_out
+    if current_user
+      tutor = Tutor.where("email = ?", current_user.email)[0]
+      cash_out = Tutor.cash_out(tutor.id)
+      if cash_out[:success]
+        render json: "ok", status: :ok
+      else
+        render json: cash_out[:error], status: 500
+      end
     end
   end
 
