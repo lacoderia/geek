@@ -458,16 +458,18 @@ class Tutor < ActiveRecord::Base
     end
 
     if tutors
-      if tutors.count > PER_PAGE
+      count = tutors.count
+      if count > PER_PAGE
         tutors = tutors.paginate(:page => page, :per_page => PER_PAGE)
       end
-      tutors = {:items => tutors, :count => tutors.count}
+      tutors = {:items => tutors, :count => count}
     end
     if suggested_tutors
-      if suggested_tutors.count > PER_PAGE
+      count = suggested_tutors.count
+      if count > PER_PAGE
         suggested_tutors = suggested_tutors.paginate(:page => page, :per_page => PER_PAGE)
       end
-      suggested_tutors = {:items => suggested_tutors, :count => suggested_tutors.count}
+      suggested_tutors = {:items => suggested_tutors, :count => count}
     end
 
     return {:message => message, :tutors => tutors, :suggested_tutors => suggested_tutors}
