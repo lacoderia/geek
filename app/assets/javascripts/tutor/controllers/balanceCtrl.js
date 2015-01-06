@@ -65,13 +65,14 @@ Geek.controller('BalanceController',['$scope','$rootScope', '$timeout', '$filter
                 usSpinnerService.stop('transfer-spinner');
             },
             function(response){
+                console.log(response)
                 console.log('Error trasnfering the money' + response.description);
 
                 var errorMessage = "";
                 $scope.confirmTransferView = false;
 
                 switch (response.error_code){
-                    case 1003:
+                    case 4001:
                         errorMessage = $filter('translate')('ERROR_TUTOR_TRANSFER_NO_BALANCE');
                         break;
                     default :

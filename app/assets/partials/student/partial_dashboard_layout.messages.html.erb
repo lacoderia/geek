@@ -59,7 +59,7 @@
           <div class="user-info">
             <h4 ng-if="message.from_student" class="message-user-name">{{ studentName }}</h4>
             <h4 ng-if="!message.from_student" class="message-user-name">{{ userSelected.first_name }} {{ userSelected.last_name }}</h4>
-            <span class="message-status"><span class="timestamp">{{ message.timestamp | timestampTranslateFilter }}</span> <span class="icon-bubbles" ng-show="message.read && !message.from_student"> {{ 'SEEN' | translate }}</span></span>
+            <span class="message-status"><span class="timestamp">{{ message.timestamp | timestampTranslateFilter }}</span> <span class="icon-container" ng-show="message.read && !message.from_student"><span class="icon-bubbles"></span> {{ 'SEEN' | translate }}</span></span>
           </div>
           <div>
             <p>{{ message.text }}</p>

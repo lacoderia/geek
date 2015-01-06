@@ -32,9 +32,9 @@
               <td class="day-info">{{ 'FROM' | translate }} {{ appointment.startHour }} {{ 'TO' | translate }} {{ appointment.endHour }}</td>
               <td class="day-info">{{ appointment.student.first_name }} {{ appointment.student.last_name }}</td>
               <td class="day-info">{{ appointment.subject }}</td>
-              <td class="day-info day-status"><span class="payment-icon"><span ng-if="appointment.paid" class="icon-coin-dollar"></span></span>  <span class="anomaly-reported"><span ng-if="appointment.anomaly" class="icon-alert"></span></span> <span ng-class="[appointment.status.class,appointment.status.icon_class]"> {{ appointment.status.name | translate }}</span></td>
+              <td class="day-info day-status"><span class="payment-icon" title="{{ 'PAYMENT_LABEL_PAYMENT_RECEIVED' | translate }}"><span ng-if="appointment.paid" class="icon-coin-dollar"></span></span>  <span class="anomaly-reported" title="{{ 'ANOMALY_REPORTED' | translate}}"><span ng-if="appointment.anomaly" class="icon-alert"></span></span> <span ng-class="[appointment.status.class]"><span ng-class="[appointment.status.icon_class]"></span> {{ appointment.status.name | translate }}</span></td>
               <td class="day-info appointment-button">
-                <a ng-repeat="button in appointmentButtons" ng-if="showActionButtons(appointment, button.action)" ng-class="[button.class, button.icon]" title=" {{ button.title }}" ng-click="callButtonAction($event, button.action, appointment)"> {{ button.text | translate }}</a>
+                <a ng-repeat="button in appointmentButtons" ng-if="showActionButtons(appointment, button.action)" ng-class="[button.class]" title=" {{ button.title }}" ng-click="callButtonAction($event, button.action, appointment)"><span ng-class="[button.icon]"></span> {{ button.text | translate }}</a>
               </td>
             </tr>
         </tbody>

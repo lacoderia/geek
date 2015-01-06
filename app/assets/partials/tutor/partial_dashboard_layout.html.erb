@@ -7,7 +7,7 @@
       </a>
     </h1>
     <nav class="navigation col-lg-10 col-md-10 col-sm-9 col-xs-12" role="navigation" ng-controller="NavigationController as navigationCtrl">
-      <span ng-if="!isUserBlocked" ng-show="tutor.request.approved" class="balance-info"><a ui-sref=".balance"><span class="icon-coin-dollar"> {{ 'BALANCE_TITLE' | translate }}:</span> {{ tutor.balanceInfo.balance | currency }}</a></span>
+      <span ng-if="!isUserBlocked" ng-show="tutor.request.approved" class="balance-info"><a ui-sref=".balance"><span class="icon-coin-dollar"></span> {{ 'BALANCE_TITLE' | translate }}: {{ tutor.balanceInfo.balance | currency }}</a></span>
       <ul>
         <li ng-if="!isUserBlocked" ng-show="tutor.request.approved">
           <span class="messages-alert" ng-show="newConversationMessages">{{ newConversationMessages }}</span>

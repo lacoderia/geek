@@ -48,7 +48,7 @@
           </div>
 
           <div class="appointment-button">
-            <a ng-repeat="button in PAYMENT_METHODS_BUTTONS" ng-if="showActionButtons(paymentMethod.active, button.action)"  ng-class="[button.class, button.icon]" title=" {{ button.title | translate }}" ng-click="callButtonAction($event, button.action, paymentMethod)"> {{ button.text | translate }}</a>
+            <a ng-repeat="button in PAYMENT_METHODS_BUTTONS" ng-if="showActionButtons(paymentMethod.active, button.action)"  ng-class="[button.class]" title=" {{ button.title | translate }}" ng-click="callButtonAction($event, button.action, paymentMethod)"><span ng-class="[button.icon]"></span> {{ button.text | translate }}</a>
           </div>
 
         </div>
@@ -186,7 +186,7 @@
         </fieldset>
 
         <div class="payment-buttons-container">
-          <a class="action-button action-button-light-red" title="" ng-click="cancelPaymentMethodCreation()">{{ 'CANCEL' | translate }}</a>
+          <a class="action-button action-button-light-blue" title="" ng-click="cancelPaymentMethodCreation()">{{ 'CANCEL' | translate }}</a>
           <a class="action-button action-button-light-green" title="" ng-click="saveCard()">{{ 'SAVE' | translate }}</a>
         </div>
 

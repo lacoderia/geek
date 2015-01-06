@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141003232657) do
+ActiveRecord::Schema.define(version: 20141230215526) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+  enable_extension "unaccent"
 
   create_table "addresses", force: true do |t|
     t.string   "description"
@@ -27,29 +31,63 @@ ActiveRecord::Schema.define(version: 20141003232657) do
     t.integer "user_id"
   end
 
+  create_table "admin_users", force: true do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
+  add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "anomalies", force: true do |t|
+    t.string   "name"
+    t.string   "code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "appointment_statuses", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "code"
   end
 
   create_table "appointments", force: true do |t|
     t.integer  "appointment_status_id"
     t.integer  "student_id"
     t.integer  "tutor_id"
-    t.datetime "date"
+    t.datetime "start"
+    t.datetime "end"
     t.text     "details"
     t.integer  "address_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "appointment_id"
+    t.string   "subject"
+    t.float    "cost",                  default: 0.0
+    t.boolean  "charged",               default: false
+    t.boolean  "paid",                  default: false
+    t.boolean  "anomaly",               default: false
+    t.boolean  "resolved_anomaly",      default: false
+    t.text     "log"
   end
 
   create_table "availabilities", force: true do |t|
     t.integer  "week_day_id"
     t.integer  "preference_id"
-    t.time     "start"
-    t.time     "end"
+    t.datetime "start"
+    t.datetime "end"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -72,6 +110,16 @@ ActiveRecord::Schema.define(version: 20141003232657) do
     t.datetime "updated_at"
   end
 
+  create_table "cards", force: true do |t|
+    t.string   "openpay_id"
+    t.string   "alias"
+    t.integer  "user_id"
+    t.boolean  "active"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "is_bank_account", default: false
+  end
+
   create_table "categories", force: true do |t|
     t.string   "name"
     t.string   "description"
@@ -81,9 +129,10 @@ ActiveRecord::Schema.define(version: 20141003232657) do
     t.datetime "updated_at"
   end
 
-  create_table "categories_tutors", id: false, force: true do |t|
+  create_table "categories_tutors", force: true do |t|
     t.integer "category_id"
     t.integer "tutor_id"
+    t.float   "cost",        default: 0.0
   end
 
   create_table "cities", force: true do |t|
@@ -105,10 +154,17 @@ ActiveRecord::Schema.define(version: 20141003232657) do
   end
 
   create_table "messages", force: true do |t|
-    t.integer  "sender_id"
-    t.integer  "recipient_id"
+    t.integer  "student_id"
+    t.integer  "tutor_id"
     t.text     "text"
-    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "read",         default: false
+    t.boolean  "from_student"
+  end
+
+  create_table "municipalities", force: true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -119,6 +175,7 @@ ActiveRecord::Schema.define(version: 20141003232657) do
     t.integer  "city_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "municipality_id"
   end
 
   create_table "preferences", force: true do |t|
@@ -127,6 +184,8 @@ ActiveRecord::Schema.define(version: 20141003232657) do
     t.float    "cost"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "public"
+    t.boolean  "student_place"
   end
 
   create_table "purchases", force: true do |t|
@@ -153,13 +212,36 @@ ActiveRecord::Schema.define(version: 20141003232657) do
     t.integer "student_id"
   end
 
+  create_table "registered_anomalies", force: true do |t|
+    t.integer  "anomaly_id"
+    t.integer  "user_id"
+    t.integer  "source_id"
+    t.integer  "appointment_id"
+    t.string   "description"
+    t.integer  "registered_anomaly_status_id"
+    t.float    "fee_student"
+    t.float    "fee_tutor"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "registered_anomaly_statuses", force: true do |t|
+    t.string   "name"
+    t.string   "code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "reviews", force: true do |t|
     t.integer  "student_id"
     t.integer  "tutor_id"
-    t.float    "grade"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.float    "grade_knowledge"
+    t.float    "grade_communication"
+    t.float    "grade_presentation"
+    t.boolean  "visible",             default: true
   end
 
   create_table "roles", force: true do |t|
@@ -200,28 +282,27 @@ ActiveRecord::Schema.define(version: 20141003232657) do
     t.integer  "preference_id"
     t.integer  "bank_account_id"
     t.string   "calendar_id"
-    t.float    "tier1_rate"
-    t.float    "tier2_rate"
-    t.float    "tier3_rate"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "approved",        default: false
+    t.float    "grade"
   end
 
   create_table "users", force: true do |t|
     t.string   "uid"
     t.string   "first_name"
     t.string   "last_name"
-    t.boolean  "active"
+    t.boolean  "active",                 default: true
     t.string   "openpay_id"
     t.string   "token"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "email",                  default: "",   null: false
+    t.string   "encrypted_password",     default: "",   null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,    null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -232,10 +313,11 @@ ActiveRecord::Schema.define(version: 20141003232657) do
     t.integer  "client_id"
     t.string   "client_type"
     t.string   "refresh_token"
+    t.string   "picture_id"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "vacations", force: true do |t|
     t.datetime "start"
@@ -249,6 +331,7 @@ ActiveRecord::Schema.define(version: 20141003232657) do
     t.string   "day"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "day_number"
   end
 
 end
