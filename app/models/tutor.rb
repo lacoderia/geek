@@ -328,11 +328,7 @@ class Tutor < ActiveRecord::Base
 
   end
 
-<<<<<<< HEAD
   def self.search_by_query_params_for_google zone_obj, category_id, category_str, page, options
-=======
-  def self.search_by_query_params_for_google zone_obj, category_id, category_str
->>>>>>> da34fa655e8ae81ce08307aabb97b9013f432733
 
     tutors = nil
     message = ""
