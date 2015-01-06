@@ -48,15 +48,15 @@ class Card < ActiveRecord::Base
   end
 
   def self.get_active user_id
-    card = Card.where("user_id = ? and active = ?", user_id, true)[0]    
+    card = Card.where("user_id = ? and active = ?", user_id, true)[0]
   end
 
-  def self.get_openpay_info card, user
-    if card.is_bank_account
-      ocard = Payment.get_bank_account(card.openpay_id, user.openpay_id)
+  def get_openpay_info
+    if self.is_bank_account
+      ocard = Payment.get_bank_account(self.openpay_id, self.user.openpay_id)
     else
-      ocard = Payment.get_card(card.openpay_id, user.openpay_id)
+      ocard = Payment.get_card(self.openpay_id, self.user.openpay_id)
     end
-    ocard
+    ocard[:result]
   end
 end

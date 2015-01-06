@@ -200,7 +200,11 @@ class TutorsController < ApplicationController
   # Un hash con el saldo y el medio de pago (tarjeta o cuenta bancaria) del tutor
   def balance
     if current_user
-      @balance = Tutor.get_balance(current_user.email)
+      @balance = Tutor.get_balance(current_user.openpay_id)
+      @card = Card.get_active(current_user.id)
+      if @card
+         @openpay_card = @card.get_openpay_info
+      end
     end
   end
 

@@ -1,16 +1,15 @@
-json.balance @balance[:balance]
-if @balance[:active][:card]
- card = @balance[:active]
+json.balance @balance
+if @card
 	json.set! :card do
-	json.extract! card[:card], :id, :alias, :active, :is_bank_account
-		if card[:card].is_bank_account
-	  	json.extract! card[:openpay_card][:result], "bank_name", "holder_name"
-	  	json.card_number card[:openpay_card][:result]["clabe"][14,17]
+	json.extract! @card, :id, :alias, :active, :is_bank_account
+		if @card.is_bank_account
+	  	json.extract! @openpay_card, "bank_name", "holder_name"
+	  	json.card_number @openpay_card["clabe"][14,17]
 	  else
-	  	json.extract! card[:openpay_card][:result], "brand", "holder_name", "expiration_month", "expiration_year"
-	  	json.card_number card[:openpay_card][:result]["card_number"][12,15]
+	  	json.extract! @openpay_card, "brand", "holder_name", "expiration_month", "expiration_year"
+	  	json.card_number @openpay_card["card_number"][12,15]
 	  end
 	end
 else
-		json.card nil
+	json.card nil
 end
