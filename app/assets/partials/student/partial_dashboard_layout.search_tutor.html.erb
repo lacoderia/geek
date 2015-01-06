@@ -29,16 +29,16 @@
     <div class="search-results-tools" ng-hide="selectedTutor">
       <span>{{ 'FILTERS' | translate}}:</span>
 
-      <input type="checkbox" id="tutor_class_mode_online" name="tutor_class_mode" ng-model="filters.online" ng-change="filterSearch()">
+      <input type="checkbox" id="tutor_class_mode_online" name="tutor_class_mode" ng-model="filters.online" ng-change="searchTutor(1)">
       <label for="tutor_class_mode_online" translate="TUTOR_PROFILE_LABEL_CLASS_PREFERENCE_ONLINE"></label>
 
-      <input type="checkbox" id="tutor_class_mode_tutor_home" name="tutor_class_mode" ng-model="filters.office" ng-change="filterSearch()">
+      <input type="checkbox" id="tutor_class_mode_tutor_home" name="tutor_class_mode" ng-model="filters.office" ng-change="searchTutor(1)">
       <label for="tutor_class_mode_tutor_home" translate="TUTOR_PROFILE_LABEL_CLASS_PREFERENCE_OFFICE"></label>
 
-      <input type="checkbox" id="tutor_class_mode_student_home" name="tutor_class_mode" ng-model="filters.student" ng-change="filterSearch()">
+      <input type="checkbox" id="tutor_class_mode_student_home" name="tutor_class_mode" ng-model="filters.student" ng-change="searchTutor(1)">
       <label for="tutor_class_mode_student_home" translate="TUTOR_PROFILE_LABEL_CLASS_PREFERENCE_STUDENT"></label>
 
-      <input type="checkbox" id="tutor_class_mode_public" name="tutor_class_mode" ng-model="filters.public" ng-change="filterSearch()">
+      <input type="checkbox" id="tutor_class_mode_public" name="tutor_class_mode" ng-model="filters.public" ng-change="searchTutor(1)">
       <label for="tutor_class_mode_public" translate="TUTOR_PROFILE_LABEL_CLASS_PREFERENCE_PUBLIC"></label>
 
     </div>

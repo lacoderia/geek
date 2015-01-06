@@ -50,7 +50,7 @@ Geek.factory('TutorService', ["$http", "$q", "DEFAULT_VALUES", function($http, $
         return promise
     };
 
-    var getTutorByQueryParamsForGoogle = function(queryParams, categoryId, pageNumber){
+    var getTutorByQueryParamsForGoogle = function(queryParams, categoryId, pageNumber, options){
         var deferred = $q.defer();
         var promise = deferred.promise;
 
@@ -58,7 +58,8 @@ Geek.factory('TutorService', ["$http", "$q", "DEFAULT_VALUES", function($http, $
             category_str: null,
             category_id: categoryId,
             page: pageNumber,
-            zone_obj: queryParams
+            zone_obj: queryParams,
+            options: options
         }).
             success(function(data){
                 deferred.resolve(data);

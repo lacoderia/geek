@@ -107,7 +107,7 @@ class TutorsController < ApplicationController
   # Regresa:
   # Objeto con arreglo de tutores que conforman la búsqueda, arreglo de tutores sugeridos con fallback, y mensaje descriptivo.
   def by_query_params_for_google
-    @result_obj = Tutor.search_by_query_params_for_google(params[:zone_obj], params[:category_id], params[:category_str], params[:page])
+    @result_obj = Tutor.search_by_query_params_for_google(params[:zone_obj], params[:category_id], params[:category_str], params[:page], params[:options])
   end
 
   # Recibe:

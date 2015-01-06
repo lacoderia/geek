@@ -85,22 +85,6 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
       
     };
 
-    $scope.filterSearch = function() {
-
-        $timeout(function(){
-            //Activamos el loader para mostrarlo en lo que obtenemos información
-            usSpinnerService.spin('search-tutor-spinner');
-
-            //Se realiza la búsqueda con los filtros seleccionados
-
-            //Se esconde el loader después de obtener los resultados de la búsqueda
-            $timeout(function() {
-                usSpinnerService.stop('search-tutor-spinner');
-            }, 500);
-        }, 0);
-
-    }
-
     $scope.getTutorCostRange = function(tutor){
         tutor.show = true;
 
@@ -156,7 +140,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
             usSpinnerService.spin('search-tutor-spinner');
         }, 0);
 
-        TutorService.getTutorByQueryParamsForGoogle($scope.components_address, categoryId, pageNumber).then(
+        TutorService.getTutorByQueryParamsForGoogle($scope.components_address, categoryId, pageNumber, $scope.filters).then(
             function(data){
                 if(data){
                     $scope.tutorList = data.tutors.items;

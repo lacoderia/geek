@@ -329,7 +329,7 @@ class Tutor < ActiveRecord::Base
 
   end
 
-  def self.search_by_query_params_for_google zone_obj, category_id, category_str, page
+  def self.search_by_query_params_for_google zone_obj, category_id, category_str, page, options
 
     tutors = nil
     message = ""
@@ -337,7 +337,7 @@ class Tutor < ActiveRecord::Base
     county_ids = []
     fallback_county_ids = []
     category_ids = []
-
+ 
     if zone_obj
 
       if zone_obj[:neighborhood] #<-- colonia - county
@@ -387,19 +387,43 @@ class Tutor < ActiveRecord::Base
 
     #Dos parametros de busqueda
     if not county_ids.empty? and not category_ids.empty?
-      tutors = Tutor.joins(:categories, :counties).where("(active = ? AND approved = ?) AND (county_id in (#{county_ids.map(&:inspect).join(',')}) and (categories.category_id in (#{category_ids.map(&:inspect).join(',')}) OR categories.id in (#{category_ids.map(&:inspect).join(',')})))", true, true).includes(:reviews => :student)
+
+      has_options = Tutor.detect_filter_flags(options)
+
+      query_str = "(active = ? AND approved = ?) AND (county_id in (#{county_ids.map(&:inspect).join(',')}) and (categories.category_id in (#{category_ids.map(&:inspect).join(',')}) OR categories.id in (#{category_ids.map(&:inspect).join(',')})))"
+      if has_options
+        query_str.insert(0, Tutor.build_filter_query(options))
+        tutors = Tutor.joins(:categories, :counties, :preference).where(query_str, true, true).includes(:reviews => :student).order(grade: :desc)
+      else
+        tutors = Tutor.joins(:categories, :counties).where(query_str, true, true).includes(:reviews => :student).order(grade: :desc)
+      end
 
       if tutors.count < FALLBACK_NUMBER #fallback a sublocality
         fallback_county_ids = Tutor.fallback_counties zone_obj[:sublocality], nil
         message += "Fallback con sublocality."
       end
       if not fallback_county_ids.empty?
-        suggested_tutors = Tutor.joins(:categories, :counties).where("(active = ? AND approved = ?) AND (county_id in (#{fallback_county_ids.map(&:inspect).join(',')}) and (categories.category_id in (#{category_ids.map(&:inspect).join(',')}) OR categories.id in (#{category_ids.map(&:inspect).join(',')})))", true, true).includes(:reviews => :student)
+
+        query_str = "(active = ? AND approved = ?) AND (county_id in (#{fallback_county_ids.map(&:inspect).join(',')}) and (categories.category_id in (#{category_ids.map(&:inspect).join(',')}) OR categories.id in (#{category_ids.map(&:inspect).join(',')})))"
+        if has_options
+          query_str.insert(0, Tutor.build_filter_query(options))
+          suggested_tutors = Tutor.joins(:categories, :counties, :preference).where(query_str, true, true).includes(:reviews => :student).order(grade: :desc)
+        else
+          suggested_tutors = Tutor.joins(:categories, :counties).where(query_str, true, true).includes(:reviews => :student).order(grade: :desc)
+        end
         suggested_tutors = suggested_tutors - tutors
 
         if suggested_tutors.count < FALLBACK_NUMBER #fallback a locality
           fallback_county_ids = Tutor.fallback_counties nil, zone_obj[:locality]
-          suggested_tutors = Tutor.joins(:categories, :counties).where("(active = ? AND approved = ?) AND (county_id in (#{fallback_county_ids.map(&:inspect).join(',')}) AND (categories.category_id in (#{category_ids.map(&:inspect).join(',')}) OR categories.id in (#{category_ids.map(&:inspect).join(',')})))", true, true).includes(:reviews => :student)
+
+          query_str = "(active = ? AND approved = ?) AND (county_id in (#{fallback_county_ids.map(&:inspect).join(',')}) AND (categories.category_id in (#{category_ids.map(&:inspect).join(',')}) OR categories.id in (#{category_ids.map(&:inspect).join(',')})))"
+          if has_options
+            query_str.insert(0, Tutor.build_filter_query(options))
+            suggested_tutors = Tutor.joins(:categories, :counties, :preference).where(query_str, true, true).includes(:reviews => :student)
+          else
+            suggested_tutors = Tutor.joins(:categories, :counties).where(query_str, true, true).includes(:reviews => :student)
+          end
+
           suggested_tutors = suggested_tutors - tutors
           message += "Fallback con locality."
         end
@@ -415,14 +439,33 @@ class Tutor < ActiveRecord::Base
 
     #Solo resultados de ubicacion
     elsif not county_ids.empty?
-      tutors = Tutor.joins(:counties).where("(active = ? AND approved = ?) AND (county_id in (#{county_ids.map(&:inspect).join(',')}))", true, true).includes(:reviews => :student)
+
+      has_options = Tutor.detect_filter_flags(options)
+
+      query_str = "(active = ? AND approved = ?) AND (county_id in (#{county_ids.map(&:inspect).join(',')}))" 
+      
+      if has_options
+        query_str.insert(0, Tutor.build_filter_query(options))
+        tutors = Tutor.joins(:counties, :preference).where(query_str, true, true).includes(:reviews => :student).order(grade: :desc)
+      else
+        tutors = Tutor.joins(:counties).where(query_str, true, true).includes(:reviews => :student).order(grade: :desc)
+      end
 
       if tutors.count < FALLBACK_NUMBER #fallback a sublocality
         fallback_county_ids = Tutor.fallback_counties zone_obj[:sublocality], nil
       end
 
       if not fallback_county_ids.empty?
-        suggested_tutors = Tutor.joins(:counties).where("(active = ? AND approved = ?) AND (county_id in (#{fallback_county_ids.map(&:inspect).join(',')}))", true, true).includes(:reviews => :student)
+
+        query_str = "(active = ? AND approved = ?) AND (county_id in (#{fallback_county_ids.map(&:inspect).join(',')}))"
+        
+        if has_options
+          query_str.insert(0, Tutor.build_filter_query(options))
+          suggested_tutors = Tutor.joins(:counties, :preference).where(query_str, true, true).includes(:reviews => :student).order(grade: :desc)
+        else
+          suggested_tutors = Tutor.joins(:counties).where(query_str, true, true).includes(:reviews => :student).order(grade: :desc)
+        end
+
         suggested_tutors = suggested_tutors - tutors
 
         # Fallback hasta sublocality (delegación) en caso que no se incluyan temas
@@ -444,8 +487,17 @@ class Tutor < ActiveRecord::Base
 
     #Solo resultados de categoria
     elsif not category_ids.empty?
-      tutors = Tutor.joins(:categories).where("(active = ? AND approved = ?) AND (categories.id in (#{category_ids.map(&:inspect).join(',')}) OR categories.category_id in (#{category_ids.map(&:inspect).join(',')}))", true, true).includes(:reviews => :student)
-      puts tutors.length
+
+      has_options = Tutor.detect_filter_flags(options)
+
+      query_str = "(active = ? AND approved = ?) AND (categories.id in (#{category_ids.map(&:inspect).join(',')}) OR categories.category_id in (#{category_ids.map(&:inspect).join(',')}))" 
+      
+      if has_options
+        query_str.insert(0, Tutor.build_filter_query(options))
+        tutors = Tutor.joins(:categories, :preference).where(query_str, true, true).includes(:reviews => :student).order(grade: :desc)
+      else
+        tutors = Tutor.joins(:categories).where(query_str, true, true).includes(:reviews => :student).order(grade: :desc)
+      end
 
       if zone_obj
         message = "No se encontraron zonas asociadas a ese texto."
@@ -601,4 +653,41 @@ class Tutor < ActiveRecord::Base
     card = Card.get_active(tutor.user.id)
     pay = Payment.pay_tutor(tutor.openpay_id, card.openpay_id, balance[:result])
   end
+
+  private
+
+  def self.detect_filter_flags options
+    return (options and (options["online"] or options["office"] or options["student"] or options["public"]))
+  end
+
+  def self.build_filter_query options
+    #options - ["online"] ["office"] ["student"] ["public"] 
+    query_array = []
+    if options["online"]
+      query_array << "preferences.online = true"
+    end
+    if options["office"]
+      query_array << "preferences.office = true"
+    end
+    if options["student"]
+      query_array << "preferences.student_place = true"
+    end
+    if options["public"]
+      query_array << "preferences.public = true"
+    end
+
+    query_string = "("
+    first = true
+    query_array.each do |query|
+      if first
+        query_string += query
+        first = false
+      else
+        query_string += " OR #{query}"
+      end
+    end
+    query_string += ") AND "
+    return query_string
+  end
+
 end
