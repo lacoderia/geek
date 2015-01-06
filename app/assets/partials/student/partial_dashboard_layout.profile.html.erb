@@ -1,5 +1,7 @@
 <div ng-controller="ProfileController">
 <div class="student-profile-container form">
+  <span us-spinner spinner-key="profile-spinner"></span>
+
   <h2 class="section-title" translate="STUDENT_PROFILE_TITLE"></h2>
   <ng-alert id="student-profile-form" alert-params="studentProfileAlertParams"></ng-alert>
   <form name="studentProfileForm" id="student_profile_form" class="dashboard-form validation-form">

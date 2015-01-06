@@ -17,6 +17,10 @@ Geek.controller('MessageController',['$scope','$rootScope', '$timeout', '$filter
 
     $scope.getConversations = function(){
 
+        $timeout(function(){
+            usSpinnerService.spin('messages-spinner');
+        }, 0);
+
         MessageService.getConversations(SessionService.getId()).then(
             function(data){
                 $scope.newConversationMessages = 0;
@@ -25,6 +29,8 @@ Geek.controller('MessageController',['$scope','$rootScope', '$timeout', '$filter
                 for(var conversationIndex=0; conversationIndex<$scope.conversations.length; conversationIndex++){
                     var conversation = $scope.conversations[conversationIndex];
                 }
+
+                usSpinnerService.stop('messages-spinner');
             },
             function(response){
                 console.log("Error retrieving the conversations " + response)

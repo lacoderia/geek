@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeout", "$location", "$anchorScroll", "ProfileService", "SessionService", "DEFAULT_VALUES", function($scope, $rootScope, $filter, $timeout, $location, $anchorScroll, ProfileService, SessionService, DEFAULT_VALUES){
+Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeout", "$location", "$anchorScroll", "ProfileService", "SessionService", "usSpinnerService", "DEFAULT_VALUES", function($scope, $rootScope, $filter, $timeout, $location, $anchorScroll, ProfileService, SessionService, usSpinnerService, DEFAULT_VALUES){
 
     $scope.student = SessionService.getSession();
 
@@ -22,7 +22,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
                 var imageContainer = $(element).parent().find('.profile_picture');
                 var image = imageContainer.find('img');
                 image.attr('src', e.target.result);
-                $scope.student.picture_url = e.target.result;
+                $scope.student.picture = e.target.result;
 
                 var loadedImage = new Image();
                 loadedImage.src = reader.result;
@@ -59,8 +59,12 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
                 last_name: $scope.student.last_name,
                 gender: $scope.student.gender,
                 phone_number: $scope.student.phone_number,
-                picture: $scope.student.picture_url
+                picture: $scope.student.picture
             };
+
+            $timeout(function(){
+                usSpinnerService.spin('profile-spinner');
+            }, 0);
 
             ProfileService.submitProfile(student).then(
                 function(data){
@@ -76,8 +80,9 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
                             message: $filter('translate')('SUCCESS_STUDENT_PROFILE_CONGRATULATIONS'),
                             icon: true
                         };
-
                     }
+
+                    usSpinnerService.stop('profile-spinner');
                 },
                 function(response){
                     $scope.studentProfileAlertParams = {
@@ -86,7 +91,9 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
                         icon: true
                     };
 
-                    console.log('Error getting tutor\'s request status: ' + response);
+                    usSpinnerService.stop('profile-spinner');
+
+                    console.log('Error saving students\'s profile: ' + response);
                 }
             );
 

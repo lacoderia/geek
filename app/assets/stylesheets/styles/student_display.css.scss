@@ -716,6 +716,19 @@
         cursor: pointer;
         font-weight: bold;
       }
+
+      .category {
+        font-weight: bold;
+      }
+
+      .search-result-filter {
+        margin-left: 20px;
+
+        label {
+          font-weight: normal;
+        }
+      }
+
     }
 
     .search-result-list {
