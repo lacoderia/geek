@@ -7,6 +7,7 @@
       </a>
     </h1>
     <nav class="navigation col-lg-10 col-md-10 col-sm-9 col-xs-12" role="navigation" ng-controller="NavigationController as navigationCtrl">
+      <span ng-if="!isUserBlocked" ng-show="tutor.request.approved" class="balance-info"><a ui-sref=".balance"><span class="icon-coin-dollar"> {{ 'BALANCE_TITLE' | translate }}:</span> {{ tutor.balanceInfo.balance | currency }}</a></span>
       <ul>
         <li ng-if="!isUserBlocked" ng-show="tutor.request.approved">
           <span class="messages-alert" ng-show="newConversationMessages">{{ newConversationMessages }}</span>
@@ -16,8 +17,8 @@
         </a>
           <ul class="dropdown-menu" role="menu">
             <li ng-if="!isUserBlocked" role="presentation" ui-sref=".profile"><a role="menuitem"><span class="icon-user"></span> {{'PROFILE' | translate}}</a></li>
-            <li ng-if="!isUserBlocked" role="presentation" ui-sref=".payment-options"><a role="menuitem" translate="PAYMENT_COLLECT_OPTIONS"></a></li>
             <li ng-if="!isUserBlocked" role="presentation" ui-sref=".balance"><a role="menuitem" translate="BALANCE_TITLE"></a></li>
+            <li ng-if="!isUserBlocked" role="presentation" ui-sref=".payment-options"><a role="menuitem" translate="PAYMENT_COLLECT_OPTIONS"></a></li>
             <li><a title="{{ 'CHOOSE_LANGUAGE' | translate }}" ng-click="toggleLanguage()" translate="CHOOSE_LANGUAGE"></a></li>
             <li role="presentation"><a role="menuitem" href="/logout" translate="SIGN_OUT"></a></li>
           </ul>

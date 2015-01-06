@@ -221,6 +221,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
             var day = $scope.selectedWeek[dayIndex];
 
             if(day.appointments){
+                console.log(day.appointments)
                 for(var appointmentIndex=0; appointmentIndex<day.appointments.length; appointmentIndex++){
                     var appointment = day.appointments[appointmentIndex];
                     var straightHourTime = false;
@@ -672,8 +673,6 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
                 return;
             }
         }
-
-
     };
 
     $scope.getWeekAvailability = function(){
