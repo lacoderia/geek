@@ -146,19 +146,19 @@
           <div class="search-results-tools" ng-hide="selectedTutor">
             <span class="category">{{ 'FILTERS' | translate}}:</span>
             <span class="search-result-filter">
-              <input type="checkbox" id="tutor_class_mode_online" name="tutor_class_mode" ng-model="filters.online" ng-change="filterSearch()"/>
+              <input type="checkbox" id="tutor_class_mode_online" name="tutor_class_mode" ng-model="filters.online" ng-change="searchTutor(1)"/>
               <label for="tutor_class_mode_online" translate="SEARCH_FILTER_LABEL_ONLINE"></label>
             </span>
             <span class="search-result-filter">
-              <input type="checkbox" id="tutor_class_mode_tutor_home" name="tutor_class_mode" ng-model="filters.office" ng-change="filterSearch()"/>
+              <input type="checkbox" id="tutor_class_mode_tutor_home" name="tutor_class_mode" ng-model="filters.office" ng-change="searchTutor(1)"/>
               <label for="tutor_class_mode_tutor_home" translate="SEARCH_FILTER_LABEL_OFFICE"></label>
             </span>
             <span class="search-result-filter">
-              <input type="checkbox" id="tutor_class_mode_student_home" name="tutor_class_mode" ng-model="filters.student" ng-change="filterSearch()"/>
+              <input type="checkbox" id="tutor_class_mode_student_home" name="tutor_class_mode" ng-model="filters.student" ng-change="searchTutor(1)"/>
               <label for="tutor_class_mode_student_home" translate="SEARCH_FILTER_LABEL_STUDENT"></label>
             </span>
             <span class="search-result-filter">
-              <input type="checkbox" id="tutor_class_mode_public" name="tutor_class_mode" ng-model="filters.public" ng-change="filterSearch()"/>
+              <input type="checkbox" id="tutor_class_mode_public" name="tutor_class_mode" ng-model="filters.public" ng-change="searchTutor(1)"/>
               <label for="tutor_class_mode_public" translate="SEARCH_FILTER_LABEL_PUBLIC"></label>
             </span>
           </div>
