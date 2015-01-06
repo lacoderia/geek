@@ -19,6 +19,7 @@ class Tutor < ActiveRecord::Base
   after_create :set_default_preferences
 
   FALLBACK_NUMBER = 10
+  PER_PAGE = 10 
 
   def set_default_preferences
     self.update_attribute(:preference, Preference.create(cost: 0.00, online: false, office: true))
@@ -323,7 +324,7 @@ class Tutor < ActiveRecord::Base
 
   end
 
-  def self.search_by_query_params_for_google zone_obj, category_id, category_str
+  def self.search_by_query_params_for_google zone_obj, category_id, category_str, page
 
     tutors = nil
     message = ""
@@ -373,7 +374,7 @@ class Tutor < ActiveRecord::Base
     if category_id
       category_ids << category_id
     elsif category_str
-      categories = Category.select(:id).where("lower(unaccent(name)) like '%#{I18n.transliterate(category_str).downcase}%'")
+      categories = Category.select(:id).where("upper(unaccent(name)) like '%#{I18n.transliterate(category_str).upcase}%'")
       categories.each do |category|
         category_ids << category.id
       end
@@ -438,7 +439,6 @@ class Tutor < ActiveRecord::Base
 
     #Solo resultados de categoria
     elsif not category_ids.empty?
-      puts "debug"
       tutors = Tutor.joins(:categories).where("(active = ? AND approved = ?) AND (categories.id in (#{category_ids.map(&:inspect).join(',')}) OR categories.category_id in (#{category_ids.map(&:inspect).join(',')}))", true, true).includes(:reviews => :student)
       puts tutors.length
 
@@ -450,6 +450,19 @@ class Tutor < ActiveRecord::Base
     else
       #Busqueda vacia
       message = "Búsqueda vacía."
+    end
+
+    if tutors
+      if tutors.count > PER_PAGE
+        tutors = tutors.paginate(:page => page, :per_page => PER_PAGE)
+      end
+      tutors = {:items => tutors, :count => tutors.count}
+    end
+    if suggested_tutors
+      if suggested_tutors.count > PER_PAGE
+        suggested_tutors = suggested_tutors.paginate(:page => page, :per_page => PER_PAGE)
+      end
+      suggested_tutors = {:items => suggested_tutors, :count => suggested_tutors.count}
     end
 
     return {:message => message, :tutors => tutors, :suggested_tutors => suggested_tutors}

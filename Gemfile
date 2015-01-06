@@ -25,6 +25,7 @@ gem 'activeadmin', github: 'gregbell/active_admin'
 gem 'newrelic_rpm'
 gem 'cloudinary'
 gem 'clockwork'
+gem 'will_paginate'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
