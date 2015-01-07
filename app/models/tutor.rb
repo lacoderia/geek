@@ -555,9 +555,9 @@ class Tutor < ActiveRecord::Base
   def self.save_specific_availabilities tutor_id, specific_availabilities, start_day, start_month, start_year, end_day, end_month, end_year
 
     tutor = Tutor.find tutor_id
-    start_date = Time.zone.local(start_year, start_month, start_day)
-    end_date = Time.zone.local(end_year, end_month, end_day)
-    tutor.specific_availabilities.where("start BETWEEN ? AND ?").destroy_all
+    start_date = Time.zone.local(start_year, start_month, start_day) - 1.minute
+    end_date = Time.zone.local(end_year, end_month, end_day) + 1.day
+    tutor.specific_availabilities.where("start BETWEEN ? AND ?", start_date, end_date).destroy_all
 
     specific_availabilities.each do |sa|
       start_datetime = DateTime.iso8601(sa["start"]).in_time_zone
