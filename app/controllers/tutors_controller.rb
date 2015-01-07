@@ -220,7 +220,7 @@ class TutorsController < ApplicationController
       tutor = Tutor.where("email = ?", current_user.email)[0]
       cash_out = Tutor.cash_out(tutor.id)
       if cash_out[:success]
-        render json: "ok", status: :ok
+        render json: "", status: :ok
       else
         render json: cash_out[:error], status: 500
       end
