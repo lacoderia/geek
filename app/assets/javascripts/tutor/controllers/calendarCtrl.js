@@ -682,6 +682,11 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
     };
 
     $scope.getWeekAvailability = function(){
+
+        $timeout(function(){
+            usSpinnerService.spin('week-calendar-spinner');
+        }, 0);
+
         AvailabilityService.getTutorAvailabilityByRange($scope.selectedWeek[0], $scope.selectedWeek[$scope.selectedWeek.length-1],$scope.tutor.id).then(
             function(data){
                 $scope.weekAvailability = data;
@@ -699,6 +704,8 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
                         $scope.$apply();
                     }
                 }
+
+                usSpinnerService.stop('week-calendar-spinner');
             },
             function (response){
                 console.log('Error retrieving the availability appointments: ' + response);
@@ -933,14 +940,14 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
                     icon: true
                 };
 
-                usSpinnerService.stop('week-calendar-spinner');
-
                 $timeout(function(){
+                    usSpinnerService.stop('week-calendar-spinner');
+                    $scope.getWeekAvailability();
+
                     $location.hash('tutor-calendar-form');
                     $anchorScroll();
                 }, 0);
 
-                //Recargar todas las disponibilidades
             },
             function (response){
                 $scope.calendarAlertMessagesParams = {
