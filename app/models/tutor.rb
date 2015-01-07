@@ -182,6 +182,8 @@ class Tutor < ActiveRecord::Base
         next
       elsif sa.end == sa.start + 1.day
         dif_hour = 24
+      elsif sa.end.day > sa.start.day
+        dif_hour = 24 - sa.start.hour
       else
         dif_hour = sa.end.hour - sa.start.hour
       end
