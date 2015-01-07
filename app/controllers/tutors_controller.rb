@@ -157,12 +157,18 @@ class TutorsController < ApplicationController
   end
 
   # Recibe:
+  # start_day = numero de dia inicial 
+  # start_month = numero de mes inicial
+  # start_year = numero de año inicial
+  # end_day = numero de dia final
+  # end_month = numero de mes final
+  # end_year = numero de año final
   # id = id del tutor
   # specific_availabilities = arreglo de hash de disponibilidades en formato iso8601 [{start: '2014-11-10T18:30:00', end: '2014-11-10T19:30:00' }]
   # Regresa:
   # lista de objetos specific_availabilities del tutor
   def save_specific_availabilities
-    @specific_availabilities = Tutor.save_specific_availabilities(params[:id], params[:specific_availabilities]) 
+    @specific_availabilities = Tutor.save_specific_availabilities(params[:id], params[:specific_availabilities], params[:start_day].to_i, params[:start_month].to_i, params[:start_year].to_i, params[:end_day].to_i, params[:end_month].to_i, params[:end_year].to_i) 
   end
 
   # Obtiene información del tutor loggeado
