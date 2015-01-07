@@ -190,11 +190,7 @@ class Tutor < ActiveRecord::Base
     end 
     
     s_result.each do |s_key, s_value|
-      result.each do |key, value|
-        if s_key == s_value
-          result[key] = s_result[s_key]
-        end
-      end
+      result[s_key] = s_value
     end
      
     confirmed_appointment = AppointmentStatus.find_by_code("3")
