@@ -826,6 +826,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
             var straightHalfhours = 0;  // variable que contiene el número de medias horas contiguas
             var startTime = '';         // Variable que contiene la hora inicial del bloque contiguo
             var endTime = '';           // Variable que contiene la hora final del bloque contiguo
+            var dayHasSpecificAvailabilities = false;
 
             // Recorremos cada media hora de cada día de arriba hacia abajo para revisar su contigüidad
             for(var j=0; j<$scope.weekRows.length; j++) {
@@ -835,6 +836,11 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
                     var endDate = moment($scope.selectedWeek[i].date);
                     endDate.hours(endTime.split(':')[0]);
                     endDate.minutes(endTime.split(':')[1]);
+
+                    // Si es la última hora, las cero horas son del día siguiente, así que le sumamos un día
+                    if (endDate.hours() == 0 && endDate.minutes() == 0){
+                        endDate.add(1, 'day');
+                    }
 
                     // Si comenzamos un bloque agregamos un objeto, si no solamente actualizamos su fecha final
                     if (straightHalfhours == 0) {
@@ -850,6 +856,8 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
                                 'end': endDate.format("YYYY-MM-DDTHH:mm:ss")
                             }
                         );
+
+                        dayHasSpecificAvailabilities = true;
                     } else {
                         weekCalendar.specific_availabilities[weekCalendar.specific_availabilities.length - 1].end = endDate.format("YYYY-MM-DDTHH:mm:ss");
                     }
@@ -868,6 +876,20 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
                     startTime = '';
                     endTime = '';
                 }
+            }
+
+            // Si el día no tuvo disponibilidad
+            if (!dayHasSpecificAvailabilities) {
+                var dayDate = moment($scope.selectedWeek[i].date);
+                dayDate.hours(0);
+                dayDate.minutes(0);
+
+                weekCalendar.specific_availabilities.push(
+                    {
+                        'start': dayDate.format("YYYY-MM-DDTHH:mm:ss"),
+                        'end': dayDate.format("YYYY-MM-DDTHH:mm:ss")
+                    }
+                );
             }
 
             if (!validCalendar) {
