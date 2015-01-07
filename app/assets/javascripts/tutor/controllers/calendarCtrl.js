@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter', '$timeout', '$translate', '$location', '$anchorScroll', 'AppointmentService', 'AvailabilityService', 'MessageService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $compile, $filter, $timeout, $translate, $location, $anchorScroll, AppointmentService, AvailabilityService, MessageService, DEFAULT_VALUES){
+Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter', '$timeout', '$translate', '$location', '$anchorScroll', 'AppointmentService', 'AvailabilityService', 'MessageService', 'usSpinnerService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $compile, $filter, $timeout, $translate, $location, $anchorScroll, AppointmentService, AvailabilityService, MessageService, usSpinnerService, DEFAULT_VALUES){
 
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.MONTHS = DEFAULT_VALUES.MONTHS;
@@ -871,11 +871,72 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
             }
 
             if (!validCalendar) {
+                $scope.calendarAlertMessagesParams = {
+                    type: 'danger',
+                    message: $filter('translate')('ERROR_TUTOR_SPECIFIC_AVAILABILITY_UPDATE'),
+                    icon: true
+                };
+
+                $timeout(function(){
+                    $location.hash('tutor-calendar-form');
+                    $anchorScroll();
+                }, 0);
+
                 break;
             }
         }
 
-        console.log(weekCalendar);
+        var startDate = moment($scope.selectedWeek[0].date);
+        var endDate = moment($scope.selectedWeek[$scope.selectedWeek.length-1].date);
+
+        var params = {
+            'startDay': startDate.date(),
+            'startMonth': startDate.month()+1,
+            'startYear': startDate.year(),
+            'endDay': endDate.date(),
+            'endMonth': endDate.month()+1,
+            'endYear': endDate.year(),
+            'specificAvailabilities': weekCalendar.specific_availabilities
+        }
+
+        $timeout(function(){
+            usSpinnerService.spin('week-calendar-spinner');
+        }, 0);
+
+        AvailabilityService.submitSpecificAvailability($rootScope.tutor.id, params).then(
+            function(data){
+                $scope.calendarAlertMessagesParams = {
+                    type: 'success',
+                    message: $filter('translate')('SUCCESS_TUTOR_SPECIFIC_AVAILABILITY_UPDATE'),
+                    icon: true
+                };
+
+                usSpinnerService.stop('week-calendar-spinner');
+
+                $timeout(function(){
+                    $location.hash('tutor-calendar-form');
+                    $anchorScroll();
+                }, 0);
+
+                //Recargar todas las disponibilidades
+            },
+            function (response){
+                $scope.calendarAlertMessagesParams = {
+                    type: 'danger',
+                    message: $filter('translate')('ERROR_TUTOR_SPECIFIC_AVAILABILITY_UPDATE'),
+                    icon: true
+                };
+
+                usSpinnerService.stop('week-calendar-spinner');
+
+                $timeout(function(){
+                    $location.hash('tutor-calendar-form');
+                    $anchorScroll();
+                }, 0);
+
+                console.log('Error saving the specific availability: ' + response);
+            }
+        );
     }
 
 }]);
