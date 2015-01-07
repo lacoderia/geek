@@ -52,7 +52,7 @@
 
     <div class="search-result-list" ng-show="tutorList.length || suggestedTutorList.length">
 
-      <div class="tutor" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" dir-paginate="tutor in tutorList | itemsPerPage: tutorsPerPage" total-items="totalTutors" pagination-id="tutorsPagination" on-tutor-search-render>
+      <div class="tutor" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" dir-paginate="tutor in tutorList | itemsPerPage: tutorsPerPage" total-items="totalTutors" pagination-id="tutorsPagination" ng-show="tutor.show" on-tutor-search-render>
         <div class="tutor_picture_container col-lg-2 col-md-2 col-sm-12 col-xs-12">
           <div class="tutor_picture">
             <img/>
