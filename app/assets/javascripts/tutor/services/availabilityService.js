@@ -29,9 +29,33 @@ Geek.factory('AvailabilityService', ["$http", "$q", "DEFAULT_VALUES", function($
 
     };
 
+    var submitSpecificAvailability = function(tutorId, params){
+        var deferred = $q.defer();
+        var promise = deferred.promise;
+
+        $http.post('/tutors/' + tutorId + '/save_specific_availabilities.json',{
+            'start_day': params.startDay,
+            'start_month': params.startMonth,
+            'start_year': params.startYear,
+            'end_day': params.endDay,
+            'end_month': params.endMonth,
+            'end_year': params.endYear,
+            'specific_availabilities':  params.specificAvailabilities
+        }).
+            success(function(data){
+                deferred.resolve(data);
+            }).
+
+            error(function(response){
+                deferred.reject(response);
+            });
+
+        return promise
+    };
 
     return{
-        getTutorAvailabilityByRange: getTutorAvailabilityByRange
+        getTutorAvailabilityByRange: getTutorAvailabilityByRange,
+        submitSpecificAvailability: submitSpecificAvailability
     }
 
 }]);

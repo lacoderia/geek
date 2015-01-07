@@ -168,27 +168,40 @@ class Tutor < ActiveRecord::Base
         end
         difference = (availability.start.hour + start_min)..(availability.start.hour+dif_hour -0.5 + end_min)
         result[day_in_month] += (difference).step(0.5).to_a
+        result[day_in_month].sort!
         day_in_month += 7
       end
     end
 
-    # tercero, agregar disponibilidades por semana especifica
+    s_result = {}
+    # tercero, sobreescribir disponibilidades por mes especifico
     specific_availabilities = tutor.specific_availabilities.where("EXTRACT(month from start) = ? AND EXTRACT(year from start) = ?", month, year)
     specific_availabilities.each do |sa|
-      dif_hour = sa.end.hour - sa.start.hour
+      if sa.end == sa.start
+        s_result[sa.start.day] = []
+        next
+      elsif sa.end == sa.start + 1.day
+        dif_hour = 24
+      elsif sa.end.day > sa.start.day
+        dif_hour = 24 - sa.start.hour
+      else
+        dif_hour = sa.end.hour - sa.start.hour
+      end
       start_min = sa.start.min > 0 ? 0.5 : 0.0
       end_min = sa.end.min > 0 ? 0.5 : 0.0
       difference = (sa.start.hour + start_min)..(sa.start.hour+dif_hour -0.5 + end_min)
-      if not result[sa.start.day]
-        result[sa.start.day] = []
-      else
-        result[sa.start.day] -= (difference).step(0.5).to_a
+      if not s_result[sa.start.day]
+        s_result[sa.start.day] = []
       end
 
-      result[sa.start.day] += (difference).step(0.5).to_a
-      result[sa.start.day].sort!
+      s_result[sa.start.day] += (difference).step(0.5).to_a
+      s_result[sa.start.day].sort!
+    end 
+    
+    s_result.each do |s_key, s_value|
+      result[s_key] = s_value
     end
-
+     
     confirmed_appointment = AppointmentStatus.find_by_code("3")
     pending_appointment = AppointmentStatus.find_by_code("0")
     # cuarto, quitar contra clases en request y agendadas
@@ -551,13 +564,13 @@ class Tutor < ActiveRecord::Base
   def self.save_specific_availabilities tutor_id, specific_availabilities, start_day, start_month, start_year, end_day, end_month, end_year
 
     tutor = Tutor.find tutor_id
-    start_date = Time.zone.local(start_year, start_month, start_day)
-    end_date = Time.zone.local(end_year, end_month, end_day)
-    tutor.specific_availabilities.where("start BETWEEN ? AND ?").destroy_all
+    start_date = Time.zone.local(start_year, start_month, start_day) - 1.minute
+    end_date = Time.zone.local(end_year, end_month, end_day) + 1.day
+    tutor.specific_availabilities.where("start BETWEEN ? AND ?", start_date, end_date).destroy_all
 
     specific_availabilities.each do |sa|
-      start_datetime = DateTime.iso8601(sa["start"]).in_time_zone
-      end_datetime = DateTime.iso8601(sa["end"]).in_time_zone
+      start_datetime = Time.zone.parse(sa["start"])
+      end_datetime = Time.zone.parse(sa["end"])
       tutor.specific_availabilities << SpecificAvailability.create(tutor_id: tutor.id, start: start_datetime, end: end_datetime)
     end
 
@@ -618,7 +631,7 @@ class Tutor < ActiveRecord::Base
   def self.by_student student
     tutors = []
     completed_appointment = AppointmentStatus.find_by_code("6")
-    appointments = student.appointments.select(:tutor_id).where("appointment_status_id = ? AND charged = false AND paid = false", completed_appointment.id).uniq(:tutor_id).includes(:tutor => :reviews)
+    appointments = student.appointments.select(:tutor_id).where("appointment_status_id = ?", completed_appointment.id).uniq(:tutor_id).includes(:tutor => :reviews)
     appointments.each do |appointment|
       tutors.push(appointment.tutor)
     end

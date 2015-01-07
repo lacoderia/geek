@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter', '$timeout', '$translate', '$location', '$anchorScroll', 'AppointmentService', 'AvailabilityService', 'MessageService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $compile, $filter, $timeout, $translate, $location, $anchorScroll, AppointmentService, AvailabilityService, MessageService, DEFAULT_VALUES){
+Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter', '$timeout', '$translate', '$location', '$anchorScroll', 'AppointmentService', 'AvailabilityService', 'MessageService', 'usSpinnerService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $compile, $filter, $timeout, $translate, $location, $anchorScroll, AppointmentService, AvailabilityService, MessageService, usSpinnerService, DEFAULT_VALUES){
 
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.MONTHS = DEFAULT_VALUES.MONTHS;
@@ -826,6 +826,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
             var straightHalfhours = 0;  // variable que contiene el número de medias horas contiguas
             var startTime = '';         // Variable que contiene la hora inicial del bloque contiguo
             var endTime = '';           // Variable que contiene la hora final del bloque contiguo
+            var dayHasSpecificAvailabilities = false;
 
             // Recorremos cada media hora de cada día de arriba hacia abajo para revisar su contigüidad
             for(var j=0; j<$scope.weekRows.length; j++) {
@@ -835,6 +836,11 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
                     var endDate = moment($scope.selectedWeek[i].date);
                     endDate.hours(endTime.split(':')[0]);
                     endDate.minutes(endTime.split(':')[1]);
+
+                    // Si es la última hora, las cero horas son del día siguiente, así que le sumamos un día
+                    if (endDate.hours() == 0 && endDate.minutes() == 0){
+                        endDate.add(1, 'day');
+                    }
 
                     // Si comenzamos un bloque agregamos un objeto, si no solamente actualizamos su fecha final
                     if (straightHalfhours == 0) {
@@ -850,6 +856,8 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
                                 'end': endDate.format("YYYY-MM-DDTHH:mm:ss")
                             }
                         );
+
+                        dayHasSpecificAvailabilities = true;
                     } else {
                         weekCalendar.specific_availabilities[weekCalendar.specific_availabilities.length - 1].end = endDate.format("YYYY-MM-DDTHH:mm:ss");
                     }
@@ -870,12 +878,87 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
                 }
             }
 
+            // Si el día no tuvo disponibilidad
+            if (!dayHasSpecificAvailabilities) {
+                var dayDate = moment($scope.selectedWeek[i].date);
+                dayDate.hours(0);
+                dayDate.minutes(0);
+
+                weekCalendar.specific_availabilities.push(
+                    {
+                        'start': dayDate.format("YYYY-MM-DDTHH:mm:ss"),
+                        'end': dayDate.format("YYYY-MM-DDTHH:mm:ss")
+                    }
+                );
+            }
+
             if (!validCalendar) {
+                $scope.calendarAlertMessagesParams = {
+                    type: 'danger',
+                    message: $filter('translate')('ERROR_TUTOR_SPECIFIC_AVAILABILITY_UPDATE'),
+                    icon: true
+                };
+
+                $timeout(function(){
+                    $location.hash('tutor-calendar-form');
+                    $anchorScroll();
+                }, 0);
+
                 break;
             }
         }
 
-        console.log(weekCalendar);
+        var startDate = moment($scope.selectedWeek[0].date);
+        var endDate = moment($scope.selectedWeek[$scope.selectedWeek.length-1].date);
+
+        var params = {
+            'startDay': startDate.date(),
+            'startMonth': startDate.month()+1,
+            'startYear': startDate.year(),
+            'endDay': endDate.date(),
+            'endMonth': endDate.month()+1,
+            'endYear': endDate.year(),
+            'specificAvailabilities': weekCalendar.specific_availabilities
+        }
+
+        $timeout(function(){
+            usSpinnerService.spin('week-calendar-spinner');
+        }, 0);
+
+        AvailabilityService.submitSpecificAvailability($rootScope.tutor.id, params).then(
+            function(data){
+                $scope.calendarAlertMessagesParams = {
+                    type: 'success',
+                    message: $filter('translate')('SUCCESS_TUTOR_SPECIFIC_AVAILABILITY_UPDATE'),
+                    icon: true
+                };
+
+                usSpinnerService.stop('week-calendar-spinner');
+
+                $timeout(function(){
+                    $location.hash('tutor-calendar-form');
+                    $anchorScroll();
+                }, 0);
+
+                //Recargar todas las disponibilidades
+            },
+            function (response){
+                $scope.calendarAlertMessagesParams = {
+                    type: 'danger',
+                    message: $filter('translate')('ERROR_TUTOR_SPECIFIC_AVAILABILITY_UPDATE'),
+                    icon: true
+                };
+
+                usSpinnerService.stop('week-calendar-spinner');
+
+                $timeout(function(){
+                    $location.hash('tutor-calendar-form');
+                    $anchorScroll();
+                }, 0);
+
+                console.log('Error saving the specific availability: ' + response);
+            }
+        );
     }
 
 }]);
