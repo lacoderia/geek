@@ -168,27 +168,35 @@ class Tutor < ActiveRecord::Base
         end
         difference = (availability.start.hour + start_min)..(availability.start.hour+dif_hour -0.5 + end_min)
         result[day_in_month] += (difference).step(0.5).to_a
+        result[day_in_month].sort!
         day_in_month += 7
       end
     end
 
-    # tercero, agregar disponibilidades por semana especifica
+    s_result = {}
+    # tercero, sobreescribir disponibilidades por mes especifico
     specific_availabilities = tutor.specific_availabilities.where("EXTRACT(month from start) = ? AND EXTRACT(year from start) = ?", month, year)
     specific_availabilities.each do |sa|
       dif_hour = sa.end.hour - sa.start.hour
       start_min = sa.start.min > 0 ? 0.5 : 0.0
       end_min = sa.end.min > 0 ? 0.5 : 0.0
       difference = (sa.start.hour + start_min)..(sa.start.hour+dif_hour -0.5 + end_min)
-      if not result[sa.start.day]
-        result[sa.start.day] = []
-      else
-        result[sa.start.day] -= (difference).step(0.5).to_a
+      if not s_result[sa.start.day]
+        s_result[sa.start.day] = []
       end
 
-      result[sa.start.day] += (difference).step(0.5).to_a
-      result[sa.start.day].sort!
+      s_result[sa.start.day] += (difference).step(0.5).to_a
+      s_result[sa.start.day].sort!
+    end 
+    
+    s_result.each do |s_key, s_value|
+      result.each do |key, value|
+        if s_key == s_value
+          result[key] = s_result[s_key]
+        end
+      end
     end
-
+     
     confirmed_appointment = AppointmentStatus.find_by_code("3")
     pending_appointment = AppointmentStatus.find_by_code("0")
     # cuarto, quitar contra clases en request y agendadas
