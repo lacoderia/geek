@@ -177,7 +177,11 @@ class Tutor < ActiveRecord::Base
     # tercero, sobreescribir disponibilidades por mes especifico
     specific_availabilities = tutor.specific_availabilities.where("EXTRACT(month from start) = ? AND EXTRACT(year from start) = ?", month, year)
     specific_availabilities.each do |sa|
-      dif_hour = sa.end.hour - sa.start.hour
+      if sa.end == sa.start
+        dif_hour = 24
+      else
+        dif_hour = sa.end.hour - sa.start.hour
+      end
       start_min = sa.start.min > 0 ? 0.5 : 0.0
       end_min = sa.end.min > 0 ? 0.5 : 0.0
       difference = (sa.start.hour + start_min)..(sa.start.hour+dif_hour -0.5 + end_min)
