@@ -50,7 +50,7 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-12 hidden-lg hidden-md hidden-sm language">
-        <a href="#" title="{{ 'CHOOSE_LANGUAGE' | translate }}" class="text-color-light-blue" ng-click="toggleLanguage()" translate="ENGLISH_SPANISH"></a>
+        <a href="#" title="¿Quieres dar clases en geek?" class="text-color-light-blue">English/Español</a>
       </div>
       <div class="col-lg-6 col-md-3 social-icons columns uppercase">
         <p translate="FOOTER_SOCIAL"></p>
@@ -63,17 +63,17 @@
       <div class="col-lg-6 col-md-3 columns links">
         <div class="col-lg-6 col-md-6 columns uppercase">
           <ul>
-            <li translate="FOOTER_WE"></li>
-            <li translate="FOOTER_CONTACT"></li>
-            <li translate="FOOTER_HELP"></li>
+            <li><a title="{{ 'FOOTER_WE' | translate}}" ui-sref=".about-us">{{ 'FOOTER_WE' | translate}}</a></li>
+            <li><a title="{{ 'FOOTER_CONTACT' | translate}}" ui-sref=".contact">{{ 'FOOTER_CONTACT' | translate}}</a></li>
+            <li><a title="{{ 'FOOTER_HELP' | translate}}" ui-sref=".help">{{ 'FOOTER_HELP' | translate}}</a></li>
           </ul>
         </div>
         <div class="col-lg-6 col-md-6 columns right uppercase">
           <ul>
-            <li translate="FOOTER_FAQ"></li>
-            <li translate="FOOTER_BLOG"></li>
-            <li translate="FOOTER_TERMS_AND_CONDITIONS"></li>
-            <li translate="FOOTER_PRIVACY"></li>
+            <li><a title="{{ 'FOOTER_FAQ' | translate}}" ui-sref=".faq">{{ 'FOOTER_FAQ' | translate}}</a></li>
+            <li><a title="{{ 'FOOTER_BLOG' | translate}}" href="#" target="_blank">{{ 'FOOTER_BLOG' | translate}}</a></li>
+            <li><a title="{{ 'FOOTER_TERMS_AND_CONDITIONS' | translate}}" ui-sref=".terms">{{ 'FOOTER_TERMS_AND_CONDITIONS' | translate}}</a></li>
+            <li><a title="{{ 'FOOTER_PRIVACY' | translate}}" ui-sref=".privacy">{{ 'FOOTER_PRIVACY' | translate}}</a></li>
           </ul>
         </div>
       </div>

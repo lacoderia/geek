@@ -21,15 +21,8 @@
   <div class="search-results-list" ng-show="showTopSearchbar && !appointmentRequestSent">
     <span us-spinner spinner-key="search-tutor-spinner"></span>
 
-    <div class="unavailable-message" ng-show="tutorList && suggestedTutorList && tutorList.length == 0 && suggestedTutorList.length == 0">
-      <div class="unavailable-message-content">
-        <h3 translate="UNAVAILABLE_MESSAGE_SEARCH_TUTORS"></h3>
-      </div>
-    </div>
-
-    <div class="search-result-list" ng-show="tutorList.length || suggestedTutorList.length">
-      <div class="search-results-tools" ng-hide="selectedTutor">
-        <span class="category">{{ 'FILTERS' | translate}}:</span>
+    <div class="search-results-tools" ng-hide="selectedTutor">
+      <span class="category">{{ 'FILTERS' | translate}}:</span>
         <span class="search-result-filter">
           <input type="checkbox" id="tutor_class_mode_online" name="tutor_class_mode" ng-model="filters.online" ng-change="searchTutor(1)"/>
           <label for="tutor_class_mode_online" translate="SEARCH_FILTER_LABEL_ONLINE"></label>
@@ -46,10 +39,18 @@
           <input type="checkbox" id="tutor_class_mode_public" name="tutor_class_mode" ng-model="filters.public" ng-change="searchTutor(1)"/>
           <label for="tutor_class_mode_public" translate="SEARCH_FILTER_LABEL_PUBLIC"></label>
         </span>
+    </div>
+    <div class="search-results-tools" ng-show="selectedTutor">
+      <span class="btn-back" ng-click="showSearchResults()" ng-show="selectedTutor"><< {{ 'SHOW_ALL' | translate }}</span>
+    </div>
+
+    <div class="unavailable-message" ng-show="tutorList && suggestedTutorList && tutorList.length == 0 && suggestedTutorList.length == 0">
+      <div class="unavailable-message-content">
+        <h3 translate="UNAVAILABLE_MESSAGE_SEARCH_TUTORS"></h3>
       </div>
-      <div class="search-results-tools" ng-show="selectedTutor">
-        <span class="btn-back" ng-click="showSearchResults()" ng-show="selectedTutor"><< {{ 'SHOW_ALL' | translate }}</span>
-      </div>
+    </div>
+
+    <div class="search-result-list" ng-show="tutorList.length || suggestedTutorList.length">
 
       <div class="tutor" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" dir-paginate="tutor in tutorList | itemsPerPage: tutorsPerPage" total-items="totalTutors" pagination-id="tutorsPagination" on-tutor-search-render>
         <div class="tutor_picture_container col-lg-2 col-md-2 col-sm-12 col-xs-12">

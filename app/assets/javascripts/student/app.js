@@ -232,6 +232,30 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                     }
                 }
             })
+            .state('dashboard.faq', {
+                url: "/faq",
+                templateUrl: "/assets/tutor/partial_common_faq.html",
+            })
+            .state('dashboard.about-us', {
+                url: "/about-us",
+                templateUrl: "/assets/tutor/partial_common_about_us.html",
+            })
+            .state('dashboard.contact', {
+                url: "/contact",
+                templateUrl: "/assets/tutor/partial_common_contact.html",
+            })
+            .state('dashboard.help', {
+                url: "/help",
+                templateUrl: "/assets/tutor/partial_common_help.html",
+            })
+            .state('dashboard.terms', {
+                url: "/terms",
+                templateUrl: "/assets/tutor/partial_common_terms.html",
+            })
+            .state('dashboard.privacy', {
+                url: "/privacy",
+                templateUrl: "/assets/tutor/partial_common_privacy.html",
+            })
             .state('dashboard.user-blocked', {
                 url: "/user-blocked",
                 templateUrl: "/assets/student/partial_dashboard_layout.user_blocked.html",
