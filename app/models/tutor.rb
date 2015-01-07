@@ -178,6 +178,9 @@ class Tutor < ActiveRecord::Base
     specific_availabilities = tutor.specific_availabilities.where("EXTRACT(month from start) = ? AND EXTRACT(year from start) = ?", month, year)
     specific_availabilities.each do |sa|
       if sa.end == sa.start
+        s_result[sa.start.day] = []
+        next
+      elsif sa.end == sa.start + 1.day
         dif_hour = 24
       else
         dif_hour = sa.end.hour - sa.start.hour
