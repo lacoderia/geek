@@ -11,8 +11,7 @@
 
   <!-- Sección de listado de conversaciones -->
   <div class="conversations" ng-show="conversations && conversations.length && !selectedConversation">
-
-    <div class="conversation" class="col-lg-12 col-md-12 col-sm-12" ng-repeat="conversation in conversations" ng-image-adjustment image-container="user_picture" image-src="{{ conversation.user.picture_url }}">
+    <div class="conversation" class="col-lg-12 col-md-12 col-sm-12" ng-repeat="conversation in conversations" ng-image-adjustment image-container="user_picture" image-src="{{ conversation.tutor.picture_url }}">
       <div class="user_picture_container">
         <div class="user_picture">
           <img/>
