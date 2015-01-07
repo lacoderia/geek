@@ -1687,6 +1687,10 @@ footer{
     font-weight: 500;
     text-align: left;
 
+    a{
+      color: $color-medium-gray;
+    }
+
     .right {
       border-left: 2px $color-medium-gray solid;
     }
