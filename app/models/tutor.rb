@@ -631,7 +631,7 @@ class Tutor < ActiveRecord::Base
   def self.by_student student
     tutors = []
     completed_appointment = AppointmentStatus.find_by_code("6")
-    appointments = student.appointments.select(:tutor_id).where("appointment_status_id = ? AND charged = false AND paid = false", completed_appointment.id).uniq(:tutor_id).includes(:tutor => :reviews)
+    appointments = student.appointments.select(:tutor_id).where("appointment_status_id = ?", completed_appointment.id).uniq(:tutor_id).includes(:tutor => :reviews)
     appointments.each do |appointment|
       tutors.push(appointment.tutor)
     end
