@@ -902,7 +902,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
             if (!validCalendar) {
                 $scope.calendarAlertMessagesParams = {
                     type: 'danger',
-                    message: $filter('translate')('ERROR_TUTOR_SPECIFIC_AVAILABILITY_UPDATE'),
+                    message: $filter('translate')('ERROR_TUTOR_SPECIFIC_AVAILABILITY_ONE_HOUR'),
                     icon: true
                 };
 
@@ -911,7 +911,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
                     $anchorScroll();
                 }, 0);
 
-                break;
+                return false;
             }
         }
 
