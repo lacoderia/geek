@@ -560,8 +560,8 @@ class Tutor < ActiveRecord::Base
     tutor.specific_availabilities.where("start BETWEEN ? AND ?", start_date, end_date).destroy_all
 
     specific_availabilities.each do |sa|
-      start_datetime = DateTime.iso8601(sa["start"]).in_time_zone
-      end_datetime = DateTime.iso8601(sa["end"]).in_time_zone
+      start_datetime = Time.zone.parse(sa["start"])
+      end_datetime = Time.zone.parse(sa["end"])
       tutor.specific_availabilities << SpecificAvailability.create(tutor_id: tutor.id, start: start_datetime, end: end_datetime)
     end
 
