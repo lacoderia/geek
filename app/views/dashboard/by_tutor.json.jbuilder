@@ -13,7 +13,7 @@ end
 json.set! :appointments do
 	json.total @appointments[:total]
 	json.set! :latest do
-		json.array! (@requests[:appointments]) do |appointment|
+		json.array! (@appointments[:appointments]) do |appointment|
 			json.extract! appointment, :id, :start, :end, :subject
 			json.set! :student do
 				json.extract! appointment.student, :id, :first_name, :last_name

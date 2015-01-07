@@ -59,13 +59,12 @@ Geek.controller('BalanceController',['$scope','$rootScope', '$timeout', '$filter
 
         BalanceService.transferMoney().then(
             function(data){
-                $rootScope.tutor.balanceInfo = data;
                 $scope.tutorBalanceAlertParams = undefined;
                 $scope.getBalance();
                 usSpinnerService.stop('transfer-spinner');
             },
             function(response){
-                console.log(response)
+
                 console.log('Error trasnfering the money' + response.description);
 
                 var errorMessage = "";
