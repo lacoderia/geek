@@ -139,8 +139,6 @@ Geek.controller('AppointmentHistoryController',['$scope','$rootScope', '$timeout
             description: description
         };
 
-        console.log(reportedAnomaly);
-
         AnomalyService.reportAnomaly(reportedAnomaly).then(
             function(data){
                 appointment.anomaly = data;

@@ -132,23 +132,28 @@ Geek.controller('AppointmentHistoryController',['$filter', '$scope', '$rootScope
 
     $scope.setAnomaly = function(appointment, anomaly_code, description) {
 
-      var reportedAnomaly = {
-        appointment_id: appointment.id,
-        anomaly_code: anomaly_code,
-        description: description
-      };
+        $timeout(function(){
+            usSpinnerService.spin('anomaly-modal-spinner');
+        }, 0);
 
-      AnomalyService.reportAnomaly(reportedAnomaly).then(
-        function(data){
-          appointment.anomaly = data;
-        },
-        function(response){
-          console.log(response);
-        }
-      );
+        var reportedAnomaly = {
+            appointment_id: appointment.id,
+            anomaly_code: anomaly_code,
+            description: description
+        };
 
-      $scope.closeAnomalyDetail();
-      //console.log("appointment " + appointment_id + " anomaly " + anomaly_code + " description " + description);
+        AnomalyService.reportAnomaly(reportedAnomaly).then(
+            function(data){
+                appointment.anomaly = data;
+                usSpinnerService.stop('anomaly-modal-spinner');
+                $scope.closeAnomalyDetail();
+            },
+            function(response){
+                usSpinnerService.stop('anomaly-modal-spinner');
+                console.log(response);
+            }
+        );
+
     };
 
     $scope.getAppointments = function(appointments){
@@ -282,6 +287,10 @@ Geek.controller('AppointmentHistoryController',['$filter', '$scope', '$rootScope
 
         if(textMessage){
 
+            $timeout(function(){
+                usSpinnerService.spin('message-modal-spinner');
+            }, 0);
+
             var message = {
                 tutor_id: tutor.id,
                 student_id: SessionService.getId(),
@@ -303,6 +312,7 @@ Geek.controller('AppointmentHistoryController',['$filter', '$scope', '$rootScope
                         };
                         $scope.setAlert($scope.messageAlertMessagesParams);
                     }
+                    usSpinnerService.stop('message-modal-spinner');
                 },
                 function(response){
                     $scope.messageAlertMessagesParams = {
@@ -311,6 +321,7 @@ Geek.controller('AppointmentHistoryController',['$filter', '$scope', '$rootScope
                         icon: true
                     };
                     $scope.setAlert($scope.messageAlertMessagesParams);
+                    usSpinnerService.stop('message-modal-spinner');
                     console.log('Error saving a message: ' + response);
                 }
             );

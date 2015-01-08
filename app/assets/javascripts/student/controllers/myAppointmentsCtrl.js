@@ -247,6 +247,10 @@ Geek.controller('MyAppointmentsController',['$compile', '$filter', '$scope','$ro
 
     $scope.sendMessage = function(tutor, textMessage){
 
+        $timeout(function(){
+            usSpinnerService.spin('message-modal-spinner');
+        }, 0);
+
         if(textMessage){
 
             var message = {
@@ -270,6 +274,7 @@ Geek.controller('MyAppointmentsController',['$compile', '$filter', '$scope','$ro
                         };
                         $scope.setAlert($scope.messageAlertMessagesParams);
                     }
+                    usSpinnerService.stop('message-modal-spinner');
                 },
                 function(response){
                     $scope.messageAlertMessagesParams = {
@@ -278,6 +283,7 @@ Geek.controller('MyAppointmentsController',['$compile', '$filter', '$scope','$ro
                         icon: true
                     };
                     $scope.setAlert($scope.messageAlertMessagesParams);
+                    usSpinnerService.stop('message-modal-spinner');
                     console.log('Error saving a message: ' + response);
                 }
             );

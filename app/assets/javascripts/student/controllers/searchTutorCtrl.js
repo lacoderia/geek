@@ -305,6 +305,10 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
 
             if(SessionService.getHasCard()) {
 
+                $timeout(function(){
+                    usSpinnerService.spin('request-appointment-spinner');
+                }, 0);
+
                 var appointment = {
                     'tutorId': $scope.selectedTutor.id,
                     'start': $scope.selectedClass.dateTimeISO,
@@ -315,7 +319,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
                 };
 
                 var currentClass = $scope.selectedClass;
-                usSpinnerService.spin('request-appointment-spinner');
+
                 $scope.closeAppointmentRequest();
 
                 AppointmentService.sendAppointmentRequest(appointment).then(
