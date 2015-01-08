@@ -23,6 +23,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
     $scope.weekRows = [];
     $scope.calendarRows = [];
     $scope.appointments = [];
+    $scope.weekAvailability = [];
     $scope.weekView = $scope.CALENDAR_VIEWS.CALENDAR_VIEW_LIST;
     $scope.messageAlertMessagesParams = undefined;
     $scope.appointmentButtons = DEFAULT_VALUES.APPOINTMENT_BUTTONS;
@@ -215,7 +216,6 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
     $scope.setWeekAppointments = function(){
 
         $scope.resetWeekViewAppointments();
-        $scope.resetWeekAvailabilities();
 
         for(var dayIndex=0; dayIndex<$scope.selectedWeek.length; dayIndex++){
             var day = $scope.selectedWeek[dayIndex];
@@ -258,9 +258,11 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
 
     //Función que borra la disponibilidad de la semana seleccionada previamente
     $scope.resetWeekAvailabilities = function(){
-
+        console.log('RESET')
+        $scope.weekAvailability = [];
         for(var dayIndex=0; dayIndex<$scope.selectedWeek.length; dayIndex++){
             var day = $scope.selectedWeek[dayIndex];
+            day.availabilities = [];
             for(var hourIndex=0; hourIndex<$scope.HOURS.length; hourIndex++){
                 var timeObject = $scope.weekRows[hourIndex].halfHours[dayIndex];
                 timeObject.available = false;
@@ -281,7 +283,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
         for(var dayIndex=0; dayIndex<$scope.selectedWeek.length; dayIndex++){
             var day = $scope.selectedWeek[dayIndex];
             if(day.availabilities){
-
+                console.log(day.availabilities)
                 for(var availabilityIndex=0; availabilityIndex<day.availabilities.length; availabilityIndex++){
                     var availability = day.availabilities[availabilityIndex];
                     var straightHourTime = false;
@@ -683,6 +685,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
 
     $scope.getWeekAvailability = function(){
 
+        $scope.resetWeekAvailabilities();
         $timeout(function(){
             usSpinnerService.spin('week-calendar-spinner');
         }, 0);
@@ -939,6 +942,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
                     message: $filter('translate')('SUCCESS_TUTOR_SPECIFIC_AVAILABILITY_UPDATE'),
                     icon: true
                 };
+
 
                 $timeout(function(){
                     usSpinnerService.stop('week-calendar-spinner');
