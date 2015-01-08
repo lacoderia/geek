@@ -1219,11 +1219,9 @@ h3.section-title{
     position: relative;
 
     .view-header{
-      left: 0px;
-      position: absolute;
-      top: 0px;
+      height: 101px;
+      overflow: hidden;
       width: 100%;
-      z-index: 999;
     }
 
     .week-row{
@@ -2714,7 +2712,7 @@ footer{
       iframe{
         height: 100%;
         left: 0;
-        padding: 10% 30% 30%;
+        padding: 10px 30px 30px;
         position: absolute;
         top: 0;
         width: 100%;

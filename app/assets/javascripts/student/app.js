@@ -192,7 +192,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                                         $state.go('dashboard.resume');
 
                                     }else{
-                                        return true;
+                                        $state.go('student.landing');
                                     }
                                 },
                                 function(response){
@@ -203,6 +203,34 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                         }
                     }
                 }
+            })
+            .state('student.landing',{
+                url: "/landing",
+                templateUrl: "/assets/student/partial_common_landing.html"
+            })
+            .state('student.faq', {
+                url: "/faq",
+                templateUrl: "/assets/student/partial_common_faq.html",
+            })
+            .state('student.about-us', {
+                url: "/about-us",
+                templateUrl: "/assets/student/partial_common_about_us.html",
+            })
+            .state('student.contact', {
+                url: "/contact",
+                templateUrl: "/assets/student/partial_common_contact.html",
+            })
+            .state('student.help', {
+                url: "/help",
+                templateUrl: "/assets/student/partial_common_help.html",
+            })
+            .state('student.terms', {
+                url: "/terms",
+                templateUrl: "/assets/student/partial_common_terms.html",
+            })
+            .state('student.privacy', {
+                url: "/privacy",
+                templateUrl: "/assets/student/partial_common_privacy.html",
             })
             .state('dashboard', {
                 url: "/dashboard",
@@ -234,27 +262,27 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
             })
             .state('dashboard.faq', {
                 url: "/faq",
-                templateUrl: "/assets/tutor/partial_common_faq.html",
+                templateUrl: "/assets/student/partial_common_faq.html",
             })
             .state('dashboard.about-us', {
                 url: "/about-us",
-                templateUrl: "/assets/tutor/partial_common_about_us.html",
+                templateUrl: "/assets/student/partial_common_about_us.html",
             })
             .state('dashboard.contact', {
                 url: "/contact",
-                templateUrl: "/assets/tutor/partial_common_contact.html",
+                templateUrl: "/assets/student/partial_common_contact.html",
             })
             .state('dashboard.help', {
                 url: "/help",
-                templateUrl: "/assets/tutor/partial_common_help.html",
+                templateUrl: "/assets/student/partial_common_help.html",
             })
             .state('dashboard.terms', {
                 url: "/terms",
-                templateUrl: "/assets/tutor/partial_common_terms.html",
+                templateUrl: "/assets/student/partial_common_terms.html",
             })
             .state('dashboard.privacy', {
                 url: "/privacy",
-                templateUrl: "/assets/tutor/partial_common_privacy.html",
+                templateUrl: "/assets/student/partial_common_privacy.html",
             })
             .state('dashboard.user-blocked', {
                 url: "/user-blocked",

@@ -111,17 +111,19 @@
           </tbody>
         </table>
       </div>
-      <div  class="tutor-calendar-section">
-        <div class="week-row" ng-repeat="row in weekRows" id="week-row-{{ HOURS[$index] }}">
-          <table>
-            <tbody>
-            <tr>
-              <td class="week-day"><span ng-hide="$index%2">{{ HOURS[$index] }}</span>&nbsp;</td>
-              <td class="week-day" ng-class="[halfHour.appointment.status.class, halfHour.availabilityClass, 'no-cursor']" ng-repeat="halfHour in row.halfHours" ng-click="showAppointmentDetail($event, halfHour.appointment)">
-              </td>
-            </tr>
-            </tbody>
-          </table>
+      <div class="calendar-body-container">
+        <div class="calendar-body">
+          <div class="week-row" ng-repeat="row in weekRows" id="week-row-{{ HOURS[$index] }}">
+            <table>
+              <tbody>
+              <tr>
+                <td class="week-day"><span ng-hide="$index%2">{{ HOURS[$index] }}</span>&nbsp;</td>
+                <td class="week-day" ng-class="[halfHour.appointment.status.class, halfHour.availabilityClass, 'no-cursor']" ng-repeat="halfHour in row.halfHours" ng-click="showAppointmentDetail($event, halfHour.appointment)">
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
@@ -140,17 +142,19 @@
           </tbody>
         </table>
       </div>
-      <div class="tutor-calendar-section">
-        <div class="week-row" ng-repeat="row in weekRows" id="week-row-{{ HOURS[$index] }}">
-          <table>
-            <tbody>
-            <tr>
-              <td class="week-day-config"><span ng-hide="$index%2">{{ HOURS[$index] }}</span>&nbsp;</td>
-              <td class="week-day-config" ng-class="[halfHour.appointment.status.class, halfHour.specificAvailabilityClass]" ng-repeat="halfHour in row.halfHours" ng-click="toggleSpecificAvailability(halfHour)">
-              </td>
-            </tr>
-            </tbody>
-          </table>
+      <div class="calendar-body-container">
+        <div class="calendar-body">
+          <div class="week-row" ng-repeat="row in weekRows" id="week-row-{{ HOURS[$index] }}">
+            <table>
+              <tbody>
+              <tr>
+                <td class="week-day-config"><span ng-hide="$index%2">{{ HOURS[$index] }}</span>&nbsp;</td>
+                <td class="week-day-config" ng-class="[halfHour.appointment.status.class, halfHour.specificAvailabilityClass]" ng-repeat="halfHour in row.halfHours" ng-click="toggleSpecificAvailability(halfHour)">
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

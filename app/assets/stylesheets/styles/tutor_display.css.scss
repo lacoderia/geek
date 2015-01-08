@@ -29,8 +29,12 @@
 .calendar{
   .tutor-calendar-section{
     height: 480px !important;
-    overflow: auto;
-    padding-top: 52px;
+    overflow: hidden;
+
+    .calendar-body-container{
+      height: 379px;
+      overflow: auto;
+    }
 
     .tutor-calendar-hours{
       height: 100%;
