@@ -31,6 +31,8 @@ Geek.controller('MyTutorsController',['$scope','$rootScope','$compile', '$timeou
                 if(data){
                     $scope.tutorList = data;
 
+                    $scope.tutorList[0].has_evaluation = false;
+
                     usSpinnerService.stop('my-tutors-spinner');
                 }
 
@@ -52,16 +54,34 @@ Geek.controller('MyTutorsController',['$scope','$rootScope','$compile', '$timeou
             'description': tutorReview.comment
         };
 
-        ReviewsService.sendReview(review).then(
-            function(data){
-                if(data.student_id) {
-                    tutor.has_evaluation = true;
-                    $scope.closeReviewModal();
+        if(review.grade_knowledge && review.grade_communication && review.grade_presentation && review.description) {
+
+            $timeout(function(){
+                usSpinnerService.spin('review-modal-spinner');
+            }, 0);
+
+            ReviewsService.sendReview(review).then(
+                function(data){
+                    if(data.student_id) {
+                        tutor.has_evaluation = true;
+
+                        tutor.evaluation = {
+                            'description': data.description,
+                            'grade_communication': data.grade_communication,
+                            'grade_knowledge': data.grade_knowledge,
+                            'grade_presentation': data.grade_presentation,
+                            'timestamp': data.created_at
+                        }
+
+                        usSpinnerService.stop('review-modal-spinner');
+                        $scope.closeReviewModal();
+                    }
+                },
+                function(response){
                 }
-            },
-            function(response){
-            }
-        );
+            );
+        }
+
     };
 
     // Muestra el detalle de la calificación que se asignó al tutor

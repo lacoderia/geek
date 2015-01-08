@@ -1147,7 +1147,16 @@
 
           .user_picture{
             height: 50px;
+            overflow: hidden;
+            position: relative;
             width: 50px;
+
+            img {
+              position: absolute;
+              left: 50%;
+              top: 50%;
+              transform: translateY(-50%) translateX(-50%);
+            }
           }
         }
 
