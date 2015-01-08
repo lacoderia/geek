@@ -235,30 +235,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
             .state('dashboard', {
                 url: "/dashboard",
                 templateUrl: "/assets/student/partial_dashboard_layout.html",
-                controller: 'RootController',
-                resolve: {
-                    isAuthenticated: function($state, AuthService, SessionService){
-                        if(AuthService.isAuthenticated()){
-                            $state.go('dashboard.resume');
-                        }else{
-                            AuthService.getSession().then(
-                                function(data){
-                                    if(data && data.id){
-                                        SessionService.createSession(data.id, data.email, data.first_name, data.last_name, data.gender, data.phone_number, data.picture_url, data.has_card);
-                                        $state.go('dashboard.resume');
-
-                                    }else{
-                                        $state.go('student');
-                                    }
-                                },
-                                function(response){
-                                    console.log('Error getting tutor\'s request status: ' + response);
-                                    $state.go('home');
-                                }
-                            )
-                        }
-                    }
-                }
+                controller: 'RootController'
             })
             .state('dashboard.faq', {
                 url: "/faq",

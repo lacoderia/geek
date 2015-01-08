@@ -1,12 +1,12 @@
 'use strict';
 
-Geek.controller('ReviewsController',['$scope','$rootScope', '$timeout', 'ReviewsService', 'usSpinnerService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $timeout, ReviewsService, usSpinnerService, DEFAULT_VALUES){
+Geek.controller('ReviewsController',['$scope','$rootScope', '$timeout', 'AuthService', 'SessionService', 'ReviewsService', 'usSpinnerService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $timeout, AuthService, SessionService, ReviewsService, usSpinnerService, DEFAULT_VALUES){
 
     $scope.reviews = undefined;
 
     // Inicializamos los broadcasts y listeners del controlador
-    $scope.$watch('tutorProfileLoaded', function(){
-        if($rootScope.tutorProfileLoaded){
+    $scope.$watch('sessionLoaded', function(){
+        if(AuthService.isAuthenticated() && $rootScope.sessionLoaded){
             $scope.getReviews();
         }
     });
@@ -18,7 +18,7 @@ Geek.controller('ReviewsController',['$scope','$rootScope', '$timeout', 'Reviews
             usSpinnerService.spin('reviews-spinner');
         }, 0);
 
-        ReviewsService.getReviews($rootScope.tutor.id).then(
+        ReviewsService.getReviews(SessionService.getId()).then(
             function(data){
                 if(data){
                     $scope.reviews = data;

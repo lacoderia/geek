@@ -1,6 +1,8 @@
 'use strict';
 
-Geek.factory('AuthService', ['$http', '$q', 'SessionService', 'DEFAULT_VALUES', function($http, $q, SessionService, DEFAULT_VALUES){
+Geek.factory('AuthService', ['$http', '$q', '$rootScope', '$timeout', 'SessionService', 'DEFAULT_VALUES', function($http, $q, $rootScope, $timeout, SessionService, DEFAULT_VALUES){
+
+    $rootScope.sessionLoaded = false;
 
     var getSessionStatus = function(){
         var deferred = $q.defer();
@@ -25,6 +27,7 @@ Geek.factory('AuthService', ['$http', '$q', 'SessionService', 'DEFAULT_VALUES', 
         $http.get(DEFAULT_VALUES.URL_SERVICES.PROFILE_GET_PROFILE_URL).
             success(function(data){
                 deferred.resolve(data);
+                $rootScope.sessionLoaded = true;
             }).
 
             error(function(response){

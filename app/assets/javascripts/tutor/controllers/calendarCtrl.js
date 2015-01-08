@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter', '$timeout', '$translate', '$location', '$anchorScroll', 'AppointmentService', 'AvailabilityService', 'MessageService', 'usSpinnerService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $compile, $filter, $timeout, $translate, $location, $anchorScroll, AppointmentService, AvailabilityService, MessageService, usSpinnerService, DEFAULT_VALUES){
+Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter', '$timeout', '$translate', '$location', '$anchorScroll', 'AppointmentService', 'AvailabilityService', 'AuthService', 'MessageService', 'SessionService', 'usSpinnerService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $compile, $filter, $timeout, $translate, $location, $anchorScroll, AppointmentService, AvailabilityService, AuthService, MessageService, SessionService, usSpinnerService, DEFAULT_VALUES){
 
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.MONTHS = DEFAULT_VALUES.MONTHS;
@@ -88,9 +88,8 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
     };
 
     // Inicializamos los broadcasts y listeners del controlador
-    $scope.$watch('tutorProfileLoaded', function(){
-        if($rootScope.tutorProfileLoaded){
-            $scope.weekRows = angular.copy($rootScope.weekRows);
+    $scope.$watch('sessionLoaded', function(){
+        if(AuthService.isAuthenticated() && $rootScope.sessionLoaded){
             $scope.getMonthlyCalendar($scope.selectedYear,$scope.selectedMonth);
         }
     });
@@ -258,7 +257,6 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
 
     //Función que borra la disponibilidad de la semana seleccionada previamente
     $scope.resetWeekAvailabilities = function(){
-        console.log('RESET')
         $scope.weekAvailability = [];
         for(var dayIndex=0; dayIndex<$scope.selectedWeek.length; dayIndex++){
             var day = $scope.selectedWeek[dayIndex];
@@ -283,7 +281,6 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
         for(var dayIndex=0; dayIndex<$scope.selectedWeek.length; dayIndex++){
             var day = $scope.selectedWeek[dayIndex];
             if(day.availabilities){
-                console.log(day.availabilities)
                 for(var availabilityIndex=0; availabilityIndex<day.availabilities.length; availabilityIndex++){
                     var availability = day.availabilities[availabilityIndex];
                     var straightHourTime = false;
@@ -435,7 +432,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
         if(appointment && textMessage){
 
             var message = {
-                tutor_id: $rootScope.tutor.id,
+                tutor_id: SessionService.getId(),
                 student_id: appointment.student.id,
                 text: textMessage,
                 from_student: false
@@ -561,121 +558,131 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
     * Obtiene un calendario por mes
     * */
     $scope.getMonthlyCalendar = function(year,month){
-        if(year > $scope.START_YEAR && month >= 0 & month < 12){
-            var firstDay = $scope.getFirstDayOfMonth(year,month);
-            var lastDay = $scope.getDaysInMonth(year,month+1);
-            var lastDayOfLastMonth = 0;
-            var indexDay = 0;
-            var numberDay = 1;
-            var nextDay = 1;
-            var previousMonth = month;
-            var nextMonth = month;
-            var previousYear = year;
-            var nextYear = year;
 
-            if(month > 0){
-                previousMonth = previousMonth-1;
-                lastDayOfLastMonth = $scope.getDaysInMonth(year,previousMonth+1);
+        //Epera hasta que se guardan todas las preferencias del calendario del tutor
+        $scope.$watch('tutorProfileLoaded', function(){
+            if($rootScope.tutorProfileLoaded){
 
-                if(month < 11){
-                    nextMonth = nextMonth+1;
-                }else{
-                    nextMonth = 0;
-                    nextYear = nextYear+1;
-                }
-            }else{
-                nextMonth = month+1;
-                previousYear = year-1;
-                previousMonth = 11;
-                lastDayOfLastMonth = $scope.getDaysInMonth(previousYear,12);
+                $scope.weekRows = angular.copy($rootScope.weekRows);
 
-            }
+                if(year > $scope.START_YEAR && month >= 0 & month < 12){
+                    var firstDay = $scope.getFirstDayOfMonth(year,month);
+                    var lastDay = $scope.getDaysInMonth(year,month+1);
+                    var lastDayOfLastMonth = 0;
+                    var indexDay = 0;
+                    var numberDay = 1;
+                    var nextDay = 1;
+                    var previousMonth = month;
+                    var nextMonth = month;
+                    var previousYear = year;
+                    var nextYear = year;
 
-            for(var rowIndex=0; rowIndex<$scope.TOTAL_CALENDAR_ROWS; rowIndex++){
-                $scope.calendarRows[rowIndex] = {
-                    'week': rowIndex,
-                    'days': []
-                };
-                for(var dayIndex=0; dayIndex<$scope.DAYS.length; dayIndex++){
-                    var day = {};
-                    var isCurrentMonth = true;
-                    if(indexDay >= firstDay && numberDay <= lastDay){
+                    if(month > 0){
+                        previousMonth = previousMonth-1;
+                        lastDayOfLastMonth = $scope.getDaysInMonth(year,previousMonth+1);
 
-                        day = {
-                            'date': new Date(year,month,numberDay),
-                            'day': new Date(year,month,numberDay).getDay(),
-                            'numberDay': numberDay,
-                            'isCurrentDay': $scope.isCurrentDay(year,month,numberDay),
-                            'dayClass': 'current-month',
-                            'month': month,
-                            'isCurrentMonth': isCurrentMonth,
-                            'year': year,
-                            'week_number': rowIndex,
-                            'selected': false,
-                            'appointments': [],
-                            'availabilities' : []
-                        };
-
-
-                        if(day.isCurrentDay){
-                            day.dayClass = 'current-day';
-                            if(!$scope.selectedDate || $scope.isSelectedDay(day)){
-                                $scope.setCurrentDate(day);
-                            }
-
-                        }else if($scope.selectedDate){
-                            if($scope.isSelectedDay(day) && month == $scope.selectedDate.month){
-                                $scope.setCurrentDate(day);
-                            }else{
-                                if(day.numberDay == 1){
-                                    $scope.setCurrentDate(day);
-                                }
-                            }
+                        if(month < 11){
+                            nextMonth = nextMonth+1;
+                        }else{
+                            nextMonth = 0;
+                            nextYear = nextYear+1;
                         }
-
-                        numberDay++;
-
-                    }else if(indexDay < firstDay){
-
-                        day = {
-                            'date': new Date(previousYear,previousMonth,(lastDayOfLastMonth - (firstDay-1) + dayIndex)),
-                            'day': new Date(previousYear,previousMonth,(lastDayOfLastMonth - (firstDay-1) + dayIndex)).getDay(),
-                            'numberDay': lastDayOfLastMonth - (firstDay-1) + dayIndex,
-                            'isCurrentDay': false,
-                            'dayClass': 'not-current-month',
-                            'month': previousMonth,
-                            'isCurrentMonth': false,
-                            'year': previousYear,
-                            'week_number': rowIndex,
-                            'selected': false,
-                            'appointments': [],
-                            'availabilities' : []
-                        };
                     }else{
-                        day = {
-                            'date': new Date(nextYear,nextMonth,nextDay),
-                            'day': new Date(nextYear,nextMonth,nextDay).getDay(),
-                            'numberDay': nextDay,
-                            'isCurrentDay': false,
-                            'dayClass': 'not-current-month',
-                            'month': nextMonth,
-                            'isCurrentMonth': false,
-                            'year': nextYear,
-                            'week_number': rowIndex,
-                            'selected': false,
-                            'appointments': [],
-                            'availabilities' : []
-                        };
-                        nextDay++;
+                        nextMonth = month+1;
+                        previousYear = year-1;
+                        previousMonth = 11;
+                        lastDayOfLastMonth = $scope.getDaysInMonth(previousYear,12);
+
                     }
-                    $scope.calendarRows[rowIndex].days[dayIndex] = day;
-                    indexDay++;
+
+                    for(var rowIndex=0; rowIndex<$scope.TOTAL_CALENDAR_ROWS; rowIndex++){
+                        $scope.calendarRows[rowIndex] = {
+                            'week': rowIndex,
+                            'days': []
+                        };
+                        for(var dayIndex=0; dayIndex<$scope.DAYS.length; dayIndex++){
+                            var day = {};
+                            var isCurrentMonth = true;
+                            if(indexDay >= firstDay && numberDay <= lastDay){
+
+                                day = {
+                                    'date': new Date(year,month,numberDay),
+                                    'day': new Date(year,month,numberDay).getDay(),
+                                    'numberDay': numberDay,
+                                    'isCurrentDay': $scope.isCurrentDay(year,month,numberDay),
+                                    'dayClass': 'current-month',
+                                    'month': month,
+                                    'isCurrentMonth': isCurrentMonth,
+                                    'year': year,
+                                    'week_number': rowIndex,
+                                    'selected': false,
+                                    'appointments': [],
+                                    'availabilities' : []
+                                };
+
+
+                                if(day.isCurrentDay){
+                                    day.dayClass = 'current-day';
+                                    if(!$scope.selectedDate || $scope.isSelectedDay(day)){
+                                        $scope.setCurrentDate(day);
+                                    }
+
+                                }else if($scope.selectedDate){
+                                    if($scope.isSelectedDay(day) && month == $scope.selectedDate.month){
+                                        $scope.setCurrentDate(day);
+                                    }else{
+                                        if(day.numberDay == 1){
+                                            $scope.setCurrentDate(day);
+                                        }
+                                    }
+                                }
+
+                                numberDay++;
+
+                            }else if(indexDay < firstDay){
+
+                                day = {
+                                    'date': new Date(previousYear,previousMonth,(lastDayOfLastMonth - (firstDay-1) + dayIndex)),
+                                    'day': new Date(previousYear,previousMonth,(lastDayOfLastMonth - (firstDay-1) + dayIndex)).getDay(),
+                                    'numberDay': lastDayOfLastMonth - (firstDay-1) + dayIndex,
+                                    'isCurrentDay': false,
+                                    'dayClass': 'not-current-month',
+                                    'month': previousMonth,
+                                    'isCurrentMonth': false,
+                                    'year': previousYear,
+                                    'week_number': rowIndex,
+                                    'selected': false,
+                                    'appointments': [],
+                                    'availabilities' : []
+                                };
+                            }else{
+                                day = {
+                                    'date': new Date(nextYear,nextMonth,nextDay),
+                                    'day': new Date(nextYear,nextMonth,nextDay).getDay(),
+                                    'numberDay': nextDay,
+                                    'isCurrentDay': false,
+                                    'dayClass': 'not-current-month',
+                                    'month': nextMonth,
+                                    'isCurrentMonth': false,
+                                    'year': nextYear,
+                                    'week_number': rowIndex,
+                                    'selected': false,
+                                    'appointments': [],
+                                    'availabilities' : []
+                                };
+                                nextDay++;
+                            }
+                            $scope.calendarRows[rowIndex].days[dayIndex] = day;
+                            indexDay++;
+                        }
+                    }
+                    $scope.getWeekByDay($scope.selectedDate);
+                    $scope.getWeeklyAppointmentList();
+
                 }
             }
-            $scope.getWeekByDay($scope.selectedDate);
-            $scope.getWeeklyAppointmentList();
+        });
 
-        }
     };
 
     // Método que asigna la disponiblidad de los días de un mes
@@ -831,7 +838,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
 
         // Objeto que será enviado al servicio que actualiza el calendario de disponibilidad específica del tutor
         var weekCalendar = {
-            'id': $rootScope.tutor.id,
+            'id': SessionService.getId(),
             'specific_availabilities': []
         };
 
@@ -942,7 +949,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
             usSpinnerService.spin('week-calendar-spinner');
         }, 0);
 
-        AvailabilityService.submitSpecificAvailability($rootScope.tutor.id, params).then(
+        AvailabilityService.submitSpecificAvailability(SessionService.getId(), params).then(
             function(data){
                 $scope.calendarAlertMessagesParams = {
                     type: 'success',

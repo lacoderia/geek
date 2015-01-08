@@ -4,12 +4,13 @@ Geek.factory('SessionService', [function(){
 
     var session = {
         id: undefined,
+        balanceInfo: undefined,
         email: undefined,
-        firstName: undefined,
-        lastName: undefined,
+        first_name: undefined,
+        last_name: undefined,
         gender: undefined,
         phone_number: undefined,
-        details: undefined,
+        picture: undefined,
         picture_url: undefined,
         preference: undefined,
         references: undefined,
@@ -17,19 +18,20 @@ Geek.factory('SessionService', [function(){
         studies: undefined,
         topics: undefined,
         zones: undefined
+
     };
 
-    var createSession = function(id, email, firstName, lastName, gender, phoneNumber, details, pictureUrl, preference, references, request, studies, topics, zones){
-
+    var createSession = function(id,balanceInfo,email,first_name,last_name,gender,phone_number,picture,picture_url,preference,references,request,studies,topics,zones){
         session = {
             id: id,
+            balanceInfo: balanceInfo,
             email: email,
-            first_name: firstName,
-            last_name: lastName,
+            first_name: first_name,
+            last_name: last_name,
             gender: gender,
-            phone_number: phoneNumber,
-            details: details,
-            picture_url: pictureUrl,
+            phone_number: phone_number,
+            picture: picture,
+            picture_url: picture_url,
             preference: preference,
             references: references,
             request: request,
@@ -87,20 +89,36 @@ Geek.factory('SessionService', [function(){
         session.phone_number = phoneNumber;
     };
 
-    var getDetails = function(){
-        return session.details;
-    }
+    var getPicture = function(){
+        return session.picture;
+    };
 
-    var setDetails = function(details){
-      session.details =  details;
+    var setPicture = function(picture){
+        session.picture = picture;
     };
 
     var getPictureUrl = function(){
         return session.picture_url;
-    }
+    };
 
     var setPictureUrl = function(pictureUrl){
-        session.picture_url =  pictureUrl;
+        session.picture_url = pictureUrl;
+    };
+
+    var getTopics = function(){
+        return session.topics;
+    };
+
+    var setTopics = function(topics){
+        session.topics = topics;
+    };
+
+    var getBalanceInfo = function(){
+        return session.balanceInfo;
+    };
+
+    var setBalanceInfo = function(balanceInfo){
+        session.balanceInfo = balanceInfo;
     };
 
     var getPreference = function(){
@@ -135,14 +153,6 @@ Geek.factory('SessionService', [function(){
         session.studies = studies;
     };
 
-    var getTopics = function(){
-        return session.topics;
-    };
-
-    var setTopics = function(topics){
-        session.topics = topics;
-    };
-
     var getZones = function(){
         return session.zones;
     };
@@ -156,9 +166,8 @@ Geek.factory('SessionService', [function(){
     };
 
     var getSession = function(){
-      return session;
+        return session;
     };
-
 
     return {
         getSession: getSession,
@@ -176,10 +185,14 @@ Geek.factory('SessionService', [function(){
         setGender: setGender,
         getPhoneNumber: getPhoneNumber,
         setPhoneNumber: setPhoneNumber,
-        getDetails: getDetails,
-        setDetails: setDetails,
+        getPicture: getPicture,
+        setPicture: setPicture,
         getPictureUrl: getPictureUrl,
         setPictureUrl: setPictureUrl,
+        getTopics: getTopics,
+        setTopics: setTopics,
+        getBalanceInfo: getBalanceInfo,
+        setBalanceInfo: setBalanceInfo,
         getPreference: getPreference,
         setPreference: setPreference,
         getReferences: getReferences,
@@ -188,8 +201,6 @@ Geek.factory('SessionService', [function(){
         setRequest: setRequest,
         getStudies: getStudies,
         setStudies: setStudies,
-        getTopics: getTopics,
-        setTopics: setTopics,
         getZones: getZones,
         setZones: setZones
     }

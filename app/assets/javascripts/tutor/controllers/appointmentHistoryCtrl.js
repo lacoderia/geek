@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('AppointmentHistoryController',['$scope','$rootScope', '$timeout', 'AppointmentService', 'AnomalyService', 'MessageService', 'usSpinnerService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $timeout, AppointmentService, AnomalyService, MessageService, usSpinnerService, DEFAULT_VALUES){
+Geek.controller('AppointmentHistoryController',['$scope','$rootScope', '$timeout', 'AppointmentService', 'AnomalyService', 'AuthService', 'SessionService', 'MessageService', 'usSpinnerService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $timeout, AppointmentService, AnomalyService, AuthService, SessionService, MessageService, usSpinnerService, DEFAULT_VALUES){
 
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.MONTHS = DEFAULT_VALUES.MONTHS;
@@ -66,6 +66,13 @@ Geek.controller('AppointmentHistoryController',['$scope','$rootScope', '$timeout
             'report-anomaly' : true
         }
     };
+
+    // Inicializamos los broadcasts y listeners del controlador
+    $scope.$watch('sessionLoaded', function(){
+        if(AuthService.isAuthenticated() && $rootScope.sessionLoaded){
+            $scope.getPastAppointmentList();
+        }
+    });
 
     $scope.showAnomalyDetail = function($event, appointment){
         $event.stopPropagation();
@@ -238,7 +245,7 @@ Geek.controller('AppointmentHistoryController',['$scope','$rootScope', '$timeout
             }, 0);
 
             var message = {
-                tutor_id: $rootScope.tutor.id,
+                tutor_id: SessionService.getId(),
                 student_id: appointment.student.id,
                 text: textMessage,
                 from_student: false
@@ -328,7 +335,5 @@ Geek.controller('AppointmentHistoryController',['$scope','$rootScope', '$timeout
 
         return $scope.STATUS_BUTTONS_RELATION[appointment.status.code][action] && actionAvailable;
     };
-
-    $scope.getPastAppointmentList();
 
 }]);
