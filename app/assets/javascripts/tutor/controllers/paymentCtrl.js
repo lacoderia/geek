@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('PaymentController',['$scope','$rootScope', '$timeout', '$location', '$anchorScroll', '$filter', 'PaymentService', 'usSpinnerService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $timeout, $location, $anchorScroll, $filter, PaymentService, usSpinnerService, DEFAULT_VALUES){
+Geek.controller('PaymentController',['$scope','$rootScope', '$timeout', '$location', '$anchorScroll', '$filter', 'AuthService', 'SessionService', 'PaymentService', 'usSpinnerService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $timeout, $location, $anchorScroll, $filter, AuthService, SessionService, PaymentService, usSpinnerService, DEFAULT_VALUES){
 
     $scope.MONTHS = DEFAULT_VALUES.MONTHS;
     $scope.PAYMENT_METHODS = DEFAULT_VALUES.PAYMENT_METHODS;
@@ -30,8 +30,8 @@ Geek.controller('PaymentController',['$scope','$rootScope', '$timeout', '$locati
     $scope.clabe = '';
 
     // Inicializamos los broadcasts y listeners del controlador
-    $scope.$watch('tutorProfileLoaded', function(){
-        if($rootScope.tutorProfileLoaded){
+    $scope.$watch('sessionLoaded', function(){
+        if(AuthService.isAuthenticated() && $rootScope.sessionLoaded){
             $scope.getPaymentMethodsList();
         }
     });
@@ -42,7 +42,7 @@ Geek.controller('PaymentController',['$scope','$rootScope', '$timeout', '$locati
             usSpinnerService.spin('payments-spinner');
         }, 0);
 
-        PaymentService.getPaymentMethodsList($rootScope.tutor.id).then(
+        PaymentService.getPaymentMethodsList(SessionService.getId()).then(
             function(data){
                 $scope.paymentMethodsList = data;
                 angular.forEach($scope.paymentMethodsList, function(payment){
@@ -196,7 +196,7 @@ Geek.controller('PaymentController',['$scope','$rootScope', '$timeout', '$locati
                 function(data){
 
                     var cardData = {
-                        'tutor_id': $rootScope.tutor.id,
+                        'tutor_id': SessionService.getId(),
                         'token': data.data.id
                     }
 
@@ -262,7 +262,7 @@ Geek.controller('PaymentController',['$scope','$rootScope', '$timeout', '$locati
 
         if ($scope.tutorPaymentOptionsBankForm.$valid) {
             var bankAccount = {
-                "tutor_id": $rootScope.tutor.id,
+                "tutor_id": SessionService.getId(),
                 "clabe": $scope.clabe,
                 "holder_name": $scope.bankAccountOwner
             };

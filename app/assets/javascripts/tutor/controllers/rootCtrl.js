@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state", "$translate", "$filter", "MessageService", "BalanceService", "DEFAULT_VALUES", "CategoryService", "ProfileService", "SessionService", function($scope, $rootScope, $timeout, $state, $translate, $filter, MessageService, BalanceService, DEFAULT_VALUES, CategoryService, ProfileService, SessionService){
+Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state", "$translate", "$filter", "MessageService", "BalanceService", "AuthService", "DEFAULT_VALUES", "CategoryService", "ProfileService", "SessionService", function($scope, $rootScope, $timeout, $state, $translate, $filter, MessageService, BalanceService, AuthService, DEFAULT_VALUES, CategoryService, ProfileService, SessionService){
 
     // Objeto que tiene los datos del perfil del tutor
     $rootScope.tutor = {};

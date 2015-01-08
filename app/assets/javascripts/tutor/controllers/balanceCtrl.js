@@ -1,13 +1,13 @@
 'use strict';
 
-Geek.controller('BalanceController',['$scope','$rootScope', '$timeout', '$filter', '$location', '$anchorScroll', 'BalanceService', 'usSpinnerService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $timeout, $filter, $location, $anchorScroll, BalanceService, usSpinnerService, DEFAULT_VALUES){
+Geek.controller('BalanceController',['$scope','$rootScope', '$timeout', '$filter', '$location', '$anchorScroll', 'AuthService', 'SessionService', 'BalanceService', 'usSpinnerService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $timeout, $filter, $location, $anchorScroll, AuthService, SessionService, BalanceService, usSpinnerService, DEFAULT_VALUES){
 
     $scope.tutorBalanceAlertParams = undefined;
     $scope.confirmTransferView = false;
 
     // Inicializamos los broadcasts y listeners del controlador
-    $scope.$watch('tutorProfileLoaded', function(){
-        if($rootScope.tutorProfileLoaded){
+    $scope.$watch('sessionLoaded', function(){
+        if(AuthService.isAuthenticated() && $rootScope.sessionLoaded){
             $scope.getBalance();
         }
     });
@@ -20,7 +20,7 @@ Geek.controller('BalanceController',['$scope','$rootScope', '$timeout', '$filter
 
         BalanceService.getBalance().then(
             function(data){
-                $rootScope.tutor.balanceInfo = data;
+                SessionService.setBalanceInfo(data);
                 $scope.tutorBalanceAlertParams = undefined;
                 usSpinnerService.stop('transfer-spinner');
                 $scope.confirmTransferView = false;
