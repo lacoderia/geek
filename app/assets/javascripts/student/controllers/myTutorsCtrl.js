@@ -30,17 +30,15 @@ Geek.controller('MyTutorsController',['$scope','$rootScope','$compile', '$timeou
             function(data){
                 if(data){
                     $scope.tutorList = data;
-
-                    $scope.tutorList[0].has_evaluation = false;
-
-                    usSpinnerService.stop('my-tutors-spinner');
                 }
 
             },
             function (response){
                 console.log('Error retrieving the appointments: ' + response);
             }
-        );
+        ).finally(function(){
+                usSpinnerService.stop('my-tutors-spinner');
+        });
     };
 
     $scope.sendReview = function(tutor, tutorReview) {
