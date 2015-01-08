@@ -83,7 +83,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
             'reject' : false,
             'send-message' : true,
             'review' : true,
-            'report-anomaly' : true
+            'report-anomaly' : false
         }
     };
 
@@ -427,6 +427,11 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
     };
 
     $scope.sendMessage = function(appointment, textMessage){
+
+        $timeout(function(){
+            usSpinnerService.spin('message-modal-spinner');
+        }, 0);
+
         if(appointment && textMessage){
 
             var message = {
@@ -450,6 +455,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
                         };
                         $scope.setAlert($scope.messageAlertMessagesParams);
                     }
+                    usSpinnerService.stop('message-modal-spinner');
                 },
                 function(response){
                     $scope.messageAlertMessagesParams = {
@@ -458,6 +464,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
                         icon: true
                     };
                     $scope.setAlert($scope.messageAlertMessagesParams);
+                    usSpinnerService.stop('message-modal-spinner');
                     console.log('Error saving a message: ' + response);
                 }
             );

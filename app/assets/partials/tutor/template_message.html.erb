@@ -1,4 +1,5 @@
 <div ng-class="[DEFAULT_CLASS, detailArrowClass]" ng-style="modalStyle" ng-show="selectedAppointmentMessage">
+  <span us-spinner spinner-key="message-modal-spinner"></span>
   <span class="icon-close modal-detail-close" ng-click="closeMessage()"></span>
   <div class="modal-detail-header" translate="POPUP_MESSAGE_SEND"></div>
   <div class="modal-detail-content">

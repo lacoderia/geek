@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeout", "$location", "$anchorScroll", "DEFAULT_VALUES", "CategoryService", "CountyService", "ProfileService", function($scope, $rootScope, $filter, $timeout, $location, $anchorScroll, DEFAULT_VALUES, CategoryService, CountyService, ProfileService){
+Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeout", "$location", "$anchorScroll", "CategoryService", "CountyService", "ProfileService", "usSpinnerService", "DEFAULT_VALUES", function($scope, $rootScope, $filter, $timeout, $location, $anchorScroll, CategoryService, CountyService, ProfileService, usSpinnerService, DEFAULT_VALUES){
 
     //Categories catalog
     $scope.parentCategories = [];
@@ -174,6 +174,10 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
                 'picture': $rootScope.tutor.picture
             }
 
+            $timeout(function(){
+                usSpinnerService.spin('profile-spinner');
+            }, 0);
+
             ProfileService.submitRequest(tutor).then(
                 function(data){
                     if(data && data.id) {
@@ -184,8 +188,9 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
                             message: $filter('translate')('SUCCESS_TUTOR_PROFILE_REQUEST'),
                             icon: true
                         };
-
                     }
+
+                    usSpinnerService.stop('profile-spinner');
                 },
                 function(response){
                     $scope.tutorRequestAlertParams = {
@@ -193,6 +198,8 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
                         message: $filter('translate')('ERROR_TUTOR_PROFILE_UPDATE'),
                         icon: true
                     };
+
+                    usSpinnerService.stop('profile-spinner');
 
                     console.log('Error getting tutor\'s request status: ' + response);
                 }
@@ -275,6 +282,11 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
 
         $scope.updatedCalendar = false;
         if (validCalendar) {
+
+            $timeout(function(){
+                usSpinnerService.spin('profile-spinner');
+            }, 0);
+
             ProfileService.submitWeekCalendar(weekCalendar).then(
                 function(data){
                     if(data) {
@@ -287,6 +299,8 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
                         $scope.calendarErrorClass = '';
                         $scope.calendarAlertMessagesParams = undefined;
                     }
+
+                    usSpinnerService.stop('profile-spinner');
                 },
                 function(response){
                     $scope.tutorProfileAlertParams = {
@@ -295,6 +309,9 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
                         icon: true
                     };
                     $scope.calendarErrorClass = 'border-error';
+
+                    usSpinnerService.stop('profile-spinner');
+
                     console.log('Error getting tutor\'s request status: ' + response);
                 }
             );
@@ -331,6 +348,10 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
                 'picture': $rootScope.tutor.picture
             }
 
+            $timeout(function(){
+                usSpinnerService.spin('profile-spinner');
+            }, 0);
+
             ProfileService.submitProfile(tutor).then(
                 function(data){
                     if(data && data.id && $scope.updatedCalendar) {
@@ -343,6 +364,8 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
                         };
 
                     }
+
+                    usSpinnerService.stop('profile-spinner');
                 },
                 function(response){
                     $scope.tutorProfileAlertParams = {
@@ -350,6 +373,8 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
                         message: $filter('translate')('ERROR_TUTOR_PROFILE_UPDATE'),
                         icon: true
                     };
+
+                    usSpinnerService.stop('profile-spinner');
 
                     console.log('Error getting tutor\'s request status: ' + response);
                 }
@@ -388,6 +413,10 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
             var image = imageContainer.find('img');
             image.hide();
 
+            $timeout(function(){
+                usSpinnerService.spin('profile-picture-spinner');
+            }, 0);
+
             $('<img/>')
                 .attr("src", $rootScope.tutor.picture_url)
                 .load(function() {
@@ -407,10 +436,16 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
 
                     image.show();
 
+                    $timeout(function() {
+                        usSpinnerService.stop('profile-picture-spinner');
+                    }, 0);
                 })
                 .error(function() {
-
+                    $timeout(function() {
+                        usSpinnerService.stop('profile-picture-spinner');
+                    }, 0);
                 });
+
         }
 
     });
