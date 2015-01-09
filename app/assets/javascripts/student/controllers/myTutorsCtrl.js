@@ -52,7 +52,7 @@ Geek.controller('MyTutorsController',['$scope','$rootScope','$compile', '$timeou
             'description': tutorReview.comment
         };
 
-        if(review.grade_knowledge && review.grade_communication && review.grade_presentation && review.description) {
+        if(review.grade_knowledge && review.grade_communication && review.grade_presentation) {
 
             $timeout(function(){
                 usSpinnerService.spin('review-modal-spinner');
