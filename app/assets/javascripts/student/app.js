@@ -597,18 +597,20 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                 }
 
                 var autocomplete = new google.maps.places.Autocomplete(element[0], options);
+                var place = undefined;
 
                 element[0].addEventListener('keyup', function(){
-                  if(element[0].value === ''){
-                    scope.onPlaceChange(null);
-                  }
+                    if(!scope.ngModel){
+                        place = undefined;
+                        scope.onPlaceChange(place)
+                    }
                 });
 
                 google.maps.event.addListener(autocomplete, 'place_changed', function(){
 
                     scope.$apply(function() {
 
-                        var place = autocomplete.getPlace();
+                        place = autocomplete.getPlace();
                         model.$setViewValue(element.val());
                         scope.onPlaceChange(place);
                     });
