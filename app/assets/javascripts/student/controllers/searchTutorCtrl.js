@@ -12,7 +12,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
     $scope.tutorsPerPage = 10;
 
     $scope.pagination = {
-      current: 1
+        current: 1
     };
 
     $scope.pageChanged = function(newPage) {
@@ -48,41 +48,40 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
 
     $scope.onPlaceChanged = function(place){
 
-      if(place){
+        if(place){
 
-        $scope.components_address = {
-            'neighborhood': undefined,
-            'locality': undefined,
-            'sublocality': undefined,
-            'postal_code': undefined
-        };
+            $scope.components_address = {
+                'neighborhood': undefined,
+                'locality': undefined,
+                'sublocality': undefined,
+                'postal_code': undefined
+            };
 
+            for(var componentIndex=0; componentIndex<place.address_components.length; componentIndex++){
+                var addressComponent = place.address_components[componentIndex];
+                for(var typeIndex=0; typeIndex<addressComponent.types.length; typeIndex++){
+                    var type = addressComponent.types[typeIndex];
 
-        for(var componentIndex=0; componentIndex<place.address_components.length; componentIndex++){
-            var addressComponent = place.address_components[componentIndex];
-            for(var typeIndex=0; typeIndex<addressComponent.types.length; typeIndex++){
-                var type = addressComponent.types[typeIndex];
-
-                switch (type){
-                    case 'neighborhood':
-                        $scope.components_address.neighborhood = addressComponent.long_name;
-                        break;
-                    case 'locality':
-                        $scope.components_address.locality = addressComponent.long_name;
-                        break;
-                    case 'sublocality':
-                        $scope.components_address.sublocality = addressComponent.long_name;
-                        break;
-                    case 'postal_code':
-                        $scope.components_address.postal_code = addressComponent.postal_code;
-                        break;
+                    switch (type){
+                        case 'neighborhood':
+                            $scope.components_address.neighborhood = addressComponent.long_name;
+                            break;
+                        case 'locality':
+                            $scope.components_address.locality = addressComponent.long_name;
+                            break;
+                        case 'sublocality':
+                            $scope.components_address.sublocality = addressComponent.long_name;
+                            break;
+                        case 'postal_code':
+                            $scope.components_address.postal_code = addressComponent.postal_code;
+                            break;
+                    }
                 }
             }
+        } else {
+            $scope.components_address = undefined;
         }
-      } else {
-        $scope.components_address = undefined;
-      }
-      
+
     };
 
     $scope.getTutorCostRange = function(tutor){
