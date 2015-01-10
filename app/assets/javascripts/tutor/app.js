@@ -190,7 +190,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
                                     SessionService.createSession(data.id, data.email, data.first_name, data.last_name, data.gender, data.phone_number, data.details, data.picture, data.picture_url, data.preference, data.references, data.request, data.studies, data.topics, data.zones);
                                     $state.go('dashboard.resume');
                                 }else{
-                                    $state.go('tutor.landing');
+                                    return true;
                                 }
                             },
                             function(response){
