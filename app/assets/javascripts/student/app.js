@@ -192,7 +192,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                                         $state.go('dashboard.resume');
 
                                     }else{
-                                        return true;
+                                        $state.go('student.landing');
                                     }
                                 },
                                 function(response){
@@ -204,57 +204,62 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                     }
                 }
             })
+            .state('student.landing',{
+                url: "/landing",
+                templateUrl: "/assets/student/partial_common_landing.html"
+            })
+            .state('student.faq', {
+                url: "/faq",
+                templateUrl: "/assets/student/partial_common_faq.html",
+            })
+            .state('student.about-us', {
+                url: "/about-us",
+                templateUrl: "/assets/student/partial_common_about_us.html",
+            })
+            .state('student.contact', {
+                url: "/contact",
+                templateUrl: "/assets/student/partial_common_contact.html",
+            })
+            .state('student.help', {
+                url: "/help",
+                templateUrl: "/assets/student/partial_common_help.html",
+            })
+            .state('student.terms', {
+                url: "/terms",
+                templateUrl: "/assets/student/partial_common_terms.html",
+            })
+            .state('student.privacy', {
+                url: "/privacy",
+                templateUrl: "/assets/student/partial_common_privacy.html",
+            })
             .state('dashboard', {
                 url: "/dashboard",
                 templateUrl: "/assets/student/partial_dashboard_layout.html",
-                controller: 'RootController',
-                resolve: {
-                    isAuthenticated: function($state, AuthService, SessionService){
-                        if(AuthService.isAuthenticated()){
-                            $state.go('dashboard.resume');
-                        }else{
-                            AuthService.getSession().then(
-                                function(data){
-                                    if(data && data.id){
-                                        SessionService.createSession(data.id, data.email, data.first_name, data.last_name, data.gender, data.phone_number, data.picture_url, data.has_card);
-                                        $state.go('dashboard.resume');
-
-                                    }else{
-                                        $state.go('student');
-                                    }
-                                },
-                                function(response){
-                                    console.log('Error getting tutor\'s request status: ' + response);
-                                    $state.go('home');
-                                }
-                            )
-                        }
-                    }
-                }
+                controller: 'RootController'
             })
             .state('dashboard.faq', {
                 url: "/faq",
-                templateUrl: "/assets/tutor/partial_common_faq.html",
+                templateUrl: "/assets/student/partial_common_faq.html",
             })
             .state('dashboard.about-us', {
                 url: "/about-us",
-                templateUrl: "/assets/tutor/partial_common_about_us.html",
+                templateUrl: "/assets/student/partial_common_about_us.html",
             })
             .state('dashboard.contact', {
                 url: "/contact",
-                templateUrl: "/assets/tutor/partial_common_contact.html",
+                templateUrl: "/assets/student/partial_common_contact.html",
             })
             .state('dashboard.help', {
                 url: "/help",
-                templateUrl: "/assets/tutor/partial_common_help.html",
+                templateUrl: "/assets/student/partial_common_help.html",
             })
             .state('dashboard.terms', {
                 url: "/terms",
-                templateUrl: "/assets/tutor/partial_common_terms.html",
+                templateUrl: "/assets/student/partial_common_terms.html",
             })
             .state('dashboard.privacy', {
                 url: "/privacy",
-                templateUrl: "/assets/tutor/partial_common_privacy.html",
+                templateUrl: "/assets/student/partial_common_privacy.html",
             })
             .state('dashboard.user-blocked', {
                 url: "/user-blocked",
@@ -592,18 +597,20 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                 }
 
                 var autocomplete = new google.maps.places.Autocomplete(element[0], options);
+                var place = undefined;
 
                 element[0].addEventListener('keyup', function(){
-                  if(element[0].value === ''){
-                    scope.onPlaceChange(null);
-                  }
+                    if(!scope.ngModel){
+                        place = undefined;
+                        scope.onPlaceChange(place)
+                    }
                 });
 
                 google.maps.event.addListener(autocomplete, 'place_changed', function(){
 
                     scope.$apply(function() {
 
-                        var place = autocomplete.getPlace();
+                        place = autocomplete.getPlace();
                         model.$setViewValue(element.val());
                         scope.onPlaceChange(place);
                     });

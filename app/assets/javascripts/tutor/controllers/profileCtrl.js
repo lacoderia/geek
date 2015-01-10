@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeout", "$location", "$anchorScroll", "DEFAULT_VALUES", "CategoryService", "CountyService", "ProfileService", function($scope, $rootScope, $filter, $timeout, $location, $anchorScroll, DEFAULT_VALUES, CategoryService, CountyService, ProfileService){
+Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeout", "$location", "$anchorScroll", "AuthService", "SessionService","CategoryService", "CountyService", "ProfileService", "usSpinnerService", "DEFAULT_VALUES", function($scope, $rootScope, $filter, $timeout, $location, $anchorScroll, AuthService, SessionService, CategoryService, CountyService, ProfileService, usSpinnerService, DEFAULT_VALUES){
 
     //Categories catalog
     $scope.parentCategories = [];
@@ -24,23 +24,26 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
     $scope.calendarErrorClass = undefined;
     $scope.zonesAvailable = false;
 
-    $scope.$watch('tutorProfileLoaded', function() {
-        $timeout(function(){
-            $location.hash('week-row-07:30');
-            $anchorScroll();
-            $location.url($location.path());
-            $anchorScroll();
-        }, 0);
+    $scope.$watch('sessionLoaded', function(){
+        if(AuthService.isAuthenticated() && $rootScope.sessionLoaded){
+            $timeout(function(){
+                $location.hash('week-row-07:30');
+                $anchorScroll();
+                $location.url($location.path());
+                $anchorScroll();
+            }, 0);
+
+        }
     });
 
-    $scope.$watch('tutor.preference.classLocation', function(){
-        if($rootScope.tutor.preference){
+    $scope.$watch('SessionService.getPreference().classLocation', function(){
+        if(SessionService.getPreference()){
             $scope.setZonesAvailabilities();
         }
     });
 
     $scope.setZonesAvailabilities = function(){
-        if($rootScope.tutor.preference.classLocation.office || $rootScope.tutor.preference.classLocation.student_place || $rootScope.tutor.preference.classLocation.public){
+        if(SessionService.getPreference().classLocation.office || SessionService.getPreference().classLocation.student_place || SessionService.getPreference().classLocation.public){
             $scope.zonesAvailable = true;
         }else{
             $scope.zonesAvailable = false;
@@ -94,7 +97,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
                 var imageContainer = $(element).parent().find('.profile_picture');
                 var image = imageContainer.find('img');
                 image.attr('src', e.target.result);
-                $rootScope.tutor.picture = e.target.result;
+                SessionService.setPicture(e.target.result);
 
                 var loadedImage = new Image();
                 loadedImage.src = reader.result;
@@ -124,7 +127,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
     //Function that adds a topic to a tutor's information
     $scope.addTutorTopic = function() {
         if ($scope.selectedTopic.name && $scope.selectedTopic.cost && $scope.selectedCategory) {
-            $rootScope.tutor.topics.push({
+            SessionService.getTopics().push({
                 'name' : $scope.selectedTopic.name,
                 'cost' : $scope.selectedTopic.cost,
                 'category_id' : parseInt($scope.selectedCategory.id)
@@ -138,13 +141,13 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
 
     //Function that removes a zone from a tutor's information
     $scope.removeTutorZone = function(index) {
-        $rootScope.tutor.zones.splice(index, 1);
+        SessionService.getZones().splice(index, 1);
     }
 
     //Function that adds a zone to a tutor's information
     $scope.addTutorZone = function() {
         if ($scope.selectedZone) {
-            $rootScope.tutor.zones.push({
+            SessionService.getZones().push({
                 'id': $scope.selectedZone.originalObject.id,
                 'name': $scope.selectedZone.originalObject.name
             });
@@ -153,7 +156,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
 
     //Function that removes a topic from a tutor's information
     $scope.removeTutorTopic = function(index) {
-        $rootScope.tutor.topics.splice(index, 1);
+        SessionService.getTopics().splice(index, 1);
     }
 
     //Function that submits the tutor request for validation
@@ -161,31 +164,36 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
 
         $scope.$broadcast('show-errors-check-validity', $scope.tutorRequestForm);
 
-        if ($scope.tutorRequestForm.$valid && $rootScope.tutor.topics.length) {
+        if ($scope.tutorRequestForm.$valid && SessionService.getTopics().length) {
             var tutor = {
-                'id': $rootScope.tutor.id,
-                'first_name': $rootScope.tutor.firstName,
-                'last_name': $rootScope.tutor.lastName,
-                'background': $rootScope.tutor.studies,
-                'references': $rootScope.tutor.references,
-                'categories': $rootScope.tutor.topics,
-                'preference': $rootScope.tutor.preference,
-                'phone_number': $rootScope.tutor.phone_number,
-                'picture': $rootScope.tutor.picture
+                'id': SessionService.getId(),
+                'first_name': SessionService.getFirstName(),
+                'last_name': SessionService.getLastName(),
+                'background': SessionService.getStudies(),
+                'references': SessionService.getReferences(),
+                'categories': SessionService.getTopics(),
+                'preference': SessionService.getPreference(),
+                'phone_number': SessionService.getPhoneNumber(),
+                'picture': SessionService.getPicture()
             }
+
+            $timeout(function(){
+                usSpinnerService.spin('profile-spinner');
+            }, 0);
 
             ProfileService.submitRequest(tutor).then(
                 function(data){
                     if(data && data.id) {
-                        $rootScope.tutor.request.sent = true;
+                        SessionService.getRequest().sent = true;
 
                         $scope.tutorRequestAlertParams = {
                             type: 'success',
                             message: $filter('translate')('SUCCESS_TUTOR_PROFILE_REQUEST'),
                             icon: true
                         };
-
                     }
+
+                    usSpinnerService.stop('profile-spinner');
                 },
                 function(response){
                     $scope.tutorRequestAlertParams = {
@@ -193,6 +201,8 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
                         message: $filter('translate')('ERROR_TUTOR_PROFILE_UPDATE'),
                         icon: true
                     };
+
+                    usSpinnerService.stop('profile-spinner');
 
                     console.log('Error getting tutor\'s request status: ' + response);
                 }
@@ -218,7 +228,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
 
         // Objeto que será enviado al servicio que actualiza el calendario de disponibilidad del tutor
         var weekCalendar = {
-            'id': $rootScope.tutor.id,
+            'id': SessionService.getId(),
             'availabilities': []
         };
 
@@ -275,6 +285,11 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
 
         $scope.updatedCalendar = false;
         if (validCalendar) {
+
+            $timeout(function(){
+                usSpinnerService.spin('profile-spinner');
+            }, 0);
+
             ProfileService.submitWeekCalendar(weekCalendar).then(
                 function(data){
                     if(data) {
@@ -287,6 +302,8 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
                         $scope.calendarErrorClass = '';
                         $scope.calendarAlertMessagesParams = undefined;
                     }
+
+                    usSpinnerService.stop('profile-spinner');
                 },
                 function(response){
                     $scope.tutorProfileAlertParams = {
@@ -295,6 +312,9 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
                         icon: true
                     };
                     $scope.calendarErrorClass = 'border-error';
+
+                    usSpinnerService.stop('profile-spinner');
+
                     console.log('Error getting tutor\'s request status: ' + response);
                 }
             );
@@ -309,33 +329,30 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
 
         }
 
-        if ($scope.tutorProfileForm.$valid && $rootScope.tutor.topics.length && $rootScope.tutor.zones.length && validCalendar) {
+        if ($scope.tutorProfileForm.$valid && SessionService.getTopics().length && SessionService.getZones().length && validCalendar) {
 
             var tutor = {
-                'id': $rootScope.tutor.id,
-                'first_name': $rootScope.tutor.name,
-                'last_name': $rootScope.tutor.lastname,
-                'background': $rootScope.tutor.studies,
-                //'references': $rootScope.tutor.references,
-                'categories': $rootScope.tutor.topics,
-                'phone_number': $rootScope.tutor.phone_number,
-                'gender': $rootScope.tutor.gender,
-                'preference': {
-                    'cost': $rootScope.tutor.preference.cost,
-                    'online': $rootScope.tutor.preference.classLocation.online,
-                    'office': $rootScope.tutor.preference.classLocation.office,
-                    'public': $rootScope.tutor.preference.classLocation.public,
-                    'student_place': $rootScope.tutor.preference.classLocation.student_place
-                },
-                'counties': $rootScope.tutor.zones,
-                'picture': $rootScope.tutor.picture
+                'id': SessionService.getId(),
+                'first_name': SessionService.getFirstName(),
+                'last_name': SessionService.getLastName(),
+                'background': SessionService.getStudies(),
+                'categories': SessionService.getTopics(),
+                'phone_number': SessionService.getPhoneNumber(),
+                'gender': SessionService.getGender(),
+                'preference': SessionService.getPreference(),
+                'counties': SessionService.getZones(),
+                'picture': SessionService.getPicture()
             }
+
+            $timeout(function(){
+                usSpinnerService.spin('profile-spinner');
+            }, 0);
 
             ProfileService.submitProfile(tutor).then(
                 function(data){
                     if(data && data.id && $scope.updatedCalendar) {
 
-                        $rootScope.tutor.picture_url = data.picture_url;
+                        SessionService.setPictureUrl(data.picture_url);
                         $scope.tutorProfileAlertParams = {
                             type: 'success',
                             message: $filter('translate')('SUCCESS_TUTOR_PROFILE_CONGRATULATIONS'),
@@ -343,6 +360,8 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
                         };
 
                     }
+
+                    usSpinnerService.stop('profile-spinner');
                 },
                 function(response){
                     $scope.tutorProfileAlertParams = {
@@ -350,6 +369,8 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
                         message: $filter('translate')('ERROR_TUTOR_PROFILE_UPDATE'),
                         icon: true
                     };
+
+                    usSpinnerService.stop('profile-spinner');
 
                     console.log('Error getting tutor\'s request status: ' + response);
                 }
@@ -383,15 +404,19 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
 
     $scope.$watch('tutor.picture_url', function(){
 
-        if($rootScope.tutor.picture_url) {
+        if(SessionService.getPictureUrl()) {
             var imageContainer = $('.profile_picture');
             var image = imageContainer.find('img');
             image.hide();
 
+            $timeout(function(){
+                usSpinnerService.spin('profile-picture-spinner');
+            }, 0);
+
             $('<img/>')
-                .attr("src", $rootScope.tutor.picture_url)
+                .attr("src", SessionService.getPictureUrl())
                 .load(function() {
-                    image.attr('src', $rootScope.tutor.picture_url);
+                    image.attr('src', SessionService.getPictureUrl());
 
                     var ratio = this.width / this.height;
 
@@ -407,10 +432,16 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
 
                     image.show();
 
+                    $timeout(function() {
+                        usSpinnerService.stop('profile-picture-spinner');
+                    }, 0);
                 })
                 .error(function() {
-
+                    $timeout(function() {
+                        usSpinnerService.stop('profile-picture-spinner');
+                    }, 0);
                 });
+
         }
 
     });

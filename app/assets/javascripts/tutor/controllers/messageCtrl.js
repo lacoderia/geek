@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('MessageController',['$scope','$rootScope', '$timeout', '$filter', 'MessageService', 'usSpinnerService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $timeout, $filter, MessageService, usSpinnerService, DEFAULT_VALUES){
+Geek.controller('MessageController',['$scope','$rootScope', '$timeout', '$filter', 'AuthService', 'SessionService', 'MessageService', 'usSpinnerService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $timeout, $filter, AuthService, SessionService, MessageService, usSpinnerService, DEFAULT_VALUES){
 
     $scope.selectedConversation = undefined;
     $scope.userSelected = undefined;
@@ -8,8 +8,8 @@ Geek.controller('MessageController',['$scope','$rootScope', '$timeout', '$filter
     $scope.lastMessage = undefined;
 
     // Inicializamos los broadcasts y listeners del controlador
-    $scope.$watch('tutorProfileLoaded', function(){
-        if($rootScope.tutorProfileLoaded){
+    $scope.$watch('sessionLoaded', function(){
+        if(AuthService.isAuthenticated() && $rootScope.sessionLoaded){
             $scope.getConversations();
         }
     });
@@ -20,7 +20,7 @@ Geek.controller('MessageController',['$scope','$rootScope', '$timeout', '$filter
             usSpinnerService.spin('messages-spinner');
         }, 0);
 
-        MessageService.getConversations($rootScope.tutor.id).then(
+        MessageService.getConversations(SessionService.getId()).then(
             function(data){
                 $scope.newConversationMessages = 0;
                 $scope.conversations = data;
@@ -40,7 +40,7 @@ Geek.controller('MessageController',['$scope','$rootScope', '$timeout', '$filter
     };
 
     $scope.selectConversation = function(student){
-        MessageService.getConversationByUserId(student.id, $rootScope.tutor.id).then(
+        MessageService.getConversationByUserId(student.id, SessionService.getId()).then(
             function(data){
                 if(data){
                     $scope.selectedConversation = data;
@@ -66,7 +66,7 @@ Geek.controller('MessageController',['$scope','$rootScope', '$timeout', '$filter
                                         }
                                     }
 
-                                    MessageService.getPendingConversationsByUserId($rootScope.tutor.id).then(
+                                    MessageService.getPendingConversationsByUserId(SessionService.getId()).then(
                                         function(data){
                                             $rootScope.newConversationMessages = data.pending;
 
@@ -100,7 +100,7 @@ Geek.controller('MessageController',['$scope','$rootScope', '$timeout', '$filter
         if($scope.textMessage){
 
             var message = {
-                tutor_id: $rootScope.tutor.id,
+                tutor_id: SessionService.getId(),
                 student_id: $scope.userSelected.id,
                 text: $scope.textMessage,
                 from_student: false

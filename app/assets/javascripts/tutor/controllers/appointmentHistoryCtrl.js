@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('AppointmentHistoryController',['$scope','$rootScope', '$timeout', 'AppointmentService', 'AnomalyService', 'MessageService', 'usSpinnerService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $timeout, AppointmentService, AnomalyService, MessageService, usSpinnerService, DEFAULT_VALUES){
+Geek.controller('AppointmentHistoryController',['$scope','$rootScope', '$timeout', 'AppointmentService', 'AnomalyService', 'AuthService', 'SessionService', 'MessageService', 'usSpinnerService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $timeout, AppointmentService, AnomalyService, AuthService, SessionService, MessageService, usSpinnerService, DEFAULT_VALUES){
 
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.MONTHS = DEFAULT_VALUES.MONTHS;
@@ -67,6 +67,13 @@ Geek.controller('AppointmentHistoryController',['$scope','$rootScope', '$timeout
         }
     };
 
+    // Inicializamos los broadcasts y listeners del controlador
+    $scope.$watch('sessionLoaded', function(){
+        if(AuthService.isAuthenticated() && $rootScope.sessionLoaded){
+            $scope.getPastAppointmentList();
+        }
+    });
+
     $scope.showAnomalyDetail = function($event, appointment){
         $event.stopPropagation();
         var options = {
@@ -129,23 +136,28 @@ Geek.controller('AppointmentHistoryController',['$scope','$rootScope', '$timeout
 
     $scope.setAnomaly = function(appointment, anomaly_code, description) {
 
-      var reportedAnomaly = {
-        appointment_id: appointment.id,
-        anomaly_code: anomaly_code,
-        description: description
-      };
+        $timeout(function(){
+            usSpinnerService.spin('anomaly-modal-spinner');
+        }, 0);
 
-      AnomalyService.reportAnomaly(reportedAnomaly).then(
-        function(data){
-          appointment.anomaly = data;
-        },
-        function(response){
-          console.log(response);
-        }
-      );
+        var reportedAnomaly = {
+            appointment_id: appointment.id,
+            anomaly_code: anomaly_code,
+            description: description
+        };
 
-      $scope.closeAnomalyDetail();
-      //console.log("appointment " + appointment_id + " anomaly " + anomaly_code + " description " + description);
+        AnomalyService.reportAnomaly(reportedAnomaly).then(
+            function(data){
+                appointment.anomaly = data;
+                usSpinnerService.stop('anomaly-modal-spinner');
+                $scope.closeAnomalyDetail();
+            },
+            function(response){
+                usSpinnerService.stop('anomaly-modal-spinner');
+                console.log(response);
+            }
+        );
+
     };
 
     $scope.getAppointments = function(appointments){
@@ -225,10 +237,15 @@ Geek.controller('AppointmentHistoryController',['$scope','$rootScope', '$timeout
     };
 
     $scope.sendMessage = function(appointment, textMessage){
+
         if(appointment && textMessage){
 
+            $timeout(function(){
+                usSpinnerService.spin('message-modal-spinner');
+            }, 0);
+
             var message = {
-                tutor_id: $rootScope.tutor.id,
+                tutor_id: SessionService.getId(),
                 student_id: appointment.student.id,
                 text: textMessage,
                 from_student: false
@@ -248,6 +265,7 @@ Geek.controller('AppointmentHistoryController',['$scope','$rootScope', '$timeout
                         };
                         $scope.setAlert($scope.messageAlertMessagesParams);
                     }
+                    usSpinnerService.stop('message-modal-spinner');
                 },
                 function(response){
                     $scope.messageAlertMessagesParams = {
@@ -256,6 +274,7 @@ Geek.controller('AppointmentHistoryController',['$scope','$rootScope', '$timeout
                         icon: true
                     };
                     $scope.setAlert($scope.messageAlertMessagesParams);
+                    usSpinnerService.stop('message-modal-spinner');
                     console.log('Error saving a message: ' + response);
                 }
             );
@@ -316,7 +335,5 @@ Geek.controller('AppointmentHistoryController',['$scope','$rootScope', '$timeout
 
         return $scope.STATUS_BUTTONS_RELATION[appointment.status.code][action] && actionAvailable;
     };
-
-    $scope.getPastAppointmentList();
 
 }]);

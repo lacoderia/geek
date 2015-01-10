@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('ResumeController',['$scope','$rootScope', 'ResumeService', 'DEFAULT_VALUES' ,function($scope, $rootScope, ResumeService, DEFAULT_VALUES){
+Geek.controller('ResumeController',['$scope','$rootScope', '$timeout', 'AuthService', 'SessionService', 'ResumeService', 'usSpinnerService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $timeout, AuthService, SessionService,ResumeService, usSpinnerService, DEFAULT_VALUES){
 
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.MONTHS = DEFAULT_VALUES.MONTHS;
@@ -9,15 +9,19 @@ Geek.controller('ResumeController',['$scope','$rootScope', 'ResumeService', 'DEF
     $scope.resume = {};
 
     // Inicializamos los broadcasts y listeners del controlador
-    $scope.$watch('tutorProfileLoaded', function(){
-        if($rootScope.tutorProfileLoaded){
+    $scope.$watch('sessionLoaded', function(){
+        if(AuthService.isAuthenticated() && $rootScope.sessionLoaded){
             $scope.getUserResume();
         }
     });
 
     $scope.getUserResume = function(){
 
-        ResumeService.getUserResume($rootScope.tutor.id).then(
+        $timeout(function(){
+            usSpinnerService.spin('resume-spinner');
+        }, 0);
+        
+        ResumeService.getUserResume(SessionService.getId()).then(
             function(data){
                 $scope.resume = data;
                 angular.forEach($scope.resume.requests.latest, function(request){
@@ -59,6 +63,8 @@ Geek.controller('ResumeController',['$scope','$rootScope', 'ResumeService', 'DEF
                 angular.forEach($scope.resume.messages.latest, function(message){
                     message.timestamp = new Date(message.timestamp);
                 });
+
+                usSpinnerService.stop('resume-spinner');
 
             },
             function(response){

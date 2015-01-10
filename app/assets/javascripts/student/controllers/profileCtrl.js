@@ -125,6 +125,10 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
             var image = imageContainer.find('img');
             image.hide();
 
+            $timeout(function(){
+                usSpinnerService.spin('profile-picture-spinner');
+            }, 0);
+
             $('<img/>')
                 .attr("src", $scope.student.picture_url)
                 .load(function() {
@@ -144,9 +148,14 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
 
                     image.show();
 
+                    $timeout(function() {
+                        usSpinnerService.stop('profile-picture-spinner');
+                    }, 0);
                 })
                 .error(function() {
-
+                    $timeout(function() {
+                        usSpinnerService.stop('profile-picture-spinner');
+                    }, 0);
                 });
         }
 
