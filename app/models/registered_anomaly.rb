@@ -41,8 +41,10 @@ class RegisteredAnomaly < ActiveRecord::Base
       anomaly = Anomaly.find_by_code "4"
     elsif ((appointment.start - Time.now)/3600) <= Appointment.hours_afer_business_rules # cancelando entre 2 y 12 horas
       anomaly = Anomaly.find_by_code "2"
+    elsif ((appointment.start - Time.now)/3600) > Appointment.hours_before_business_rules # Si fue más de 12 horas, no produce anomalía
+      return
     end
-
+    
     appointment.update_attribute(:anomaly, true)
     description = "Cancelada por estudiante"
     ra = RegisteredAnomaly.create(anomaly_id: anomaly.id, user_id: appointment.student.user.id, source_id: appointment.student.user.id, appointment_id: appointment.id, description: description, registered_anomaly_status_id: 1)
@@ -50,6 +52,10 @@ class RegisteredAnomaly < ActiveRecord::Base
   end
 
   def self.cancelled_from_tutor appointment
+    if ((appointment.start - Time.now)/3600) > Appointment.hours_before_business_rules # Si fue más de 12 horas, no produce anomalía
+      return
+    end
+
     anomaly = Anomaly.find_by_code "2"
     appointment.update_attribute(:anomaly, true)
     description = "Cancelada por tutor"
@@ -78,6 +84,7 @@ class RegisteredAnomaly < ActiveRecord::Base
       self.appointment.pay fee_student, fee_tutor
     end
 
+    #Invalida todas las otras anomalías registradas a ese mismo appointment
     self.appointment.registered_anomalies.where("id != ?", self.id).each do |ra|
       ra.update_attribute(:registered_anomaly_status_id, invalid_anomaly_status.id)
     end
@@ -102,7 +109,7 @@ class RegisteredAnomaly < ActiveRecord::Base
       elsif self.user.client_type == "Student"
         # El estudiante canceló, se cobra el 25%, se asigna 50% al tutor y se cambia a válida
         self.update_attributes({:fee_student => 25, :fee_tutor => 50}) 
-      end   
+      end
     when "4" #Cancelada por estudiante, entre 2 y 0 horas
       if self.user.client_type == "Student"
         # El estudiante canceló, se cobra el 50%, se asigna 50% al tutor y se cambia a válida
@@ -122,7 +129,8 @@ class RegisteredAnomaly < ActiveRecord::Base
     case self.anomaly.code
     when "0" #late show
       # Se cobra normal y cambia a válida
-      self.assign_helper 100, 80
+      self.assign_helper 100, 80 
+      self.user.update_attribute(:late_shows, self.user.late_shows + 1)
     when "1" #no show
       if self.source.client_type == "Student"
         # El tutor no llegó, no se cobra y se cambia a válida
@@ -131,6 +139,7 @@ class RegisteredAnomaly < ActiveRecord::Base
         # El estudiante no llegó, se cobra todo, se asigna 50% al tutor y se cambia a válida
         self.assign_helper 100, 50
       end
+      self.user.update_attribute(:no_shows, self.user.no_shows + 1)
     when "2" #cancelacion
       if self.user.client_type == "Tutor"
         # El tutor canceló, no se cobra y se cambia a válida
@@ -139,6 +148,7 @@ class RegisteredAnomaly < ActiveRecord::Base
         # El estudiante canceló, se cobra el 25%, se asigna 50% al tutor y se cambia a válida
         self.assign_helper 25, 50
       end   
+      self.user.update_attribute(:cancellations, self.user.cancellations + 1)
     when "3" #otro
       if fee_student and fee_tutor
         self.assign_helper fee_student, fee_tutor
@@ -149,6 +159,7 @@ class RegisteredAnomaly < ActiveRecord::Base
       if self.user.client_type == "Student"
         # El estudiante canceló, se cobra el 50%, se asigna 50% al tutor y se cambia a válida
         self.assign_helper 50, 50
+        self.user.update_attribute(:cancellations, self.user.cancellations + 1)
       else
         #Este caso no debería de pasar
         raise "Caso de cancelado por estudiante donde el user no es él mismo"

@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
 
   actable
 
+  after_update :block_if_anomaly_count_exceeded
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -28,6 +30,39 @@ class User < ActiveRecord::Base
       end
     end
     self.openpay_id
+  end
+
+  def block_if_anomaly_count_exceeded
+    
+    if self.no_shows_changed? or self.late_shows_changed? or self.cancellations_changed?
+
+      tutor = false
+      no_shows = 10
+      cancellations = 10
+      late_shows = 30
+
+      if self.client_type == "Tutor"
+        tutor = true
+        no_shows = 5
+        cancellations = 5
+      end
+    
+      if self.no_shows_changed?
+        if (self.no_shows % no_shows == 0)
+          self.update_column(:active, false)
+        end
+      elsif self.late_shows_changed?
+        if (self.late_shows % late_shows == 0)
+          self.update_column(:active, false)
+        end
+      elsif self.cancellations_changed?
+       if (self.cancellations % cancellations == 0)
+          self.update_column(:active, false)
+        end
+      end
+
+    end
+
   end
 
 end
