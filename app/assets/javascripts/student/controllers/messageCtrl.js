@@ -9,8 +9,8 @@ Geek.controller('MessageController',['$scope','$rootScope', '$timeout', '$filter
     $scope.lastMessage = undefined;
 
     // Inicializamos los broadcasts y listeners del controlador
-    $scope.$watch('SessionService.session', function(){
-        if(AuthService.isAuthenticated()){
+    $scope.$watch('sessionLoaded', function(){
+        if(AuthService.isAuthenticated() && $rootScope.sessionLoaded){
             $scope.getConversations();
         }
     });
