@@ -46,6 +46,7 @@
                   <th class="brand" ng-if="!paymentMethod.is_bank_account"></th>
                   <th class="holder-name">{{ 'PAYMENT_LABEL_ACCOUNT_NAME' | translate }}</th>
                   <th class="more-info" ng-if="!paymentMethod.is_bank_account">{{ 'PAYMENT_LABEL_EXPIRATION_DATE' | translate }}</th>
+                  <th class="more-info" ng-if="paymentMethod.is_bank_account">{{ 'PAYMENT_LABEL_BANK' | translate }}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -53,6 +54,7 @@
                   <td class="brand" ng-if="!paymentMethod.is_bank_account"><span ng-class="paymentMethod.brandClass"></span></td>
                   <td class="holder-name">{{ paymentMethod.holder_name }}</td>
                   <td class="more-info" ng-if="!paymentMethod.is_bank_account">{{ paymentMethod.expiration_month }}/{{ paymentMethod.expiration_year }}</td>
+                  <td class="more-info" ng-if="paymentMethod.is_bank_account">{{ paymentMethod.bank_name }}</td>
                 </tr>
                 </tbody>
               </table>

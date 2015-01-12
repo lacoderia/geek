@@ -97,7 +97,7 @@ Geek.controller('PaymentController',['$scope','$rootScope', '$timeout', '$locati
                 $scope.showNewBankAccount = true;
                 break;
         }
-    }
+    };
 
 
     $scope.createCard = function(){
@@ -149,7 +149,7 @@ Geek.controller('PaymentController',['$scope','$rootScope', '$timeout', '$locati
 
         return validPaymentForm;
 
-    }
+    };
 
     $scope.validateExpirationDate = function() {
         if(!$scope.expirationMonth || !$scope.expirationYear) {
@@ -159,7 +159,7 @@ Geek.controller('PaymentController',['$scope','$rootScope', '$timeout', '$locati
             $scope.expirationErrorClass = '';
             return true;
         }
-    }
+    };
 
     $scope.validateState = function() {
         if(!$scope.state) {
@@ -169,7 +169,7 @@ Geek.controller('PaymentController',['$scope','$rootScope', '$timeout', '$locati
             $scope.stateErrorClass = '';
             return true;
         }
-    }
+    };
 
     $scope.saveCard = function(){
 
@@ -286,10 +286,10 @@ Geek.controller('PaymentController',['$scope','$rootScope', '$timeout', '$locati
                     }
                 },
                 function(response){
-
+                    console.log(response)
                     $scope.studentPaymentAlertParams = {
                         type: 'danger',
-                        message: response.data.description,
+                        message: response.description,
                         icon: true
                     };
 
@@ -298,7 +298,7 @@ Geek.controller('PaymentController',['$scope','$rootScope', '$timeout', '$locati
                         $anchorScroll();
                     }, 0);
 
-                    console.log('Error saving bank account ' + response);
+                    console.log('Error saving bank account ' + response.description);
                 }
             );
         }
@@ -332,7 +332,7 @@ Geek.controller('PaymentController',['$scope','$rootScope', '$timeout', '$locati
                 }
                 break;
             case  'delete-account':
-                buttonVisibility =  true;
+                buttonVisibility =  false;
                 break;
         }
 
