@@ -1,5 +1,6 @@
 if @tutor
-  json.extract! @tutor, :id, :first_name, :last_name, :email, :gender, :phone_number, :details, :references, :background, :picture_url
+  json.extract! @tutor, :id, :first_name, :last_name, :email, :gender, :phone_number, :details, :references, :background, :picture_url, :approved
+  json.request_sent  @tutor.background != nil ? true : false
   json.set! :preference do
     json.extract! @tutor.preference, :id, :online, :office, :public, :student_place if @tutor.preference
     json.set! :availabilities do
