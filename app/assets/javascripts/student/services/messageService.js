@@ -8,7 +8,7 @@ Geek.factory('MessageService', ["$http", "$q", "DEFAULT_VALUES", function($http,
 
         $http.get(DEFAULT_VALUES.URL_SERVICES.CONVERSATION_SERVICE_URL,{
             params: {
-                'tutor_id':  tutorId
+                'student_id':  tutorId
             }
         }).
             success(function(data){

@@ -101,6 +101,7 @@ Geek.controller('PaymentController',['$scope','$rootScope', '$timeout', '$locati
 
 
     $scope.createCard = function(){
+        $scope.availableYears = [];
         var currentYear = new Date().getYear() + DEFAULT_VALUES.START_YEAR;
         for(var yearIndex=0; yearIndex<=16; yearIndex++){
             $scope.availableYears.push(currentYear);

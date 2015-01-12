@@ -411,10 +411,16 @@ class Tutor < ActiveRecord::Base
         tutors = Tutor.joins(:categories, :counties).where(query_str, true, true).includes(:reviews => :student).order(grade: :desc)
       end
 
-      if tutors.count < FALLBACK_NUMBER #fallback a sublocality
-        fallback_county_ids = Tutor.fallback_counties zone_obj[:sublocality], nil
-        message += "Fallback con sublocality."
+      if not zone_obj[:sublocality]
+        if tutors.count < FALLBACK_NUMBER #fallback con locality si no trae sublocality
+          fallback_county_ids = Tutor.fallback_counties nil, zone_obj[:locality]
+        end
+      else
+        if tutors.count < FALLBACK_NUMBER #fallback a sublocality
+          fallback_county_ids = Tutor.fallback_counties zone_obj[:sublocality], nil
+        end
       end
+
       if not fallback_county_ids.empty?
 
         query_str = "(active = ? AND approved = ?) AND (county_id in (#{fallback_county_ids.map(&:inspect).join(',')}) and (categories.category_id in (#{category_ids.map(&:inspect).join(',')}) OR categories.id in (#{category_ids.map(&:inspect).join(',')})))"
@@ -426,7 +432,7 @@ class Tutor < ActiveRecord::Base
         end
         suggested_tutors = suggested_tutors - tutors
 
-        if suggested_tutors.count < FALLBACK_NUMBER #fallback a locality
+        if suggested_tutors.count < FALLBACK_NUMBER and zone_obj[:sublocality] #fallback a locality
           fallback_county_ids = Tutor.fallback_counties nil, zone_obj[:locality]
 
           query_str = "(active = ? AND approved = ?) AND (county_id in (#{fallback_county_ids.map(&:inspect).join(',')}) AND (categories.category_id in (#{category_ids.map(&:inspect).join(',')}) OR categories.id in (#{category_ids.map(&:inspect).join(',')})))"
@@ -464,8 +470,14 @@ class Tutor < ActiveRecord::Base
         tutors = Tutor.joins(:counties).where(query_str, true, true).includes(:reviews => :student).order(grade: :desc)
       end
 
-      if tutors.count < FALLBACK_NUMBER #fallback a sublocality
-        fallback_county_ids = Tutor.fallback_counties zone_obj[:sublocality], nil
+      if not zone_obj[:sublocality]
+        if tutors.count < FALLBACK_NUMBER #fallback con locality si no trae sublocality
+          fallback_county_ids = Tutor.fallback_counties nil, zone_obj[:locality]
+        end
+      else
+        if tutors.count < FALLBACK_NUMBER #fallback a sublocality
+          fallback_county_ids = Tutor.fallback_counties zone_obj[:sublocality], nil
+        end
       end
 
       if not fallback_county_ids.empty?
