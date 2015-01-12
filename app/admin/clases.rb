@@ -3,7 +3,8 @@ ActiveAdmin.register Appointment, :as => "Citas" do
   actions :all, :except => [:new, :destroy]
   
   permit_params :start, :end, :cost, :charged, :paid, :anomaly
-
+  
+  filter :id
   filter :appointment_status
   filter :subject
   filter :start
@@ -15,6 +16,7 @@ ActiveAdmin.register Appointment, :as => "Citas" do
   filter :resolved_anomaly
   filter :log, :label => "Payment Error"
   index :title => "Citas" do
+    column :id
     column :start
     column :end
     column 'Tutor' do |appointment|
@@ -50,6 +52,7 @@ ActiveAdmin.register Appointment, :as => "Citas" do
 
   show do |appointment|
     attributes_table do
+      row :id
       row :start
       row :end
       row "Tutor" do |appointment|

@@ -2,12 +2,17 @@ ActiveAdmin.register Tutor, :as => "Tutores" do
 
   actions :all, :except => [:new, :destroy]
 
-  permit_params :approved, :active
+  permit_params :approved, :active, :first_name, :last_name, :phone_number, :background, :late_shows, :no_shows, :cancellations
 
+  filter :id
   filter :user_first_name, :as => :string
   filter :user_last_name, :as => :string
   filter :user_email, :as => :string
   filter :user_active, :as => :select
+  filter :grade
+  filter :user_late_shows, :as => :numeric
+  filter :user_no_shows, :as => :numeric
+  filter :user_cancellations, :as => :numeric
 
   controller do
     def scoped_collection
@@ -16,6 +21,7 @@ ActiveAdmin.register Tutor, :as => "Tutores" do
   end
 
   index :title => "Tutores" do
+    column :id
     column "Picture", :picture_url, :class => "photo_thumb" do |tutor|
       #	link_to( (image_tag tutor.picture.url(:thumb)), tutor.picture.url(:original), :target=>"_blank" )
       link_to( (image_tag tutor.picture_url), tutor.picture_url, :target=>"_blank" )
@@ -24,6 +30,11 @@ ActiveAdmin.register Tutor, :as => "Tutores" do
     column :last_name
     column :email
     column :phone_number
+    column :grade
+    column :late_shows
+    column :no_shows
+    column :cancellations
+    column :active
     actions :defaults => true
   end
 
@@ -32,12 +43,16 @@ ActiveAdmin.register Tutor, :as => "Tutores" do
       row "Picture", :picture_url, :class => "photo_thumb" do |tutor|
         link_to( (image_tag tutor.picture_url), tutor.picture_url, :target=>"_blank" )
       end
+      row :id
       row :first_name
       row :last_name
       row :email
       row :phone_number
       row :background
-      row :active
+      row :grade
+      row :late_shows
+      row :no_shows
+      row :cancellations
       row 'Categories' do |tutor|
         tutor.categories.map { |category|
           category.name
@@ -48,6 +63,7 @@ ActiveAdmin.register Tutor, :as => "Tutores" do
           county.name
         }.join("<br/>").html_safe
       end
+      row :active
     
       if tutor.reviews.count > 0
         panel "Reviews" do
@@ -69,16 +85,23 @@ ActiveAdmin.register Tutor, :as => "Tutores" do
 
   form do |f|
     f.inputs "Tutor details" do
+      f.input :id, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
       f.input :picture_url, :hint => f.template.image_tag(f.object.picture_url), :as => :string, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
-      f.input :first_name, :as => :string, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
-      f.input :last_name, :as => :string, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
+      f.input :first_name, :as => :string
+      f.input :last_name, :as => :string
       f.input :email, :as => :string, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
       #f.input :gender, :as => :string, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
-      f.input	:phone_number, :as => :string, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
+      f.input	:phone_number, :as => :string
       #f.input :details, :as => :string, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
       #f.input :references, :as => :string, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
-      f.input	:background, :as => :string, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
+      f.input	:background, :as => :string
       #f.input :tier1_rate, :label => "Cost",:as => :string, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
+      f.input :grade, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
+      f.input :late_shows
+      f.input :no_shows
+      f.input :cancellations
+      f.input :categories, :collection => f.object.categories, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
+      f.input :counties, :collection => f.object.counties, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
       f.input :active, :as => :boolean
       if f.object.reviews.count > 0
         f.form_buffers.last << "<table><thead><tr><th>Student</th><th>Description</th><th>Knowledge</th><th>Communication</th><th>Presentation</th><th>Visible</th></thead><tbody>".html_safe
