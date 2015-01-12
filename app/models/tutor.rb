@@ -464,8 +464,15 @@ class Tutor < ActiveRecord::Base
         tutors = Tutor.joins(:counties).where(query_str, true, true).includes(:reviews => :student).order(grade: :desc)
       end
 
-      if tutors.count < FALLBACK_NUMBER #fallback a sublocality
-        fallback_county_ids = Tutor.fallback_counties zone_obj[:sublocality], nil
+
+      if not zone_obj[:sublocality]
+        if tutors.count < FALLBACK_NUMBER #fallback con locality si no trae sublocality
+          fallback_county_ids = Tutor.fallback_counties zone_obj[:locality], nil
+        end
+      else
+        if tutors.count < FALLBACK_NUMBER #fallback a sublocality
+          fallback_county_ids = Tutor.fallback_counties zone_obj[:sublocality], nil
+        end
       end
 
       if not fallback_county_ids.empty?
