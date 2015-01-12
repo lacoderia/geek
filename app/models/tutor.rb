@@ -467,7 +467,7 @@ class Tutor < ActiveRecord::Base
 
       if not zone_obj[:sublocality]
         if tutors.count < FALLBACK_NUMBER #fallback con locality si no trae sublocality
-          fallback_county_ids = Tutor.fallback_counties zone_obj[:locality], nil
+          fallback_county_ids = Tutor.fallback_counties nil, zone_obj[:locality]
         end
       else
         if tutors.count < FALLBACK_NUMBER #fallback a sublocality
