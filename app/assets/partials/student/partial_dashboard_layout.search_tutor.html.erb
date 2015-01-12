@@ -241,8 +241,8 @@
       </div>
     </div>
   </div>
-
-  <div class="appointment-request-feedback" ng-show="appointmentRequestSent">
+  <!--div class="appointment-request-feedback" ng-show="appointmentRequestSent"-->
+  <div class="appointment-request-feedback">
     <div>
       {{'APPOINTMENT_REQUEST_FEEDBACK_SUBTITLE' | translate}}
       <br/><br/>
@@ -252,6 +252,7 @@
           <li>{{'APPOINTMENT_REQUEST_FEEDBACK_DETAILS_CLASS' | translate}}: {{ selectedCategory.name }}</li>
           <li>{{'APPOINTMENT_REQUEST_FEEDBACK_DETAILS_DATE' | translate}}: {{ selectedClass.dateTimeISO | dateTranslateFilter }}</li>
           <li>{{'APPOINTMENT_REQUEST_FEEDBACK_DETAILS_TIME' | translate}}: {{ selectedClass.time }}</li>
+          <li>{{'APPOINTMENT_REQUEST_FEEDBACK_DETAILS_COST' | translate}}: {{ selectedCategory.cost * 1.035 | currency:"$" }} ({{selectedCategory.cost | currency:"$"}} + {{ selectedCategory.cost * 0.035 | currency:"$" }} {{ 'APPOINTMENT_REQUEST_FEEDBACK_DETAILS_COST_DETAIL' | translate }})</li>
         </ul>
       {{'APPOINTMENT_REQUEST_FEEDBACK_POLICIES' | translate}}
       <br/><br/>

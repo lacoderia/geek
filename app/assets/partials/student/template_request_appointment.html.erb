@@ -19,11 +19,18 @@
           </div>
         </td>
       </tr>
-      <td class="appointment-detail-content">
-        <div class="appointment-button">
-          <a class="action-button action-button-light-blue" ng-click="sendAppointmentRequest()" translate="POPUP_APPOINTMENT_REQUEST_SEND"></a>
-        </div>
-      </td>
+      <tr ng-show="selectedCategory.id">
+        <td>
+            {{ 'POPUP_APPOINTMENT_REQUEST_CHARGES_1' | translate }} {{ selectedCategory.cost * 1.035 | currency:"$" }} ({{selectedCategory.cost | currency:"$"}} + {{ selectedCategory.cost * 0.035 | currency:"$" }} {{ 'POPUP_APPOINTMENT_REQUEST_CHARGES_2' | translate }})
+        </td>
+      </tr>
+      <tr>
+        <td class="appointment-detail-content">
+          <div class="appointment-button">
+            <a class="action-button action-button-light-blue" ng-click="sendAppointmentRequest()" translate="POPUP_APPOINTMENT_REQUEST_SEND"></a>
+          </div>
+        </td>
+      </tr>
     </table>
   </div>
   <div class="modal-detail-footer"></div>
