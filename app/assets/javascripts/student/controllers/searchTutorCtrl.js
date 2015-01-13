@@ -1,5 +1,11 @@
 Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$timeout", "$location", "$anchorScroll", "$translate", "TutorService", "AppointmentService", "AuthService", "SessionService", "usSpinnerService", "MessageService", "DEFAULT_VALUES", function($scope, $rootScope, $filter, $timeout, $location, $anchorScroll, $translate, TutorService, AppointmentService, AuthService, SessionService, usSpinnerService, MessageService, DEFAULT_VALUES){
 
+    $scope.orderOptions = [
+        {'code':0, 'title':'SEARCH_ORDER_BY_LABEL_HIGHEST_REVIEW'},
+        {'code':1, 'title':'SEARCH_ORDER_BY_LABEL_HIGHEST_PRICE'},
+        {'code':2, 'title':'SEARCH_ORDER_BY_LABEL_LOWEST_PRICE'}
+    ];
+
     //Subject inputted by the user
     $scope.subjectInput = undefined;
 
@@ -28,7 +34,10 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
         'office': false,
         'student': false,
         'public': false
-    }
+    };
+
+    //Variable de ordenamiento
+    $scope.orderByOption = $scope.orderOptions[0];
 
     $scope.tutorList = undefined;
     $scope.suggestedTutorList = undefined;
@@ -220,12 +229,19 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
 
     $scope.resetTutorSearch = function() {
         $scope.selectedTutor = null;
-    }
+    };
 
     // Function that toggles tutor's comments
     $scope.toggleComments = function(tutor) {
         tutor.showComments = !tutor.showComments;
-    }
+    };
+
+    $scope.setOrderByOption = function(orderOption){
+        if(orderOption.code != $scope.orderByOption.code){
+            $scope.orderByOption = orderOption;
+            $scope.searchTutor(1);
+        }
+    };
 
     $scope.showAppointmentRequestModal = function(event, row, column, day){
 
