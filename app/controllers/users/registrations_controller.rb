@@ -22,7 +22,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     respond_to do |format|
       if @user.save
         if @user.role? :student
-          if @user.uid 
+          if @user.uid and @user.uid != "" 
             #Subir foto de facebook a cloudinary
             image = Cloudinary::Uploader.upload("https://graph.facebook.com/"+@user.uid+"/picture?width=400&height=400", :width => 375, :height => 800, :crop => :limit)
             Student.create(credits: 0.0, user: @user, picture_id: image["public_id"], picture_url: image["url"] )
