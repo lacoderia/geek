@@ -669,11 +669,11 @@ class Tutor < ActiveRecord::Base
   def self.cash_out tutor_id
     tutor = Tutor.find(tutor_id)
     balance = Tutor.get_balance(tutor.openpay_id)
-    if balance > 8
+    if balance > 9.28
       card = Card.get_active(tutor.user.id)
-      fee = Payment.charge_fee(tutor.openpay_id, 8)
+      fee = Payment.charge_fee tutor.openpay_id, 9.28, get_cashout_fee_message
       if fee[:success]
-        pay = Payment.pay_tutor(tutor.openpay_id, card.openpay_id, (balance - 8))
+        pay = Payment.pay_tutor tutor.openpay_id, card.openpay_id, (balance - 9.28), get_cashout_message
       else 
         fee
       end
@@ -716,6 +716,14 @@ class Tutor < ActiveRecord::Base
     end
     query_string += ") AND "
     return query_string
+  end
+
+  def get_cashout_message
+    "Retiro de saldo. Tutor: " + self.id.to_s
+  end
+
+  def get_cashout_fee_message
+    "Comisión por retiro de saldo. Tutor: " + self.id.to_s
   end
 
 end
