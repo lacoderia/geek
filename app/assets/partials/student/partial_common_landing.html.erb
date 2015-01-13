@@ -48,6 +48,25 @@
               <input type="checkbox" id="tutor_class_mode_public" name="tutor_class_mode" ng-model="filters.public" ng-change="searchTutor(1)"/>
               <label for="tutor_class_mode_public" translate="SEARCH_FILTER_LABEL_PUBLIC"></label>
             </span>
+            <span class="search-result-filter">
+              <input type="checkbox" id="tutor_class_mode_public" name="tutor_class_mode" ng-model="filters.public" ng-change="searchTutor(1)"/>
+              <label for="tutor_class_mode_public" translate="SEARCH_FILTER_LABEL_PUBLIC"></label>
+            </span>
+            <span class="category">{{ 'SEARCH_ORDER_BY_LABEL' | translate}}:</span>
+            <span class="search-result-filter">
+              <div class="dropdown form-dropdown" >
+                <button class="btn btn-default dropdown-toggle dropdown-button" type="button" data-toggle="dropdown">
+                  <span ng-if="orderByOption">{{ orderByOption.title | translate }}</span>
+                  &nbsp;
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li role="presentation" class="dropdown-header"><span translate="SEARCH_ORDER_BY_LABEL"></span></li>
+                  <li role="presentation" class="divider"></li>
+                  <li role="presentation" ng-repeat="orderOption in orderOptions"><a role="menuitem" tabindex="{{ orderOption.code }}"  ng-click="setOrderByOption(orderOption)" translate>{{ orderOption.title }}</a></li>
+                </ul>
+              </div>
+            </span>
           </div>
           <div class="search-results-tools" ng-show="selectedTutor">
             <span class="btn-back" ng-click="showSearchResults()" ng-show="selectedTutor"><< {{ 'SHOW_ALL' | translate }}</span>
