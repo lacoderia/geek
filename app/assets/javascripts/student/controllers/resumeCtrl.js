@@ -1,12 +1,19 @@
 'use strict';
 
-Geek.controller('ResumeController',['$scope','$rootScope', '$timeout', 'ResumeService', 'SessionService', 'usSpinnerService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $timeout, ResumeService, SessionService, usSpinnerService, DEFAULT_VALUES){
+Geek.controller('ResumeController',['$scope','$rootScope', '$timeout', 'ResumeService', 'AuthService', 'SessionService', 'usSpinnerService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $timeout, ResumeService, AuthService, SessionService, usSpinnerService, DEFAULT_VALUES){
 
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.MONTHS = DEFAULT_VALUES.MONTHS;
     $scope.START_YEAR = DEFAULT_VALUES.START_YEAR;
 
     $scope.resume = undefined;
+
+    // Inicializamos los broadcasts y listeners del controlador
+    $scope.$watch('sessionLoaded', function(){
+        if(AuthService.isAuthenticated() && $rootScope.sessionLoaded){
+            $scope.getUserResume();
+        }
+    });
 
     $scope.getUserResume = function(){
 
@@ -66,7 +73,5 @@ Geek.controller('ResumeController',['$scope','$rootScope', '$timeout', 'ResumeSe
         );
 
     };
-
-    $scope.getUserResume();
 
 }]);

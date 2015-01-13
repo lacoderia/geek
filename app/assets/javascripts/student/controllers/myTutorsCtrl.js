@@ -1,9 +1,17 @@
 'use strict';
 
-Geek.controller('MyTutorsController',['$scope','$rootScope','$compile', '$timeout', '$translate', 'MessageService', 'ReviewsService', 'SessionService', 'TutorService', 'usSpinnerService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $compile, $timeout, $translate, MessageService, ReviewsService, SessionService, TutorService, usSpinnerService, DEFAULT_VALUES){
+Geek.controller('MyTutorsController',['$scope','$rootScope','$compile', '$timeout', '$translate', 'MessageService', 'ReviewsService', 'AuthService', 'SessionService', 'TutorService', 'usSpinnerService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $compile, $timeout, $translate, MessageService, ReviewsService, AuthService, SessionService, TutorService, usSpinnerService, DEFAULT_VALUES){
 
     $scope.tutorList = undefined;
     $scope.appointmentButtons = DEFAULT_VALUES.APPOINTMENT_BUTTONS;
+
+    // Inicializamos los broadcasts y listeners del controlador
+    $scope.$watch('sessionLoaded', function(){
+        if(AuthService.isAuthenticated() && $rootScope.sessionLoaded){
+            $scope.getTutorList();
+        }
+    });
+
     /*
      * Obtiene la posición donde el usuario hizo click y abre el popup con la forma para calificar al tutor
      * */
@@ -167,7 +175,5 @@ Geek.controller('MyTutorsController',['$scope','$rootScope','$compile', '$timeou
 
         }
     };
-
-    $scope.getTutorList();
 
 }]);

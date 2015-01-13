@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('PaymentController',['$filter', '$scope','$rootScope', '$timeout', '$location', '$anchorScroll', 'PaymentService', 'SessionService', 'usSpinnerService', 'DEFAULT_VALUES' ,function($filter, $scope, $rootScope, $timeout, $location, $anchorScroll, PaymentService, SessionService, usSpinnerService, DEFAULT_VALUES){
+Geek.controller('PaymentController',['$filter', '$scope','$rootScope', '$timeout', '$location', '$anchorScroll', 'PaymentService', 'AuthService', 'SessionService', 'usSpinnerService', 'DEFAULT_VALUES' ,function($filter, $scope, $rootScope, $timeout, $location, $anchorScroll, PaymentService, AuthService, SessionService, usSpinnerService, DEFAULT_VALUES){
 
     $scope.MONTHS = DEFAULT_VALUES.MONTHS;
     $scope.PAYMENT_METHODS = DEFAULT_VALUES.PAYMENT_METHODS;
@@ -25,6 +25,13 @@ Geek.controller('PaymentController',['$filter', '$scope','$rootScope', '$timeout
 
     $scope.expirationErrorClass = '';
     $scope.stateErrorClass = '';
+
+    // Inicializamos los broadcasts y listeners del controlador
+    $scope.$watch('sessionLoaded', function(){
+        if(AuthService.isAuthenticated() && $rootScope.sessionLoaded){
+            $scope.getPaymentMethodsList();
+        }
+    });
 
     $scope.getPaymentMethodsList = function(){
 
@@ -54,7 +61,7 @@ Geek.controller('PaymentController',['$filter', '$scope','$rootScope', '$timeout
                 usSpinnerService.stop('payments-spinner');
             },
             function(response){
-                console.log(response)
+                console.log("Error retrieving the payment lists" + response);
             }
         );
     };
@@ -86,6 +93,7 @@ Geek.controller('PaymentController',['$filter', '$scope','$rootScope', '$timeout
     }
 
     $scope.createCard = function(){
+        $scope.availableYears = [];
         var currentYear = new Date().getYear() + DEFAULT_VALUES.START_YEAR;
         for(var yearIndex=0; yearIndex<=16; yearIndex++){
             $scope.availableYears.push(currentYear);
@@ -172,6 +180,8 @@ Geek.controller('PaymentController',['$filter', '$scope','$rootScope', '$timeout
                 }
             };
 
+            usSpinnerService.spin('payments-spinner');
+
             OpenPay.token.create(card,
                 function(data){
 
@@ -205,9 +215,11 @@ Geek.controller('PaymentController',['$filter', '$scope','$rootScope', '$timeout
                         },
                         function(response){
 
+                            console.log('Error saving students payment method: ' + response);
+
                             $scope.studentPaymentAlertParams = {
                                 type: 'danger',
-                                message: $filter('translate')('ERROR_STUDENT_PAYMENT_METHOD_SAVE'),
+                                message: (DEFAULT_VALUES.OPENPAY_ERROR_STATUS[response.error_code])? $filter('translate')(DEFAULT_VALUES.OPENPAY_ERROR_STATUS[response.error_code]): $filter('translate')(DEFAULT_VALUES.OPENPAY_ERROR_STATUS['default']),
                                 icon: true
                             };
 
@@ -215,18 +227,22 @@ Geek.controller('PaymentController',['$filter', '$scope','$rootScope', '$timeout
                                 $location.hash('student-payment-form');
                                 $anchorScroll();
                             }, 0);
-
-                            console.log('Error saving students payment method: ' + response);
                         }
-                    );
+                    ).finally(function(){
+                        usSpinnerService.stop('payments-spinner');
+                    });
 
                 },
                 function(response){
+                    console.log('Error saving students payment method: ' + response);
+                    usSpinnerService.stop('payments-spinner');
+
                     $scope.studentPaymentAlertParams = {
                         type: 'danger',
-                        message: response.data.description,
+                        message: (DEFAULT_VALUES.OPENPAY_ERROR_STATUS[response.data.error_code])? $filter('translate')(DEFAULT_VALUES.OPENPAY_ERROR_STATUS[response.data.error_code]): $filter('translate')(DEFAULT_VALUES.OPENPAY_ERROR_STATUS['default']),
                         icon: true
                     };
+
 
                     $timeout(function(){
                         $location.hash('student-payment-form');
@@ -252,7 +268,6 @@ Geek.controller('PaymentController',['$filter', '$scope','$rootScope', '$timeout
                 );
                 break;
             case  'delete-account':
-                console.log('AQUI')
                 break;
         }
     };
@@ -266,7 +281,7 @@ Geek.controller('PaymentController',['$filter', '$scope','$rootScope', '$timeout
                 }
                 break;
             case  'delete-account':
-                buttonVisibility =  true;
+                buttonVisibility =  false;
                 break;
         }
 
@@ -293,7 +308,6 @@ Geek.controller('PaymentController',['$filter', '$scope','$rootScope', '$timeout
         OpenPay.setApiKey(DEFAULT_VALUES.PUBLIC_KEY);
         OpenPay.setSandboxMode(true);
 
-        $scope.getPaymentMethodsList();
     });
 
 }]);

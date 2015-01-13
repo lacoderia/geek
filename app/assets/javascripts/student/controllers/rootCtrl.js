@@ -56,7 +56,7 @@ Geek.controller('RootController', ["$filter", "$scope", "$rootScope", "$state", 
         $scope.tutorResultListVisible = true;
     });
 
-    $scope.$watch('SessionService.sessionLoaded', function(){
+    $scope.$watch('sessionLoaded', function(){
         if(AuthService.isAuthenticated() && $rootScope.sessionLoaded){
             $scope.userName = SessionService.getFirstName() + " " + SessionService.getLastName();
 
