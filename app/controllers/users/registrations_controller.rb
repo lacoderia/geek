@@ -6,6 +6,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   require 'google/api_client/auth/file_storage'
 
   before_filter :update_sanitized_params, if: :devise_controller?
+  skip_before_filter :require_no_authentication, :only => [ :new, :create, :cancel ]  
 
   def update_sanitized_params
     devise_parameter_sanitizer.for(:sign_up) {|u| u.permit(:first_name, :last_name, :email, :password, :password_confirmation, :uid, :token, :refresh_token, :role_ids)}
@@ -22,7 +23,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     respond_to do |format|
       if @user.save
         if @user.role? :student
-          if @user.uid 
+          if @user.uid and @user.uid != "" 
             #Subir foto de facebook a cloudinary
             image = Cloudinary::Uploader.upload("https://graph.facebook.com/"+@user.uid+"/picture?width=400&height=400", :width => 375, :height => 800, :crop => :limit)
             Student.create(credits: 0.0, user: @user, picture_id: image["public_id"], picture_url: image["url"] )

@@ -170,6 +170,28 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                 'icon': 'icon-review',
                 'text': 'REVIEW_DETAIL'
             }
+        },
+        'OPENPAY_ERROR_STATUS': {
+            2001: 'ERROR_OPENPAY_BANK_ACCOUNT_ALREADY_EXISTS',
+            2002: 'ERROR_OPENPAY_CARD_ALREADY_EXISTS',
+            2003: 'ERROR_OPENPAY_CLIENT_ALREADY_EXISTS',
+            2004: 'ERROR_OPENPAY_WRONG_VALIDATION_NUMBER',
+            2005: 'ERROR_OPENPAY_WRONG_EXPIRATION_DATE',
+            2006: 'ERROR_OPENPAY_WRONG_VALIDATION_NUMBER',
+            3001: 'ERROR_OPENPAY_CARD_DECLINED',
+            3002: 'ERROR_OPENPAY_CARD_EXPIRED',
+            3003: 'ERROR_OPENPAY_CARD_NO_FOUNDS',
+            3004: 'ERROR_OPENPAY_CARD_STOLEN',
+            3005: 'ERROR_OPENPAY_CARD_FRAUD',
+            3006: 'ERROR_OPENPAY_OPERATION_DENIED',
+            3008: 'ERROR_OPENPAY_CARD_NO_ONLINE_TRANSACTIONS',
+            3009: 'ERROR_OPENPAY_CARD_LOST',
+            3010: 'ERROR_OPENPAY_CARD_RESTRICTED',
+            3011: 'ERROR_OPENPAY_CARD_RETAINED',
+            3012: 'ERROR_OPENPAY_REQUEST_BANK_AUTHORIZATION',
+            4001: 'ERROR_OPENPAY_TRANSFER_NO_BALANCE',
+            'default': 'ERROR_OPENPAY_GENERAL_ERROR'
+
         }
     })
 
@@ -235,7 +257,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
             .state('dashboard', {
                 url: "/dashboard",
                 templateUrl: "/assets/student/partial_dashboard_layout.html",
-                controller: 'RootController'
+                controller: 'RootController',
             })
             .state('dashboard.faq', {
                 url: "/faq",

@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('MyAppointmentsController',['$compile', '$filter', '$scope','$rootScope', '$timeout', 'AppointmentService', 'SessionService', 'MessageService', 'usSpinnerService', 'DEFAULT_VALUES' ,function($compile, $filter, $scope, $rootScope, $timeout, AppointmentService, SessionService, MessageService, usSpinnerService, DEFAULT_VALUES){
+Geek.controller('MyAppointmentsController',['$compile', '$filter', '$scope','$rootScope', '$timeout', 'AppointmentService', 'AuthService', 'SessionService', 'MessageService', 'usSpinnerService', 'DEFAULT_VALUES' ,function($compile, $filter, $scope, $rootScope, $timeout, AppointmentService, AuthService, SessionService, MessageService, usSpinnerService, DEFAULT_VALUES){
 
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.MONTHS = DEFAULT_VALUES.MONTHS;
@@ -67,6 +67,13 @@ Geek.controller('MyAppointmentsController',['$compile', '$filter', '$scope','$ro
             'report-anomaly' : true
         }
     };
+
+    // Inicializamos los broadcasts y listeners del controlador
+    $scope.$watch('sessionLoaded', function(){
+        if(AuthService.isAuthenticated() && $rootScope.sessionLoaded){
+            $scope.getAppointmentGroupsList();
+        }
+    });
 
     /*
      * Obtiene la posición donde el usuario hiczo click y abre el popupd del detalle del appointment
@@ -290,7 +297,5 @@ Geek.controller('MyAppointmentsController',['$compile', '$filter', '$scope','$ro
 
         }
     };
-
-    $scope.getAppointmentGroupsList();
 
 }]);

@@ -21,7 +21,7 @@ class Appointment < ActiveRecord::Base
     when "2" #rechazada tutor
       self.delete_and_send_emails 
     when "4" #cancelada estudiante
-      # Reportar anomal韆
+      # Reportar anomal铆a
       RegisteredAnomaly.cancelled_from_student self
       self.delete_and_send_emails 
     when "5" #cancelada tutor
@@ -46,7 +46,7 @@ class Appointment < ActiveRecord::Base
     if not self.anomaly
       fee_student = 100
     elsif self.anomaly and self.resolved_anomaly
-      #Busca que anomal韆 es para pagar con la resoluci髇
+      #Busca que anomal铆a es para pagar con la resoluci贸n
       self.registered_anomalies.each do |ra|
         if ra.registered_anomaly_status == valid_anomaly
           # pagar el appointment
@@ -61,7 +61,7 @@ class Appointment < ActiveRecord::Base
     card_id = self.student.cards.where("active = ?", true).first.openpay_id
     amount = (self.cost * (fee_student/100.0)) 
 
-    chargestudent = Payment.charge_student student_openpay_id, card_id, amount 
+    chargestudent = Payment.charge_student student_openpay_id, card_id, amount, get_charge_message
     if chargestudent[:error]
       self.update_attribute(:log, chargestudent[:error]["description"])
     else
@@ -79,7 +79,7 @@ class Appointment < ActiveRecord::Base
       fee_student = 100
       fee_tutor = 80
     elsif self.anomaly and self.resolved_anomaly
-      #Busca que anomal韆 es para pagar con la resoluci髇
+      #Busca que anomal铆a es para pagar con la resoluci贸n
       self.registered_anomalies.each do |ra|
         if ra.registered_anomaly_status == valid_anomaly
           # pagar el appointment
@@ -95,8 +95,8 @@ class Appointment < ActiveRecord::Base
     tutor_openpay_id = self.tutor.openpay_id
     amount = (self.cost * (fee_student/100.0)) 
 
-    transferfunds = Payment.transfer_funds student_openpay_id, tutor_openpay_id, amount 
-    collectfee = Payment.charge_fee tutor_openpay_id, (amount * ((100.0-fee_tutor)/100.0)) 
+    transferfunds = Payment.transfer_funds student_openpay_id, tutor_openpay_id, amount, get_transfer_message 
+    collectfee = Payment.charge_fee tutor_openpay_id, (amount * ((100.0-fee_tutor)/100.0)), get_fee_message 
     self.update_attribute(:paid, true)
 
   end
@@ -108,19 +108,19 @@ class Appointment < ActiveRecord::Base
     account_id = self.tutor.cards.where("active = ?", true).first.openpay_id
     amount = (self.cost * (fee_student/100.0)) 
 
-    chargestudent = Payment.charge_student student_openpay_id, card_id, amount # (total a cobrar del estudiante, con operanciones con fee_student)
+    chargestudent = Payment.charge_student student_openpay_id, card_id, amount, get_charge_message # (total a cobrar del estudiante, con operanciones con fee_student)
     #actualizar bandera de cobrado
     if chargestudent[:error]
       self.update_attribute(:log, chargestudent[:error]["description"])
     else
       self.update_attribute(:charged, true)
 
-      transferfunds = Payment.transfer_funds student_openpay_id, tutor_openpay_id, amount # (cantidad menos comisi髇 de Openpay ?)
-      collectfee = Payment.charge_fee tutor_openpay_id, (amount * ((100.0-fee_tutor)/100.0)) # (comisi髇 de GEEK)
+      transferfunds = Payment.transfer_funds student_openpay_id, tutor_openpay_id, amount, get_transfer_message # (cantidad menos comisi贸n de Openpay ?)
+      collectfee = Payment.charge_fee tutor_openpay_id, (amount * ((100.0-fee_tutor)/100.0)), get_fee_message # (comisi贸n de GEEK)
       # actualizar bandera de pagado
       self.update_attribute(:paid, true)
       
-      #paytutor = Payment.pay_tutor tutor_openpay_id, account_id, (amount * ((fee_tutor)/100.0)) #(total a pagar despu閟 de la comisi髇 de GEEK)
+      #paytutor = Payment.pay_tutor tutor_openpay_id, account_id, (amount * ((fee_tutor)/100.0)) #(total a pagar despu茅s de la comisi贸n de GEEK)
     end
 
   end
@@ -136,4 +136,17 @@ class Appointment < ActiveRecord::Base
     appointments = Appointment.where('student_id = ? and appointment_status_id = ?', student_id, status_id).includes(:tutor).last(3).reverse
     {:total => total, :appointments => appointments}
   end
+
+  def get_charge_message
+    "Cobro de clase. Estudiante: " + self.student.id.to_s + ", Clase: " + self.id.to_s
+  end
+
+  def get_transfer_message
+    "Pago de clase. Tutor: " + self.tutor.id.to_s + ", Clase: " + self.id.to_s
+  end
+
+  def get_fee_message
+    "Cobro de comisi贸n por clase. Tutor " + self.tutor.id.to_s + ", Clase: " + self.id.to_s
+  end
+
 end

@@ -193,6 +193,8 @@ Geek.controller('PaymentController',['$scope','$rootScope', '$timeout', '$locati
                 }
             };
 
+            usSpinnerService.spin('payments-spinner');
+
             OpenPay.token.create(card,
                 function(data){
 
@@ -201,6 +203,7 @@ Geek.controller('PaymentController',['$scope','$rootScope', '$timeout', '$locati
                         'token': data.data.id
                     }
 
+
                     PaymentService.saveCard(cardData).then(
                         function(data){
                             if(data && data.id) {
@@ -208,13 +211,13 @@ Geek.controller('PaymentController',['$scope','$rootScope', '$timeout', '$locati
                                 $timeout(function(){
 
                                     $scope.cancelPaymentMethodCreation();
-                                    $scope.studentPaymentAlertParams = {
+                                    $scope.tutorPaymentAlertParams = {
                                         type: 'success',
                                         message: $filter('translate')('SUCCESS_STUDENT_PAYMENT_METHOD_SAVE'),
                                         icon: true
                                     };
 
-                                    $location.hash('student-payment-form');
+                                    $location.hash('tutor-request-form');
                                     $anchorScroll();
 
                                     $scope.getPaymentMethodsList();
@@ -223,31 +226,36 @@ Geek.controller('PaymentController',['$scope','$rootScope', '$timeout', '$locati
                         },
                         function(response){
 
-                            $scope.studentPaymentAlertParams = {
+                            console.log('Error saving credit card: ' + response);
+
+                            $scope.tutorPaymentAlertParams = {
                                 type: 'danger',
-                                message: $filter('translate')('ERROR_STUDENT_PAYMENT_METHOD_SAVE'),
+                                message: (DEFAULT_VALUES.OPENPAY_ERROR_STATUS[response.error_code])? $filter('translate')(DEFAULT_VALUES.OPENPAY_ERROR_STATUS[response.error_code]): $filter('translate')(DEFAULT_VALUES.OPENPAY_ERROR_STATUS['default']),
                                 icon: true
                             };
 
                             $timeout(function(){
-                                $location.hash('student-payment-form');
+                                $location.hash('tutor-request-form');
                                 $anchorScroll();
                             }, 0);
-
-                            console.log('Error saving students payment method: ' + response);
                         }
-                    );
+                    ).finally(function(){
+                        usSpinnerService.stop('payments-spinner');
+                    });
 
                 },
                 function(response){
-                    $scope.studentPaymentAlertParams = {
+                    console.log('Error saving credit card: ' + response);
+                    usSpinnerService.stop('payments-spinner');
+
+                    $scope.tutorPaymentAlertParams = {
                         type: 'danger',
-                        message: response.data.description,
+                        message: (DEFAULT_VALUES.OPENPAY_ERROR_STATUS[response.data.error_code])? $filter('translate')(DEFAULT_VALUES.OPENPAY_ERROR_STATUS[response.data.error_code]): $filter('translate')(DEFAULT_VALUES.OPENPAY_ERROR_STATUS['default']),
                         icon: true
                     };
 
                     $timeout(function(){
-                        $location.hash('student-payment-form');
+                        $location.hash('tutor-request-form');
                         $anchorScroll();
                     }, 0);
 
@@ -262,6 +270,9 @@ Geek.controller('PaymentController',['$scope','$rootScope', '$timeout', '$locati
         $scope.$broadcast('show-errors-check-validity', $scope.tutorPaymentOptionsBankForm);
 
         if ($scope.tutorPaymentOptionsBankForm.$valid) {
+
+            usSpinnerService.spin('payments-spinner');
+
             var bankAccount = {
                 "tutor_id": SessionService.getId(),
                 "clabe": $scope.clabe,
@@ -273,34 +284,36 @@ Geek.controller('PaymentController',['$scope','$rootScope', '$timeout', '$locati
                     if(data && data.id) {
                         $scope.cancelPaymentMethodCreation();
 
-                        $scope.studentPaymentAlertParams = {
+                        $scope.tutorPaymentAlertParams = {
                             type: 'success',
                             message: $filter('translate')('SUCCESS_STUDENT_PAYMENT_METHOD_SAVE'),
                             icon: true
                         };
 
-                        $location.hash('student-payment-form');
+                        $location.hash('tutor-request-form');
                         $anchorScroll();
 
                         $scope.getPaymentMethodsList();
                     }
                 },
                 function(response){
-                    console.log(response)
-                    $scope.studentPaymentAlertParams = {
+                    console.log('Error saving bank account ' + response.description);
+
+                    $scope.tutorPaymentAlertParams = {
                         type: 'danger',
-                        message: response.description,
+                        message: (DEFAULT_VALUES.OPENPAY_ERROR_STATUS[response.error_code])? $filter('translate')(DEFAULT_VALUES.OPENPAY_ERROR_STATUS[response.error_code]): $filter('translate')(DEFAULT_VALUES.OPENPAY_ERROR_STATUS['default']),
                         icon: true
                     };
 
                     $timeout(function(){
-                        $location.hash('student-payment-form');
+                        $location.hash('tutor-request-form');
                         $anchorScroll();
                     }, 0);
 
-                    console.log('Error saving bank account ' + response.description);
                 }
-            );
+            ).finally(function(){
+                usSpinnerService.stop('payments-spinner');
+            });
         }
 
     };
@@ -318,7 +331,6 @@ Geek.controller('PaymentController',['$scope','$rootScope', '$timeout', '$locati
                 );
                 break;
             case  'delete-account':
-                console.log('AQUI')
                 break;
         }
     };

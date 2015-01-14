@@ -27,6 +27,10 @@ Geek.controller('RootController', ["$filter", "$scope", "$rootScope", "$state", 
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.HOURS = DEFAULT_VALUES.HOURS;
 
+    if($state.current.name == 'dashboard'){
+        $state.go('dashboard.resume')
+    }
+
 
     $rootScope.toggleLanguage = function(){
         var languageCode = $translate.use();
@@ -56,10 +60,9 @@ Geek.controller('RootController', ["$filter", "$scope", "$rootScope", "$state", 
         $scope.tutorResultListVisible = true;
     });
 
-    $scope.$watch('SessionService.sessionLoaded', function(){
+    $scope.$watch('sessionLoaded', function(){
         if(AuthService.isAuthenticated() && $rootScope.sessionLoaded){
             $scope.userName = SessionService.getFirstName() + " " + SessionService.getLastName();
-
             if ($("#error-data").data()){
                 $rootScope.isUserBlocked = true;
                 $state.go('dashboard.user-blocked');

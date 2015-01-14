@@ -3,9 +3,8 @@ require_relative "../config/environment"
 
 include Clockwork
 
-every(30.minutes, 'finish_and_pay_appointments', :at => ['**:30', '**:00']) {
-
-  # Marcar como completadas las clases que ya acabaron
+# Completar, rechazar y pagar citas
+every(30.minutes, 'complete_and_reject_and_pay_appointments', :at => ['**:30', '**:00']) {
 
   pending_appointment = AppointmentStatus.find_by_code("0")
   confirmed_appointment = AppointmentStatus.find_by_code("3")
@@ -13,11 +12,12 @@ every(30.minutes, 'finish_and_pay_appointments', :at => ['**:30', '**:00']) {
   rejected_by_tutor = AppointmentStatus.find_by_code("2")
   valid_anomaly = RegisteredAnomalyStatus.find_by_code("1")
 
+  # Marcar como completadas las clases que ya acabaron
   Appointment.where("appointments.appointment_status_id = ? AND appointments.end < ?", confirmed_appointment.id, Time.now).each do |appointment|
     appointment.update_attribute(:appointment_status_id, completed_appointment.id) 
   end
   
-  # Appointments pendientes
+  # Rechazar appointments pendientes
   Appointment.where("appointments.appointment_status_id = ?", pending_appointment.id).each do |appointment|
     diff = ((appointment.start-appointment.created_at)/1.hour)
     update = false
@@ -61,25 +61,31 @@ every(30.minutes, 'finish_and_pay_appointments', :at => ['**:30', '**:00']) {
     
   end
 
-
   # Cobrar y pagar las clases sin anomalías, y pagar las que tengan anomalías resueltas
   Appointment.where("appointments.appointment_status_id = ? AND appointments.charged = ? AND appointments.paid = ? AND appointments.end < ?", completed_appointment.id, false, false, Time.now - Appointment.hours_afer_business_rules.hour).each do |appointment|
+
     #si no tiene anomalias ni log de errores
     if not appointment.anomaly and not appointment.log
       # pagar el appointment
       appointment.pay 100, 80
-    elsif appointment.anomaly and appointment.resolved_anomaly
-      #Busca que anomalía es para pagar con la resolución
-      appointment.registered_anomalies.each do |ra|
-        if ra.registered_anomaly_status == valid_anomaly
-          # pagar el appointment
-          if ra.fee_student and ra.fee_tutor and ra.fee_student > 0 and ra.fee_tutor > 0
-            appointment.pay ra.fee_student, ra.fee_tutor
-          end
-        end
-      end
     end
-    
+
   end
 
+}
+
+# Revisar si es 15 de cada mes y hacer retiro automático (cashout tutor)
+every(1.day, 'tutor_cashout', :if => lambda { |t| t.day == 15}) {
+
+  Tutor.where("active = ?", true).each do |tutor|
+    tutor.cash_out
+  end
+}
+  
+# Cada noche mandar a estudiante, informando de clases del próximo día
+# Cada noche mandar a tutor, informando de clases del próximo día y de solicitudes pendientes
+every(1.day, 'send_notifications', :at => '19:00') {
+  Appointment.where("appointments.start BETWEEN ? AND ?", DateTime.now.tomorrow.beginning_of_day, DateTime.now.tomorrow.end_of_day).each do |appointment|
+    #TODO: Diego a incluir las notificaciones
+  end
 }
