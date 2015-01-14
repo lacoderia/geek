@@ -5,13 +5,6 @@ Geek.controller('BalanceController',['$scope','$rootScope', '$timeout', '$filter
     $scope.tutorBalanceAlertParams = undefined;
     $scope.confirmTransferView = false;
 
-    // Inicializamos los broadcasts y listeners del controlador
-    $scope.$watch('sessionLoaded', function(){
-        if(AuthService.isAuthenticated() && $rootScope.sessionLoaded){
-            $scope.getBalance();
-        }
-    });
-
     $scope.getBalance = function(){
 
         $timeout(function(){
@@ -93,5 +86,8 @@ Geek.controller('BalanceController',['$scope','$rootScope', '$timeout', '$filter
         );
 
     };
+
+    //Inicializamos el controlador
+    $scope.getBalance();
 
 }]);

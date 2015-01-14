@@ -4,13 +4,6 @@ Geek.controller('ReviewsController',['$scope','$rootScope', '$timeout', 'AuthSer
 
     $scope.reviews = undefined;
 
-    // Inicializamos los broadcasts y listeners del controlador
-    $scope.$watch('sessionLoaded', function(){
-        if(AuthService.isAuthenticated() && $rootScope.sessionLoaded){
-            $scope.getReviews();
-        }
-    });
-
     // Función que obtiene los reviews del tutor
     $scope.getReviews = function(){
 
@@ -33,5 +26,8 @@ Geek.controller('ReviewsController',['$scope','$rootScope', '$timeout', 'AuthSer
             }
         );
     };
+
+    //Inicializamos el controlador
+    $scope.getReviews();
 
 }]);

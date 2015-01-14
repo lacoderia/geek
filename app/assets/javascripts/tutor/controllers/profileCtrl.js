@@ -24,24 +24,6 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
     $scope.calendarErrorClass = undefined;
     $scope.zonesAvailable = false;
 
-    $scope.$watch('AuthService.isAuthenticated()', function(){
-        if(AuthService.isAuthenticated()){
-            $timeout(function(){
-
-                $scope.tutor = SessionService.getSession();
-
-                if(SessionService.getPreference()){
-                    $scope.setZonesAvailabilities();
-                }
-
-                $location.hash('week-row-07:30');
-                $anchorScroll();
-                $location.url($location.path());
-                $anchorScroll();
-            }, 0);
-
-        }
-    }, true);
 
     $scope.setZonesAvailabilities = function(){
         if($scope.tutor.preference.classLocation.office || $scope.tutor.preference.classLocation.studentPlace || $scope.tutor.preference.classLocation.public){
@@ -452,4 +434,17 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
         }
 
     });
+
+    //Inicializamos el controlador
+    $scope.tutor = SessionService.getSession();
+
+    if(SessionService.getPreference()){
+        $scope.setZonesAvailabilities();
+    }
+
+    $location.hash('week-row-07:30');
+    $anchorScroll();
+    $location.url($location.path());
+    $anchorScroll();
+
 }]);
