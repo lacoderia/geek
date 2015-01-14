@@ -668,6 +668,12 @@ class Tutor < ActiveRecord::Base
 
   def self.cash_out tutor_id
     tutor = Tutor.find(tutor_id)
+    tutor.cash_out
+  end
+
+  #refactor del método de arriba (self.cash_out) para que no se hagan mil de queries de tutor en el cron
+  def cash_out
+    tutor = self
     balance = Tutor.get_balance(tutor.openpay_id)
     if balance > 9.28
       card = Card.get_active(tutor.user.id)
@@ -679,7 +685,7 @@ class Tutor < ActiveRecord::Base
       end
     else 
       {:sucess => false, :error => {:description => "Tu saldo no es suficiente para cubrir la comisión", :error_code => 4001}}
-    end
+    end    
   end
 
   private

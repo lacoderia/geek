@@ -19,4 +19,8 @@ class UserMailer < ActionMailer::Base
     
   end
 
+  def test_email text
+    mail(to: "tonklis@gmail.com", subject: text)
+  end
+
 end
