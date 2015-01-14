@@ -39,7 +39,7 @@
           <label>{{ 'TUTOR_PROFILE_LABEL_PHONE' | translate }}:</label>
         </div>
         <div class="right">
-          <input type="text" name="tutor_phone" ng-model="tutor.phone_number" ng-pattern="/^[0-9]+$/" ng-minlength="8" ng-maxlength="10" maxlength="10" class="form-input form-control" placeholder="{{ 'TUTOR_PROFILE_PLACEHOLDER_PHONE' | translate }}" popover="{{tutorProfileForm.tutor_phone.popoverMessage}}" popover-trigger="click" popover-animation="false" />
+          <input type="text" name="tutor_phone" ng-model="tutor.phoneNumber" ng-pattern="/^[0-9]+$/" ng-minlength="8" ng-maxlength="10" maxlength="10" class="form-input form-control" placeholder="{{ 'TUTOR_PROFILE_PLACEHOLDER_PHONE' | translate }}" popover="{{tutorProfileForm.tutor_phone.popoverMessage}}" popover-trigger="click" popover-animation="false" />
         </div>
       </div>
     </fieldset>
@@ -50,9 +50,9 @@
           <label><span class="icon-help icon-pointer" data-placement="top-left" data-content="{{ help.formation }}" data-trigger="click" html="true" bs-popover ></span> {{ 'TUTOR_PROFILE_LABEL_BACKGROUND' | translate }}:</label>
         </div>
         <div class="right">
-          <textarea name="tutor_studies" rows="10" ng-model="tutor.studies" class="form-textarea form-control"
+          <textarea name="tutor_background" rows="10" ng-model="tutor.background" class="form-textarea form-control"
                     placeholder="{{ 'TUTOR_PROFILE_PLACEHOLDER_BACKGROUND' | translate }}"
-                    popover="{{tutorProfileForm.tutor_studies.popoverMessage}}"
+                    popover="{{tutorProfileForm.tutor_background.popoverMessage}}"
                     popover-trigger="focus"
                     popover-animation="false"
                     required>
@@ -133,7 +133,7 @@
           <label>{{ 'TUTOR_PROFILE_LABEL_PHONE' | translate }}:</label>
         </div>
         <div class="right">
-          <input type="text" name="tutor_phone" ng-model="tutor.phone_number" ng-pattern="/^[0-9]+$/" ng-minlength="8" ng-maxlength="10" maxlength="10" class="form-input form-control" placeholder="{{ 'TUTOR_PROFILE_PLACEHOLDER_PHONE' | translate }}" popover="{{tutorProfileForm.tutor_phone.popoverMessage}}" popover-trigger="click" popover-animation="false" />
+          <input type="text" name="tutor_phone" ng-model="tutor.phoneNumber" ng-pattern="/^[0-9]+$/" ng-minlength="8" ng-maxlength="10" maxlength="10" class="form-input form-control" placeholder="{{ 'TUTOR_PROFILE_PLACEHOLDER_PHONE' | translate }}" popover="{{tutorProfileForm.tutor_phone.popoverMessage}}" popover-trigger="click" popover-animation="false" />
         </div>
       </div>
       <div class="form-group" show-errors>
@@ -157,9 +157,9 @@
           <label><span class="icon-help icon-pointer" data-placement="top-left" data-content="{{ help.formation }}" data-trigger="click" html="true" bs-popover ></span> {{ 'TUTOR_PROFILE_LABEL_BACKGROUND' | translate }}:</label>
         </div>
         <div class="right">
-          <textarea name="tutor_studies" rows="10" ng-model="tutor.studies" class="form-textarea form-control"
+          <textarea name="tutor_background" rows="10" ng-model="tutor.background" class="form-textarea form-control"
                     placeholder="{{ 'TUTOR_PROFILE_PLACEHOLDER_BACKGROUND' | translate }}"
-                    popover="{{tutorProfileForm.tutor_studies.popoverMessage}}"
+                    popover="{{tutorProfileForm.tutor_background.popoverMessage}}"
                     popover-trigger="focus"
                     popover-animation="false"
                     required>
@@ -208,7 +208,7 @@
               <input type="checkbox" id="tutor_class_mode_tutor_home" name="tutor_class_mode" ng-model="tutor.preference.classLocation.office" ng-change="changeClassLocation()" class="form-control">
               <label for="tutor_class_mode_tutor_home" translate="TUTOR_PROFILE_LABEL_CLASS_PREFERENCE_OFFICE"></label>
 
-              <input type="checkbox" id="tutor_class_mode_student_home" name="tutor_class_mode" ng-model="tutor.preference.classLocation.student_place" ng-change="changeClassLocation()" class="form-control">
+              <input type="checkbox" id="tutor_class_mode_student_home" name="tutor_class_mode" ng-model="tutor.preference.classLocation.studentPlace" ng-change="changeClassLocation()" class="form-control">
               <label for="tutor_class_mode_student_home" translate="TUTOR_PROFILE_LABEL_CLASS_PREFERENCE_STUDENT"></label>
 
               <input type="checkbox" id="tutor_class_mode_public" name="tutor_class_mode" ng-model="tutor.preference.classLocation.public" ng-change="changeClassLocation()" class="form-control">

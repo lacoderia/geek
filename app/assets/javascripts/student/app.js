@@ -272,7 +272,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                             AuthService.getSession().then(
                                 function(data){
                                     if(data && data.id){
-                                        SessionService.createSession(data.id, data.email, data.first_name, data.last_name, data.gender, data.phone_number, data.picture_url);
+                                        SessionService.createSession(data.id, data.email, data.first_name, data.last_name, data.gender, data.phone_number, data.picture_url, data.has_card);
                                         return true;
 
                                     }else{

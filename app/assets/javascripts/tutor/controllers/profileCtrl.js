@@ -24,9 +24,16 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
     $scope.calendarErrorClass = undefined;
     $scope.zonesAvailable = false;
 
-    $scope.$watch('sessionLoaded', function(){
-        if(AuthService.isAuthenticated() && $rootScope.sessionLoaded){
+    $scope.$watch('AuthService.isAuthenticated()', function(){
+        if(AuthService.isAuthenticated()){
             $timeout(function(){
+
+                $scope.tutor = SessionService.getSession();
+
+                if(SessionService.getPreference()){
+                    $scope.setZonesAvailabilities();
+                }
+
                 $location.hash('week-row-07:30');
                 $anchorScroll();
                 $location.url($location.path());
@@ -34,16 +41,10 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
             }, 0);
 
         }
-    });
-
-    $scope.$watch('SessionService.getPreference().classLocation', function(){
-        if(SessionService.getPreference()){
-            $scope.setZonesAvailabilities();
-        }
-    });
+    }, true);
 
     $scope.setZonesAvailabilities = function(){
-        if(SessionService.getPreference().classLocation.office || SessionService.getPreference().classLocation.student_place || SessionService.getPreference().classLocation.public){
+        if($scope.tutor.preference.classLocation.office || $scope.tutor.preference.classLocation.studentPlace || $scope.tutor.preference.classLocation.public){
             $scope.zonesAvailable = true;
         }else{
             $scope.zonesAvailable = false;
@@ -127,7 +128,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
     //Function that adds a topic to a tutor's information
     $scope.addTutorTopic = function() {
         if ($scope.selectedTopic.name && $scope.selectedTopic.cost && $scope.selectedCategory) {
-            SessionService.getTopics().push({
+            $scope.tutor.topics.push({
                 'name' : $scope.selectedTopic.name,
                 'cost' : $scope.selectedTopic.cost,
                 'category_id' : parseInt($scope.selectedCategory.id)
@@ -141,13 +142,13 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
 
     //Function that removes a zone from a tutor's information
     $scope.removeTutorZone = function(index) {
-        SessionService.getZones().splice(index, 1);
+        $scope.tutor.zones.splice(index, 1);
     }
 
     //Function that adds a zone to a tutor's information
     $scope.addTutorZone = function() {
         if ($scope.selectedZone) {
-            SessionService.getZones().push({
+            $scope.tutor.zones.push({
                 'id': $scope.selectedZone.originalObject.id,
                 'name': $scope.selectedZone.originalObject.name
             });
@@ -156,7 +157,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
 
     //Function that removes a topic from a tutor's information
     $scope.removeTutorTopic = function(index) {
-        SessionService.getTopics().splice(index, 1);
+        $scope.tutor.topics.splice(index, 1);
     }
 
     //Function that submits the tutor request for validation
@@ -164,17 +165,17 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
 
         $scope.$broadcast('show-errors-check-validity', $scope.tutorRequestForm);
 
-        if ($scope.tutorRequestForm.$valid && SessionService.getTopics().length) {
+        if ($scope.tutorRequestForm.$valid && $scope.tutor.topics.length) {
             var tutor = {
                 'id': SessionService.getId(),
-                'first_name': SessionService.getFirstName(),
-                'last_name': SessionService.getLastName(),
-                'background': SessionService.getStudies(),
-                'references': SessionService.getReferences(),
-                'categories': SessionService.getTopics(),
-                'preference': SessionService.getPreference(),
-                'phone_number': SessionService.getPhoneNumber(),
-                'picture': SessionService.getPicture()
+                'first_name': $scope.tutor.firstName,
+                'last_name': $scope.tutor.lastName,
+                'background': $scope.tutor.background,
+                'references': $scope.tutor.references,
+                'categories': $scope.tutor.topics,
+                'preference': $scope.tutor.preference,
+                'phone_number': $scope.tutor.phoneNumber,
+                'picture': $scope.tutor.picture
             }
 
             $timeout(function(){
@@ -333,15 +334,21 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
 
             var tutor = {
                 'id': SessionService.getId(),
-                'first_name': SessionService.getFirstName(),
-                'last_name': SessionService.getLastName(),
-                'background': SessionService.getStudies(),
-                'categories': SessionService.getTopics(),
-                'phone_number': SessionService.getPhoneNumber(),
-                'gender': SessionService.getGender(),
-                'preference': SessionService.getPreference(),
-                'counties': SessionService.getZones(),
-                'picture': SessionService.getPicture()
+                'first_name': $scope.tutor.firstName,
+                'last_name': $scope.tutor.lastName,
+                'background': $scope.tutor.background,
+                'categories': $scope.tutor.topics,
+                'phone_number': $scope.tutor.phoneNumber,
+                'gender': $scope.tutor.gender,
+                'preference': {
+                    'cost': $scope.tutor.preference.cost,
+                    'public': $scope.tutor.preference.classLocation.public,
+                    'office': $scope.tutor.preference.classLocation.office,
+                    'online': $scope.tutor.preference.classLocation.online,
+                    'student_place': $scope.tutor.preference.classLocation.studentPlace
+                },
+                'counties': $scope.tutor.zones,
+                'picture': $scope.tutor.picture
             }
 
             $timeout(function(){
@@ -351,7 +358,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
             ProfileService.submitProfile(tutor).then(
                 function(data){
                     if(data && data.id && $scope.updatedCalendar) {
-
+                        $rootScope.userName = data.first_name;
                         SessionService.setPictureUrl(data.picture_url);
                         $scope.tutorProfileAlertParams = {
                             type: 'success',
@@ -402,9 +409,9 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
         halfHour.available = !halfHour.available;
     }
 
-    $scope.$watch('tutor.picture_url', function(){
+    $scope.$watch('tutor.pictureUrl', function(){
 
-        if(SessionService.getPictureUrl()) {
+        if($scope.tutor && $scope.tutor.pictureUrl) {
             var imageContainer = $('.profile_picture');
             var image = imageContainer.find('img');
             image.hide();
@@ -414,9 +421,9 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
             }, 0);
 
             $('<img/>')
-                .attr("src", SessionService.getPictureUrl())
+                .attr("src", $scope.tutor.pictureUrl)
                 .load(function() {
-                    image.attr('src', SessionService.getPictureUrl());
+                    image.attr('src', $scope.tutor.pictureUrl);
 
                     var ratio = this.width / this.height;
 

@@ -187,7 +187,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
                             AuthService.getSession().then(
                             function(data){
                                 if(data && data.id){
-                                    SessionService.createSession(data.id, data.email, data.first_name, data.last_name, data.gender, data.phone_number, data.details, data.picture, data.picture_url, data.preference, data.references, data.request, data.studies, data.topics, data.zones);
+                                    SessionService.createSession(data.id, data.balance, data.email, data.first_name, data.last_name, data.gender, data.phone_number, data.details, data.picture, data.picture_url, data.preference, data.references, data.request, data.background, data.categories, data.counties);
                                     $state.go('dashboard.resume');
                                 }else{
                                     return true;
@@ -205,35 +205,35 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
             .state('dashboard', {
                 url: "/dashboard",
                 templateUrl: "/assets/tutor/partial_dashboard_layout.html",
-                controller: "RootController",
+                controller: "RootController"
             })
             .state('dashboard.faq', {
                 url: "/faq",
-                templateUrl: "/assets/tutor/partial_common_faq.html",
+                templateUrl: "/assets/tutor/partial_common_faq.html"
             })
             .state('dashboard.about-us', {
                 url: "/about-us",
-                templateUrl: "/assets/tutor/partial_common_about_us.html",
+                templateUrl: "/assets/tutor/partial_common_about_us.html"
             })
             .state('dashboard.contact', {
                 url: "/contact",
-                templateUrl: "/assets/tutor/partial_common_contact.html",
+                templateUrl: "/assets/tutor/partial_common_contact.html"
             })
             .state('dashboard.help', {
                 url: "/help",
-                templateUrl: "/assets/tutor/partial_common_help.html",
+                templateUrl: "/assets/tutor/partial_common_help.html"
             })
             .state('dashboard.terms', {
                 url: "/terms",
-                templateUrl: "/assets/tutor/partial_common_terms.html",
+                templateUrl: "/assets/tutor/partial_common_terms.html"
             })
             .state('dashboard.privacy', {
                 url: "/privacy",
-                templateUrl: "/assets/tutor/partial_common_privacy.html",
+                templateUrl: "/assets/tutor/partial_common_privacy.html"
             })
             .state('dashboard.user-blocked', {
                 url: "/user-blocked",
-                templateUrl: "/assets/tutor/partial_dashboard_layout.user_blocked.html",
+                templateUrl: "/assets/tutor/partial_dashboard_layout.user_blocked.html"
             })
             .state('dashboard.resume',{
                 url: "/resume",
@@ -246,7 +246,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
                             AuthService.getSession().then(
                                 function(data){
                                     if(data && data.id){
-                                        SessionService.createSession(data.id, data.email, data.first_name, data.last_name, data.gender, data.phone_number, data.details, data.picture, data.picture_url, data.preference, data.references, data.request, data.studies, data.topics, data.zones);
+                                        SessionService.createSession(data.id, data.balance, data.email, data.first_name, data.last_name, data.gender, data.phone_number, data.details, data.picture, data.picture_url, data.preference, data.references, data.request, data.background, data.categories, data.counties);
                                         $timeout(function(){
                                             return true;
                                         },0);
@@ -274,8 +274,8 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
                             AuthService.getSession().then(
                                 function(data){
                                     if(data && data.id){
-                                        SessionService.createSession(data.id, data.email, data.first_name, data.last_name, data.gender, data.phone_number, data.details, data.picture, data.picture_url, data.preference, data.references, data.request, data.studies, data.topics, data.zones);
                                         $timeout(function(){
+                                            SessionService.createSession(data.id, data.balance, data.email, data.first_name, data.last_name, data.gender, data.phone_number, data.details, data.picture, data.picture_url, data.preference, data.references, data.request, data.background, data.categories, data.counties);
                                             return true;
                                         },0);
                                     }else{
@@ -302,7 +302,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
                             AuthService.getSession().then(
                                 function(data){
                                     if(data && data.id){
-                                        SessionService.createSession(data.id, data.email, data.first_name, data.last_name, data.gender, data.phone_number, data.details, data.picture, data.picture_url, data.preference, data.references, data.request, data.studies, data.topics, data.zones);
+                                        SessionService.createSession(data.id, data.balance, data.email, data.first_name, data.last_name, data.gender, data.phone_number, data.details, data.picture, data.picture_url, data.preference, data.references, data.request, data.background, data.categories, data.counties);
                                         $timeout(function(){
                                             return true;
                                         },0);
@@ -330,7 +330,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
                             AuthService.getSession().then(
                                 function(data){
                                     if(data && data.id){
-                                        SessionService.createSession(data.id, data.email, data.first_name, data.last_name, data.gender, data.phone_number, data.details, data.picture, data.picture_url, data.preference, data.references, data.request, data.studies, data.topics, data.zones);
+                                        SessionService.createSession(data.id, data.balance, data.email, data.first_name, data.last_name, data.gender, data.phone_number, data.details, data.picture, data.picture_url, data.preference, data.references, data.request, data.background, data.categories, data.counties);
                                         $timeout(function(){
                                             return true;
                                         },0);
@@ -358,8 +358,8 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
                             AuthService.getSession().then(
                                 function(data){
                                     if(data && data.id){
-                                        SessionService.createSession(data.id, data.email, data.first_name, data.last_name, data.gender, data.phone_number, data.details, data.picture, data.picture_url, data.preference, data.references, data.request, data.studies, data.topics, data.zones);
                                         $timeout(function(){
+                                            SessionService.createSession(data.id, data.balance, data.email, data.first_name, data.last_name, data.gender, data.phone_number, data.details, data.picture, data.picture_url, data.preference, data.references, data.request, data.background, data.categories, data.counties);
                                             return true;
                                         },0);
                                     }else{
@@ -386,7 +386,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
                             AuthService.getSession().then(
                                 function(data){
                                     if(data && data.id){
-                                        SessionService.createSession(data.id, data.email, data.first_name, data.last_name, data.gender, data.phone_number, data.details, data.picture, data.picture_url, data.preference, data.references, data.request, data.studies, data.topics, data.zones);
+                                        SessionService.createSession(data.id, data.balance, data.email, data.first_name, data.last_name, data.gender, data.phone_number, data.details, data.picture, data.picture_url, data.preference, data.references, data.request, data.background, data.categories, data.counties);
                                         $timeout(function(){
                                             return true;
                                         },0);
@@ -414,7 +414,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
                             AuthService.getSession().then(
                                 function(data){
                                     if(data && data.id){
-                                        SessionService.createSession(data.id, data.email, data.first_name, data.last_name, data.gender, data.phone_number, data.details, data.picture, data.picture_url, data.preference, data.references, data.request, data.studies, data.topics, data.zones);
+                                        SessionService.createSession(data.id, data.balance, data.email, data.first_name, data.last_name, data.gender, data.phone_number, data.details, data.picture, data.picture_url, data.preference, data.references, data.request, data.background, data.categories, data.counties);
                                         $timeout(function(){
                                             return true;
                                         },0);
@@ -442,7 +442,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
                             AuthService.getSession().then(
                                 function(data){
                                     if(data && data.id){
-                                        SessionService.createSession(data.id, data.email, data.first_name, data.last_name, data.gender, data.phone_number, data.details, data.picture, data.picture_url, data.preference, data.references, data.request, data.studies, data.topics, data.zones);
+                                        SessionService.createSession(data.id, data.balance, data.email, data.first_name, data.last_name, data.gender, data.phone_number, data.details, data.picture, data.picture_url, data.preference, data.references, data.request, data.background, data.categories, data.counties);
                                         $timeout(function(){
                                             return true;
                                         },0);

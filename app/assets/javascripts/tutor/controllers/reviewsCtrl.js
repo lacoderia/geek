@@ -20,6 +20,7 @@ Geek.controller('ReviewsController',['$scope','$rootScope', '$timeout', 'AuthSer
 
         ReviewsService.getReviews(SessionService.getId()).then(
             function(data){
+                console.log(data);
                 if(data){
                     $scope.reviews = data;
 

@@ -88,11 +88,14 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
     };
 
     // Inicializamos los broadcasts y listeners del controlador
-    $scope.$watch('sessionLoaded', function(){
-        if(AuthService.isAuthenticated() && $rootScope.sessionLoaded){
-            $scope.getMonthlyCalendar($scope.selectedYear,$scope.selectedMonth);
-        }
-    });
+    $scope.$watch('AuthService.isAuthenticated()', function(){
+        $timeout(function() {
+            if(AuthService.isAuthenticated()){
+                $scope.getMonthlyCalendar($scope.selectedYear,$scope.selectedMonth);
+            }
+        }, 0);
+
+    }, true);
 
     /*
     * Obtiene el número total de días que existen en un mes determinado
@@ -704,7 +707,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
             usSpinnerService.spin('week-calendar-spinner');
         }, 0);
 
-        AvailabilityService.getTutorAvailabilityByRange($scope.selectedWeek[0], $scope.selectedWeek[$scope.selectedWeek.length-1],$scope.tutor.id).then(
+        AvailabilityService.getTutorAvailabilityByRange($scope.selectedWeek[0], $scope.selectedWeek[$scope.selectedWeek.length-1], SessionService.getId()).then(
             function(data){
                 $scope.weekAvailability = data;
                 if(data){

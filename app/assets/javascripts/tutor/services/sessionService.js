@@ -6,12 +6,12 @@ Geek.factory('SessionService', [function(){
         id: undefined,
         balanceInfo: undefined,
         email: undefined,
-        first_name: undefined,
-        last_name: undefined,
+        firstName: undefined,
+        lastName: undefined,
         gender: undefined,
-        phone_number: undefined,
+        phoneNumber: undefined,
         picture: undefined,
-        picture_url: undefined,
+        pictureUrl: undefined,
         preference: undefined,
         references: undefined,
         request: undefined,
@@ -21,21 +21,34 @@ Geek.factory('SessionService', [function(){
 
     };
 
-    var createSession = function(id,balanceInfo,email,first_name,last_name,gender,phone_number,picture,picture_url,preference,references,request,studies,topics,zones){
+    var createSession = function(id, balanceInfo, email, firstName, lastName, gender, phoneNumber, details, picture, pictureUrl, preference, references, request, background, topics, zones){
         session = {
             id: id,
             balanceInfo: balanceInfo,
             email: email,
-            first_name: first_name,
-            last_name: last_name,
+            firstName: firstName,
+            lastName: lastName,
             gender: gender,
-            phone_number: phone_number,
+            phoneNumber: phoneNumber,
+            details: details,
             picture: picture,
-            picture_url: picture_url,
-            preference: preference,
+            pictureUrl: pictureUrl,
+            preference: {
+                'cost': preference.cost,
+                'classLocation': {
+                    'online': preference.online,
+                    'office': preference.office,
+                    'public': preference.public,
+                    'studentPlace': preference.student_place
+                },
+                'availabilities': preference.availabilities
+            },
             references: references,
-            request: request,
-            studies: studies,
+            request: {
+                'approved': request.approved,
+                'sent': request.sent
+            },
+            background: background,
             topics: topics,
             zones: zones
         };
@@ -58,19 +71,19 @@ Geek.factory('SessionService', [function(){
     };
 
     var getFirstName = function(){
-        return session.first_name;
+        return session.firstName;
     };
 
     var setFirstName = function(firstName){
-        session.first_name = firstName;
+        session.firstName = firstName;
     };
 
     var getLastName = function(){
-        return session.last_name;
+        return session.lastName;
     };
 
     var setLastName = function(lastName){
-        session.last_name = lastName;
+        session.lastName = lastName;
     };
 
     var getGender = function(){
@@ -86,7 +99,7 @@ Geek.factory('SessionService', [function(){
     };
 
     var setPhoneNumber = function(phoneNumber){
-        session.phone_number = phoneNumber;
+        session.phoneNumber = phoneNumber;
     };
 
     var getPicture = function(){
@@ -98,11 +111,11 @@ Geek.factory('SessionService', [function(){
     };
 
     var getPictureUrl = function(){
-        return session.picture_url;
+        return session.pictureUrl;
     };
 
     var setPictureUrl = function(pictureUrl){
-        session.picture_url = pictureUrl;
+        session.pictureUrl = pictureUrl;
     };
 
     var getTopics = function(){

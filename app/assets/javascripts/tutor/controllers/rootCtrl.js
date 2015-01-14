@@ -1,9 +1,6 @@
 'use strict';
 
-Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state", "$translate", "$filter", "MessageService", "BalanceService", "AuthService", "DEFAULT_VALUES", "CategoryService", "ProfileService", "SessionService", function($scope, $rootScope, $timeout, $state, $translate, $filter, MessageService, BalanceService, AuthService, DEFAULT_VALUES, CategoryService, ProfileService, SessionService){
-
-    // Objeto que tiene los datos del perfil del tutor
-    $rootScope.tutor = {};
+Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state", "$translate", "$filter", "AuthService", "BalanceService", "CategoryService", "MessageService", "ProfileService", "SessionService", "DEFAULT_VALUES", function($scope, $rootScope, $timeout, $state, $translate, $filter, AuthService, BalanceService, CategoryService, MessageService, ProfileService, SessionService, DEFAULT_VALUES){
 
     // Objeto que contiene el calendario semanal del perfil del usuario
     $rootScope.weekRows = new Array();
@@ -13,9 +10,8 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
 
     // Estatus de la carga del perfíl del tutor
     $rootScope.tutorProfileLoaded = false;
-    $rootScope.tutor.balanceInfo = undefined;
 
-    $scope.userName = $filter('translate')('USER_NAME');
+    $rootScope.userName = $filter('translate')('USER_NAME');
     $rootScope.newConversationMessages = 0;
 
     $rootScope.isUserBlocked = false;
@@ -43,6 +39,66 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
             return false;
         }
     };
+
+    $scope.getTutorProperty = function(prop, obj) {
+        //property not found
+        if(typeof obj === 'undefined') {
+            if(AuthService.isAuthenticated()) {
+                obj = SessionService.getSession();
+            } else {
+                return false;
+            }
+        }
+
+        //index of next property split
+        var _index = prop.indexOf('.');
+
+        //property split found; recursive call
+        if(_index > -1){
+            //get object at property (before split), pass on remainder
+            return $scope.getTutorProperty(prop.substr(_index+1), obj[prop.substring(0, _index)]);
+        }
+
+        //no split; get property
+        return obj[prop];
+    }
+
+    $scope.$watch('AuthService.isAuthenticated()', function(){
+        if (AuthService.isAuthenticated()) {
+            $timeout(function() {
+                $rootScope.userName = SessionService.getFirstName();
+
+                $scope.createWeekCalendar();
+                $scope.updateWeekCalendar(SessionService.getPreference().availabilities);
+
+                // Obtenemos la información de perfil del tutor
+                if ($("#error-data").data()){
+                    $rootScope.isUserBlocked = true;
+                    $state.go('dashboard.user-blocked');
+                } else {
+                    BalanceService.getBalance().then(
+                        function(data){
+                            SessionService.setBalanceInfo(data);
+                        },
+                        function(response){
+                            console.log('Error retrieving the user\'s balance' + response);
+                        }
+                    );
+
+                    MessageService.getPendingConversationsByUserId(SessionService.getId()).then(
+                        function(data){
+                            $rootScope.newConversationMessages = data.pending;
+                        },
+                        function(response){
+                            console.log('Error retrieving the number of pending conversations ' + response);
+                        }
+                    );
+                }
+
+                $rootScope.$broadcast("rootControllerReady");
+            },0);
+        }
+    }, true);
 
     $(document).ready(function() {
 
@@ -86,7 +142,6 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
 
         // Método que genera la información para poblar la vista semanal del perfil del tutor
         $scope.createWeekCalendar = function() {
-
             for(var rowIndex=0; rowIndex<$scope.HOURS.length; rowIndex++){
                 $rootScope.weekRows[rowIndex] = {
                     'halfHours': new Array()
@@ -100,7 +155,6 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
                     };
                 }
             }
-            $scope.updateWeekCalendar($rootScope.tutor.preference.availabilities);
         };
 
         $scope.updateWeekCalendar = function(availabilities) {
@@ -127,107 +181,9 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
             }
 
             $rootScope.tutorProfileLoaded = true;
-            $scope.userName = $rootScope.tutor.firstName;
-
-            BalanceService.getBalance().then(
-                function(data){
-                    $rootScope.tutor.balanceInfo = data;
-                },
-                function(response){
-                    console.log('Error retrieving the user\'s balance' + response);
-                }
-            );
-
-            MessageService.getPendingConversationsByUserId($rootScope.tutor.id).then(
-                function(data){
-                    $rootScope.newConversationMessages = data.pending;
-                },
-                function(response){
-                  console.log('Error retrieving the number of pending conversations ' + response);
-                }
-            );
 
         };
 
-        // Obtenemos la información de perfil del tutor
-        if ($("#error-data").data()){
-            $rootScope.isUserBlocked = true;
-            $state.go('dashboard.user-blocked');
-        }else{
-            ProfileService.getStatus().then(
-                function(data){
-                    if(data && data.id){
-                        $rootScope.tutor = {
-                            'id': data.id,
-                            'request': {
-                                'approved': data.approved,
-                                'sent': data.request_sent
-                                //'approved': true,
-                                //'sent': true
-                            },
-                            'firstName': data.first_name,
-                            'lastName': data.last_name,
-                            'email': data.email,
-                            'topics': [],
-                            'zones': []
-                        }
-
-                        // Revisamos si el tutor ya envió su solicitud
-                        if ($rootScope.tutor.request.sent) {
-
-                            // Si el tutor ya envió el request y ya fue aceptado obtenemos su perfil completo
-                            if ($rootScope.tutor.request.approved) {
-
-                                ProfileService.getProfile().then(
-                                    function(data){
-                                        if(data && data.id){
-                                            $rootScope.tutor.gender = data.gender;
-                                            $rootScope.tutor.email = data.email;
-                                            $rootScope.tutor.phone_number = data.phone_number;
-                                            $rootScope.tutor.details = data.details;
-                                            $rootScope.tutor.references = data.references;
-                                            $rootScope.tutor.studies = data.background;
-                                            $rootScope.tutor.topics = data.categories;
-                                            $rootScope.tutor.zones = data.counties;
-                                            $rootScope.tutor.picture_url = data.picture_url;
-                                            $rootScope.tutor.preference = {
-                                                'cost': data.preference.cost,
-                                                'classLocation': {
-                                                    'online': data.preference.online,
-                                                    'office': data.preference.office,
-                                                    'public': data.preference.public,
-                                                    'student_place': data.preference.student_place
-                                                },
-                                                'availabilities': data.preference.availabilities
-                                            };
-
-                                            $scope.createWeekCalendar();
-                                        }
-                                    },
-                                    function(response){
-                                        console.log('Error getting tutor\'s request status: ' + response);
-                                    }
-                                );
-                            } else {
-                                $state.go('dashboard.profile');
-                            }
-                        } else {
-                            $state.go('dashboard.profile');
-                        }
-
-                    }
-                },
-                function(response){
-                    console.log('Error getting tutor\'s request status: ' + response);
-                }
-            );
-        }
-
-		
-	    $timeout(function() {
-	        $rootScope.$broadcast("rootControllerReady");
-	    },0);
-		
     });
 
 }]);
