@@ -5,8 +5,6 @@ include Clockwork
 
 # Completar, rechazar y pagar citas
 every(30.minutes, 'complete_and_reject_and_pay_appointments', :at => ['**:30', '**:00']) {
-  
-  UserMailer.test_email("Test cada 30 minutos").deliver
 
   pending_appointment = AppointmentStatus.find_by_code("0")
   confirmed_appointment = AppointmentStatus.find_by_code("3")
@@ -77,9 +75,7 @@ every(30.minutes, 'complete_and_reject_and_pay_appointments', :at => ['**:30', '
 }
 
 # Revisar si es 15 de cada mes y hacer retiro automático (cashout tutor)
-# TODO: mover dia catorce a dia quince
-every(1.day, 'tutor_cashout', :if => lambda { |t| t.day == 14}) {
-  UserMailer.test_email("Test cada día 14").deliver
+every(1.day, 'tutor_cashout', :if => lambda { |t| t.day == 15}) {
 
   Tutor.where("active = ?", true).each do |tutor|
     tutor.cash_out
@@ -88,11 +84,8 @@ every(1.day, 'tutor_cashout', :if => lambda { |t| t.day == 14}) {
   
 # Cada noche mandar a estudiante, informando de clases del próximo día
 # Cada noche mandar a tutor, informando de clases del próximo día y de solicitudes pendientes
-# TODO: mover hora a 19:00
-every(1.day, 'send_notifications', :at => '20:00') {
-  UserMailer.test_email("Test cada día a las 7 pm").deliver
+every(1.day, 'send_notifications', :at => '19:00') {
   Appointment.where("appointments.start BETWEEN ? AND ?", DateTime.now.tomorrow.beginning_of_day, DateTime.now.tomorrow.end_of_day).each do |appointment|
     #TODO: Diego a incluir las notificaciones
   end
-
 }
