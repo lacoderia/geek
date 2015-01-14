@@ -88,10 +88,11 @@ every(1.day, 'tutor_cashout', :if => lambda { |t| t.day == 14}) {
   
 # Cada noche mandar a estudiante, informando de clases del próximo día
 # Cada noche mandar a tutor, informando de clases del próximo día y de solicitudes pendientes
-every(1.day, 'send_notifications', :at => '19:00') {
+# TODO: mover hora a 19:00
+every(1.day, 'send_notifications', :at => '20:00') {
+  UserMailer.test_email("Test cada día a las 7 pm").deliver
   Appointment.where("appointments.start BETWEEN ? AND ?", DateTime.now.tomorrow.beginning_of_day, DateTime.now.tomorrow.end_of_day).each do |appointment|
     #TODO: Diego a incluir las notificaciones
-    UserMailer.test_email("Test cada día a las 7 pm").deliver
   end
 
 }
