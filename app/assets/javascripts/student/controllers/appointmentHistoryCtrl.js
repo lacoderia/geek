@@ -67,13 +67,6 @@ Geek.controller('AppointmentHistoryController',['$filter', '$scope', '$rootScope
         }
     };
 
-    // Inicializamos los broadcasts y listeners del controlador
-    $scope.$watch('sessionLoaded', function(){
-        if(AuthService.isAuthenticated() && $rootScope.sessionLoaded){
-            $scope.getPastAppointmentList();
-        }
-    });
-
     /*
      * Obtiene la posición donde el usuario hiczo click y abre el popupd del detalle del appointment
      * */
@@ -335,5 +328,8 @@ Geek.controller('AppointmentHistoryController',['$filter', '$scope', '$rootScope
 
         }
     };
+
+    //Inicializamos el controlador
+    $scope.getPastAppointmentList();
 
 }]);

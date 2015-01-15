@@ -29,13 +29,6 @@ Geek.controller('PaymentController',['$scope','$rootScope', '$timeout', '$locati
     $scope.bankAccountOwner = '';
     $scope.clabe = '';
 
-    // Inicializamos los broadcasts y listeners del controlador
-    $scope.$watch('sessionLoaded', function(){
-        if(AuthService.isAuthenticated() && $rootScope.sessionLoaded){
-            $scope.getPaymentMethodsList();
-        }
-    });
-
     $scope.getPaymentMethodsList = function(){
 
         $timeout(function(){
@@ -382,4 +375,6 @@ Geek.controller('PaymentController',['$scope','$rootScope', '$timeout', '$locati
 
     });
 
+    //Inicializamos el controlador
+    $scope.getPaymentMethodsList();
 }]);

@@ -21,7 +21,7 @@ Geek.controller('RootController', ["$filter", "$scope", "$rootScope", "$state", 
 
     $rootScope.isUserBlocked = false;
 
-    $scope.userName = $filter('translate')('USER_NAME');
+    $rootScope.userName = $filter('translate')('USER_NAME');
     $rootScope.newConversationMessages = 0;
 
     $scope.DAYS = DEFAULT_VALUES.DAYS;
@@ -60,13 +60,10 @@ Geek.controller('RootController', ["$filter", "$scope", "$rootScope", "$state", 
         $scope.tutorResultListVisible = true;
     });
 
-    $scope.$watch('sessionLoaded', function(){
-        if(AuthService.isAuthenticated() && $rootScope.sessionLoaded){
-            $scope.userName = SessionService.getFirstName() + " " + SessionService.getLastName();
-            if ($("#error-data").data()){
-                $rootScope.isUserBlocked = true;
-                $state.go('dashboard.user-blocked');
-            }else{
+    $scope.$watch('AuthService.isAuthenticated()', function(){
+        if (AuthService.isAuthenticated()) {
+            $timeout(function() {
+                $rootScope.userName = SessionService.getFirstName();
                 MessageService.getPendingConversationsByUserId(SessionService.getId()).then(
                     function(data){
                         $rootScope.newConversationMessages = data.pending;
@@ -75,8 +72,9 @@ Geek.controller('RootController', ["$filter", "$scope", "$rootScope", "$state", 
                         console.log('Error retrieving de number of pending conversations ' + response);
                     }
                 );
-            }
+            },0);
         }
+
     }, true);
 
 

@@ -87,16 +87,6 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
         }
     };
 
-    // Inicializamos los broadcasts y listeners del controlador
-    $scope.$watch('AuthService.isAuthenticated()', function(){
-        $timeout(function() {
-            if(AuthService.isAuthenticated()){
-                $scope.getMonthlyCalendar($scope.selectedYear,$scope.selectedMonth);
-            }
-        }, 0);
-
-    }, true);
-
     /*
     * Obtiene el número total de días que existen en un mes determinado
     * */
@@ -988,5 +978,8 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
             }
         );
     }
+
+    //Inicializamos el controlador
+    $scope.getMonthlyCalendar($scope.selectedYear,$scope.selectedMonth);
 
 }]);

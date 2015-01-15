@@ -67,13 +67,6 @@ Geek.controller('AppointmentHistoryController',['$scope','$rootScope', '$timeout
         }
     };
 
-    // Inicializamos los broadcasts y listeners del controlador
-    $scope.$watch('sessionLoaded', function(){
-        if(AuthService.isAuthenticated() && $rootScope.sessionLoaded){
-            $scope.getPastAppointmentList();
-        }
-    });
-
     $scope.showAnomalyDetail = function($event, appointment){
         $event.stopPropagation();
         var options = {
@@ -335,5 +328,8 @@ Geek.controller('AppointmentHistoryController',['$scope','$rootScope', '$timeout
 
         return $scope.STATUS_BUTTONS_RELATION[appointment.status.code][action] && actionAvailable;
     };
+
+    //Inicializamos el controlador
+    $scope.getPastAppointmentList();
 
 }]);

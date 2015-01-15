@@ -8,12 +8,6 @@ Geek.controller('ResumeController',['$scope','$rootScope', '$timeout', 'ResumeSe
 
     $scope.resume = undefined;
 
-    // Inicializamos los broadcasts y listeners del controlador
-    $scope.$watch('sessionLoaded', function(){
-        if(AuthService.isAuthenticated() && $rootScope.sessionLoaded){
-            $scope.getUserResume();
-        }
-    });
 
     $scope.getUserResume = function(){
 
@@ -73,5 +67,8 @@ Geek.controller('ResumeController',['$scope','$rootScope', '$timeout', 'ResumeSe
         );
 
     };
+
+    //Inicializamos el controlador
+    $scope.getUserResume();
 
 }]);

@@ -8,13 +8,6 @@ Geek.controller('MessageController',['$scope','$rootScope', '$timeout', '$filter
     $scope.textMessage = '';
     $scope.lastMessage = undefined;
 
-    // Inicializamos los broadcasts y listeners del controlador
-    $scope.$watch('sessionLoaded', function(){
-        if(AuthService.isAuthenticated() && $rootScope.sessionLoaded){
-            $scope.getConversations();
-        }
-    });
-
     $scope.getConversations = function(){
 
         $timeout(function(){
@@ -125,5 +118,7 @@ Geek.controller('MessageController',['$scope','$rootScope', '$timeout', '$filter
         }
     }
 
+    //Inicializamos el controlador
+    $scope.getConversations();
 
 }]);
