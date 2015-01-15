@@ -342,6 +342,12 @@ class Tutor < ActiveRecord::Base
 
   end
 
+  # $scope.orderOptions = [
+  #      {'code':0, 'title':'SEARCH_ORDER_BY_LABEL_HIGHEST_REVIEW'},
+  #      {'code':1, 'title':'SEARCH_ORDER_BY_LABEL_HIGHEST_PRICE'},
+  #      {'code':2, 'title':'SEARCH_ORDER_BY_LABEL_LOWEST_PRICE'}
+  # ];
+
   def self.search_by_query_params_for_google zone_obj, category_id, category_str, page, options
 
     tutors = nil
@@ -406,10 +412,8 @@ class Tutor < ActiveRecord::Base
       query_str = "(active = ? AND approved = ?) AND (county_id in (#{county_ids.map(&:inspect).join(',')}) and (categories.category_id in (#{category_ids.map(&:inspect).join(',')}) OR categories.id in (#{category_ids.map(&:inspect).join(',')})))"
       if has_options
         query_str.insert(0, Tutor.build_filter_query(options))
-        tutors = Tutor.joins(:categories, :counties, :preference).where(query_str, true, true).includes(:reviews => :student).order(grade: :desc)
-      else
-        tutors = Tutor.joins(:categories, :counties).where(query_str, true, true).includes(:reviews => :student).order(grade: :desc)
       end
+      tutors = Tutor.includes(:preference, :counties, :appointments, :categories => :categories_tutors, :reviews => :student).where(query_str, true, true).order(grade: :desc)
 
       if not zone_obj[:sublocality]
         if tutors.count < FALLBACK_NUMBER #fallback con locality si no trae sublocality
@@ -426,10 +430,9 @@ class Tutor < ActiveRecord::Base
         query_str = "(active = ? AND approved = ?) AND (county_id in (#{fallback_county_ids.map(&:inspect).join(',')}) and (categories.category_id in (#{category_ids.map(&:inspect).join(',')}) OR categories.id in (#{category_ids.map(&:inspect).join(',')})))"
         if has_options
           query_str.insert(0, Tutor.build_filter_query(options))
-          suggested_tutors = Tutor.joins(:categories, :counties, :preference).where(query_str, true, true).includes(:reviews => :student).order(grade: :desc)
-        else
-          suggested_tutors = Tutor.joins(:categories, :counties).where(query_str, true, true).includes(:reviews => :student).order(grade: :desc)
         end
+
+        suggested_tutors = Tutor.includes(:preference, :counties, :appointments, :categories => :categories_tutors, :reviews => :student).where(query_str, true, true).order(grade: :desc)
         suggested_tutors = suggested_tutors - tutors
 
         if suggested_tutors.count < FALLBACK_NUMBER and zone_obj[:sublocality] #fallback a locality
@@ -438,11 +441,9 @@ class Tutor < ActiveRecord::Base
           query_str = "(active = ? AND approved = ?) AND (county_id in (#{fallback_county_ids.map(&:inspect).join(',')}) AND (categories.category_id in (#{category_ids.map(&:inspect).join(',')}) OR categories.id in (#{category_ids.map(&:inspect).join(',')})))"
           if has_options
             query_str.insert(0, Tutor.build_filter_query(options))
-            suggested_tutors = Tutor.joins(:categories, :counties, :preference).where(query_str, true, true).includes(:reviews => :student)
-          else
-            suggested_tutors = Tutor.joins(:categories, :counties).where(query_str, true, true).includes(:reviews => :student)
           end
-
+          
+          suggested_tutors = Tutor.includes(:preference, :counties, :appointments, :categories => :categories_tutors, :reviews => :student).where(query_str, true, true).order(grade: :desc)
           suggested_tutors = suggested_tutors - tutors
           message += "Fallback con locality."
         end
@@ -465,10 +466,9 @@ class Tutor < ActiveRecord::Base
       
       if has_options
         query_str.insert(0, Tutor.build_filter_query(options))
-        tutors = Tutor.joins(:counties, :preference).where(query_str, true, true).includes(:reviews => :student).order(grade: :desc)
-      else
-        tutors = Tutor.joins(:counties).where(query_str, true, true).includes(:reviews => :student).order(grade: :desc)
       end
+      tutors = Tutor.includes(:preference, :counties, :appointments, :categories => :categories_tutors, :reviews => :student).where(query_str, true, true).order(grade: :desc)
+
 
       if not zone_obj[:sublocality]
         if tutors.count < FALLBACK_NUMBER #fallback con locality si no trae sublocality
@@ -486,10 +486,8 @@ class Tutor < ActiveRecord::Base
         
         if has_options
           query_str.insert(0, Tutor.build_filter_query(options))
-          suggested_tutors = Tutor.joins(:counties, :preference).where(query_str, true, true).includes(:reviews => :student).order(grade: :desc)
-        else
-          suggested_tutors = Tutor.joins(:counties).where(query_str, true, true).includes(:reviews => :student).order(grade: :desc)
         end
+        suggested_tutors = Tutor.includes(:preference, :counties, :appointments, :categories => :categories_tutors, :reviews => :student).where(query_str, true, true).order(grade: :desc)
 
         suggested_tutors = suggested_tutors - tutors
 
@@ -519,10 +517,8 @@ class Tutor < ActiveRecord::Base
       
       if has_options
         query_str.insert(0, Tutor.build_filter_query(options))
-        tutors = Tutor.joins(:categories, :preference).where(query_str, true, true).includes(:reviews => :student).order(grade: :desc)
-      else
-        tutors = Tutor.joins(:categories).where(query_str, true, true).includes(:reviews => :student).order(grade: :desc)
       end
+      tutors = Tutor.includes(:preference, :counties, :appointments, :categories => :categories_tutors, :reviews => :student).where(query_str, true, true).order(grade: :desc)
 
       if zone_obj
         message = "No se encontraron zonas asociadas a ese texto."

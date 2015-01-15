@@ -22,14 +22,13 @@ json.set! :tutors do
         end
       end
       json.set! :categories do
-        json.array! (tutor.categories_tutors) do |ct|
-          category = ct.category 
+        json.array! (tutor.categories) do |category|
           json.id category.id
           json.name category.name
           json.category_id category.category_id
           json.picture_url category.picture_url
-          json.cost ct.cost
-        end
+          json.cost category.categories_tutors.select{|ct| ct.tutor_id == tutor.id}.first.cost
+        end 
       end
       json.set! :preference do
         json.extract! (tutor.preference), :id, :online, :office, :public, :student_place
@@ -84,15 +83,14 @@ json.set! :suggested_tutors do
         json.array! (tutor.counties) do |county|
           json.extract! county, :id, :postal_code_id, :name
         end
-      end
+      end 
       json.set! :categories do
-        json.array! (tutor.categories_tutors) do |ct|
-          category = ct.category 
+        json.array! (tutor.categories) do |category|
           json.id category.id
           json.name category.name
           json.category_id category.category_id
           json.picture_url category.picture_url
-          json.cost ct.cost
+          json.cost category.categories_tutors.select{|ct| ct.tutor_id == tutor.id}.first.cost
         end
       end
       json.set! :preference do

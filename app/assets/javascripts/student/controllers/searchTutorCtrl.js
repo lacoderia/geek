@@ -33,7 +33,8 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
         'online': false,
         'office': false,
         'student': false,
-        'public': false
+        'public': false,
+        'order': $scope.orderOptions[0]
     };
 
     //Variable de ordenamiento
@@ -239,6 +240,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
     $scope.setOrderByOption = function(orderOption){
         if(orderOption.code != $scope.orderByOption.code){
             $scope.orderByOption = orderOption;
+            $scope.filters.order = $scope.orderByOption;
             $scope.searchTutor(1);
         }
     };
