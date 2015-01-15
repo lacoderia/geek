@@ -68,12 +68,6 @@ Geek.controller('MyAppointmentsController',['$compile', '$filter', '$scope','$ro
         }
     };
 
-    // Inicializamos los broadcasts y listeners del controlador
-    $scope.$watch('sessionLoaded', function(){
-        if(AuthService.isAuthenticated() && $rootScope.sessionLoaded){
-            $scope.getAppointmentGroupsList();
-        }
-    });
 
     /*
      * Obtiene la posición donde el usuario hiczo click y abre el popupd del detalle del appointment
@@ -297,5 +291,8 @@ Geek.controller('MyAppointmentsController',['$compile', '$filter', '$scope','$ro
 
         }
     };
+
+    //Inicializamos el controlador
+    $scope.getAppointmentGroupsList();
 
 }]);

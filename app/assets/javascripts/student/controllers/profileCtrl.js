@@ -160,4 +160,5 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
         }
 
     });
+
 }]);

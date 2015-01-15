@@ -26,12 +26,6 @@ Geek.controller('PaymentController',['$filter', '$scope','$rootScope', '$timeout
     $scope.expirationErrorClass = '';
     $scope.stateErrorClass = '';
 
-    // Inicializamos los broadcasts y listeners del controlador
-    $scope.$watch('sessionLoaded', function(){
-        if(AuthService.isAuthenticated() && $rootScope.sessionLoaded){
-            $scope.getPaymentMethodsList();
-        }
-    });
 
     $scope.getPaymentMethodsList = function(){
 
@@ -309,5 +303,8 @@ Geek.controller('PaymentController',['$filter', '$scope','$rootScope', '$timeout
         OpenPay.setSandboxMode(true);
 
     });
+
+    //Inicializamos el controlador
+    $scope.getPaymentMethodsList();
 
 }]);

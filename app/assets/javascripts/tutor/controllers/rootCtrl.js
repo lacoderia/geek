@@ -71,29 +71,23 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
                 $scope.createWeekCalendar();
                 $scope.updateWeekCalendar(SessionService.getPreference().availabilities);
 
-                // Obtenemos la información de perfil del tutor
-                if ($("#error-data").data()){
-                    $rootScope.isUserBlocked = true;
-                    $state.go('dashboard.user-blocked');
-                } else {
-                    BalanceService.getBalance().then(
-                        function(data){
-                            SessionService.setBalanceInfo(data);
-                        },
-                        function(response){
-                            console.log('Error retrieving the user\'s balance' + response);
-                        }
-                    );
+                BalanceService.getBalance().then(
+                    function(data){
+                        SessionService.setBalanceInfo(data);
+                    },
+                    function(response){
+                        console.log('Error retrieving the user\'s balance' + response);
+                    }
+                );
 
-                    MessageService.getPendingConversationsByUserId(SessionService.getId()).then(
-                        function(data){
-                            $rootScope.newConversationMessages = data.pending;
-                        },
-                        function(response){
-                            console.log('Error retrieving the number of pending conversations ' + response);
-                        }
-                    );
-                }
+                MessageService.getPendingConversationsByUserId(SessionService.getId()).then(
+                    function(data){
+                        $rootScope.newConversationMessages = data.pending;
+                    },
+                    function(response){
+                        console.log('Error retrieving the number of pending conversations ' + response);
+                    }
+                );
 
                 $rootScope.$broadcast("rootControllerReady");
             },0);

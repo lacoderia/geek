@@ -2,19 +2,17 @@
 
 Geek.factory('AuthService', ["$rootScope", "SessionService", "$http", "$q", "$timeout", "DEFAULT_VALUES", function($rootScope, SessionService, $http, $q, $timeout, DEFAULT_VALUES){
 
-    $rootScope.sessionLoaded = false;
+    var getSessionAttempt = 0;
 
     var getSession = function(){
-
         var deferred = $q.defer();
         var promise = deferred.promise;
+
+        getSessionAttempt++;
 
          $http.get(DEFAULT_VALUES.URL_SERVICES.PROFILE_GET_SESSION_URL).
          success(function(data){
             deferred.resolve(data);
-            $timeout(function(){
-                $rootScope.sessionLoaded = true;
-            },0);
          }).
 
          error(function(response){
@@ -27,26 +25,30 @@ Geek.factory('AuthService', ["$rootScope", "SessionService", "$http", "$q", "$ti
     };
 
     var isAuthenticated = function(){
-        var isAuthenticated = false;
-
         if(SessionService.getId()){
-            isAuthenticated = true;
+            return true;
+        } else {
+            return false;
         }
-        return isAuthenticated;
     };
 
     var isAuthorized = function(){
-        var isAuthorized = false;
         if(SessionService.getId()){
-            isAuthorized = true;
+            return true;
+        } else {
+            return false;
         }
-        return isAuthorized;
+    }
+
+    var getSessionAttempts = function(){
+        return getSessionAttempt;
     }
 
     return{
         isAuthenticated: isAuthenticated,
         isAuthorized: isAuthorized,
-        getSession: getSession
+        getSession: getSession,
+        getSessionAttempts: getSessionAttempts
     }
 
 }]);

@@ -5,12 +5,6 @@ Geek.controller('MyTutorsController',['$scope','$rootScope','$compile', '$timeou
     $scope.tutorList = undefined;
     $scope.appointmentButtons = DEFAULT_VALUES.APPOINTMENT_BUTTONS;
 
-    // Inicializamos los broadcasts y listeners del controlador
-    $scope.$watch('sessionLoaded', function(){
-        if(AuthService.isAuthenticated() && $rootScope.sessionLoaded){
-            $scope.getTutorList();
-        }
-    });
 
     /*
      * Obtiene la posición donde el usuario hizo click y abre el popup con la forma para calificar al tutor
@@ -175,5 +169,8 @@ Geek.controller('MyTutorsController',['$scope','$rootScope','$compile', '$timeou
 
         }
     };
+
+    //Inicializamos el controlador
+    $scope.getTutorList();
 
 }]);

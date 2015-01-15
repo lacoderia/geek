@@ -2,6 +2,8 @@
 
 Geek.factory('AuthService', ['$http', '$q', '$rootScope', '$timeout', 'SessionService', 'DEFAULT_VALUES', function($http, $q, $rootScope, $timeout, SessionService, DEFAULT_VALUES){
 
+    var getSessionAttempt = 0;
+
     var getSessionStatus = function(){
         var deferred = $q.defer();
         var promise = deferred.promise;
@@ -21,6 +23,8 @@ Geek.factory('AuthService', ['$http', '$q', '$rootScope', '$timeout', 'SessionSe
     var getSession = function(){
         var deferred = $q.defer();
         var promise = deferred.promise;
+
+        getSessionAttempt++;
 
         $http.get(DEFAULT_VALUES.URL_SERVICES.PROFILE_GET_PROFILE_URL).
             success(function(data){
@@ -50,11 +54,16 @@ Geek.factory('AuthService', ['$http', '$q', '$rootScope', '$timeout', 'SessionSe
         }
     }
 
+    var getSessionAttempts = function(){
+        return getSessionAttempt;
+    }
+
     return{
         isAuthenticated: isAuthenticated,
         isAuthorized: isAuthorized,
         getSession: getSession,
-        getSessionStatus: getSessionStatus
+        getSessionStatus: getSessionStatus,
+        getSessionAttempts: getSessionAttempts
     }
 
 }]);

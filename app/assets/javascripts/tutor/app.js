@@ -197,23 +197,28 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
     .run(function ($rootScope, $state, AuthService, SessionService) {
         $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
 
-            if (toState.authenticate && !AuthService.isAuthenticated()){
-                event.preventDefault();
+            console.log("$stateChangeStart");
+            if(AuthService.getSessionAttempts() == 0) {
+                if (toState.authenticate && !AuthService.isAuthenticated()){
 
-                AuthService.getSession().then(
-                    function(data){
-                        if(data && data.id){
-                            SessionService.createSession(data.id, data.balance, data.email, data.first_name, data.last_name, data.gender, data.phone_number, data.details, data.picture, data.picture_url, data.preference, data.references, data.request, data.background, data.categories, data.counties);
-                            $state.go(toState.authenticatedState, toParams);
-                        }else{
+                    event.preventDefault();
+
+                    AuthService.getSession().then(
+                        function(data){
+                            if(data && data.id){
+                                SessionService.createSession(data.id, data.balance, data.email, data.first_name, data.last_name, data.gender, data.phone_number, data.details, data.picture, data.picture_url, data.preference, data.references, data.request, data.background, data.categories, data.counties);
+                                $state.go(toState.authenticatedState, toParams);
+                            }else{
+                                $state.go(toState.defaultState);
+                            }
+                        },
+                        function(response){
                             $state.go(toState.defaultState);
                         }
-                    },
-                    function(response){
-                        $state.go(toState.defaultState);
-                    }
-                );
+                    );
+                }
             }
+
         });
     })
 
@@ -263,63 +268,66 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
             })
             .state('dashboard.user-blocked', {
                 url: "/user-blocked",
-                templateUrl: "/assets/tutor/partial_dashboard_layout.user_blocked.html"
+                templateUrl: "/assets/tutor/partial_dashboard_layout.user_blocked.html",
+                authenticate: true,
+                authenticatedState: "dashboard.user-blocked",
+                defaultState: "tutor"
             })
             .state('dashboard.resume',{
                 url: "/resume",
                 templateUrl: "/assets/tutor/partial_dashboard_layout.resume.html",
                 authenticate: true,
                 authenticatedState: "dashboard.resume",
-                defaultState: "tutor.landing"
+                defaultState: "tutor"
             })
             .state('dashboard.calendar', {
                 url: "/calendar",
                 templateUrl: "/assets/tutor/partial_dashboard_layout.calendar.html",
                 authenticate: true,
                 authenticatedState: "dashboard.calendar",
-                defaultState: "tutor.landing"
+                defaultState: "tutor"
             })
             .state('dashboard.history', {
                 url: "/history",
                 templateUrl: "/assets/tutor/partial_dashboard_layout.history.html",
                 authenticate: true,
                 authenticatedState: "dashboard.history",
-                defaultState: "tutor.landing"
+                defaultState: "tutor"
             })
             .state('dashboard.messages', {
                 url: "/messages",
                 templateUrl: "/assets/tutor/partial_dashboard_layout.messages.html",
                 authenticate: true,
                 authenticatedState: "dashboard.messages",
-                defaultState: "tutor.landing"
+                defaultState: "tutor"
             })
             .state('dashboard.profile', {
                 url: "/profile",
                 templateUrl: "/assets/tutor/partial_dashboard_layout.profile.html",
                 authenticate: true,
                 authenticatedState: "dashboard.profile",
-                defaultState: "tutor.landing"
+                defaultState: "tutor"
             })
             .state('dashboard.reviews', {
                 url: "/reviews",
                 templateUrl: "/assets/tutor/partial_dashboard_layout.reviews.html",
                 authenticate: true,
                 authenticatedState: "dashboard.reviews",
-                defaultState: "tutor.landing"
+                defaultState: "tutor"
             })
             .state('dashboard.balance', {
                 url: "/balance",
                 templateUrl: "/assets/tutor/partial_dashboard_layout.balance.html",
                 authenticate: true,
                 authenticatedState: "dashboard.balance",
-                defaultState: "tutor.landing"
+                defaultState: "tutor"
             })
             .state('dashboard.payment-options', {
                 url: "/payment-options",
                 templateUrl: "/assets/tutor/partial_dashboard_layout.payment_options.html",
                 authenticate: true,
                 authenticatedState: "dashboard.payment-options",
-                defaultState: "tutor.landing"
+                defaultState: "tutor"
             });
     }])
 
