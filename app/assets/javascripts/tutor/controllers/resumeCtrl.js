@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('ResumeController',['$scope','$rootScope', '$timeout', 'AuthService', 'SessionService', 'ResumeService', 'usSpinnerService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $timeout, AuthService, SessionService,ResumeService, usSpinnerService, DEFAULT_VALUES){
+Geek.controller('ResumeController',['$scope','$rootScope', '$filter', '$timeout', '$translate', 'AuthService', 'SessionService', 'ResumeService', 'usSpinnerService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $filter, $timeout, $translate, AuthService, SessionService,ResumeService, usSpinnerService, DEFAULT_VALUES){
 
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.MONTHS = DEFAULT_VALUES.MONTHS;
@@ -65,6 +65,24 @@ Geek.controller('ResumeController',['$scope','$rootScope', '$timeout', 'AuthServ
             }
         );
 
+    };
+
+    $scope.translateAppointmentDate = function(day, date, month) {
+
+        var translatedTitle = '';
+
+        switch($translate.use()) {
+            case 'es_MX':
+                translatedTitle = $filter('translate')($scope.DAYS[day].title) + " " + date + " de " + $filter('translate')($scope.MONTHS[month]);
+                break;
+            case 'en_US':
+                translatedTitle = $filter('translate')($scope.DAYS[day].title) + ", " + $filter('translate')($scope.MONTHS[month]) + " " + date;
+                break;
+            default:
+                break;
+        }
+
+        return translatedTitle;
     };
 
     //Inicializamos el controlador

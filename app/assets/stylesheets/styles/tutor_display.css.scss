@@ -77,7 +77,7 @@
     }
 
     .week-day.unavailable{
-      background-image: linear-gradient(-45deg, transparent 45%, $color-input-gray 50%, transparent 55%, transparent 100%);
+      background-image: linear-gradient(-45deg, transparent 48%, $color-input-gray 48%, transparent 55%, transparent 100%);
       background-size: 8px 8px;
       background-position: 2px 2px;
       cursor: default !important;
@@ -110,6 +110,12 @@
     color: $color-dark-gray;
     margin-right: 2em;
     text-transform: uppercase;
+  }
+}
+
+.menu-tabs{
+  li{
+    min-width: 25%;
   }
 }
 

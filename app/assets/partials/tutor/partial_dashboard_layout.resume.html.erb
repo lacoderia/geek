@@ -9,7 +9,7 @@
       <div class="resume-item" ng-repeat="request in resume.requests.latest" ng-show="resume.requests.latest && resume.requests.latest.length">
         <div class="user-personal-info">
           <div class="content">
-            <em class="timestamp">{{ 'FROM' | translate }} {{ request.startHour }} {{ 'TO' | translate }} {{ request.endHour }}</em>
+            <em class="timestamp">{{ translateAppointmentDate(request.day, request.numberDay, request.month) }}:  {{ 'FROM' | translate }} {{ request.startHour }} {{ 'TO' | translate }} {{ request.endHour }}</em>
             <h4 class="user-name">{{ request.student.first_name }} {{ request.student.last_name }}</h4>
             <p class="user-last-message">{{ request.subject }}</p>
           </div>
@@ -36,7 +36,7 @@
       <div class="resume-item" ng-repeat="appointment in resume.appointments.latest" ng-show="resume.appointments.latest && resume.appointments.latest.length">
         <div class="user-personal-info">
           <div class="content">
-            <em class="timestamp">{{ 'FROM' | translate }} {{ appointment.startHour }} {{ 'TO' | translate }} {{ appointment.endHour }}</em>
+            <em class="timestamp">{{ translateAppointmentDate(appointment.day, appointment.numberDay, appointment.month) }}: {{ 'FROM' | translate }} {{ appointment.startHour }} {{ 'TO' | translate }} {{ appointment.endHour }}</em>
             <h4 class="user-name">{{ appointment.student.first_name }} {{ appointment.student.last_name }}</h4>
             <p class="user-last-message">{{ appointment.subject }}</p>
           </div>
