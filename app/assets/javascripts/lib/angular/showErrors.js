@@ -4,7 +4,7 @@
     showErrorsModule = angular.module('ui.bootstrap.showErrors', []);
 
     showErrorsModule.directive('showErrors', [
-        '$timeout', 'showErrorsConfig', function($timeout, showErrorsConfig) {
+        '$filter', '$timeout', 'showErrorsConfig', function($filter, $timeout, showErrorsConfig) {
             var getShowSuccess, getTrigger, linkFn;
             getTrigger = function(options) {
                 var trigger;
@@ -83,7 +83,7 @@
                                 if (scope.showErrorsParams){
                                     if (!scope.showErrorsParams.length) {
                                         el.toggleClass('has-error', true);
-                                        formCtrl[inputName].popoverMessage = 'Se debe agregar al menos un elemento';
+                                        formCtrl[inputName].popoverMessage = $filter('translate')('SHOW_ERRORS_ARRAY_LENGTH');
                                     } else {
                                         el.toggleClass('has-error', false);
                                         formCtrl[inputName].popoverMessage = '';
@@ -106,7 +106,7 @@
 
                                         if (hasError) {
                                             el.toggleClass('has-error', true);
-                                            formCtrl[inputName].popoverMessage = 'Se debe seleccionar al menos un elemento';
+                                            formCtrl[inputName].popoverMessage = $filter('translate')('SHOW_ERRORS_CHECKBOX');
                                         } else {
                                             el.toggleClass('has-error', false);
                                             formCtrl[inputName].popoverMessage = '';
@@ -123,14 +123,14 @@
 
                                 var popoverInputName =  (inputNgEl[0].attributes["popover-input-name"].value).toLowerCase();
                                 if(invalid) {
-                                    if (formCtrl[inputName].$error.minlength == true) {
-                                        formCtrl[inputName].popoverMessage = 'El campo ' + popoverInputName + ' debe ser de al menos ' + inputNgEl[0].attributes["ng-minlength"].value + ' caracteres';
-                                    } else if (formCtrl[inputName].$error.maxlength == true) {
-                                        formCtrl[inputName].popoverMessage = 'El campo ' + popoverInputName + ' no debe ser de más de ' + inputNgEl[0].attributes["ng-maxlength"].value + ' caracteres';
+                                    if (formCtrl[inputName].$error.required == true) {
+                                        formCtrl[inputName].popoverMessage = $filter('translate')('SHOW_ERRORS_FIELD') + ' ' + popoverInputName + ' ' + $filter('translate')('SHOW_ERRORS_FIELD_REQUIRED');
                                     } else if (formCtrl[inputName].$error.pattern == true) {
-                                        formCtrl[inputName].popoverMessage = 'El campo ' + popoverInputName + ' contiene caractéres inválidos';
-                                    } else if (formCtrl[inputName].$error.required == true) {
-                                        formCtrl[inputName].popoverMessage = 'El campo ' + popoverInputName + ' es requerido';
+                                        formCtrl[inputName].popoverMessage = $filter('translate')('SHOW_ERRORS_FIELD') + ' ' + popoverInputName + ' ' + $filter('translate')('SHOW_ERRORS_FIELD_INVALID');
+                                    } else if (formCtrl[inputName].$error.minlength == true) {
+                                        formCtrl[inputName].popoverMessage = $filter('translate')('SHOW_ERRORS_FIELD') + ' ' + popoverInputName + ' ' + $filter('translate')('SHOW_ERRORS_FIELD_MIN_LENGTH') + ' ' + inputNgEl[0].attributes["ng-minlength"].value + ' ' + $filter('translate')('SHOW_ERRORS_FIELD_CHARACTERS');
+                                    } else if (formCtrl[inputName].$error.maxlength == true) {
+                                        formCtrl[inputName].popoverMessage = $filter('translate')('SHOW_ERRORS_FIELD') + ' ' + popoverInputName + ' ' + $filter('translate')('SHOW_ERRORS_FIELD_MAX_LENGTH') + ' ' + inputNgEl[0].attributes["ng-maxlength"].value + ' ' + $filter('translate')('SHOW_ERRORS_FIELD_CHARACTERS');
                                     } else {
                                         formCtrl[inputName].popoverMessage = ''
                                     }
