@@ -2831,8 +2831,15 @@ footer{
 
 .validation-form {
 
-  .popover.top > .arrow{
-    left: 90% !important;
+
+  .popover.top {
+    left: auto !important;
+    right: 0px !important;
+
+    .arrow{
+      left: auto !important;
+      right: 10px !important;
+    }
   }
 
   .form-group{
@@ -2859,11 +2866,12 @@ footer{
     }
   }
 
-  .has-error:before{
+  .has-error .popup-trigger{
     background-color: $color-light-red;
     border-radius: 50% 50%;
     color: white;
     content: "!";
+    cursor: pointer;
     font-size: 13px;
     font-weight: 500;
     display: inline-block;
@@ -2874,6 +2882,14 @@ footer{
     top: 25px;
     width: 15px;
     z-index: 100;
+  }
+
+  .popup-trigger{
+    display: none;
+  }
+
+  textarea[placeholder]{
+    padding-right: 30px;
   }
 
 }

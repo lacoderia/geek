@@ -77,72 +77,74 @@
 
 
                 return toggleClasses = function(invalid) {
-                    switch (scope.showErrorsValidationType) {
-                        case 'arrayLength':
-                            if (scope.showErrorsParams){
-                                if (!scope.showErrorsParams.length) {
-                                    el.toggleClass('has-error', true);
-                                    formCtrl[inputName].popoverMessage = 'Se debe agregar al menos un elemento';
-                                } else {
-                                    el.toggleClass('has-error', false);
-                                    formCtrl[inputName].popoverMessage = '';
-                                }
-                            }
-                            break;
-                        case 'checkboxGroup':
-                            if (scope.showErrorsParams){
-                                if (!scope.showErrorsParams.length) {
-                                    var hasError = true;
-
-                                    for (var key in scope.showErrorsParams) {
-                                        if (scope.showErrorsParams.hasOwnProperty(key)) {
-                                            var obj = scope.showErrorsParams[key];
-                                            if (obj) {
-                                                hasError = false;
-                                            }
-                                        }
-                                    }
-
-                                    if (hasError) {
+                    $timeout(function(){
+                        switch (scope.showErrorsValidationType) {
+                            case 'arrayLength':
+                                if (scope.showErrorsParams){
+                                    if (!scope.showErrorsParams.length) {
                                         el.toggleClass('has-error', true);
-                                        formCtrl[inputName].popoverMessage = 'Se debe seleccionar al menos un elemento';
+                                        formCtrl[inputName].popoverMessage = 'Se debe agregar al menos un elemento';
                                     } else {
                                         el.toggleClass('has-error', false);
                                         formCtrl[inputName].popoverMessage = '';
                                     }
+                                }
+                                break;
+                            case 'checkboxGroup':
+                                if (scope.showErrorsParams){
+                                    if (!scope.showErrorsParams.length) {
+                                        var hasError = true;
 
+                                        for (var key in scope.showErrorsParams) {
+                                            if (scope.showErrorsParams.hasOwnProperty(key)) {
+                                                var obj = scope.showErrorsParams[key];
+                                                if (obj) {
+                                                    hasError = false;
+                                                }
+                                            }
+                                        }
+
+                                        if (hasError) {
+                                            el.toggleClass('has-error', true);
+                                            formCtrl[inputName].popoverMessage = 'Se debe seleccionar al menos un elemento';
+                                        } else {
+                                            el.toggleClass('has-error', false);
+                                            formCtrl[inputName].popoverMessage = '';
+                                        }
+
+                                    } else {
+                                        el.toggleClass('has-error', false);
+                                        formCtrl[inputName].popoverMessage = '';
+                                    }
+                                }
+                                break;
+                            default:
+                                el.toggleClass('has-error', invalid);
+
+                                var popoverInputName =  (inputNgEl[0].attributes["popover-input-name"].value).toLowerCase();
+                                if(invalid) {
+                                    if (formCtrl[inputName].$error.minlength == true) {
+                                        formCtrl[inputName].popoverMessage = 'El campo ' + popoverInputName + ' debe ser de al menos ' + inputNgEl[0].attributes["ng-minlength"].value + ' caracteres';
+                                    } else if (formCtrl[inputName].$error.maxlength == true) {
+                                        formCtrl[inputName].popoverMessage = 'El campo ' + popoverInputName + ' no debe ser de más de ' + inputNgEl[0].attributes["ng-maxlength"].value + ' caracteres';
+                                    } else if (formCtrl[inputName].$error.pattern == true) {
+                                        formCtrl[inputName].popoverMessage = 'El campo ' + popoverInputName + ' contiene caractéres inválidos';
+                                    } else if (formCtrl[inputName].$error.required == true) {
+                                        formCtrl[inputName].popoverMessage = 'El campo ' + popoverInputName + ' es requerido';
+                                    } else {
+                                        formCtrl[inputName].popoverMessage = ''
+                                    }
                                 } else {
-                                    el.toggleClass('has-error', false);
                                     formCtrl[inputName].popoverMessage = '';
                                 }
-                            }
-                            break;
-                        default:
-                            el.toggleClass('has-error', invalid);
 
-                            var inputPlaceholder =  (inputNgEl[0].attributes["placeholder"].value).toLowerCase();
-                            if(invalid) {
-                                if (formCtrl[inputName].$error.minlength == true) {
-                                    formCtrl[inputName].popoverMessage = 'El campo ' + inputPlaceholder + ' debe ser de al menos ' + inputNgEl[0].attributes["ng-minlength"].value + ' caracteres';
-                                } else if (formCtrl[inputName].$error.maxlength == true) {
-                                    formCtrl[inputName].popoverMessage = 'El campo ' + inputPlaceholder + ' no debe ser de más de ' + inputNgEl[0].attributes["ng-maxlength"].value + ' caracteres';
-                                } else if (formCtrl[inputName].$error.pattern == true) {
-                                    formCtrl[inputName].popoverMessage = 'El campo ' + inputPlaceholder + ' contiene caractéres inválidos';
-                                } else if (formCtrl[inputName].$error.required == true) {
-                                    formCtrl[inputName].popoverMessage = 'El campo ' + inputPlaceholder + ' es requerido';
-                                } else {
-                                    formCtrl[inputName].popoverMessage = ''
-                                }
-                            } else {
-                                formCtrl[inputName].popoverMessage = '';
-                            }
+                                break;
+                        }
 
-                            break;
-                    }
-
-                    if (showSuccess) {
-                        return el.toggleClass('has-success', !invalid);
-                    }
+                        if (showSuccess) {
+                            return el.toggleClass('has-success', !invalid);
+                        }
+                    }, 0);
 
                 };
             };
