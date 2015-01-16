@@ -141,7 +141,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
         } else {
             $('.popup-trigger-topics').parents('.form-group').addClass('has-error');
             $scope.tutorProfileForm.tutor_topics = {
-                'popoverMessage': 'Se debe agregar al menos un elemento'
+                'popoverMessage': $filter('translate')('SHOW_ERRORS_ARRAY_LENGTH')
             };
             return false;
         }
@@ -176,7 +176,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
             } else {
                 $('.popup-trigger-zones').parents('.form-group').addClass('has-error');
                 $scope.tutorProfileForm.tutor_zones = {
-                    'popoverMessage': 'Se debe agregar al menos un elemento'
+                    'popoverMessage': $filter('translate')('SHOW_ERRORS_ARRAY_LENGTH')
                 };
                 return false;
             }
@@ -314,51 +314,51 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
 
         $scope.$broadcast('show-errors-check-validity', $scope.tutorProfileForm);
 
-        if ($scope.tutorProfileForm.$valid & $scope.validateTutorTopics() & $scope.validateTutorZones() && validCalendar) {
+        if (!validCalendar) {
+            $scope.calendarErrorClass = 'border-error';
+            $scope.calendarAlertMessagesParams = {
+                type: 'danger',
+                message: $filter('translate')('ERROR_TUTOR_PROFILE_MINIMUM_CLASS_DURATION'),
+                icon: true
+            };
 
-            if (validCalendar) {
+            // No continuamos con la ejecución del método que actualiza el perfil del usuario
+            return false;
+        }
 
-                $timeout(function(){
-                    usSpinnerService.spin('profile-spinner');
-                }, 0);
+        if ($scope.tutorProfileForm.$valid & $scope.validateTutorTopics() & $scope.validateTutorZones()) {
 
-                ProfileService.submitWeekCalendar(weekCalendar).then(
-                    function(data){
-                        if(data) {
-                            $scope.tutorProfileAlertParams = {
-                                type: 'success',
-                                message: $filter('translate')('SUCCESS_TUTOR_PROFILE_CONGRATULATIONS'),
-                                icon: true
-                            };
-                            $scope.calendarErrorClass = '';
-                            $scope.calendarAlertMessagesParams = undefined;
-                        }
+            $timeout(function(){
+                usSpinnerService.spin('profile-spinner');
+            }, 0);
 
-                        usSpinnerService.stop('profile-spinner');
-                    },
-                    function(response){
-                        $scope.tutorProfileCalendarAlertParams = {
-                            type: 'danger',
-                            message: $filter('translate')('ERROR_TUTOR_PROFILE_UPDATE_CALENDAR'),
+            ProfileService.submitWeekCalendar(weekCalendar).then(
+                function(data){
+                    if(data) {
+                        $scope.tutorProfileAlertParams = {
+                            type: 'success',
+                            message: $filter('translate')('SUCCESS_TUTOR_PROFILE_CONGRATULATIONS'),
                             icon: true
                         };
-                        $scope.calendarErrorClass = 'border-error';
-
-                        usSpinnerService.stop('profile-spinner');
-
-                        console.log('Error getting tutor\'s request status: ' + response);
+                        $scope.calendarErrorClass = '';
+                        $scope.calendarAlertMessagesParams = undefined;
                     }
-                );
 
-            } else {
-                $scope.calendarErrorClass = 'border-error';
-                $scope.calendarAlertMessagesParams = {
-                    type: 'danger',
-                    message: $filter('translate')('ERROR_TUTOR_PROFILE_MINIMUM_CLASS_DURATION'),
-                    icon: true
-                };
+                    usSpinnerService.stop('profile-spinner');
+                },
+                function(response){
+                    $scope.tutorProfileCalendarAlertParams = {
+                        type: 'danger',
+                        message: $filter('translate')('ERROR_TUTOR_PROFILE_UPDATE_CALENDAR'),
+                        icon: true
+                    };
+                    $scope.calendarErrorClass = 'border-error';
 
-            }
+                    usSpinnerService.stop('profile-spinner');
+
+                    console.log('Error getting tutor\'s request status: ' + response);
+                }
+            );
 
             var tutor = {
                 'id': SessionService.getId(),
