@@ -1,7 +1,7 @@
 <div class="section-search-results" ng-controller="SearchTutorController as SearchTutorCtrl">
-<div class="bgcolor-light-gray light-search section-search" ng-show="showTopSearchbar">
-  <h2 class="col-lg-2 col-md-3 hidden-sm hidden-xs">geek</h2>
-  <form class="col-lg-9 col-md-8 col-sm-12 col-xs-12">
+<div class="light-search section-search" ng-show="showTopSearchbar">
+  <h2 class="hidden-sm hidden-xs">geek</h2>
+  <form>
     <angucomplete-alt-geek id="topics"
                            placeholder="{{ 'AUTOCOMPLETE_TOPIC' | translate }}"
                            pause="600"
@@ -22,40 +22,43 @@
 <span us-spinner spinner-key="search-tutor-spinner"></span>
 
     <div class="search-results-tools" ng-hide="selectedTutor">
-    <span class="category">{{ 'FILTERS' | translate}}:</span>
-    <span class="search-result-filter">
-      <input type="checkbox" id="tutor_class_mode_online" name="tutor_class_mode" ng-model="filters.online" ng-change="searchTutor(1)"/>
-      <label for="tutor_class_mode_online" translate="SEARCH_FILTER_LABEL_ONLINE"></label>
-    </span>
-    <span class="search-result-filter">
-      <input type="checkbox" id="tutor_class_mode_tutor_home" name="tutor_class_mode" ng-model="filters.office" ng-change="searchTutor(1)"/>
-      <label for="tutor_class_mode_tutor_home" translate="SEARCH_FILTER_LABEL_OFFICE"></label>
-    </span>
-    <span class="search-result-filter">
-      <input type="checkbox" id="tutor_class_mode_student_home" name="tutor_class_mode" ng-model="filters.student" ng-change="searchTutor(1)"/>
-      <label for="tutor_class_mode_student_home" translate="SEARCH_FILTER_LABEL_STUDENT"></label>
-    </span>
-
-    <span class="search-result-filter">
-      <input type="checkbox" id="tutor_class_mode_public" name="tutor_class_mode" ng-model="filters.public" ng-change="searchTutor(1)"/>
-      <label for="tutor_class_mode_public" translate="SEARCH_FILTER_LABEL_PUBLIC"></label>
-    </span>
-    <span class="category">{{ 'SEARCH_ORDER_BY_LABEL' | translate}}:</span>
-    <span class="search-result-filter">
-      <div class="dropdown form-dropdown" >
-        <button class="btn btn-default dropdown-toggle dropdown-button" type="button" data-toggle="dropdown">
-          <span ng-if="orderByOption">{{ orderByOption.title | translate }}</span>
-          &nbsp;
-          <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" role="menu">
-          <li role="presentation" class="dropdown-header"><span translate="SEARCH_ORDER_BY_LABEL"></span></li>
-          <li role="presentation" class="divider"></li>
-          <li role="presentation" ng-repeat="orderOption in orderOptions"><a role="menuitem" tabindex="{{ orderOption.code }}"  ng-click="setOrderByOption(orderOption)" translate>{{ orderOption.title }}</a></li>
-        </ul>
+      <div class="filter-tools">
+        <span class="category filter-label">{{ 'FILTERS' | translate}}:</span>
+        <span class="search-result-filter filter-item">
+          <input type="checkbox" id="tutor_class_mode_online" name="tutor_class_mode" ng-model="filters.online" ng-change="searchTutor(1)"/>
+          <label for="tutor_class_mode_online" translate="SEARCH_FILTER_LABEL_ONLINE"></label>
+        </span>
+        <span class="search-result-filter filter-item">
+          <input type="checkbox" id="tutor_class_mode_tutor_home" name="tutor_class_mode" ng-model="filters.office" ng-change="searchTutor(1)"/>
+          <label for="tutor_class_mode_tutor_home" translate="SEARCH_FILTER_LABEL_OFFICE"></label>
+        </span>
+        <span class="search-result-filter filter-item">
+          <input type="checkbox" id="tutor_class_mode_student_home" name="tutor_class_mode" ng-model="filters.student" ng-change="searchTutor(1)"/>
+          <label for="tutor_class_mode_student_home" translate="SEARCH_FILTER_LABEL_STUDENT"></label>
+        </span>
+        <span class="search-result-filter filter-item">
+          <input type="checkbox" id="tutor_class_mode_public" name="tutor_class_mode" ng-model="filters.public" ng-change="searchTutor(1)"/>
+          <label for="tutor_class_mode_public" translate="SEARCH_FILTER_LABEL_PUBLIC"></label>
+        </span>
       </div>
-    </span>
-</div>
+      <div class="order-tools">
+        <span class="category order-label">{{ 'SEARCH_ORDER_BY_LABEL' | translate}}:</span>
+        <span class="search-result-filter order-item">
+          <div class="dropdown form-dropdown" >
+            <button class="btn btn-default dropdown-toggle dropdown-button" type="button" data-toggle="dropdown">
+              <span ng-if="orderByOption">{{ orderByOption.title | translate }}</span>
+              &nbsp;
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li role="presentation" class="dropdown-header"><span translate="SEARCH_ORDER_BY_LABEL"></span></li>
+              <li role="presentation" class="divider"></li>
+              <li role="presentation" ng-repeat="orderOption in orderOptions"><a role="menuitem" tabindex="{{ orderOption.code }}"  ng-click="setOrderByOption(orderOption)" translate>{{ orderOption.title }}</a></li>
+            </ul>
+          </div>
+        </span>
+      </div>
+    </div>
 
 <div class="search-results-tools" ng-show="selectedTutor">
   <span class="btn-back" ng-click="showSearchResults()" ng-show="selectedTutor"><< {{ 'SHOW_ALL' | translate }}</span>
@@ -77,68 +80,73 @@
     </div>
     <div class="tutor-personal-info col-lg-8 col-md-8 col-sm-12 col-xs-12">
       <div class="content">
-        <h4 class="tutor-name">{{ tutor.first_name }} {{ tutor.last_name }}</h4>
-        <h5 class="tutor-county"><span ng-repeat="county in tutor.counties">{{ county.name }}{{ $last ? '' : ', ' }}</span></h5>
-        <p class="tutor-categories"><span ng-repeat="category in tutor.categories">{{ category.name }}{{ $last ? '' : ', ' }}</span></p>
-        <p class="resume" ng-class="{ 'expanded' : tutor.id == selectedTutor.id }" ng-bind="tutor.background" ellipsis ellipsis-append="{{ 'MORE' | translate }}" ellipsis-symbol="... " ellipsis-append-click="showTutorDetails(tutor)" ellipsis-id="tutor.id"></p>
-        <div class="given-classes">
-          <div>{{ 'TUTOR_SEARCH_CLASS_COUNT' | translate }}: {{tutor.appointments.classes || 0}}</div>
-          <div>{{ 'TUTOR_SEARCH_STUDENTS_COUNT' | translate }}: {{tutor.appointments.classes || 0}}</div>
+        <div class="content-info">
+          <h4 class="tutor-name">{{ tutor.first_name }} {{ tutor.last_name }}</h4>
+          <p class="tutor-categories"><span ng-repeat="category in tutor.categories">{{ category.name }}{{ $last ? '' : ', ' }}</span></p>
+          <div class="preferences">
+            <span class="item-added" ng-if="tutor.preference.online" title="{{ 'TUTOR_PREFERENCE_ONLINE' | translate }}">{{ 'TUTOR_PREFERENCE_ONLINE' | translate }}</span>
+            <span class="item-added" ng-if="tutor.preference.office" title="{{ 'TUTOR_PREFERENCE_OFFICE' | translate }}">{{ 'TUTOR_PREFERENCE_OFFICE' | translate }}</span>
+            <span class="item-added" ng-if="tutor.preference.student_place" title="{{ 'TUTOR_PREFERENCE_STUDENT' | translate }}">{{ 'TUTOR_PREFERENCE_STUDENT' | translate }}</span>
+            <span class="item-added" ng-if="tutor.preference.public" title="{{ 'TUTOR_PREFERENCE_PUBLIC' | translate }}">{{ 'TUTOR_PREFERENCE_PUBLIC' | translate }}</span>
+          </div>
+          <p class="resume" ng-class="{ 'expanded' : tutor.id == selectedTutor.id }" ng-bind="tutor.background" ellipsis ellipsis-append="{{ 'MORE' | translate }}" ellipsis-symbol="... " ellipsis-append-click="showTutorDetails(tutor)" ellipsis-id="tutor.id"></p>
+        </div>
+        <div class="score-info">
+          <div class="content-score">
+            <div class="score">
+              <span class="icon-star1" ng-class="tutor.reviews.average >= 1 ? 'star-full': 'star-empty'"></span>
+              <span class="icon-star1" ng-class="tutor.reviews.average >= 2 ? 'star-full': 'star-empty'"></span>
+              <span class="icon-star1" ng-class="tutor.reviews.average >= 3 ? 'star-full': 'star-empty'"></span>
+              <span class="icon-star1" ng-class="tutor.reviews.average >= 4 ? 'star-full': 'star-empty'"></span>
+              <span class="icon-star1" ng-class="tutor.reviews.average >= 5 ? 'star-full': 'star-empty'"></span>
+            </div>
+          </div>
+          <div class="score-more" ng-show="!tutor.reviews.comments.length" translate="TUTOR_SEARCH_NO_COMMENTS"></div>
+          <div class="score-more pointer" ng-hide="tutor.showComments || !tutor.reviews.comments.length" ng-click="toggleComments(tutor)" translate="TUTOR_SEARCH_SHOW_COMMENTS"></div>
+          <div class="score-more pointer" ng-show="tutor.showComments" ng-click="toggleComments(tutor)" translate="TUTOR_SEARCH_HIDE_COMMENTS"></div>
+          <div class="given-classes">
+            <div>{{ 'TUTOR_SEARCH_CLASS_COUNT' | translate }}: {{tutor.appointments.classes || 0}}</div>
+            <div>{{ 'TUTOR_SEARCH_STUDENTS_COUNT' | translate }}: {{tutor.appointments.classes || 0}}</div>
+          </div>
+        </div>
+        <div class="reviews" ng-show="tutor.showComments">
+          <div class="review" class="col-lg-12 col-md-12 col-sm-12" ng-repeat="review in tutor.reviews.comments" ng-image-adjustment image-container="user_picture" image-src="{{ review.student.picture_url }}">
+            <h3>{{ 'TUTOR_SEARCH_COMMENTS' | translate }}</h3>
+            <div class="user_picture_container">
+              <div class="user_picture">
+                <img/>
+              </div>
+            </div>
+            <div class="user-personal-info">
+              <div class="content">
+                <h4 class="user-name">{{ review.student.first_name }} {{ review.student.last_name }}</h4>
+                <div class="review-info">
+                  <em class="timestamp">{{ review.timestamp | timestampTranslateFilter }}</em>
+                </div>
+                <p class="user-review">{{ review.description }}</p>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+          </div>
         </div>
       </div>
     </div>
     <div class="tutor-class-info col-lg-2 col-md-2 col-sm-12 col-xs-12">
       <div class="content">
-        <div class="content-score">
-          <div class="score">
-            <span class="icon-star1" ng-class="tutor.reviews.average >= 1 ? 'star-full': 'star-empty'"></span>
-            <span class="icon-star1" ng-class="tutor.reviews.average >= 2 ? 'star-full': 'star-empty'"></span>
-            <span class="icon-star1" ng-class="tutor.reviews.average >= 3 ? 'star-full': 'star-empty'"></span>
-            <span class="icon-star1" ng-class="tutor.reviews.average >= 4 ? 'star-full': 'star-empty'"></span>
-            <span class="icon-star1" ng-class="tutor.reviews.average >= 5 ? 'star-full': 'star-empty'"></span>
-          </div>
-        </div>
-        <div class="score-more" ng-show="!tutor.reviews.comments.length" translate="TUTOR_SEARCH_NO_COMMENTS"></div>
-        <div class="score-more pointer" ng-hide="tutor.showComments || !tutor.reviews.comments.length" ng-click="toggleComments(tutor)" translate="TUTOR_SEARCH_SHOW_COMMENTS"></div>
-        <div class="score-more pointer" ng-show="tutor.showComments" ng-click="toggleComments(tutor)" translate="TUTOR_SEARCH_HIDE_COMMENTS"></div>
         <div class="content-price">
           <h4 class="price">
+            MXN <br>
             {{ tutor.costRange }} <br>
             {{ 'EACH_HOUR' | translate }}
           </h4>
-          <div class="preferences">
-            <span class="icon-earth" ng-class="{'active' : tutor.preference.online}" title="{{ 'TUTOR_PREFERENCE_ONLINE' | translate }}"></span>
-            <span class="icon-teach" ng-class="{'active' : tutor.preference.office}" title="{{ 'TUTOR_PREFERENCE_OFFICE' | translate }}"></span>
-            <span class="icon-school" ng-class="{'active' : tutor.preference.student_place}" title="{{ 'TUTOR_PREFERENCE_STUDENT' | translate }}"></span>
-            <span class="icon-coffee" ng-class="{'active' : tutor.preference.public}" title="{{ 'TUTOR_PREFERENCE_PUBLIC' | translate }}"></span>
-          </div>
         </div>
         <div class="content-button">
-          <button class="action-button see-availability" ng-click="showTutorDetails(tutor)" ng-hide="selectedTutor" translate="SHOW_AVAILABILITY"></button>
-          <button class="action-button send-message" ng-show="selectedTutor" ng-click="openModalMessage($event,tutor)" translate="TUTOR_SEARCH_SEND_MESSAGE"></button>
+          <a class="action-button see-availability" ng-if="!selectedTutor" ng-click="showTutorDetails(tutor)" translate="SHOW_AVAILABILITY"></a>
+          <a class="action-button send-message" ng-click="openModalMessage($event,tutor)" translate="TUTOR_SEARCH_SEND_MESSAGE"></a>
         </div>
       </div>
     </div>
     <div class="clearfix"></div>
-    <div class="reviews" ng-show="tutor.showComments">
-      <div class="review" class="col-lg-12 col-md-12 col-sm-12" ng-repeat="review in tutor.reviews.comments" ng-image-adjustment image-container="user_picture" image-src="{{ review.student.picture_url }}">
-        <div class="user_picture_container">
-          <div class="user_picture">
-            <img/>
-          </div>
-        </div>
-        <div class="user-personal-info">
-          <div class="content">
-            <h4 class="user-name">{{ review.student.first_name }} {{ review.student.last_name }}</h4>
-            <p class="user-last-message">{{ review.description }}</p>
-            <div class="review-info">
-              <em class="timestamp">{{ review.timestamp | timestampTranslateFilter }}</em>
-            </div>
-          </div>
-        </div>
-        <div class="clearfix"></div>
-      </div>
-    </div>
     <dir-pagination-controls pagination-id="tutorsPagination" template-url="/assets/student/dirPagination.tpl.html" on-page-change="pageChanged(newPageNumber)">
     </dir-pagination-controls>
   </div>
@@ -151,69 +159,74 @@
     </div>
     <div class="tutor-personal-info col-lg-8 col-md-8 col-sm-12 col-xs-12">
       <div class="content">
-        <h4 class="tutor-name">{{ tutor.first_name }} {{ tutor.last_name }}</h4>
-        <h5 class="tutor-county"><span ng-repeat="county in tutor.counties">{{ county.name }}{{ $last ? '' : ', ' }}</span></h5>
-        <p class="tutor-categories"><span ng-repeat="category in tutor.categories">{{ category.name }}{{ $last ? '' : ', ' }}</span></p>
-        <p class="resume" ng-class="{ 'expanded' : tutor.id == selectedTutor.id }" ng-bind="tutor.background" ellipsis ellipsis-append="{{ 'MORE' | translate }}" ellipsis-symbol="... " ellipsis-append-click="showTutorDetails(tutor)" ellipsis-id="tutor.id"></p>
-        <div class="given-classes">
-          <div>{{ 'TUTOR_SEARCH_CLASS_COUNT' | translate }}: {{tutor.appointments.classes || 0}}</div>
-          <div>{{ 'TUTOR_SEARCH_STUDENTS_COUNT' | translate }}: {{tutor.appointments.classes || 0}}</div>
+        <div class="content-info">
+          <h4 class="tutor-name">{{ tutor.first_name }} {{ tutor.last_name }}</h4>
+          <p class="tutor-categories"><span ng-repeat="category in tutor.categories">{{ category.name }}{{ $last ? '' : ', ' }}</span></p>
+          <div class="preferences">
+            <span class="item-added" ng-if="tutor.preference.online" title="{{ 'TUTOR_PREFERENCE_ONLINE' | translate }}">{{ 'TUTOR_PREFERENCE_ONLINE' | translate }}</span>
+            <span class="item-added" ng-if="tutor.preference.office" title="{{ 'TUTOR_PREFERENCE_OFFICE' | translate }}">{{ 'TUTOR_PREFERENCE_OFFICE' | translate }}</span>
+            <span class="item-added" ng-if="tutor.preference.student_place" title="{{ 'TUTOR_PREFERENCE_STUDENT' | translate }}">{{ 'TUTOR_PREFERENCE_STUDENT' | translate }}</span>
+            <span class="item-added" ng-if="tutor.preference.public" title="{{ 'TUTOR_PREFERENCE_PUBLIC' | translate }}">{{ 'TUTOR_PREFERENCE_PUBLIC' | translate }}</span>
+          </div>
+          <p class="resume" ng-class="{ 'expanded' : tutor.id == selectedTutor.id }" ng-bind="tutor.background" ellipsis ellipsis-append="{{ 'MORE' | translate }}" ellipsis-symbol="... " ellipsis-append-click="showTutorDetails(tutor)" ellipsis-id="tutor.id"></p>
+        </div>
+        <div class="score-info">
+          <div class="content-score">
+            <div class="score">
+              <span class="icon-star1" ng-class="tutor.reviews.average >= 1 ? 'star-full': 'star-empty'"></span>
+              <span class="icon-star1" ng-class="tutor.reviews.average >= 2 ? 'star-full': 'star-empty'"></span>
+              <span class="icon-star1" ng-class="tutor.reviews.average >= 3 ? 'star-full': 'star-empty'"></span>
+              <span class="icon-star1" ng-class="tutor.reviews.average >= 4 ? 'star-full': 'star-empty'"></span>
+              <span class="icon-star1" ng-class="tutor.reviews.average >= 5 ? 'star-full': 'star-empty'"></span>
+            </div>
+          </div>
+          <div class="score-more" ng-show="!tutor.reviews.comments.length" translate="TUTOR_SEARCH_NO_COMMENTS"></div>
+          <div class="score-more pointer" ng-hide="tutor.showComments || !tutor.reviews.comments.length" ng-click="toggleComments(tutor)" translate="TUTOR_SEARCH_SHOW_COMMENTS"></div>
+          <div class="score-more pointer" ng-show="tutor.showComments" ng-click="toggleComments(tutor)" translate="TUTOR_SEARCH_HIDE_COMMENTS"></div>
+          <div class="given-classes">
+            <div>{{ 'TUTOR_SEARCH_CLASS_COUNT' | translate }}: {{tutor.appointments.classes || 0}}</div>
+            <div>{{ 'TUTOR_SEARCH_STUDENTS_COUNT' | translate }}: {{tutor.appointments.classes || 0}}</div>
+          </div>
+        </div>
+        <div class="reviews" ng-show="tutor.showComments">
+          <div class="review" class="col-lg-12 col-md-12 col-sm-12" ng-repeat="review in tutor.reviews.comments" ng-image-adjustment image-container="user_picture" image-src="{{ review.student.picture_url }}">
+            <h3>{{ 'TUTOR_SEARCH_COMMENTS' | translate }}</h3>
+            <div class="user_picture_container">
+              <div class="user_picture">
+                <img/>
+              </div>
+            </div>
+            <div class="user-personal-info">
+              <div class="content">
+                <h4 class="user-name">{{ review.student.first_name }} {{ review.student.last_name }}</h4>
+                <div class="review-info">
+                  <em class="timestamp">{{ review.timestamp | timestampTranslateFilter }}</em>
+                </div>
+                <p class="user-review">{{ review.description }}</p>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+          </div>
         </div>
       </div>
     </div>
     <div class="tutor-class-info col-lg-2 col-md-2 col-sm-12 col-xs-12">
       <div class="content">
-        <div class="content-score">
-          <div class="score">
-            <span class="icon-star1" ng-class="tutor.reviews.average >= 1 ? 'star-full': 'star-empty'"></span>
-            <span class="icon-star1" ng-class="tutor.reviews.average >= 2 ? 'star-full': 'star-empty'"></span>
-            <span class="icon-star1" ng-class="tutor.reviews.average >= 3 ? 'star-full': 'star-empty'"></span>
-            <span class="icon-star1" ng-class="tutor.reviews.average >= 4 ? 'star-full': 'star-empty'"></span>
-            <span class="icon-star1" ng-class="tutor.reviews.average >= 5 ? 'star-full': 'star-empty'"></span>
-          </div>
-        </div>
-        <div class="score-more" ng-show="!tutor.reviews.comments.length" translate="TUTOR_SEARCH_NO_COMMENTS"></div>
-        <div class="score-more pointer" ng-hide="tutor.showComments || !tutor.reviews.comments.length" ng-click="toggleComments(tutor)" translate="TUTOR_SEARCH_SHOW_COMMENTS"></div>
-        <div class="score-more pointer" ng-show="tutor.showComments" ng-click="toggleComments(tutor)" translate="TUTOR_SEARCH_HIDE_COMMENTS"></div>
         <div class="content-price">
           <h4 class="price">
+            MXN <br>
             {{ tutor.costRange }} <br>
             {{ 'EACH_HOUR' | translate }}
           </h4>
-          <div class="preferences">
-            <span class="icon-earth" ng-class="{'active' : tutor.preference.online}" title="{{ 'TUTOR_PREFERENCE_ONLINE' | translate }}"></span>
-            <span class="icon-teach" ng-class="{'active' : tutor.preference.office}" title="{{ 'TUTOR_PREFERENCE_OFFICE' | translate }}"></span>
-            <span class="icon-school" ng-class="{'active' : tutor.preference.student_place}" title="{{ 'TUTOR_PREFERENCE_STUDENT' | translate }}"></span>
-            <span class="icon-coffee" ng-class="{'active' : tutor.preference.public}" title="{{ 'TUTOR_PREFERENCE_PUBLIC' | translate }}"></span>
-          </div>
         </div>
         <div class="content-button">
-          <button class="action-button see-availability" ng-click="showTutorDetails(tutor)" ng-hide="selectedTutor" translate="SHOW_AVAILABILITY"></button>
-          <button class="action-button send-message" ng-click="openModalMessage($event,tutor)" ng-show="selectedTutor" translate="TUTOR_SEARCH_SEND_MESSAGE"></button>
+          <a class="action-button see-availability" ng-if="!selectedTutor" ng-click="showTutorDetails(tutor)" translate="SHOW_AVAILABILITY"></a>
+          <a class="action-button send-message" ng-click="openModalMessage($event,tutor)" translate="TUTOR_SEARCH_SEND_MESSAGE"></a>
         </div>
       </div>
     </div>
     <div class="clearfix"></div>
-    <div class="reviews" ng-show="tutor.showComments">
-      <div class="review" class="col-lg-12 col-md-12 col-sm-12" ng-repeat="review in tutor.reviews.comments" ng-image-adjustment image-container="user_picture" image-src="{{ review.user.picture_url }}">
-        <div class="user_picture_container">
-          <div class="user_picture">
-            <img/>
-          </div>
-        </div>
-        <div class="user-personal-info">
-          <div class="content">
-            <h4 class="user-name">{{ review.user.name }}</h4>
-            <p class="user-last-message">{{ review.text }}</p>
-            <div class="review-info">
-              <em class="timestamp">{{ review.timestamp | timestampTranslateFilter }}</em>
-            </div>
-          </div>
-        </div>
-        <div class="clearfix"></div>
-      </div>
-    </div>
-    <dir-pagination-controls pagination-id="suggestedTutorsPagination" template-url="/assets/student/dirPagination.tpl.html" on-page-change="pageChanged(newPageNumber)">
+    <dir-pagination-controls pagination-id="tutorsPagination" template-url="/assets/student/dirPagination.tpl.html" on-page-change="pageChanged(newPageNumber)">
     </dir-pagination-controls>
   </div>
 </div>
@@ -279,10 +292,12 @@
   </div>
 </div>
 
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-hide="showTopSearchbar">
-  <div class="bgcolor-light-gray section-search">
-    <img src="/assets/site/geek.png" alt="Geek" class="search-image hidden-xs">
-    <div>
+<div ng-hide="showTopSearchbar">
+  <div class="section-search">
+    <div class="search-image">
+      <img src="/assets/site/geek.png" alt="Geek" class="hidden-xs">
+    </div>
+    <div class="search-form">
       <h2 class="hidden-xs">geek</h2>
       <h3 translate="WHAT_TO_LEARN"></h3>
       <form>
@@ -300,9 +315,9 @@
         <a class="search-button icon-pointer" ng-click="searchTutor(1)" translate="SEARCH"></a>
       </form>
     </div>
-    <img src="/assets/site/geek.png" alt="Geek" class="search-image hidden-lg hidden-md hidden-sm">
   </div>
 </div>
+
 </div>
 
 <div ng-modal-appointment-request></div>

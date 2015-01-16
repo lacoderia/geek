@@ -251,8 +251,10 @@ body{
 }
 
 h2.section-title{
-  font-size:  2.5em;
+  font-size:  2em;
+  font-weight: 600;
   margin: 0em 0em 1em;
+  text-transform: uppercase;
 }
 
 h3.section-title{
@@ -260,11 +262,16 @@ h3.section-title{
   margin: 0em 0em 0.4em;
 }
 
+textarea{
+  resize: none;
+}
+
 .action-button{
   border: none;
   cursor: pointer;
   display: inline-block;
-  padding: 0.7rem 1rem;
+  font-size: 14px;
+  padding: 0.5rem 1rem;
 }
 
 .action-button:hover{
@@ -493,6 +500,10 @@ h3.section-title{
 
 .border-error{
   border: 2px solid $color-light-red !important;
+}
+
+.clearfix{
+  clear: both;
 }
 
 .payment-icon{
@@ -923,7 +934,6 @@ h3.section-title{
   .action-button{
     cursor: pointer;
     display: inline-block;
-    font-size: 14px;
   }
 
   .month-view{
@@ -1473,7 +1483,10 @@ h3.section-title{
   }
 
   legend{
-    font-size: 1.5em;
+    font-size: 1.2em;
+    font-weight: 500;
+    margin: 1.5em 1.5em 1em;
+    text-transform: uppercase;
   }
 
   ::-webkit-input-placeholder {
@@ -1744,23 +1757,21 @@ footer{
 
 .resume,.balance{
   .resume-group, .balance-group{
-    background-color: white;
-    border: 1px solid $color-input-gray-bgcolor;
     border-radius: 0px 0px 10px 10px;
     box-sizing: border-box;
     margin-bottom: 4em;
     overflow: hidden;
 
     h3{
-      font-size: 1.5em;
-      font-weight: 400;
-      margin: 1.5em 1.5em 1em;
+      font-size: 1.2em;
+      font-weight: 500;
+      margin: 1.5em 1.5em 0.5em;
+      text-transform: uppercase;
     }
 
     .resume-group-actions, .balance-group-actions{
-      background-color: $color-sign-up-dark-blue;
       font-size: 0px;
-      padding: 16px 38px;
+      padding: 0rem 4rem;
 
       .resume-total-info, .balance-total-info{
         display: inline-block;
@@ -1782,17 +1793,19 @@ footer{
 
     .resume-items-group, .balance-items-group{
       box-sizing: border-box;
-      padding: 1em;
+      padding: 2em;
 
       .current-balance-info{
         box-sizing: border-box;
         font-size: 1.3em;
-        padding: 1em 2em;
-        text-transform: uppercase;
+        padding: 0em 2em;
+
+        h4{
+          margin: 0;
+        }
 
         .balance-buttons-container{
-          margin: 2em 0em 0,5em;
-          text-align: right;
+          margin: 2.5em 0em 0;
         }
 
         .card-info{
@@ -1806,8 +1819,8 @@ footer{
         box-sizing: border-box;
         clear: both;
         margin: 0 1em 0.5em;
-        padding: 1em;
-        text-transform: uppercase;
+        padding: 0.2em 1em;
+        text-align: center;
 
 
         .user-personal-info{
@@ -1948,16 +1961,15 @@ footer{
     display: inline-block;
     font-size: 16px;
     font-weight: 500;
-    min-width: 20%;
     overflow: hidden;
     text-align: center;
-    text-transform: uppercase;
 
     a{
       background-color: rgba(166,168,171,0.2);
-      color: $color-light-green;
+      color: $color-dark-green;
       display: inline-block;
       padding: 1.5em;
+      text-transform: uppercase;
       width: 99%;
     }
 
@@ -1979,7 +1991,7 @@ footer{
   }
 
   li:hover{
-    background-color: rgba(166,168,171,0.3);
+    background-color: rgba(166,168,171,0.25);
   }
 }
 
@@ -2144,8 +2156,16 @@ footer{
       text-transform: uppercase;
 
       .btn-back {
+        background-color: $color-landing-medium-blue;
+        border-radius: 5px;
         cursor: pointer;
-        font-weight: bold;
+        color: white;
+        display: inline-block;
+        font-size: 14px;
+        margin-right: 0.3em;
+        padding: 0.6em 0.6em 0.4em;
+        text-transform: uppercase;
+        vertical-align: top;
       }
     }
 
@@ -2424,6 +2444,7 @@ footer{
   .navigation{
     display: inline-block;
     font-size: 16px;
+    font-weight: 500;
     margin-bottom: 0px;
     text-align: center;
 
@@ -2443,6 +2464,7 @@ footer{
           display: inline-block;
           cursor: pointer;
           padding: 0.5em 0.8em;
+          text-transform: uppercase;
         }
       }
 
@@ -2495,7 +2517,6 @@ footer{
     display: table;
     margin-bottom: 0.5em;
     padding: 0.8em;
-    text-transform: uppercase;
     width: 100%;
 
     .user_picture_container{
@@ -2559,11 +2580,17 @@ footer{
         }
 
         .review-info{
-          color: $color-medium-gray;
+          color: $color-dark-gray;
           font-size: 12px;
+          font-weight: 500;
           margin: 0;
           padding: 0;
-          text-align: right;
+          text-align: left;
+          text-transform: uppercase;
+
+          em{
+            font-style: normal;
+          }
         }
 
         .score {
@@ -2592,8 +2619,9 @@ footer{
 }
 
 .section-dashboard-container{
-  margin: 0.3em 0em;
-  padding: 2.5em 2em;
+  margin: 0.2em 0em;
+  min-height: 390px;
+  padding: 3em 5em;
 }
 
 .text-color-black{
@@ -2819,10 +2847,6 @@ footer{
     padding: 1em;
     vertical-align: middle;
   }
-
-  .action-button{
-    font-size: 16px;
-  }
 }
 
 .uppercase {
@@ -2894,6 +2918,7 @@ footer{
           > a{
             display: inline-block;
             padding: 0.6em 0.6em;
+            text-transform: uppercase;
           }
         }
 
@@ -2918,7 +2943,7 @@ footer{
   .navbar{
 
     .navigation{
-      font-size: 19px;
+      font-size: 17px;
       margin-bottom: 1em;
       text-align: right;
 
@@ -2928,7 +2953,8 @@ footer{
 
           > a{
             display: inline-block;
-            padding: 0.3em 1.5em;
+            padding: 0.5em 1.5em 0.5em;
+            text-transform: uppercase;
           }
         }
       }

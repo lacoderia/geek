@@ -415,14 +415,17 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
 
     $scope.openModalMessage = function($event,tutor){
 
-        var options = {
-            posX: $event.clientX,
-            posY: $event.pageY,
-            sendMessage: $scope.sendMessage
-        };
+        if(AuthService.isAuthenticated()){
+            var options = {
+                posX: $event.clientX,
+                posY: $event.pageY,
+                sendMessage: $scope.sendMessage
+            };
 
-        $scope.openMessage($event, tutor, options, DEFAULT_VALUES);
-
+            $scope.openMessage($event, tutor, options, DEFAULT_VALUES);
+        }else{
+            $rootScope.$broadcast('showSigInModal');
+        }
 
     };
 
