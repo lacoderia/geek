@@ -124,7 +124,8 @@ class AppointmentsController < ApplicationController
   def change_status
     @appointment = Appointment.find(params[:id])
     status = AppointmentStatus.find_by_code(params[:code])
-    #TODO #23641302359064: aquí agregar para evitar la race condition de cancelación y acpetación
+   
+   #evita que se cambien de estatus citas que se actualizan en el front de estudiante pero ya habían cambiado en el del tutor - y viceversa
     valid = AppointmentStatus.verify_state_change @appointment.appointment_status, status
     if valid
       @appointment.appointment_status_id = status.id
