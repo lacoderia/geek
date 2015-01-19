@@ -119,12 +119,38 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
             $scope.selectedTopic.name = '';
             $scope.selectedTopic.cost = '';
             $scope.selectedCategory = $scope.parentCategories[0];
+
+            $scope.validateTutorTopics();
+        }
+    }
+
+    //Function that removes a topic from a tutor's information
+    $scope.removeTutorTopic = function(index) {
+        $scope.tutor.topics.splice(index, 1);
+        $scope.validateTutorTopics();
+    }
+
+    //Function that validates the tutor's topics array length
+    $scope.validateTutorTopics = function() {
+        if($scope.tutor.topics.length) {
+            $('.popup-trigger-topics').parents('.form-group').removeClass('has-error');
+            $scope.tutorProfileForm.tutor_topics = {
+                'popoverMessage': ''
+            };
+            return true;
+        } else {
+            $('.popup-trigger-topics').parents('.form-group').addClass('has-error');
+            $scope.tutorProfileForm.tutor_topics = {
+                'popoverMessage': $filter('translate')('SHOW_ERRORS_ARRAY_LENGTH')
+            };
+            return false;
         }
     }
 
     //Function that removes a zone from a tutor's information
     $scope.removeTutorZone = function(index) {
         $scope.tutor.zones.splice(index, 1);
+        $scope.validateTutorZones();
     }
 
     //Function that adds a zone to a tutor's information
@@ -134,12 +160,34 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
                 'id': $scope.selectedZone.originalObject.id,
                 'name': $scope.selectedZone.originalObject.name
             });
+            $scope.validateTutorZones();
         }
     }
 
-    //Function that removes a topic from a tutor's information
-    $scope.removeTutorTopic = function(index) {
-        $scope.tutor.topics.splice(index, 1);
+    //Function that validates the tutor's topics array length
+    $scope.validateTutorZones = function() {
+        if($scope.tutor.preference.classLocation.office || $scope.tutor.preference.classLocation.studentPlace || $scope.tutor.preference.classLocation.public){
+            if($scope.tutor.zones.length) {
+                $('.popup-trigger-zones').parents('.form-group').removeClass('has-error');
+                $scope.tutorProfileForm.tutor_zones = {
+                    'popoverMessage': ''
+                };
+                return true;
+            } else {
+                $('.popup-trigger-zones').parents('.form-group').addClass('has-error');
+                $scope.tutorProfileForm.tutor_zones = {
+                    'popoverMessage': $filter('translate')('SHOW_ERRORS_ARRAY_LENGTH')
+                };
+                return false;
+            }
+        } else {
+            $('.popup-trigger-zones').parents('.form-group').removeClass('has-error');
+            $scope.tutorProfileForm.tutor_zones = {
+                'popoverMessage': ''
+            };
+            return true;
+        }
+
     }
 
     //Function that submits the tutor request for validation
@@ -147,7 +195,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
 
         $scope.$broadcast('show-errors-check-validity', $scope.tutorRequestForm);
 
-        if ($scope.tutorRequestForm.$valid && $scope.tutor.topics.length) {
+        if ($scope.tutorRequestForm.$valid & $scope.validateTutorTopics()) {
             var tutor = {
                 'id': SessionService.getId(),
                 'first_name': $scope.tutor.firstName,
@@ -266,8 +314,19 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
 
         $scope.$broadcast('show-errors-check-validity', $scope.tutorProfileForm);
 
-        $scope.updatedCalendar = false;
-        if (validCalendar) {
+        if (!validCalendar) {
+            $scope.calendarErrorClass = 'border-error';
+            $scope.calendarAlertMessagesParams = {
+                type: 'danger',
+                message: $filter('translate')('ERROR_TUTOR_PROFILE_MINIMUM_CLASS_DURATION'),
+                icon: true
+            };
+
+            // No continuamos con la ejecución del método que actualiza el perfil del usuario
+            return false;
+        }
+
+        if ($scope.tutorProfileForm.$valid & $scope.validateTutorTopics() & $scope.validateTutorZones()) {
 
             $timeout(function(){
                 usSpinnerService.spin('profile-spinner');
@@ -276,7 +335,6 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
             ProfileService.submitWeekCalendar(weekCalendar).then(
                 function(data){
                     if(data) {
-                        $scope.updatedCalendar = true;
                         $scope.tutorProfileAlertParams = {
                             type: 'success',
                             message: $filter('translate')('SUCCESS_TUTOR_PROFILE_CONGRATULATIONS'),
@@ -289,7 +347,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
                     usSpinnerService.stop('profile-spinner');
                 },
                 function(response){
-                    $scope.tutorProfileAlertParams = {
+                    $scope.tutorProfileCalendarAlertParams = {
                         type: 'danger',
                         message: $filter('translate')('ERROR_TUTOR_PROFILE_UPDATE_CALENDAR'),
                         icon: true
@@ -301,18 +359,6 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
                     console.log('Error getting tutor\'s request status: ' + response);
                 }
             );
-
-        } else {
-            $scope.calendarErrorClass = 'border-error';
-            $scope.calendarAlertMessagesParams = {
-                type: 'danger',
-                message: $filter('translate')('ERROR_TUTOR_PROFILE_MINIMUM_CLASS_DURATION'),
-                icon: true
-            };
-
-        }
-
-        if ($scope.tutorProfileForm.$valid && SessionService.getTopics().length && SessionService.getZones().length && validCalendar) {
 
             var tutor = {
                 'id': SessionService.getId(),
@@ -339,7 +385,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
 
             ProfileService.submitProfile(tutor).then(
                 function(data){
-                    if(data && data.id && $scope.updatedCalendar) {
+                    if(data && data.id) {
                         $rootScope.userName = data.first_name;
                         SessionService.setPictureUrl(data.picture_url);
                         $scope.tutorProfileAlertParams = {
@@ -374,7 +420,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
 
             $scope.tutorProfileAlertParams = {
                 type: 'danger',
-                message: $filter('translate')('ERROR_TUTOR_PROFILE_UPDATE'),
+                message: $filter('translate')('ERROR_TUTOR_PROFILE_FORM_HAS_ERRORS'),
                 icon: true
             };
 

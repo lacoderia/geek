@@ -62,7 +62,6 @@ angular.module('angucomplete-alt-geek', [] ).directive('angucompleteAltGeek', ['
             focusOut: '&',
             focusIn: '&',
             name: '@',
-            showerrors: '@',
             objectValidation: '='
         },
         template: '<div class="angucomplete-holder" ng-class="{\'angucomplete-dropdown-visible\': showDropdown}">' +
@@ -97,30 +96,6 @@ angular.module('angucomplete-alt-geek', [] ).directive('angucompleteAltGeek', ['
             var mousedownOn = null;
             var unbindInitialValue;
             var firstTime = true;
-
-
-            if(scope.showerrors){
-                scope.$watchCollection('objectValidation', function(){
-
-                    if(scope.objectValidation){
-                        if(!scope.objectValidation.length && !firstTime){
-                            ctrl[scope.name].$invalid = true;
-                            elem.toggleClass('has-error', true);
-                            ctrl[scope.name].popoverMessage = 'Se debe agregar al menos un elemento';
-                        }else{
-                            ctrl[scope.name].$invalid = false;
-                            elem.toggleClass('has-error', false);
-                            ctrl[scope.name].popoverMessage = '';
-
-                            if(firstTime){
-                                firstTime = false;
-                            }
-                        }
-                    }
-
-
-                }, true);
-            }
 
             elem.on('mousedown', function(event) {
                 mousedownOn = event.target.id;

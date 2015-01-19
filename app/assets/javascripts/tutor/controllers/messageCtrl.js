@@ -7,6 +7,7 @@ Geek.controller('MessageController',['$scope','$rootScope', '$timeout', '$filter
     $scope.textMessage = '';
     $scope.lastMessage = undefined;
 
+
     $scope.getConversations = function(){
 
         $timeout(function(){
@@ -33,6 +34,7 @@ Geek.controller('MessageController',['$scope','$rootScope', '$timeout', '$filter
     };
 
     $scope.selectConversation = function(student){
+
         MessageService.getConversationByUserId(student.id, SessionService.getId()).then(
             function(data){
                 if(data){
