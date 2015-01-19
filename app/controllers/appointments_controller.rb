@@ -131,7 +131,7 @@ class AppointmentsController < ApplicationController
       @appointment.appointment_status_id = status.id
     end
     if valid and @appointment.save
-      @appointment.update_cancelled_rejected_appointment status 
+      @appointment.appointment_updated status 
       render :show, status: :ok, location: @appointment
     else
       render json: @appointment.errors, status: :unprocessable_entity

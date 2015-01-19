@@ -85,7 +85,9 @@ every(1.day, 'tutor_cashout', :if => lambda { |t| t.day == 15}) {
 # Cada noche mandar a estudiante, informando de clases del próximo día
 # Cada noche mandar a tutor, informando de clases del próximo día y de solicitudes pendientes
 every(1.day, 'send_notifications', :at => '19:00') {
-  Appointment.where("appointments.start BETWEEN ? AND ?", DateTime.now.tomorrow.beginning_of_day, DateTime.now.tomorrow.end_of_day).each do |appointment|
+  students = {}
+  tutors = {}
+  Appointment.where("appointments.start BETWEEN ? AND ? AND (appointments.appointment_status_id = ? OR appointments.appointment_status_id = ?)", DateTime.now.tomorrow.beginning_of_day, DateTime.now.tomorrow.end_of_day, AppointmentStatus.find_by_code("0"), AppointmentStatus.find_by_code("3")).includes(:tutor, :student).each do |appointment|
     #TODO: Diego a incluir las notificaciones
   end
 }

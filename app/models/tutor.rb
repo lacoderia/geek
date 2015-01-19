@@ -24,6 +24,7 @@ class Tutor < ActiveRecord::Base
   def set_defaults
     set_default_preferences
     self.get_openpay_id
+    UserMailer.tutor_welcome(self).deliver
   end
 
   def set_default_preferences
@@ -58,8 +59,7 @@ class Tutor < ActiveRecord::Base
 
       # Envio de correos solo en produccion
       if Rails.env.production?
-        UserMailer.tutor_notification_email(appointment.tutor_id, appointment.appointment_status_id, name).deliver
-        UserMailer.student_notification_email(appointment.student_id, appointment.appointment_status_id, name).deliver
+        UserMailer.tutor_new_appointment_request(appointment).deliver
       end
 
       return appointment

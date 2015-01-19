@@ -5,6 +5,12 @@ class Student < ActiveRecord::Base
   has_and_belongs_to_many :purchases
   has_many :appointments
 
+  after_create :set_defaults
+
+  def set_defaults
+    UserMailer.student_welcome(self).deliver
+  end
+
   # month, year, previous pueden ser nil. 
   def self.list_appointments_by_month_and_year student_id, month, year 
     student = Student.find student_id

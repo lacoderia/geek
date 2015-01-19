@@ -14,19 +14,25 @@ class Appointment < ActiveRecord::Base
 
   cattr_reader :hours_before_scheduling, :hours_before_confirming, :hours_before_business_rules, :hours_afer_business_rules, :hours_afer_business_rules_max
 
-  def update_cancelled_rejected_appointment status
+  def appointment_updated status
     case status.code
     when "1" #rechazada estudiante
-      self.delete_and_send_emails 
+      self.tutor.delete_appointment self 
     when "2" #rechazada tutor
-      self.delete_and_send_emails 
+      self.tutor.delete_appointment self 
+      UserMailer.student_appointment_request_rejected(self).deliver
+    when "3"
+      UserMailer.student_appointment_request_accepted(self).deliver
+      UserMailer.tutor_appointment_confirmed(self).deliver
     when "4" #cancelada estudiante
       # Reportar anomalía
       RegisteredAnomaly.cancelled_from_student self
-      self.delete_and_send_emails 
+      self.tutor.delete_appointment self 
+      UserMailer.tutor_appointment_canceled(self).deliver
     when "5" #cancelada tutor
       RegisteredAnomaly.cancelled_from_tutor self
-      self.delete_and_send_emails 
+      self.tutor.delete_appointment self 
+      UserMailer.student_appointment_canceled(self).deliver
     end 
   end
 
