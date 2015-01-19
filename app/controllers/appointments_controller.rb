@@ -125,8 +125,11 @@ class AppointmentsController < ApplicationController
     @appointment = Appointment.find(params[:id])
     status = AppointmentStatus.find_by_code(params[:code])
     #TODO #23641302359064: aquí agregar para evitar la race condition de cancelación y acpetación
-    @appointment.appointment_status_id = status.id
-    if @appointment.save
+    valid = AppointmentStatus.verify_state_change @appointment.appointment_status, status
+    if valid
+      @appointment.appointment_status_id = status.id
+    end
+    if valid and @appointment.save
       @appointment.update_cancelled_rejected_appointment status 
       render :show, status: :ok, location: @appointment
     else
