@@ -2,13 +2,13 @@
 
 Geek.factory('MessageService', ["$http", "$q", "DEFAULT_VALUES", function($http, $q, DEFAULT_VALUES){
 
-    var getConversations = function(tutorId){
+    var getConversations = function(studentId){
         var deferred = $q.defer();
         var promise = deferred.promise;
 
         $http.get(DEFAULT_VALUES.URL_SERVICES.CONVERSATION_SERVICE_URL,{
             params: {
-                'student_id':  tutorId
+                'student_id':  studentId
             }
         }).
             success(function(data){

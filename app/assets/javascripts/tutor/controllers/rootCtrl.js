@@ -16,6 +16,8 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
 
     $rootScope.isUserBlocked = false;
 
+    $scope.rootInitialized = false;
+
     $rootScope.toggleLanguage = function(){
         var languageCode = $translate.use();
 
@@ -63,33 +65,38 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
         return obj[prop];
     }
 
-    $scope.$watch('AuthService.isAuthenticated()', function(){
+    $scope.$on('initRoot', function(){
         if (AuthService.isAuthenticated()) {
             $timeout(function() {
-                $rootScope.userName = SessionService.getFirstName();
 
-                $scope.createWeekCalendar();
-                $scope.updateWeekCalendar(SessionService.getPreference().availabilities);
+                if (!$scope.rootInitialized) {
+                    $rootScope.userName = SessionService.getFirstName();
 
-                BalanceService.getBalance().then(
-                    function(data){
-                        SessionService.setBalanceInfo(data);
-                    },
-                    function(response){
-                        console.log('Error retrieving the user\'s balance' + response);
-                    }
-                );
+                    $scope.createWeekCalendar();
+                    $scope.updateWeekCalendar(SessionService.getPreference().availabilities);
 
-                MessageService.getPendingConversationsByUserId(SessionService.getId()).then(
-                    function(data){
-                        $rootScope.newConversationMessages = data.pending;
-                    },
-                    function(response){
-                        console.log('Error retrieving the number of pending conversations ' + response);
-                    }
-                );
+                    BalanceService.getBalance().then(
+                        function(data){
+                            SessionService.setBalanceInfo(data);
+                        },
+                        function(response){
+                            console.log('Error retrieving the user\'s balance' + response);
+                        }
+                    );
 
-                $rootScope.$broadcast("rootControllerReady");
+                    MessageService.getPendingConversationsByUserId(SessionService.getId()).then(
+                        function(data){
+                            $rootScope.newConversationMessages = data.pending;
+                        },
+                        function(response){
+                            console.log('Error retrieving the number of pending conversations ' + response);
+                        }
+                    );
+
+                    $scope.rootInitialized = true;
+                    $rootScope.$broadcast("rootControllerReady");
+                }
+
             },0);
         }
     }, true);

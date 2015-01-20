@@ -387,6 +387,20 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
                 function(data){
                     if(data && data.id) {
                         $rootScope.userName = data.first_name;
+
+                        SessionService.setFirstName(data.first_name);
+                        SessionService.setLastName(data.last_name);
+                        //SessionService.setGender(data.gender);
+                        //SessionService.setPhoneNumber(phoneNumber);
+                        SessionService.setDetails(details);
+                        //SessionService.setPicture(picture);
+                        SessionService.setPictureUrl(pictureUrl);
+                        //SessionService.setPreference(preference);
+                        SessionService.setReferences(references);
+                        SessionService.setBackground(background);
+                        //SessionService.setTopics(topics);
+                        //SessionService.setZones(zones);
+
                         SessionService.setPictureUrl(data.picture_url);
                         $scope.tutorProfileAlertParams = {
                             type: 'success',
@@ -482,6 +496,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
     });
 
     //Inicializamos el controlador
+    $rootScope.$broadcast('initRoot');
     $scope.tutor = SessionService.getSession();
 
     if(SessionService.getPreference()){

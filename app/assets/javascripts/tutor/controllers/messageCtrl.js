@@ -122,6 +122,7 @@ Geek.controller('MessageController',['$scope','$rootScope', '$timeout', '$filter
     }
 
     //Inicializamos el controlador
+    $rootScope.$broadcast('initRoot');
     $scope.getConversations();
 
 }]);

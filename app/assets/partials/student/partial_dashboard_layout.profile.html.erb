@@ -22,7 +22,8 @@
           <label>{{ 'STUDENT_PROFILE_LABEL_NAME' | translate }}:</label>
         </div>
         <div class="right">
-          <input type="text" name="student_name" ng-model="student.first_name" class="form-input form-control" placeholder="{{ 'STUDENT_PROFILE_PLACEHOLDER_NAME' | translate }}" popover="{{studentProfileForm.student_name.popoverMessage}}" popover-trigger="click" popover-animation="false" required/>
+          <input type="text" name="student_name" ng-model="student.firstName" class="form-input form-control" placeholder="{{ 'STUDENT_PROFILE_PLACEHOLDER_NAME' | translate }}" popover-input-name="{{ 'STUDENT_PROFILE_PLACEHOLDER_NAME' | translate }}" required/>
+          <span class="popup-trigger" popover="{{studentProfileForm.student_name.popoverMessage}}" popover-trigger="click" popover-animation="false">!</span>
         </div>
       </div>
       <div class="form-group" show-errors>
@@ -30,7 +31,8 @@
           <label>{{ 'STUDENT_PROFILE_LABEL_LAST_NAME' | translate }}:</label>
         </div>
         <div class="right">
-          <input type="text" name="student_last_name" ng-model="student.last_name" class="form-input form-control" placeholder="{{ 'STUDENT_PROFILE_PLACEHOLDER_LAST_NAME' | translate }}" popover="{{studentProfileForm.student_last_name.popoverMessage}}" popover-trigger="click" popover-animation="false" required/>
+          <input type="text" name="student_last_name" ng-model="student.lastName" class="form-input form-control" placeholder="{{ 'STUDENT_PROFILE_PLACEHOLDER_LAST_NAME' | translate }}" popover-input-name="{{ 'STUDENT_PROFILE_LABEL_LAST_NAME' | translate }}" required/>
+          <span class="popup-trigger" popover="{{studentProfileForm.student_last_name.popoverMessage}}" popover-trigger="click" popover-animation="false">!</span>
         </div>
       </div>
       <div class="form-group" show-errors>
@@ -38,7 +40,8 @@
           <label>{{ 'STUDENT_PROFILE_LABEL_PHONE' | translate }}:</label>
         </div>
         <div class="right">
-          <input type="text" name="student_phone" ng-model="student.phone_number" ng-pattern="/^[0-9]+$/" ng-minlength="8" ng-maxlength="10" maxlength="10" class="form-input form-control" placeholder="{{ 'STUDENT_PROFILE_PLACEHOLDER_PHONE' | translate }}" popover="{{ProfileForm.student_phone.popoverMessage}}" popover-trigger="click" popover-animation="false" />
+          <input type="text" name="student_phone" ng-model="student.phoneNumber" ng-pattern="/^[0-9]+$/" ng-minlength="8" ng-maxlength="10" maxlength="10" class="form-input form-control" placeholder="{{ 'STUDENT_PROFILE_PLACEHOLDER_PHONE' | translate }}" popover-input-name="{{ 'STUDENT_PROFILE_LABEL_PHONE' | translate }}"/>
+          <span class="popup-trigger" popover="{{studentProfileForm.student_phone.popoverMessage}}" popover-trigger="click" popover-animation="false">!</span>
         </div>
       </div>
     </fieldset>

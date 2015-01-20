@@ -2,6 +2,8 @@
 
 Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeout", "$location", "$anchorScroll", "ProfileService", "SessionService", "usSpinnerService", "DEFAULT_VALUES", function($scope, $rootScope, $filter, $timeout, $location, $anchorScroll, ProfileService, SessionService, usSpinnerService, DEFAULT_VALUES){
 
+    //Inicializamos el controlador
+    $rootScope.$broadcast('initRoot');
     $scope.student = SessionService.getSession();
 
     $scope.studentProfileAlertParams = undefined;
@@ -55,10 +57,10 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
             var student = {
                 id: $scope.student.id,
                 email: $scope.student.email,
-                first_name: $scope.student.first_name,
-                last_name: $scope.student.last_name,
+                first_name: $scope.student.firstName,
+                last_name: $scope.student.lastName,
                 gender: $scope.student.gender,
-                phone_number: $scope.student.phone_number,
+                phone_number: $scope.student.phoneNumber,
                 picture: $scope.student.picture
             };
 
@@ -70,8 +72,10 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
                 function(data){
                     if(data && data.id) {
 
+                        $rootScope.userName = data.first_name;
+
                         SessionService.setFirstName(data.first_name);
-                        SessionService.setLastName(data.first_name);
+                        SessionService.setLastName(data.last_name);
                         SessionService.setPhoneNumber(data.phone_number);
                         SessionService.setPictureUrl(data.picture_url);
 
@@ -118,9 +122,9 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
 
     }
 
-    $scope.$watch('student.picture_url', function(){
+    $scope.$watch('student.pictureUrl', function(){
 
-        if($scope.student && $scope.student.picture_url) {
+        if($scope.student && $scope.student.pictureUrl) {
             var imageContainer = $('.profile_picture');
             var image = imageContainer.find('img');
             image.hide();
@@ -130,9 +134,9 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
             }, 0);
 
             $('<img/>')
-                .attr("src", $scope.student.picture_url)
+                .attr("src", $scope.student.pictureUrl)
                 .load(function() {
-                    image.attr('src', $scope.student.picture_url);
+                    image.attr('src', $scope.student.pictureUrl);
 
                     var ratio = this.width / this.height;
 

@@ -1,5 +1,8 @@
 Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$timeout", "$location", "$anchorScroll", "$translate", "TutorService", "AppointmentService", "AuthService", "SessionService", "usSpinnerService", "MessageService", "DEFAULT_VALUES", function($scope, $rootScope, $filter, $timeout, $location, $anchorScroll, $translate, TutorService, AppointmentService, AuthService, SessionService, usSpinnerService, MessageService, DEFAULT_VALUES){
 
+    //Inicializamos el controlador
+    $rootScope.$broadcast('initRoot');
+
     $scope.orderOptions = [
         {'code':0, 'title':'SEARCH_ORDER_BY_LABEL_HIGHEST_REVIEW'},
         {'code':1, 'title':'SEARCH_ORDER_BY_LABEL_HIGHEST_PRICE'},

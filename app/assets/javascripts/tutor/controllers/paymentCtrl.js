@@ -376,5 +376,6 @@ Geek.controller('PaymentController',['$scope','$rootScope', '$timeout', '$locati
     });
 
     //Inicializamos el controlador
+    $rootScope.$broadcast('initRoot');
     $scope.getPaymentMethodsList();
 }]);

@@ -28,6 +28,7 @@ Geek.controller('ReviewsController',['$scope','$rootScope', '$timeout', 'AuthSer
     };
 
     //Inicializamos el controlador
+    $rootScope.$broadcast('initRoot');
     $scope.getReviews();
 
 }]);

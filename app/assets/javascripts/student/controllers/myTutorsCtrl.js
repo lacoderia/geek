@@ -171,6 +171,7 @@ Geek.controller('MyTutorsController',['$scope','$rootScope','$compile', '$timeou
     };
 
     //Inicializamos el controlador
+    $rootScope.$broadcast('initRoot');
     $scope.getTutorList();
 
 }]);

@@ -5,25 +5,23 @@ Geek.factory('SessionService', [function(){
     var session = {
         id: undefined,
         email: undefined,
-        first_name: undefined,
-        last_name: undefined,
+        firstName: undefined,
+        lastName: undefined,
         gender: undefined,
-        phone_number: undefined,
-        picture_url: undefined,
-        has_card: undefined
+        phoneNumber: undefined,
+        pictureUrl: undefined,
+        hasCard: undefined
     };
 
     var createSession = function(id, email, firstName, lastName, gender, phoneNumber, pictureUrl, hasCard){
-        session = {
-            id: id,
-            email: email,
-            first_name: firstName,
-            last_name: lastName,
-            gender: gender,
-            phone_number: phoneNumber,
-            picture_url: pictureUrl,
-            has_card: hasCard
-        };
+        this.setId(id);
+        this.setEmail(email);
+        this.setFirstName(firstName);
+        this.setLastName(lastName);
+        this.setGender(gender);
+        this.setPhoneNumber(phoneNumber);
+        this.setPictureUrl(pictureUrl);
+        this.setHasCard(hasCard);
     };
 
     var getId = function(){
@@ -43,19 +41,19 @@ Geek.factory('SessionService', [function(){
     };
 
     var getFirstName = function(){
-        return session.first_name;
+        return session.firstName;
     };
 
     var setFirstName = function(firstName){
-        session.first_name = firstName;
+        session.firstName = firstName;
     };
 
     var getLastName = function(){
-        return session.last_name;
+        return session.lastName;
     };
 
     var setLastName = function(lastName){
-        session.last_name = lastName;
+        session.lastName = lastName;
     };
 
     var getGender = function(){
@@ -67,27 +65,27 @@ Geek.factory('SessionService', [function(){
     };
 
     var getPhoneNumber = function(){
-        return session.phone_number;
+        return session.phoneNumber;
     };
 
     var setPhoneNumber = function(phoneNumber){
-        session.phone_number = phoneNumber;
+        session.phoneNumber = phoneNumber;
     };
 
     var getPictureUrl = function(){
-        return session.picture_url;
+        return session.pictureUrl;
     };
 
     var setPictureUrl = function(pictureUrl){
-        session.picture_url = pictureUrl;
+        session.pictureUrl = pictureUrl;
     };
 
     var getHasCard = function(){
-        return session.has_card;
+        return session.hasCard;
     };
 
     var setHasCard = function(hasCard){
-        session.has_card = hasCard;
+        session.hasCard = hasCard;
     };
 
     var destroySession = function(){
@@ -95,7 +93,7 @@ Geek.factory('SessionService', [function(){
     };
 
     var getSession = function(){
-        return session;
+        return angular.copy(session);
     };
 
     return {
