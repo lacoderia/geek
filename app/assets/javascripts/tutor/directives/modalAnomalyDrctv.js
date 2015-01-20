@@ -15,7 +15,7 @@ Geek.directive('ngModalAnomaly', ["$timeout", "$window", "$document", "$filter",
 
             scope.anomalyDescription = undefined;
 
-            scope.anomalyList = [ {name: $filter('translate')('POPUP_ANOMALY_REPORT_LATE_SHOW'), code: "0"},
+            scope.anomalyList = [ //{name: $filter('translate')('POPUP_ANOMALY_REPORT_LATE_SHOW'), code: "0"},
                                   {name: $filter('translate')('POPUP_ANOMALY_REPORT_NO_SHOW'), code: "1"},
                                   {name: $filter('translate')('POPUP_ANOMALY_REPORT_OTHER'), code: "3"}];
 

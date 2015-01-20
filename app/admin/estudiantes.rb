@@ -9,7 +9,7 @@ ActiveAdmin.register Student, :as => "Estudiantes" do
   filter :user_last_name, :as => :string
   filter :user_email, :as => :string
   filter :user_active, :as => :select
-  filter :user_late_shows, :as => :numeric
+  #filter :user_late_shows, :as => :numeric
   filter :user_no_shows, :as => :numeric
   filter :user_cancellations, :as => :numeric
 
@@ -22,7 +22,7 @@ ActiveAdmin.register Student, :as => "Estudiantes" do
     column :last_name
     column :email
     column :phone_number
-    column :late_shows
+    #column :late_shows
     column :no_shows
     column :cancellations
     column :active
@@ -38,7 +38,7 @@ ActiveAdmin.register Student, :as => "Estudiantes" do
       row :last_name
       row :email
       row :phone_number
-      row :late_shows
+      #row :late_shows
       row :no_shows
       row :cancellations
       row :active
@@ -56,7 +56,7 @@ ActiveAdmin.register Student, :as => "Estudiantes" do
       #f.input :details, :as => :string, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
       #f.input :references, :as => :string, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
       #f.input :tier1_rate, :label => "Cost",:as => :string, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
-      f.input :late_shows
+      #f.input :late_shows
       f.input :no_shows
       f.input :cancellations
       f.input :active, :as => :boolean
