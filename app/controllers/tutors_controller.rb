@@ -72,8 +72,10 @@ class TutorsController < ApplicationController
       end
 
       if @tutor.update(tutor_params)
+        @tutor = Tutor.profile(@tutor.email)
         format.html { redirect_to @tutor, notice: 'Tutor was successfully updated.' }
-        format.json { render :show, status: :ok, location: @tutor }
+        #format.json { render :show, status: :ok, location: @tutor }
+        format.json {render :profile}
       else
         format.html { render :edit }
         format.json { render json: @tutor.errors, status: :unprocessable_entity }
