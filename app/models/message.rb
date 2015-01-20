@@ -6,9 +6,9 @@ class Message < ActiveRecord::Base
 
   def set_defaults
   	if self.from_student
-    	UserMailer.student_new_message(self).deliver
-    else
     	UserMailer.tutor_new_message(self).deliver
+    else
+    	UserMailer.student_new_message(self).deliver
     end
   end
 

@@ -576,8 +576,8 @@
 												<h1><%= @student.first_name %>!</h1>
 												<span style="font-size:14px; line-height:135%;">Te recordamos que tienes las siguientes clases agendadas para mañana:</span><br><br>
 												<% @appointments.each do |appointment|%>
-													<span style="font-size:14px; line-height:135%;">﻿<%= appointment.start.strftime("%d/%m/%Y %I:%M %P") %> - <%= @appointment.tutor.first_name %> </span><br>
-												<% end %><br><br>
+													<span style="font-size:14px; line-height:135%;">﻿<%= appointment.start.strftime("%d/%m/%Y  %I:%M %P") %> - <%= appointment.tutor.first_name %> </span><br>
+												<% end %><br>
 												<span style="font-size:14px; line-height:135%;">Si tienes alguna pregunta escríbenos a <a href="mailto:info@geek.education">info@geek.education</a> y con mucho gusto resolveremos tus dudas lo antes posible.<br><br>
 												Saludos,<br>
 												Geek Team</span>
