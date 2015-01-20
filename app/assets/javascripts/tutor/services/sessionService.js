@@ -10,6 +10,7 @@ Geek.factory('SessionService', [function(){
         lastName: undefined,
         gender: undefined,
         phoneNumber: undefined,
+        details: undefined,
         picture: undefined,
         pictureUrl: undefined,
         preference: undefined,
@@ -29,6 +30,7 @@ Geek.factory('SessionService', [function(){
         this.setLastName(lastName);
         this.setGender(gender);
         this.setPhoneNumber(phoneNumber);
+        this.setDetails(details);
         this.setPicture(picture);
         this.setPictureUrl(pictureUrl);
         this.setPreference(preference);
@@ -200,6 +202,8 @@ Geek.factory('SessionService', [function(){
         setGender: setGender,
         getPhoneNumber: getPhoneNumber,
         setPhoneNumber: setPhoneNumber,
+        getDetails: getDetails,
+        setDetails: setDetails,
         getPicture: getPicture,
         setPicture: setPicture,
         getPictureUrl: getPictureUrl,

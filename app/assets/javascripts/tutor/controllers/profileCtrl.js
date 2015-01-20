@@ -80,7 +80,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
                 var imageContainer = $(element).parent().find('.profile_picture');
                 var image = imageContainer.find('img');
                 image.attr('src', e.target.result);
-                SessionService.setPicture(e.target.result);
+                $scope.tutor.picture = e.target.result;
 
                 var loadedImage = new Image();
                 loadedImage.src = reader.result;
@@ -386,22 +386,21 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
             ProfileService.submitProfile(tutor).then(
                 function(data){
                     if(data && data.id) {
+
                         $rootScope.userName = data.first_name;
 
                         SessionService.setFirstName(data.first_name);
                         SessionService.setLastName(data.last_name);
-                        //SessionService.setGender(data.gender);
-                        //SessionService.setPhoneNumber(phoneNumber);
-                        SessionService.setDetails(details);
-                        //SessionService.setPicture(picture);
-                        SessionService.setPictureUrl(pictureUrl);
-                        //SessionService.setPreference(preference);
-                        SessionService.setReferences(references);
-                        SessionService.setBackground(background);
-                        //SessionService.setTopics(topics);
-                        //SessionService.setZones(zones);
-
+                        SessionService.setGender(data.gender);
+                        SessionService.setPhoneNumber(data.phone_number);
+                        SessionService.setDetails(data.details);
                         SessionService.setPictureUrl(data.picture_url);
+                        SessionService.setPreference(data.preference);
+                        SessionService.setReferences(data.references);
+                        SessionService.setBackground(data.background);
+                        SessionService.setTopics(data.categories);
+                        SessionService.setZones(data.counties);
+
                         $scope.tutorProfileAlertParams = {
                             type: 'success',
                             message: $filter('translate')('SUCCESS_TUTOR_PROFILE_CONGRATULATIONS'),
