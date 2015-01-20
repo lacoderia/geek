@@ -65,7 +65,7 @@
           <thead>
           <tr class="week-list-title-row">
             <th class="info-title" translate="TABLE_TITLE_TIME"></th>
-            <th class="info-title" translate="TABLE_TITLE_TUTOR"></th>
+            <th class="info-title" translate="TABLE_TITLE_STUDENT"></th>
             <th class="info-title" translate="TABLE_TITLE_SUBJECT"></th>
             <th class="info-title" translate="TABLE_TITLE_STATUS"></th>
             <th class="info-title" translate="TABLE_TITLE_ACTIONS"></th>
@@ -85,9 +85,18 @@
             <td class="day-info">{{ appointment.student.first_name }} {{ appointment.student.last_name }}</td>
             <td class="day-info">{{ appointment.subject }}</td>
             <td class="day-info"><span ng-class="[appointment.status.class,appointment.status.icon_class]"> {{ appointment.status.name | translate }}</span></td>
-            <td class="day-info">
-              <div class="appointment-button">
-                <a ng-repeat="button in appointmentButtons" ng-if="showActionButtons(appointment, button.action)" ng-class="[button.class, button.icon]" title=" {{ button.title }}" ng-click="callButtonAction($event, button.action, appointment)"> {{ button.text | translate }}</a>
+            <td class="day-info buttons">
+              <span class="appointment-button">
+                <a ng-if="showActionButtons(appointment, appointmentButtons['MESSAGE_BUTTON'].action)" ng-class="[appointmentButtons['MESSAGE_BUTTON'].class]" title=" {{ appointmentButtons['MESSAGE_BUTTON'].title }}" ng-click="callButtonAction($event, appointmentButtons['MESSAGE_BUTTON'].action, appointment)"><span ng-class="[appointmentButtons['MESSAGE_BUTTON'].icon]"></span> {{ appointmentButtons['MESSAGE_BUTTON'].text | translate }}</a>
+              </span>
+              <div class="dropdown" ng-dropdown-actions>
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                  &#8226;&#8226;&#8226;
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                  <li role="presentation" ng-repeat="button in appointmentButtons" ng-if="showActionButtons(appointment, button.action) && button.action != 'send-message'"><a ng-class="[button.class]" title=" {{ button.title }}" ng-click="callButtonAction($event, button.action, appointment)"><span ng-class="[button.icon]"></span> {{ button.text | translate }}</a></li>
+                </ul>
               </div>
             </td>
           </tr>

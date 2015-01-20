@@ -58,7 +58,7 @@ class Appointment < ActiveRecord::Base
 
     chargestudent = Payment.charge_student student_openpay_id, card_id, amount, get_charge_message
     if chargestudent[:error]
-      self.update_attribute(:log, chargestudent[:error]["description"])
+      self.update_attribute(:log, chargestudent[:error].description)
     else
       self.update_attribute(:charged, true)
     end
@@ -99,13 +99,15 @@ class Appointment < ActiveRecord::Base
   def pay_student_penalty fee_student
     student_openpay_id = self.student.openpay_id
     card_id = self.student.cards.where("active = ?", true).first.openpay_id
-    amount = fee_student * 1.16 #se suma el IVA
+    amount = (fee_student * 1.16).round(2) #se suma el IVA
     chargestudent = Payment.charge_student student_openpay_id, card_id, amount, get_student_penalty_message, false
 
     if chargestudent[:error]
-      self.update_attribute(:log, chargestudent[:error]["description"])
+      logger.info(chargestudent.to_yaml)
+      self.update_attribute(:log, chargestudent[:error].description)
     else
       self.update_attribute(:charged, true)
+      collectfee = Payment.charge_fee student_openpay_id, amount, get_fee_penalty_message
     end
   end
 
@@ -119,7 +121,7 @@ class Appointment < ActiveRecord::Base
     chargestudent = Payment.charge_student student_openpay_id, card_id, amount, get_charge_message # (total a cobrar del estudiante, con operanciones con fee_student)
     #actualizar bandera de cobrado
     if chargestudent[:error]
-      self.update_attribute(:log, chargestudent[:error]["description"])
+      self.update_attribute(:log, chargestudent[:error].description)
     else
       self.update_attribute(:charged, true)
 
@@ -146,7 +148,11 @@ class Appointment < ActiveRecord::Base
   end
 
   def get_student_penalty_message
-    "Cobro de penalizacion. Estudiante " + self.student.id.to_s + ", Clase: " + self.id.to_s
+    "Cobro de penalización. Estudiante " + self.student.id.to_s + ", Clase: " + self.id.to_s
+  end
+
+  def get_fee_penalty_message
+    "Cobro de comisión por penalización. Estudiante " + self.student.id.to_s + ", Clase: " + self.id.to_s
   end
 
   def get_charge_message

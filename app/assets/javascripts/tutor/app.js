@@ -117,7 +117,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
                 code: 5,
                 name: 'APPOINTMENT_STATUS_CANCELLED_TUTOR',
                 class: 'appointment-status-canceled',
-                icon_class: 'icon-accept'
+                icon_class: 'icon-close'
             },
             {
                 code: 6,
@@ -364,6 +364,32 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
                 });
                 ngModel.$parsers.push(function (val) {
                     return val.replace(/[\$,]/, '')
+                });
+            }
+        }
+    }])
+
+    .directive('ngDropdownActions', ['$timeout', function($timeout){
+        return{
+            link: function(scope, elem, attrs, ctr){
+                $timeout(function(){
+                    var dropdownMenuElem = angular.element(elem).find('.dropdown-menu');
+                    var dropdownToggleElem = angular.element(elem).find('.dropdown-toggle');
+
+                    dropdownToggleElem.dropdown();
+                    scope.$watch(
+                        function(){
+                          return dropdownMenuElem[0].children.length;
+                        },
+                        function(itemsLength){
+                            if(itemsLength > 0){
+                                elem.show();
+                            }else{
+                                elem.hide();
+                            }
+                        }
+                    );
+
                 });
             }
         }

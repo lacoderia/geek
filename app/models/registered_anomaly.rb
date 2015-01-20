@@ -103,8 +103,8 @@ class RegisteredAnomaly < ActiveRecord::Base
         # El tutor no llegó, no se cobra y se cambia a válida
         self.update_attributes({:fee_student => 0, :fee_tutor => 0}) 
       elsif self.source.client_type == "Tutor"
-        # El estudiante no llegó, se cobra todo, se asigna 50% al tutor y se cambia a válida
-        self.update_attributes({:fee_student => 100, :fee_tutor => 50}) 
+        # El estudiante no llegó, se cobra 100 pesos, se pagan completos a Geek y se cambia a válida
+        self.update_attributes({:fee_student => 100, :fee_tutor => 0}) 
       end
     when "2" #cancelacion por tutor, entre 2 y 0 horas
       self.update_attributes({:fee_student => 0, :fee_tutor => 0}) 

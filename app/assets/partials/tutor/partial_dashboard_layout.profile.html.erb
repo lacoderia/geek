@@ -72,7 +72,7 @@
             </div>
             <input type="text" placeholder="{{ 'TUTOR_PROFILE_PLACEHOLDER_TOPICS_NAME' | translate }}" ng-model="selectedTopic.name" name="tutor_topic_name" class="form-input form-input-third form-control">
             <input type="text" placeholder="{{ 'TUTOR_PROFILE_PLACEHOLDER_TOPICS_PRICE' | translate }}" ng-model="selectedTopic.cost" name="tutor_topic_cost" class="form-input form-input-fifth form-control" ng-currency>
-            <a class="action-button action-button-medium-gray" ng-click="addTutorTopic()" translate="ADD"></a>
+            <a class="btn-back" ng-click="addTutorTopic()" translate="ADD"></a>
             <div id="tutor_topics" class="items-added-group">
               <div id="tutor_topic_{{$index}}" ng-repeat="tutorTopic in tutor.topics" class="item-added">{{tutorTopic.name}} - {{tutorTopic.cost | currency : '$'}}<span ng-click="removeTutorTopic($index)" class="icon-close close-item"></span></div>
             </div>
@@ -80,9 +80,11 @@
         </div>
       </div>
     </fieldset>
-    <div class="send-form">
-      <a class="action-button action-button-light-green" ng-click="submitTutorRequest()" translate="TUTOR_PROFILE_REQUEST_SEND"></a>
-    </div>
+    <fieldset>
+      <div class="action-button-holder">
+        <a class="action-button action-button-light-green" ng-click="submitTutorRequest()" translate="TUTOR_PROFILE_REQUEST_SEND"></a>
+      </div>
+    </fieldset>
   </form>
 </div>
 <div class="tutor-profile-container form" ng-show="tutor && tutor.request.sent && !tutor.request.approved">
@@ -177,7 +179,7 @@
             </div>
             <input type="text" placeholder="{{ 'TUTOR_PROFILE_PLACEHOLDER_TOPICS_NAME' | translate }}" ng-model="selectedTopic.name" name="tutor_topic_name" class="form-input form-input-third form-control">
             <input type="text" placeholder="{{ 'TUTOR_PROFILE_PLACEHOLDER_TOPICS_PRICE' | translate }}" ng-model="selectedTopic.cost" name="tutor_topic_cost" class="form-input form-input-fifth form-control" ng-currency>
-            <a class="action-button action-button-medium-gray" ng-click="addTutorTopic()" translate="ADD"></a>
+            <a class="btn-back" ng-click="addTutorTopic()" translate="ADD"></a>
             <div id="tutor_topics" class="items-added-group">
               <div id="tutor_topic_{{$index}}" ng-repeat="tutorTopic in tutor.topics" class="item-added">{{tutorTopic.name}} - {{tutorTopic.cost | currency : '$'}}<span ng-click="removeTutorTopic($index)" class="icon-close close-item"></span></div>
             </div>
@@ -225,18 +227,17 @@
                                  input-class="form-control"
                                  name="tutor_zone">
           </angucomplete-alt-geek>
-          <a class="action-button action-button-medium-gray" ng-click="addTutorZone()" ng-show="zonesAvailable" translate="ADD"></a>
+          <a class="btn-back" ng-click="addTutorZone()" ng-show="zonesAvailable" translate="ADD"></a>
           <div id="tutor_zones" class="items-added-group">
             <div id="tutor_zone_{{$index}}" ng-repeat="tutorZone in tutor.zones" class="item-added">{{tutorZone.name}} <span ng-click="removeTutorZone($index)" class="icon-close close-item"></span></div>
           </div>
         </div>
       </div>
     </fieldset>
-    <div class="calendar">
-      <div class="left">
-        <label><span class="icon-help icon-pointer" data-placement="top-left" data-content="{{ help.preferences }}" data-trigger="click" html="true" bs-popover ></span> {{ 'TUTOR_PROFILE_LABEL_AVAILABILITY' | translate}}:</label>
-      </div>
-      <div class="right">
+
+    <fieldset>
+      <legend translate="TUTOR_PROFILE_LABEL_AVAILABILITY"></legend>
+      <div class="calendar">
         <ng-alert-message alert-params="calendarAlertMessagesParams"></ng-alert-message>
         <div class="week-view tutor-calendar-section" ng-class="calendarErrorClass">
           <div class="week-row tutor-calendar-title-day">
@@ -265,10 +266,12 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="send-form">
-      <a class="action-button action-button-light-green" ng-click="submitTutorProfile()" translate="SAVE"></a>
-    </div>
+    </fieldset>
+    <fieldset>
+      <div class="action-button-holder">
+        <a class="action-button action-button-light-green" ng-click="submitTutorProfile()" translate="SAVE"></a>
+      </div>
+    </fieldset>
   </form>
 </div>
 </div>
