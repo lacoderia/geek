@@ -980,6 +980,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
     }
 
     //Inicializamos el controlador
+    $rootScope.$broadcast('initRoot');
     $scope.getMonthlyCalendar($scope.selectedYear,$scope.selectedMonth);
 
 }]);

@@ -330,6 +330,7 @@ Geek.controller('AppointmentHistoryController',['$filter', '$scope', '$rootScope
     };
 
     //Inicializamos el controlador
+    $rootScope.$broadcast('initRoot');
     $scope.getPastAppointmentList();
 
 }]);

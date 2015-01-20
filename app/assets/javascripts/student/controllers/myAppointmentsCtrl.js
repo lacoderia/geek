@@ -293,6 +293,7 @@ Geek.controller('MyAppointmentsController',['$compile', '$filter', '$scope','$ro
     };
 
     //Inicializamos el controlador
+    $rootScope.$broadcast('initRoot');
     $scope.getAppointmentGroupsList();
 
 }]);

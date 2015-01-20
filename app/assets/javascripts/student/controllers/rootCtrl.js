@@ -21,16 +21,14 @@ Geek.controller('RootController', ["$filter", "$scope", "$rootScope", "$state", 
 
     $rootScope.isUserBlocked = false;
 
-    $rootScope.userName = $filter('translate')('USER_NAME');
-    $rootScope.newConversationMessages = 0;
-
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.HOURS = DEFAULT_VALUES.HOURS;
+
+    $scope.rootInitialized = false;
 
     if($state.current.name == 'dashboard'){
         $state.go('dashboard.resume')
     }
-
 
     $rootScope.toggleLanguage = function(){
         var languageCode = $translate.use();
@@ -60,23 +58,30 @@ Geek.controller('RootController', ["$filter", "$scope", "$rootScope", "$state", 
         $scope.tutorResultListVisible = true;
     });
 
-    $scope.$watch('AuthService.isAuthenticated()', function(){
+    $scope.$on('initRoot', function(){
         if (AuthService.isAuthenticated()) {
-            $timeout(function() {
-                $rootScope.userName = SessionService.getFirstName();
-                MessageService.getPendingConversationsByUserId(SessionService.getId()).then(
-                    function(data){
-                        $rootScope.newConversationMessages = data.pending;
-                    },
-                    function(response){
-                        console.log('Error retrieving de number of pending conversations ' + response);
-                    }
-                );
-            },0);
+            $timeout(function () {
+
+                if (!$scope.rootInitialized) {
+                    $rootScope.userName = SessionService.getFirstName();
+                    MessageService.getPendingConversationsByUserId(SessionService.getId()).then(
+                        function (data) {
+                            $rootScope.newConversationMessages = data.pending;
+                        },
+                        function (response) {
+                            console.log('Error retrieving de number of pending conversations ' + response);
+                        }
+                    );
+
+                    $scope.rootInitialized = true;
+                }
+
+            }, 0);
+        } else {
+            $rootScope.userName = $filter('translate')('USER_NAME');
+            $rootScope.newConversationMessages = 0;
         }
-
-    }, true);
-
+    });
 
 
     $(document).ready(function(){

@@ -10,48 +10,35 @@ Geek.factory('SessionService', [function(){
         lastName: undefined,
         gender: undefined,
         phoneNumber: undefined,
+        details: undefined,
         picture: undefined,
         pictureUrl: undefined,
         preference: undefined,
         references: undefined,
         request: undefined,
-        studies: undefined,
+        background: undefined,
         topics: undefined,
         zones: undefined
 
     };
 
     var createSession = function(id, balanceInfo, email, firstName, lastName, gender, phoneNumber, details, picture, pictureUrl, preference, references, request, background, topics, zones){
-        session = {
-            id: id,
-            balanceInfo: balanceInfo,
-            email: email,
-            firstName: firstName,
-            lastName: lastName,
-            gender: gender,
-            phoneNumber: phoneNumber,
-            details: details,
-            picture: picture,
-            pictureUrl: pictureUrl,
-            preference: {
-                'cost': preference.cost,
-                'classLocation': {
-                    'online': preference.online,
-                    'office': preference.office,
-                    'public': preference.public,
-                    'studentPlace': preference.student_place
-                },
-                'availabilities': preference.availabilities
-            },
-            references: references,
-            request: {
-                'approved': request.approved,
-                'sent': request.sent
-            },
-            background: background,
-            topics: topics,
-            zones: zones
-        };
+        this.setId(id);
+        this.setBalanceInfo(balanceInfo);
+        this.setEmail(email);
+        this.setFirstName(firstName);
+        this.setLastName(lastName);
+        this.setGender(gender);
+        this.setPhoneNumber(phoneNumber);
+        this.setDetails(details);
+        this.setPicture(picture);
+        this.setPictureUrl(pictureUrl);
+        this.setPreference(preference);
+        this.setReferences(references);
+        this.setRequest(request);
+        this.setBackground(background);
+        this.setTopics(topics);
+        this.setZones(zones);
     };
 
     var getId = function(){
@@ -102,6 +89,14 @@ Geek.factory('SessionService', [function(){
         session.phoneNumber = phoneNumber;
     };
 
+    var getDetails = function(){
+        return session.details;
+    };
+
+    var setDetails = function(details){
+        session.details = details;
+    }
+
     var getPicture = function(){
         return session.picture;
     };
@@ -139,7 +134,16 @@ Geek.factory('SessionService', [function(){
     };
 
     var setPreference = function(preference){
-        session.preference = preference;
+        session.preference = {
+            'cost': preference.cost,
+                'classLocation': {
+                'online': preference.online,
+                    'office': preference.office,
+                    'public': preference.public,
+                    'studentPlace': preference.student_place
+            },
+            'availabilities': preference.availabilities
+        }
     };
 
     var getReferences = function(){
@@ -158,12 +162,12 @@ Geek.factory('SessionService', [function(){
         session.request = request;
     };
 
-    var getStudies = function(){
-        return session.studies;
+    var getBackground = function(){
+        return session.background;
     };
 
-    var setStudies = function(studies){
-        session.studies = studies;
+    var setBackground = function(background){
+        session.background = background;
     };
 
     var getZones = function(){
@@ -179,7 +183,7 @@ Geek.factory('SessionService', [function(){
     };
 
     var getSession = function(){
-        return session;
+        return angular.copy(session);
     };
 
     return {
@@ -198,6 +202,8 @@ Geek.factory('SessionService', [function(){
         setGender: setGender,
         getPhoneNumber: getPhoneNumber,
         setPhoneNumber: setPhoneNumber,
+        getDetails: getDetails,
+        setDetails: setDetails,
         getPicture: getPicture,
         setPicture: setPicture,
         getPictureUrl: getPictureUrl,
@@ -212,8 +218,8 @@ Geek.factory('SessionService', [function(){
         setReferences: setReferences,
         getRequest: getRequest,
         setRequest: setRequest,
-        getStudies: getStudies,
-        setStudies: setStudies,
+        getBackground: getBackground,
+        setBackground: setBackground,
         getZones: getZones,
         setZones: setZones
     }

@@ -86,6 +86,7 @@ Geek.controller('ResumeController',['$scope','$rootScope', '$filter', '$timeout'
     };
 
     //Inicializamos el controlador
+    $rootScope.$broadcast('initRoot');
     $scope.getUserResume();
 
 }]);

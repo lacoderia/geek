@@ -8,7 +8,6 @@ Geek.controller('ResumeController',['$scope','$rootScope', '$timeout', '$transla
 
     $scope.resume = undefined;
 
-
     $scope.getUserResume = function(){
 
         $timeout(function(){
@@ -87,6 +86,7 @@ Geek.controller('ResumeController',['$scope','$rootScope', '$timeout', '$transla
     };
 
     //Inicializamos el controlador
+    $rootScope.$broadcast('initRoot');
     $scope.getUserResume();
 
 }]);
