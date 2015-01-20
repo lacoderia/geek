@@ -55,11 +55,7 @@ every(30.minutes, 'complete_and_reject_and_pay_appointments', :at => ['**:30', '
 
     if update
       appointment.update_attribute(:appointment_status_id, rejected_by_tutor.id)
-
-      if Rails.env.production?
-        UserMailer.tutor_notification_email(appointment.tutor_id, appointment.appointment_status_id, appointment.subject).deliver
-        UserMailer.student_notification_email(appointment.student_id, appointment.appointment_status_id, appointment.subject).deliver
-      end
+      appointment.appointment_updated rejected_by_tutor 
     end
     
   end
