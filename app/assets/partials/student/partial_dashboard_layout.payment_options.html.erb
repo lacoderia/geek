@@ -25,7 +25,7 @@
           <div class="type"><span class="{{ paymentMethod.type.icon }}"></span></div>
           <div class="number">XXXX-XXXX-XXXX-{{ paymentMethod.card_number }}</div>
           <div class="main"><span class="icon-accept" ng-if="paymentMethod.active"></span></div>
-          <span ng-click="togglePaymentMethodInfo(paymentMethod)"><span class="control-arrow" ng-class="{ true:'control-down-arrow', false:'control-right-arrow'}[paymentMethod.showInfo]"></span></span>
+          <span ng-click="togglePaymentMethodInfo(paymentMethod)"><span class="control-arrow" ng-class="{ true:'control-down-arrow', false:'control-right-arrow-one'}[paymentMethod.showInfo]"></span></span>
         </div>
         <div class="payment-method-info" ng-show="paymentMethod.showInfo">
           <div>
@@ -55,9 +55,11 @@
       </div>
     </div>
 
-    <div class="payment-buttons-container">
-      <a class="action-button action-button-light-green" title="" ng-click="createPaymentMethod(PAYMENT_METHODS.CARD_METHOD.code)"><span class="icon-credit-card"></span> {{ 'PAYMENT_ADD_A_CARD' | translate }}</a>
-    </div>
+    <fieldset>
+        <div class="action-button-holder">
+            <a class="action-button action-button-light-green" title="" ng-click="createPaymentMethod(PAYMENT_METHODS.CARD_METHOD.code)"><span class="icon-credit-card"></span> {{ 'PAYMENT_ADD_A_CARD' | translate }}</a>
+        </div>
+    </fieldset>
 
   </div>
 
@@ -185,10 +187,12 @@
           </div>
         </fieldset>
 
-        <div class="payment-buttons-container">
-          <a class="action-button action-button-light-blue" title="" ng-click="cancelPaymentMethodCreation()">{{ 'CANCEL' | translate }}</a>
-          <a class="action-button action-button-light-green" title="" ng-click="saveCard()">{{ 'SAVE' | translate }}</a>
-        </div>
+        <fieldset>
+            <div class="action-button-holder">
+              <a class="action-button action-button-light-blue" title="" ng-click="cancelPaymentMethodCreation()">{{ 'CANCEL' | translate }}</a>
+              <a class="action-button action-button-light-green" title="" ng-click="saveCard()">{{ 'SAVE' | translate }}</a>
+            </div>
+        </fieldset>
 
       </form>
     </div>

@@ -822,19 +822,6 @@
         }
       }
 
-      .btn-back {
-        background-color: $color-landing-medium-blue;
-        border-radius: 5px;
-        cursor: pointer;
-        color: white;
-        display: inline-block;
-        font-size: 14px;
-        margin-right: 0.3em;
-        padding: 0.6em 0.6em 0.4em;
-        text-transform: uppercase;
-        vertical-align: top;
-      }
-
       .category {
         font-weight: 600;
       }
@@ -1334,7 +1321,6 @@
 
 .student-tutors{
   border: 2px solid $color-input-gray-bgcolor;
-  min-height: 300px;
   margin: 2em 0em 0em 0em;
 
   .tutors-list-view-row{

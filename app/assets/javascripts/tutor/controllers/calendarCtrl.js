@@ -362,7 +362,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
     * Obtiene la posición donde el usuario hiczo click y abre el popup del detalle del appointment
     * */
     $scope.showAppointmentDetail = function($event, appointment){
-
+        $event.stopPropagation();
         if(appointment){
 
             var options = {
@@ -977,7 +977,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
                 console.log('Error saving the specific availability: ' + response);
             }
         );
-    }
+    };
 
     //Inicializamos el controlador
     $rootScope.$broadcast('initRoot');

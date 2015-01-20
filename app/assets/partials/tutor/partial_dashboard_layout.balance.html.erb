@@ -7,14 +7,18 @@
   <div class="balance-group" ng-hide="confirmTransferView" ng-show="getTutorProperty('balanceInfo') !== undefined ">
     <div class="balance-items-group">
       <div class="current-balance-info">
-        <h4 class="current-balance">{{ 'BALANCE_LABEL_CURRENT_BALANCE' | translate }}: {{ getTutorProperty('balanceInfo.balance') | currency }}</h4>
-        <div ng-if="getTutorProperty('balanceInfo.card.id')">
-          <p class="card-info" ng-if="!getTutorProperty('balanceInfo.card.is_bank_account')">{{ 'BALANCE_LABEL_CURRENT_ACCOUNT' | translate }}: XXXX-XXXX-XXXX-{{ getTutorProperty('balanceInfo.card.card_number') }}</p>
-          <p class="card-info" ng-if="getTutorProperty('balanceInfo.card.is_bank_account')">{{ 'BALANCE_LABEL_CURRENT_ACCOUNT' | translate }}: XXXXXXXXXXXXXX{{ getTutorProperty('balanceInfo.card.card_number') }}</p>
-          <div class="balance-buttons-container">
+        <div class="balance-info-container">
+          <h4 class="current-balance">{{ 'BALANCE_LABEL_CURRENT_BALANCE' | translate }}: {{ getTutorProperty('balanceInfo.balance') | currency }}</h4>
+          <div ng-if="getTutorProperty('balanceInfo.card.id')">
+            <p class="card-info" ng-if="!getTutorProperty('balanceInfo.card.is_bank_account')">{{ 'BALANCE_LABEL_CURRENT_ACCOUNT' | translate }}: XXXX-XXXX-XXXX-{{ getTutorProperty('balanceInfo.card.card_number') }}</p>
+            <p class="card-info" ng-if="getTutorProperty('balanceInfo.card.is_bank_account')">{{ 'BALANCE_LABEL_CURRENT_ACCOUNT' | translate }}: XXXXXXXXXXXXXX{{ getTutorProperty('balanceInfo.card.card_number') }}</p>
+            </div>
+        </div>
+        <fieldset>
+          <div class="action-button-holder">
             <a class="action-button action-button-light-green" title="{{ 'BALANCE_LABEL_TRANSFER_MONEY' | translate }}" ng-click="confirmTransfer()"><span class="icon-coin-dollar"></span> {{ 'BALANCE_LABEL_TRANSFER_MONEY' | translate }}</a>
           </div>
-        </div>
+        </fieldset>
         <div class="unavailable-resume-items-message" ng-show="getTutorProperty('balanceInfo') && !getTutorProperty('balanceInfo.card')">
             <p>{{ 'UNAVAILABLE_MESSAGE_COLLECT_NO_METHODS_TUTOR' | translate }}</p>
         </div>
@@ -26,11 +30,13 @@
   <div class="balance-group" ng-show="confirmTransferView">
     <div class="balance-items-group">
       <div class="current-balance-info">
-        <h4 class="current-balance">{{ 'BALANCE_CONFIRM_MESSAGE' | translate }}</h4>
-        <div class="balance-buttons-container">
-          <a class="action-button action-button-light-blue" title="{{ 'CANCEL' | translate }}" ng-click="transferMoney()">{{ 'CANCEL' | translate }}</a>
-          <a class="action-button action-button-light-green" title="{{ 'CONFIRM' | translate }}" ng-click="transferMoney()">{{ 'CONFIRM' | translate }}</a>
-        </div>
+        <p class="balance-message">{{ 'BALANCE_CONFIRM_MESSAGE' | translate }}</p>
+        <fieldset>
+            <div class="action-button-holder">
+                <a class="action-button action-button-light-blue" title="{{ 'CANCEL' | translate }}" ng-click="cancelTransfer()">{{ 'CANCEL' | translate }}</a>
+                <a class="action-button action-button-light-green" title="{{ 'CONFIRM' | translate }}" ng-click="transferMoney()">{{ 'CONFIRM' | translate }}</a>
+            </div>
+        </fieldset>
       </div>
     </div>
   </div>
