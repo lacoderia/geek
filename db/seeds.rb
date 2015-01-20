@@ -122,9 +122,11 @@ invalid_anomaly_status = RegisteredAnomalyStatus.create(name: "Invalida", code: 
 
 late_show_anomaly = Anomaly.create(name: "Late Show", code: "0")
 no_show_anomaly = Anomaly.create(name: "No Show", code: "1")
-cancelled_anomaly = Anomaly.create(name: "Cancelada", code: "2")
+
+#Cambio de anomalía por cancelaciones de tutor
+cancelled_less_than_2_hours_anomaly_tutor = Anomaly.create(name: "Cancelada por tutor, entre 2 y 0 horas", code: "2")
 other_anomaly = Anomaly.create(name: "Otra", code: "3")
-cancelled_less_than_2_hours_anomaly = Anomaly.create(name: "Cancelada por estudiante, entre 2 y 0 horas", code: "4")
+cancelled_less_than_2_hours_anomaly_student = Anomaly.create(name: "Cancelada por estudiante, entre 2 y 0 horas", code: "4")
 
 registered_anomaly = RegisteredAnomaly.create(anomaly_id: late_show_anomaly.id, user_id: user_student.id, source_id: user_tutor.id, appointment_id: appointment.id, description: "El vato llegó borracho y tarde", registered_anomaly_status_id: pending_anomaly_status.id, fee_student: 50, fee_tutor: 50 )
 

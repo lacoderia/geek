@@ -1,5 +1,5 @@
 if @student
-	json.extract! @student, :id, :first_name, :last_name, :email, :phone_number, :picture_url
+	json.extract! @student, :id, :first_name, :last_name, :email, :phone_number, :picture_url, :active
 	has_card = false
 	@student.cards.each do |card|
 		has_card = true if card.active

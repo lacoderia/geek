@@ -34,27 +34,20 @@ class User < ActiveRecord::Base
 
   def block_if_anomaly_count_exceeded
     
-    if self.no_shows_changed? or self.late_shows_changed? or self.cancellations_changed?
+    if self.no_shows_changed? or self.cancellations_changed? # or self.late_shows_changed?
 
-      tutor = false
-      no_shows = 10
+      no_shows = 5
       cancellations = 10
-      late_shows = 30
-
-      if self.client_type == "Tutor"
-        tutor = true
-        no_shows = 5
-        cancellations = 5
-      end
+      #late_shows = 30
     
       if self.no_shows_changed?
         if (self.no_shows % no_shows == 0)
           self.update_column(:active, false)
         end
-      elsif self.late_shows_changed?
-        if (self.late_shows % late_shows == 0)
-          self.update_column(:active, false)
-        end
+      #elsif self.late_shows_changed?
+      #  if (self.late_shows % late_shows == 0)
+      #    self.update_column(:active, false)
+      #  end
       elsif self.cancellations_changed?
        if (self.cancellations % cancellations == 0)
           self.update_column(:active, false)

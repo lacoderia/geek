@@ -6,37 +6,32 @@ class Appointment < ActiveRecord::Base
   has_many :registered_anomalies
   accepts_nested_attributes_for :registered_anomalies
 
-  #@@hours_before_scheduling = 24
-  @@hours_before_confirming = 12
-  @@hours_before_business_rules = 12
-  @@hours_afer_business_rules = 12
-  @@hours_afer_business_rules_max = 2
+  @@hours_before_cancelling_anomaly = 2
+  @@hours_after_business_rules = 12
+  @@hours_after_business_rules_max = 2
 
-  cattr_reader :hours_before_scheduling, :hours_before_confirming, :hours_before_business_rules, :hours_afer_business_rules, :hours_afer_business_rules_max
+  cattr_reader :hours_after_business_rules, :hours_after_business_rules_max, :hours_before_cancelling_anomaly
 
-  def update_cancelled_rejected_appointment status
+  def appointment_updated status
     case status.code
     when "1" #rechazada estudiante
-      self.delete_and_send_emails 
+      self.tutor.delete_appointment self 
     when "2" #rechazada tutor
-      self.delete_and_send_emails 
+      self.tutor.delete_appointment self 
+      UserMailer.student_appointment_request_rejected(self).deliver
+    when "3" #confirmada
+      UserMailer.student_appointment_request_accepted(self).deliver
+      UserMailer.tutor_appointment_confirmed(self).deliver
     when "4" #cancelada estudiante
       # Reportar anomalía
       RegisteredAnomaly.cancelled_from_student self
-      self.delete_and_send_emails 
+      self.tutor.delete_appointment self 
+      UserMailer.tutor_appointment_canceled(self).deliver
     when "5" #cancelada tutor
       RegisteredAnomaly.cancelled_from_tutor self
-      self.delete_and_send_emails 
+      self.tutor.delete_appointment self 
+      UserMailer.student_appointment_canceled(self).deliver
     end 
-  end
-
-  def delete_and_send_emails
-    self.tutor.delete_appointment self 
-    # Envio de correos solo en produccion 
-    if Rails.env.production?
-      UserMailer.tutor_notification_email(self.tutor_id, self.appointment_status_id, self.subject).deliver
-      UserMailer.student_notification_email(self.student_id, self.appointment_status_id, self.subject).deliver
-    end
   end
 
   #fee_student es normalmente 100
@@ -101,6 +96,19 @@ class Appointment < ActiveRecord::Base
 
   end
 
+  def pay_student_penalty fee_student
+    student_openpay_id = self.student.openpay_id
+    card_id = self.student.cards.where("active = ?", true).first.openpay_id
+    amount = fee_student * 1.16 #se suma el IVA
+    chargestudent = Payment.charge_student student_openpay_id, card_id, amount, get_student_penalty_message, false
+
+    if chargestudent[:error]
+      self.update_attribute(:log, chargestudent[:error]["description"])
+    else
+      self.update_attribute(:charged, true)
+    end
+  end
+
   def pay fee_student, fee_tutor
     student_openpay_id = self.student.openpay_id 
     tutor_openpay_id = self.tutor.openpay_id
@@ -135,6 +143,10 @@ class Appointment < ActiveRecord::Base
     total = Appointment.where('student_id = ? and appointment_status_id = ?', student_id, status_id).size
     appointments = Appointment.where('student_id = ? and appointment_status_id = ?', student_id, status_id).includes(:tutor).last(3).reverse
     {:total => total, :appointments => appointments}
+  end
+
+  def get_student_penalty_message
+    "Cobro de penalizacion. Estudiante " + self.student.id.to_s + ", Clase: " + self.id.to_s
   end
 
   def get_charge_message
