@@ -34,35 +34,23 @@ every(30.minutes, 'complete_and_reject_and_pay_appointments', :at => ['**:30', '
   
   # Rechazar appointments pendientes
   Appointment.where("appointments.appointment_status_id = ?", pending_appointment.id).each do |appointment|
+
     diff = ((appointment.start-appointment.created_at)/1.hour)
     update = false
-    #creadas con más de 12 horas de anticipación
-    if diff > Appointment.hours_before_business_rules #12
 
-      #si no confirma antes de las 12 horas, se rechaza
-      if appointment.start < Time.now + Appointment.hours_before_confirming.hour #12
+    #creadas con más de dos horas de anticipación
+    if diff > Appointment.hours_after_business_rules_max #2
+      
+      #si no confirma antes de las 2 horas, se rechaza
+      if appointment.start < Time.now + Appointment.hours_after_business_rules_max.hour #2
         update = true
       end
-
     else
-
-      #creadas con más de dos horas de anticipación
-      if diff > Appointment.hours_afer_business_rules_max #2
-
-        #si no confirma antes de las 2 horas, se rechaza
-        if appointment.start < Time.now + Appointment.hours_afer_business_rules_max.hour #12
-          update = true
-        end
-        
-      else
-        
-        #si no confirma antes de la cita, se rechaza
-        if appointment.start < Time.now
-          update = true
-        end
-
-      end
-
+    
+      #si no confirma antes de la cita, se rechaza
+      if appointment.start < Time.now
+        update = true
+      end      
     end
 
     if update
@@ -73,7 +61,7 @@ every(30.minutes, 'complete_and_reject_and_pay_appointments', :at => ['**:30', '
   end
 
   # Cobrar y pagar las clases sin anomalías, y pagar las que tengan anomalías resueltas
-  Appointment.where("appointments.appointment_status_id = ? AND appointments.charged = ? AND appointments.paid = ? AND appointments.end < ?", completed_appointment.id, false, false, Time.now - Appointment.hours_afer_business_rules.hour).each do |appointment|
+  Appointment.where("appointments.appointment_status_id = ? AND appointments.charged = ? AND appointments.paid = ? AND appointments.end < ?", completed_appointment.id, false, false, Time.now - Appointment.hours_after_business_rules.hour).each do |appointment|
 
     #si no tiene anomalias ni log de errores
     if not appointment.anomaly and not appointment.log
