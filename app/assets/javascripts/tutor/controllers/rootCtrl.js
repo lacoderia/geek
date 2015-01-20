@@ -14,8 +14,6 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
     $rootScope.userName = $filter('translate')('USER_NAME');
     $rootScope.newConversationMessages = 0;
 
-    $rootScope.isUserBlocked = false;
-
     $scope.rootInitialized = false;
 
     $rootScope.toggleLanguage = function(){
@@ -71,6 +69,11 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
 
                 if (!$scope.rootInitialized) {
                     $rootScope.userName = SessionService.getFirstName();
+
+                    if(!SessionService.getActive()) {
+                        $state.go('dashboard.user-blocked');
+                        return false;
+                    }
 
                     $scope.createWeekCalendar();
                     $scope.updateWeekCalendar(SessionService.getPreference().availabilities);

@@ -4,6 +4,7 @@ Geek.factory('SessionService', [function(){
 
     var session = {
         id: undefined,
+        active: undefined,
         balanceInfo: undefined,
         email: undefined,
         firstName: undefined,
@@ -22,8 +23,9 @@ Geek.factory('SessionService', [function(){
 
     };
 
-    var createSession = function(id, balanceInfo, email, firstName, lastName, gender, phoneNumber, details, picture, pictureUrl, preference, references, request, background, topics, zones){
+    var createSession = function(id, active, balanceInfo, email, firstName, lastName, gender, phoneNumber, details, picture, pictureUrl, preference, references, request, background, topics, zones){
         this.setId(id);
+        this.setActive(active);
         this.setBalanceInfo(balanceInfo);
         this.setEmail(email);
         this.setFirstName(firstName);
@@ -47,6 +49,14 @@ Geek.factory('SessionService', [function(){
 
     var setId = function(id){
         session.id = id;
+    };
+
+    var getActive = function(){
+        return session.active;
+    };
+
+    var setActive = function(active){
+        session.active = active;
     };
 
     var getEmail = function(){
@@ -192,6 +202,8 @@ Geek.factory('SessionService', [function(){
         destroySession: destroySession,
         getId: getId,
         setId: setId,
+        getActive: getActive,
+        setActive: setActive,
         getEmail: getEmail,
         setEmail: setEmail,
         getFirstName: getFirstName,

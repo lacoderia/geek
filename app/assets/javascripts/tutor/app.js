@@ -205,7 +205,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
                     AuthService.getSession().then(
                         function(data){
                             if(data && data.id){
-                                SessionService.createSession(data.id, data.balance, data.email, data.first_name, data.last_name, data.gender, data.phone_number, data.details, data.picture, data.picture_url, data.preference, data.references, data.request, data.background, data.categories, data.counties);
+                                SessionService.createSession(data.id, data.active, data.balance, data.email, data.first_name, data.last_name, data.gender, data.phone_number, data.details, data.picture, data.picture_url, data.preference, data.references, data.request, data.background, data.categories, data.counties);
                                 $state.go(toState.authenticatedState, toParams);
                             }else{
                                 $state.go(toState.defaultState);

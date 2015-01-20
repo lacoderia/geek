@@ -19,8 +19,6 @@ Geek.controller('RootController', ["$filter", "$scope", "$rootScope", "$state", 
 
     $scope.tutorResultListVisible = false;
 
-    $rootScope.isUserBlocked = false;
-
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.HOURS = DEFAULT_VALUES.HOURS;
 
@@ -64,6 +62,12 @@ Geek.controller('RootController', ["$filter", "$scope", "$rootScope", "$state", 
 
                 if (!$scope.rootInitialized) {
                     $rootScope.userName = SessionService.getFirstName();
+
+                    if(!SessionService.getActive()) {
+                        $state.go('dashboard.user-blocked');
+                        return false;
+                    }
+
                     MessageService.getPendingConversationsByUserId(SessionService.getId()).then(
                         function (data) {
                             $rootScope.newConversationMessages = data.pending;
@@ -83,6 +87,29 @@ Geek.controller('RootController', ["$filter", "$scope", "$rootScope", "$state", 
         }
     });
 
+    // Función que obtiene el valor de una propiedad del objeto de sesión del estudiante
+    $scope.getStudentProperty = function(prop, obj) {
+        //property not found
+        if(typeof obj === 'undefined') {
+            if(AuthService.isAuthenticated()) {
+                obj = SessionService.getSession();
+            } else {
+                return false;
+            }
+        }
+
+        //index of next property split
+        var _index = prop.indexOf('.');
+
+        //property split found; recursive call
+        if(_index > -1){
+            //get object at property (before split), pass on remainder
+            return $scope.getStudentProperty(prop.substr(_index+1), obj[prop.substring(0, _index)]);
+        }
+
+        //no split; get property
+        return obj[prop];
+    }
 
     $(document).ready(function(){
 

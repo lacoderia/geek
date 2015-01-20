@@ -68,6 +68,7 @@ Rails.application.config.assets.precompile += %w( tutor/directives/modalMessageD
 
 #Import Controllers
 Rails.application.config.assets.precompile += %w( student/controllers/appointmentHistoryCtrl.js )
+Rails.application.config.assets.precompile += %w( student/controllers/blockedUserCtrl.js )
 Rails.application.config.assets.precompile += %w( student/controllers/calendarCtrl.js )
 Rails.application.config.assets.precompile += %w( student/controllers/messageCtrl.js )
 Rails.application.config.assets.precompile += %w( student/controllers/myAppointmentsCtrl.js )
@@ -81,6 +82,7 @@ Rails.application.config.assets.precompile += %w( student/controllers/searchTuto
 
 Rails.application.config.assets.precompile += %w( tutor/controllers/appointmentHistoryCtrl.js )
 Rails.application.config.assets.precompile += %w( tutor/controllers/balanceCtrl.js )
+Rails.application.config.assets.precompile += %w( tutor/controllers/blockedUserCtrl.js )
 Rails.application.config.assets.precompile += %w( tutor/controllers/calendarCtrl.js )
 Rails.application.config.assets.precompile += %w( tutor/controllers/messageCtrl.js )
 Rails.application.config.assets.precompile += %w( tutor/controllers/navigationCtrl.js )

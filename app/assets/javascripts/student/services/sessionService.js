@@ -4,6 +4,7 @@ Geek.factory('SessionService', [function(){
 
     var session = {
         id: undefined,
+        active: undefined,
         email: undefined,
         firstName: undefined,
         lastName: undefined,
@@ -13,8 +14,9 @@ Geek.factory('SessionService', [function(){
         hasCard: undefined
     };
 
-    var createSession = function(id, email, firstName, lastName, gender, phoneNumber, pictureUrl, hasCard){
+    var createSession = function(id, active, email, firstName, lastName, gender, phoneNumber, pictureUrl, hasCard){
         this.setId(id);
+        this.setActive(active);
         this.setEmail(email);
         this.setFirstName(firstName);
         this.setLastName(lastName);
@@ -30,6 +32,14 @@ Geek.factory('SessionService', [function(){
 
     var setId = function(id){
         session.id = id;
+    };
+
+    var getActive = function(){
+        return session.active;
+    };
+
+    var setActive = function(active){
+        session.active = active;
     };
 
     var getEmail = function(){
@@ -102,6 +112,8 @@ Geek.factory('SessionService', [function(){
         destroySession: destroySession,
         getId: getId,
         setId: setId,
+        getActive: getActive,
+        setActive: setActive,
         getEmail: getEmail,
         setEmail: setEmail,
         getFirstName: getFirstName,

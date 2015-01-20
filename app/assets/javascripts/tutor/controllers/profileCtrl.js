@@ -459,6 +459,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
 
             $timeout(function(){
                 usSpinnerService.spin('profile-picture-spinner');
+                usSpinnerService.spin('profile-request-picture-spinner');
             }, 0);
 
             $('<img/>')
@@ -482,6 +483,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
 
                     $timeout(function() {
                         usSpinnerService.stop('profile-picture-spinner');
+                        usSpinnerService.stop('profile-request-picture-spinner');
                     }, 0);
                 })
                 .error(function() {
