@@ -133,6 +133,8 @@ class AppointmentsController < ApplicationController
     if valid and @appointment.save
       @appointment.appointment_updated status 
       render :show, status: :ok, location: @appointment
+    elsif not valid
+      render json: {:error => "Cambio de estado no válido.", :appointment_status_code => @appointment.appointment_status.code}, status: :internal_server_error
     else
       render json: @appointment.errors, status: :unprocessable_entity
     end
