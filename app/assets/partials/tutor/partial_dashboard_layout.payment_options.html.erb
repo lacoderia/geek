@@ -80,9 +80,8 @@
     <!-- Forma para nueva tarjeta -->
     <div ng-show="showNewCard">
       <form name="tutorPaymentOptionsCardForm" id="tutor_payment_options_form" class="dashboard-form validation-form">
-
+        <h3 class="section-subtitle" translate="PAYMENT_LABEL_NEW_CARD_SUBTITLE"></h3>
         <fieldset>
-          <legend translate="PAYMENT_LABEL_NEW_CARD_SUBTITLE"></legend>
           <div class="form-group" show-errors>
             <div class="left">
               <label> {{ 'PAYMENT_LABEL_DEBIT_CARD_HOLDER_NAME' | translate }}:</label>
@@ -216,9 +215,8 @@
     <!-- Forma para nueva cuenta de banco -->
     <div ng-show="showNewBankAccount">
       <form name="tutorPaymentOptionsBankForm" id="tutor_payment_options_form" class="dashboard-form validation-form">
+        <h3 class="section-subtitle" translate="PAYMENT_LABEL_NEW_BANK_ACCOUNT_SUBTITLE"></h3>
         <fieldset>
-          <legend translate="PAYMENT_LABEL_NEW_BANK_ACCOUNT_SUBTITLE"></legend>
-
           <div class="form-group" show-errors>
             <div class="left">
               <label> {{ 'PAYMENT_LABEL_BANK_ACCOUNT_OWNER_NAME' | translate }}:</label>

@@ -230,6 +230,9 @@
     </dir-pagination-controls>
   </div>
 </div>
+<p class="total-tutor" ng-hide="selectedTutor || (!tutorList.length && !suggestedTutorList.length)">
+  {{totalTutors}} <span ng-if="totalTutors == 1">{{ 'SEARCH_TOTAL_TUTORS_SINGLE_LABEL' | translate }}</span><span ng-if="totalTutors > 1">{{ 'SEARCH_TOTAL_TUTORS_LABEL' | translate }}</span>
+</p>
 
 <div class="calendar" ng-show="selectedTutor">
   <h3 class="section-title">{{ 'TUTOR_SEARCH_SCHEDULE_CLASS_WITH' | translate }} {{ selectedTutor.first_name }}</h3>
@@ -271,10 +274,10 @@
   </div>
 </div>
 </div>
+
 <div class="appointment-request-feedback" ng-show="appointmentRequestSent">
+  <h3 class="section-subtitle" ng-show="appointmentRequestSent">{{'APPOINTMENT_REQUEST_FEEDBACK_SUBTITLE' | translate}}</h3>
   <div>
-    {{'APPOINTMENT_REQUEST_FEEDBACK_SUBTITLE' | translate}}
-    <br/><br/>
     {{'APPOINTMENT_REQUEST_FEEDBACK_DETAILS' | translate}}
     <ul>
       <li>{{'APPOINTMENT_REQUEST_FEEDBACK_DETAILS_TUTOR' | translate}}: {{ selectedTutor.first_name }} {{ selectedTutor.last_name }}</li>

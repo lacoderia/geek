@@ -395,7 +395,7 @@ class Tutor < ActiveRecord::Base
           end
         end
       elsif zone_obj[:locality] #<-- ciudad - city
-        cities = City.select(:id).where("lower(unaccent(name) like '%#{I18n.transliterate(zone_obj[:locality].downcase)}%'")
+        cities = City.select(:id).where("lower(unaccent(name)) like '%#{I18n.transliterate(zone_obj[:locality].downcase)}%'")
         cities.each do |city|
 
           counties = County.joins(:postal_code => :city).where("cities.id = #{city.id}")

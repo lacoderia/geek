@@ -259,7 +259,7 @@ body{
 
 fieldset{
   border: none !important;
-  margin: 3em auto 0;
+  margin: 1em auto 0;
   padding: 0;
   max-width: $container-width-max;
 }
@@ -279,8 +279,9 @@ h3.section-title{
 h3.section-subtitle{
   font-size: 1.2em;
   font-weight: 500;
-  margin: 0em 1.5em 2em;
+  margin: 0em auto 1rem;
   text-transform: uppercase;
+  width: $container-width-max;
 }
 
 textarea{
@@ -1595,6 +1596,7 @@ textarea{
 .dashboard-form{
 
   fieldset{
+    margin-bottom: 3em;
 
     .calendar{
       margin: 0rem;
@@ -1907,7 +1909,7 @@ footer{
 
     .resume-items-group, .balance-items-group{
       box-sizing: border-box;
-      padding: 0em 0em 2em;
+      padding: 0em 0em 1rem;
 
       .current-balance-info{
 
@@ -1931,7 +1933,12 @@ footer{
           margin: 0;
           padding: 0em;
 
+          .current-balance{
+            margin-bottom: 0.6em;
+          }
+
           .card-info{
+            margin-top: 0;
             font-size:  0.8em;
           }
         }
@@ -2157,7 +2164,7 @@ footer{
       .user_picture_container{
         display: inline-block;
         height: 100%;
-        margin-right: 3%;
+        margin-right: 4%;
         vertical-align: top;
         width: 10%;
 
@@ -2182,7 +2189,7 @@ footer{
         display: inline-block;
         padding: 0.6em 0.6em 0;
         vertical-align: top;
-        width: 86%;
+        width: 85%;
 
         .content{
           min-height: 100px;
@@ -2972,7 +2979,8 @@ footer{
   color: $color-medium-gray;
   clear: both;
   font-size: 1em;
-  margin: 0 1em 0.5em;
+  margin: 0 auto 0.5em;
+  max-width: $container-width-max;
   padding: 1em;
   text-align: center;
   text-transform: uppercase;
@@ -2985,6 +2993,7 @@ footer{
   display: table;
   height: 100px;
   margin: 0em auto;
+  max-width: $container-width-max;
   text-align: center;
   width: 100%;
 

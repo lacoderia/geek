@@ -698,9 +698,11 @@
 .section-search-results{
 
   .appointment-request-feedback {
-    color: $color-medium-gray;
+    color: $color-dark-gray;
     font-size: 1.2em;
+    margin: 0 auto;
     padding: 1em;
+    width: $container-width-max;
 
     .action-buttons {
       text-align: right;
@@ -836,6 +838,13 @@
 
     }
 
+    .total-tutor{
+      color: $color-light-blue;
+      font-weight: 500;
+      text-align: right;
+      text-transform: uppercase;
+    }
+
     .search-result-list {
 
       .tutor {
@@ -843,6 +852,7 @@
         clear: both;
         margin-bottom: 0em;
         width: 100%;
+
 
         .content {
           margin-bottom: 0.3em;
@@ -1321,7 +1331,8 @@
 
 .student-tutors{
   border: 2px solid $color-input-gray-bgcolor;
-  margin: 2em 0em 0em 0em;
+  margin: 2em auto 0em;
+  max-width: $container-width-max;
 
   .tutors-list-view-row{
     table{
@@ -1374,6 +1385,10 @@
         padding: 0.5em;
         text-align: center;
         width: 50%;
+
+        .appointment-button{
+          text-align: center;
+        }
 
         .user_picture_container{
           display: inline-block;

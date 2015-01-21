@@ -241,6 +241,8 @@
     "SEARCH_ORDER_BY_LABEL_LOWEST_PRICE": "Menor precio",
     "SEARCH_ORDER_BY_LABEL_HIGHEST_PRICE": "Mayor precio",
     "SEARCH_ORDER_BY_LABEL_HIGHEST_REVIEW": "Mejor calificado",
+    "SEARCH_TOTAL_TUTORS_LABEL": "Tutores encontrados",
+    "SEARCH_TOTAL_TUTORS_SINGLE_LABEL": "Tutor encontrado",
     "SEEN": "Leído",
     "SEND_MESSAGE_TO": "Enviar un mensaje a ",
     "SHOW_ALL": "Mostrar todos",
