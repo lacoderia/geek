@@ -97,7 +97,7 @@
     "ERROR_STUDENT_PAYMENT_METHOD_SAVE": "Ocurrió un error al guardar el método de pago, por favor, intenta nuevamente.",
     "ERROR_OPENPAY_TRANSFER_NO_BALANCE": "Tu saldo debe ser mayor a cero para poder realizar una transferencia.",
     "ERROR_STUDENT_PROFILE_UPDATE": "Ocurrió un error al enviar la actualización del perfil, por favor, intenta nuevamente.",
-    "ERROR_TUTOR_BALANCE": "Ocurrió un error obteniedo tu saldo, por favor, intenta más tarde.",
+    "ERROR_TUTOR_BALANCE": "Ocurrió un error al obtener tu saldo, por favor, intenta más tarde.",
     "ERROR_TUTOR_PROFILE_FORM_HAS_ERRORS": "Hay errores en los datos del perfil, por favor corrigelos para poder continuar.",
     "ERROR_TUTOR_PROFILE_MINIMUM_CLASS_DURATION": "Las clases deben durar al menos 1 hora, por favor, selecciona al menos dos horarios contiguos.",
     "ERROR_TUTOR_PROFILE_UPDATE_CALENDAR": "Ocurrió un error al guardar las preferencias de calendario.",
