@@ -54,6 +54,8 @@ $screen-sm-min: 768px;
 $screen-md-min: 992px;
 $screen-lg-min: 1200px;
 
+$container-width-max: 900px;
+
 // Gotham Extra Light
 @font-face {
   font-family: 'Gotham';
@@ -256,8 +258,10 @@ body{
 }
 
 fieldset{
-  border: none;
-  margin-top: 3em;
+  border: none !important;
+  margin: 3em auto 0;
+  padding: 0;
+  max-width: $container-width-max;
 }
 
 h2.section-title{
@@ -270,6 +274,13 @@ h2.section-title{
 h3.section-title{
   font-size:  1.5em;
   margin: 0em 0em 0.4em;
+}
+
+h3.section-subtitle{
+  font-size: 1.2em;
+  font-weight: 500;
+  margin: 0em 1.5em 2em;
+  text-transform: uppercase;
 }
 
 textarea{
@@ -286,9 +297,7 @@ textarea{
 }
 
 .action-button-holder{
-  margin: 0 auto;
   text-align: left;
-  width: 80%;
 }
 
 .action-button:hover{
@@ -524,7 +533,11 @@ textarea{
 .balance-info{
   display: inline-block;
   font-weight: 500;
-  margin: 2.4em 0.5em;
+  margin: 2.5em 0.5em;
+
+  a:hover{
+    text-decoration: none;
+  }
 }
 
 .border-error{
@@ -548,7 +561,7 @@ textarea{
   font-size: 0px;
   list-style: none;
   margin: 2em auto;
-  width: 78%;
+  max-width: $container-width-max;
 
   .payment-method-headers{
     color: $color-dark-green;
@@ -566,7 +579,7 @@ textarea{
 
     .main{
       text-align: center;
-      width: 20%;
+      width: 25%;
     }
 
     .number{
@@ -597,7 +610,7 @@ textarea{
 
       .main{
         text-align: center;
-        width: 20%;
+        width: 25%;
 
         .icon-accept{
           color: $color-dark-green;
@@ -1582,11 +1595,9 @@ textarea{
 .dashboard-form{
 
   fieldset{
-    border: none;
-    margin-top: 2em;
 
     .calendar{
-      margin: 0 6rem;
+      margin: 0rem;
     }
   }
 
@@ -1613,7 +1624,6 @@ textarea{
   .form-group {
     text-align: center;
     margin: 0 auto;
-    width: 80%;
   }
 
   label{
@@ -1868,21 +1878,14 @@ footer{
 
 .resume,.balance{
   .resume-group, .balance-group{
-    border-radius: 0px 0px 10px 10px;
     box-sizing: border-box;
-    margin-bottom: 4em;
+    margin: 0em auto 4em;
     overflow: hidden;
-
-    h3{
-      font-size: 1.2em;
-      font-weight: 500;
-      margin: 1.5em 1.5em 0.5em;
-      text-transform: uppercase;
-    }
+    max-width: $container-width-max;
 
     .resume-group-actions, .balance-group-actions{
       font-size: 0px;
-      padding: 0rem 2.3rem 0rem 2.8rem;
+      padding: 0rem;
 
       .resume-total-info, .balance-total-info{
         display: inline-block;
@@ -1904,14 +1907,13 @@ footer{
 
     .resume-items-group, .balance-items-group{
       box-sizing: border-box;
-      padding: 2em;
+      padding: 0em 0em 2em;
 
       .current-balance-info{
 
         color: $color-dark-gray;
         box-sizing: border-box;
         font-size: 1.3em;
-        padding: 0em 2em;
 
         h4{
           font-size: 1.2rem;
@@ -1920,13 +1922,13 @@ footer{
 
         p.balance-message{
           font-size: 1.2rem;
-          margin: 0 5.3em;
+          margin: 0;
         }
 
         .balance-info-container{
           box-sizing: border-box;
           clear: both;
-          margin: 0 5.4em 0em;
+          margin: 0;
           padding: 0em;
 
           .card-info{
@@ -1944,8 +1946,8 @@ footer{
         background-color: $color-input-gray-bgcolor;
         box-sizing: border-box;
         clear: both;
-        margin: 0 1em 0.5em;
-        padding: 0.2em 1em;
+        margin: 0 0 0.5em;
+        padding: 0.2em 2em;
         text-align: center;
 
 
@@ -1953,7 +1955,6 @@ footer{
 
           box-sizing: border-box;
           display: inline-block;
-          padding: 0em 2em;
           vertical-align: top;
           width: 100%;
 
@@ -1969,12 +1970,11 @@ footer{
               margin: 0em;
               padding: 0em;
               vertical-align: middle;
-              width: 33%;
+              width: 32%;
             }
 
             .user-last-message{
               color: $color-dark-gray;
-              display: inline-block;
               display: inline-block;
               font-size: 14px;
               font-weight: 400;
@@ -1982,7 +1982,7 @@ footer{
               padding: 0em;
               text-overflow: ellipsis;
               vertical-align: middle;
-              width: 33%;
+              width: 32%;
             }
 
             .timestamp{
@@ -1993,7 +1993,7 @@ footer{
               font-weight: 400;
               text-align: left;
               vertical-align: middle;
-              width: 33%;
+              width: 32%;
 
             }
 
@@ -2142,20 +2142,22 @@ footer{
 
 .messages{
   .conversations{
+    margin: 0 auto;
+    max-width: $container-width-max;
+
     .conversation{
       background-color: $color-input-gray-bgcolor;
       box-sizing: border-box;
       clear: both;
       display: table;
       margin-bottom: 0.5em;
-      padding: 1em;
-      text-transform: uppercase;
+      padding: 0.8em;
       width: 100%;
 
       .user_picture_container{
         display: inline-block;
         height: 100%;
-        margin-right: 1%;
+        margin-right: 3%;
         vertical-align: top;
         width: 10%;
 
@@ -2178,7 +2180,7 @@ footer{
 
         box-sizing: border-box;
         display: inline-block;
-        padding: 0.6em;
+        padding: 0.6em 0.6em 0;
         vertical-align: top;
         width: 86%;
 
@@ -2187,13 +2189,36 @@ footer{
           overflow: hidden;
           width: 100%;
 
-          .user-name{
-            color: $color-dark-green;
-            font-size: 22px;
-            font-weight: 600;
-            margin: 0em;
-            padding: 0em;
+          .user-personal-info-container{
+            display: inline-block;
+            margin-right: 3%;
+            vertical-align: top;
+            width: 70%;
+
+            .user-name{
+              color: $color-dark-green;
+              font-size: 22px;
+              font-weight: 600;
+              margin: 0em;
+              padding: 0em;
+              text-transform: uppercase;
+            }
+
+            .timestamp{
+              color: $color-dark-gray;
+              font-style: normal;
+              font-size: 12px;
+              font-weight: 600;
+              text-align: left;
+              text-transform: uppercase;
+
+              .icon-container{
+                text-transform: none;
+              }
+
+            }
           }
+
 
           .user-last-message{
             box-orient: vertical;
@@ -2205,42 +2230,18 @@ footer{
             height: 40px;
             line-clamp: 2;
             overflow: hidden;
-            margin: 0.2em 0em 2em;
+            margin: 0.8em 0em 0;
             max-height: 40px;
-            padding: 0em;
+            padding: 0;
             text-overflow: ellipsis;
           }
 
-          .conversation-info{
-            color: $color-medium-gray;
-            font-size: 0px;
-            margin: 0;
-            padding: 0;
-
-            .message-button{
-              display: inline-block;
-              font-size: 12px;
-              text-align: right;
-              vertical-align: top;
-              width: 100%;
-            }
-
-          }
-
-          .timestamp{
+          .message-button{
             display: inline-block;
-            color: $color-dark-gray;
-            font-style: normal;
             font-size: 12px;
-            font-weight: 600;
-            text-align: left;
+            text-align: right;
             vertical-align: top;
-            width: 100%;
-
-            .icon-container{
-              text-transform: none;
-            }
-
+            width: 26%;
           }
 
         }
@@ -2249,6 +2250,8 @@ footer{
   }
 
   .selected-conversation{
+    margin: 0 auto;
+    width: $container-width-max;
 
     .conversationTextarea{
       margin-bottom: 2.5em;
@@ -2277,9 +2280,6 @@ footer{
     }
 
     .conversation-tools{
-      background-color: rgba(166,168,171,0.1);
-      border-radius: 10px 10px 0px 0px;
-      padding: 1em;
       margin: 0em 0em 1em;
       text-transform: uppercase;
     }
@@ -2289,7 +2289,7 @@ footer{
       clear: both;
       display: table;
       margin-bottom: 0.5em;
-      padding: 1em;
+      padding: 0;
       text-transform: uppercase;
       width: 100%;
 
@@ -2358,7 +2358,14 @@ footer{
           margin: 0 0 0.4em;
 
           .timestamp{
-            margin-right: 1em;
+            display: inline-block;
+            color: $color-dark-gray;
+            font-style: normal;
+            font-size: 12px;
+            font-weight: 600;
+            text-align: left;
+            vertical-align: top;
+            width: 100%;
           }
         }
 
@@ -2610,10 +2617,12 @@ footer{
 
 .reviews-list{
   margin: 0 auto;
+  max-width: $container-width-max;
 }
 
 .reviews{
   .score-average {
+    color: $color-dark-gray;
     font-size: 1.5em;
     margin-bottom: 0.5em;
     text-align: left;
@@ -2629,10 +2638,11 @@ footer{
   }
 
   .score-average-topic {
+    color: $color-dark-gray;
     display: inline-block;
     font-size: 1.2em;
-    margin-bottom: 2em;
-    text-align: left;
+    margin: 0 0 3em;
+    text-align: center;
     vertical-align: top;
     width: 33%;
 
@@ -2657,7 +2667,7 @@ footer{
     .user_picture_container{
       display: inline-block;
       height: 100%;
-      margin-right: 1%;
+      margin-right: 4%;
       vertical-align: top;
       width: 10%;
 
@@ -2682,7 +2692,7 @@ footer{
       display: inline-block;
       padding: 0.8em 1em 0em 1em;
       vertical-align: top;
-      width: 88%;
+      width: 85%;
 
       .content{
         min-height: 100px;

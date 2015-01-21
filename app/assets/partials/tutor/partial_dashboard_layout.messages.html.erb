@@ -10,6 +10,7 @@
   </div>
 
   <!-- Sección de listado de conversaciones -->
+  <h3 class="section-subtitle" translate="MESSAGES_LABEL_CONVERSATIONS" ng-show="conversations && conversations.length && !selectedConversation"></h3>
   <div class="conversations" ng-show="conversations && conversations.length && !selectedConversation">
     <div class="conversation" class="col-lg-12 col-md-12 col-sm-12" ng-repeat="conversation in conversations" ng-image-adjustment image-container="user_picture" image-src="{{ conversation.student.picture_url }}">
       <div class="user_picture_container">
@@ -19,14 +20,14 @@
       </div>
       <div class="user-personal-info">
         <div class="content">
-          <h4 class="user-name">{{ conversation.student.first_name }} {{ conversation.student.last_name }}</h4>
-          <em class="timestamp">{{ conversation.created_at | timestampTranslateFilter}}</em>
-          <p class="user-last-message">{{ conversation.text }}</p>
-          <div class="conversation-info">
-            <div class="message-button">
-              <a class="action-button action-send-message" ng-click="selectConversation(conversation.student)" translate="SHOW_CONVERSATION"></a>
-            </div>
+          <div class="user-personal-info-container">
+            <h4 class="user-name">{{ conversation.student.first_name }} {{ conversation.student.last_name }}</h4>
+            <em class="timestamp">{{ conversation.created_at | timestampTranslateFilter}}</em>
           </div>
+          <div class="message-button">
+            <a class="action-button action-send-message" ng-click="selectConversation(conversation.student)" translate="SHOW_CONVERSATION"></a>
+          </div>
+          <p class="user-last-message">{{ conversation.text }}</p>
         </div>
       </div>
       <div class="clearfix"></div>

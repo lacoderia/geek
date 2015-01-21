@@ -3,8 +3,8 @@
   <h2 class="section-title" translate="DASHBOARD_TITLE"></h2>
 
   <!-- Últimas citas no confirmadas -->
+  <h3>{{ 'RESUME_LAST_REQUESTS_TITLE' | translate }}</h3>
   <div class="resume-group">
-    <h3>{{ 'RESUME_LAST_REQUESTS_TITLE' | translate }}</h3>
     <div class="resume-items-group">
       <div class="resume-item" ng-repeat="request in resume.requests.latest" ng-show="resume.requests.latest && resume.requests.latest.length">
         <div class="user-personal-info">
@@ -30,8 +30,8 @@
   </div>
 
   <!-- Últimas citas confirmadas -->
+  <h3>{{ 'RESUME_LAST_APPOINTMENTS_TITLE' | translate }}</h3>
   <div class="resume-group">
-    <h3>{{ 'RESUME_LAST_APPOINTMENTS_TITLE' | translate }}</h3>
     <div class="resume-items-group">
       <div class="resume-item" ng-repeat="appointment in resume.appointments.latest" ng-show="resume.appointments.latest && resume.appointments.latest.length">
         <div class="user-personal-info">
@@ -56,8 +56,8 @@
   </div>
 
   <!-- Últimos mensajes -->
+  <h3>{{ 'RESUME_LAST_MESSAGES_TITLE' | translate }}</h3>
   <div class="resume-group">
-    <h3>{{ 'RESUME_LAST_MESSAGES_TITLE' | translate }}</h3>
     <div class="resume-items-group">
       <div class="resume-item" ng-repeat="message in resume.messages.latest" ng-show="resume.messages.latest && resume.messages.latest.length">
         <div class="user-personal-info">

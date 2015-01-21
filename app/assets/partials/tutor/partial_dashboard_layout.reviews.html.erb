@@ -43,7 +43,7 @@
       <span class="icon-star1" ng-class="reviews.grade_communication >= 4 ? 'star-full': 'star-empty'"></span>
       <span class="icon-star1" ng-class="reviews.grade_communication >= 5 ? 'star-full': 'star-empty'"></span>
     </div>
-    <div class="review" class="col-lg-12 col-md-12 col-sm-12" ng-show="review.description" ng-repeat="review in reviews.reviews" ng-image-adjustment image-container="user_picture" image-src="{{ review.student.picture_url }}">
+    <div class="review" ng-show="review.description" ng-repeat="review in reviews.reviews" ng-image-adjustment image-container="user_picture" image-src="{{ review.student.picture_url }}">
       <div class="user_picture_container">
         <div class="user_picture">
           <img/>
@@ -58,7 +58,6 @@
           <p class="user-last-message">{{ review.description }}</p>
         </div>
       </div>
-      <div class="clearfix"></div>
     </div>
   </div>
 </div>

@@ -5,8 +5,8 @@
   <ng-alert id="tutor-request-form" alert-params="tutorRequestAlertParams"></ng-alert>
   <p class="section-message" translate="TUTOR_PROFILE_REQUEST_SEND_DESCRIPTION"></p>
   <form name="tutorRequestForm" id="tutor_request_form" class="dashboard-form validation-form">
+    <h3 class="section-subtitle" translate="TUTOR_PROFILE_SUBTITLE_PERSONAL"></h3>
     <fieldset>
-      <legend translate="TUTOR_PROFILE_SUBTITLE_PERSONAL"></legend>
       <div class="tutor_picture">
         <div class="profile_picture_container">
           <div class="profile_picture">
@@ -44,7 +44,7 @@
       </div>
     </fieldset>
     <fieldset>
-      <legend translate="TUTOR_PROFILE_SUBTITLE_ACADEMIC"></legend>
+      <h3 class="subtitle-element" translate="TUTOR_PROFILE_SUBTITLE_ACADEMIC"></h3>
       <div class="form-group" show-errors>
         <div class="left">
           <label><span class="icon-help icon-pointer" data-placement="top-left" data-content="{{ help.formation }}" data-trigger="click" html="true" bs-popover ></span> {{ 'TUTOR_PROFILE_LABEL_BACKGROUND' | translate }}:</label>
@@ -98,8 +98,8 @@
   <ng-alert id="tutor-profile-form" alert-params="tutorProfileAlertParams"></ng-alert>
   <ng-alert id="tutor-profile-form" alert-params="tutorProfileCalendarAlertParams"></ng-alert>
   <form name="tutorProfileForm" id="tutor_profile_form" class="dashboard-form validation-form">
+    <h3 class="section-subtitle" translate="TUTOR_PROFILE_SUBTITLE_PERSONAL"></h3>
     <fieldset>
-      <legend translate="TUTOR_PROFILE_SUBTITLE_PERSONAL"></legend>
       <div class="tutor_picture">
         <div class="profile_picture_container">
           <div class="profile_picture">
@@ -150,8 +150,9 @@
         </div>
       </div>
     </fieldset>
+
+    <h3 class="section-subtitle" translate="TUTOR_PROFILE_SUBTITLE_ACADEMIC"></h3>
     <fieldset>
-      <legend translate="TUTOR_PROFILE_SUBTITLE_ACADEMIC"></legend>
       <div class="form-group" show-errors>
         <div class="left">
           <label><span class="icon-help icon-pointer" data-placement="top-left" data-content="{{ help.formation }}" data-trigger="click" html="true" bs-popover ></span> {{ 'TUTOR_PROFILE_LABEL_BACKGROUND' | translate }}:</label>
@@ -187,8 +188,9 @@
         </div>
       </div>
     </fieldset>
+
+    <h3 class="section-subtitle" translate="TUTOR_PROFILE_SUBTITLE_CLASSES"></h3>
     <fieldset>
-      <legend translate="TUTOR_PROFILE_SUBTITLE_CLASSES"></legend>
       <div class="form-group" show-errors="{'trigger':'change'}" show-errors-params="tutor.preference.classLocation" show-errors-validation-type="checkboxGroup">
         <div class="left">
           <label><span class="icon-help icon-pointer" data-placement="top-left" data-content="{{ help.preferences }}" data-trigger="click" html="true" bs-popover ></span> {{ 'TUTOR_PROFILE_LABEL_CLASS_PREFERENCE' | translate }}:</label>
@@ -235,8 +237,8 @@
       </div>
     </fieldset>
 
+    <h3 class="section-subtitle" translate="TUTOR_PROFILE_LABEL_AVAILABILITY"></h3>
     <fieldset>
-      <legend translate="TUTOR_PROFILE_LABEL_AVAILABILITY"></legend>
       <div class="calendar">
         <ng-alert-message alert-params="calendarAlertMessagesParams"></ng-alert-message>
         <div class="week-view tutor-calendar-section" ng-class="calendarErrorClass">
