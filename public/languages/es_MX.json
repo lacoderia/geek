@@ -29,9 +29,11 @@
 
     "ADD": "Añadir",
     "ANOMALY_REPORTED": "Anomalía reportada",
+    "APPOINTMENT_LEGEND_AVAILABLE": "Horario disponible",
     "APPOINTMENT_LEGEND_CONFIRMED": "Cita confirmada",
-    "APPOINTMENT_LEGEND_PENDING": "Cita pendiente",
     "APPOINTMENT_LEGEND_CANCELLED": "Cita cancelada",
+    "APPOINTMENT_LEGEND_UNAVAILABLE": "Horario no disponible",
+    "APPOINTMENT_LEGEND_PENDING": "Cita pendiente",
     "APPOINTMENT_REQUEST_FEEDBACK_SUBTITLE": "¡Has solicitado una clase!",
     "APPOINTMENT_REQUEST_FEEDBACK_DETAILS": "Los detalles de tu clase son:",
     "APPOINTMENT_REQUEST_FEEDBACK_DETAILS_TUTOR": "Tutor",

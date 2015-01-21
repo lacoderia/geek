@@ -1078,6 +1078,7 @@
               .score-more {
                 color: $color-dark-orange;
                 font-size: 14px;
+                font-weight: 500;
                 margin-top: 0.2rem;
                 padding: 0.3rem 0;
                 text-align: center;
@@ -1085,7 +1086,8 @@
               }
 
               .score-more:hover{
-                text-decoration: underline;
+                color: $color-medium-orange;
+                text-decoration: none;
               }
             }
 
@@ -1102,7 +1104,10 @@
               span {
                 color: $color-dark-orange;
                 cursor: pointer;
-                text-decoration: underline;
+              }
+
+              span:hover{
+                color: $color-medium-orange;
               }
             }
 
