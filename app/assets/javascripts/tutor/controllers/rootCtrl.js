@@ -97,7 +97,6 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
                     );
 
                     $scope.rootInitialized = true;
-                    $rootScope.$broadcast("rootControllerReady");
                 }
 
             },0);
@@ -143,6 +142,10 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
         };
 	
         $(window).resize(adjustModalMaxHeightAndPosition).trigger("resize");
+
+        $timeout(function() {
+	        $rootScope.$broadcast("rootControllerReady");
+	    },0);
 
         // Método que genera la información para poblar la vista semanal del perfil del tutor
         $scope.createWeekCalendar = function() {

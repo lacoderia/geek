@@ -1,4 +1,6 @@
 class BankAccountsController < ApplicationController
+  load_and_authorize_resource
+
   before_action :set_bank_account, only: [:show, :edit, :update, :destroy]
 
   # GET /bank_accounts

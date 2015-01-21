@@ -1,4 +1,6 @@
 class SpecificAvailabilitiesController < ApplicationController
+  load_and_authorize_resource
+
   before_action :set_specific_availability, only: [:show, :edit, :update, :destroy]
 
   # GET /specific_availabilities

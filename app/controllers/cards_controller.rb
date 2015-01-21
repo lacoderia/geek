@@ -1,4 +1,6 @@
 class CardsController < ApplicationController
+  load_and_authorize_resource :except => [:register_card, :register_bank_account, :by_user, :activate]
+
   before_action :set_card, only: [:show, :edit, :update, :destroy]
 
   # GET /cards

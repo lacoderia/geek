@@ -1,4 +1,5 @@
 class RegisteredAnomaliesController < ApplicationController
+  load_and_authorize_resource :except => [:from_student, :from_tutor, :assign, :reject, :assign_other]
 
   def index
     @registered_anomalies = RegisteredAnomaly.all

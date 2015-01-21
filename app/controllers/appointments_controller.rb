@@ -1,4 +1,6 @@
 class AppointmentsController < ApplicationController
+  load_and_authorize_resource :except => [:by_status_and_tutor, :by_tutor, :by_student, :change_status, :force_charge, :force_pay]
+
   before_action :set_appointment, only: [:show, :edit, :update, :destroy]
 
   # GET /appointments

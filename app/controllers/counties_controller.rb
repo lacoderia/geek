@@ -1,4 +1,6 @@
 class CountiesController < ApplicationController
+  load_and_authorize_resource :except => [:index, :find_for_autocomplete]
+
   before_action :set_county, only: [:show, :edit, :update, :destroy]
 
   # GET /counties

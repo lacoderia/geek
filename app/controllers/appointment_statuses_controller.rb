@@ -1,4 +1,6 @@
 class AppointmentStatusesController < ApplicationController
+  load_and_authorize_resource :except => [:index]
+
   before_action :set_appointment_status, only: [:show, :edit, :update, :destroy]
 
   # GET /appointment_statuses

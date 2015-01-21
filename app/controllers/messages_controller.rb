@@ -1,4 +1,6 @@
 class MessagesController < ApplicationController
+  load_and_authorize_resource :except => [:new, :create, :conversations, :by_conversation, :mark_read, :pending_conversations]
+
   before_action :set_message, only: [:show, :edit, :update, :destroy]
 
   # GET /messages

@@ -1,4 +1,6 @@
 class ReviewsController < ApplicationController
+  load_and_authorize_resource :except => [:new, :create, :by_tutor, :activate]
+
   before_action :set_review, only: [:show, :edit, :update, :destroy]
   
   # GET /reviews

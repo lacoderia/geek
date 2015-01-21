@@ -1,4 +1,6 @@
 class WeekDaysController < ApplicationController
+  load_and_authorize_resource
+
   before_action :set_week_day, only: [:show, :edit, :update, :destroy]
 
   # GET /week_days
