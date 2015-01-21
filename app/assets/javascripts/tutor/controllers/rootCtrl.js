@@ -61,7 +61,7 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
 
         //no split; get property
         return obj[prop];
-    }
+    };
 
     $scope.$on('initRoot', function(){
         if (AuthService.isAuthenticated()) {

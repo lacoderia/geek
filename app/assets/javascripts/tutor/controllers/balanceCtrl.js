@@ -4,6 +4,7 @@ Geek.controller('BalanceController',['$scope','$rootScope', '$timeout', '$filter
 
     $scope.tutorBalanceAlertParams = undefined;
     $scope.confirmTransferView = false;
+    $scope.balance = undefined;
 
     $scope.getBalance = function(){
 
@@ -14,6 +15,7 @@ Geek.controller('BalanceController',['$scope','$rootScope', '$timeout', '$filter
         BalanceService.getBalance().then(
             function(data){
                 SessionService.setBalanceInfo(data);
+                $scope.balanceInfo = SessionService.getBalanceInfo();
                 $scope.tutorBalanceAlertParams = undefined;
                 usSpinnerService.stop('transfer-spinner');
                 $scope.confirmTransferView = false;
