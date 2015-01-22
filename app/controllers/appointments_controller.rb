@@ -136,7 +136,7 @@ class AppointmentsController < ApplicationController
       @appointment.appointment_updated status 
       render :show, status: :ok, location: @appointment
     elsif not valid
-      render json: {:error => "Cambio de estado no válido.", :appointment_status_code => @appointment.appointment_status.code}, status: :internal_server_error
+      render json: {:error => "Cambio de estado no válido.", :appointment_status_code => @appointment.appointment_status.code, :appointment_status_id => @appointment.appointment_status.id, :error_code => 409}, status: :conflict
     else
       render json: @appointment.errors, status: :unprocessable_entity
     end

@@ -489,6 +489,33 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
             },
             function (response){
                 console.log('Error setting appointment status: ' + response);
+
+                switch (response.error_code){
+                    case 409:
+                        var errorMessage = $filter('translate')('ERROR_CHANGE_APPOINTMENT_STATUS_CONFLICT_STUDENT');
+
+                        for(var i=0; i<DEFAULT_VALUES.APPOINTMENT_STATUS.length; i++) {
+                            if(DEFAULT_VALUES.APPOINTMENT_STATUS[i].code == response.appointment_status_code){
+                                appointment.status = DEFAULT_VALUES.APPOINTMENT_STATUS[i];
+                                appointment.status.id = response.appointment_status_id;
+                                break;
+                            }
+                        }
+
+                        break;
+                    default :
+                        var errorMessage = $filter('translate')('ERROR_CHANGE_APPOINTMENT_STATUS');
+                        break;
+                }
+
+                $scope.calendarAlertMessagesParams = {
+                    type: 'danger',
+                    message: errorMessage,
+                    icon: true
+                };
+
+                $location.hash('tutor-calendar-form');
+                $anchorScroll();
             }
         );
 
