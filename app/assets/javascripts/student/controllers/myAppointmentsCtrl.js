@@ -1,11 +1,10 @@
 'use strict';
 
-Geek.controller('MyAppointmentsController',['$compile', '$filter', '$scope','$rootScope', '$timeout', 'AppointmentService', 'AuthService', 'SessionService', 'MessageService', 'usSpinnerService', 'DEFAULT_VALUES' ,function($compile, $filter, $scope, $rootScope, $timeout, AppointmentService, AuthService, SessionService, MessageService, usSpinnerService, DEFAULT_VALUES){
+Geek.controller('MyAppointmentsController',['$compile', '$filter', '$scope','$rootScope', '$timeout', '$location', '$anchorScroll', 'AppointmentService', 'AuthService', 'SessionService', 'MessageService', 'usSpinnerService', 'DEFAULT_VALUES' ,function($compile, $filter, $scope, $rootScope, $timeout, $location, $anchorScroll, AppointmentService, AuthService, SessionService, MessageService, usSpinnerService, DEFAULT_VALUES){
 
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.MONTHS = DEFAULT_VALUES.MONTHS;
     $scope.START_YEAR = DEFAULT_VALUES.START_YEAR;
-
 
     $scope.appointmentsGroups = undefined;
     $scope.appointmentButtons = DEFAULT_VALUES.APPOINTMENT_BUTTONS;
@@ -206,6 +205,33 @@ Geek.controller('MyAppointmentsController',['$compile', '$filter', '$scope','$ro
             },
             function (response){
                 console.log('Error setting appointment status: ' + response);
+
+                switch (response.error_code){
+                    case 409:
+                        var errorMessage = $filter('translate')('ERROR_CHANGE_APPOINTMENT_STATUS_CONFLICT_TUTOR');
+
+                        for(var i=0; i<DEFAULT_VALUES.APPOINTMENT_STATUS.length; i++) {
+                            if(DEFAULT_VALUES.APPOINTMENT_STATUS[i].code == response.appointment_status_code){
+                                appointment.status = DEFAULT_VALUES.APPOINTMENT_STATUS[i];
+                                appointment.status.id = response.appointment_status_id;
+                                break;
+                            }
+                        }
+
+                        break;
+                    default :
+                        var errorMessage = $filter('translate')('ERROR_CHANGE_APPOINTMENT_STATUS');
+                        break;
+                }
+
+                $scope.appointmentsAlertParams = {
+                    type: 'danger',
+                    message: errorMessage,
+                    icon: true
+                };
+
+                $location.hash('appointments-form');
+                $anchorScroll();
             }
         );
 

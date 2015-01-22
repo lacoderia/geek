@@ -1,8 +1,10 @@
-<div class="student-classes-container">
+<div class="student-classes-container" ng-controller="MyAppointmentsController as MyAppointmentsCtrl">
   <span us-spinner spinner-key="my-classes-spinner"></span>
 
   <h2 class="section-title" translate="MY_CLASSES"></h2>
-  <div class="appointment-history" ng-controller="MyAppointmentsController as MyAppointmentsCtrl">
+  <ng-alert id="student-profile-form" alert-params="appointmentsAlertParams"></ng-alert>
+
+  <div class="appointment-history">
     <div class="history-list-view-unavailable" ng-show="appointmentsGroups && appointmentsGroups.length == 0">
       <div class="history-list-view-unavailable-content">
         <h3 translate="UNAVAILABLE_MESSAGE_MY_CLASSES"></h3>
