@@ -44,6 +44,13 @@
     <ng-alert id="tutor-calendar-form" alert-params="calendarAlertMessagesParams"></ng-alert>
 
     <div class="tutor-calendar-tools">
+      <ul class="events">
+        <li><span class="event appointment-status-confirmed"></span> {{ 'APPOINTMENT_LEGEND_CONFIRMED' | translate }}</li>
+        <li><span class="event appointment-status-pending"></span> {{ 'APPOINTMENT_LEGEND_PENDING' | translate }}</li>
+        <li><span class="event appointment-status-canceled"></span> {{ 'APPOINTMENT_LEGEND_CANCELLED' | translate }}</li>
+        <li><span class="event appointment-status-available"></span> {{ 'APPOINTMENT_LEGEND_AVAILABLE' | translate }}</li>
+        <li><span class="event appointment-status-unavailable"></span> {{ 'APPOINTMENT_LEGEND_UNAVAILABLE' | translate }}</li>
+      </ul>
       <div class="tutor-calendar-view-selector">
         <ul class="view-selector">
           <li><a title="{{ 'CALENDAR_VIEW_LIST' | translate }}" ng-click="changeView(CALENDAR_VIEWS.CALENDAR_VIEW_LIST)" ng-class="{ true:'selected', false:'' }[weekView == CALENDAR_VIEWS.CALENDAR_VIEW_LIST]"><span class="icon-list"></span></a></li>
