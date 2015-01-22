@@ -6,7 +6,6 @@ Geek.controller('MyAppointmentsController',['$compile', '$filter', '$scope','$ro
     $scope.MONTHS = DEFAULT_VALUES.MONTHS;
     $scope.START_YEAR = DEFAULT_VALUES.START_YEAR;
 
-
     $scope.appointmentsGroups = undefined;
     $scope.appointmentButtons = DEFAULT_VALUES.APPOINTMENT_BUTTONS;
     $scope.STATUS_BUTTONS_RELATION = {

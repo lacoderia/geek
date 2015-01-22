@@ -1874,12 +1874,6 @@ footer{
 
   .right, .left{
     padding: 18px 0px;
-
-    .icon-help{
-      color: $color-light-blue;
-      margin-right: 4px;
-      font-size: 12px;
-    }
   }
 
   .right{
@@ -2053,6 +2047,12 @@ footer{
   img{
     width: 100%;
   }
+}
+
+.icon-help{
+  color: $color-light-blue;
+  margin-right: 4px;
+  font-size: 12px;
 }
 
 .icon-pointer{
