@@ -48,7 +48,7 @@ class StudentsController < ApplicationController
         if @student.picture_id
           Cloudinary::Api.delete_resources(["#{@student.picture_id}"])
         end
-        image = Cloudinary::Uploader.upload(params[:picture], :width => 375, :height => 800, :crop => :limit)
+        image = Cloudinary::Uploader.upload(params[:picture], :width => 375, :height => 375, :crop => :fill)
         @student.update_attributes({:picture_url => image["url"], :picture_id => image["public_id"]})
       end
 
