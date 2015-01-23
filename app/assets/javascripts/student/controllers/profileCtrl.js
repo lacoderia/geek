@@ -161,6 +161,8 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
                         usSpinnerService.stop('profile-picture-spinner');
                     }, 0);
                 });
+        } else if($scope.student.pictureUrl !== undefined){
+            usSpinnerService.stop('profile-picture-spinner');
         }
 
     });
