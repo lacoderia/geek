@@ -70,6 +70,7 @@ Rails.application.config.assets.precompile += %w( tutor/directives/modalMessageD
 Rails.application.config.assets.precompile += %w( student/controllers/appointmentHistoryCtrl.js )
 Rails.application.config.assets.precompile += %w( student/controllers/blockedUserCtrl.js )
 Rails.application.config.assets.precompile += %w( student/controllers/calendarCtrl.js )
+Rails.application.config.assets.precompile += %w( student/controllers/commonCtrl.js )
 Rails.application.config.assets.precompile += %w( student/controllers/messageCtrl.js )
 Rails.application.config.assets.precompile += %w( student/controllers/myAppointmentsCtrl.js )
 Rails.application.config.assets.precompile += %w( student/controllers/myTutorsCtrl.js )

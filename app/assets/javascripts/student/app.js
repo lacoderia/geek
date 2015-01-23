@@ -21,7 +21,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
             'MY_TUTORS_SERVICE_URL': '/tutors/by_student.json',
             'OPENPAY_GET_CARDS_SERVICE_URL': 'cards/by_user.json',
             'OPENPAY_PAYMENT_SAVE_SERVICE_URL': 'cards/register_card.json',
-            'RESUME_GET_DASHBOARD_SERVICE_URL': 'student_dashboard.json',
+            'RESUME_GET_DASHBOARD_SERVICE_URL': 'student_dashboard.json'
         },
         'HOURS': [  '00:00', '00:30', '01:00', '01:30', '02:00', '02:30', '03:00', '03:30',
             '04:00', '04:30', '05:00', '05:30', '06:00', '06:30', '07:00', '07:30',
@@ -262,7 +262,10 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
             })
             .state('student.terms', {
                 url: "/terms",
-                templateUrl: "/assets/student/partial_common_terms.html"
+                templateUrl: "/assets/student/partial_common_terms.html",
+                authenticate: true,
+                authenticatedState: "student.terms",
+                defaultState: "student.terms"
             })
             .state('student.privacy', {
                 url: "/privacy",
@@ -271,7 +274,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
             .state('dashboard', {
                 url: "/dashboard",
                 templateUrl: "/assets/student/partial_dashboard_layout.html",
-                controller: 'RootController',
+                controller: 'RootController'
             })
             .state('dashboard.faq', {
                 url: "/faq",
@@ -291,7 +294,10 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
             })
             .state('dashboard.terms', {
                 url: "/terms",
-                templateUrl: "/assets/student/partial_common_terms.html"
+                templateUrl: "/assets/student/partial_common_terms.html",
+                authenticate: true,
+                authenticatedState: "dashboard.terms",
+                defaultState: "student.terms"
             })
             .state('dashboard.privacy', {
                 url: "/privacy",

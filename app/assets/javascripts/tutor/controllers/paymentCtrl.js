@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('PaymentController',['$scope','$rootScope', '$timeout', '$location', '$anchorScroll', '$filter', 'AuthService', 'SessionService', 'PaymentService', 'usSpinnerService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $timeout, $location, $anchorScroll, $filter, AuthService, SessionService, PaymentService, usSpinnerService, DEFAULT_VALUES){
+Geek.controller('PaymentController',['$scope','$rootScope', '$timeout', '$location', '$anchorScroll', '$filter', 'AuthService', 'SessionService', 'PaymentService', 'usSpinnerService', 'DEFAULT_VALUES', function($scope, $rootScope, $timeout, $location, $anchorScroll, $filter, AuthService, SessionService, PaymentService, usSpinnerService, DEFAULT_VALUES){
 
     $scope.MONTHS = DEFAULT_VALUES.MONTHS;
     $scope.PAYMENT_METHODS = DEFAULT_VALUES.PAYMENT_METHODS;
