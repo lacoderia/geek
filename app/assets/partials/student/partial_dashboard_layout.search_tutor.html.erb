@@ -151,6 +151,10 @@
     <dir-pagination-controls pagination-id="tutorsPagination" template-url="/assets/student/dirPagination.tpl.html" on-page-change="pageChanged(newPageNumber)" ng-hide="selectedTutor">
     </dir-pagination-controls>
   </div>
+  <p class="total-tutor" ng-hide="selectedTutor || !tutorList.length">
+    {{totalTutors}} <span ng-if="totalTutors == 1">{{ 'SEARCH_TOTAL_TUTORS_SINGLE_LABEL' | translate }}</span><span ng-if="totalTutors > 1">{{ 'SEARCH_TOTAL_TUTORS_LABEL' | translate }}</span>
+  </p>
+
   <h3 class="col-lg-12 col-md-12 col-sm-12 col-xs-12 section-title" ng-hide="selectedTutor || !suggestedTutorList.length" translate="WE_RECOMMEND"></h3>
   <div>
     <div class="tutor" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" dir-paginate="tutor in suggestedTutorList | itemsPerPage: tutorsPerPage" total-items="totalSuggestedTutors" pagination-id="suggestedTutorsPagination" on-tutor-search-render>
@@ -232,10 +236,11 @@
     <dir-pagination-controls pagination-id="suggestedTutorsPagination" template-url="/assets/student/dirPagination.tpl.html" on-page-change="pageChanged(newPageNumber)" ng-hide="selectedTutor">
     </dir-pagination-controls>
   </div>
+  <p class="total-tutor" ng-hide="selectedTutor || !suggestedTutorList.length">
+    {{totalSuggestedTutors}} <span ng-if="totalSuggestedTutors == 1">{{ 'SEARCH_TOTAL_TUTORS_SINGLE_LABEL' | translate }}</span><span ng-if="totalSuggestedTutors > 1">{{ 'SEARCH_TOTAL_TUTORS_LABEL' | translate }}</span>
+  </p>
+
 </div>
-<p class="total-tutor" ng-hide="selectedTutor || (!tutorList.length && !suggestedTutorList.length)">
-  {{totalTutors}} <span ng-if="totalTutors == 1">{{ 'SEARCH_TOTAL_TUTORS_SINGLE_LABEL' | translate }}</span><span ng-if="totalTutors > 1">{{ 'SEARCH_TOTAL_TUTORS_LABEL' | translate }}</span>
-</p>
 
 <div class="calendar" ng-show="selectedTutor">
   <h3 class="section-title">{{ 'TUTOR_SEARCH_SCHEDULE_CLASS_WITH' | translate }} {{ selectedTutor.first_name }}</h3>
