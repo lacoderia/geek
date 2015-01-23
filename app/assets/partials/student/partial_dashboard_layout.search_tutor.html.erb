@@ -148,7 +148,7 @@
       </div>
       <div class="clearfix"></div>
     </div>
-    <dir-pagination-controls pagination-id="tutorsPagination" template-url="/assets/student/dirPagination.tpl.html" on-page-change="pageChanged(newPageNumber)">
+    <dir-pagination-controls pagination-id="tutorsPagination" template-url="/assets/student/dirPagination.tpl.html" on-page-change="pageChanged(newPageNumber)" ng-hide="selectedTutor">
     </dir-pagination-controls>
   </div>
   <h3 class="col-lg-12 col-md-12 col-sm-12 col-xs-12 section-title" ng-hide="selectedTutor || !suggestedTutorList.length" translate="WE_RECOMMEND"></h3>
@@ -229,7 +229,7 @@
       </div>
       <div class="clearfix"></div>
     </div>
-    <dir-pagination-controls pagination-id="suggestedTutorsPagination" template-url="/assets/student/dirPagination.tpl.html" on-page-change="pageChanged(newPageNumber)">
+    <dir-pagination-controls pagination-id="suggestedTutorsPagination" template-url="/assets/student/dirPagination.tpl.html" on-page-change="pageChanged(newPageNumber)" ng-hide="selectedTutor">
     </dir-pagination-controls>
   </div>
 </div>
