@@ -239,11 +239,13 @@
     </div>
 
     <div ng-hide="showTopSearchbar">
+      <p class="what-is-geek-title" translate="LANDING_WHAT_IS_GEEK_TUTOR"></p>
       <div class="bgcolor-light-gray section-search">
         <img src="/assets/site/geek.png" alt="Geek" class="search-image hidden-xs">
         <div>
           <h2 class="hidden-xs">geek</h2>
           <h3 translate="WHAT_TO_LEARN"></h3>
+          <p translate="LANDING_STUDENT_MESSAGE"></p>
           <form>
             <angucomplete-alt-geek id="topics"
                                    placeholder="{{ 'AUTOCOMPLETE_TOPIC' | translate }}"
@@ -266,11 +268,11 @@
   </div>
 </div>
 
-<div class="bgcolor-medium-gray separator-slim" ng-hide="tutorResultListVisible"></div>
-<div class="bgcolor-light-orange separator margin-bottom" ng-hide="tutorResultListVisible"></div>
+<div class="bgcolor-separator-gray separator-slim" ng-hide="tutorResultListVisible"></div>
+<div class="bgcolor-light-orange separator" ng-hide="tutorResultListVisible"></div>
 
-<div class="container-fluid margin-bottom" ng-hide="tutorResultListVisible">
-  <div class="row bgcolor-gradient-green how-it-works-wrapper">
+<div class="container-fluid" ng-hide="tutorResultListVisible">
+  <div class="row how-it-works-wrapper">
     <div class="section-how-it-works">
       <div class="col-lg-4 col-md-4 col-sm-4 columns text-color-dark-green how-item">
         <div class="title-content">
@@ -279,14 +281,15 @@
         </div>
         <p translate="STUDENT_HOW_STEP_1"></p>
         <img src="/assets/site/student-how-search.png" alt="{{ 'STUDENT_HOW_STEP_1_TITLE' | translate}}">
-      </div>
-      <div class="col-lg-4 col-md-4 col-sm-4 columns text-color-dark-green how-item">
+        <span class="control-arrow control-right-arrow"></span>      </div>
+      <div class="col-lg-4 col-md-4 col-sm-4 columns text-color-dark-green how-item bgcolor-gradient-backwards">
         <div class="title-content">
           <span class="number">2</span>
           <span class="title" translate="STUDENT_HOW_STEP_2_TITLE"></span>
         </div>
         <p translate="STUDENT_HOW_STEP_2"></p>
         <img src="/assets/site/student-how-compare.png" alt="{{ 'STUDENT_HOW_STEP_2_TITLE' | translate}}">
+        <span class="control-arrow control-right-arrow"></span>
       </div>
       <div class="col-lg-4 col-md-4 col-sm-4 columns text-color-dark-green how-item">
         <div class="title-content">
@@ -298,16 +301,16 @@
       </div>
       <div class="clearfix"></div>
     </div>
-    <div class="bgcolor-white separator-slim" ng-hide="tutorResultListVisible"></div>
+    <div class="bgcolor-lightest-green separator-slim" ng-hide="tutorResultListVisible"></div>
     <div class="section-how-it-works">
       <div class="col-lg-8 col-md-8 col-sm-12 columns text-color-dark-green how-item">
         <div class="title-content">
           <span class="number">4</span>
           <span class="title" translate="STUDENT_HOW_STEP_4_TITLE"></span>
         </div>
-        <img src="/assets/site/landing-how-4.png" alt="{{ 'STUDENT_HOW_STEP_4_TITLE' | translate}}">
-        <img src="/assets/site/landing-how-5.png" alt="{{ 'STUDENT_HOW_STEP_4_TITLE' | translate}}">
-        <img src="/assets/site/landing-how-6.png" alt="{{ 'STUDENT_HOW_STEP_4_TITLE' | translate}}">
+        <img class="horizontal-align" src="/assets/site/landing-how-4.png" alt="{{ 'STUDENT_HOW_STEP_4_TITLE' | translate}}">
+        <img class="horizontal-align" src="/assets/site/landing-how-5.png" alt="{{ 'STUDENT_HOW_STEP_4_TITLE' | translate}}">
+        <img class="horizontal-align" src="/assets/site/landing-how-6.png" alt="{{ 'STUDENT_HOW_STEP_4_TITLE' | translate}}">
       </div>
       <div class="col-lg-4 col-md-4 col-sm-4 columns text-color-dark-green bgcolor-dark-green how-item-testimony">
         {{ 'STUDENT_HOW_REVIEW_TEXT' | translate }}
@@ -317,7 +320,7 @@
   </div>
 </div>
 
-<div class="container-fluid margin-bottom" ng-hide="tutorResultListVisible">
+<div class="container-fluid" ng-hide="tutorResultListVisible">
   <div class="row bgcolor-light-blue">
     <div class="section-where">
       <div class="col-lg-12 col-md-12 col-sm-12 columns">
@@ -344,7 +347,7 @@
   </div>
 </div>
 
-<div class="container-fluid margin-bottom video-wrapper" ng-hide="tutorResultListVisible">
+<div class="container-fluid video-wrapper" ng-hide="tutorResultListVisible">
   <div class="row">
     <div class="section-video">
       <div class="col-lg-12 col-md-12 col-sm-12 columns">
@@ -359,14 +362,14 @@
         </ul>
       </div>
       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 video-container columns">
-        <iframe src="//player.vimeo.com/video/113034804" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+        <iframe src="//player.vimeo.com/video/113034804" width="400" height="320" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
       </div>
       <div class="clearfix"></div>
     </div>
   </div>
 </div>
 
-<div class="container-fluid margin-bottom" ng-hide="tutorResultListVisible">
+<div class="container-fluid" ng-hide="tutorResultListVisible">
   <div class="row bgcolor-light-orange">
     <div class="section-guaranty">
       <div class="col-lg-1 col-md-3 col-sm-12 columns">

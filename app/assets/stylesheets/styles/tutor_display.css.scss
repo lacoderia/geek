@@ -8,6 +8,11 @@
     padding: 0.2rem 0rem !important;
 }
 
+.icon-google{
+  font-size: 14px;
+  font-weight: 600;
+}
+
 .zones_unavailable{
   pointer-events: none;
 
@@ -395,14 +400,22 @@
   margin: 0px auto;
   max-width: 1170px;
   padding: 0em 1em 0em;
+  position: relative;
   text-align: center;
 
   .row{
     max-width: 1200px;
   }
 
+  .control-arrow{
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%) translateX(50%);
+  }
+
   .step-container{
-    padding: 2em;
+    padding: 2em 1em;
 
     span.number{
       border: 2px solid $color-landing-text-blue;
@@ -410,6 +423,7 @@
       box-sizing: border-box;
       display: block;
       font-size: 20px;
+      font-weight: 500;
       height: 40px;
       margin: -2px auto 0.8em;
       padding: 0.2em;
@@ -421,6 +435,7 @@
     span.title{
       box-sizing: border-box;
       display: inline-block;
+      font-weight: 500;
       margin-bottom: 2em;
       text-transform: uppercase;
       vertical-align: middle;
@@ -429,13 +444,14 @@
     .description{
       color: white;
       display: inline-block;
-      font-size: 16px;
-      font-weight: 400;
-      margin-bottom: 30px;
-      margin-top: 10px;
+      font-size: 20px;
+      font-weight: 500;
+      margin-bottom: 10px;
+      margin-top: 8px;
+      min-height: 100px;
       text-align: center;
       text-transform: uppercase;
-      width: 65%;
+      width: 85%;
     }
   }
 
@@ -555,12 +571,17 @@
     margin: 0em 1em;
   }
 
-  form{
-    display: block;
-    margin: 0em auto;
-    padding: 2em;
+  p{
+    color: $color-light-green;
+    font-size: 28px;
+    font-weight: 500;
+    margin: 0 4.4em 0.3em;
+    text-transform: uppercase;
+  }
 
-    input, select, button{
+  form{
+
+    input, select, a.search-button{
       background: $color-input-bgcolor;
       border: 1px solid $color-medium-gray;
       border-radius: 10px;
@@ -572,12 +593,17 @@
 
     }
 
-    button{
+    a.search-button{
       color: $color-dark-blue;
-      display: block;
-      margin: 0em auto 1em;
+      display: inline-block;
       padding: 0.8em 1.5em;
-      width: 100px;
+      text-align: center;
+      width: 150px;
+    }
+
+    a.search-button:hover{
+      background-color: rgba(166, 168, 171, 0.2);
+      text-decoration: none;
     }
 
     button:hover{
@@ -629,6 +655,18 @@
     display: table-cell;
     text-align: right;
   }
+}
+
+.what-is-geek-title{
+  background-color: $color-sign-up-dark-blue;
+  border-radius: 10px 10px 0 0;
+  color: $color-light-blue;
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin: 0;
+  text-align: center;
+  text-transform: uppercase;
+  padding: 0.2em 0em 0.1em;
 }
 
 @media (min-width: $screen-sm-min) {
@@ -757,7 +795,7 @@
     height: 350px;
     background: #BDD4EF; /* Old browsers */
     background: linear-gradient(to bottom, #BDD4EF 0%, #B0CBEC 100%);
-    width: 50%;
+    width: 51%;
     z-index: -1;
   }
 
@@ -784,7 +822,7 @@
     height: 350px;
     background: #BDD4EF; /* Old browsers */
     background: linear-gradient(to bottom, #B0CBEC 0%, #BDD4EF 100%);
-    width: 50%;
+    width: 51%;
     z-index: -1;
   }
 
@@ -812,12 +850,14 @@
       span.number{
         display: inline-block;
         font-size: 10px;
+        font-weight: 500;
         height: 20px;
-        margin: -2px 5px 0px 0px;
+        margin: -1px 5px 0px 0px;
         width: 20px;
       }
 
       span.title{
+        font-size: 26px;
         font-weight: 500;
         margin-bottom: 0em;
       }
@@ -835,8 +875,9 @@
 
     h3{
       font-size: 50px;
-      margin: 0em 0em 0.5em 2em;
+      margin: 0em 0em 0.1em 2em;
     }
+
 
     > div{
       display: inline-block;
@@ -847,8 +888,9 @@
 
     form{
       display: inline-block;
-      margin: 0em 0em 1em 7em;
+      margin: 0em 10.5em 1em;
       padding: 0em;
+      text-align: right;
 
       button{
         display: inline-block;
@@ -884,7 +926,7 @@
     }
 
     form{
-      display: inline-block;
+      display: block;
 
       button{
         padding: 0.8em 1.5em;

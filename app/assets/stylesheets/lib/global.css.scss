@@ -8,6 +8,7 @@ $color-footer-gray: #F5F5F5;
 $color-dark-blue: #264A96;      // rgb(38,74,150)
 $color-light-blue: #79AADB;     // rgb(121,170,219)
 
+$color-lightest-green: #DFEEE4;
 $color-dark-green: #2BA780;     // rgb(43,167,128)
 $color-light-green: #91C9AC;    // rgb(145,201,172)
 $color-dark-orange: #F07423;    // rgb(240,116,35)
@@ -48,6 +49,8 @@ $color-landing-text-blue: #7CA9E0;
 $color-search-light-blue: #F1F6FC;
 $color-search-medium-blue: #E5EEF8;
 $color-search-dark-blue: #7DAADF;
+
+$color-separator-gray: #E1E1E1;
 
 $screen-xs-min: 460px;
 $screen-sm-min: 768px;
@@ -243,7 +246,10 @@ $container-width-max: 900px;
 // Typewriter Serial
 @font-face {
   font-family: 'Typewriter';
-  src: url("/assets/Typewriter-Serial-Bold.ttf") format("truetype");
+  src:  url("/assets/Typewriter-Serial-Bold.otf") format("opentype"),
+        url("/assets/Typewriter-Serial-Bold.ttf") format("truetype"),
+        url("/assets/Typewriter-Serial-Bold.woff") format('woff'),
+        url("/assets/Typewriter-Serial-Bold.svg#Typewriter-Serial-Bold") format('svg');
   font-weight: bold;
   font-style: normal;
 }
@@ -780,6 +786,10 @@ textarea{
   background-color: #D8E5F6;
 }
 
+.bgcolor-lightest-green{
+  background-color: $color-lightest-green;
+}
+
 .bgcolor-light-gray{
   background-color: $color-light-gray;
 }
@@ -802,6 +812,10 @@ textarea{
 
 .bgcolor-white{
   background-color: white;
+}
+
+.bgcolor-separator-gray{
+  background-color: $color-separator-gray;
 }
 
 .bgcolor-gradient-green{
@@ -2031,7 +2045,6 @@ footer{
 
 .separator{
   height: 12px;
-  margin-bottom: 0.4em;
 }
 
 .separator-slim{
@@ -2897,6 +2910,7 @@ footer{
 
 .title-element{
   font-size: 2.5rem;
+  font-weight: 500;
   margin-bottom: 0.5em;
   text-align: center;
   text-transform: uppercase;
@@ -2922,22 +2936,22 @@ footer{
 
     .video-container{
       box-sizing: border-box;
-      padding: 20%;
+
 
       iframe{
-        height: 100%;
+        border: 20px solid #EFA6A7;
         left: 0;
-        padding: 10px 30px 30px;
         position: absolute;
         top: 0;
-        width: 100%;
+        width: 93%;
       }
     }
 
     .text-container{
       ul{
-        font-size: 20px;
+        font-size: 24px;
         font-weight: 500;
+        line-height: 28px;
         list-style: none;
         margin: 0px;
         padding: 0px;
@@ -2945,11 +2959,15 @@ footer{
         width: 100%;
       }
 
+      li:nth-child(2){
+        border-bottom: 1px solid #EFA6A7;
+      }
+
       li{
         display: block;
-        margin: 1em 0em;
+        margin: 0em;
         height: 80px;
-        padding: 0.6em 2em 0.5em 2em;
+        padding: 0.4em 0em 0.5em 2em;
         text-transform: uppercase;
         width: 100%;
 
@@ -2963,7 +2981,7 @@ footer{
 
         span:last-child{
           text-align: left;
-          width: 60%;
+          width: 75%;
 
           img{
             max-width: 50px;
@@ -3000,6 +3018,7 @@ footer{
 
 .subtitle-element{
   font-size: 1.5rem;
+  font-weight: 500;
   margin: 0 auto;
   text-align: center;
   text-transform: uppercase;

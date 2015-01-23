@@ -108,14 +108,19 @@
   </div>
 </header>
 
-<div class="container">
+<div class="container"ng-controller="NavigationController as navigationCtrl">
   <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <p class="what-is-geek-title" translate="LANDING_WHAT_IS_GEEK_TUTOR"></p>
       <div class="bgcolor-light-gray section-search">
         <img src="/assets/site/geek.png" alt="Geek" class="search-image hidden-xs">
         <div>
           <h2 class="hidden-xs">geek</h2>
           <h3 translate="WHAT_TO_TEACH"></h3>
+          <p translate="LANDING_TUTOR_MESSAGE"></p>
+          <form>
+            <a class="search-button icon-pointer" ng-click="showSignInModal('signUp')" translate="SIGN_UP"></a>
+          </form>
         </div>
         <img src="/assets/site/geek.png" alt="Geek" class="search-image hidden-lg hidden-md hidden-sm">
       </div>
@@ -123,7 +128,7 @@
   </div>
 </div>
 
-<div class="bgcolor-medium-gray separator-slim"></div>
+<div class="bgcolor-separator-gray separator-slim"></div>
 <div class="bgcolor-light-orange separator"></div>
 
 <div class="container-fluid">
@@ -133,6 +138,7 @@
         <div class="title-content"><span class="number">1</span><span class="title" translate="TUTOR_HOW_STEP_1_TITLE"></span></div>
         <div class="description" translate="TUTOR_HOW_STEP_1"></div>
         <div><img src="/assets/site/how-1.png" alt="Busca" class="left"></div>
+        <span class="control-arrow control-right-arrow"></span>
       </div>
       <div class="step-container col-lg-6 col-md-6 col-sm-6">
         <div class="title-content"><span class="number">2</span><span class="title" translate="TUTOR_HOW_STEP_2_TITLE"></span></div>
@@ -146,13 +152,14 @@
 
 <div class="bgcolor-lightest-blue separator-slim"></div>
 
-<div class="container-fluid margin-bottom">
+<div class="container-fluid">
   <div class="row half-row-inverted">
     <div class="section-how-it-works">
       <div class="step-container col-lg-6 col-md-6 col-sm-6">
         <div class="title-content"><span class="number">3</span><span class="title" translate="TUTOR_HOW_STEP_3_TITLE"></span></div>
         <div class="description" translate="TUTOR_HOW_STEP_3"></div>
         <div><img src="/assets/site/how-3.png" alt="Busca" class="left"></div>
+        <span class="control-arrow control-right-arrow"></span>
       </div>
       <div class="step-container col-lg-6 col-md-6 col-sm-6">
         <div class="title-content"><span class="number">4</span><span class="title" translate="TUTOR_HOW_STEP_4_TITLE"></span></div>
@@ -164,7 +171,7 @@
   </div>
 </div>
 
-<div class="container-fluid margin-bottom video-wrapper" ng-hide="tutorResultListVisible">
+<div class="container-fluid video-wrapper" ng-hide="tutorResultListVisible">
   <div class="row">
     <div class="section-video">
       <div class="col-lg-12 col-md-12 col-sm-12 columns">
@@ -179,7 +186,7 @@
         </ul>
       </div>
       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 video-container columns">
-        <iframe src="//player.vimeo.com/video/113034804" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+        <iframe src="//player.vimeo.com/video/113034804" width="400" height="320" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
       </div>
       <div class="clearfix"></div>
     </div>
