@@ -11,7 +11,7 @@ class Payment
     op = set_openpay
     customers = op.create(:customers)
     request_hash = {
-      'external_id' => Time.now.to_s,#user.id,
+      #'external_id' => #user.id,
       "name" => user.first_name,
       "last_name" => user.last_name,
       "email" => user.email,

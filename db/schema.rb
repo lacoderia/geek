@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141230215526) do
+ActiveRecord::Schema.define(version: 20150122191643) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -184,8 +184,8 @@ ActiveRecord::Schema.define(version: 20141230215526) do
     t.float    "cost"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "public"
-    t.boolean  "student_place"
+    t.boolean  "public",        default: false
+    t.boolean  "student_place", default: false
   end
 
   create_table "purchases", force: true do |t|
@@ -285,7 +285,7 @@ ActiveRecord::Schema.define(version: 20141230215526) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "approved",        default: false
-    t.float    "grade"
+    t.float    "grade",           default: 0.0
   end
 
   create_table "users", force: true do |t|
@@ -314,6 +314,9 @@ ActiveRecord::Schema.define(version: 20141230215526) do
     t.string   "client_type"
     t.string   "refresh_token"
     t.string   "picture_id"
+    t.integer  "cancellations",          default: 0
+    t.integer  "late_shows",             default: 0
+    t.integer  "no_shows",               default: 0
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
