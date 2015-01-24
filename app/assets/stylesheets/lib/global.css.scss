@@ -268,6 +268,13 @@ fieldset{
   margin: 1em auto 0;
   padding: 0;
   max-width: $container-width-max;
+
+  .icon-help{
+    color: $color-light-blue;
+    margin-right: 4px;
+    font-size: 12px;
+  }
+
 }
 
 h2.section-title{
@@ -895,8 +902,9 @@ textarea{
 }
 
 .appointment-history{
-  border: 2px solid $color-input-gray-bgcolor;
-  margin: 2em 0em 0em 0em;
+  margin: 2em auto 0em;
+  max-width: $container-width-max;
+  text-align: center;
 
   .history-list-view-row{
     table{
@@ -1015,14 +1023,13 @@ textarea{
 
   .history-list-view-unavailable{
     display: table;
-    height: 300px;
-    text-align: center;
+    text-align: middle;
     width: 100%;
 
     .history-list-view-unavailable-content{
-      color: $color-dark-gray;
+      color: $color-medium-gray;
       display: table-cell;
-      font-size: 2.5em;
+      font-size: 1.5em;
       vertical-align: middle;
     }
   }
@@ -2067,12 +2074,6 @@ footer{
   }
 }
 
-.icon-help{
-  color: $color-light-blue;
-  margin-right: 4px;
-  font-size: 12px;
-}
-
 .icon-pointer{
   cursor: pointer;
 }
@@ -3038,13 +3039,14 @@ footer{
 .unavailable-resume-items-message{
   box-sizing: border-box;
   color: $color-medium-gray;
-  clear: both;
-  font-size: 1em;
+  font-size: 1.5em;
+  font-weight: 500;
+  height: 100px;
   margin: 0 auto 0.5em;
+  padding: 0.5em;
   max-width: $container-width-max;
   padding: 1em;
   text-align: center;
-  text-transform: uppercase;
 }
 
 .unavailable-message{
@@ -3053,7 +3055,7 @@ footer{
   height: 100px;
   margin: 0em auto;
   max-width: $container-width-max;
-  text-align: left;
+  text-align: center;
   width: 100%;
 
   .unavailable-message-content{
