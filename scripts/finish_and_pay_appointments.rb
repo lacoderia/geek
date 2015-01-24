@@ -4,7 +4,7 @@ require_relative "../config/environment"
 include Clockwork
 
 # Completar, rechazar y pagar citas
-every(2.minutes, 'complete_and_reject_and_pay_appointments') {
+every(30.minutes, 'complete_and_reject_and_pay_appointments', :at => ['**:30', '**:00']) {
 
   pending_appointment = AppointmentStatus.find_by_code("0")
   confirmed_appointment = AppointmentStatus.find_by_code("3")
@@ -76,7 +76,7 @@ every(2.minutes, 'complete_and_reject_and_pay_appointments') {
 # Revisar si es 15 de cada mes y hacer retiro automático (cashout tutor)
 every(1.day, 'tutor_cashout', :if => lambda { |t| t.day == 15}) {
 
-  Tutor.where("active = ?", true).each do |tutor|
+  Tutor.joins(:user => :cards).where("users.active = ?", true).each do |tutor|
     tutor.cash_out
   end
 }

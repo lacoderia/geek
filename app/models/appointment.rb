@@ -116,7 +116,7 @@ class Appointment < ActiveRecord::Base
     tutor_openpay_id = self.tutor.openpay_id
     card_id = self.student.cards.where("active = ?", true).first.openpay_id
     #account_id = self.tutor.cards.where("active = ?", true).first.openpay_id
-    amount = (self.cost * (fee_student/100.0)) 
+    amount = (self.cost * (fee_student/100.0)).round(2) 
 
     chargestudent = Payment.charge_student student_openpay_id, card_id, amount, get_charge_message # (total a cobrar del estudiante, con operanciones con fee_student)
     #actualizar bandera de cobrado
@@ -126,7 +126,7 @@ class Appointment < ActiveRecord::Base
       self.update_attribute(:charged, true)
 
       transferfunds = Payment.transfer_funds student_openpay_id, tutor_openpay_id, amount, get_transfer_message # (cantidad menos comisión de Openpay ?)
-      collectfee = Payment.charge_fee tutor_openpay_id, (amount * ((100.0-fee_tutor)/100.0)), get_fee_message # (comisión de GEEK)
+      collectfee = Payment.charge_fee tutor_openpay_id, (amount * ((100.0-fee_tutor)/100.0)).round(2), get_fee_message # (comisión de GEEK)
       # actualizar bandera de pagado
       self.update_attribute(:paid, true)
       
