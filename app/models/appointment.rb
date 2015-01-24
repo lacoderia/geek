@@ -115,7 +115,7 @@ class Appointment < ActiveRecord::Base
     student_openpay_id = self.student.openpay_id 
     tutor_openpay_id = self.tutor.openpay_id
     card_id = self.student.cards.where("active = ?", true).first.openpay_id
-    account_id = self.tutor.cards.where("active = ?", true).first.openpay_id
+    #account_id = self.tutor.cards.where("active = ?", true).first.openpay_id
     amount = (self.cost * (fee_student/100.0)) 
 
     chargestudent = Payment.charge_student student_openpay_id, card_id, amount, get_charge_message # (total a cobrar del estudiante, con operanciones con fee_student)
