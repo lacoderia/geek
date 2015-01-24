@@ -1650,7 +1650,7 @@ textarea{
 
   label{
     font-weight: 500;
-    text-align: right;
+    text-align: left;
     vertical-align: top;
   }
 
@@ -1882,7 +1882,7 @@ footer{
     display: inline-block;
     margin-right: 1%;
     vertical-align: top;
-    text-align: right;
+    text-align: left;
     width: 18%;
   }
 
@@ -2261,6 +2261,7 @@ footer{
               text-transform: uppercase;
 
               .icon-container{
+                margin-top: 2px;
                 text-transform: none;
               }
 
@@ -2411,15 +2412,15 @@ footer{
             font-style: normal;
             font-size: 12px;
             font-weight: 600;
+            margin-right: 4%;
             text-align: left;
             vertical-align: top;
-            width: 100%;
           }
+
         }
 
         p{
           border-radius: 10px;
-          box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.55);
           display: inline-block;
           padding: 2em;
           text-align: left;
@@ -3020,6 +3021,10 @@ footer{
   z-index: -1;
 }
 
+.request-appointment-message{
+  padding: 8px 0;
+}
+
 .subtitle-element{
   font-size: 1.5rem;
   font-weight: 500;
@@ -3030,8 +3035,6 @@ footer{
 }
 
 .unavailable-resume-items-message{
-  background-color: $color-input-gray-bgcolor;
-  border: 1px solid $color-input-gray;
   box-sizing: border-box;
   color: $color-medium-gray;
   clear: both;
@@ -3044,14 +3047,12 @@ footer{
 }
 
 .unavailable-message{
-  background-color: $color-input-gray-bgcolor;
-  border: 1px solid $color-input-gray;
   box-sizing: border-box;
   display: table;
   height: 100px;
   margin: 0em auto;
   max-width: $container-width-max;
-  text-align: center;
+  text-align: left;
   width: 100%;
 
   .unavailable-message-content{
@@ -3061,6 +3062,7 @@ footer{
     padding: 0.5em;
     vertical-align: middle;
   }
+
 }
 
 .uppercase {
