@@ -500,6 +500,7 @@ textarea{
 
 .alert-icon{
   display: inline-block;
+  font-size: 12px;
   margin-right: 1em;
   vertical-align: middle;
 }
@@ -695,7 +696,7 @@ textarea{
     cursor: pointer;
     display: inline-block;
     font-size: 12px;
-    margin: 0 0.5em 0;
+    margin: 0 0.5em 0 0;
     padding: 7px 10px 5px;
     text-align: center;
     text-transform: uppercase;
