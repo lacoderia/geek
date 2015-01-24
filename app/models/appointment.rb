@@ -10,6 +10,8 @@ class Appointment < ActiveRecord::Base
   @@hours_after_business_rules = 12
   @@hours_after_business_rules_max = 2
 
+  GEEK_STUDENT_FEE = 0.035
+
   cattr_reader :hours_after_business_rules, :hours_after_business_rules_max, :hours_before_cancelling_anomaly
 
   def appointment_updated status
@@ -36,7 +38,6 @@ class Appointment < ActiveRecord::Base
 
   #fee_student es normalmente 100
   def force_charge 
-
     fee_student = nil
     if not self.anomaly
       fee_student = 100
@@ -54,20 +55,20 @@ class Appointment < ActiveRecord::Base
     
     student_openpay_id = self.student.openpay_id 
     card_id = self.student.cards.where("active = ?", true).first.openpay_id
-    amount = (self.cost * (fee_student/100.0)) 
+    amount = (self.cost * (fee_student/100.0)).round(2)
 
-    chargestudent = Payment.charge_student student_openpay_id, card_id, amount, get_charge_message
+    chargestudent = Payment.charge_student student_openpay_id, card_id, (amount + (amount * GEEK_STUDENT_FEE)).round(2), get_charge_message
     if chargestudent[:error]
       self.update_attribute(:log, chargestudent[:error].description)
     else
       self.update_attribute(:charged, true)
+      collectfee = Payment.charge_fee student_openpay_id, (amount * GEEK_STUDENT_FEE).round(2), get_student_fee_message # (comisión de GEEK estudiante)
     end
 
   end
 
   #fee student es normalmente 100, fee_tutor es normalmente 80
   def force_pay
-  
     fee_student = nil
     fee_tutor = nil
     if not self.anomaly
@@ -88,10 +89,10 @@ class Appointment < ActiveRecord::Base
     
     student_openpay_id = self.student.openpay_id 
     tutor_openpay_id = self.tutor.openpay_id
-    amount = (self.cost * (fee_student/100.0)) 
+    amount = (self.cost * (fee_student/100.0)).round(2)
 
     transferfunds = Payment.transfer_funds student_openpay_id, tutor_openpay_id, amount, get_transfer_message 
-    collectfee = Payment.charge_fee tutor_openpay_id, (amount * ((100.0-fee_tutor)/100.0)), get_fee_message 
+    collectfee = Payment.charge_fee tutor_openpay_id, (amount * ((100.0-fee_tutor)/100.0)).round(2), get_tutor_fee_message 
     self.update_attribute(:paid, true)
 
   end
@@ -100,7 +101,7 @@ class Appointment < ActiveRecord::Base
     student_openpay_id = self.student.openpay_id
     card_id = self.student.cards.where("active = ?", true).first.openpay_id
     amount = (fee_student * 1.16).round(2) #se suma el IVA
-    chargestudent = Payment.charge_student student_openpay_id, card_id, amount, get_student_penalty_message, false
+    chargestudent = Payment.charge_student student_openpay_id, card_id, amount, get_student_penalty_message
 
     if chargestudent[:error]
       logger.info(chargestudent.to_yaml)
@@ -118,15 +119,15 @@ class Appointment < ActiveRecord::Base
     #account_id = self.tutor.cards.where("active = ?", true).first.openpay_id
     amount = (self.cost * (fee_student/100.0)).round(2) 
 
-    chargestudent = Payment.charge_student student_openpay_id, card_id, amount, get_charge_message # (total a cobrar del estudiante, con operanciones con fee_student)
+    chargestudent = Payment.charge_student student_openpay_id, card_id, (amount + (amount * GEEK_STUDENT_FEE)).round(2), get_charge_message # (total a cobrar del estudiante, con operanciones con fee_student)
     #actualizar bandera de cobrado
     if chargestudent[:error]
       self.update_attribute(:log, chargestudent[:error].description)
     else
       self.update_attribute(:charged, true)
-
+      collectfee = Payment.charge_fee student_openpay_id, (amount * GEEK_STUDENT_FEE).round(2), get_student_fee_message # (comisión de GEEK estudiante)
       transferfunds = Payment.transfer_funds student_openpay_id, tutor_openpay_id, amount, get_transfer_message # (cantidad menos comisión de Openpay ?)
-      collectfee = Payment.charge_fee tutor_openpay_id, (amount * ((100.0-fee_tutor)/100.0)).round(2), get_fee_message # (comisión de GEEK)
+      collectfee = Payment.charge_fee tutor_openpay_id, (amount * ((100.0-fee_tutor)/100.0)).round(2), get_tutor_fee_message # (comisión de GEEK tutor)
       # actualizar bandera de pagado
       self.update_attribute(:paid, true)
       
@@ -163,8 +164,12 @@ class Appointment < ActiveRecord::Base
     "Pago de clase. Tutor: " + self.tutor.id.to_s + ", Clase: " + self.id.to_s
   end
 
-  def get_fee_message
-    "Cobro de comisión por clase. Tutor " + self.tutor.id.to_s + ", Clase: " + self.id.to_s
+  def get_tutor_fee_message
+    "Cobro de comisión al tutor por clase. Tutor " + self.tutor.id.to_s + ", Clase: " + self.id.to_s
+  end
+
+  def get_student_fee_message
+    "Cobro de comisión al estudiante por clase. Estudiante " + self.student.id.to_s + ", Clase: " + self.id.to_s
   end
 
 end

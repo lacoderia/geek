@@ -156,13 +156,13 @@ class Payment
   # success - true si la operación se realizó con éxito, false de lo contrario
   # result - el id de la operación
   # error - el mensaje de error si la operación falló
-  def self.charge_student student_openpay_id, card_id, amount, description, extra_fee = true
+  def self.charge_student student_openpay_id, card_id, amount, description
     op = set_openpay
     charges = op.create(:charges)
     request_hash = {
       "method" => "card",
       "source_id" => card_id,
-      "amount" => (extra_fee ? (amount * 1.035).round(2) : amount),
+      "amount" => amount,
       "description" => description
     }
     result = {:success => true, :result => nil, :error => nil}
