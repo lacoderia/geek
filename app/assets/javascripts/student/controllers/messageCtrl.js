@@ -3,8 +3,8 @@
 Geek.controller('MessageController',['$scope','$rootScope', '$timeout', '$filter', 'MessageService', 'usSpinnerService', 'SessionService', 'AuthService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $timeout, $filter, MessageService, usSpinnerService, SessionService, AuthService, DEFAULT_VALUES){
 
     $scope.selectedConversation = undefined;
-    $scope.userSelected = undefined;
-    $scope.studentName = undefined;
+    $scope.selectedConversationStudent = undefined;
+    $scope.selectedConversationTutor = undefined;
     $scope.textMessage = '';
     $scope.lastMessage = undefined;
 
@@ -33,7 +33,7 @@ Geek.controller('MessageController',['$scope','$rootScope', '$timeout', '$filter
 
     };
 
-    $scope.selectConversation = function(tutor){
+    $scope.selectConversation = function(tutor, student){
         MessageService.getConversationByUserId(SessionService.getId(), tutor.id).then(
             function(data){
                 if(data){
@@ -46,8 +46,10 @@ Geek.controller('MessageController',['$scope','$rootScope', '$timeout', '$filter
                             $scope.lastMessage = message;
                         }
                     }
-                    $scope.userSelected = tutor;
+                    $scope.selectedConversationTutor = tutor;
+                    $scope.selectedConversationStudent = student;
                     $scope.resizeImage();
+
                     $timeout(function(){
                         if($scope.lastMessage){
 
@@ -86,14 +88,15 @@ Geek.controller('MessageController',['$scope','$rootScope', '$timeout', '$filter
 
     $scope.showConversations = function(){
         $scope.selectedConversation = undefined;
-        $scope.userSelected = undefined;
+        $scope.selectedConversationTutor = undefined;
+        $scope.selectedConversationStudent = undefined;
     };
 
     $scope.sendMessage = function(){
         if($scope.textMessage){
 
             var message = {
-                tutor_id: $scope.userSelected.id,
+                tutor_id: $scope.selectedConversationTutor.id,
                 student_id: SessionService.getId(),
                 text: $scope.textMessage,
                 from_student: true

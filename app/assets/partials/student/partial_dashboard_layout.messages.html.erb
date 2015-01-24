@@ -25,7 +25,7 @@
             <em class="timestamp">{{ conversation.created_at | timestampTranslateFilter}}</em>
           </div>
           <div class="message-button">
-            <a class="action-button action-send-message" ng-click="selectConversation(conversation.tutor)" translate="SHOW_CONVERSATION"></a>
+            <a class="action-button action-send-message" ng-click="selectConversation(conversation.tutor, conversation.student)" translate="SHOW_CONVERSATION"></a>
           </div>
           <p class="user-last-message">{{ conversation.text }}</p>
         </div>
@@ -40,10 +40,10 @@
       <span class="btn-back" ng-click="showConversations()"><< <span translate="SHOW_ALL"></span></span>
     </div>
 
-    <div class="conversation" class="col-lg-12 col-md-12 col-sm-12" ng-image-adjustment image-container="user_picture" image-src="{{ userSelected.picture_url }}">
+    <div class="conversation" class="col-lg-12 col-md-12 col-sm-12" ng-image-adjustment image-container="user_picture" image-src="{{ selectedConversationTutor.picture_url }}">
 
       <div class="conversationTextarea">
-        <textarea placeholder="{{ 'SEND_MESSAGE_TO' | translate }} {{ userSelected.first_name }} {{ userSelected.last_name }}..." rows="8" ng-model="textMessage"></textarea>
+        <textarea placeholder="{{ 'SEND_MESSAGE_TO' | translate }} {{ selectedConversationTutor.first_name }} {{ selectedConversationTutor.last_name }}..." rows="8" ng-model="textMessage"></textarea>
         <div class="conversation-button">
           <a ng-if="selectedConversation.length" class="action-button action-send-message" ng-click="sendMessage()" translate="REPLY">Responder</a>
           <a ng-if="!selectedConversation.length" class="action-button action-send-message" ng-click="sendMessage()">Enviar mensaje</a>
@@ -52,15 +52,20 @@
       </div>
 
       <div class="messages">
-        <div ng-class="[{ true:'user-message', false:'my-message' }[message.from_student],message-container]" ng-repeat="message in selectedConversation" ng-image-adjustment image-container="user_picture" image-src="{{ userSelected.picture_url }}">
-          <div class="user_picture_container">
+        <div ng-class="[{ true:'user-message', false:'my-message' }[message.from_student],message-container]" ng-repeat="message in selectedConversation">
+          <div class="user_picture_container" ng-if="message.from_student" ng-image-adjustment image-container="user_picture" image-src="{{ selectedConversationStudent.picture_url }}">
+            <div class="user_picture">
+              <img/>
+            </div>
+          </div>
+          <div class="user_picture_container" ng-if="!message.from_student" ng-image-adjustment image-container="user_picture" image-src="{{ selectedConversationTutor.picture_url }}">
             <div class="user_picture">
               <img/>
             </div>
           </div>
           <div class="user-info">
-            <h4 ng-if="message.from_student" class="message-user-name">{{ studentName }}</h4>
-            <h4 ng-if="!message.from_student" class="message-user-name">{{ userSelected.first_name }} {{ userSelected.last_name }}</h4>
+            <h4 ng-if="message.from_student" class="message-user-name">{{ selectedConversationStudent.first_name }} {{ selectedConversationStudent.last_name }}</h4>
+            <h4 ng-if="!message.from_student" class="message-user-name">{{ selectedConversationTutor.first_name }} {{ selectedConversationTutor.last_name }}</h4>
             <span class="message-status"><span class="timestamp">{{ message.timestamp | timestampTranslateFilter }}</span> <span class="icon-container" ng-show="message.read && !message.from_student"><span class="icon-bubbles"></span> {{ 'SEEN' | translate }}</span></span>
           </div>
           <div>
