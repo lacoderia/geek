@@ -215,7 +215,9 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
             ProfileService.submitRequest(tutor).then(
                 function(data){
                     if(data && data.id) {
-                        SessionService.getRequest().sent = true;
+
+                        SessionService.setRequest(data.request);
+                        $scope.tutor.request.sent = true;
 
                         $scope.tutorRequestAlertParams = {
                             type: 'success',
@@ -241,7 +243,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
         }else{
             $scope.tutorRequestAlertParams = {
                 type: 'danger',
-                message: $filter('translate')('ERROR_TUTOR_PROFILE_REQUEST'),
+                message: $filter('translate')('ERROR_TUTOR_PROFILE_FORM_HAS_ERRORS'),
                 icon: true
             };
 
@@ -451,8 +453,6 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
     }
 
     $scope.$watch('tutor.pictureUrl', function(){
-
-        console.log($scope.tutor.pictureUrl);
 
         if($scope.tutor && $scope.tutor.pictureUrl) {
             var imageContainer = $('.profile_picture');

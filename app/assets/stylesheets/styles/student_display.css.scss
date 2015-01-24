@@ -1183,6 +1183,10 @@
               padding: 0em;
             }
           }
+
+          .content.no-background {
+            background-color: transparent;
+          }
         }
 
         .tutor-class-info {
@@ -1224,6 +1228,14 @@
                 margin: 0px;
                 vertical-align: middle;
                 width: 100%;
+              }
+            }
+
+            .content-price.no-background {
+              background-color: transparent;
+
+              .price {
+                height: 134px;
               }
             }
 

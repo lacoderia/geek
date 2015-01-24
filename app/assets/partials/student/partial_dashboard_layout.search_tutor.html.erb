@@ -79,7 +79,7 @@
         </div>
       </div>
       <div class="tutor-personal-info col-lg-8 col-md-8 col-sm-12 col-xs-12">
-        <div class="content">
+        <div class="content" ng-class="{ 'no-background' : tutor.id == selectedTutor.id }">
           <div class="content-info">
             <h4 class="tutor-name">{{ tutor.first_name }} {{ tutor.last_name }}</h4>
             <p class="tutor-categories"><span ng-repeat="category in tutor.categories">{{ category.name }}{{ $last ? '' : ', ' }}</span></p>
@@ -133,7 +133,7 @@
       </div>
       <div class="tutor-class-info col-lg-2 col-md-2 col-sm-12 col-xs-12">
         <div class="content">
-          <div class="content-price">
+          <div class="content-price" ng-class="{ 'no-background' : tutor.id == selectedTutor.id }">
             <h4 class="price">
               MXN <br>
               {{ tutor.costRange }} <br>
@@ -164,7 +164,7 @@
         </div>
       </div>
       <div class="tutor-personal-info col-lg-8 col-md-8 col-sm-12 col-xs-12">
-        <div class="content">
+        <div class="content" ng-class="{ 'no-background' : tutor.id == selectedTutor.id }">
           <div class="content-info">
             <h4 class="tutor-name">{{ tutor.first_name }} {{ tutor.last_name }}</h4>
             <p class="tutor-categories"><span ng-repeat="category in tutor.categories">{{ category.name }}{{ $last ? '' : ', ' }}</span></p>
@@ -218,7 +218,7 @@
       </div>
       <div class="tutor-class-info col-lg-2 col-md-2 col-sm-12 col-xs-12">
         <div class="content">
-          <div class="content-price">
+          <div class="content-price" ng-class="{ 'no-background' : tutor.id == selectedTutor.id }">
             <h4 class="price">
               MXN <br>
               {{ tutor.costRange }} <br>
