@@ -4,7 +4,7 @@ require_relative "../config/environment"
 include Clockwork
 
 # Completar, rechazar y pagar citas
-every(5.minutes, 'complete_and_reject_and_pay_appointments') {
+every(2.minutes, 'complete_and_reject_and_pay_appointments') {
 
   pending_appointment = AppointmentStatus.find_by_code("0")
   confirmed_appointment = AppointmentStatus.find_by_code("3")
