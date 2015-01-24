@@ -52,8 +52,8 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
         'LIST_OF_STATES': ['Aguascalientes', 'Baja California', 'Baja California Sur', 'Campeche', 'Coahuila', 'Colima', 'Chiapas', 'Chihuahua', 'Distrito Federal', 'Durango', 'Guanajuato', 'Guerrero',
                     'Hidalgo', 'Jalisco', 'México', 'Michoacán', 'Morelos', 'Nayarit', 'Nuevo León', 'Oaxaca', 'Puebla', 'Querétaro', 'Quintana Roo', 'San Luis Potosí', 'Sinaloa',
                     'Sonora', 'Tabasco', 'Tamaulipas', 'Tlaxcala', 'Veracruz', 'Yucatán', 'Zacatecas'],
-        'MERCHANT_ID': 'm1yk40cfhmm7r9nsiu8s',
-        'PUBLIC_KEY': 'pk_c2ec14aecbf64973a02eea625ff8c060',
+        'MERCHANT_ID': 'mvqfexabrjznvdfpdter',
+        'PUBLIC_KEY': 'pk_e2ab053d051e4990ad55d8d67c4de4be',
         'PAYMENT_METHODS': {
             'CARD_METHOD': {
                 'code': 0,
@@ -451,7 +451,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
             },
             link: function(scope, element, attr, model){
                 var options = {
-                    types: ['geocode','establishment'],
+                    types: ['geocode'],
                     componentRestrictions: { 'country': 'mx' }
                 }
 

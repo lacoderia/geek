@@ -3,7 +3,8 @@
 Geek.controller('MessageController',['$scope','$rootScope', '$timeout', '$filter', 'AuthService', 'SessionService', 'MessageService', 'usSpinnerService', 'DEFAULT_VALUES' ,function($scope, $rootScope, $timeout, $filter, AuthService, SessionService, MessageService, usSpinnerService, DEFAULT_VALUES){
 
     $scope.selectedConversation = undefined;
-    $scope.userSelected = undefined;
+    $scope.selectedConversationStudent = undefined;
+    $scope.selectedConversationTutor = undefined;
     $scope.textMessage = '';
     $scope.lastMessage = undefined;
 
@@ -33,7 +34,7 @@ Geek.controller('MessageController',['$scope','$rootScope', '$timeout', '$filter
 
     };
 
-    $scope.selectConversation = function(student){
+    $scope.selectConversation = function(student, tutor){
 
         MessageService.getConversationByUserId(student.id, SessionService.getId()).then(
             function(data){
@@ -46,7 +47,8 @@ Geek.controller('MessageController',['$scope','$rootScope', '$timeout', '$filter
                             $scope.lastMessage = message;
                         }
                     }
-                    $scope.userSelected = student;
+                    $scope.selectedConversationStudent = student;
+                    $scope.selectedConversationTutor = tutor;
                     $scope.resizeImage();
 
                     $timeout(function(){
@@ -88,7 +90,8 @@ Geek.controller('MessageController',['$scope','$rootScope', '$timeout', '$filter
 
     $scope.showConversations = function(){
         $scope.selectedConversation = undefined;
-        $scope.userSelected = undefined;
+        $scope.selectedConversationStudent = undefined;
+        $scope.selectedConversationTutor = undefined;
     };
 
     $scope.sendMessage = function(){
@@ -96,7 +99,7 @@ Geek.controller('MessageController',['$scope','$rootScope', '$timeout', '$filter
 
             var message = {
                 tutor_id: SessionService.getId(),
-                student_id: $scope.userSelected.id,
+                student_id: $scope.selectedConversationStudent.id,
                 text: $scope.textMessage,
                 from_student: false
             };
