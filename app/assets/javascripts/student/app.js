@@ -451,7 +451,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
             },
             link: function(scope, element, attr, model){
                 var options = {
-                    types: ['geocode','establishment'],
+                    types: ['geocode'],
                     componentRestrictions: { 'country': 'mx' }
                 }
 
