@@ -325,11 +325,40 @@ textarea{
       .two-columns {
         display: inline-block;
         font-size: 14px;
+        height: 320px;
         padding: 1em;
+        position: relative;
         text-align: justify;
         vertical-align: top;
         width: 50%;
+
+        .owl {
+          bottom: -2px;
+          margin: 0 auto;
+          position: absolute;
+          text-align: center;
+          width: 100%;
+
+          img {
+            display: inline-block;
+            width: 200px;
+          }
+        }
+
+        .owl-hands {
+          bottom: -20px;
+          margin: 0 auto;
+          position: absolute;
+          text-align: center;
+          width: 100%;
+
+          img {
+            display: inline-block;
+            width: 170px;
+          }
+        }
       }
+
     }
 
     .people {
@@ -394,7 +423,7 @@ textarea{
         color: $color-medium-gray;
         font-family: "Typewriter";
         margin-left: 0.5rem;
-        font-size: 2rem;
+        font-size: 1.8rem;
         font-weight: 600;
       }
 
