@@ -46,6 +46,16 @@ $color-landing-medium-blue: #7DAADF;
 
 $color-landing-text-blue: #7CA9E0;
 
+$color-about-us-green: #C5E5D4;
+$color-about-us-green-text: #2BA780;
+$color-about-us-blue: #E4EEF8;
+$color-about-us-blue-text: #7CA9E0;
+$color-about-us-yellow: #FFF6E9;
+$color-about-us-yellow-text: #FFD495;
+$color-about-us-pink: #FBDFDF;
+$color-about-us-pink-text: #F69E9E;
+$color-about-us-gray-text: #C0C0C0;
+
 $color-search-light-blue: #F1F6FC;
 $color-search-medium-blue: #E5EEF8;
 $color-search-dark-blue: #7DAADF;
@@ -299,6 +309,76 @@ h3.section-subtitle{
 
 textarea{
   resize: none;
+}
+
+.about-us {
+  .content {
+    .description {
+      background-color: white;
+      font-size: 0;
+      margin-bottom: 5px;
+
+      .two-columns {
+        display: inline-block;
+        font-size: 14px;
+        padding: 1em;
+        text-align: justify;
+        vertical-align: top;
+        width: 50%;
+      }
+    }
+
+    .people {
+      font-size: 0;
+      margin-bottom: 5px;
+
+      .four-columns {
+        display: inline-block;
+        font-size: 14px;
+        padding: 1em;
+        text-align: center;
+        vertical-align: top;
+        width: 25%;
+
+        img {
+          margin-bottom: 20px;
+          width: 100%;
+        }
+
+        .name-white {
+          color: white;
+        }
+
+        .name-gray {
+          color: $color-about-us-gray-text;
+        }
+      }
+
+      .four-columns.green-column {
+        background-color: $color-about-us-green;
+        color: $color-about-us-green-text;
+      }
+
+      .four-columns.blue-column {
+        background-color: $color-about-us-blue;
+        color: $color-about-us-blue-text;
+      }
+
+      .four-columns.yellow-column {
+        background-color: $color-about-us-yellow;
+        color: $color-about-us-yellow-text;
+      }
+
+      .four-columns.pink-column {
+        background-color: $color-about-us-pink;
+        color: $color-about-us-pink-text;
+      }
+    }
+
+    .what-to-do {
+      background-color: white;
+    }
+  }
 }
 
 .action-button{
