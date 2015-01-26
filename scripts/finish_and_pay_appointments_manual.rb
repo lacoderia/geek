@@ -56,12 +56,12 @@ require_relative "../config/environment"
   end
 
   # Cobrar y pagar las clases sin anomalías, y pagar las que tengan anomalías resueltas
-  #Appointment.where("appointments.appointment_status_id = ? AND appointments.charged = ? AND appointments.paid = ? AND appointments.end < ?", completed_appointment.id, false, false, Time.now - Appointment.hours_after_business_rules.hour).each do |appointment|
+  Appointment.where("appointments.appointment_status_id = ? AND appointments.charged = ? AND appointments.paid = ? AND appointments.end < ?", completed_appointment.id, false, false, Time.now - Appointment.hours_after_business_rules.hour).each do |appointment|
 
     #si no tiene anomalias ni log de errores
-   # if not appointment.anomaly and not appointment.log
+    if not appointment.anomaly and not appointment.log
       # pagar el appointment
-   #   appointment.pay 100, 80
-   # end
+      appointment.pay 100, 80
+    end
 
-  #end
+  end
