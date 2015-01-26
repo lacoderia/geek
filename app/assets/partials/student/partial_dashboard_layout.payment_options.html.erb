@@ -76,7 +76,8 @@
                 <label> {{ 'DEBIT_CARD_HOLDER_NAME' | translate }}:</label>
               </div>
               <div class="right">
-                <input type="text" name="debit_card_holder" ng-model="$parent.debitCardHolder" class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_DEBIT_CARD_HOLDER_NAME' | translate }}" popover="{{studentPaymentOptionsForm.debit_card_holder.popoverMessage}}" popover-trigger="click" popover-animation="false" required/>
+                <input type="text" name="debit_card_holder" ng-model="$parent.debitCardHolder" class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_DEBIT_CARD_HOLDER_NAME' | translate }}" popover-input-name="{{ 'DEBIT_CARD_HOLDER_NAME' | translate }}" required/>
+                <span class="popup-trigger" popover="{{studentPaymentOptionsForm.debit_card_holder.popoverMessage}}" popover-trigger="click" popover-animation="false">!</span>
               </div>
             </div>
             <div class="form-group" show-errors>
@@ -84,7 +85,8 @@
                 <label>{{ 'DEBIT_CARD_NUMBER' | translate }}:</label>
               </div>
               <div class="right">
-                <input type="text" name="debit_card_number" ng-model="$parent.debitCardNumber" pattern="/^[0-9]+$/" ng-pattern="/^[0-9]+$/" ng-minlength="16" ng-maxlength="16" maxlength="16" class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_DEBIT_CARD_NUMBER' | translate }}" popover="{{studentPaymentOptionsForm.debit_card_number.popoverMessage}}" popover-trigger="click" popover-animation="false" required/>
+                <input type="text" name="debit_card_number" ng-model="$parent.debitCardNumber" pattern="/^[0-9]+$/" ng-pattern="/^[0-9]+$/" ng-minlength="16" ng-maxlength="16" maxlength="16" class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_DEBIT_CARD_NUMBER' | translate }}" popover-input-name="{{ 'DEBIT_CARD_NUMBER' | translate }}" required/>
+                <span class="popup-trigger" popover="{{studentPaymentOptionsForm.debit_card_number.popoverMessage}}" popover-trigger="click" popover-animation="false">!</span>
               </div>
             </div>
             <div class="form-group" ng-class="expirationErrorClass">
@@ -121,6 +123,8 @@
                   </ul>
                 </div>
 
+                <span class="popup-trigger" popover="{{studentPaymentOptionsForm.expiration_date.popoverMessage}}" popover-trigger="click" popover-animation="false">!</span>
+
               </div>
             </div>
             <div class="form-group" show-errors>
@@ -129,7 +133,8 @@
               </div>
               <div class="right">
                 <div class="input-container-small">
-                  <input type="text" name="verification_number" ng-model="$parent.debitCardValidationNumber" ng-pattern="/^[0-9]+$/" ng-minlength="3" ng-maxlength="5" maxlength="5" class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_VERIFICATION_NUMBER' | translate }}" popover="{{studentPaymentOptionsForm.verification_number.popoverMessage}}" popover-trigger="click" popover-animation="false" required/>
+                  <input type="text" name="verification_number" ng-model="$parent.debitCardValidationNumber" ng-pattern="/^[0-9]+$/" ng-minlength="3" ng-maxlength="5" maxlength="5" class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_VERIFICATION_NUMBER' | translate }}" popover-input-name="{{ 'PAYMENT_LABEL_VERIFICATION_NUMBER' | translate }}" required/>
+                  <span class="popup-trigger" popover="{{studentPaymentOptionsForm.verification_number.popoverMessage}}" popover-trigger="click" popover-animation="false">!</span>
                 </div>
               </div>
             </div>
@@ -138,14 +143,16 @@
                 <label> {{ 'PAYMENT_LABEL_ADDRESS' | translate }}:</label>
               </div>
               <div class="right">
-                <input type="text" name="address_line_1" ng-model="$parent.addressLine1"  class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_ADDRESS_LINE_1' | translate }}" popover="{{studentPaymentOptionsForm.address_line_1.popoverMessage}}" popover-trigger="click" popover-animation="false" required/>
+                <input type="text" name="address_line_1" ng-model="$parent.addressLine1"  class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_ADDRESS_LINE_1' | translate }}" popover-input-name="{{ 'PAYMENT_LABEL_ADDRESS' | translate }}" required/>
+                <span class="popup-trigger" popover="{{studentPaymentOptionsForm.address_line_1.popoverMessage}}" popover-trigger="click" popover-animation="false">!</span>
               </div>
             </div>
 
             <div class="form-group" show-errors>
               <div class="left"></div>
               <div class="right">
-                <input type="text" name="address_line_2" ng-model="$parent.addressLine2" class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_ADDRESS_LINE_2' | translate }}" popover="{{studentPaymentOptionsForm.address_line_2.popoverMessage}}" popover-trigger="click" popover-animation="false" required/>
+                <input type="text" name="address_line_2" ng-model="$parent.addressLine2" class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_ADDRESS_LINE_2' | translate }}" popover-input-name="{{ 'PAYMENT_LABEL_ADDRESS' | translate }}" required/>
+                <span class="popup-trigger" popover="{{studentPaymentOptionsForm.address_line_2.popoverMessage}}" popover-trigger="click" popover-animation="false">!</span>
               </div>
             </div>
 
@@ -154,7 +161,8 @@
                 <label> {{ 'PAYMENT_LABEL_CITY' | translate }}:</label>
               </div>
               <div class="right">
-                <input type="text" name="city" ng-model="$parent.city"  class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_CITY' | translate }}" popover="{{studentPaymentOptionsForm.city.popoverMessage}}" popover-trigger="click" popover-animation="false" required/>
+                <input type="text" name="city" ng-model="$parent.city"  class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_CITY' | translate }}" popover-input-name="{{ 'PAYMENT_LABEL_CITY' | translate }}" required/>
+                <span class="popup-trigger" popover="{{studentPaymentOptionsForm.city.popoverMessage}}" popover-trigger="click" popover-animation="false">!</span>
               </div>
             </div>
 
@@ -171,9 +179,10 @@
                     <span class="caret"></span>
                   </button>
                   <ul class="dropdown-menu" role="menu">
-                    <li role="presentation" ng-repeat="state in LIST_OF_STATES"><a role="menuitem"  ng-click="setState(state)">{{ state }}</a></li>
+                    <li role="presentation" ng-repeat="state in LIST_OF_STATES"><a role="menuitem" ng-click="setState(state)">{{ state }}</a></li>
                   </ul>
                 </div>
+                <span class="popup-trigger" popover="{{studentPaymentOptionsForm.state.popoverMessage}}" popover-trigger="click" popover-animation="false">!</span>
               </div>
             </div>
 
@@ -182,7 +191,8 @@
                 <label> {{ 'PAYMENT_LABEL_POSTAL_CODE' | translate }}:</label>
               </div>
               <div class="right">
-                <input type="text" name="postal_code" ng-model="$parent.postalCode" class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_POSTAL_CODE' | translate }}" ng-pattern="/^[0-9]+$/" ng-minlength="5" ng-maxlength="5" maxlength="5" popover="{{studentPaymentOptionsForm.postal_code.popoverMessage}}" popover-trigger="click" popover-animation="false" required/>
+                <input type="text" name="postal_code" ng-model="$parent.postalCode" class="form-input form-control" ng-pattern="/^[0-9]+$/" ng-minlength="5" ng-maxlength="5" maxlength="5" placeholder="{{ 'PAYMENT_PLACEHOLDER_POSTAL_CODE' | translate }}" popover-input-name="{{ 'PAYMENT_LABEL_POSTAL_CODE' | translate }}" required/>
+                <span class="popup-trigger" popover="{{studentPaymentOptionsForm.postal_code.popoverMessage}}" popover-trigger="click" popover-animation="false">!</span>
               </div>
             </div>
           </div>

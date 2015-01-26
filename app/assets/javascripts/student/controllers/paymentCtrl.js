@@ -136,9 +136,15 @@ Geek.controller('PaymentController',['$filter', '$scope','$rootScope', '$timeout
     $scope.validateExpirationDate = function() {
         if(!$scope.expirationMonth || !$scope.expirationYear) {
             $scope.expirationErrorClass = 'has-error';
+            $scope.studentPaymentOptionsForm.expiration_date = {
+                'popoverMessage': $filter('translate')('SHOW_ERRORS_FIELD') + ' ' + $filter('translate')('PAYMENT_LABEL_EXPIRATION_DATE').toLowerCase() + ' ' + $filter('translate')('SHOW_ERRORS_FIELD_REQUIRED')
+            }
             return false;
         } else {
             $scope.expirationErrorClass = '';
+            $scope.studentPaymentOptionsForm.expiration_date = {
+                'popoverMessage': ''
+            }
             return true;
         }
     }
@@ -146,9 +152,15 @@ Geek.controller('PaymentController',['$filter', '$scope','$rootScope', '$timeout
     $scope.validateState = function() {
         if(!$scope.state) {
             $scope.stateErrorClass = 'has-error';
+            $scope.studentPaymentOptionsForm.state = {
+                'popoverMessage': $filter('translate')('SHOW_ERRORS_FIELD') + ' ' + $filter('translate')('PAYMENT_LABEL_STATE').toLowerCase() + ' ' + $filter('translate')('SHOW_ERRORS_FIELD_REQUIRED')
+            }
             return false;
         } else {
             $scope.stateErrorClass = '';
+            $scope.studentPaymentOptionsForm.state = {
+                'popoverMessage': ''
+            }
             return true;
         }
     }
