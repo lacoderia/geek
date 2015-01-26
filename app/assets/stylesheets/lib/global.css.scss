@@ -264,7 +264,7 @@ $container-width-max: 900px;
   font-style: normal;
 }
 
-a{
+a, input{
   outline: 0 !important;
 }
 
@@ -307,6 +307,10 @@ h3.section-subtitle{
   width: $container-width-max;
 }
 
+strong{
+  font-weight: 600;
+}
+
 textarea{
   resize: none;
 }
@@ -334,7 +338,8 @@ textarea{
 
       .four-columns {
         display: inline-block;
-        font-size: 14px;
+        font-size: 16px;
+        font-weight: 500;
         padding: 1em;
         text-align: center;
         vertical-align: top;
@@ -346,10 +351,14 @@ textarea{
         }
 
         .name-white {
+          font-size: 20px;
+          font-weight: 500;
           color: white;
         }
 
         .name-gray {
+          font-size: 20px;
+          font-weight: 500;
           color: $color-about-us-gray-text;
         }
       }
@@ -377,6 +386,25 @@ textarea{
 
     .what-to-do {
       background-color: white;
+      color: $color-medium-gray;
+      padding: 1rem;
+      text-align: center;
+
+      span.what-to-do-student{
+        color: $color-medium-gray;
+        font-family: "Typewriter";
+        margin-left: 0.5rem;
+        font-size: 2rem;
+        font-weight: 600;
+      }
+
+      span.what-to-do-tutor{
+        color: $color-dark-gray;
+        font-family: "Typewriter";
+        margin-left: 0.5rem;
+        font-size: 2rem;
+        font-weight: 600;
+      }
     }
   }
 }
@@ -1998,6 +2026,16 @@ footer{
   cursor: pointer;
 }
 
+.mailto-link{
+  color: rgb(51, 51, 51);
+  font-weight: 600;
+}
+
+.mailto-link:hover{
+  color: $color-dark-gray;
+  text-decoration: none;
+}
+
 .pagination{
   margin: 1em 0 0;
 }
@@ -2908,6 +2946,10 @@ footer{
   p{
     margin-bottom: 2.5rem;
     text-align: justify;
+  }
+
+  ul{
+    margin: 0 0 2.5rem 0;
   }
 }
 

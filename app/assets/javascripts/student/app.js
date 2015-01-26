@@ -260,6 +260,10 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                 url: "/help",
                 templateUrl: "/assets/student/partial_common_help.html"
             })
+            .state('student.cancellation_policy', {
+                url: "/cancellation_policy",
+                templateUrl: "/assets/student/partial_common_cancellation_policy.html"
+            })
             .state('student.terms', {
                 url: "/terms",
                 templateUrl: "/assets/student/partial_common_terms.html",
@@ -298,6 +302,13 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                 authenticate: true,
                 authenticatedState: "dashboard.terms",
                 defaultState: "student.terms"
+            })
+            .state('dashboard.cancellation_policy', {
+                url: "/cancellation_policy",
+                templateUrl: "/assets/student/partial_common_cancellation_policy.html",
+                authenticate: true,
+                authenticatedState: "dashboard.cancellation_policy",
+                defaultState: "student.cancellation_policy"
             })
             .state('dashboard.privacy', {
                 url: "/privacy",
