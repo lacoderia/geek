@@ -82,7 +82,7 @@
         <div class="content" ng-class="{ 'no-background' : tutor.id == selectedTutor.id }">
           <div class="content-info">
             <h4 class="tutor-name">{{ tutor.first_name }} {{ tutor.last_name }}</h4>
-            <p class="tutor-categories"><span ng-repeat="category in tutor.categories">{{ category.name }}{{ $last ? '' : ', ' }}</span></p>
+            <p class="tutor-categories" ng-class="{ 'expanded' : tutor.id == selectedTutor.id }"><span ng-repeat="category in tutor.categories">{{ category.name }}{{ $last ? '' : ', ' }}</span></p>
             <div class="preferences">
               <span class="item-added" ng-if="tutor.preference.online" title="{{ 'TUTOR_PREFERENCE_ONLINE' | translate }}">{{ 'TUTOR_PREFERENCE_ONLINE' | translate }}</span>
               <span class="item-added" ng-if="tutor.preference.office" title="{{ 'TUTOR_PREFERENCE_OFFICE' | translate }}">{{ 'TUTOR_PREFERENCE_OFFICE' | translate }}</span>
@@ -167,7 +167,7 @@
         <div class="content" ng-class="{ 'no-background' : tutor.id == selectedTutor.id }">
           <div class="content-info">
             <h4 class="tutor-name">{{ tutor.first_name }} {{ tutor.last_name }}</h4>
-            <p class="tutor-categories"><span ng-repeat="category in tutor.categories">{{ category.name }}{{ $last ? '' : ', ' }}</span></p>
+            <p class="tutor-categories" ng-class="{ 'expanded' : tutor.id == selectedTutor.id }"><span ng-repeat="category in tutor.categories">{{ category.name }}{{ $last ? '' : ', ' }}</span></p>
             <div class="preferences">
               <span class="item-added" ng-if="tutor.preference.online" title="{{ 'TUTOR_PREFERENCE_ONLINE' | translate }}">{{ 'TUTOR_PREFERENCE_ONLINE' | translate }}</span>
               <span class="item-added" ng-if="tutor.preference.office" title="{{ 'TUTOR_PREFERENCE_OFFICE' | translate }}">{{ 'TUTOR_PREFERENCE_OFFICE' | translate }}</span>

@@ -147,9 +147,15 @@ Geek.controller('PaymentController',['$scope','$rootScope', '$timeout', '$locati
     $scope.validateExpirationDate = function() {
         if(!$scope.expirationMonth || !$scope.expirationYear) {
             $scope.expirationErrorClass = 'has-error';
+            $scope.tutorPaymentOptionsCardForm.expiration_date = {
+                'popoverMessage': $filter('translate')('SHOW_ERRORS_FIELD') + ' ' + $filter('translate')('PAYMENT_LABEL_EXPIRATION_DATE').toLowerCase() + ' ' + $filter('translate')('SHOW_ERRORS_FIELD_REQUIRED')
+            }
             return false;
         } else {
             $scope.expirationErrorClass = '';
+            $scope.tutorPaymentOptionsCardForm.expiration_date = {
+                'popoverMessage': ''
+            }
             return true;
         }
     };
@@ -157,9 +163,15 @@ Geek.controller('PaymentController',['$scope','$rootScope', '$timeout', '$locati
     $scope.validateState = function() {
         if(!$scope.state) {
             $scope.stateErrorClass = 'has-error';
+            $scope.tutorPaymentOptionsCardForm.state = {
+                'popoverMessage': $filter('translate')('SHOW_ERRORS_FIELD') + ' ' + $filter('translate')('PAYMENT_LABEL_STATE').toLowerCase() + ' ' + $filter('translate')('SHOW_ERRORS_FIELD_REQUIRED')
+            }
             return false;
         } else {
             $scope.stateErrorClass = '';
+            $scope.tutorPaymentOptionsCardForm.state = {
+                'popoverMessage': ''
+            }
             return true;
         }
     };
@@ -345,28 +357,19 @@ Geek.controller('PaymentController',['$scope','$rootScope', '$timeout', '$locati
     };
 
     $scope.setExpirationMonth = function(indexMonth){
-        if(indexMonth > 0){
-            $scope.expirationMonth = indexMonth;
-        }else{
-            $scope.expirationMonth = undefined;
-        }
+        $scope.expirationMonth = indexMonth;
+        $scope.validateExpirationDate();
     };
 
     $scope.setExpirationYear = function(year){
-        if(year > 0){
-            $scope.expirationYear = year - 2000;
-        }else{
-            $scope.expirationYear = undefined;
-        }
+        $scope.expirationYear = year - 2000;
+        $scope.validateExpirationDate();
     };
 
-    $scope.setState = function(state){
-        if(state){
-            $scope.state = state;
-        }else{
-            $scope.state = undefined;
-        }
-    };
+    $scope.setState = function(state) {
+        $scope.state = state;
+        $scope.validateState();
+    }
 
     angular.element(document).ready(function(){
         OpenPay.setId(DEFAULT_VALUES.MERCHANT_ID);

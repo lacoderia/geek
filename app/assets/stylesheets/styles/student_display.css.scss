@@ -1049,6 +1049,15 @@
 
               .tutor-categories{
                 font-size: 14px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+              }
+
+              .tutor-categories.expanded{
+                overflow: auto;
+                text-overflow: initial;
+                white-space: normal;
               }
 
               .preferences {

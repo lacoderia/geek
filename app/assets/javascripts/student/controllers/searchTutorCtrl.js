@@ -139,7 +139,6 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
 
     //Find a tutor, by the inputted data by the user
     $scope.searchTutor = function(pageNumber){
-        console.log($scope.components_address)
         $scope.resetTutorSearch();
 
         $scope.showTopSearchbar = true;
