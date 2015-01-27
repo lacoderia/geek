@@ -3,10 +3,13 @@ class FixCategories < ActiveRecord::Migration
     Category.all.each do |category|
       category_to_keep = Category.where("name = ? AND id <> ?", I18n.transliterate(category.name).upcase, category.id).first
       if category_to_keep
-        category_to_keep.tutors << category.tutors
         category.categories_tutors.each do |ct|
-          CategoriesTutor.create(category_id: ct.category_id, tutor_id: ct.tutor, cost: ct.cost)
+          categories_tutor = CategoriesTutor.where("category_id = ? and tutor_id = ?", category_to_keep.id, ct.tutor_id)
+          if categories_tutor.empty?
+            CategoriesTutor.create(category_id: category_to_keep.id, tutor_id: ct.tutor_id, cost: ct.cost)
+          end
         end
+        #category_to_keep.tutors << category.tutors
         category.categories_tutors.destroy_all
         category.destroy
       else
