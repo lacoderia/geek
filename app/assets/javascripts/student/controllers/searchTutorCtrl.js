@@ -185,31 +185,32 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
 
     // Show tutor details popup
     $scope.showTutorDetails = function(tutor) {
-        if(AuthService.isAuthenticated()){
-            for(var i in $scope.tutorList) {
-                if($scope.tutorList[i].id != tutor.id){
-                    $scope.tutorList[i].show = false;
-                    $scope.tutorList[i].showComments = false;
+        if(!$scope.selectedTutor){
+            if(AuthService.isAuthenticated()){
+                for(var i in $scope.tutorList) {
+                    if($scope.tutorList[i].id != tutor.id){
+                        $scope.tutorList[i].show = false;
+                        $scope.tutorList[i].showComments = false;
+                    }
                 }
-            }
-            for(var i in $scope.suggestedTutorList) {
-                if($scope.suggestedTutorList[i].id != tutor.id){
-                    $scope.suggestedTutorList[i].show = false;
-                    $scope.suggestedTutorList[i].showComments = false;
+                for(var i in $scope.suggestedTutorList) {
+                    if($scope.suggestedTutorList[i].id != tutor.id){
+                        $scope.suggestedTutorList[i].show = false;
+                        $scope.suggestedTutorList[i].showComments = false;
+                    }
                 }
+                $scope.selectedTutor = tutor;
+
+                //$scope.openTutorDetailModal(tutor);
+                $rootScope.$broadcast('initTutorCalendar', $scope.selectedTutor);
+
+                $timeout(function(){
+                    $rootScope.$broadcast('ellipsis-remove', tutor.id);
+                });
+            }else{
+                $rootScope.$broadcast('showSigInModal');
             }
-            $scope.selectedTutor = tutor;
-
-            //$scope.openTutorDetailModal(tutor);
-            $rootScope.$broadcast('initTutorCalendar', $scope.selectedTutor);
-
-            $timeout(function(){
-                $rootScope.$broadcast('ellipsis-remove', tutor.id);
-            });
-        }else{
-            $rootScope.$broadcast('showSigInModal');
         }
-
     };
 
     // Show all tutors found on tutor search
