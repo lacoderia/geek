@@ -48,13 +48,18 @@ $color-landing-text-blue: #7CA9E0;
 
 $color-about-us-green: #C5E5D4;
 $color-about-us-green-text: #2BA780;
+$color-about-us-green-hover: #91C9AC;
 $color-about-us-blue: #E4EEF8;
 $color-about-us-blue-text: #7CA9E0;
+$color-about-us-blue-hover: #264A96;
 $color-about-us-yellow: #FFF6E9;
 $color-about-us-yellow-text: #FFD495;
+$color-about-us-yellow-hover: #F07423;
 $color-about-us-pink: #FBDFDF;
 $color-about-us-pink-text: #F69E9E;
+$color-about-us-pink-hover: #E95B5B;
 $color-about-us-gray-text: #C0C0C0;
+$color-about-us-gray-hover: #C0C0C0;
 
 $color-search-light-blue: #F1F6FC;
 $color-search-medium-blue: #E5EEF8;
@@ -320,28 +325,46 @@ textarea{
     .description {
       background-color: white;
       font-size: 0;
-      margin-bottom: 5px;
 
       .two-columns {
         display: inline-block;
         font-size: 14px;
-        height: 320px;
         padding: 1em;
         position: relative;
         text-align: justify;
         vertical-align: top;
         width: 50%;
+      }
 
-        .owl {
-          bottom: -2px;
-          margin: 0 auto;
-          position: absolute;
-          text-align: center;
+    }
+
+    .owl-row {
+      background-color: white;
+      font-size: 0;
+      margin-bottom: 5px;
+
+      .two-columns {
+        display: inline-block;
+        font-size: 14px;
+        position: relative;
+        text-align: justify;
+        vertical-align: top;
+        width: 50%;
+
+        .owl-container {
+          overflow: hidden;
           width: 100%;
 
-          img {
-            display: inline-block;
-            width: 200px;
+          .owl {
+            margin: 0 auto;
+            margin-bottom: -6px;
+            text-align: center;
+            width: 100%;
+
+            img {
+              display: inline-block;
+              width: 200px;
+            }
           }
         }
 
@@ -365,6 +388,10 @@ textarea{
       font-size: 0;
       margin-bottom: 5px;
 
+      a {
+        text-decoration: none;
+      }
+
       .four-columns {
         display: inline-block;
         font-size: 16px;
@@ -383,33 +410,81 @@ textarea{
           font-size: 20px;
           font-weight: 500;
           color: white;
+
+          a {
+            color: white !important;
+          }
+
+          a:hover {
+            color: $color-about-us-gray-hover !important;
+          }
         }
 
         .name-gray {
           font-size: 20px;
           font-weight: 500;
           color: $color-about-us-gray-text;
+
+          a {
+            color: $color-about-us-gray-text !important;
+          }
+
+          a:hover {
+            color: white !important;
+          }
         }
       }
 
       .four-columns.green-column {
         background-color: $color-about-us-green;
         color: $color-about-us-green-text;
+
+        a {
+          color: $color-about-us-green-text;
+        }
+
+        a:hover {
+          color: $color-about-us-green-hover;
+        }
       }
 
       .four-columns.blue-column {
         background-color: $color-about-us-blue;
         color: $color-about-us-blue-text;
+
+        a {
+          color: $color-about-us-blue-text;
+        }
+
+        a:hover {
+          color: $color-about-us-blue-hover;
+        }
       }
 
       .four-columns.yellow-column {
         background-color: $color-about-us-yellow;
         color: $color-about-us-yellow-text;
+
+        a {
+          color: $color-about-us-yellow-text;
+        }
+
+        a:hover {
+          color: $color-about-us-yellow-hover;
+        }
       }
 
       .four-columns.pink-column {
         background-color: $color-about-us-pink;
         color: $color-about-us-pink-text;
+
+        a {
+          color: $color-about-us-pink-text;
+        }
+
+        a:hover {
+          color: $color-about-us-pink-hover;
+        }
       }
     }
 
