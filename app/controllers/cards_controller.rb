@@ -74,7 +74,7 @@ class CardsController < ApplicationController
     elsif params[:student_id]
       user = Student.find(params[:student_id]).user
     end
-  	@card = Card.register_card(user, params[:token])
+  	@card = Card.register_card(user, params[:token], params[:session_id])
   end
 
   # Crea una cuenta bancaria y la asocia a un usuario

@@ -1,9 +1,9 @@
 class Card < ActiveRecord::Base
   belongs_to :user
 
-  def self.register_card user, token
+  def self.register_card user, token, session_id
     user_openpay_id = user.get_openpay_id
-    result = Payment.add_card(user_openpay_id, token)
+    result = Payment.add_card(user_openpay_id, token, session_id)
     card = nil
     if result[:success] == true
     	Card.where("user_id = ?", user.id).update_all(:active => false)

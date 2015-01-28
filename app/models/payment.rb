@@ -32,15 +32,17 @@ class Payment
   # Recibe:
   # user_openpay_id - el id de openpay del usuario
   # card_token - el token de la tarjeta de crédito/débito
+  # session_id - el id generado para detección antifraude
   # Regresa un hash:
   # success - true si la operación se realizó con éxito, false de lo contrario
   # result - el id de la tarjeta registrada
   # error - el mensaje de error si la operación falló
-  def self.add_card user_openpay_id, card_token
+  def self.add_card user_openpay_id, card_token, session_id
     op = set_openpay
     cards = op.create(:cards)
     request_hash = {
-      "token_id" => card_token
+      "token_id" => card_token,
+      "device_session_id" => session_id
     }
     result = {:success => true, :result => nil, :error => nil}
     begin
