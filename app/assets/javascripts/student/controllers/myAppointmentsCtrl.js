@@ -163,7 +163,7 @@ Geek.controller('MyAppointmentsController',['$compile', '$filter', '$scope','$ro
             case 'confirm':
             case 'reject':
                 if($scope.compareCurrentDate(appointment.start)){
-                    $scope.changeAppointmentStatus(action, appointment);
+                    $scope.changeAppointmentStatus($event, action, appointment);
                 }else{
                     $scope.showActionButtons(appointment,action);
                 }
@@ -181,7 +181,7 @@ Geek.controller('MyAppointmentsController',['$compile', '$filter', '$scope','$ro
     /*
      * Cambia el status de un un appointment determinado
      * */
-    $scope.changeAppointmentStatus = function(action,appointment){
+    $scope.changeAppointmentStatus = function(event, action, appointment){
 
         var status = '';
 
@@ -197,11 +197,20 @@ Geek.controller('MyAppointmentsController',['$compile', '$filter', '$scope','$ro
                 break;
         }
 
+        // Ocultamos el dropdown antes de mostrar el spinner
+        $rootScope.closeDropdown($(event.target));
+
+        $timeout(function(){
+            usSpinnerService.spin('appointment-action-spinner');
+        }, 0);
+
         AppointmentService.setAppointmentStatus(appointment.id, status.code).then(
             function (data){
                 var statusId = appointment.status.id;
                 appointment.status = status;
                 appointment.status.id = statusId;
+
+                usSpinnerService.stop('appointment-action-spinner');
             },
             function (response){
                 console.log('Error setting appointment status: ' + response);
@@ -232,6 +241,8 @@ Geek.controller('MyAppointmentsController',['$compile', '$filter', '$scope','$ro
 
                 $location.hash('appointments-form');
                 $anchorScroll();
+
+                usSpinnerService.stop('appointment-action-spinner');
             }
         );
 
@@ -317,7 +328,6 @@ Geek.controller('MyAppointmentsController',['$compile', '$filter', '$scope','$ro
 
         }
     };
-
 
     //Inicializamos el controlador
     $rootScope.$broadcast('initRoot');
