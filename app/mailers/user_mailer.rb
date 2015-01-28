@@ -73,6 +73,13 @@ class UserMailer < ActionMailer::Base
     mail(to: @student.email, subject: "Recordatorio de clases")
   end
 
+  def student_appointment_charged appointment
+    @appointment = appointment
+    @student = appointment.student
+    @tutor = appointment.tutor
+    mail(to: @student.email, subject: "Notificación de cobro")
+  end
+
   #tutores
 
   def tutor_welcome tutor

@@ -63,6 +63,7 @@ class Appointment < ActiveRecord::Base
     else
       self.update_attribute(:charged, true)
       collectfee = Payment.charge_fee student_openpay_id, (amount * GEEK_STUDENT_FEE).round(2), get_student_fee_message # (comisión de GEEK estudiante)
+      UserMailer.student_appointment_charged(self).deliver
     end
 
   end
@@ -130,6 +131,7 @@ class Appointment < ActiveRecord::Base
       collectfee = Payment.charge_fee tutor_openpay_id, (amount * ((100.0-fee_tutor)/100.0)).round(2), get_tutor_fee_message # (comisión de GEEK tutor)
       # actualizar bandera de pagado
       self.update_attribute(:paid, true)
+      UserMailer.student_appointment_charged(self).deliver
     end
 
   end
