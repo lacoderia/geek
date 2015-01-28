@@ -1141,6 +1141,7 @@ textarea{
         background-color: $color-sign-up-dark-blue;
         color: $color-light-blue;
         font-size: 16px;
+        text-align: left;
         width: 100%;
 
         .day-title{
@@ -1192,6 +1193,7 @@ textarea{
 
       .buttons{
         text-align: left !important;
+        padding: 0.5em 1.8em !important;
       }
 
       .day-info{
@@ -1201,7 +1203,7 @@ textarea{
         cursor: pointer;
         font-size: 14px;
         font-weight: 300;
-        padding: 0.5em 2em;
+        padding: 0.5em 1.1em;
         text-align: center;
         vertical-align: middle;
         width: 21.25%;
@@ -1474,8 +1476,8 @@ textarea{
           background-color: $color-sign-up-dark-blue;
           color: $color-light-blue;
           font-size: 16px;
+          text-align: left;
           width: 100%;
-
 
           .day-title{
             font-weight: 500 !important;
@@ -1489,6 +1491,7 @@ textarea{
           width: 100%;
 
           .buttons{
+            padding: 0.5em 1.8em !important;
             text-align: left !important;
           }
 
@@ -1499,7 +1502,7 @@ textarea{
             cursor: pointer;
             font-size: 14px;
             font-weight: 300;
-            padding: 0.5em 2em;
+            padding: 0.5em 1.1em;
             text-align: center;
             vertical-align: middle;
             width: 21.5%;
