@@ -198,7 +198,7 @@ Geek.controller('AppointmentHistoryController',['$scope','$rootScope', '$timeout
             case 'confirm':
             case 'reject':
                 if($scope.compareCurrentDate(appointment.start)){
-                    $scope.changeAppointmentStatus(action, appointment);
+                    $scope.changeAppointmentStatus($event, action, appointment);
                 }else{
                     $scope.showActionButtons(appointment,action);
                 }
@@ -278,7 +278,7 @@ Geek.controller('AppointmentHistoryController',['$scope','$rootScope', '$timeout
     /*
      * Cambia el status de un un appointment determinado
      * */
-    $scope.changeAppointmentStatus = function(action,appointment){
+    $scope.changeAppointmentStatus = function(event, action, appointment){
 
         var status = '';
 
@@ -294,8 +294,10 @@ Geek.controller('AppointmentHistoryController',['$scope','$rootScope', '$timeout
                 break;
         }
 
+        // Ocultamos el dropdown antes de mostrar el spinner
+        $rootScope.closeDropdown($(event.target));
+
         $timeout(function(){
-            $('#dropdownMenu1').dropdown('toggle');
             usSpinnerService.spin('appointment-action-spinner');
         }, 0);
 

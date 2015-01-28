@@ -40,6 +40,11 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
         }
     };
 
+    //Función que oculta el dropdown padre del item seleccionado
+    $rootScope.closeDropdown = function(dropdownItem) {
+        dropdownItem.closest(".dropdown-menu").prev().dropdown("toggle");
+    };
+
     $scope.getTutorProperty = function(prop, obj) {
         //property not found
         if(typeof obj === 'undefined') {
