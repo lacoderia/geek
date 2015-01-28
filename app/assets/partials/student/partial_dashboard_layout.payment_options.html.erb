@@ -85,7 +85,7 @@
                 <label>{{ 'DEBIT_CARD_NUMBER' | translate }}:</label>
               </div>
               <div class="right">
-                <input type="text" name="debit_card_number" ng-model="debitCardNumber" pattern="/^[0-9]+$/" ng-pattern="/^[0-9]+$/" ng-minlength="16" ng-maxlength="16" maxlength="16" class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_DEBIT_CARD_NUMBER' | translate }}" popover-input-name="{{ 'DEBIT_CARD_NUMBER' | translate }}" required/>
+                <input type="text" name="debit_card_number" ng-model="debitCardNumber" pattern="/^[0-9]+$/" ng-pattern="/^[0-9]+$/" ng-minlength="14" ng-maxlength="16" maxlength="16" class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_DEBIT_CARD_NUMBER' | translate }}" popover-input-name="{{ 'DEBIT_CARD_NUMBER' | translate }}" required/>
                 <span class="popup-trigger" popover="{{studentPaymentOptionsForm.debit_card_number.popoverMessage}}" popover-trigger="click" popover-animation="false">!</span>
               </div>
             </div>
@@ -133,7 +133,7 @@
               </div>
               <div class="right">
                 <div class="input-container-small">
-                  <input type="text" name="verification_number" ng-model="debitCardValidationNumber" ng-pattern="/^[0-9]+$/" ng-minlength="3" ng-maxlength="5" maxlength="5" class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_VERIFICATION_NUMBER' | translate }}" popover-input-name="{{ 'PAYMENT_LABEL_VERIFICATION_NUMBER' | translate }}" required/>
+                  <input type="text" name="verification_number" ng-model="debitCardValidationNumber" ng-pattern="/^[0-9]+$/" ng-minlength="3" ng-maxlength="4" maxlength="4" class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_VERIFICATION_NUMBER' | translate }}" popover-input-name="{{ 'PAYMENT_LABEL_VERIFICATION_NUMBER' | translate }}" required/>
                   <span class="popup-trigger" popover="{{studentPaymentOptionsForm.verification_number.popoverMessage}}" popover-trigger="click" popover-animation="false">!</span>
                 </div>
               </div>
