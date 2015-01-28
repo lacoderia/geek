@@ -67,6 +67,7 @@
         </div>
       </div>
       <div class="week-list-view-row" ng-show="existstWeekAppoinments">
+        <span us-spinner spinner-key="appointment-action-spinner"></span>
         <table>
           <caption class="calendar-title">{{ 'CALENDAR_VIEW_LIST' | translate }}: {{ translateWeeklyCalendarTitle(selectedWeek[0].numberDay, MONTHS[selectedWeek[0].month], selectedWeek[6].numberDay, MONTHS[selectedWeek[6].month]) }}</caption>
           <thead>

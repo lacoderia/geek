@@ -1119,6 +1119,8 @@ textarea{
   text-align: center;
 
   .history-list-view-row{
+    position: relative;
+
     table{
       border-collapse: collapse;
       padding: 0px;
@@ -1449,6 +1451,8 @@ textarea{
     margin: 0em;
 
     .week-list-view-row{
+      position: relative;
+
       table{
         border-collapse: collapse;
         padding: 0px;
