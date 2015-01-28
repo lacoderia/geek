@@ -52,6 +52,11 @@ Geek.controller('RootController', ["$filter", "$scope", "$rootScope", "$state", 
         }
     };
 
+    //Función que oculta el dropdown padre del item seleccionado
+    $rootScope.closeDropdown = function(dropdownItem) {
+        dropdownItem.closest(".dropdown-menu").prev().dropdown("toggle");
+    };
+
     $scope.$on('showResultList', function(){
         $scope.tutorResultListVisible = true;
     });
