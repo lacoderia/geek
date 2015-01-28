@@ -294,14 +294,23 @@ Geek.controller('AppointmentHistoryController',['$scope','$rootScope', '$timeout
                 break;
         }
 
+        $timeout(function(){
+            $('#dropdownMenu1').dropdown('toggle');
+            usSpinnerService.spin('appointment-action-spinner');
+        }, 0);
+
         AppointmentService.setAppointmentStatus(appointment.id, status.code).then(
             function (data){
                 var statusId = appointment.status.id;
                 appointment.status = status;
                 appointment.status.id = statusId;
+
+                usSpinnerService.stop('appointment-action-spinner');
             },
             function (response){
                 console.log('Error setting appointment status: ' + response);
+
+                usSpinnerService.stop('appointment-action-spinner');
             }
         );
 

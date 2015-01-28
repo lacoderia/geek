@@ -378,7 +378,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
     /*
      * Cambia el status de un un appointment determinado
      * */
-    $scope.callButtonAction = function($event,action,appointment){
+    $scope.callButtonAction = function($event, action, appointment){
         $event.stopPropagation();
 
         switch (action){
@@ -465,7 +465,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
     /*
      * Cambia el status de un un appointment determinado
      * */
-    $scope.changeAppointmentStatus = function(action,appointment){
+    $scope.changeAppointmentStatus = function(action, appointment){
 
         var status = '';
 
@@ -481,11 +481,18 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
                 break;
         }
 
+        $timeout(function(){
+            $('#dropdownMenu1').dropdown('toggle');
+            usSpinnerService.spin('appointment-action-spinner');
+        }, 0);
+
         AppointmentService.setAppointmentStatus(appointment.id, status.code).then(
             function (data){
                 var statusId = appointment.status.id;
                 appointment.status = status;
                 appointment.status.id = statusId;
+
+                usSpinnerService.stop('appointment-action-spinner');
             },
             function (response){
                 console.log('Error setting appointment status: ' + response);
@@ -516,6 +523,8 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
 
                 $location.hash('tutor-calendar-form');
                 $anchorScroll();
+
+                usSpinnerService.stop('appointment-action-spinner');
             }
         );
 
