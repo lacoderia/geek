@@ -193,7 +193,8 @@ Geek.controller('PaymentController',['$filter', '$scope','$rootScope', '$timeout
 
                     var cardData = {
                         'student_id': SessionService.getId(),
-                        'token': data.data.id
+                        'token': data.data.id,
+                        'session_id': OpenPay.deviceData.setup()
                     }
 
                     PaymentService.saveCard(cardData).then(

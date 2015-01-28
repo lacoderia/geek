@@ -205,7 +205,8 @@ Geek.controller('PaymentController',['$scope','$rootScope', '$timeout', '$locati
 
                     var cardData = {
                         'tutor_id': SessionService.getId(),
-                        'token': data.data.id
+                        'token': data.data.id,
+                        'session_id': OpenPay.deviceData.setup()
                     }
 
 
