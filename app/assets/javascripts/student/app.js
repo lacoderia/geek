@@ -319,7 +319,8 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                 templateUrl: "/assets/student/partial_dashboard_layout.user_blocked.html",
                 authenticate: true,
                 authenticatedState: "dashboard.user-blocked",
-                defaultState: "student.landing"
+                defaultState: "student.landing",
+                defaultAuthenticatedState: 'dashboard.resume'
             })
             .state('dashboard.resume', {
                 url: "/resume",

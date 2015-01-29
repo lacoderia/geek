@@ -207,6 +207,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
                             if(data && data.id){
                                 SessionService.createSession(data.id, data.active, data.balance, data.email, data.first_name, data.last_name, data.gender, data.phone_number, data.details, data.picture, data.picture_url, data.preference, data.references, data.request, data.background, data.categories, data.counties);
                                 $state.go(toState.authenticatedState, toParams);
+
                             }else{
                                 $state.go(toState.defaultState);
                             }
@@ -243,7 +244,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
             })
             .state('dashboard.faq', {
                 url: "/faq",
-                templateUrl: "/assets/tutor/pa  rtial_common_faq.html"
+                templateUrl: "/assets/tutor/partial_common_faq.html"
             })
             .state('dashboard.about-us', {
                 url: "/about-us",
@@ -270,14 +271,15 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
                 templateUrl: "/assets/tutor/partial_dashboard_layout.user_blocked.html",
                 authenticate: true,
                 authenticatedState: "dashboard.user-blocked",
-                defaultState: "tutor"
+                defaultState: "tutor",
+                defaultAuthenticatedState: 'dashboard.resume'
             })
             .state('dashboard.resume',{
                 url: "/resume",
                 templateUrl: "/assets/tutor/partial_dashboard_layout.resume.html",
                 authenticate: true,
                 authenticatedState: "dashboard.resume",
-                defaultState: "tutor"
+                defaultState: "tutor",
             })
             .state('dashboard.calendar', {
                 url: "/calendar",

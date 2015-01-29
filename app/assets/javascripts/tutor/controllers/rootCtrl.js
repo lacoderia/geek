@@ -78,6 +78,10 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
                     if(!SessionService.getActive()) {
                         $state.go('dashboard.user-blocked');
                         return false;
+                    }else{
+                        if($state.current.authenticatedState == 'dashboard.user-blocked'){
+                            $state.go($state.current.defaultAuthenticatedState);
+                        }
                     }
 
                     $scope.createWeekCalendar();
