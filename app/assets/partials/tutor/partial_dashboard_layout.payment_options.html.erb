@@ -83,12 +83,35 @@
       <form name="tutorPaymentOptionsCardForm" id="tutor_payment_options_form" class="dashboard-form validation-form">
         <h3 class="section-subtitle" translate="PAYMENT_LABEL_NEW_CARD_SUBTITLE"></h3>
         <fieldset>
+          <div class="form-group">
+            <div class="left">&nbsp;</div>
+            <div class="right">
+              <div class="accepted-debit-credit-cards">
+                <div class="secure-logos">
+                  <!--ul>
+                    <li><img alt="Seguridad OpenPay" src="/assets/site/secure-logo-7.png"></li>
+                    <li><img alt="MacAfee Secure" src="/assets/site/secure-logo-6.png"></li>
+                  </ul-->
+                </div>
+                <div class="accepted-debit-credit-cards-message">
+                  <span translate="PAYMENT_LABEL_CREDIT_CARD_ACCEPTED"></span>
+                  <ul>
+                    <li><img alt="Visa" src="/assets/site/tarjetas/visa.png"></li>
+                    <li><img alt="MasterCard" src="/assets/site/tarjetas/mastercard.png"></li>
+                    <li><img alt="Carnet" src="/assets/site/tarjetas/carnet.png"></li>
+                    <li><img alt="American Express" src="/assets/site/tarjetas/amex.png"></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+          </div>
           <div class="form-group" show-errors>
             <div class="left">
               <label> {{ 'PAYMENT_LABEL_DEBIT_CARD_HOLDER_NAME' | translate }}:</label>
             </div>
             <div class="right">
-              <input type="text" name="debit_card_holder" ng-model="$parent.debitCardHolder" class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_DEBIT_CARD_HOLDER_NAME' | translate }}" popover-input-name="{{ 'PAYMENT_LABEL_DEBIT_CARD_HOLDER_NAME' | translate }}" required/>
+              <input type="text" name="debit_card_holder" ng-model="debitCardHolder" class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_DEBIT_CARD_HOLDER_NAME' | translate }}" popover-input-name="{{ 'PAYMENT_LABEL_DEBIT_CARD_HOLDER_NAME' | translate }}" required/>
               <span class="popup-trigger" popover="{{tutorPaymentOptionsCardForm.debit_card_holder.popoverMessage}}" popover-trigger="click" popover-animation="false">!</span>
             </div>
           </div>
@@ -98,7 +121,7 @@
               <label>{{ 'PAYMENT_LABEL_DEBIT_CARD_NUMBER' | translate }}:</label>
             </div>
             <div class="right">
-              <input type="text" name="debit_card_number" ng-model="$parent.debitCardNumber" pattern="/^[0-9]+$/" ng-pattern="/^[0-9]+$/" ng-minlength="14" ng-maxlength="16" maxlength="16" class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_DEBIT_CARD_NUMBER' | translate }}" popover-input-name="{{ 'PAYMENT_LABEL_DEBIT_CARD_NUMBER' | translate }}" required/>
+              <input type="text" name="debit_card_number" ng-model="debitCardNumber" pattern="/^[0-9]+$/" ng-pattern="/^[0-9]+$/" ng-minlength="14" ng-maxlength="16" maxlength="16" class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_DEBIT_CARD_NUMBER' | translate }}" popover-input-name="{{ 'PAYMENT_LABEL_DEBIT_CARD_NUMBER' | translate }}" required/>
               <span class="popup-trigger" popover="{{tutorPaymentOptionsCardForm.debit_card_number.popoverMessage}}" popover-trigger="click" popover-animation="false">!</span>
             </div>
           </div>
@@ -146,7 +169,7 @@
             </div>
             <div class="right">
               <div class="input-container-small">
-                <input type="text" name="verification_number" ng-model="$parent.debitCardValidationNumber" ng-pattern="/^[0-9]+$/" ng-minlength="3" ng-maxlength="4" maxlength="4" class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_VERIFICATION_NUMBER' | translate }}" popover-input-name="{{ 'PAYMENT_LABEL_VERIFICATION_NUMBER' | translate }}" required/>
+                <input type="text" name="verification_number" ng-model="debitCardValidationNumber" ng-pattern="/^[0-9]+$/" ng-minlength="3" ng-maxlength="4" maxlength="4" class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_VERIFICATION_NUMBER' | translate }}" popover-input-name="{{ 'PAYMENT_LABEL_VERIFICATION_NUMBER' | translate }}" required/>
                 <span class="popup-trigger" popover="{{tutorPaymentOptionsCardForm.verification_number.popoverMessage}}" popover-trigger="click" popover-animation="false">!</span>
               </div>
             </div>
@@ -157,7 +180,7 @@
               <label> {{ 'PAYMENT_LABEL_ADDRESS' | translate }}:</label>
             </div>
             <div class="right">
-              <input type="text" name="address_line_1" ng-model="$parent.addressLine1"  class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_ADDRESS_LINE_1' | translate }}" popover-input-name="{{ 'PAYMENT_LABEL_ADDRESS' | translate }}" required/>
+              <input type="text" name="address_line_1" ng-model="addressLine1"  class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_ADDRESS_LINE_1' | translate }}" popover-input-name="{{ 'PAYMENT_LABEL_ADDRESS' | translate }}" required/>
               <span class="popup-trigger" popover="{{tutorPaymentOptionsCardForm.address_line_1.popoverMessage}}" popover-trigger="click" popover-animation="false">!</span>
             </div>
           </div>
@@ -165,7 +188,7 @@
           <div class="form-group" show-errors>
             <div class="left"></div>
             <div class="right">
-              <input type="text" name="address_line_2" ng-model="$parent.addressLine2" class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_ADDRESS_LINE_2' | translate }}" popover-input-name="{{ 'PAYMENT_LABEL_ADDRESS' | translate }}" required/>
+              <input type="text" name="address_line_2" ng-model="addressLine2" class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_ADDRESS_LINE_2' | translate }}" popover-input-name="{{ 'PAYMENT_LABEL_ADDRESS' | translate }}" required/>
               <span class="popup-trigger" popover="{{tutorPaymentOptionsCardForm.address_line_2.popoverMessage}}" popover-trigger="click" popover-animation="false">!</span>
             </div>
           </div>
@@ -175,7 +198,7 @@
               <label> {{ 'PAYMENT_LABEL_CITY' | translate }}:</label>
             </div>
             <div class="right">
-              <input type="text" name="city" ng-model="$parent.city"  class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_CITY' | translate }}" popover-input-name="{{ 'PAYMENT_LABEL_CITY' | translate }}" required/>
+              <input type="text" name="city" ng-model="city"  class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_CITY' | translate }}" popover-input-name="{{ 'PAYMENT_LABEL_CITY' | translate }}" required/>
               <span class="popup-trigger" popover="{{tutorPaymentOptionsCardForm.city.popoverMessage}}" popover-trigger="click" popover-animation="false">!</span>
             </div>
           </div>
@@ -205,7 +228,7 @@
               <label> {{ 'PAYMENT_LABEL_POSTAL_CODE' | translate }}:</label>
             </div>
             <div class="right">
-              <input type="text" name="postal_code" ng-model="$parent.postalCode" class="form-input form-control" ng-pattern="/^[0-9]+$/" ng-minlength="5" ng-maxlength="5" maxlength="5" placeholder="{{ 'PAYMENT_PLACEHOLDER_POSTAL_CODE' | translate }}" popover-input-name="{{ 'PAYMENT_LABEL_POSTAL_CODE' | translate }}" required/>
+              <input type="text" name="postal_code" ng-model="postalCode" class="form-input form-control" ng-pattern="/^[0-9]+$/" ng-minlength="5" ng-maxlength="5" maxlength="5" placeholder="{{ 'PAYMENT_PLACEHOLDER_POSTAL_CODE' | translate }}" popover-input-name="{{ 'PAYMENT_LABEL_POSTAL_CODE' | translate }}" required/>
               <span class="popup-trigger" popover="{{tutorPaymentOptionsCardForm.postal_code.popoverMessage}}" popover-trigger="click" popover-animation="false">!</span>
             </div>
           </div>
@@ -233,7 +256,7 @@
               <label> {{ 'PAYMENT_LABEL_BANK_ACCOUNT_OWNER_NAME' | translate }}:</label>
             </div>
             <div class="right">
-              <input type="text" name="bank_account_owner" ng-model="$parent.bankAccountOwner" class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_BANK_ACCOUNT_OWNER_NAME' | translate }}" popover-input-name="{{ 'PAYMENT_LABEL_BANK_ACCOUNT_OWNER_NAME' | translate }}" required/>
+              <input type="text" name="bank_account_owner" ng-model="bankAccountOwner" class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_BANK_ACCOUNT_OWNER_NAME' | translate }}" popover-input-name="{{ 'PAYMENT_LABEL_BANK_ACCOUNT_OWNER_NAME' | translate }}" required/>
               <span class="popup-trigger" popover="{{tutorPaymentOptionsBankForm.bank_account_owner.popoverMessage}}" popover-trigger="click" popover-animation="false">!</span>
             </div>
           </div>
@@ -243,7 +266,7 @@
               <label> {{ 'PAYMENT_PLACEHOLDER_BANK_ACCOUNT_CLABE' | translate }}:</label>
             </div>
             <div class="right">
-              <input type="text" name="bank_account_clabe" ng-model="$parent.clabe" pattern="/^[0-9]+$/" ng-pattern="/^[0-9]+$/" ng-minlength="18" ng-maxlength="18" maxlength="18" class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_BANK_ACCOUNT_CLABE' | translate }}" popover-input-name="{{ 'PAYMENT_PLACEHOLDER_BANK_ACCOUNT_CLABE' | translate }}" required/>
+              <input type="text" name="bank_account_clabe" ng-model="clabe" pattern="/^[0-9]+$/" ng-pattern="/^[0-9]+$/" ng-minlength="18" ng-maxlength="18" maxlength="18" class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_BANK_ACCOUNT_CLABE' | translate }}" popover-input-name="{{ 'PAYMENT_PLACEHOLDER_BANK_ACCOUNT_CLABE' | translate }}" required/>
               <span class="popup-trigger" popover="{{tutorPaymentOptionsBankForm.bank_account_clabe.popoverMessage}}" popover-trigger="click" popover-animation="false">!</span>
             </div>
           </div>
