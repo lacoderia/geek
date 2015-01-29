@@ -198,6 +198,8 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
     .run(function ($rootScope, $state, AuthService, SessionService) {
         $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
 
+            $rootScope.$broadcast('closeAllModals');
+
             if(AuthService.getSessionAttempts() == 0) {
                 if (toState.authenticate && !AuthService.isAuthenticated()){
 

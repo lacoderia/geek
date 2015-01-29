@@ -19,6 +19,11 @@ Geek.directive('ngModalAppointmentRequest', ["$document", "$filter", "$rootScope
                 left:0
             };
 
+            scope.positionOptions = {
+                posY:0,
+                posX:0
+            };
+
             scope.closeAppointmentRequest = function(){
                 scope.modalStyle.top = 0;
                 scope.modalStyle.left = 0;
@@ -61,18 +66,10 @@ Geek.directive('ngModalAppointmentRequest', ["$document", "$filter", "$rootScope
                 },0);
 
                 $timeout(function(){
-                    var dialogHeight = angular.element(element).prop('offsetHeight');
-                    var dialogWidth = angular.element(element).prop('offsetWidth');
+                    scope.positionOptions.posX = options.posX;
+                    scope.positionOptions.posY = options.posY;
 
-                    scope.modalStyle.top = options.posY - dialogHeight - 18;
-
-                    if((options.posX + dialogWidth) > scope.maxWidth){
-                        scope.modalStyle.left = options.posX - dialogWidth + 37;
-                        scope.detailArrowClass = scope.DEFAULT_ARROW_CLASSES[1];
-                    }else{
-                        scope.modalStyle.left = options.posX - 37;
-                        scope.detailArrowClass = scope.DEFAULT_ARROW_CLASSES[0];
-                    }
+                    scope.positionModal();
 
                     scope.sendAppointmentRequest = options.sendAppointmentRequest;
                     scope.remoteSelectCategory = options.selectCategory;
@@ -89,22 +86,50 @@ Geek.directive('ngModalAppointmentRequest', ["$document", "$filter", "$rootScope
 
             };
 
+            scope.positionModal = function() {
+                var dialogHeight = angular.element(element).prop('offsetHeight');
+                var dialogWidth = angular.element(element).prop('offsetWidth');
+
+                scope.modalStyle.top = scope.positionOptions.posY - dialogHeight - 18;
+
+                if((scope.positionOptions.posX + dialogWidth) > scope.maxWidth){
+                    scope.modalStyle.left = scope.positionOptions.posX - dialogWidth + 37;
+                    scope.detailArrowClass = scope.DEFAULT_ARROW_CLASSES[1];
+                }else{
+                    scope.modalStyle.left = scope.positionOptions.posX - 37;
+                    scope.detailArrowClass = scope.DEFAULT_ARROW_CLASSES[0];
+                }
+            };
+
             scope.selectCategory = function(category){
-                scope.selectedCategory = category;
+                $timeout(function(){
+                    scope.selectedCategory = category;
+                },0);
+
+                $timeout(function(){
+                    scope.positionModal();
+                },0);
+
                 scope.remoteSelectCategory(category);
             }
 
             scope.setAlertMessage = function(type, message) {
 
-                if(type !== undefined) {
-                    scope.appointmentAlertMessagesParams = {
-                        type: type,
-                        message: message,
-                        icon: true
-                    };
-                } else {
-                    scope.appointmentAlertMessagesParams = undefined;
-                }
+                $timeout(function(){
+                    if(type !== undefined) {
+                        scope.appointmentAlertMessagesParams = {
+                            type: type,
+                            message: message,
+                            icon: true
+                        };
+                    } else {
+                        scope.appointmentAlertMessagesParams = undefined;
+                    }
+                },0);
+
+                $timeout(function(){
+                    scope.positionModal();
+                },0);
             }
 
             // Listener que realiza las acciones necesarias para cerrar este modal

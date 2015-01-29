@@ -418,11 +418,11 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
 
     $scope.sendMessage = function(appointment, textMessage){
 
-        $timeout(function(){
-            usSpinnerService.spin('message-modal-spinner');
-        }, 0);
-
         if(appointment && textMessage){
+
+            $timeout(function(){
+                usSpinnerService.spin('message-modal-spinner');
+            }, 0);
 
             var message = {
                 tutor_id: SessionService.getId(),
