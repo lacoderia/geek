@@ -23,7 +23,7 @@ ActiveAdmin.register Appointment, :as => "Citas" do
       link_to "#{appointment.tutor.first_name} #{appointment.tutor.last_name}", admin_tutore_path(appointment.tutor)
     end
     column 'Student' do |appointment|
-      link_to "#{appointment.student.first_name} #{appointment.student.last_name}", admin_estudiante_path(appointment.tutor)
+      link_to "#{appointment.student.first_name} #{appointment.student.last_name}", admin_estudiante_path(appointment.student)
     end
     column 'Appointment Status' do |appointment|
       appointment.appointment_status.name
