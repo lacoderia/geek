@@ -2129,7 +2129,6 @@ footer{
       font-size: 25px;
       list-style: none;
       margin: 0px;
-      margin-top: 2em;
       max-width: 300px;
       padding: 0px;
       text-align: center;
@@ -2139,6 +2138,10 @@ footer{
         display: inline-block;
         vertical-align: top;
         width: 30%;
+
+        a:hover{
+          text-decoration: none;
+        }
       }
     }
 
