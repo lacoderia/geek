@@ -231,7 +231,6 @@ Geek.controller('PaymentController',['$scope','$rootScope', '$timeout', '$locati
                             }
                         },
                         function(response){
-
                             console.log('Error saving credit card: ' + response);
 
                             $scope.tutorPaymentAlertParams = {

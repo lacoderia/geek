@@ -71,6 +71,10 @@ Geek.controller('RootController', ["$filter", "$scope", "$rootScope", "$state", 
                     if(!SessionService.getActive()) {
                         $state.go('dashboard.user-blocked');
                         return false;
+                    }else{
+                        if($state.current.authenticatedState == 'dashboard.user-blocked'){
+                            $state.go($state.current.defaultAuthenticatedState);
+                        }
                     }
 
                     MessageService.getPendingConversationsByUserId(SessionService.getId()).then(

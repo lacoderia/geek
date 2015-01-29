@@ -1,5 +1,41 @@
-<div class="messages">
-  <span us-spinner spinner-key="messages-spinner"></span>
+<div class="messages" ng-controller="FAQController">
+    <span us-spinner spinner-key="messages-spinner"></span>
 
-  <h2 class="section-title" translate="FOOTER_FAQ"></h2>
+    <div class="faq">
+      <div class="faq-sections">
+        <ul ng-repeat="faqItem in faqList">
+          <li ng-class="[faqItem.sectionClass]">
+            {{ faqItem.section }}
+          </li>
+        </ul>
+      </div>
+      <div class="faq-answers">
+        <ul ng-if="faqList[0].subsections">
+          <li>{{ faqList[0].questions }}</li>
+        </ul>
+        <ul ng-if="!faqList[0].subsections" class="questions-container" ng-class="[faqList[0].sectionClass]">
+          <li ng-repeat="question in faqList[0].questions">
+            <span class="question">{{ question.q }}</span>
+            <span class="answer">{{ question.a }}</span>
+          </li>
+        </ul>
+      </div>
+      <!--div class="faq-answers">
+      <span class="subsections-container">
+              <ul ng-if="faqItem.subsections">
+                <li>{{ faqItem.questions }}</li>
+              </ul>
+              <ul ng-if="!faqItem.subsections">
+                <li ng-repeat="question in faqItem.questions">
+                  <span class="question">{{ question.q }}</span>
+                  <span class="answer">{{ question.a }}</span>
+                </li>
+              </ul>
+            </span>
+        <ul>
+          <li class="bgcolor-green">Registrate en Geek</li>
+        </ul>
+      </div-->
+    </div>
+
 </div>
