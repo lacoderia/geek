@@ -129,27 +129,29 @@ Geek.controller('AppointmentHistoryController',['$scope','$rootScope', '$timeout
 
     $scope.setAnomaly = function(appointment, anomaly_code, description) {
 
-        $timeout(function(){
-            usSpinnerService.spin('anomaly-modal-spinner');
-        }, 0);
+        if(description){
+            $timeout(function(){
+                usSpinnerService.spin('anomaly-modal-spinner');
+            }, 0);
 
-        var reportedAnomaly = {
-            appointment_id: appointment.id,
-            anomaly_code: anomaly_code,
-            description: description
-        };
+            var reportedAnomaly = {
+                appointment_id: appointment.id,
+                anomaly_code: anomaly_code,
+                description: description
+            };
 
-        AnomalyService.reportAnomaly(reportedAnomaly).then(
-            function(data){
-                appointment.anomaly = data;
-                usSpinnerService.stop('anomaly-modal-spinner');
-                $scope.closeAnomalyDetail();
-            },
-            function(response){
-                usSpinnerService.stop('anomaly-modal-spinner');
-                console.log(response);
-            }
-        );
+            AnomalyService.reportAnomaly(reportedAnomaly).then(
+                function(data){
+                    appointment.anomaly = data;
+                    usSpinnerService.stop('anomaly-modal-spinner');
+                    $scope.closeAnomalyDetail();
+                },
+                function(response){
+                    usSpinnerService.stop('anomaly-modal-spinner');
+                    console.log(response);
+                }
+            );
+        }
 
     };
 
