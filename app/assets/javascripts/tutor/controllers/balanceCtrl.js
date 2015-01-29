@@ -65,18 +65,9 @@ Geek.controller('BalanceController',['$scope','$rootScope', '$timeout', '$filter
                 var errorMessage = "";
                 $scope.confirmTransferView = false;
 
-                switch (response.error_code){
-                    case 4001:
-                        errorMessage = $filter('translate')('ERROR_TUTOR_TRANSFER_NO_BALANCE');
-                        break;
-                    default :
-                        errorMessage = $filter('translate')('ERROR_TUTOR_TRANSFER_GENERAL');
-                        break;
-                }
-
                 $scope.tutorBalanceAlertParams = {
                     type: 'danger',
-                    message: errorMessage,
+                    message: (DEFAULT_VALUES.OPENPAY_ERROR_STATUS[response.error_code])? $filter('translate')(DEFAULT_VALUES.OPENPAY_ERROR_STATUS[response.error_code]): $filter('translate')(DEFAULT_VALUES.OPENPAY_ERROR_STATUS['default']),
                     icon: true
                 };
 

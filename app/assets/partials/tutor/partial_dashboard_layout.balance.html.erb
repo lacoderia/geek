@@ -4,22 +4,22 @@
   <ng-alert id="balance-request" alert-params="tutorBalanceAlertParams"></ng-alert>
 
   <!-- Saldo -->
-  <div class="balance-group" ng-show="balanceInfo">
+  <div class="balance-group" ng-show="balanceInfo && !confirmTransferView">
     <div class="balance-items-group">
       <div class="current-balance-info">
         <div class="balance-info-container">
           <h4 class="current-balance">{{ 'BALANCE_LABEL_CURRENT_BALANCE' | translate }}: {{ getTutorProperty('balanceInfo.balance') | currency }}</h4>
-          <div ng-show="balanceInfo.card.id">
+          <div ng-show="balanceInfo.card">
             <p class="card-info" ng-if="!balanceInfo.card.is_bank_account">{{ 'BALANCE_LABEL_CURRENT_ACCOUNT' | translate }}: XXXX-XXXX-XXXX-{{ getTutorProperty('balanceInfo.card.card_number') }}</p>
             <p class="card-info" ng-if="balanceInfo.card.is_bank_account">{{ 'BALANCE_LABEL_CURRENT_ACCOUNT' | translate }}: XXXXXXXXXXXXXX{{ getTutorProperty('balanceInfo.card.card_number') }}</p>
           </div>
         </div>
-        <fieldset ng-show="balanceInfo.card.id">
+        <fieldset ng-show="balanceInfo.card && balanceInfo.balance>8">
           <div class="action-button-holder">
             <a class="action-button action-button-light-green" title="{{ 'BALANCE_LABEL_TRANSFER_MONEY' | translate }}" ng-click="confirmTransfer()"><span class="icon-coin-dollar"></span> {{ 'BALANCE_LABEL_TRANSFER_MONEY' | translate }}</a>
           </div>
         </fieldset>
-        <div class="unavailable-resume-items-message" ng-show="!balanceInfo.card.id">
+        <div class="unavailable-resume-items-message" ng-show="!balanceInfo.card">
             <p>{{ 'UNAVAILABLE_MESSAGE_COLLECT_NO_METHODS_TUTOR' | translate }}</p>
         </div>
       </div>
