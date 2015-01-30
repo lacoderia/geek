@@ -285,11 +285,11 @@ Geek.controller('MyAppointmentsController',['$compile', '$filter', '$scope','$ro
 
     $scope.sendMessage = function(tutor, textMessage){
 
-        $timeout(function(){
-            usSpinnerService.spin('message-modal-spinner');
-        }, 0);
-
         if(textMessage){
+
+            $timeout(function(){
+                usSpinnerService.spin('message-modal-spinner');
+            }, 0);
 
             var message = {
                 tutor_id: tutor.id,

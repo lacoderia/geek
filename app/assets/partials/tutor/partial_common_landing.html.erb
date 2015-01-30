@@ -1,0 +1,82 @@
+<div class="container"ng-controller="NavigationController as navigationCtrl">
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <p class="what-is-geek-title" translate="LANDING_WHAT_IS_GEEK_TUTOR"></p>
+      <div class="bgcolor-light-gray section-search">
+        <img src="/assets/site/geek.png" alt="Geek" class="search-image hidden-xs">
+        <div>
+          <h2 class="hidden-xs">geek</h2>
+          <h3 translate="WHAT_TO_TEACH"></h3>
+          <p translate="LANDING_TUTOR_MESSAGE"></p>
+          <form>
+            <a class="search-button icon-pointer" ng-click="showSignInModal('signUp')" translate="SIGN_UP"></a>
+          </form>
+        </div>
+        <img src="/assets/site/geek.png" alt="Geek" class="search-image hidden-lg hidden-md hidden-sm">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bgcolor-separator-gray separator-slim"></div>
+<div class="bgcolor-light-orange separator"></div>
+
+<div class="container-fluid">
+  <div class="row half-row">
+    <div class="section-how-it-works">
+      <div class="step-container col-lg-6 col-md-6 col-sm-6">
+        <div class="title-content"><span class="number">1</span><span class="title" translate="TUTOR_HOW_STEP_1_TITLE"></span></div>
+        <div class="description" translate="TUTOR_HOW_STEP_1"></div>
+        <div><img src="/assets/site/how-1.png" alt="Busca" class="left"></div>
+        <span class="control-arrow control-right-arrow"></span>
+      </div>
+      <div class="step-container col-lg-6 col-md-6 col-sm-6">
+        <div class="title-content"><span class="number">2</span><span class="title" translate="TUTOR_HOW_STEP_2_TITLE"></span></div>
+        <div class="description" translate="TUTOR_HOW_STEP_2"></div>
+        <div><img src="/assets/site/how-2.png" alt="Busca" class="right"></div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="row half-row-inverted">
+    <div class="section-how-it-works">
+      <div class="step-container col-lg-6 col-md-6 col-sm-6">
+        <div class="title-content"><span class="number">3</span><span class="title" translate="TUTOR_HOW_STEP_3_TITLE"></span></div>
+        <div class="description" translate="TUTOR_HOW_STEP_3"></div>
+        <div><img src="/assets/site/how-3.png" alt="Busca" class="left"></div>
+        <span class="control-arrow control-right-arrow"></span>
+      </div>
+      <div class="step-container col-lg-6 col-md-6 col-sm-6">
+        <div class="title-content"><span class="number">4</span><span class="title" translate="TUTOR_HOW_STEP_4_TITLE"></span></div>
+        <div class="description" translate="TUTOR_HOW_STEP_4"></div>
+        <div><img src="/assets/site/how-4.png" alt="Busca" class="right"></div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid video-wrapper" ng-hide="tutorResultListVisible">
+  <div class="row">
+    <div class="section-video">
+      <div class="col-lg-12 col-md-12 col-sm-12 columns">
+        <h3 class="title-element text-color-white" translate="TUTOR_WHAT_TITLE"></h3>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-container columns">
+        <ul>
+          <li class="text-color-landing-dark-red"><span><img src="/assets/site/landing-tutor-video-1.png" alt="Consigue más alumnos"></span><span translate="TUTOR_WHAT_STEP_1"></span></li>
+          <li class="text-color-white bgcolor-landing-medium-red"><span><img src="/assets/site/landing-tutor-video-2.png" alt="Organízate y se más eficiente con tu tiempo"></span><span translate="TUTOR_WHAT_STEP_2"></span></li>
+          <li class="text-color-white bgcolor-landing-medium-2-red"><span><img src="/assets/site/landing-tutor-video-3.png" alt="Desentiéndete del proceso de cobro"></span><span translate="TUTOR_WHAT_STEP_3"></span></li>
+          <li class="text-color-landing-medium-red"><span><img src="/assets/site/landing-tutor-video-4.png" alt="Forma parte de una comunidad educativa"></span><span translate="TUTOR_WHAT_STEP_4"></span></li>
+        </ul>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 video-container columns">
+        <iframe src="//player.vimeo.com/video/113034804" width="400" height="320" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

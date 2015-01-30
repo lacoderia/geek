@@ -1,41 +1,37 @@
 <div class="messages" ng-controller="FAQController">
-    <span us-spinner spinner-key="messages-spinner"></span>
 
-    <div class="faq">
-      <div class="faq-sections">
-        <ul ng-repeat="faqItem in faqList">
-          <li ng-class="[faqItem.sectionClass]">
-            {{ faqItem.section }}
-          </li>
-        </ul>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 section-dashboard-container">
+        <div class="faq">
+          <h2 class="section-title ng-scope" translate="FOOTER_FAQ"></h2>
+          <div class="faq-sections">
+            <ul ng-repeat="faqItem in faqList">
+              <li ng-click="setSelectedSection(faqItem)" ng-class="[faqItem.sectionClass]">
+                <span class="section-title">{{ faqItem.section | translate }}</span><span class="control-arrow control-right-arrow"></span>
+              </li>
+            </ul>
+          </div>
+          <div class="faq-answers">
+            <ul ng-if="selectedSection" class="questions-container" ng-class="[selectedSection.sectionClass]">
+              <li ng-repeat="question in selectedSection.questions">
+                <span class="pointer" ng-click="setQuestionSelected(question)"><span class="question" bind-html-unsafe="question.q" ng-click="setQuestionSelected(question)" translate></span><span class="control-arrow" ng-class="{true:'control-down-arrow-white', false:'control-right-arrow-one-white'}[isQuestionSelected(question)]"></span></span>
+                <span class="answer" bind-html-unsafe="question.a" translate ng-show="isQuestionSelected(question)"></span>
+              </li>
+              <li ng-repeat="subsection in selectedSection.subsections">
+                <span class="subtitle">{{ subsection.subtitle | translate }}</span>
+                <ul>
+                  <li ng-repeat="question in subsection.questions">
+                    <span class="pointer" ng-click="setQuestionSelected(question)"><span class="question" translate>{{question.q}} </span><span class="control-arrow" ng-class="{true:'control-down-arrow-white', false:'control-right-arrow-one-white'}[isQuestionSelected(question)]"></span></span>
+                    <span class="answer" ng-show="isQuestionSelected(question)" translate >{{question.a}}</span>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
-      <div class="faq-answers">
-        <ul ng-if="faqList[0].subsections">
-          <li>{{ faqList[0].questions }}</li>
-        </ul>
-        <ul ng-if="!faqList[0].subsections" class="questions-container" ng-class="[faqList[0].sectionClass]">
-          <li ng-repeat="question in faqList[0].questions">
-            <span class="question">{{ question.q }}</span>
-            <span class="answer">{{ question.a }}</span>
-          </li>
-        </ul>
-      </div>
-      <!--div class="faq-answers">
-      <span class="subsections-container">
-              <ul ng-if="faqItem.subsections">
-                <li>{{ faqItem.questions }}</li>
-              </ul>
-              <ul ng-if="!faqItem.subsections">
-                <li ng-repeat="question in faqItem.questions">
-                  <span class="question">{{ question.q }}</span>
-                  <span class="answer">{{ question.a }}</span>
-                </li>
-              </ul>
-            </span>
-        <ul>
-          <li class="bgcolor-green">Registrate en Geek</li>
-        </ul>
-      </div-->
     </div>
+  </div>
 
 </div>

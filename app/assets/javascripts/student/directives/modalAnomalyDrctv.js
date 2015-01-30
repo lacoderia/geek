@@ -19,7 +19,7 @@ Geek.directive('ngModalAnomaly', ["$filter", "$rootScope", "$timeout", "$window"
                                   {name: $filter('translate')('POPUP_ANOMALY_REPORT_NO_SHOW'), code: "1"},
                                   {name: $filter('translate')('POPUP_ANOMALY_REPORT_OTHER'), code: "3"}];
 
-            scope.detailArrowClass = scope.DEFAULT_ARROW_CLASSES[0];
+            scope.detailArrowClass = undefined;
             scope.modalStyle = {
                 top:0,
                 left:0
@@ -57,6 +57,9 @@ Geek.directive('ngModalAnomaly', ["$filter", "$rootScope", "$timeout", "$window"
                     $rootScope.$broadcast('closeAllModals');
                 },0);
 
+                // Ocultamos el dropdown antes de abrir el modal
+                $rootScope.closeDropdown($(event.target));
+
                 // Detenemos la propagación del evento click para evitar que el bind al final del metodo se ejecute
                 $event.stopPropagation();
 
@@ -73,10 +76,10 @@ Geek.directive('ngModalAnomaly', ["$filter", "$rootScope", "$timeout", "$window"
 
                     if((options.posX + dialogWidth) > scope.maxWidth){
                         scope.modalStyle.left = options.posX - dialogWidth + 37;
-                        scope.detailArrowClass = scope.DEFAULT_ARROW_CLASSES[1];
+                        scope.detailArrowClass = undefined;
                     }else{
                         scope.modalStyle.left = options.posX - 37;
-                        scope.detailArrowClass = scope.DEFAULT_ARROW_CLASSES[0];
+                        scope.detailArrowClass = undefined;
                     }
                 },0);
 

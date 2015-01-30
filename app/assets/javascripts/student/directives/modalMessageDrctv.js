@@ -19,6 +19,11 @@ Geek.directive('ngModalMessage', ["$rootScope", "$timeout", "$window", "$documen
                 left:0
             };
 
+            scope.positionOptions = {
+                posY:0,
+                posX:0
+            };
+
             scope.selectedTutorMessage = null;
             scope.message = undefined;
 
@@ -57,18 +62,10 @@ Geek.directive('ngModalMessage', ["$rootScope", "$timeout", "$window", "$documen
 
 
                 $timeout(function(){
-                    var dialogHeight = angular.element(element).prop('offsetHeight');
-                    var dialogWidth = angular.element(element).prop('offsetWidth');
+                    scope.positionOptions.posX = options.posX;
+                    scope.positionOptions.posY = options.posY;
 
-                    scope.modalStyle.top = options.posY - dialogHeight - 18;
-
-                    if((options.posX + dialogWidth) > scope.maxWidth){
-                        scope.modalStyle.left = options.posX - dialogWidth + 37;
-                        scope.detailArrowClass = scope.DEFAULT_ARROW_CLASSES[1];
-                    }else{
-                        scope.modalStyle.left = options.posX - 37;
-                        scope.detailArrowClass = scope.DEFAULT_ARROW_CLASSES[0];
-                    }
+                    scope.positionModal();
                 },0);
 
                 // Detenemos la propagación para que el evento click sobre $document no cierre el modal
@@ -86,8 +83,29 @@ Geek.directive('ngModalMessage', ["$rootScope", "$timeout", "$window", "$documen
 
             };
 
+            scope.positionModal = function() {
+                var dialogHeight = angular.element(element).prop('offsetHeight');
+                var dialogWidth = angular.element(element).prop('offsetWidth');
+
+                scope.modalStyle.top = scope.positionOptions.posY - dialogHeight - 18;
+
+                if((scope.positionOptions.posX + dialogWidth) > scope.maxWidth){
+                    scope.modalStyle.left = scope.positionOptions.posX - dialogWidth + 37;
+                    scope.detailArrowClass = scope.DEFAULT_ARROW_CLASSES[1];
+                }else{
+                    scope.modalStyle.left = scope.positionOptions.posX - 37;
+                    scope.detailArrowClass = scope.DEFAULT_ARROW_CLASSES[0];
+                }
+            };
+
             scope.setAlert = function(alertParams){
-                scope.messageAlertMessagesParams = alertParams;
+                $timeout(function(){
+                    scope.messageAlertMessagesParams = alertParams;
+                },0);
+
+                $timeout(function(){
+                    scope.positionModal();
+                },0);
             };
 
             scope.resetMessage = function(){

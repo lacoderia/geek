@@ -191,11 +191,155 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
             4001: 'ERROR_OPENPAY_TRANSFER_NO_BALANCE',
             'default': 'ERROR_OPENPAY_GENERAL_ERROR'
 
-        }
+        },
+        'FAQ': [
+            {section: 'FAQ_GENERAL',sectionClass: 'bgcolor-green',subtitle: undefined,
+                questions: [
+                    {q:'FAQ_GENERAL_Q_1', a:'FAQ_GENERAL_A_1'},
+                    {q:'FAQ_GENERAL_Q_2', a:'FAQ_GENERAL_A_2'},
+                    {q:'FAQ_GENERAL_Q_3', a:'FAQ_GENERAL_A_3'}
+                ]
+            },
+            {
+                section: 'FAQ_STUDENTS',sectionClass: 'bgcolor-blue',
+                subsections: [
+                    {
+                        subtitle: 'FAQ_STUDENTS_T_1',
+                        questions: [
+                            {q:'FAQ_STUDENTS_T_1_Q_1', a:'FAQ_STUDENTS_T_1_A_1'},
+                            {q:'FAQ_STUDENTS_T_1_Q_2', a:'FAQ_STUDENTS_T_1_A_2'},
+                            {q:'FAQ_STUDENTS_T_1_Q_3', a:'FAQ_STUDENTS_T_1_A_3'}
+                        ]
+                    },
+                    {
+                        subtitle: 'FAQ_STUDENTS_T_2',
+                        questions: [
+                            {q:'FAQ_STUDENTS_T_2_Q_1', a:'FAQ_STUDENTS_T_2_A_1'},
+                            {q:'FAQ_STUDENTS_T_2_Q_2', a:'FAQ_STUDENTS_T_2_A_2'},
+                            {q:'FAQ_STUDENTS_T_2_Q_3', a:'FAQ_STUDENTS_T_2_A_3'},
+                            {q:'FAQ_STUDENTS_T_2_Q_4', a:'FAQ_STUDENTS_T_2_A_4'},
+                            {q:'FAQ_STUDENTS_T_2_Q_5', a:'FAQ_STUDENTS_T_2_A_5'},
+                            {q:'FAQ_STUDENTS_T_2_Q_6', a:'FAQ_STUDENTS_T_2_A_6'},
+                            {q:'FAQ_STUDENTS_T_2_Q_7', a:'FAQ_STUDENTS_T_2_A_7'},
+                            {q:'FAQ_STUDENTS_T_2_Q_8', a:'FAQ_STUDENTS_T_2_A_8'}
+                        ]
+                    },
+                    {
+                        subtitle: 'FAQ_STUDENTS_T_3',
+                        questions: [
+                            {q:'FAQ_STUDENTS_T_3_Q_1', a:'FAQ_STUDENTS_T_3_A_1'},
+                            {q:'FAQ_STUDENTS_T_3_Q_2', a:'FAQ_STUDENTS_T_3_A_2'},
+                            {q:'FAQ_STUDENTS_T_3_Q_3', a:'FAQ_STUDENTS_T_3_A_3'},
+                            {q:'FAQ_STUDENTS_T_3_Q_4', a:'FAQ_STUDENTS_T_3_A_4'},
+                            {q:'FAQ_STUDENTS_T_3_Q_5', a:'FAQ_STUDENTS_T_3_A_5'},
+                            {q:'FAQ_STUDENTS_T_3_Q_6', a:'FAQ_STUDENTS_T_3_A_6'},
+                            {q:'FAQ_STUDENTS_T_3_Q_7', a:'FAQ_STUDENTS_T_3_A_7'},
+                            {q:'FAQ_STUDENTS_T_3_Q_8', a:'FAQ_STUDENTS_T_3_A_8'},
+                            {q:'FAQ_STUDENTS_T_3_Q_9', a:'FAQ_STUDENTS_T_3_A_9'},
+                            {q:'FAQ_STUDENTS_T_3_Q_10', a:'FAQ_STUDENTS_T_3_A_10'},
+                            {q:'FAQ_STUDENTS_T_3_Q_11', a:'FAQ_STUDENTS_T_3_A_11'},
+                            {q:'FAQ_STUDENTS_T_3_Q_12', a:'FAQ_STUDENTS_T_3_A_12'}
+                        ]
+                    },
+                    {
+                        subtitle: 'FAQ_STUDENTS_T_4',
+                        questions: [
+                            {q:'FAQ_STUDENTS_T_4_Q_1', a:'FAQ_STUDENTS_T_4_A_1'},
+                            {q:'FAQ_STUDENTS_T_4_Q_2', a:'FAQ_STUDENTS_T_4_A_2'},
+                            {q:'FAQ_STUDENTS_T_4_Q_3', a:'FAQ_STUDENTS_T_4_A_3'},
+                            {q:'FAQ_STUDENTS_T_4_Q_4', a:'FAQ_STUDENTS_T_4_A_4'},
+                            {q:'FAQ_STUDENTS_T_4_Q_5', a:'FAQ_STUDENTS_T_4_A_5'},
+                            {q:'FAQ_STUDENTS_T_4_Q_6', a:'FAQ_STUDENTS_T_4_A_6'},
+                            {q:'FAQ_STUDENTS_T_4_Q_7', a:'FAQ_STUDENTS_T_4_A_7'},
+                            {q:'FAQ_STUDENTS_T_4_Q_8', a:'FAQ_STUDENTS_T_4_A_8'},
+                            {q:'FAQ_STUDENTS_T_4_Q_9', a:'FAQ_STUDENTS_T_4_A_9'},
+                            {q:'FAQ_STUDENTS_T_4_Q_10', a:'FAQ_STUDENTS_T_4_A_10'}
+                        ]
+                    },
+                    {
+                        subtitle: 'FAQ_STUDENTS_T_5',
+                        questions: [
+                            {q:'FAQ_STUDENTS_T_5_Q_1', a:'FAQ_STUDENTS_T_5_A_1'},
+                            {q:'FAQ_STUDENTS_T_5_Q_2', a:'FAQ_STUDENTS_T_5_A_2'},
+                            {q:'FAQ_STUDENTS_T_5_Q_3', a:'FAQ_STUDENTS_T_5_A_3'},
+                            {q:'FAQ_STUDENTS_T_5_Q_4', a:'FAQ_STUDENTS_T_5_A_4'}
+                        ]
+                    }
+                ],
+                questions:[]
+            },
+            {
+                section: 'FAQ_TUTORS',sectionClass: 'bgcolor-orange',
+                subsections: [
+                    {
+                        subtitle: 'FAQ_TUTORS_T_1',
+                        questions: [
+                            {q:'FAQ_TUTORS_T_1_Q_1', a:'FAQ_TUTORS_T_1_A_1'},
+                            {q:'FAQ_TUTORS_T_1_Q_2', a:'FAQ_TUTORS_T_1_A_2'},
+                            {q:'FAQ_TUTORS_T_1_Q_3', a:'FAQ_TUTORS_T_1_A_3'},
+                            {q:'FAQ_TUTORS_T_1_Q_4', a:'FAQ_TUTORS_T_1_A_4'},
+                            {q:'FAQ_TUTORS_T_1_Q_5', a:'FAQ_TUTORS_T_1_A_5'},
+                            {q:'FAQ_TUTORS_T_1_Q_6', a:'FAQ_TUTORS_T_1_A_6'},
+                            {q:'FAQ_TUTORS_T_1_Q_7', a:'FAQ_TUTORS_T_1_A_7'},
+                            {q:'FAQ_TUTORS_T_1_Q_8', a:'FAQ_TUTORS_T_1_A_8'},
+                            {q:'FAQ_TUTORS_T_1_Q_9', a:'FAQ_TUTORS_T_1_A_9'},
+                            {q:'FAQ_TUTORS_T_1_Q_10', a:'FAQ_TUTORS_T_1_A_10'},
+                            {q:'FAQ_TUTORS_T_1_Q_11', a:'FAQ_TUTORS_T_1_A_11'},
+                            {q:'FAQ_TUTORS_T_1_Q_12', a:'FAQ_TUTORS_T_1_A_12'},
+                            {q:'FAQ_TUTORS_T_1_Q_13', a:'FAQ_TUTORS_T_1_A_13'},
+                            {q:'FAQ_TUTORS_T_1_Q_14', a:'FAQ_TUTORS_T_1_A_14'},
+                            {q:'FAQ_TUTORS_T_1_Q_15', a:'FAQ_TUTORS_T_1_A_15'}
+                        ]
+                    },
+                    {
+                        subtitle: 'FAQ_TUTORS_T_2',
+                        questions: [
+                            {q:'FAQ_TUTORS_T_2_Q_1', a:'FAQ_TUTORS_T_2_A_1'},
+                            {q:'FAQ_TUTORS_T_2_Q_2', a:'FAQ_TUTORS_T_2_A_2'},
+                            {q:'FAQ_TUTORS_T_2_Q_3', a:'FAQ_TUTORS_T_2_A_3'},
+                            {q:'FAQ_TUTORS_T_2_Q_4', a:'FAQ_TUTORS_T_2_A_4'},
+                            {q:'FAQ_TUTORS_T_2_Q_5', a:'FAQ_TUTORS_T_2_A_5'},
+                            {q:'FAQ_TUTORS_T_2_Q_6', a:'FAQ_TUTORS_T_2_A_6'}
+                        ]
+                    },
+                    {
+                        subtitle: 'FAQ_TUTORS_T_3',
+                        questions: [
+                            {q:'FAQ_TUTORS_T_3_Q_1', a:'FAQ_TUTORS_T_3_A_1'},
+                            {q:'FAQ_TUTORS_T_3_Q_2', a:'FAQ_TUTORS_T_3_A_2'},
+                            {q:'FAQ_TUTORS_T_3_Q_3', a:'FAQ_TUTORS_T_3_A_3'},
+                            {q:'FAQ_TUTORS_T_3_Q_4', a:'FAQ_TUTORS_T_3_A_4'},
+                            {q:'FAQ_TUTORS_T_3_Q_5', a:'FAQ_TUTORS_T_3_A_5'},
+                            {q:'FAQ_TUTORS_T_3_Q_6', a:'FAQ_TUTORS_T_3_A_6'},
+                            {q:'FAQ_TUTORS_T_3_Q_7', a:'FAQ_TUTORS_T_3_A_7'},
+                            {q:'FAQ_TUTORS_T_3_Q_8', a:'FAQ_TUTORS_T_3_A_8'}
+                        ]
+                    },
+                    {
+                        subtitle: 'FAQ_TUTORS_T_4',
+                        questions: [
+                            {q:'FAQ_STUDENTS_T_4_Q_1', a:'FAQ_STUDENTS_T_4_A_1'},
+                            {q:'FAQ_STUDENTS_T_4_Q_2', a:'FAQ_STUDENTS_T_4_A_2'},
+                            {q:'FAQ_STUDENTS_T_4_Q_3', a:'FAQ_STUDENTS_T_4_A_3'},
+                            {q:'FAQ_STUDENTS_T_4_Q_4', a:'FAQ_STUDENTS_T_4_A_4'},
+                            {q:'FAQ_STUDENTS_T_4_Q_5', a:'FAQ_STUDENTS_T_4_A_5'},
+                            {q:'FAQ_STUDENTS_T_4_Q_6', a:'FAQ_STUDENTS_T_4_A_6'},
+                            {q:'FAQ_STUDENTS_T_4_Q_7', a:'FAQ_STUDENTS_T_4_A_7'},
+                            {q:'FAQ_STUDENTS_T_4_Q_8', a:'FAQ_STUDENTS_T_4_A_8'},
+                            {q:'FAQ_STUDENTS_T_4_Q_9', a:'FAQ_STUDENTS_T_4_A_9'},
+                            {q:'FAQ_STUDENTS_T_4_Q_10', a:'FAQ_STUDENTS_T_4_A_10'}
+                        ]
+                    },
+                ],
+                questions:[]
+            }
+        ]
     })
 
     .run(function ($rootScope, $state, AuthService, SessionService) {
         $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
+
+            $rootScope.$broadcast('closeAllModals');
 
             if(AuthService.getSessionAttempts() == 0) {
                 if (toState.authenticate && !AuthService.isAuthenticated()){
@@ -207,6 +351,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
                             if(data && data.id){
                                 SessionService.createSession(data.id, data.active, data.balance, data.email, data.first_name, data.last_name, data.gender, data.phone_number, data.details, data.picture, data.picture_url, data.preference, data.references, data.request, data.background, data.categories, data.counties);
                                 $state.go(toState.authenticatedState, toParams);
+
                             }else{
                                 $state.go(toState.defaultState);
                             }
@@ -234,7 +379,60 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
                 controller: "RootController",
                 authenticate: true,
                 authenticatedState: "dashboard.resume",
-                defaultState: "tutor"
+                defaultState: "tutor.landing"
+            })
+            .state('tutor.landing',{
+                url: "/landing",
+                templateUrl: "/assets/tutor/partial_common_landing.html",
+                authenticate: true,
+                authenticatedState: "dashboard.resume",
+                defaultState: "tutor.landing"
+            })
+            .state('tutor.faq', {
+                url: "/faq",
+                templateUrl: "/assets/tutor/partial_common_faq.html",
+                authenticate: true,
+                authenticatedState: "tutor.faq",
+                defaultState: "tutor.faq"
+            })
+            .state('tutor.about-us', {
+                url: "/about-us",
+                templateUrl: "/assets/tutor/partial_common_about_us.html",
+                authenticate: true,
+                authenticatedState: "tutor.about-us",
+                defaultState: "tutor.about-us"
+            })
+            .state('tutor.contact', {
+                url: "/contact",
+                templateUrl: "/assets/tutor/partial_common_contact.html"
+            })
+            .state('tutor.help', {
+                url: "/help",
+                templateUrl: "/assets/tutor/partial_common_help.html",
+                authenticate: true,
+                authenticatedState: "tutor.help",
+                defaultState: "tutor.help"
+            })
+            .state('tutor.cancellation-policy', {
+                url: "/cancellation_policy",
+                templateUrl: "/assets/tutor/partial_common_cancellation_policy.html",
+                authenticate: true,
+                authenticatedState: "tutor.cancellation-policy",
+                defaultState: "tutor.cancellation-policy"
+            })
+            .state('tutor.terms', {
+                url: "/terms",
+                templateUrl: "/assets/tutor/partial_common_terms.html",
+                authenticate: true,
+                authenticatedState: "tutor.terms",
+                defaultState: "tutor.terms"
+            })
+            .state('tutor.privacy', {
+                url: "/privacy",
+                templateUrl: "/assets/tutor/partial_common_privacy.html",
+                authenticate: true,
+                authenticatedState: "tutor.privacy",
+                defaultState: "tutor.privacy"
             })
             .state('dashboard', {
                 url: "/dashboard",
@@ -243,11 +441,17 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
             })
             .state('dashboard.faq', {
                 url: "/faq",
-                templateUrl: "/assets/tutor/pa  rtial_common_faq.html"
+                templateUrl: "/assets/tutor/partial_common_faq.html",
+                authenticate: true,
+                authenticatedState: "dashboard.faq",
+                defaultState: "tutor.faq"
             })
             .state('dashboard.about-us', {
                 url: "/about-us",
-                templateUrl: "/assets/tutor/partial_common_about_us.html"
+                templateUrl: "/assets/tutor/partial_common_about_us.html",
+                authenticate: true,
+                authenticatedState: "dashboard.about-us",
+                defaultState: "tutor.about-us"
             })
             .state('dashboard.contact', {
                 url: "/contact",
@@ -255,22 +459,39 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
             })
             .state('dashboard.help', {
                 url: "/help",
-                templateUrl: "/assets/tutor/partial_common_help.html"
+                templateUrl: "/assets/tutor/partial_common_help.html",
+                authenticate: true,
+                authenticatedState: "dashboard.help",
+                defaultState: "tutor.help"
             })
             .state('dashboard.terms', {
                 url: "/terms",
-                templateUrl: "/assets/tutor/partial_common_terms.html"
+                templateUrl: "/assets/tutor/partial_common_terms.html",
+                authenticate: true,
+                authenticatedState: "dashboard.terms",
+                defaultState: "tutor.terms"
+            })
+            .state('dashboard.cancellation-policy', {
+                url: "/cancellation_policy",
+                templateUrl: "/assets/tutor/partial_common_cancellation_policy.html",
+                authenticate: true,
+                authenticatedState: "dashboard.cancellation-policy",
+                defaultState: "tutor.cancellation-policy"
             })
             .state('dashboard.privacy', {
                 url: "/privacy",
-                templateUrl: "/assets/tutor/partial_common_privacy.html"
+                templateUrl: "/assets/tutor/partial_common_privacy.html",
+                authenticate: true,
+                authenticatedState: "dashboard.privacy",
+                defaultState: "tutor.privacy"
             })
             .state('dashboard.user-blocked', {
                 url: "/user-blocked",
                 templateUrl: "/assets/tutor/partial_dashboard_layout.user_blocked.html",
                 authenticate: true,
                 authenticatedState: "dashboard.user-blocked",
-                defaultState: "tutor"
+                defaultState: "tutor",
+                defaultAuthenticatedState: 'dashboard.resume'
             })
             .state('dashboard.resume',{
                 url: "/resume",
