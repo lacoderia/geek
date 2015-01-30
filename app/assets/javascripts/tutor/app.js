@@ -392,7 +392,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
                 url: "/faq",
                 templateUrl: "/assets/tutor/partial_common_faq.html",
                 authenticate: true,
-                authenticatedState: "student.faq",
+                authenticatedState: "tutor.faq",
                 defaultState: "tutor.faq"
             })
             .state('tutor.about-us', {
