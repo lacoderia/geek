@@ -3286,6 +3286,15 @@ footer{
   margin: 0.2em 0em;
   min-height: 390px;
   padding: 3em 5em;
+
+  .container{
+    width: 100%;
+  }
+
+  .section-dashboard-container{
+    margin: 0;
+    padding: 0;
+  }
 }
 
 .terms_conditions{
