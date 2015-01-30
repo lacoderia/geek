@@ -237,7 +237,60 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
                 controller: "RootController",
                 authenticate: true,
                 authenticatedState: "dashboard.resume",
-                defaultState: "tutor"
+                defaultState: "tutor.landing"
+            })
+            .state('tutor.landing',{
+                url: "/landing",
+                templateUrl: "/assets/tutor/partial_common_landing.html",
+                authenticate: true,
+                authenticatedState: "dashboard.resume",
+                defaultState: "tutor.landing"
+            })
+            .state('tutor.faq', {
+                url: "/faq",
+                templateUrl: "/assets/tutor/partial_common_faq.html",
+                authenticate: true,
+                authenticatedState: "student.faq",
+                defaultState: "tutor.faq"
+            })
+            .state('tutor.about-us', {
+                url: "/about-us",
+                templateUrl: "/assets/tutor/partial_common_about_us.html",
+                authenticate: true,
+                authenticatedState: "tutor.about-us",
+                defaultState: "tutor.about-us"
+            })
+            .state('tutor.contact', {
+                url: "/contact",
+                templateUrl: "/assets/tutor/partial_common_contact.html"
+            })
+            .state('tutor.help', {
+                url: "/help",
+                templateUrl: "/assets/tutor/partial_common_help.html",
+                authenticate: true,
+                authenticatedState: "tutor.help",
+                defaultState: "tutor.help"
+            })
+            .state('tutor.cancellation-policy', {
+                url: "/cancellation_policy",
+                templateUrl: "/assets/tutor/partial_common_cancellation_policy.html",
+                authenticate: true,
+                authenticatedState: "tutor.cancellation-policy",
+                defaultState: "tutor.cancellation-policy"
+            })
+            .state('tutor.terms', {
+                url: "/terms",
+                templateUrl: "/assets/tutor/partial_common_terms.html",
+                authenticate: true,
+                authenticatedState: "tutor.terms",
+                defaultState: "tutor.terms"
+            })
+            .state('tutor.privacy', {
+                url: "/privacy",
+                templateUrl: "/assets/tutor/partial_common_privacy.html",
+                authenticate: true,
+                authenticatedState: "tutor.privacy",
+                defaultState: "tutor.privacy"
             })
             .state('dashboard', {
                 url: "/dashboard",
@@ -246,11 +299,17 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
             })
             .state('dashboard.faq', {
                 url: "/faq",
-                templateUrl: "/assets/tutor/partial_common_faq.html"
+                templateUrl: "/assets/tutor/partial_common_faq.html",
+                authenticate: true,
+                authenticatedState: "dashboard.faq",
+                defaultState: "tutor.faq"
             })
             .state('dashboard.about-us', {
                 url: "/about-us",
-                templateUrl: "/assets/tutor/partial_common_about_us.html"
+                templateUrl: "/assets/tutor/partial_common_about_us.html",
+                authenticate: true,
+                authenticatedState: "dashboard.about-us",
+                defaultState: "tutor.about-us"
             })
             .state('dashboard.contact', {
                 url: "/contact",
@@ -258,15 +317,31 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
             })
             .state('dashboard.help', {
                 url: "/help",
-                templateUrl: "/assets/tutor/partial_common_help.html"
+                templateUrl: "/assets/tutor/partial_common_help.html",
+                authenticate: true,
+                authenticatedState: "dashboard.help",
+                defaultState: "tutor.help"
             })
             .state('dashboard.terms', {
                 url: "/terms",
-                templateUrl: "/assets/tutor/partial_common_terms.html"
+                templateUrl: "/assets/tutor/partial_common_terms.html",
+                authenticate: true,
+                authenticatedState: "dashboard.terms",
+                defaultState: "tutor.terms"
+            })
+            .state('dashboard.cancellation-policy', {
+                url: "/cancellation_policy",
+                templateUrl: "/assets/tutor/partial_common_cancellation_policy.html",
+                authenticate: true,
+                authenticatedState: "dashboard.cancellation-policy",
+                defaultState: "tutor.cancellation-policy"
             })
             .state('dashboard.privacy', {
                 url: "/privacy",
-                templateUrl: "/assets/tutor/partial_common_privacy.html"
+                templateUrl: "/assets/tutor/partial_common_privacy.html",
+                authenticate: true,
+                authenticatedState: "dashboard.privacy",
+                defaultState: "tutor.privacy"
             })
             .state('dashboard.user-blocked', {
                 url: "/user-blocked",
@@ -281,7 +356,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
                 templateUrl: "/assets/tutor/partial_dashboard_layout.resume.html",
                 authenticate: true,
                 authenticatedState: "dashboard.resume",
-                defaultState: "tutor",
+                defaultState: "tutor"
             })
             .state('dashboard.calendar', {
                 url: "/calendar",

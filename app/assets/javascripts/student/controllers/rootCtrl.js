@@ -28,6 +28,11 @@ Geek.controller('RootController', ["$filter", "$scope", "$rootScope", "$state", 
         $state.go('dashboard.resume')
     }
 
+    $rootScope.redirectToURL = function(URL){
+        var url = $state.href(URL);
+        window.open('student#' + url,'_blank');
+    };
+
     $rootScope.toggleLanguage = function(){
         var languageCode = $translate.use();
 

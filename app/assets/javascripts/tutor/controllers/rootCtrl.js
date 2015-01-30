@@ -16,6 +16,11 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
 
     $scope.rootInitialized = false;
 
+    $rootScope.redirectToURL = function(URL){
+        var url = $state.href(URL);
+        window.open('tutor#' + url,'_blank');
+    };
+
     $rootScope.toggleLanguage = function(){
         var languageCode = $translate.use();
 

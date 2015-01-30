@@ -248,11 +248,17 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
             })
             .state('student.faq', {
                 url: "/faq",
-                templateUrl: "/assets/student/partial_common_faq.html"
+                templateUrl: "/assets/student/partial_common_faq.html",
+                authenticate: true,
+                authenticatedState: "student.faq",
+                defaultState: "student.faq"
             })
             .state('student.about-us', {
                 url: "/about-us",
-                templateUrl: "/assets/student/partial_common_about_us.html"
+                templateUrl: "/assets/student/partial_common_about_us.html",
+                authenticate: true,
+                authenticatedState: "student.about-us",
+                defaultState: "student.about-us"
             })
             .state('student.contact', {
                 url: "/contact",
@@ -260,11 +266,17 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
             })
             .state('student.help', {
                 url: "/help",
-                templateUrl: "/assets/student/partial_common_help.html"
+                templateUrl: "/assets/student/partial_common_help.html",
+                authenticate: true,
+                authenticatedState: "student.help",
+                defaultState: "student.help"
             })
-            .state('student.cancellation_policy', {
+            .state('student.cancellation-policy', {
                 url: "/cancellation_policy",
-                templateUrl: "/assets/student/partial_common_cancellation_policy.html"
+                templateUrl: "/assets/student/partial_common_cancellation_policy.html",
+                authenticate: true,
+                authenticatedState: "student.cancellation-policy",
+                defaultState: "student.cancellation-policy"
             })
             .state('student.terms', {
                 url: "/terms",
@@ -275,7 +287,10 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
             })
             .state('student.privacy', {
                 url: "/privacy",
-                templateUrl: "/assets/student/partial_common_privacy.html"
+                templateUrl: "/assets/student/partial_common_privacy.html",
+                authenticate: true,
+                authenticatedState: "student.privacy",
+                defaultState: "student.privacy"
             })
             .state('dashboard', {
                 url: "/dashboard",
@@ -284,11 +299,17 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
             })
             .state('dashboard.faq', {
                 url: "/faq",
-                templateUrl: "/assets/student/partial_common_faq.html"
+                templateUrl: "/assets/student/partial_common_faq.html",
+                authenticate: true,
+                authenticatedState: "dashboard.faq",
+                defaultState: "student.faq"
             })
             .state('dashboard.about-us', {
                 url: "/about-us",
-                templateUrl: "/assets/student/partial_common_about_us.html"
+                templateUrl: "/assets/student/partial_common_about_us.html",
+                authenticate: true,
+                authenticatedState: "dashboard.about-us",
+                defaultState: "student.about-us"
             })
             .state('dashboard.contact', {
                 url: "/contact",
@@ -296,7 +317,10 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
             })
             .state('dashboard.help', {
                 url: "/help",
-                templateUrl: "/assets/student/partial_common_help.html"
+                templateUrl: "/assets/student/partial_common_help.html",
+                authenticate: true,
+                authenticatedState: "dashboard.help",
+                defaultState: "student.help"
             })
             .state('dashboard.terms', {
                 url: "/terms",
@@ -305,16 +329,19 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                 authenticatedState: "dashboard.terms",
                 defaultState: "student.terms"
             })
-            .state('dashboard.cancellation_policy', {
+            .state('dashboard.cancellation-policy', {
                 url: "/cancellation_policy",
                 templateUrl: "/assets/student/partial_common_cancellation_policy.html",
                 authenticate: true,
-                authenticatedState: "dashboard.cancellation_policy",
-                defaultState: "student.cancellation_policy"
+                authenticatedState: "dashboard.cancellation-policy",
+                defaultState: "student.cancellation-policy"
             })
             .state('dashboard.privacy', {
                 url: "/privacy",
-                templateUrl: "/assets/student/partial_common_privacy.html"
+                templateUrl: "/assets/student/partial_common_privacy.html",
+                authenticate: true,
+                authenticatedState: "dashboard.privacy",
+                defaultState: "student.privacy"
             })
             .state('dashboard.user-blocked', {
                 url: "/user-blocked",
