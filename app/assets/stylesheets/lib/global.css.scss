@@ -1776,8 +1776,16 @@ textarea{
   background-position: 0px -76px;
 }
 
+.control-right-arrow-one-white{
+  background-position: 0px -96px;
+}
+
 .control-down-arrow{
   background-position: -38px 0;
+}
+
+.control-down-arrow-white{
+  background-position: -70px 0;
 }
 
 .custom-checkbox {
@@ -2183,6 +2191,12 @@ footer{
 .faq{
   box-sizing: border-box;
   font-size: 0;
+  min-height: 500px;
+  margin-bottom: 0.2rem;
+
+  strong{
+    font-weight: 400 !Important;
+  }
 
   .faq-sections{
     display: inline-block;
@@ -2199,19 +2213,24 @@ footer{
       color: white;
     }
 
-    .bgcolor-orange{
+    .bgcolor-blue{
       background-color: $color-landing-light-blue;
       color: $color-light-blue;
     }
 
-    .bgcolor-orange:hover{
+    .bgcolor-blue:hover{
       background-color: $color-light-blue;
       color: white;
     }
 
-    .bgcolor-blue{
+    .bgcolor-orange{
       background-color: $color-light-orange;
-      color: $color-medium-orange;
+      color: $color-dark-orange;
+    }
+
+    .bgcolor-orange:hover{
+      background-color: $color-medium-orange;
+      color: $color-light-orange;
     }
 
     ul{
@@ -2224,8 +2243,21 @@ footer{
       text-transform: uppercase;
 
       li{
-        padding: 1rem;
+        padding: 1rem 1rem 0.6rem;
         cursor: pointer;
+
+        .section-title{
+          display: inline-block;
+          font-size: 18px;
+          vertical-align: top;
+          width: 90%;
+        }
+
+        .control-arrow{
+          margin-top: 2px;
+        }
+
+
       }
     }
 
@@ -2242,35 +2274,63 @@ footer{
     }
 
     .bgcolor-orange{
+      background-color: $color-light-orange;
+      color: $color-dark-orange;
+    }
+
+    .bgcolor-blue{
       background-color: $color-landing-light-blue;
       color: $color-light-blue;
     }
 
-    .bgcolor-blue{
-      background-color: $color-light-orange;
-      color: $color-medium-orange;
-    }
-
-    ul{
+    > ul{
       font-size: 14px;
       list-style: none;
       margin: 0;
-      padding: 1rem 2rem;
+      padding: 0;
     }
 
     .questions-container{
 
-      li{
-        background-color: white;
-        padding: 2rem;
+      > li{
+
+        span.subtitle{
+          font-size: 18px;
+          font-weight: 500;
+          text-transform: uppercase;
+        }
+
+        > ul{
+          list-style: none;
+          margin: 0;
+          padding: 0;
+
+        }
+      }
+
+      > li:last-child{
+        padding-bottom: 1rem;
+      }
+
+      .subtitle{
+        display: inline-block;
+        margin: 1.5rem 2rem 0.6rem;
       }
 
       .answer{
         display: block;
-        margin-top: 1rem;
+        background-color: white;
+        display: block;
+        margin: 0rem 2rem 1rem;
+        padding: 1.5rem 2rem;
       }
 
       .question{
+        cursor: pointer;
+        display: inline-block;
+        font-weight: 500;
+        padding: 1rem 2rem;
+        width: 88%;
 
       }
 
