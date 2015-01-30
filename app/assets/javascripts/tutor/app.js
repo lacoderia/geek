@@ -253,7 +253,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
                             {q:'FAQ_STUDENTS_T_4_Q_7', a:'FAQ_STUDENTS_T_4_A_7'},
                             {q:'FAQ_STUDENTS_T_4_Q_8', a:'FAQ_STUDENTS_T_4_A_8'},
                             {q:'FAQ_STUDENTS_T_4_Q_9', a:'FAQ_STUDENTS_T_4_A_9'},
-                            {q:'FAQ_STUDENTS_T_4_Q_10', a:'FAQ_STUDENTS_T43_A_10'}
+                            {q:'FAQ_STUDENTS_T_4_Q_10', a:'FAQ_STUDENTS_T_4_A_10'}
                         ]
                     },
                     {
@@ -327,7 +327,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
                             {q:'FAQ_STUDENTS_T_4_Q_7', a:'FAQ_STUDENTS_T_4_A_7'},
                             {q:'FAQ_STUDENTS_T_4_Q_8', a:'FAQ_STUDENTS_T_4_A_8'},
                             {q:'FAQ_STUDENTS_T_4_Q_9', a:'FAQ_STUDENTS_T_4_A_9'},
-                            {q:'FAQ_STUDENTS_T_4_Q_10', a:'FAQ_STUDENTS_T43_A_10'}
+                            {q:'FAQ_STUDENTS_T_4_Q_10', a:'FAQ_STUDENTS_T_4_A_10'}
                         ]
                     },
                 ],
