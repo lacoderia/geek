@@ -399,7 +399,7 @@
     "UNAVAILABLE_MESSAGE_MY_CLASSES": "You do not have any appointments",
     "UNAVAILABLE_MESSAGE_TUTORS": "You do not have any tutors",
     "UNAVAILABLE_MESSAGE_RESUME": "You do not have any new activity",
-    "UNAVAILABLE_MESSAGE_SEARCH_TUTORS": "Sorry, we did not find any tutors",
+    "UNAVAILABLE_MESSAGE_SEARCH_TUTORS": "Sorry, we did not find any tutors. <br> Didn't find what you were looking for? Send us an email at info@geek.education and we will help you as soon as possible!",
     "UNAVAILABLE_MESSAGE_COLLECT_NO_METHODS_TUTOR": "You do not have any debit cards or bank accounts. Please add one",
     "UNAVAILABLE_MESSAGE_CONVERSATIONS": "You do not have any conversations. <br> To start a conversation, go to the calendar and select an appointment",
     "UNAVAILABLE_MESSAGE_CONVERSATIONS_STUDENT": "You do not have any conversations. <br> To start a conversation, look for a tutor and send him/her a message",
