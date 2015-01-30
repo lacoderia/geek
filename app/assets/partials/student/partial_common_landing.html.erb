@@ -367,8 +367,11 @@
           <li class="text-color-landing-medium-red"><span><img src="/assets/site/video-opt-4.png" alt="{{ 'STUDENT_WHAT_STEP_4' | translate }}"></span><span translate="STUDENT_WHAT_STEP_4"></span></li>
         </ul>
       </div>
-      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 video-container columns">
+      <div ng-if="getCurrentLanguage() == 'es_MX'" class="col-lg-6 col-md-6 col-sm-12 col-xs-12 video-container columns">
         <iframe src="//player.vimeo.com/video/113034804" width="400" height="320" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+      </div>
+      <div ng-if="getCurrentLanguage() == 'en_US'" class="col-lg-6 col-md-6 col-sm-12 col-xs-12 video-container columns">
+        <iframe src="//player.vimeo.com/video/113442555" width="400" height="320" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
       </div>
       <div class="clearfix"></div>
     </div>
