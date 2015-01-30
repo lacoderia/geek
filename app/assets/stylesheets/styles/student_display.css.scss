@@ -577,6 +577,10 @@
     padding: 1em;
     width: $container-width-max;
 
+    a {
+      cursor: pointer;
+    }
+
     .action-buttons {
       text-align: left;
     }
