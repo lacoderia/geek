@@ -620,6 +620,11 @@
         text-decoration: none;
       }
 
+      .search-button:focus{
+        background-color: rgba(166, 168, 171, 0.2);
+        text-decoration: none;
+      }
+
       input:hover{
         background-color: rgba(166, 168, 171, 0.2);
       }
@@ -1176,6 +1181,11 @@
       text-decoration: none;
     }
 
+    .search-button:focus{
+      background-color: rgba(166, 168, 171, 0.2);
+      text-decoration: none;
+    }
+
     input:hover{
       background-color: rgba(166, 168, 171, 0.2);
     }
@@ -1541,6 +1551,11 @@
         }
 
         .search-button:hover{
+          background-color: rgba(166, 168, 171, 0.2);
+          text-decoration: none;
+        }
+
+        .search-button:focus{
           background-color: rgba(166, 168, 171, 0.2);
           text-decoration: none;
         }
