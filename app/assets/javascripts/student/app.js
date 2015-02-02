@@ -236,21 +236,21 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                             {q:'FAQ_STUDENTS_T_3_Q_7', a:'FAQ_STUDENTS_T_3_A_7'},
                             {q:'FAQ_STUDENTS_T_3_Q_8', a:'FAQ_STUDENTS_T_3_A_8'},
                             {q:'FAQ_STUDENTS_T_3_Q_9', a:'FAQ_STUDENTS_T_3_A_9'},
-                            {q:'FAQ_STUDENTS_T_3_Q_10', a:'FAQ_STUDENTS_T_3_A_10'},
-                            {q:'FAQ_STUDENTS_T_3_Q_11', a:'FAQ_STUDENTS_T_3_A_11'},
-                            {q:'FAQ_STUDENTS_T_3_Q_12', a:'FAQ_STUDENTS_T_3_A_12'}
+                            {q:'FAQ_STUDENTS_T_3_Q_10', a:'FAQ_STUDENTS_T_3_A_10_S'},
+                            {q:'FAQ_STUDENTS_T_3_Q_11', a:'FAQ_STUDENTS_T_3_A_11_S'},
+                            {q:'FAQ_STUDENTS_T_3_Q_12', a:'FAQ_STUDENTS_T_3_A_12_S'}
                         ]
                     },
                     {
                         subtitle: 'FAQ_STUDENTS_T_4',
                         questions: [
                             {q:'FAQ_STUDENTS_T_4_Q_1', a:'FAQ_STUDENTS_T_4_A_1'},
-                            {q:'FAQ_STUDENTS_T_4_Q_2', a:'FAQ_STUDENTS_T_4_A_2'},
+                            {q:'FAQ_STUDENTS_T_4_Q_2', a:'FAQ_STUDENTS_T_4_A_2_S'},
                             {q:'FAQ_STUDENTS_T_4_Q_3', a:'FAQ_STUDENTS_T_4_A_3'},
-                            {q:'FAQ_STUDENTS_T_4_Q_4', a:'FAQ_STUDENTS_T_4_A_4'},
+                            {q:'FAQ_STUDENTS_T_4_Q_4', a:'FAQ_STUDENTS_T_4_A_4_S'},
                             {q:'FAQ_STUDENTS_T_4_Q_5', a:'FAQ_STUDENTS_T_4_A_5'},
                             {q:'FAQ_STUDENTS_T_4_Q_6', a:'FAQ_STUDENTS_T_4_A_6'},
-                            {q:'FAQ_STUDENTS_T_4_Q_7', a:'FAQ_STUDENTS_T_4_A_7'},
+                            {q:'FAQ_STUDENTS_T_4_Q_7', a:'FAQ_STUDENTS_T_4_A_7_S'},
                             {q:'FAQ_STUDENTS_T_4_Q_8', a:'FAQ_STUDENTS_T_4_A_8'},
                             {q:'FAQ_STUDENTS_T_4_Q_9', a:'FAQ_STUDENTS_T_4_A_9'},
                             {q:'FAQ_STUDENTS_T_4_Q_10', a:'FAQ_STUDENTS_T_4_A_10'}
@@ -307,12 +307,14 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                         questions: [
                             {q:'FAQ_TUTORS_T_3_Q_1', a:'FAQ_TUTORS_T_3_A_1'},
                             {q:'FAQ_TUTORS_T_3_Q_2', a:'FAQ_TUTORS_T_3_A_2'},
-                            {q:'FAQ_TUTORS_T_3_Q_3', a:'FAQ_TUTORS_T_3_A_3'},
+                            {q:'FAQ_TUTORS_T_3_Q_3', a:'FAQ_TUTORS_T_3_A_3_S'},
                             {q:'FAQ_TUTORS_T_3_Q_4', a:'FAQ_TUTORS_T_3_A_4'},
                             {q:'FAQ_TUTORS_T_3_Q_5', a:'FAQ_TUTORS_T_3_A_5'},
                             {q:'FAQ_TUTORS_T_3_Q_6', a:'FAQ_TUTORS_T_3_A_6'},
-                            {q:'FAQ_TUTORS_T_3_Q_7', a:'FAQ_TUTORS_T_3_A_7'},
-                            {q:'FAQ_TUTORS_T_3_Q_8', a:'FAQ_TUTORS_T_3_A_8'}
+                            {q:'FAQ_TUTORS_T_3_Q_7', a:'FAQ_TUTORS_T_3_A_7_S'},
+                            {q:'FAQ_TUTORS_T_3_Q_8', a:'FAQ_TUTORS_T_3_A_8'},
+                            {q:'FAQ_TUTORS_T_3_Q_9', a:'FAQ_TUTORS_T_3_A_9_S'},
+                            {q:'FAQ_TUTORS_T_3_Q_10', a:'FAQ_TUTORS_T_3_A_10'}
                         ]
                     },
                     {
