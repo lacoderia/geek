@@ -3311,12 +3311,54 @@ footer{
     margin: 0 0 2.5rem 0;
   }
 
-  img.cancellation_policy_image{
-    border: 1px solid $color-input-gray-bgcolor;
-    display: block;
-    margin: 0 auto 2.5rem;
-    max-width: 600px;
+  .cancellation-table{
+    border: 1px solid white;
+    margin-bottom: 2.5rem;
     width: 100%;
+
+    th, td{
+      padding: 1rem;
+      border: 1px solid white;
+      width: 25%;
+    }
+
+    th{
+      text-align: center;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    th:nth-child(1){
+      background-color: $color-lightest-green;
+      color: $color-light-green;
+    }
+
+    th:nth-child(2){
+      background-color: rgba(254,212,149,0.5);
+      color: $color-medium-orange;
+    }
+
+    th:nth-child(3){
+      background-color: $color-input-pink;
+      color: $color-dark-pink;
+    }
+
+    th:nth-child(4){
+      background-color: $color-landing-light-blue;
+      color: $color-light-blue;
+    }
+
+    td{
+      background-color: $color-input-gray-bgcolor;
+      color: $color-medium-gray;
+      font-size: 12px;
+      text-transform: uppercase;
+      vertical-align: top;
+
+      strong{
+        font-weight: 500;
+      }
+    }
   }
 }
 
