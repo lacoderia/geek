@@ -174,6 +174,22 @@ Geek.controller('RootController', ["$filter", "$scope", "$rootScope", "$state", 
 	        $rootScope.$broadcast("rootControllerReady");
 	    },0);
 
+        $timeout(function(){
+            if($('.owl-carousel').length){
+
+                $('.owl-carousel').owlCarousel({
+                    autoplay: true,
+                    autoplayTimeout: 3000,
+                    autoplayHoverPause:true,
+                    dots: false,
+                    items: 1,
+                    loop:true,
+                    slideSpeed: 1000                    
+                });
+            }
+        },0)
+
+
     });
 
     //Obtiene los datos del catálogo de zonas
