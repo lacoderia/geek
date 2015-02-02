@@ -490,7 +490,8 @@
     font-weight: 500;
     margin: 0px auto;
     max-width: 1170px;
-    padding: 0em;
+    overflow: hidden;
+    position: relative;
     text-align: center;
 
     .control-arrow{
@@ -503,15 +504,16 @@
 
     .how-item{
       box-sizing: border-box;
-      padding: 2.5em 1em;
+      padding: 3rem 1.5rem;
     }
 
     .how-item-testimony{
       box-sizing: border-box;
       color: white;
       font-size: 1em;
-      margin: 0;
-      padding: 3em 1em;
+      margin: 0rem;
+      padding: 4.2rem 1.5rem;
+      overflow: hidden;
       text-transform: uppercase;
 
 
@@ -533,6 +535,8 @@
     img{
       display: block;
       margin: 0 auto;
+      max-width: 119px;
+      width: 100%;
     }
 
     img.horizontal-align{
@@ -592,6 +596,10 @@
 
     .action-buttons {
       text-align: left;
+    }
+
+    p{
+      margin: 0 0 2rem;
     }
   }
 

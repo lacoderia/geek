@@ -204,7 +204,6 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
             $rootScope.tutorProfileLoaded = true;
 
         };
-
     });
 
 }]);
