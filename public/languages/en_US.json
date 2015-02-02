@@ -52,6 +52,7 @@
     "APPOINTMENT_REQUEST_FEEDBACK_DETAILS_TIME": "Hour",
     "APPOINTMENT_REQUEST_FEEDBACK_DETAILS_COST": "Price",
     "APPOINTMENT_REQUEST_FEEDBACK_DETAILS_COST_DETAIL": "service fee",
+    "APPOINTMENT_REQUEST_PAYMENT_NOTE": "<strong>Charges will appear on your statement as Openpay</strong>",
     "APPOINTMENT_REQUEST_FEEDBACK_POLICIES": "Remember you can cancel the appointment up to 2 hours before its start, without any penalties. For further information, please read our",
     "APPOINTMENT_REQUEST_FEEDBACK_POLICIES_LINK": "Payment and cancellation policy",
     "APPOINTMENT_STATUS_PENDING": "Pending",

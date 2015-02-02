@@ -52,6 +52,7 @@
     "APPOINTMENT_REQUEST_FEEDBACK_DETAILS_TIME": "Hora",
     "APPOINTMENT_REQUEST_FEEDBACK_DETAILS_COST": "Costo",
     "APPOINTMENT_REQUEST_FEEDBACK_DETAILS_COST_DETAIL": "de cargos por servicio",
+    "APPOINTMENT_REQUEST_PAYMENT_NOTE": "<strong>Los cobros aparecerán en su estado de cuenta como Openpay</strong>",
     "APPOINTMENT_REQUEST_FEEDBACK_POLICIES": "Recuerda que puedes cancelar tu cita hasta 2 horas antes, sin cargos a tu cuenta. Para mayor información consulta nuestras",
     "APPOINTMENT_REQUEST_FEEDBACK_POLICIES_LINK": "Políticas de pago y cancelación",
     "APPOINTMENT_STATUS_PENDING": "Pendiente",
