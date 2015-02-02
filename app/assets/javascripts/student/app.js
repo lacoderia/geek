@@ -566,7 +566,8 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
             }
         );
         $translateProvider.fallbackLanguage('es_MX');
-        $translateProvider.determinePreferredLanguage();
+        //$translateProvider.determinePreferredLanguage();
+        $translateProvider.use('es_MX');
 
     }])
 
