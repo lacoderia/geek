@@ -45,7 +45,7 @@
               <div class="sign-up-container noselect" ng-show="selectedTab == 'signUp'">
                 <div ng-hide="userData">
                   <div class="form-button-fb">
-                    <div ng-click="registerFacebook()">{{ 'MODAL_SIGN_UP_FACEBOOK' | translate }}<span class="icon-facebook2"></span></div>
+                    <div ng-click="registerFacebook()">{{ 'MODAL_SIGN_UP_FACEBOOK' | translate }} <span class="icon-facebook2"></span></div>
                   </div>
                   <div class="form-text">
                     o
@@ -66,7 +66,7 @@
                   </div>
                   <div class="form-group form-checkbox custom-checkbox" show-errors>
                     <input type="checkbox" id="sign-up-terms" name="sign-up-terms" ng-model="signUpTerms" class="form-control" required>
-                    <label for="sign-up-terms" translate="TERMS_AND_CONDITIONS"></label>
+                    <label for="sign-up-terms" class="sign-up-terms-accept">{{ 'TERMS_AND_CONDITIONS_ACCEPT' | translate}} <a class="sign-up-terms-link" ng-click="redirectToURL('student.terms')" translate="TERMS_AND_CONDITIONS_TERMS_LINK"></a> {{ 'TERMS_AND_CONDITIONS_AND' | translate}} <a class="sign-up-terms-link" ng-click="redirectToURL('student.privacy')" translate="TERMS_AND_CONDITIONS_PRIVACY_LINK"></a></label>
                   </div>
                   <div>
                     <input id="user_uid" name="user[uid]" type="hidden" value="{{signUpUID}}" />
@@ -84,7 +84,7 @@
                 <label ng-show='loginError' ng-bind='loginError'></label>
                 <div ng-hide="userData">
                   <div class="form-button-fb">
-                    <div ng-click="registerFacebook()">{{ 'MODAL_SIGN_IN_FACEBOOK' | translate }}<span class="icon-facebook2"></span></div>
+                    <div ng-click="registerFacebook()">{{ 'MODAL_SIGN_IN_FACEBOOK' | translate }} <span class="icon-facebook2"></span></div>
                   </div>
                   <div class="form-text">
                     o

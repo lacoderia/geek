@@ -365,6 +365,15 @@
           width: 15px;
           z-index: 100;
         }
+
+        .sign-up-terms-accept {
+          cursor: default;
+        }
+
+        .sign-up-terms-link {
+          color: #E85C3D;
+          cursor: pointer;
+        }
       }
     }
   }
