@@ -33,6 +33,10 @@ Geek.controller('RootController', ["$filter", "$scope", "$rootScope", "$state", 
         window.open('student#' + url,'_blank');
     };
 
+    $rootScope.getCurrentLanguage = function(){
+        return $translate.use();
+    };
+
     $rootScope.toggleLanguage = function(){
         var languageCode = $translate.use();
 
@@ -169,6 +173,22 @@ Geek.controller('RootController', ["$filter", "$scope", "$rootScope", "$state", 
         $timeout(function() {
 	        $rootScope.$broadcast("rootControllerReady");
 	    },0);
+
+        $timeout(function(){
+            if($('.owl-carousel').length){
+
+                $('.owl-carousel').owlCarousel({
+                    autoplay: true,
+                    autoplayTimeout: 3000,
+                    autoplayHoverPause:true,
+                    dots: false,
+                    items: 1,
+                    loop:true,
+                    slideSpeed: 1000                    
+                });
+            }
+        },0)
+
 
     });
 

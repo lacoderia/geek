@@ -1,6 +1,6 @@
 'use strict';
 
-var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-geek', 'ui.router', 'ui.bootstrap.showErrors', 'ui.bootstrap', 'angular-ellipsis', 'pascalprecht.translate', 'mgcrea.ngStrap', 'angularSpinner', 'angularUtils.directives.dirPagination'])
+var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-geek', 'ui.router', 'ui.bootstrap.showErrors', 'ui.bootstrap', 'angular-ellipsis', 'pascalprecht.translate', 'mgcrea.ngStrap', 'angularSpinner', 'angularUtils.directives.dirPagination' ])
 
     .constant('DEFAULT_VALUES',{
         'PROFILE_IMAGE': '/assets/site/person.png',
@@ -684,6 +684,50 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                     );
 
                 });
+            }
+        }
+    }])
+
+    .directive('carousel', ['$interval', function($interval){
+        return function(scope, element, attrs){
+
+            var parentWidth = element.width();
+            var parentHeight = element.height();
+            var indexItem = 0;
+            var interval = attrs.interval;
+            console.log(parentHeight)
+            angular.forEach(element.children(), function(item){
+                angular.element(item).css('position', 'absolute');
+                angular.element(item).css('z-index',100);
+
+                var elementHeight = angular.element(item).outerHeight();
+                var elementTop = parentHeight/2-elementHeight;
+
+                angular.element(item).css('top', elementTop);
+                angular.element(item).css('left', parentWidth*indexItem);
+
+                indexItem++;
+            });
+
+            if(element.children().length > 1){
+                $interval(function(){
+                    var indexItem = 0;
+                    angular.forEach(element.children(), function(item){
+
+                        if(indexItem==0){
+                            angular.element(item).css('left', -parentWidth);
+                        }
+                        angular.element(item).css('left', parentWidth*(indexItem-1));
+                        indexItem++;
+                    });
+
+                    var firstElementCopy = element.children()[0];
+                    (element.children()[0]).remove();
+                    element.append(firstElementCopy);
+
+                },interval);
+
+                //angular.element(element).removeChild(element.children()[0]);
             }
         }
     }])

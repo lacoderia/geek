@@ -377,12 +377,12 @@
         text-align: right;
         width: 80%;
 
-        input, select, a.search-button{
+        input, select, .search-button{
           display: inline-block;
 
         }
 
-        a.search-button{
+        .search-button{
           display: inline-block;
           padding: 0.8em 1.5em;
           width: 18%;
@@ -481,7 +481,8 @@
     font-weight: 500;
     margin: 0px auto;
     max-width: 1170px;
-    padding: 0em;
+    overflow: hidden;
+    position: relative;
     text-align: center;
 
     .control-arrow{
@@ -494,15 +495,16 @@
 
     .how-item{
       box-sizing: border-box;
-      padding: 2.5em 1em;
+      padding: 3rem 1.5rem;
     }
 
     .how-item-testimony{
       box-sizing: border-box;
       color: white;
       font-size: 1em;
-      margin: 0;
-      padding: 3em 1em;
+      margin: 0rem;
+      padding: 4.2rem 1.5rem;
+      overflow: hidden;
       text-transform: uppercase;
 
 
@@ -524,6 +526,8 @@
     img{
       display: block;
       margin: 0 auto;
+      max-width: 119px;
+      width: 100%;
     }
 
     img.horizontal-align{
@@ -584,6 +588,10 @@
     .action-buttons {
       text-align: left;
     }
+
+    p{
+      margin: 0 0 2rem;
+    }
   }
 
   .light-search{
@@ -594,7 +602,7 @@
       padding: 2em;
       text-align: right;
 
-      input, select, a.search-button{
+      input, select, .search-button{
         background: $color-input-bgcolor;
         border: 1px solid $color-medium-gray;
         border-radius: 10px;
@@ -606,7 +614,7 @@
 
       }
 
-      a.search-button{
+      .search-button{
         color: $color-dark-blue;
         display: block;
         margin: 1em auto 1em;
@@ -615,7 +623,12 @@
         width: 100px;
       }
 
-      a.search-button:hover{
+      .search-button:hover{
+        background-color: rgba(166, 168, 171, 0.2);
+        text-decoration: none;
+      }
+
+      .search-button:focus{
         background-color: rgba(166, 168, 171, 0.2);
         text-decoration: none;
       }
@@ -1150,7 +1163,7 @@
     margin: 0em auto;
     padding: 2em;
 
-    input, select, a.search-button{
+    input, select, .search-button{
       background: $color-input-bgcolor;
       border: 1px solid $color-medium-gray;
       border-radius: 10px;
@@ -1162,7 +1175,7 @@
 
     }
 
-    a.search-button{
+    .search-button{
       color: $color-dark-blue;
       display: block;
       margin: 1em auto 1em;
@@ -1171,7 +1184,12 @@
       width: 100px;
     }
 
-    a.search-button:hover{
+    .search-button:hover{
+      background-color: rgba(166, 168, 171, 0.2);
+      text-decoration: none;
+    }
+
+    .search-button:focus{
       background-color: rgba(166, 168, 171, 0.2);
       text-decoration: none;
     }
@@ -1413,12 +1431,12 @@
       padding: 0em 2em 0em 4em;
       text-align: right;
 
-      input, select, a.search-button{
+      input, select, .search-button{
         display: inline-block;
 
       }
 
-      a.search-button{
+      .search-button{
         display: inline-block;
         padding: 0.8em 1.5em;
         width: 150px;
@@ -1519,7 +1537,7 @@
         vertical-align: top;
         width: 79%;
 
-        input, select, a.search-button{
+        input, select, .search-button{
           background: $color-input-bgcolor;
           border: 1px solid $color-medium-gray;
           border-radius: 10px;
@@ -1531,7 +1549,7 @@
 
         }
 
-        a.search-button{
+        .search-button{
           color: $color-dark-blue;
           display: inline-block;
           margin: 0em auto;
@@ -1540,7 +1558,12 @@
           width: 18%;
         }
 
-        a.search-button:hover{
+        .search-button:hover{
+          background-color: rgba(166, 168, 171, 0.2);
+          text-decoration: none;
+        }
+
+        .search-button:focus{
           background-color: rgba(166, 168, 171, 0.2);
           text-decoration: none;
         }
@@ -1611,7 +1634,7 @@
       margin: 0em 0em 1em 7em;
       padding: 0em;
 
-      a.search-button{
+      .search-button{
         display: inline-block;
         padding: 0.8em 1.5em;
         width: 150px;
@@ -1648,7 +1671,7 @@
     form{
       display: inline-block;
 
-      a.search-button{
+      .search-button{
         padding: 0.8em 1.5em;
         width: 150px;
       }

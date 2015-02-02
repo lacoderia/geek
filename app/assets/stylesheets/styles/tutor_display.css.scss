@@ -580,7 +580,7 @@
 
   form{
 
-    input, select, a.search-button{
+    input, select, .search-button{
       background: $color-input-bgcolor;
       border: 1px solid $color-medium-gray;
       border-radius: 10px;
@@ -592,7 +592,7 @@
 
     }
 
-    a.search-button{
+    .search-button{
       color: $color-dark-blue;
       display: inline-block;
       padding: 0.8em 1.5em;
@@ -600,7 +600,7 @@
       width: 150px;
     }
 
-    a.search-button:hover{
+    .search-button:hover{
       background-color: rgba(166, 168, 171, 0.2);
       text-decoration: none;
     }

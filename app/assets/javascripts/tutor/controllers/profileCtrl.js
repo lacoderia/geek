@@ -10,13 +10,6 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.TOTAL_WEEKLY_CALENDAR_ROWS = DEFAULT_VALUES.TOTAL_WEEKLY_CALENDAR_ROWS;
     $scope.PROFILE_IMAGE = DEFAULT_VALUES.PROFILE_IMAGE;
-    $scope.help = {
-        formation: $filter('translate')('HELP_FORMATION'),
-        topics: $filter('translate')('HELP_TOPICS'),
-        preferences: $filter('translate')('HELP_PREFERENCES'),
-        zones: $filter('translate')('HELP_ZONES'),
-        availability: $filter('translate')('HELP_AVAILABILITY')
-    };
 
     $scope.tutorRequestAlertParams = undefined;
     $scope.tutorProfileAlertParams = undefined;

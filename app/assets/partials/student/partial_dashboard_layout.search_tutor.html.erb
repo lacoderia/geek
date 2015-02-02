@@ -13,7 +13,7 @@
                            input-class="category">
     </angucomplete-alt-geek>
     <input class="county" type="text" ng-model="chosenPlace" details="chosenPlaceDetails" on-place-change="onPlaceChanged" placeholder="{{ 'AUTOCOMPLETE_ZONE' | translate }}" googleplace>
-    <a class="search-button icon-pointer" ng-click="searchTutor(1)" translate="SEARCH"></a>
+    <a href="" class="search-button icon-pointer" type="button" ng-click="searchTutor(1)" translate="SEARCH"></a>
   </form>
   <div class="clearfix"></div>
 </div>
@@ -302,8 +302,8 @@
     </ul>
     {{'APPOINTMENT_REQUEST_FEEDBACK_POLICIES' | translate}}
     <a title="{{ 'APPOINTMENT_REQUEST_FEEDBACK_POLICIES_LINK' | translate}}" ng-click="redirectToURL('dashboard.cancellation-policy')">{{'APPOINTMENT_REQUEST_FEEDBACK_POLICIES_LINK' | translate}}</a>
-
     <br/><br/>
+    <p translate="APPOINTMENT_REQUEST_PAYMENT_NOTE"></p>
   </div>
 
   <div class="action-buttons">
@@ -331,7 +331,7 @@
                                input-class="category">
         </angucomplete-alt-geek>
         <input class="county" type="text" ng-model="chosenPlace" details="chosenPlaceDetails" on-place-change="onPlaceChanged" placeholder="{{ 'AUTOCOMPLETE_ZONE' | translate }}" googleplace>
-        <a class="search-button icon-pointer" ng-click="searchTutor(1)" translate="SEARCH"></a>
+        <a href="" class="search-button icon-pointer" type="button" ng-click="searchTutor(1)" translate="SEARCH"></a>
       </form>
     </div>
   </div>

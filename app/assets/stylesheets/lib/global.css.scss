@@ -293,7 +293,7 @@ fieldset{
 }
 
 h2.section-title{
-  font-size:  2em;
+  font-size:  2rem;
   font-weight: 600;
   margin: 0em 0em 1.5em;
   text-transform: uppercase;
@@ -323,12 +323,13 @@ textarea{
 .about-us {
   .content {
     .description {
-      background-color: white;
       font-size: 0;
 
       .two-columns {
+        color: $color-medium-gray;
         display: inline-block;
-        font-size: 14px;
+        font-size: 16px;
+        font-weight: 400;
         padding: 1em;
         position: relative;
         text-align: justify;
@@ -339,7 +340,6 @@ textarea{
     }
 
     .owl-row {
-      background-color: white;
       font-size: 0;
       margin-bottom: 5px;
 
@@ -398,6 +398,7 @@ textarea{
         font-weight: 500;
         padding: 1em;
         text-align: center;
+        text-transform: uppercase;
         vertical-align: top;
         width: 25%;
 
@@ -489,7 +490,6 @@ textarea{
     }
 
     .what-to-do {
-      background-color: white;
       color: $color-medium-gray;
       padding: 1rem;
       text-align: center;
@@ -1482,6 +1482,7 @@ textarea{
     font-size: 0px;
     list-style: none;
     margin: 2em 0em 0em 0em;
+    min-width: 250px;
     padding: 0px;
     text-align: right;
 
@@ -2104,7 +2105,7 @@ ul.events{
 
   li{
     display: inline-block;
-    font-size: 14px;
+    font-size: 12px;
     margin-right: 1.5em;
   }
 }
@@ -3310,12 +3311,54 @@ footer{
     margin: 0 0 2.5rem 0;
   }
 
-  img.cancellation_policy_image{
-    border: 1px solid $color-input-gray-bgcolor;
-    display: block;
-    margin: 0 auto 2.5rem;
-    max-width: 600px;
+  .cancellation-table{
+    border: 1px solid white;
+    margin-bottom: 2.5rem;
     width: 100%;
+
+    th, td{
+      padding: 1rem;
+      border: 1px solid white;
+      width: 25%;
+    }
+
+    th{
+      text-align: center;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    th:nth-child(1){
+      background-color: $color-lightest-green;
+      color: $color-light-green;
+    }
+
+    th:nth-child(2){
+      background-color: rgba(254,212,149,0.5);
+      color: $color-medium-orange;
+    }
+
+    th:nth-child(3){
+      background-color: $color-input-pink;
+      color: $color-dark-pink;
+    }
+
+    th:nth-child(4){
+      background-color: $color-landing-light-blue;
+      color: $color-light-blue;
+    }
+
+    td{
+      background-color: $color-input-gray-bgcolor;
+      color: $color-medium-gray;
+      font-size: 12px;
+      text-transform: uppercase;
+      vertical-align: top;
+
+      strong{
+        font-weight: 500;
+      }
+    }
   }
 }
 
@@ -3521,7 +3564,7 @@ footer{
   margin: 0 auto;
   text-align: center;
   text-transform: uppercase;
-  width: 50%;
+  width: 60%;
 }
 
 .unavailable-resume-items-message{
