@@ -179,12 +179,11 @@ Geek.controller('RootController', ["$filter", "$scope", "$rootScope", "$state", 
 
                 $('.owl-carousel').owlCarousel({
                     autoplay: true,
-                    autoplayTimeout: 3000,
+                    autoplayTimeout: 7000,
                     autoplayHoverPause:true,
                     dots: false,
                     items: 1,
-                    loop:true,
-                    slideSpeed: 1000                    
+                    loop:true
                 });
             }
         },0)
