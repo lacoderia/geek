@@ -19,13 +19,22 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
     $scope.totalTutors = 0;
     $scope.totalSuggestedTutors = 0;
     $scope.tutorsPerPage = 10;
+    $scope.backToPageOne = false;
+    $scope.reset = false;
 
-    $scope.pagination = {
-        current: 1
-    };
+    $scope.pagination_current = 1;
+    $scope.suggested_pagination_current = 1;
 
     $scope.pageChanged = function(newPage) {
-        $scope.searchTutor(newPage);
+      if($scope.reset) {
+        $scope.reset = false;
+        return;
+      }else if ($scope.backToPageOne) {
+        $scope.backToPageOne = false;
+        $scope.searchTutor(newPage, true, false);      
+      }else{
+        $scope.searchTutor(newPage, false, true);      
+      }
     };
 
     //Zona ingresada por el usuario
@@ -138,10 +147,25 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
     };
 
     //Find a tutor, by the inputted data by the user
-    $scope.searchTutor = function(pageNumber){
+    $scope.searchTutor = function(pageNumber, firstSearch, pagination){
         $scope.resetTutorSearch();
-
+        
         $scope.showTopSearchbar = true;
+
+        if (!firstSearch){
+          if (pageNumber != 1 && pagination) {
+            $scope.backToPageOne = true;
+          }else{
+            return;
+          }
+        }
+        
+        if ( ($scope.pagination_current != pageNumber) && ($scope.suggested_pagination_current != pageNumber) ){
+          $scope.reset = true;
+        }
+        
+        $scope.pagination_current = pageNumber;
+        $scope.suggested_pagination_current = pageNumber;
 
         var categoryId = undefined;
         if($scope.subjectInput){
@@ -155,6 +179,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
         TutorService.getTutorByQueryParamsForGoogle($scope.components_address, categoryId, pageNumber, $scope.filters).then(
             function(data){
                 if(data){
+
                     $scope.tutorList = data.tutors.items;
                     $scope.totalTutors = data.tutors.count;
                     $scope.suggestedTutorList = data.suggested_tutors.items;
@@ -179,7 +204,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
             function(response){
                 console.log('Error retrieving the search results: ' + response);
             }
-        );
+        );    
 
     };
 
@@ -215,7 +240,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
 
     // Show all tutors found on tutor search
     $scope.showSearchResults = function() {
-        $scope.resetTutorSearch();
+        $scope.resetTutorSearch();        
 
         for(var i in $scope.tutorList) {
             $scope.tutorList[i].show = true;
@@ -245,7 +270,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
         if(orderOption.code != $scope.orderByOption.code){
             $scope.orderByOption = orderOption;
             $scope.filters.order = $scope.orderByOption;
-            $scope.searchTutor(1);
+            $scope.searchTutor(1, true, false);
         }
     };
 
