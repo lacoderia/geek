@@ -266,7 +266,7 @@ class Payment
   end
 
   def self.set_openpay
-    openpay = OpenpayApi.new(ENV['OPENPAY_CLIENT_ID'], ENV['OPENPAY_CLIENT_SECRET'])
+    openpay = OpenpayApi.new(ENV['OPENPAY_CLIENT_ID'], ENV['OPENPAY_CLIENT_SECRET'], true)
   end
   
   private_class_method :set_openpay
