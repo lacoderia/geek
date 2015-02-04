@@ -95,7 +95,7 @@
     "CANCELLATION_TABLE_TH_2": "T=0 comienzo de la clase",
     "CANCELLATION_TABLE_TH_3": "T=1 Final de la clase",
     "CANCELLATION_TABLE_TH_4": "T+13 12 horas después del final de la clase",
-    "CANCELLATION_TABLE_TD_1": "<strong>Usuario cancela calse hasta 2 horas antes del comienzo de la clase:</strong><br><br> No hay penalidades o cobros.",
+    "CANCELLATION_TABLE_TD_1": "<strong>Usuario cancela clase hasta 2 horas antes del comienzo de la clase:</strong><br><br> No hay penalidades o cobros.",
     "CANCELLATION_TABLE_TD_2": "<strong>Usuario cancela clase con menos de 2 horas antes del comienzo de la clase:</strong><br><br>recibirás un <strong>Aviso de Cancelación.</strong> A los <strong>10 Avisos de Cancelación</strong> se desactivará tu cuenta Geek indefinidamente.",
     "CANCELLATION_TABLE_TD_3": "<strong>Usuario no se presenta a la clase (No Show):</strong><br><br>recibirás un Aviso de <strong>No Show</strong> y se te cobrará la cantidad de <strong>$100 MXN + IVA</strong> cada vez que esto ocurra. A los <strong>5 Avisos de No Show</strong> desactivaremos tu cuenta Geek indefinidamente.",
     "CANCELLATION_TABLE_TD_4": "<strong>Usuarios tienen hasta 12 horas después de la hora en que termina la clase para reportar cualquier No Show u otra anomalía o reclamación.</strong><br><br>Si no hay reportes de <strong>No Show o anomalía</strong>, Geek procederá  a cobrar la clase y hacer los depósitos correspondientes.",
