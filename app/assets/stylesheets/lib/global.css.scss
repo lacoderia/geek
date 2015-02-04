@@ -3496,14 +3496,11 @@ footer{
 
     .video-container{
       box-sizing: border-box;
-
+      text-align: center;
 
       iframe{
         border: 20px solid #EFA6A7;
-        left: 0;
-        position: absolute;
-        top: 0;
-        width: 93%;
+        display: inline-block;
       }
     }
 
@@ -3723,6 +3720,22 @@ footer{
 }
 
 @media (min-width: $screen-md-min) {
+
+  .video-wrapper{
+
+    .section-video{
+
+    .video-container{
+      box-sizing: border-box;
+      text-align: left;
+
+        iframe{
+          border: 20px solid #EFA6A7;
+          width: 93%;
+        }
+      }
+    }
+  }
 
   .angucomplete-dropdown{
     width: 250px;
