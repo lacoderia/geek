@@ -15,12 +15,12 @@
         <li><a title="{{ 'SIGN_UP' | translate }}" class="signup" ng-click="showSignInModal('signUp')" translate="SIGN_UP"></a></li>
         <li><a title="{{ 'CHOOSE_LANGUAGE' | translate }}" ng-click="toggleLanguage()" translate="ENGLISH_SPANISH"></a></li>
       </ul>
-      <ul class="hidden-md hidden-lg hidden-sm">
+      <ul class="visible-xs">
         <li>
           <a href="/" title="{{ 'WANT_TO_LEARN' | translate }}" translate="STUDENT"></a>
         </li>
-        <li><a href="#" title="{{ 'SIGN_IN' | translate }}" translate="SIGN_IN"></a></li>
-        <li><a href="#" title="{{ 'SIGN_UP' | translate }}" translate="SIGN_UP"></a></li>
+        <li><a title="{{ 'SIGN_IN' | translate }}" class="signin" ng-click="showSignInModal('signIn')" translate="SIGN_IN"></a></li>
+        <li><a title="{{ 'SIGN_UP' | translate }}" class="signup" ng-click="showSignInModal('signUp')" translate="SIGN_UP"></a></li>
       </ul>
 
       <div class="modal fade" id="sign-in-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -113,10 +113,14 @@
 <footer>
   <div class="container">
     <div class="row">
-      <div class="col-xs-12 hidden-lg hidden-md hidden-sm language">
-        <a href="#" title="{{ 'CHOOSE_LANGUAGE' | translate }}" class="text-color-light-blue" ng-click="toggleLanguage()" translate="ENGLISH_SPANISH"></a>
+      <div class="col-xs-12 visible-xs language">
+        <ul>
+          <li><a title="{{ 'CHOOSE_LANGUAGE' | translate }}" ng-click="toggleLanguage()" translate="ENGLISH_SPANISH"></a></li>
+        </ul>
       </div>
-      <div class="col-lg-6 col-md-3 social-icons columns uppercase">
+    </div>
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-4 social-icons columns uppercase">
         <p><span translate="FOOTER_CALL_US"></span> 01-800-718-5334</p>
         <p translate="FOOTER_SOCIAL"></p>
         <ul>
@@ -125,8 +129,8 @@
           <li><a href="https://www.linkedin.com/company/geek-education-sc" target="_blank" title="LinkedIn"><span class="icon-linkedin text-color-light-orange"></span></a></li>
         </ul>
       </div>
-      <div class="col-lg-6 col-md-3 columns links">
-        <div class="col-lg-6 col-md-6 columns uppercase">
+      <div class="col-lg-6 col-md-6 col-sm-8 hidden-xs columns links">
+        <div class="col-lg-6 col-md-6 col-sm-6 columns uppercase">
           <ul>
             <li><a title="{{ 'FOOTER_WE' | translate}}" ui-sref=".about-us">{{ 'FOOTER_WE' | translate}}</a></li>
             <!--li><a title="{{ 'FOOTER_CONTACT' | translate}}">{{ 'FOOTER_CONTACT' | translate}}</a></li-->
@@ -134,7 +138,7 @@
             <li><a title="{{ 'FOOTER_FAQ' | translate}}" ui-sref=".faq">{{ 'FOOTER_FAQ' | translate}}</a></li>
           </ul>
         </div>
-        <div class="col-lg-6 col-md-6 columns right uppercase">
+        <div class="col-lg-6 col-md-6 col-sm-6 columns right uppercase">
           <ul>
             <li><a href="http://geekseekblog.wordpress.com/" target="_blank">{{ 'FOOTER_BLOG' | translate}}</a></li>
             <li><a title="{{ 'FOOTER_TERMS_AND_CONDITIONS' | translate}}" ui-sref=".terms">{{ 'FOOTER_TERMS_AND_CONDITIONS' | translate}}</a></li>
@@ -143,7 +147,20 @@
           </ul>
         </div>
       </div>
-      <div></div>
+      <div class="visible-xs links">
+        <div class="uppercase">
+          <ul>
+            <li><a title="{{ 'FOOTER_WE' | translate}}" ui-sref=".about-us">{{ 'FOOTER_WE' | translate}}</a></li>
+            <!--li><a title="{{ 'FOOTER_CONTACT' | translate}}">{{ 'FOOTER_CONTACT' | translate}}</a></li-->
+            <!--li><a title="{{ 'FOOTER_HELP' | translate}}" ui-sref=".help">{{ 'FOOTER_HELP' | translate}}</a></li-->
+            <li><a title="{{ 'FOOTER_FAQ' | translate}}" ui-sref=".faq">{{ 'FOOTER_FAQ' | translate}}</a></li>
+            <li><a href="http://geekseekblog.wordpress.com/" target="_blank">{{ 'FOOTER_BLOG' | translate}}</a></li>
+            <li><a title="{{ 'FOOTER_TERMS_AND_CONDITIONS' | translate}}" ui-sref=".terms">{{ 'FOOTER_TERMS_AND_CONDITIONS' | translate}}</a></li>
+            <li><a title="{{ 'FOOTER_PRIVACY' | translate}}" ui-sref=".privacy">{{ 'FOOTER_PRIVACY' | translate}}</a></li>
+            <li><a title="{{ 'FOOTER_CANCELLATION' | translate}}" ui-sref=".cancellation-policy">{{ 'FOOTER_CANCELLATION' | translate}}</a></li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </footer>
