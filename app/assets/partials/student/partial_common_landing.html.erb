@@ -287,7 +287,7 @@
         </div>
         <p translate="STUDENT_HOW_STEP_1"></p>
         <img src="/assets/site/student-how-search.png" alt="{{ 'STUDENT_HOW_STEP_1_TITLE' | translate}}">
-        <span class="control-arrow control-right-arrow"></span>      </div>
+        <span class="control-arrow control-right-arrow hidden-xs"></span>      </div>
       <div class="col-lg-4 col-md-4 col-sm-4 columns text-color-dark-green how-item bgcolor-gradient-backwards">
         <div class="title-content">
           <span class="number">2</span>
@@ -295,7 +295,7 @@
         </div>
         <p translate="STUDENT_HOW_STEP_2"></p>
         <img src="/assets/site/student-how-compare.png" alt="{{ 'STUDENT_HOW_STEP_2_TITLE' | translate}}">
-        <span class="control-arrow control-right-arrow"></span>
+        <span class="control-arrow control-right-arrow hidden-xs"></span>
       </div>
       <div class="col-lg-4 col-md-4 col-sm-4 columns text-color-dark-green how-item">
         <div class="title-content">
@@ -411,11 +411,17 @@
           <li class="text-color-landing-medium-red"><span><img src="/assets/site/video-opt-4.png" alt="{{ 'STUDENT_WHAT_STEP_4' | translate }}"></span><span translate="STUDENT_WHAT_STEP_4"></span></li>
         </ul>
       </div>
-      <div ng-if="getCurrentLanguage() == 'es_MX'" class="col-lg-6 col-md-6 col-sm-12 col-xs-12 video-container columns">
+      <div ng-if="getCurrentLanguage() == 'es_MX'" class="col-lg-6 col-md-6 col-sm-12 col-xs-12 hidden-sm hidden-xs video-container columns">
         <iframe src="//player.vimeo.com/video/113034804" width="400" height="320" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
       </div>
-      <div ng-if="getCurrentLanguage() == 'en_US'" class="col-lg-6 col-md-6 col-sm-12 col-xs-12 video-container columns">
+      <div ng-if="getCurrentLanguage() == 'es_MX'" class="col-lg-6 col-md-6 col-sm-12 col-xs-12 video-container hidden-md hidden-lg columns">
+        <iframe src="//player.vimeo.com/video/113034804" width="300" height="170" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+      </div>
+      <div ng-if="getCurrentLanguage() == 'en_US'" class="col-lg-6 col-md-6 col-sm-12 col-xs-12 video-container hidden-sm hidden-xs columns">
         <iframe src="//player.vimeo.com/video/113442555" width="400" height="320" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+      </div>
+      <div ng-if="getCurrentLanguage() == 'en_US'" class="col-lg-6 col-md-6 col-sm-12 col-xs-12 hidden-md hidden-lg video-container columns">
+        <iframe src="//player.vimeo.com/video/113442555" width="300" height="170" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
       </div>
     </div>
   </div>
