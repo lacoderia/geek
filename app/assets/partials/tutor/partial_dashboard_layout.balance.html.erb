@@ -4,7 +4,7 @@
   <ng-alert id="balance-request" alert-params="tutorBalanceAlertParams"></ng-alert>
 
   <!-- Saldo -->
-  <div class="balance-group" ng-show="balanceInfo && !confirmTransferView">
+  <div class="balance-group" ng-if="balanceInfo" ng-show="!confirmTransferView">
     <div class="balance-items-group">
       <div class="current-balance-info">
         <div class="balance-info-container">

@@ -773,7 +773,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
                     for(var appointmentIndex=0; appointmentIndex<$scope.appointments.length; appointmentIndex++){
 
                         var appointment = $scope.appointments[appointmentIndex];
-
+                        console.log(startDate)
                         var startDate = new Date(appointment.start);
                         var endDate = new Date(appointment.end);
                         var startMintues = (startDate.getMinutes() < 10) ? '0' + startDate.getMinutes() : startDate.getMinutes();
