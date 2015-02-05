@@ -1685,9 +1685,18 @@
           width: 100%;
         }
 
+        .angucomplete-holder{
+          width: 40%;
+
+          input{
+            width: 100%;
+          }
+
+        }
+
         .county, .category{
           margin-bottom: 0em;
-          width: 100%;
+          //width: 100%;
         }
       }
     }

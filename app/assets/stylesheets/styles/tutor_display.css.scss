@@ -581,9 +581,9 @@
 
   p{
     color: $color-light-green;
-    font-size: 28px;
+    font-size: 20px;
     font-weight: 500;
-    margin: 0 4.4em 0.3em;
+    margin: 1em 0.8em 1em;
     text-transform: uppercase;
   }
 
@@ -641,7 +641,7 @@
 
   .search-image{
     display: block;
-    margin: 0px auto -10px;
+    margin: 20px auto -14px;
     max-width: 100px;
     width: 100%;
   }
@@ -667,17 +667,23 @@
 
 .what-is-geek-title{
   background-color: $color-sign-up-dark-blue;
-  border-radius: 10px 10px 0 0;
+  border-radius: 0;
   color: $color-light-blue;
-  font-size: 1.8rem;
+  font-size: 1rem;
   font-weight: 500;
   margin: 0;
   text-align: center;
   text-transform: uppercase;
-  padding: 0.2em 0em 0.1em;
+  padding: 0.4em 0.4rem 0.2em;
 }
 
 @media (min-width: $screen-sm-min) {
+
+  .what-is-geek-title{
+    border-radius: 10px 10px 0 0;
+    font-size: 1.3rem;
+    padding: 0.4em 0em 0.2em;
+  }
 
   .section-benefits{
     padding: 2.5em;
@@ -740,6 +746,15 @@
       vertical-align: top;
       text-align: left;
       width: 70%;
+    }
+
+    h3{
+      margin: 0.2em 0 0 2em;
+    }
+
+    p{
+      font-size: 22px;
+      margin: 0.1em 1em 0.2em 3.2em;
     }
 
     form{
@@ -883,9 +898,13 @@
 
     h3{
       font-size: 50px;
-      margin: 0em 0em 0.1em 2em;
+      margin: 0em 0em 0.2em 2em;
     }
 
+    p{
+      font-size: 28px;
+      margin: 0 0em 0em 3.4em;
+    }
 
     > div{
       display: inline-block;
@@ -895,10 +914,10 @@
     }
 
     form{
-      display: inline-block;
-      margin: 0em 10.5em 1em;
+      display: inline;
+      margin: 0em auto;
       padding: 0em;
-      text-align: right;
+      float: right;
 
       button{
         display: inline-block;
@@ -927,6 +946,12 @@
 }
 
 @media (min-width: $screen-lg-min) {
+
+  .what-is-geek-title{
+    font-size: 1.8rem;
+    padding: 0.2em 0em 0.1em;
+  }
+
   .section-search{
 
     > div{
@@ -934,7 +959,9 @@
     }
 
     form{
-      display: block;
+      display: inline-block;
+      margin-right: 11.5rem;
+      float: right;
 
       button{
         padding: 0.8em 1.5em;
