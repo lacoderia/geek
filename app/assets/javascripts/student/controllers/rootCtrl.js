@@ -187,8 +187,6 @@ Geek.controller('RootController', ["$filter", "$scope", "$rootScope", "$state", 
                 });
             }
         },0)
-
-
     });
 
     //Obtiene los datos del catálogo de zonas

@@ -1,6 +1,6 @@
-<div class="container"ng-controller="NavigationController as navigationCtrl">
+<div class="container" ng-controller="NavigationController as navigationCtrl">
   <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div>
       <p class="what-is-geek-title" translate="LANDING_WHAT_IS_GEEK_TUTOR"></p>
       <div class="bgcolor-light-gray section-search">
         <img src="/assets/site/geek.png" alt="Geek" class="search-image hidden-xs">
@@ -59,24 +59,32 @@
   </div>
 </div>
 
-<div class="container-fluid video-wrapper" ng-hide="tutorResultListVisible">
+<div class="container-fluid video-wrapper">
   <div class="row">
     <div class="section-video">
       <div class="col-lg-12 col-md-12 col-sm-12 columns">
-        <h3 class="title-element text-color-white" translate="TUTOR_WHAT_TITLE"></h3>
+        <h3 class="title-element text-color-white" translate="STUDENT_WHAT_TITLE"></h3>
       </div>
       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-container columns">
         <ul>
-          <li class="text-color-landing-dark-red"><span><img src="/assets/site/landing-tutor-video-1.png" alt="Consigue más alumnos"></span><span translate="TUTOR_WHAT_STEP_1"></span></li>
-          <li class="text-color-white bgcolor-landing-medium-red"><span><img src="/assets/site/landing-tutor-video-2.png" alt="Organízate y se más eficiente con tu tiempo"></span><span translate="TUTOR_WHAT_STEP_2"></span></li>
-          <li class="text-color-white bgcolor-landing-medium-2-red"><span><img src="/assets/site/landing-tutor-video-3.png" alt="Desentiéndete del proceso de cobro"></span><span translate="TUTOR_WHAT_STEP_3"></span></li>
-          <li class="text-color-landing-medium-red"><span><img src="/assets/site/landing-tutor-video-4.png" alt="Forma parte de una comunidad educativa"></span><span translate="TUTOR_WHAT_STEP_4"></span></li>
+          <li class="text-color-landing-dark-red"><span><img src="/assets/site/video-opt-1.png" alt="{{ 'STUDENT_WHAT_STEP_1' | translate }}"></span><span translate="STUDENT_WHAT_STEP_1"></span></li>
+          <li class="text-color-white bgcolor-landing-medium-red"><span><img src="/assets/site/video-opt-2.png" alt="{{ 'STUDENT_WHAT_STEP_2' | translate }}"></span><span translate="STUDENT_WHAT_STEP_2"></span></li>
+          <li class="text-color-white bgcolor-landing-medium-2-red"><span><img src="/assets/site/video-opt-3.png" alt="{{ 'STUDENT_WHAT_STEP_3' | translate }}"></span><span translate="STUDENT_WHAT_STEP_3"></span></li>
+          <li class="text-color-landing-medium-red"><span><img src="/assets/site/video-opt-4.png" alt="{{ 'STUDENT_WHAT_STEP_4' | translate }}"></span><span translate="STUDENT_WHAT_STEP_4"></span></li>
         </ul>
       </div>
-      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 video-container columns">
+      <div ng-if="getCurrentLanguage() == 'es_MX'" class="col-lg-6 col-md-6 col-sm-12 col-xs-12 hidden-sm hidden-xs video-container columns">
         <iframe src="//player.vimeo.com/video/113034804" width="400" height="320" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
       </div>
-      <div class="clearfix"></div>
+      <div ng-if="getCurrentLanguage() == 'es_MX'" class="col-lg-6 col-md-6 col-sm-12 col-xs-12 video-container hidden-md hidden-lg columns">
+        <iframe src="//player.vimeo.com/video/113034804" width="300" height="170" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+      </div>
+      <div ng-if="getCurrentLanguage() == 'en_US'" class="col-lg-6 col-md-6 col-sm-12 col-xs-12 video-container hidden-sm hidden-xs columns">
+        <iframe src="//player.vimeo.com/video/113442555" width="400" height="320" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+      </div>
+      <div ng-if="getCurrentLanguage() == 'en_US'" class="col-lg-6 col-md-6 col-sm-12 col-xs-12 hidden-md hidden-lg video-container columns">
+        <iframe src="//player.vimeo.com/video/113442555" width="300" height="170" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+      </div>
     </div>
   </div>
 </div>

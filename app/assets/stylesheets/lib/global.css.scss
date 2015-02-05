@@ -3094,11 +3094,23 @@ footer{
     font-family: 'Typewriter';
     margin-bottom: 0px;
     vertical-align: top;
+
+    a:hover{
+      text-decoration: none;
+    }
+
+    span{
+      color: $color-dark-red;
+      display: block;
+      font-size: 40px;
+      margin: 0 auto;
+      text-align: center;
+    }
   }
 
   .navigation{
     display: inline-block;
-    font-size: 16px;
+    font-size: 13px;
     font-weight: 500;
     margin-bottom: 0px;
     text-align: center;
@@ -3469,7 +3481,7 @@ footer{
 }
 
 .title-element{
-  font-size: 2.5rem;
+  font-size: 1.5rem;
   font-weight: 500;
   margin-bottom: 0.5em;
   text-align: center;
@@ -3496,22 +3508,19 @@ footer{
 
     .video-container{
       box-sizing: border-box;
-
+      text-align: center;
 
       iframe{
-        border: 20px solid #EFA6A7;
-        left: 0;
-        position: absolute;
-        top: 0;
-        width: 93%;
+        border: 1px solid #EFA6A7;
+        margin: 0 auto;
       }
     }
 
     .text-container{
       ul{
-        font-size: 24px;
+        font-size: 16px;
         font-weight: 500;
-        line-height: 28px;
+        line-height: 18px;
         list-style: none;
         margin: 0px;
         padding: 0px;
@@ -3527,7 +3536,7 @@ footer{
         display: block;
         margin: 0em;
         height: 80px;
-        padding: 0.4em 0em 0.5em 2em;
+        padding: 1em 0em 0.5em 2em;
         text-transform: uppercase;
         width: 100%;
 
@@ -3537,6 +3546,10 @@ footer{
           text-align: center;
           vertical-align: middle;
           width: 15%;
+
+          img{
+            max-width: 40px;
+          }
         }
 
         span:last-child{
@@ -3581,12 +3594,12 @@ footer{
 }
 
 .subtitle-element{
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: 500;
   margin: 0 auto;
   text-align: center;
   text-transform: uppercase;
-  width: 60%;
+  width: 90%;
 }
 
 .unavailable-resume-items-message{
@@ -3691,6 +3704,7 @@ footer{
 }
 
 @media (min-width: $screen-sm-min) {
+
   .navbar{
     margin-bottom: 20px;
 
@@ -3724,6 +3738,45 @@ footer{
 
 @media (min-width: $screen-md-min) {
 
+  .title-element{
+    font-size: 2rem;
+  }
+
+  .video-wrapper{
+
+    .section-video{
+
+      .text-container{
+        ul{
+          font-size: 22px;
+          line-height: 22px;
+
+          li{
+            padding-top: 0.4em;
+
+            img{
+              max-width: none;
+
+            }
+          }
+        }
+      }
+
+
+    .video-container{
+      box-sizing: border-box;
+      text-align: left;
+
+        iframe{
+          border: 20px solid #EFA6A7;
+          display: inline-block !important;
+          margin: none;
+          width: 93%;
+        }
+      }
+    }
+  }
+
   .angucomplete-dropdown{
     width: 250px;
   }
@@ -3747,6 +3800,30 @@ footer{
 
         }
       }
+    }
+  }
+}
+
+@media (min-width: $screen-lg-min) {
+  .title-element{
+    font-size: 2.5rem;
+  }
+
+  .subtitle-element{
+    font-size: 1.5rem;
+    width: 60%;
+  }
+
+  .video-wrapper{
+
+    .section-video{
+
+      .text-container{
+        ul{
+          font-size: 24px;
+        }
+      }
+
     }
   }
 }
