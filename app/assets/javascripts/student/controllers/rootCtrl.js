@@ -33,6 +33,10 @@ Geek.controller('RootController', ["$filter", "$scope", "$rootScope", "$state", 
         window.open('student#' + url,'_blank');
     };
 
+    $rootScope.redirectToHome = function(){
+        $state.go("student.landing", {}, {reload:true});
+    };
+
     $rootScope.getCurrentLanguage = function(){
         return $translate.use();
     };
