@@ -207,6 +207,7 @@
     "PAYMENT_LABEL_CITY": "Ciudad",
     "PAYMENT_LABEL_CREDIT_CARD_ACCEPTED": "Tarjetas de débito y crédito aceptadas",
     "PAYMENT_LABEL_CURRENT_CARD_BANK_ACCOUNT": "Tarjetas y cuentas de banco registradas",
+    "PAYMENT_LABEL_STUDENT_CURRENT_CARD_BANK_ACCOUNT": "Tarjetas registradas",
     "PAYMENT_LABEL_DEBIT_CARD": "Tarjeta de débito",
     "PAYMENT_LABEL_DEBIT_CARD_HOLDER_NAME": "Nombre en la tarjeta",
     "PAYMENT_LABEL_DEBIT_CARD_NUMBER": "Número en la tarjeta",
