@@ -2236,8 +2236,8 @@ footer{
     }
 
     .bgcolor-green:hover{
-      background-color: $color-light-green;
-      color: white;
+      background-color: $color-landing-light-green;
+      color: $color-light-green;
     }
 
     .bgcolor-blue{
@@ -2246,8 +2246,8 @@ footer{
     }
 
     .bgcolor-blue:hover{
-      background-color: $color-light-blue;
-      color: white;
+      background-color: $color-landing-light-blue;
+      color: $color-light-blue;
     }
 
     .bgcolor-orange{
@@ -2256,8 +2256,8 @@ footer{
     }
 
     .bgcolor-orange:hover{
-      background-color: $color-medium-orange;
-      color: $color-light-orange;
+      background-color: $color-light-orange;
+      color: $color-dark-orange;
     }
 
     ul{
@@ -2284,7 +2284,32 @@ footer{
           margin-top: 2px;
         }
 
+      }
+    }
 
+    .questions-container{
+
+
+      li{
+        .question{
+          display: inline-block;
+          vertical-align: top;
+          width: 100%;
+        }
+
+        .control-arrow{
+          display: inline-block;
+          vertical-align: middle;
+        }
+
+        .answer{
+          color: white;
+          display: inline-block;
+          font-weight: 300;
+          margin-top: 1rem;
+          vertical-align: top;
+
+        }
       }
     }
 
@@ -3709,6 +3734,70 @@ footer{
 
 @media (min-width: $screen-sm-min) {
 
+  .faq{
+    box-sizing: border-box;
+    font-size: 0;
+    min-height: 500px;
+    margin: 0 auto 0.2rem;
+    max-width: 900px;
+
+    .bgcolor-green{
+      background-color: $color-landing-light-green;
+      color: $color-light-green;
+    }
+
+    .bgcolor-green:hover{
+      background-color: $color-light-green;
+      color: white;
+    }
+
+    .bgcolor-blue{
+      background-color: $color-landing-light-blue;
+      color: $color-light-blue;
+    }
+
+    .bgcolor-blue:hover{
+      background-color: $color-light-blue;
+      color: white;
+    }
+
+    .bgcolor-orange{
+      background-color: $color-light-orange;
+      color: $color-dark-orange;
+    }
+
+    .bgcolor-orange:hover{
+      background-color: $color-medium-orange;
+      color: $color-light-orange;
+    }
+
+    strong{
+      font-weight: 400 !Important;
+    }
+
+    .faq-sections{
+      width: 50%;
+
+      ul{
+        li{
+          .section-title{
+            width: 85%;
+          }
+        }
+      }
+    }
+
+    .faq-answers{
+      width: 50%;
+
+      .questions-container{
+        .question{
+          width: 84%;
+        }
+      }
+    }
+  }
+
   .about-us {
     .content {
       .description {
@@ -3935,6 +4024,31 @@ footer{
 
 @media (min-width: $screen-md-min) {
 
+  .faq{
+    box-sizing: border-box;
+    font-size: 0;
+    min-height: 500px;
+    margin: 0 auto 0.2rem;
+    max-width: 900px;
+
+    strong{
+      font-weight: 400 !Important;
+    }
+
+    .faq-sections{
+      width: 50%;
+
+      ul{
+        li{
+          .section-title{
+            width: 90%;
+          }
+        }
+      }
+    }
+
+  }
+
   .section-dashboard-container{
     margin: 0.2em 0em;
     min-height: 390px;
@@ -4017,31 +4131,22 @@ footer{
 }
 
 @media (min-width: $screen-lg-min) {
-  .title-element{
-    font-size: 2.5rem;
-  }
 
   .faq{
-    box-sizing: border-box;
-    font-size: 0;
-    min-height: 500px;
-    margin: 0 auto 0.2rem;
-    max-width: 900px;
 
-    strong{
-      font-weight: 400 !Important;
-    }
-
-    .faq-sections{
-      ul{
-        li{
-          .section-title{
-            width: 90%;
-          }
+    .faq-answers{
+      .questions-container{
+        .question{
+          width: 88%;
         }
       }
 
     }
+
+  }
+
+  .title-element{
+    font-size: 2.5rem;
   }
 
   .about-us {
