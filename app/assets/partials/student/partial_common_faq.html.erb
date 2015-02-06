@@ -10,9 +10,24 @@
               <li ng-click="setSelectedSection(faqItem)" ng-class="[faqItem.sectionClass]">
                 <span class="section-title">{{ faqItem.section | translate }}</span><span class="control-arrow control-right-arrow"></span>
               </li>
+              <ul ng-if="selectedSection == faqItem" class="questions-container hidden-sm hidden-md hidden-lg" ng-class="[selectedSection.sectionClass]">
+                <li ng-repeat="question in selectedSection.questions">
+                  <span class="pointer" ng-click="setQuestionSelected(question)"><span class="question" bind-html-unsafe="question.q" ng-click="setQuestionSelected(question)" translate></span><span class="hidden-xs control-arrow" ng-class="{true:'control-down-arrow-white', false:'control-right-arrow-one-white'}[isQuestionSelected(question)]"></span></span>
+                  <span class="answer" bind-html-unsafe="question.a" translate ng-show="isQuestionSelected(question)"></span>
+                </li>
+                <li ng-repeat="subsection in selectedSection.subsections">
+                  <span class="subtitle">{{ subsection.subtitle | translate }}</span>
+                  <ul>
+                    <li ng-repeat="question in subsection.questions">
+                      <span class="pointer" ng-click="setQuestionSelected(question)"><span class="question" translate>{{question.q}} </span><span class="control-arrow hidden-xs" ng-class="{true:'control-down-arrow-white', false:'control-right-arrow-one-white'}[isQuestionSelected(question)]"></span></span>
+                      <span class="answer" ng-show="isQuestionSelected(question)" translate >{{question.a}}</span>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
             </ul>
           </div>
-          <div class="faq-answers">
+          <div class="faq-answers hidden-xs">
             <ul ng-if="selectedSection" class="questions-container" ng-class="[selectedSection.sectionClass]">
               <li ng-repeat="question in selectedSection.questions">
                 <span class="pointer" ng-click="setQuestionSelected(question)"><span class="question" bind-html-unsafe="question.q" ng-click="setQuestionSelected(question)" translate></span><span class="control-arrow" ng-class="{true:'control-down-arrow-white', false:'control-right-arrow-one-white'}[isQuestionSelected(question)]"></span></span>
