@@ -2,7 +2,7 @@
 <div class="row">
 <div class="section-search-results search-container">
 <div class="light-search" ng-show="showTopSearchbar">
-  <h2 class="hidden-sm hidden-xs">geek</h2>
+  <h2 class="hidden-xs">geek</h2>
   <form>
     <angucomplete-alt-geek id="topics"
                            placeholder="{{ 'AUTOCOMPLETE_TOPIC' | translate }}"
@@ -30,24 +30,43 @@
 
 <div class="search-result-list" ng-show="tutorList.length || suggestedTutorList.length">
 <div class="search-results-tools" ng-hide="selectedTutor">
-  <div class="filter-tools">
+  <div class="filter-tools hidden-md hidden-sm hidden-xs">
     <span class="category filter-label">{{ 'FILTERS' | translate}}:</span>
-        <span class="search-result-filter filter-item">
-          <input type="checkbox" id="tutor_class_mode_online" name="tutor_class_mode" ng-model="filters.online" ng-change="searchTutor(1, true, false)"/>
-          <label for="tutor_class_mode_online" translate="SEARCH_FILTER_LABEL_ONLINE"></label>
-        </span>
-        <span class="search-result-filter filter-item">
-          <input type="checkbox" id="tutor_class_mode_tutor_home" name="tutor_class_mode" ng-model="filters.office" ng-change="searchTutor(1, true, false)"/>
-          <label for="tutor_class_mode_tutor_home" translate="SEARCH_FILTER_LABEL_OFFICE"></label>
-        </span>
-        <span class="search-result-filter filter-item">
-          <input type="checkbox" id="tutor_class_mode_student_home" name="tutor_class_mode" ng-model="filters.student" ng-change="searchTutor(1, true, false)"/>
-          <label for="tutor_class_mode_student_home" translate="SEARCH_FILTER_LABEL_STUDENT"></label>
-        </span>
-        <span class="search-result-filter filter-item">
-          <input type="checkbox" id="tutor_class_mode_public" name="tutor_class_mode" ng-model="filters.public" ng-change="searchTutor(1, true, false)"/>
-          <label for="tutor_class_mode_public" translate="SEARCH_FILTER_LABEL_PUBLIC"></label>
-        </span>
+    <span class="search-result-filter filter-item">
+      <input type="checkbox" id="tutor_class_mode_online" name="tutor_class_mode" ng-model="filters.online" ng-change="searchTutor(1, true, false)"/>
+      <label for="tutor_class_mode_online" translate="SEARCH_FILTER_LABEL_ONLINE"></label>
+    </span>
+    <span class="search-result-filter filter-item">
+      <input type="checkbox" id="tutor_class_mode_tutor_home" name="tutor_class_mode" ng-model="filters.office" ng-change="searchTutor(1, true, false)"/>
+      <label for="tutor_class_mode_tutor_home" translate="SEARCH_FILTER_LABEL_OFFICE"></label>
+    </span>
+    <span class="search-result-filter filter-item">
+      <input type="checkbox" id="tutor_class_mode_student_home" name="tutor_class_mode" ng-model="filters.student" ng-change="searchTutor(1, true, false)"/>
+      <label for="tutor_class_mode_student_home" translate="SEARCH_FILTER_LABEL_STUDENT"></label>
+    </span>
+    <span class="search-result-filter filter-item">
+      <input type="checkbox" id="tutor_class_mode_public" name="tutor_class_mode" ng-model="filters.public" ng-change="searchTutor(1, true, false)"/>
+      <label for="tutor_class_mode_public" translate="SEARCH_FILTER_LABEL_PUBLIC"></label>
+    </span>
+  </div>
+  <div class="filter-tools hidden-lg">
+    <span class="category filter-label">{{ 'FILTERS' | translate}}:</span>
+    <span class="search-result-filter filter-item">
+      <input type="checkbox" id="tutor_class_mode_online" name="tutor_class_mode" ng-model="filters.online" ng-change="searchTutor(1, true, false)"/>
+      <label for="tutor_class_mode_online" translate="SEARCH_FILTER_LABEL_ONLINE"></label>
+    </span>
+    <span class="search-result-filter filter-item">
+      <input type="checkbox" id="tutor_class_mode_tutor_home" name="tutor_class_mode" ng-model="filters.office" ng-change="searchTutor(1, true, false)"/>
+      <label for="tutor_class_mode_tutor_home" translate="SEARCH_FILTER_LABEL_OFFICE"></label>
+    </span>
+    <span class="search-result-filter filter-item">
+      <input type="checkbox" id="tutor_class_mode_student_home" name="tutor_class_mode" ng-model="filters.student" ng-change="searchTutor(1, true, false)"/>
+      <label for="tutor_class_mode_student_home" translate="SEARCH_FILTER_LABEL_STUDENT"></label>
+    </span>
+    <span class="search-result-filter filter-item">
+      <input type="checkbox" id="tutor_class_mode_public" name="tutor_class_mode" ng-model="filters.public" ng-change="searchTutor(1, true, false)"/>
+      <label for="tutor_class_mode_public" translate="SEARCH_FILTER_LABEL_PUBLIC"></label>
+    </span>
   </div>
   <div class="order-tools">
     <span class="category order-label">{{ 'SEARCH_ORDER_BY_LABEL' | translate}}:</span>
@@ -71,7 +90,81 @@
   <span class="btn-back" ng-click="showSearchResults()" ng-show="selectedTutor"><< {{ 'SHOW_ALL' | translate }}</span>
 </div>
 <div>
-  <div class="tutor" dir-paginate="tutor in tutorList | itemsPerPage: tutorsPerPage" total-items="totalTutors" pagination-id="tutorsPagination" current-page="pagination_current" on-tutor-search-render>
+  <div class="tutor visible-sm visible-xs" dir-paginate="tutor in tutorList | itemsPerPage: tutorsPerPage" total-items="totalTutors" pagination-id="tutorsPagination" current-page="pagination_current" on-tutor-search-render>
+    <div class="tutor-personal-info col-sm-12 col-xs-12">
+      <div class="content col-sm-12 col-xs-12">
+        <div class="content-info col-sm-12 col-xs-12">
+          <div class="tutor_picture_container col-sm-3 col-xs-3" ng-click="showTutorDetails(tutor)">
+            <div class="tutor_picture">
+              <img/>
+            </div>
+          </div>
+          <h4 class="tutor-name col-sm-9 col-xs-9" ng-click="showTutorDetails(tutor)">{{ tutor.first_name }} {{ tutor.last_name }}</h4>
+          <div class="score-info">
+            <div class="content-score">
+              <div class="score">
+                <span class="icon-star1" ng-class="tutor.reviews.average >= 1 ? 'star-full': 'star-empty'"></span>
+                <span class="icon-star1" ng-class="tutor.reviews.average >= 2 ? 'star-full': 'star-empty'"></span>
+                <span class="icon-star1" ng-class="tutor.reviews.average >= 3 ? 'star-full': 'star-empty'"></span>
+                <span class="icon-star1" ng-class="tutor.reviews.average >= 4 ? 'star-full': 'star-empty'"></span>
+                <span class="icon-star1" ng-class="tutor.reviews.average >= 5 ? 'star-full': 'star-empty'"></span>
+              </div>
+            </div>
+            <div class="score-more" ng-show="!tutor.reviews.comments.length" translate="TUTOR_SEARCH_NO_COMMENTS"></div>
+            <div class="score-more pointer" ng-hide="tutor.showComments || !tutor.reviews.comments.length" ng-click="toggleComments(tutor)" translate="TUTOR_SEARCH_SHOW_COMMENTS"></div>
+            <div class="score-more pointer" ng-show="tutor.showComments" ng-click="toggleComments(tutor)" translate="TUTOR_SEARCH_HIDE_COMMENTS"></div>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="content-info col-sm-12 col-xs-12">
+          <div class="preferences">
+            <span class="item-added" ng-if="tutor.preference.online" title="{{ 'TUTOR_PREFERENCE_ONLINE' | translate }}">{{ 'TUTOR_PREFERENCE_ONLINE' | translate }}</span>
+            <span class="item-added" ng-if="tutor.preference.office" title="{{ 'TUTOR_PREFERENCE_OFFICE' | translate }}">{{ 'TUTOR_PREFERENCE_OFFICE' | translate }}</span>
+            <span class="item-added" ng-if="tutor.preference.student_place" title="{{ 'TUTOR_PREFERENCE_STUDENT' | translate }}">{{ 'TUTOR_PREFERENCE_STUDENT' | translate }}</span>
+            <span class="item-added" ng-if="tutor.preference.public" title="{{ 'TUTOR_PREFERENCE_PUBLIC' | translate }}">{{ 'TUTOR_PREFERENCE_PUBLIC' | translate }}</span>
+          </div>
+          <p class="tutor-categories"><span ng-repeat="category in tutor.categories">{{ category.name }}{{ $last ? '' : ', ' }}</span></p>
+          <p class="resume" ng-class="{ 'expanded' : tutor.id == selectedTutor.id }" ng-bind="tutor.background" ellipsis ellipsis-append="{{ 'MORE' | translate }}" ellipsis-symbol="... " ellipsis-append-click="showTutorDetails(tutor)" ellipsis-id="tutor.id"></p>
+        </div>
+        <div class="clearfix"></div>
+        <div class="reviews" ng-show="tutor.showComments">
+          <div class="review" class="col-lg-12 col-md-12 col-sm-12" ng-repeat="review in tutor.reviews.comments" ng-image-adjustment image-container="user_picture" image-src="{{ review.student.picture_url }}">
+            <h3>{{ 'TUTOR_SEARCH_COMMENTS' | translate }}</h3>
+            <div class="user_picture_container">
+              <div class="user_picture">
+                <img/>
+              </div>
+            </div>
+            <div class="user-personal-info">
+              <div class="content">
+                <h4 class="user-name">{{ review.student.first_name }} {{ review.student.last_name }}</h4>
+                <div class="review-info">
+                  <em class="timestamp">{{ review.timestamp | timestampTranslateFilter }}</em>
+                </div>
+                <p class="user-review">{{ review.description }}</p>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tutor-class-info col-lg-2 col-md-2 col-sm-12 col-xs-12">
+      <div class="content">
+        <div class="content-price">
+          <h4 class="price">
+            MXN {{ tutor.costRange }} {{ 'EACH_HOUR' | translate }}
+          </h4>
+        </div>
+        <div class="content-button">
+          <a class="action-button see-availability" ng-if="!selectedTutor" ng-click="showTutorDetails(tutor)" translate="SHOW_AVAILABILITY"></a>
+          <a class="action-button send-message" ng-click="openModalMessage($event,tutor)" translate="TUTOR_SEARCH_SEND_MESSAGE"></a>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  <div class="tutor hidden-sm hidden-xs" dir-paginate="tutor in tutorList | itemsPerPage: tutorsPerPage" total-items="totalTutors" pagination-id="tutorsPagination" current-page="pagination_current" on-tutor-search-render>
     <div class="tutor_picture_container col-lg-2 col-md-2 col-sm-12 col-xs-12" ng-click="showTutorDetails(tutor)">
       <div class="tutor_picture">
         <img/>
@@ -377,19 +470,19 @@
         <h3 class="title-element text-color-white" translate="WHERE_TITLE"></h3>
         <h4 class="subtitle-element text-color-dark-blue" translate="WHERE_TEXT"></h4>
       </div>
-      <div class="col-lg-3 col-md-3 col-sm-6 columns where-item">
+      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 columns where-item">
         <p translate="WHERE_PREFERENCE_HOME"></p>
         <img src="/assets/site/landing-home.png" alt="En tu casa o en la suya">
       </div>
-      <div class="col-lg-3 col-md-3 col-sm-6 columns where-item">
+      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12  columns where-item">
         <p translate="WHERE_PREFERENCE_PUBLIC"></p>
         <img src="/assets/site/landing-public.png" alt="En un espacio público">
       </div>
-      <div class="col-lg-3 col-md-3 col-sm-6 columns where-item">
+      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12  columns where-item">
         <p translate="WHERE_PREFERENCE_ONLINE"></p>
         <img src="/assets/site/landing-online.png" alt="Online">
       </div>
-      <div class="col-lg-3 col-md-3 col-sm-6 columns where-item">
+      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12  columns where-item">
         <p translate="WHERE_PREFERENCE_GEEK"></p>
         <img src="/assets/site/landing-geek.png" alt="Online">
       </div>
