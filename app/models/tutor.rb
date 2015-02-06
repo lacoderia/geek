@@ -292,9 +292,9 @@ class Tutor < ActiveRecord::Base
       where = "appointments.start >= ?"
     end
 
-    appointments = tutor.appointments.select("*, EXTRACT(year from appointments.end) as per_year, EXTRACT(month from appointments.end) as per_month, EXTRACT(day from appointments.end) as per_day").includes(:student, :address, :appointment_status, :registered_anomalies => [:anomaly, :registered_anomaly_status]).where(where, Time.now ).order("start DESC")
+    appointments = tutor.appointments.includes(:student, :address, :appointment_status, :registered_anomalies => [:anomaly, :registered_anomaly_status]).where(where, Time.now ).order("start DESC")
     appointments.each do |appointment|
-      key = "#{appointment.per_year.to_i}-#{'%02d' % appointment.per_month.to_i}-#{'%02d' % appointment.per_day.to_i}"
+      key = "#{appointment.end.year.to_i}-#{'%02d' % appointment.end.month.to_i}-#{'%02d' % appointment.end.day.to_i}"
       result[key] = [] if not result[key]
       result[key] << appointment
       result[key].sort_by!{|app| app.end}
