@@ -73,14 +73,14 @@
 <div>
   <div class="tutor visible-sm visible-xs" dir-paginate="tutor in tutorList | itemsPerPage: tutorsPerPage" total-items="totalTutors" pagination-id="tutorsPagination" current-page="pagination_current" on-tutor-search-render>
     <div class="tutor-personal-info col-sm-12 col-xs-12">
-      <div class="content">
-        <div class="tutor_picture_container col-sm-3 col-xs-3" ng-click="showTutorDetails(tutor)">
-          <div class="tutor_picture">
-            <img/>
+      <div class="content col-sm-12 col-xs-12">
+        <div class="content-info col-sm-12 col-xs-12">
+          <div class="tutor_picture_container col-sm-3 col-xs-3" ng-click="showTutorDetails(tutor)">
+            <div class="tutor_picture">
+              <img/>
+            </div>
           </div>
-        </div>
-        <div class="content-info col-sm-9 col-xs-9">
-          <h4 class="tutor-name" ng-click="showTutorDetails(tutor)">{{ tutor.first_name }} {{ tutor.last_name }}</h4>
+          <h4 class="tutor-name col-sm-9 col-xs-9" ng-click="showTutorDetails(tutor)">{{ tutor.first_name }} {{ tutor.last_name }}</h4>
           <div class="score-info">
             <div class="content-score">
               <div class="score">
@@ -134,9 +134,7 @@
       <div class="content">
         <div class="content-price">
           <h4 class="price">
-            MXN <br>
-            {{ tutor.costRange }} <br>
-            {{ 'EACH_HOUR' | translate }}
+            MXN {{ tutor.costRange }} {{ 'EACH_HOUR' | translate }}
           </h4>
         </div>
         <div class="content-button">
