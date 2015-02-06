@@ -9,7 +9,7 @@
       <div class="current-balance-info">
         <div class="balance-info-container">
           <h4 class="current-balance">{{ 'BALANCE_LABEL_CURRENT_BALANCE' | translate }}: {{ getTutorProperty('balanceInfo.balance') | currency }}</h4>
-          <div ng-show="balanceInfo.card">
+          <div ng-if="balanceInfo.card">
             <p class="card-info" ng-if="!balanceInfo.card.is_bank_account">{{ 'BALANCE_LABEL_CURRENT_ACCOUNT' | translate }}: XXXX-XXXX-XXXX-{{ getTutorProperty('balanceInfo.card.card_number') }}</p>
             <p class="card-info" ng-if="balanceInfo.card.is_bank_account">{{ 'BALANCE_LABEL_CURRENT_ACCOUNT' | translate }}: XXXXXXXXXXXXXX{{ getTutorProperty('balanceInfo.card.card_number') }}</p>
           </div>
