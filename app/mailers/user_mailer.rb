@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: "benjamin.hernandez@in2teck.com"
+  default from: "\"Geek Education\" <info@geek.education>"
 
   def tutor_notification_email tutor_id, status_id, subject
    
