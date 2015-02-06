@@ -21,6 +21,10 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
         window.open('tutor#' + url,'_blank');
     };
 
+    $rootScope.getCurrentLanguage = function(){
+        return $translate.use();
+    };
+
     $rootScope.toggleLanguage = function(){
         var languageCode = $translate.use();
 
@@ -128,6 +132,7 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
                 var contentHeight = $(window).height() - 60;
                 var headerHeight = $(this).find('.modal-header').outerHeight() || 2;
                 var footerHeight = $(this).find('.modal-footer').outerHeight() || 2;
+                var contentHeaderHeight = $(this).find('.modal-head').outerHeight();
 
                 $(this).find('.modal-content').css({
                     'max-height': function () {
@@ -138,7 +143,10 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
                 $(this).find('.modal-body').css({
                     'max-height': function () {
                         return (contentHeight - (headerHeight + footerHeight));
-                    }
+                    },
+                    'height': function () {
+                    return (contentHeight - (headerHeight + footerHeight) - contentHeaderHeight);
+                }
                 });
 
                 $(this).find('.modal-dialog').css({

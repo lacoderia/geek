@@ -125,9 +125,13 @@ Geek.controller('PaymentController',['$filter', '$scope','$rootScope', '$timeout
             validPaymentForm = false;
         }
 
-        if(!$scope.validateState()){
-            validPaymentForm = false;
-        }
+        /*
+         Se comentó al eliminar la dirección como campo requerido para las tarjetas
+
+         if(!$scope.validateState()){
+         validPaymentForm = false;
+         }
+        */
 
         return validPaymentForm;
 
@@ -174,17 +178,29 @@ Geek.controller('PaymentController',['$filter', '$scope','$rootScope', '$timeout
                 "holder_name": $scope.debitCardHolder,
                 "expiration_year": $scope.expirationYear,
                 "expiration_month": $scope.expirationMonth,
-                "cvv2": $scope.debitCardValidationNumber,
-                "address": {
-                    "city": $scope.city,
-                    "line3":"",
-                    "postal_code": $scope.postalCode,
-                    "line1": $scope.addressLine1,
-                    "line2": $scope.addressLine2,
-                    "state": $scope.state,
-                    "country_code": $scope.COUNTRY_CODE
-                }
+                "cvv2": $scope.debitCardValidationNumber
             };
+
+            /*
+             Se comentó al eliminar la dirección como campo requerido para las tarjetas
+
+             var card = {
+             "card_number": $scope.debitCardNumber,
+             "holder_name": $scope.debitCardHolder,
+             "expiration_year": $scope.expirationYear,
+             "expiration_month": $scope.expirationMonth,
+             "cvv2": $scope.debitCardValidationNumber,
+             "address": {
+             "city": $scope.city,
+             "line3":"",
+             "postal_code": $scope.postalCode,
+             "line1": $scope.addressLine1,
+             "line2": $scope.addressLine2,
+             "state": $scope.state,
+             "country_code": $scope.COUNTRY_CODE
+             }
+             };
+            */
 
             usSpinnerService.spin('payments-spinner');
 
@@ -307,7 +323,12 @@ Geek.controller('PaymentController',['$filter', '$scope','$rootScope', '$timeout
 
     $scope.setState = function(state) {
         $scope.state = state;
-        $scope.validateState();
+
+        /*
+         Se comentó al eliminar la dirección como campo requerido para las tarjetas
+
+         $scope.validateState();
+        */
     }
 
     angular.element(document).ready(function(){

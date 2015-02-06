@@ -1,8 +1,8 @@
 <header class="container">
   <div class="row navbar">
     <h1 class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
-      <a ui-sref=".landing" title="Geek">
-        <img src="/assets/site/geek-logo.png" class="hidden-xs">
+      <a ng-click="redirectToHome()" title="Geek">
+        <img src="/assets/site/geek-logo.png" title="Geek" class="hidden-xs">
         <span class="hidden-lg hidden-md hidden-sm">geek</span>
       </a>
     </h1>
@@ -15,12 +15,12 @@
         <li><a title="{{ 'SIGN_UP' | translate }}" class="signup" ng-click="showSignInModal('signUp')" translate="SIGN_UP"></a></li>
         <li><a title="{{ 'CHOOSE_LANGUAGE' | translate }}" class="text-color-light-blue" ng-click="toggleLanguage()" translate="ENGLISH_SPANISH"></a></li>
       </ul>
-      <ul class="hidden-md hidden-lg hidden-sm">
+      <ul class="visible-xs">
         <li>
           <a href="/tutor" title="{{ 'WANT_TO_TEACH' | translate }}" class="text-color-dark-blue" translate="TUTOR"></a>
         </li>
-        <li><a href="#" title="{{ 'SIGN_IN' | translate }}" translate="SIGN_IN"></a></li>
-        <li><a href="#" title="{{ 'SIGN_UP' | translate }}" translate="SIGN_UP"></a></li>
+        <li><a title="{{ 'SIGN_IN' | translate }}" ng-click="showSignInModal('signIn')" translate="SIGN_IN"></a></li>
+        <li><a title="{{ 'SIGN_UP' | translate }}" ng-click="showSignInModal('signUp')" translate="SIGN_UP"></a></li>
       </ul>
       <div class="modal fade" id="sign-in-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">

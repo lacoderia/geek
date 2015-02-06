@@ -123,6 +123,64 @@
   }
 }
 
+.half-row {
+  position: relative;
+  font-size: 0;
+}
+
+.half-row:before{
+  display: flex;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 50%;
+  background: #BDD4EF; /* Old browsers */
+  background: linear-gradient(to bottom, #BDD4EF 0%, #B0CBEC 100%);
+  width: 100%;
+  z-index: -1;
+}
+
+.half-row:after{
+  display: flex;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  height: 50%;
+  background: #BDD4EF; /* Old browsers */
+  background: linear-gradient(to bottom, #B0CBEC 0%, #BDD4EF 100%);
+  width: 100%;
+  z-index: -1;
+}
+
+.half-row-inverted {
+  position: relative;
+  font-size: 0;
+}
+
+.half-row-inverted:before{
+  display: flex;
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 50%;
+  background: #BDD4EF; /* Old browsers */
+  background: linear-gradient(to bottom, #B0CBEC 0%, #BDD4EF 100%);
+  width: 100%;
+  z-index: -1;
+}
+
+.half-row-inverted:after{
+  display: flex;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 50%;
+  background: #BDD4EF; /* Old browsers */
+  background: linear-gradient(to bottom, #BDD4EF 0%, #B0CBEC 100%);
+  width: 100%;
+  z-index: -1;
+}
+
 #sign-in-modal {
   text-align: center;
   text-transform: uppercase;
@@ -229,7 +287,6 @@
       }
 
       .modal-body {
-        height: 345px;
         padding: 20px;
 
         .form-button-gp {
@@ -424,43 +481,44 @@
   }
 
   .step-container{
-    padding: 2em 1em;
+    padding: 1rem 0rem 2rem;
 
     span.number{
       border: 2px solid $color-landing-text-blue;
       border-radius: 50px;
       box-sizing: border-box;
       display: block;
-      font-size: 20px;
+      font-size: 16px;
       font-weight: 500;
-      height: 40px;
-      margin: -2px auto 0.8em;
-      padding: 0.2em;
+      height: 23px;
+      margin: 10px auto 0.1em;
       text-align: center;
       vertical-align: middle;
-      width: 40px;
+      width: 23px;
     }
 
     span.title{
       box-sizing: border-box;
-      display: inline-block;
+      font-size: 20px;
       font-weight: 500;
-      margin-bottom: 2em;
+      display: block;
+      margin-bottom: 0.5em;
       text-transform: uppercase;
       vertical-align: middle;
     }
 
     .description{
       color: white;
-      display: inline-block;
-      font-size: 20px;
       font-weight: 500;
-      margin-bottom: 10px;
-      margin-top: 8px;
-      min-height: 100px;
-      text-align: center;
+      font-size: 16px;
+      height: 94px;
+      margin-bottom: 1em;
       text-transform: uppercase;
-      width: 85%;
+    }
+
+    img{
+      max-width: 80px;
+      width: 100%;
     }
   }
 
@@ -581,9 +639,9 @@
 
   p{
     color: $color-light-green;
-    font-size: 28px;
+    font-size: 20px;
     font-weight: 500;
-    margin: 0 4.4em 0.3em;
+    margin: 1em 0.8em 1em;
     text-transform: uppercase;
   }
 
@@ -641,7 +699,7 @@
 
   .search-image{
     display: block;
-    margin: 0px auto -10px;
+    margin: 20px auto -14px;
     max-width: 100px;
     width: 100%;
   }
@@ -667,17 +725,75 @@
 
 .what-is-geek-title{
   background-color: $color-sign-up-dark-blue;
-  border-radius: 10px 10px 0 0;
+  border-radius: 0;
   color: $color-light-blue;
-  font-size: 1.8rem;
+  font-size: 1rem;
   font-weight: 500;
   margin: 0;
   text-align: center;
   text-transform: uppercase;
-  padding: 0.2em 0em 0.1em;
+  padding: 0.4em 0.4rem 0.2em;
 }
 
 @media (min-width: $screen-sm-min) {
+
+  .half-row{
+    background: transparent;
+  }
+
+  .half-row:before{
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 400px;
+    background: #BDD4EF; /* Old browsers */
+    background: linear-gradient(to bottom, #BDD4EF 0%, #B0CBEC 100%);
+    width: 51%;
+    z-index: -1;
+  }
+
+  .half-row:after{
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 400px;
+    background: #BDD4EF; /* Old browsers */
+    background: linear-gradient(to bottom, #B0CBEC 0%, #BDD4EF 100%);
+    width: 50%;
+    z-index: -1;
+  }
+
+  .half-row-inverted{
+    background: transparent;
+  }
+
+  .half-row-inverted:before{
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 400px;
+    background: #BDD4EF; /* Old browsers */
+    background: linear-gradient(to bottom, #B0CBEC 0%, #BDD4EF 100%);
+    width: 51%;
+    z-index: -1;
+  }
+
+  .half-row-inverted:after{
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 400px;
+    background: #BDD4EF; /* Old browsers */
+    background: linear-gradient(to bottom, #BDD4EF 0%, #B0CBEC 100%);
+    width: 50%;
+    z-index: -1;
+  }
+
+  .what-is-geek-title{
+    border-radius: 10px 10px 0 0;
+    font-size: 1.3rem;
+    padding: 0.4em 0em 0.2em;
+  }
 
   .section-benefits{
     padding: 2.5em;
@@ -742,6 +858,15 @@
       width: 70%;
     }
 
+    h3{
+      margin: 0.2em 0 0 2em;
+    }
+
+    p{
+      font-size: 22px;
+      margin: 0.1em 1em 0.2em 3.2em;
+    }
+
     form{
       box-sizing: content-box;
       display: inline-block;
@@ -791,60 +916,6 @@
     }
   }
 
-  .half-row {
-    position: relative;
-    font-size: 0;
-  }
-
-  .half-row:before{
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 350px;
-    background: #BDD4EF; /* Old browsers */
-    background: linear-gradient(to bottom, #BDD4EF 0%, #B0CBEC 100%);
-    width: 51%;
-    z-index: -1;
-  }
-
-  .half-row:after{
-    position: absolute;
-    right: 0;
-    top: 0;
-    height: 350px;
-    background: #BDD4EF; /* Old browsers */
-    background: linear-gradient(to bottom, #B0CBEC 0%, #BDD4EF 100%);
-    width: 50%;
-    z-index: -1;
-  }
-
-  .half-row-inverted {
-    position: relative;
-    font-size: 0;
-  }
-
-  .half-row-inverted:before{
-    position: absolute;
-    right: 0;
-    top: 0;
-    height: 350px;
-    background: #BDD4EF; /* Old browsers */
-    background: linear-gradient(to bottom, #B0CBEC 0%, #BDD4EF 100%);
-    width: 51%;
-    z-index: -1;
-  }
-
-  .half-row-inverted:after{
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 350px;
-    background: #BDD4EF; /* Old browsers */
-    background: linear-gradient(to bottom, #BDD4EF 0%, #B0CBEC 100%);
-    width: 50%;
-    z-index: -1;
-  }
-
   .section-how-it-works{
     box-sizing: border-box;
     font-size: 22px;
@@ -853,7 +924,8 @@
     padding: 0em 2.5em;
 
     .step-container{
-      height: 350px;
+      padding: 3rem 2rem;
+      height: 400px;
 
       span.number{
         display: inline-block;
@@ -865,9 +937,20 @@
       }
 
       span.title{
+        display: inline-block;
         font-size: 26px;
         font-weight: 500;
         margin-bottom: 0em;
+      }
+
+      .description{
+        font-size: 20px;
+        padding: 0.2em 1.5em;
+      }
+
+      img{
+        max-width: 110px;
+        width: 100%;
       }
     }
 
@@ -883,9 +966,13 @@
 
     h3{
       font-size: 50px;
-      margin: 0em 0em 0.1em 2em;
+      margin: 0em 0em 0.2em 2em;
     }
 
+    p{
+      font-size: 28px;
+      margin: 0 0em 0em 3.4em;
+    }
 
     > div{
       display: inline-block;
@@ -895,10 +982,10 @@
     }
 
     form{
-      display: inline-block;
-      margin: 0em 10.5em 1em;
+      display: inline;
+      margin: 0em auto;
       padding: 0em;
-      text-align: right;
+      float: right;
 
       button{
         display: inline-block;
@@ -927,6 +1014,52 @@
 }
 
 @media (min-width: $screen-lg-min) {
+
+  .what-is-geek-title{
+    font-size: 1.8rem;
+    padding: 0.2em 0em 0.1em;
+  }
+
+  .section-how-it-works{
+    box-sizing: border-box;
+    font-size: 22px;
+    margin: 0px auto;
+    max-width: 1170px;
+    padding: 0em 2.5em;
+
+    .step-container{
+      padding: 3rem 2rem;
+      height: 400px;
+
+      span.number{
+        display: inline-block;
+        font-size: 10px;
+        font-weight: 500;
+        height: 20px;
+        margin: -1px 5px 0px 0px;
+        width: 20px;
+      }
+
+      span.title{
+        display: inline-block;
+        font-size: 26px;
+        font-weight: 500;
+        margin-bottom: 0em;
+      }
+
+      .description{
+        font-size: 20px;
+        padding: 0.2em 1.5em;
+      }
+
+      img{
+        max-width: 110px;
+        width: 100%;
+      }
+    }
+
+  }
+
   .section-search{
 
     > div{
@@ -934,7 +1067,9 @@
     }
 
     form{
-      display: block;
+      display: inline-block;
+      margin-right: 11.5rem;
+      float: right;
 
       button{
         padding: 0.8em 1.5em;

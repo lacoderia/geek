@@ -8,6 +8,9 @@ Geek.factory('BalanceService', ["$http", "$q", "DEFAULT_VALUES", function($http,
 
         $http.get(DEFAULT_VALUES.URL_SERVICES.OPENPAY_GET_BALANCE,{}).
             success(function(data){
+                if(data.balance == null) {
+                    data.balance = 0;
+                }
                 deferred.resolve(data);
             }).
 
