@@ -2320,17 +2320,17 @@ footer{
     vertical-align: top;
     width: 100%;
 
-    .bgcolor-green{
+    .bgcolor-green:hover{
       background-color: $color-landing-light-green;
       color: $color-light-green;
     }
 
-    .bgcolor-orange{
+    .bgcolor-orange:hover{
       background-color: $color-light-orange;
       color: $color-dark-orange;
     }
 
-    .bgcolor-blue{
+    .bgcolor-blue:hover{
       background-color: $color-landing-light-blue;
       color: $color-light-blue;
     }
