@@ -28,6 +28,76 @@
 
 }
 
+.search-results-tools{
+  color: $color-dark-gray;
+  padding: 0em;
+  margin: 0em;
+  text-transform: uppercase;
+
+  .filter-tools{
+    display: inline-block;
+    vertical-align: top;
+    width: 100%;
+
+    .filter-item{
+      display: block;
+      font-size: 14px;
+      margin: 0.5em 0;
+      vertical-align: top;
+      width: 100%;
+
+      input{
+        display: inline-block;
+        vertical-align: top;
+      }
+
+      label{
+        display: inline-block;
+        vertical-align: top;
+
+      }
+    }
+
+    .filter-label{
+      display: inline-block;
+      margin-right: 0px;
+      vertical-align: top;
+      width: 100%;
+    }
+  }
+
+  .order-tools{
+    display: inline-block;
+    margin: 2em 0;
+    vertical-align: top;
+    width: 100%;
+
+    .order-label{
+      display: inline-block;
+      margin: 0.5em 0px;
+      vertical-align: top;
+    }
+
+    .order-item{
+      display: inline-block;
+      vertical-align: top;
+    }
+  }
+
+  .category {
+    font-weight: 600;
+  }
+
+  .search-result-filter {
+    margin-left: 20px;
+
+    label {
+      font-weight: normal;
+    }
+  }
+
+}
+
 .tutor-calendar-section{
   height: 480px !important;
   overflow: hidden;
@@ -663,78 +733,17 @@
       .county, .category{
         margin-bottom: 0em;
       }
+
+      .county{
+        margin-top: 0.8rem;
+      }
     }
   }
 
   .search-results-list{
     margin: 1em 0em 0em;
 
-    .search-results-tools{
-      border-top: 1px solid rgba(166,168,171,0.1);
-      color: $color-dark-gray;
-      padding: 2em 1em;
-      margin: 0em;
-      text-transform: uppercase;
 
-      .filter-tools{
-        display: inline-block;
-        vertical-align: top;
-        width: 65%;
-
-        .filter-item{
-          display: inline-block;
-          vertical-align: top;
-
-          input{
-            display: inline-block;
-            vertical-align: top;
-          }
-
-          label{
-            display: inline-block;
-            vertical-align: top;
-
-          }
-        }
-
-        .filter-label{
-          display: inline-block;
-          margin-right: 0px;
-          vertical-align: top;
-        }
-      }
-
-      .order-tools{
-        display: inline-block;
-        text-align: right;
-        vertical-align: top;
-        width: 34%;
-
-        .order-label{
-          display: inline-block;
-          margin-right: 0px;
-          vertical-align: top;
-        }
-
-        .order-item{
-          display: inline-block;
-          vertical-align: top;
-        }
-      }
-
-      .category {
-        font-weight: 600;
-      }
-
-      .search-result-filter {
-        margin-left: 20px;
-
-        label {
-          font-weight: normal;
-        }
-      }
-
-    }
 
     .total-tutor{
       color: $color-light-blue;
@@ -1216,7 +1225,7 @@
 
   .search-image{
     display: block;
-    margin: 0px auto -10px;
+    margin: 0px auto -14px;
     max-width: 100px;
     width: 100%;
   }
@@ -1246,6 +1255,10 @@
 
 
   .where-item{
+    display: inline-block;
+    border-bottom: 1px solid white;
+    margin-top: 1.5em;
+    min-height: 170px;
     font-size: 1.5em;
     line-height: 1.2em;
     padding: 1em;
@@ -1260,11 +1273,6 @@
     img{
       min-width: 50px;
     }
-  }
-
-  .where-item{
-    border-bottom: 1px solid white;
-    margin-top: 1.5em;
   }
 
   .where-item:last-child{
@@ -1367,6 +1375,38 @@
 }
 
 @media (min-width: $screen-sm-min) {
+
+  .search-results-tools{
+
+    .filter-tools{
+      display: inline-block;
+      vertical-align: top;
+      width: 100%;
+
+      .filter-item{
+        display: inline-block;
+        margin-right: 20px;
+        vertical-align: top;
+        width: auto;
+      }
+
+      .filter-label{
+        display: inline-block;
+        margin-right: 0px;
+        vertical-align: top;
+      }
+    }
+
+    .order-tools{
+      display: inline-block;
+      margin-top: 0;
+      vertical-align: top;
+      width: 100%;
+
+    }
+
+  }
+
   footer{
     padding: 1em 0em;
   }
@@ -1502,108 +1542,15 @@
     width: 1000px;
   }
 
-
-
-  .section-where{
-    padding-bottom: 3em;
-
-    .where-item{
-      border: none;
-
-    }
-
-    .where-item:nth-child(2), .where-item:nth-child(4){
-      border-right: 1px solid white;
-      margin-top: 1.5em;
-    }
-  }
-
-  .what-is-geek-title{
-    border-radius: 10px 10px 0 0;
-    font-size: 1.3rem;
-    padding: 0.4em 0em 0.2em;
-  }
-}
-
-@media (min-width: $screen-md-min) {
-
-  .how-it-works-wrapper{
-    .section-how-it-works{
-      box-sizing: border-box;
-      font-size: 22px;
-      margin: 0px auto;
-      max-width: 1170px;
-
-      .how-item{
-        padding: 3rem 1rem;
-      }
-
-      .title-content{
-        margin-bottom: 1em;
-
-        span.number{
-          border: 2px solid $color-dark-green;
-          border-radius: 50px;
-          box-sizing: border-box;
-          display: inline-block;
-          font-size: 10px;
-          font-weight: 500;
-          height: 20px;
-          margin: -2px 5px 0px 0px;
-          padding: 0.2em;
-          text-align: center;
-          vertical-align: middle;
-          width: 20px;
-        }
-
-        span.title{
-          box-sizing: border-box;
-          display: inline;
-          font-size: 24px;
-          margin-bottom: 0em;
-          text-transform: uppercase;
-          vertical-align: middle;
-        }
-      }
-      p{
-        font-size: 20px;
-      }
-
-      img{
-        max-width: 110px;
-      }
-
-      img.horizontal-align{
-        display: inline-block;
-        margin-right: 3em;
-        max-width: 110px;
-      }
-
-    }
-  }
-
-  .section-guaranty{
-    max-width: 1170px;
-    margin: 0px auto;
-    padding: 1.5em 0em;
-
-    .title-element{
-      font-size: 2.5em;
-      line-height: 42px;
-      margin: 0.1em 0 0;
-    }
-  }
-
   .section-search-results{
-
     .light-search{
 
       h2{
         color: #ec2227;
         display: inline-block;
         font-family: 'Typewriter';
-        font-size: 60px;
-        margin: 0px;
+        font-size: 40px;
+        margin: 10px 0 0 0;
         vertical-align: top;
         width: 20%;
       }
@@ -1688,76 +1635,153 @@
         }
       }
     }
+  }
+
+  .section-where{
+    padding-bottom: 3em;
+
+    .where-item{
+      border: none;
+
+    }
+
+    .where-item:nth-child(2), .where-item:nth-child(4){
+      border-right: 1px solid white;
+      margin-top: 1.5em;
+    }
+  }
+
+  .what-is-geek-title{
+    border-radius: 10px 10px 0 0;
+    font-size: 1.3rem;
+    padding: 0.4em 0em 0.2em;
+  }
+}
+
+@media (min-width: $screen-md-min) {
+
+
+  .search-results-tools{
+
+    .filter-tools{
+      display: inline-block;
+      vertical-align: top;
+      width: 63%;
+
+      .filter-item{
+        display: inline-block;
+        font-size: 12px;
+        margin: 0 8px 0 0;
+        vertical-align: top;
+        width: auto;
+
+        label{
+          margin: 2px 0 0 0;
+        }
+      }
+
+      .filter-label{
+        display: inline;
+        margin-right: 12px;
+        vertical-align: top;
+      }
+    }
+
+    .order-tools{
+      display: inline-block;
+      margin-top: 0;
+      text-align: right;
+      vertical-align: top;
+      width: 36%;
+
+      .order-label{
+        margin: 0;
+      }
+
+    }
+
+  }
+
+  .how-it-works-wrapper{
+    .section-how-it-works{
+      box-sizing: border-box;
+      font-size: 22px;
+      margin: 0px auto;
+      max-width: 1170px;
+
+      .how-item{
+        padding: 3rem 1rem;
+      }
+
+      .title-content{
+        margin-bottom: 1em;
+
+        span.number{
+          border: 2px solid $color-dark-green;
+          border-radius: 50px;
+          box-sizing: border-box;
+          display: inline-block;
+          font-size: 10px;
+          font-weight: 500;
+          height: 20px;
+          margin: -2px 5px 0px 0px;
+          padding: 0.2em;
+          text-align: center;
+          vertical-align: middle;
+          width: 20px;
+        }
+
+        span.title{
+          box-sizing: border-box;
+          display: inline;
+          font-size: 24px;
+          margin-bottom: 0em;
+          text-transform: uppercase;
+          vertical-align: middle;
+        }
+      }
+      p{
+        font-size: 20px;
+      }
+
+      img{
+        max-width: 110px;
+      }
+
+      img.horizontal-align{
+        display: inline-block;
+        margin-right: 3em;
+        max-width: 110px;
+      }
+
+    }
+  }
+
+  .section-guaranty{
+    max-width: 1170px;
+    margin: 0px auto;
+    padding: 1.5em 0em;
+
+    .title-element{
+      font-size: 2.5em;
+      line-height: 42px;
+      margin: 0.1em 0 0;
+    }
+  }
+
+  .section-search-results{
+
+    .light-search{
+      h2{
+        font-size: 60px;
+        margin: 0;
+      }
+    }
 
     .search-results-list{
       margin: 1em 0em 0em;
 
-      .search-results-tools{
-        border-top: 1px solid rgba(166,168,171,0.1);
-        color: $color-dark-gray;
-        padding: 2em 1em;
-        margin: 0em;
-        text-transform: uppercase;
 
-        .filter-tools{
-          display: inline-block;
-          vertical-align: top;
-          width: 65%;
-
-          .filter-item{
-            display: inline-block;
-            vertical-align: top;
-
-            input{
-              display: inline-block;
-              vertical-align: top;
-            }
-
-            label{
-              display: inline-block;
-              vertical-align: top;
-
-            }
-          }
-
-          .filter-label{
-            display: inline-block;
-            margin-right: 0px;
-            vertical-align: top;
-          }
-        }
-
-        .order-tools{
-          display: inline-block;
-          text-align: right;
-          vertical-align: top;
-          width: 34%;
-
-          .order-label{
-            display: inline-block;
-            margin-right: 0px;
-            vertical-align: top;
-          }
-
-          .order-item{
-            display: inline-block;
-            vertical-align: top;
-          }
-        }
-
-        .category {
-          font-weight: 600;
-        }
-
-        .search-result-filter {
-          margin-left: 20px;
-
-          label {
-            font-weight: normal;
-          }
-        }
-
-      }
 
       .total-tutor{
         color: $color-light-blue;
@@ -2230,6 +2254,49 @@
 }
 
 @media (min-width: $screen-lg-min) {
+
+  .search-results-tools{
+
+    margin-top: 2rem;
+
+    .filter-tools{
+      display: inline-block;
+      vertical-align: top;
+      width: 63%;
+
+      .filter-item{
+        display: inline-block;
+        font-size: 14px;
+        margin: 0 20px 0 0;
+        vertical-align: top;
+        width: auto;
+
+        label{
+          margin: 0;
+        }
+      }
+
+      .filter-label{
+        display: inline;
+        margin-right: 12px;
+        vertical-align: top;
+      }
+    }
+
+    .order-tools{
+      display: inline-block;
+      margin-top: 0;
+      text-align: right;
+      vertical-align: top;
+      width: 36%;
+
+      .order-label{
+        margin: 0;
+      }
+
+    }
+
+  }
 
   .where-item{
     font-size: 2.2em;

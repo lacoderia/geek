@@ -2,7 +2,7 @@
 <div class="row">
 <div class="section-search-results search-container">
 <div class="light-search" ng-show="showTopSearchbar">
-  <h2 class="hidden-sm hidden-xs">geek</h2>
+  <h2 class="hidden-xs">geek</h2>
   <form>
     <angucomplete-alt-geek id="topics"
                            placeholder="{{ 'AUTOCOMPLETE_TOPIC' | translate }}"
@@ -30,24 +30,43 @@
 
 <div class="search-result-list" ng-show="tutorList.length || suggestedTutorList.length">
 <div class="search-results-tools" ng-hide="selectedTutor">
-  <div class="filter-tools">
+  <div class="filter-tools hidden-md hidden-sm hidden-xs">
     <span class="category filter-label">{{ 'FILTERS' | translate}}:</span>
-        <span class="search-result-filter filter-item">
-          <input type="checkbox" id="tutor_class_mode_online" name="tutor_class_mode" ng-model="filters.online" ng-change="searchTutor(1, true, false)"/>
-          <label for="tutor_class_mode_online" translate="SEARCH_FILTER_LABEL_ONLINE"></label>
-        </span>
-        <span class="search-result-filter filter-item">
-          <input type="checkbox" id="tutor_class_mode_tutor_home" name="tutor_class_mode" ng-model="filters.office" ng-change="searchTutor(1, true, false)"/>
-          <label for="tutor_class_mode_tutor_home" translate="SEARCH_FILTER_LABEL_OFFICE"></label>
-        </span>
-        <span class="search-result-filter filter-item">
-          <input type="checkbox" id="tutor_class_mode_student_home" name="tutor_class_mode" ng-model="filters.student" ng-change="searchTutor(1, true, false)"/>
-          <label for="tutor_class_mode_student_home" translate="SEARCH_FILTER_LABEL_STUDENT"></label>
-        </span>
-        <span class="search-result-filter filter-item">
-          <input type="checkbox" id="tutor_class_mode_public" name="tutor_class_mode" ng-model="filters.public" ng-change="searchTutor(1, true, false)"/>
-          <label for="tutor_class_mode_public" translate="SEARCH_FILTER_LABEL_PUBLIC"></label>
-        </span>
+    <span class="search-result-filter filter-item">
+      <input type="checkbox" id="tutor_class_mode_online" name="tutor_class_mode" ng-model="filters.online" ng-change="searchTutor(1, true, false)"/>
+      <label for="tutor_class_mode_online" translate="SEARCH_FILTER_LABEL_ONLINE"></label>
+    </span>
+    <span class="search-result-filter filter-item">
+      <input type="checkbox" id="tutor_class_mode_tutor_home" name="tutor_class_mode" ng-model="filters.office" ng-change="searchTutor(1, true, false)"/>
+      <label for="tutor_class_mode_tutor_home" translate="SEARCH_FILTER_LABEL_OFFICE"></label>
+    </span>
+    <span class="search-result-filter filter-item">
+      <input type="checkbox" id="tutor_class_mode_student_home" name="tutor_class_mode" ng-model="filters.student" ng-change="searchTutor(1, true, false)"/>
+      <label for="tutor_class_mode_student_home" translate="SEARCH_FILTER_LABEL_STUDENT"></label>
+    </span>
+    <span class="search-result-filter filter-item">
+      <input type="checkbox" id="tutor_class_mode_public" name="tutor_class_mode" ng-model="filters.public" ng-change="searchTutor(1, true, false)"/>
+      <label for="tutor_class_mode_public" translate="SEARCH_FILTER_LABEL_PUBLIC"></label>
+    </span>
+  </div>
+  <div class="filter-tools hidden-lg">
+    <span class="category filter-label">{{ 'FILTERS' | translate}}:</span>
+    <span class="search-result-filter filter-item">
+      <input type="checkbox" id="tutor_class_mode_online" name="tutor_class_mode" ng-model="filters.online" ng-change="searchTutor(1, true, false)"/>
+      <label for="tutor_class_mode_online" translate="SEARCH_FILTER_LABEL_ONLINE"></label>
+    </span>
+    <span class="search-result-filter filter-item">
+      <input type="checkbox" id="tutor_class_mode_tutor_home" name="tutor_class_mode" ng-model="filters.office" ng-change="searchTutor(1, true, false)"/>
+      <label for="tutor_class_mode_tutor_home" translate="SEARCH_FILTER_LABEL_OFFICE"></label>
+    </span>
+    <span class="search-result-filter filter-item">
+      <input type="checkbox" id="tutor_class_mode_student_home" name="tutor_class_mode" ng-model="filters.student" ng-change="searchTutor(1, true, false)"/>
+      <label for="tutor_class_mode_student_home" translate="SEARCH_FILTER_LABEL_STUDENT"></label>
+    </span>
+    <span class="search-result-filter filter-item">
+      <input type="checkbox" id="tutor_class_mode_public" name="tutor_class_mode" ng-model="filters.public" ng-change="searchTutor(1, true, false)"/>
+      <label for="tutor_class_mode_public" translate="SEARCH_FILTER_LABEL_PUBLIC"></label>
+    </span>
   </div>
   <div class="order-tools">
     <span class="category order-label">{{ 'SEARCH_ORDER_BY_LABEL' | translate}}:</span>
@@ -451,19 +470,19 @@
         <h3 class="title-element text-color-white" translate="WHERE_TITLE"></h3>
         <h4 class="subtitle-element text-color-dark-blue" translate="WHERE_TEXT"></h4>
       </div>
-      <div class="col-lg-3 col-md-3 col-sm-6 columns where-item">
+      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 columns where-item">
         <p translate="WHERE_PREFERENCE_HOME"></p>
         <img src="/assets/site/landing-home.png" alt="En tu casa o en la suya">
       </div>
-      <div class="col-lg-3 col-md-3 col-sm-6 columns where-item">
+      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12  columns where-item">
         <p translate="WHERE_PREFERENCE_PUBLIC"></p>
         <img src="/assets/site/landing-public.png" alt="En un espacio público">
       </div>
-      <div class="col-lg-3 col-md-3 col-sm-6 columns where-item">
+      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12  columns where-item">
         <p translate="WHERE_PREFERENCE_ONLINE"></p>
         <img src="/assets/site/landing-online.png" alt="Online">
       </div>
-      <div class="col-lg-3 col-md-3 col-sm-6 columns where-item">
+      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12  columns where-item">
         <p translate="WHERE_PREFERENCE_GEEK"></p>
         <img src="/assets/site/landing-geek.png" alt="Online">
       </div>
