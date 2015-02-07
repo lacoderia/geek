@@ -677,7 +677,7 @@
     form{
       display: block;
       padding: 2em;
-      text-align: right;
+      text-align: center;
       width: 100%;
 
       input, select, .search-button{
@@ -738,10 +738,6 @@
         margin-top: 0.8rem;
       }
 
-      .autocomplete-holder{
-        display: block;
-        margin: 0em auto 1em;
-      }
     }
   }
 
