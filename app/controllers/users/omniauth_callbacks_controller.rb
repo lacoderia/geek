@@ -5,7 +5,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if @user
       #flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Facebook"
       sign_in @user
-      #@user.update_attribute(:token, auth_hash.credentials.token)
       if @user.role? :student
         session["devise.facebook_data"] = nil
         redirect_to '/student#/dashboard'
@@ -21,16 +20,27 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def google_oauth2
     @user = User.find_by_email(auth_hash.info.email)
-    #logger.info("AUTH HASH #{auth_hash.to_yaml}")
+    #session["devise.refresh_token"] = nil
     if @user
-      flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Google"
-      sign_in @user
-      if @user.role? :student #este no deberia de pasar
-        session["devise.facebook_data"] = nil
-        redirect_to '/student#/dashboard'
-      else
-        session["devise.google_data"] = nil
+      if session["devise.refresh_token"]
+        session["devise.refresh_token"] = nil
+        @user.update_attribute(:refresh_token, auth_hash["credentials"]["refresh_token"])
+        sign_in @user
         redirect_to :tutor_redirect
+      elsif (@user.refresh_token and @user.refresh_token.length == 0) or (@user.refresh_token == nil)
+        #reprompt
+        session["devise.refresh_token"] = true
+        redirect_to user_omniauth_authorize_path(:google_oauth2, { prompt: 'consent' })
+      else
+        flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Google"
+        sign_in @user
+        if @user.role? :student #este no deberia de pasar
+          session["devise.facebook_data"] = nil
+          redirect_to '/student#/dashboard'
+        else
+          session["devise.google_data"] = nil
+          redirect_to :tutor_redirect
+        end
       end
     else
       session["devise.google_data"] = auth_hash.except("extra")

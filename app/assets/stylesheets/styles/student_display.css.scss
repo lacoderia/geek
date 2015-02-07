@@ -675,10 +675,10 @@
   .light-search{
 
     form{
-      display: inline-block;
-      margin: 0px;
+      display: block;
       padding: 2em;
       text-align: right;
+      width: 100%;
 
       input, select, .search-button{
         background: $color-input-bgcolor;
@@ -736,6 +736,11 @@
 
       .county{
         margin-top: 0.8rem;
+      }
+
+      .autocomplete-holder{
+        display: block;
+        margin: 0em auto 1em;
       }
     }
   }
