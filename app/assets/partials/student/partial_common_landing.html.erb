@@ -90,7 +90,7 @@
   <span class="btn-back" ng-click="showSearchResults()" ng-show="selectedTutor"><< {{ 'SHOW_ALL' | translate }}</span>
 </div>
 <div>
-  <div class="tutor visible-sm visible-xs" dir-paginate="tutor in tutorList | itemsPerPage: tutorsPerPage" total-items="totalTutors" pagination-id="tutorsPagination" current-page="pagination_current" on-tutor-search-render>
+  <div class="tutor-mobile visible-sm visible-xs" dir-paginate="tutor in tutorList | itemsPerPage: tutorsPerPage" total-items="totalTutors" pagination-id="tutorsPagination" current-page="pagination_current" on-tutor-search-render>
     <div class="tutor-personal-info col-sm-12 col-xs-12">
       <div class="content col-sm-12 col-xs-12">
         <div class="content-info col-sm-12 col-xs-12">

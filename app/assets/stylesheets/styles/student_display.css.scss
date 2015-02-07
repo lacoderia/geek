@@ -743,8 +743,6 @@
   .search-results-list{
     margin: 1em 0em 0em;
 
-
-
     .total-tutor{
       color: $color-light-blue;
       font-weight: 500;
@@ -757,6 +755,386 @@
     .search-result-list {
 
       .tutor {
+        box-sizing: border-box;
+        clear: both;
+        margin-bottom: 0em;
+        width: 100%;
+
+
+        .content {
+          margin-bottom: 0.3em;
+        }
+
+        .tutor_picture_container {
+          cursor: pointer;
+          display: table-cell;
+          height: 100%;
+          padding: 0;
+          vertical-align: middle;
+
+          .tutor_picture {
+            background-color: white;
+            display: inline-block;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+
+            img {
+              display: none;
+              position: absolute;
+              left: 50%;
+              top: 50%;
+              transform: translateY(-50%) translateX(-50%);
+            }
+
+          }
+        }
+
+        .tutor_picture_container.expanded {
+          cursor: auto;
+        }
+
+        .tutor-personal-info{
+          box-sizing: border-box;
+          padding: 0em;
+
+          .content {
+            background-color: rgba(250,174,64,0.1);
+            padding: 1.5em;
+            margin-bottom: 0.3em;
+            margin-left: 0.3em;
+            min-height: 60px;
+
+            .reviews{
+              margin-top: 2rem;
+
+              .review{
+                background: none;
+                box-sizing: border-box;
+                clear: both;
+                display: table;
+                margin-bottom: 0.5em;
+                padding: 0.8em;
+                width: 100%;
+
+                h3{
+                  font-size: 18px;
+                  text-transform: uppercase;
+                }
+
+                .user_picture_container{
+                  display: inline-block;
+                  margin-right: 1%;
+                  max-width: 30px;
+                  vertical-align: top;
+                  width: 10%;
+
+                  .user_picture{
+                    height: 30px;
+                    overflow: hidden;
+                    position: relative;
+                    width: 30px;
+
+                    img {
+                      position: absolute;
+                      left: 50%;
+                      top: 50%;
+                      transform: translateY(-50%) translateX(-50%);
+                    }
+                  }
+                }
+
+                .user-personal-info{
+                  box-sizing: border-box;
+                  display: inline-block;
+                  margin: 0;
+                  padding: 0;
+                  vertical-align: top;
+                  width: 85%;
+
+                  .content{
+                    background: transparent;
+                    min-height: 100px;
+                    overflow: hidden;
+                    padding: 0;
+                    position: relative;
+                    width: 100%;
+
+                    .user-name{
+                      color: inherit;
+                      font-size: 14px;
+                      font-weight: 600;
+                      margin: 0em;
+                      padding: 0em;
+                      text-transform: uppercase;
+                    }
+
+                    .user-review{
+                      display: inline-block;
+                      color: $color-dark-gray;
+                      font-size: 12px;
+                      font-weight: 500;
+                      margin: 1em 0em 1em;
+                      padding: 0em;
+                    }
+
+                    .review-info{
+                      color: $color-dark-gray;
+                      font-size: 10px;
+                      font-weight: 500;
+                      margin: 0;
+                      padding: 0;
+                      text-align: left;
+                      text-transform: uppercase;
+
+                      em{
+                        font-style: normal;
+                      }
+                    }
+
+                    .score {
+                      position: absolute;
+                      right: 0;
+                      top: 0;
+
+                    }
+                  }
+                }
+              }
+
+              .star-empty {
+                color: $color-search-medium-blue;
+              }
+
+              .star-full {
+                color: $color-search-dark-blue;
+              }
+            }
+
+            .content-info{
+              display: inline-block;
+              margin-right: 4%;
+              vertical-align: top;
+              width: 68%;
+
+              .tutor-name{
+                cursor: pointer;
+                font-size: 18px;
+                text-transform: uppercase;
+              }
+
+              .tutor-name.expanded{
+                cursor: auto;
+              }
+
+              .tutor-categories{
+                font-size: 14px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+              }
+
+              .tutor-categories.expanded{
+                overflow: auto;
+                text-overflow: initial;
+                white-space: normal;
+              }
+
+              .preferences {
+                margin: 0em;
+                min-height: 34px;
+
+                .item-added{
+                  background-color: $color-light-orange;
+                  border-radius: 5px;
+                  color: $color-dark-orange;
+                  font-size: 10px;
+                  font-weight: 500;
+                  display: inline-block;
+                  margin: 5px 3px 0px 0px;
+                  padding: 0.5em 0.8em 0.3em 1em;
+                  position: relative;
+                  text-transform: uppercase;
+                  vertical-align: middle;
+                }
+              }
+            }
+
+            .score-info{
+              display: inline-block;
+              text-align: center;
+              vertical-align: top;
+              width: 25%;
+
+              .content-score {
+                display: table;
+                width: 100%;
+
+                .score {
+                  color: $color-medium-orange;
+                  display: table-cell;
+                  font-size: 0px;
+                  height: 100%;
+                  margin: 0px;
+                  padding: 0px;
+                  vertical-align: middle;
+                  width: 100%;
+
+                  .star-empty {
+                    color: $color-light-orange;
+                  }
+
+                  .star-full {
+                    color: $color-medium-orange;
+                  }
+
+                  span {
+                    font-size: 20px;
+                    margin: 0px 8px 0px 0px;
+                    padding: 0px;
+                  }
+
+                  span:last-child {
+                    margin-right: 0px;
+                  }
+                }
+
+              }
+
+              .score-more {
+                color: $color-dark-orange;
+                font-size: 14px;
+                font-weight: 500;
+                margin-top: 0.2rem;
+                padding: 0.3rem 0;
+                text-align: center;
+                width: 100%;
+              }
+
+              .score-more:hover{
+                color: $color-medium-orange;
+                text-decoration: none;
+              }
+            }
+
+            .resume {
+              color: $color-medium-orange;
+              font-size: 14px;
+              font-weight: 500;
+              height: 49px;
+              line-height: 16px;
+              margin: 0.5em 0em 0em;
+              overflow: hidden;
+              padding: 0em;
+
+              span {
+                color: $color-dark-orange;
+                cursor: pointer;
+              }
+
+              span:hover{
+                color: $color-medium-orange;
+              }
+            }
+
+            .resume.expanded {
+              height: auto;
+            }
+
+            .given-classes {
+              color: $color-dark-green;
+              font-size: 12px;
+              font-weight: 600;
+              margin: 1.5em 0em 0em 1.1em;
+              padding: 0em;
+              text-align: center;
+            }
+
+            .tutor-county {
+              color: $color-dark-green;
+              font-size: 18px;
+              font-weight: 600;
+              margin: 0px;
+            }
+
+            .tutor-categories{
+              color: $color-dark-green;
+              font-size: 16px;
+              font-weight: 600;
+              margin: 2px 0px 0px;
+            }
+
+            .tutor-name {
+              color: $color-medium-orange;
+              font-size: 22px;
+              font-weight: 600;
+              margin: 0em;
+              padding: 0em;
+            }
+          }
+
+          .content.no-background {
+            background-color: transparent;
+          }
+        }
+
+        .tutor-class-info {
+          box-sizing: border-box;
+          padding: 0;
+          text-align: center;
+
+          .content {
+            margin-bottom: 0.3em;
+            margin-left: 0.3em;
+
+            .content-button {
+              width: 100%;
+
+              a{
+                background-color: $color-light-blue;
+                color: white;
+                height: 100%;
+                text-transform: uppercase;
+                width: 100%;
+              }
+
+              a:last-child{
+                margin-top: 2px;
+              }
+            }
+
+            .content-price {
+              background-color: $color-search-medium-blue;
+              display: table;
+              width: 100%;
+
+              .price {
+                display: table-cell;
+                color: $color-search-dark-blue;
+                font-size: 18px;
+                font-weight: 500;
+                height: 98px;
+                margin: 0px;
+                vertical-align: middle;
+                width: 100%;
+              }
+            }
+
+            .content-price.no-background {
+              background-color: transparent;
+
+              .price {
+                height: 134px;
+              }
+            }
+
+          }
+
+        }
+
+      }
+
+      .tutor-mobile {
         box-sizing: border-box;
         clear: both;
         margin-bottom: 1.5em;
@@ -1119,6 +1497,7 @@
         }
 
       }
+
     }
 
 
@@ -1776,406 +2155,6 @@
         font-size: 60px;
         margin: 0;
       }
-    }
-
-    .search-results-list{
-      margin: 1em 0em 0em;
-
-
-
-      .total-tutor{
-        color: $color-light-blue;
-        font-weight: 500;
-        margin: 0 0 1em;
-        padding: 0;
-        text-align: left;
-        text-transform: uppercase;
-      }
-
-      .search-result-list {
-
-        .tutor {
-          box-sizing: border-box;
-          clear: both;
-          margin-bottom: 0em;
-          width: 100%;
-
-
-          .content {
-            margin-bottom: 0.3em;
-          }
-
-          .tutor_picture_container {
-            cursor: pointer;
-            display: table-cell;
-            height: 100%;
-            padding: 0;
-            vertical-align: middle;
-
-            .tutor_picture {
-              background-color: white;
-              display: inline-block;
-              overflow: hidden;
-              position: relative;
-              width: 100%;
-
-              img {
-                display: none;
-                position: absolute;
-                left: 50%;
-                top: 50%;
-                transform: translateY(-50%) translateX(-50%);
-              }
-
-            }
-          }
-
-          .tutor_picture_container.expanded {
-            cursor: auto;
-          }
-
-          .tutor-personal-info{
-            box-sizing: border-box;
-            padding: 0em;
-
-            .content {
-              background-color: rgba(250,174,64,0.1);
-              padding: 1.5em;
-              margin-bottom: 0.3em;
-              margin-left: 0.3em;
-              min-height: 60px;
-
-              .reviews{
-                margin-top: 2rem;
-
-                .review{
-                  background: none;
-                  box-sizing: border-box;
-                  clear: both;
-                  display: table;
-                  margin-bottom: 0.5em;
-                  padding: 0.8em;
-                  width: 100%;
-
-                  h3{
-                    font-size: 18px;
-                    text-transform: uppercase;
-                  }
-
-                  .user_picture_container{
-                    display: inline-block;
-                    margin-right: 1%;
-                    max-width: 30px;
-                    vertical-align: top;
-                    width: 10%;
-
-                    .user_picture{
-                      height: 30px;
-                      overflow: hidden;
-                      position: relative;
-                      width: 30px;
-
-                      img {
-                        position: absolute;
-                        left: 50%;
-                        top: 50%;
-                        transform: translateY(-50%) translateX(-50%);
-                      }
-                    }
-                  }
-
-                  .user-personal-info{
-                    box-sizing: border-box;
-                    display: inline-block;
-                    margin: 0;
-                    padding: 0;
-                    vertical-align: top;
-                    width: 85%;
-
-                    .content{
-                      background: transparent;
-                      min-height: 100px;
-                      overflow: hidden;
-                      padding: 0;
-                      position: relative;
-                      width: 100%;
-
-                      .user-name{
-                        color: inherit;
-                        font-size: 14px;
-                        font-weight: 600;
-                        margin: 0em;
-                        padding: 0em;
-                        text-transform: uppercase;
-                      }
-
-                      .user-review{
-                        display: inline-block;
-                        color: $color-dark-gray;
-                        font-size: 12px;
-                        font-weight: 500;
-                        margin: 1em 0em 1em;
-                        padding: 0em;
-                      }
-
-                      .review-info{
-                        color: $color-dark-gray;
-                        font-size: 10px;
-                        font-weight: 500;
-                        margin: 0;
-                        padding: 0;
-                        text-align: left;
-                        text-transform: uppercase;
-
-                        em{
-                          font-style: normal;
-                        }
-                      }
-
-                      .score {
-                        position: absolute;
-                        right: 0;
-                        top: 0;
-
-                      }
-                    }
-                  }
-                }
-
-                .star-empty {
-                  color: $color-search-medium-blue;
-                }
-
-                .star-full {
-                  color: $color-search-dark-blue;
-                }
-              }
-
-              .content-info{
-                display: inline-block;
-                margin-right: 4%;
-                vertical-align: top;
-                width: 68%;
-
-                .tutor-name{
-                  cursor: pointer;
-                  font-size: 18px;
-                  text-transform: uppercase;
-                }
-
-                .tutor-name.expanded{
-                  cursor: auto;
-                }
-
-                .tutor-categories{
-                  font-size: 14px;
-                  overflow: hidden;
-                  text-overflow: ellipsis;
-                  white-space: nowrap;
-                }
-
-                .tutor-categories.expanded{
-                  overflow: auto;
-                  text-overflow: initial;
-                  white-space: normal;
-                }
-
-                .preferences {
-                  margin: 0em;
-                  min-height: 34px;
-
-                  .item-added{
-                    background-color: $color-light-orange;
-                    border-radius: 5px;
-                    color: $color-dark-orange;
-                    font-size: 10px;
-                    font-weight: 500;
-                    display: inline-block;
-                    margin: 5px 3px 0px 0px;
-                    padding: 0.5em 0.8em 0.3em 1em;
-                    position: relative;
-                    text-transform: uppercase;
-                    vertical-align: middle;
-                  }
-                }
-              }
-
-              .score-info{
-                display: inline-block;
-                text-align: center;
-                vertical-align: top;
-                width: 25%;
-
-                .content-score {
-                  display: table;
-                  width: 100%;
-
-                  .score {
-                    color: $color-medium-orange;
-                    display: table-cell;
-                    font-size: 0px;
-                    height: 100%;
-                    margin: 0px;
-                    padding: 0px;
-                    vertical-align: middle;
-                    width: 100%;
-
-                    .star-empty {
-                      color: $color-light-orange;
-                    }
-
-                    .star-full {
-                      color: $color-medium-orange;
-                    }
-
-                    span {
-                      font-size: 20px;
-                      margin: 0px 8px 0px 0px;
-                      padding: 0px;
-                    }
-
-                    span:last-child {
-                      margin-right: 0px;
-                    }
-                  }
-
-                }
-
-                .score-more {
-                  color: $color-dark-orange;
-                  font-size: 14px;
-                  font-weight: 500;
-                  margin-top: 0.2rem;
-                  padding: 0.3rem 0;
-                  text-align: center;
-                  width: 100%;
-                }
-
-                .score-more:hover{
-                  color: $color-medium-orange;
-                  text-decoration: none;
-                }
-              }
-
-              .resume {
-                color: $color-medium-orange;
-                font-size: 14px;
-                font-weight: 500;
-                height: 49px;
-                line-height: 16px;
-                margin: 0.5em 0em 0em;
-                overflow: hidden;
-                padding: 0em;
-
-                span {
-                  color: $color-dark-orange;
-                  cursor: pointer;
-                }
-
-                span:hover{
-                  color: $color-medium-orange;
-                }
-              }
-
-              .resume.expanded {
-                height: auto;
-              }
-
-              .given-classes {
-                color: $color-dark-green;
-                font-size: 12px;
-                font-weight: 600;
-                margin: 1.5em 0em 0em 1.1em;
-                padding: 0em;
-                text-align: center;
-              }
-
-              .tutor-county {
-                color: $color-dark-green;
-                font-size: 18px;
-                font-weight: 600;
-                margin: 0px;
-              }
-
-              .tutor-categories{
-                color: $color-dark-green;
-                font-size: 16px;
-                font-weight: 600;
-                margin: 2px 0px 0px;
-              }
-
-              .tutor-name {
-                color: $color-medium-orange;
-                font-size: 22px;
-                font-weight: 600;
-                margin: 0em;
-                padding: 0em;
-              }
-            }
-
-            .content.no-background {
-              background-color: transparent;
-            }
-          }
-
-          .tutor-class-info {
-            box-sizing: border-box;
-            padding: 0;
-            text-align: center;
-
-            .content {
-              margin-bottom: 0.3em;
-              margin-left: 0.3em;
-
-              .content-button {
-                width: 100%;
-
-                a{
-                  background-color: $color-light-blue;
-                  color: white;
-                  height: 100%;
-                  text-transform: uppercase;
-                  width: 100%;
-                }
-
-                a:last-child{
-                  margin-top: 2px;
-                }
-              }
-
-              .content-price {
-                background-color: $color-search-medium-blue;
-                display: table;
-                width: 100%;
-
-                .price {
-                  display: table-cell;
-                  color: $color-search-dark-blue;
-                  font-size: 18px;
-                  font-weight: 500;
-                  height: 98px;
-                  margin: 0px;
-                  vertical-align: middle;
-                  width: 100%;
-                }
-              }
-
-              .content-price.no-background {
-                background-color: transparent;
-
-                .price {
-                  height: 134px;
-                }
-              }
-
-            }
-
-          }
-
-        }
-      }
-
-
     }
 
   }
