@@ -6,7 +6,7 @@ Geek.directive('ngAlert', ["$rootScope", function($rootScope){
         replace: false,
         transclude: false,
         template:   '<div class="alert" ng-class="ALERT_VALUES[alertParams.type].alertClass" role="alert" ng-show="alertParams">' +
-                        '<span ng-show="alertParams.icon" class="alert-icon" ng-class="ALERT_VALUES[alertParams.type].alertIcon"></span> {{ alertParams.message }} <button type="button" class="close" ng-click="closeAlert()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>' +
+                        '<span ng-show="alertParams.icon" class="alert-icon" ng-class="ALERT_VALUES[alertParams.type].alertIcon"></span><span bind-html-unsafe="alertParams.message"></span><button type="button" class="close" ng-click="closeAlert()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>' +
                     '</div>',
         link: function(scope, element, attrs){
 
