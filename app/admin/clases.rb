@@ -169,7 +169,7 @@ END
       elsif f.object.anomaly and f.object.resolved_anomaly
         f.form_buffers.last << "<table><thead><tr><th>Reported by</th><th>Against</th><th>Type</th><th>Description</th><th>Resolution</th></thead><tbody>".html_safe
         f.has_many :registered_anomalies, :allow_destroy => false, :heading => 'Anomalies', :new_record => false do |cf|
-          source = User.find(cf.object.source_id)
+          source = User.find(cf.object.source_id) if cf.object.source_id
           user = User.find(cf.object.user_id)
           anomaly = Anomaly.find(cf.object.anomaly_id)
           cf.form_buffers.last << "<tr><td>#{source.first_name} #{source.last_name}</td><td>#{user.first_name} #{user.last_name}</td><td>#{anomaly.name}</td><td>#{cf.object.description}</td><td>#{cf.object.registered_anomaly_status.name}</td></tr>".html_safe
