@@ -118,7 +118,7 @@
     "ERROR_MODAL_APPOINTMENT_REQUEST_MESSAGE_FAILED": "There was an error when saving the message, please try again.",
     "ERROR_MODAL_APPOINTMENT_REQUEST_FAILED": "There was an error when requesting an appointment, please try again.",
     "ERROR_MODAL_APPOINTMENT_REQUEST_EMPTY_TOPIC": "You must select a subject",
-    "ERROR_MODAL_APPOINTMENT_REQUEST_NO_PAYMENT": "In order to book an appointment you must first add a payment method.",
+    "ERROR_MODAL_APPOINTMENT_REQUEST_NO_PAYMENT": "In order to book an appointment you must first add a <a href='/student#/dashboard/payment-options'>payment method</a>.",
     "ERROR_OPENPAY_BANK_ACCOUNT_ALREADY_EXISTS": "This bank account has already been registered",
     "ERROR_OPENPAY_CARD_ALREADY_EXISTS": "The card has already been registered",
     "ERROR_OPENPAY_CARD_DECLINED": "This card was declined",
