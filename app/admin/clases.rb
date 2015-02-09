@@ -172,7 +172,7 @@ END
           source = User.find(cf.object.source_id) if cf.object.source_id
           user = User.find(cf.object.user_id)
           anomaly = Anomaly.find(cf.object.anomaly_id)
-          cf.form_buffers.last << "<tr><td>#{source.first_name} #{source.last_name}</td><td>#{user.first_name} #{user.last_name}</td><td>#{anomaly.name}</td><td>#{cf.object.description}</td><td>#{cf.object.registered_anomaly_status.name}</td></tr>".html_safe
+          cf.form_buffers.last << "<tr><td>#{source.first_name if source} #{source.last_name if source}</td><td>#{user.first_name} #{user.last_name}</td><td>#{anomaly.name}</td><td>#{cf.object.description}</td><td>#{cf.object.registered_anomaly_status.name}</td></tr>".html_safe
         end
         f.form_buffers.last << "</tbody></table>".html_safe
       end
