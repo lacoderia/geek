@@ -4,7 +4,7 @@
   <div class="modal-detail-content">
     <ng-alert-message alert-params="appointmentAlertMessagesParams"></ng-alert-message>
     <table ng-show="selectedClass.time && validAppointmentDate">
-      <tr><td class="appointment-detail-content" ng-bind="selectedClass.dateTimeISO | dateTranslateFilter"></td></tr>
+      <tr><td class="appointment-detail-content" ng-bind="selectedClass.dateTimeISO | dateTranslateFilter:this"></td></tr>
       <tr><td class="appointment-detail-content" ng-bind="selectedClass.time"></td></tr>
       <tr>
         <td>

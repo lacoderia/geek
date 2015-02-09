@@ -38,6 +38,8 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
             default:
                 break;
         }
+
+        $rootScope.$broadcast('toggleLanguage', $translate.use());
     };
 
     $scope.compareCurrentDate = function(date){

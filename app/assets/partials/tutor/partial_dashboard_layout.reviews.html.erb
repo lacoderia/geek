@@ -53,7 +53,7 @@
         <div class="content">
           <h4 class="user-name">{{ review.student.first_name }} {{ review.student.last_name }}</h4>
           <div class="review-info">
-            <em class="timestamp">{{ review.timestamp | timestampTranslateFilter }}</em>
+            <em class="timestamp">{{ review.timestamp | timestampTranslateFilter:this }}</em>
           </div>
           <p class="user-last-message">{{ review.description }}</p>
         </div>

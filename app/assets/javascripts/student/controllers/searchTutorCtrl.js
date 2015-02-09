@@ -299,7 +299,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
                     $scope.selectedClass.halfHours.push(previousHalfHour);
                     $scope.selectedClass.halfHours.push(currentHalfHour);
                 } else {
-                    $scope.setAlertMessage('warning', $filter('translate')('ERROR_MODAL_APPOINTMENT_REQUEST_ONE_HOUR'));
+                    $scope.setAlertMessage('warning', 'ERROR_MODAL_APPOINTMENT_REQUEST_ONE_HOUR');
                 }
 
                 var firstHalfhour = $scope.selectedClass.halfHours[0];
@@ -320,7 +320,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
                     $scope.setAlertMessage();
                     $scope.validAppointmentDate = true;
                 }else{
-                    $scope.setAlertMessage('warning', $filter('translate')('ERROR_MODAL_APPOINTMENT_REQUEST_EXPIRED'));
+                    $scope.setAlertMessage('warning', 'ERROR_MODAL_APPOINTMENT_REQUEST_EXPIRED');
                     $scope.validAppointmentDate = false;
                 }
 
@@ -374,7 +374,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
                         if(data.success == false){
                             $scope.appointmentAlertParams = {
                                 type: 'warning',
-                                message: $filter('translate')('ERROR_MODAL_APPOINTMENT_REQUEST_EXPIRED'),
+                                message: 'ERROR_MODAL_APPOINTMENT_REQUEST_EXPIRED',
                                 icon: true
                             }
                         }else{
@@ -384,23 +384,12 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
                             }
 
                             $scope.appointmentRequestSent = true;
-
-                            /*$scope.appointmentAlertParams = {
-                             type: 'success',
-                             message: $filter('translate')('SUCCESS_MODAL_APPOINTMENT_REQUEST_SENT'),
-                             icon: true
-                             };
-
-                             $timeout(function(){
-                             $location.hash('appointment-alert');
-                             $anchorScroll();
-                             }, 0);*/
                         }
                     },
                     function (response){
                         $scope.appointmentAlertParams = {
                             type: 'danger',
-                            message: $filter('translate')('ERROR_MODAL_APPOINTMENT_REQUEST_FAILED'),
+                            message: 'ERROR_MODAL_APPOINTMENT_REQUEST_FAILED',
                             icon: true
                         }
 
@@ -422,7 +411,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
 
                 $scope.appointmentAlertParams = {
                     type: 'danger',
-                    message: $filter('translate')('ERROR_MODAL_APPOINTMENT_REQUEST_NO_PAYMENT'),
+                    message: 'ERROR_MODAL_APPOINTMENT_REQUEST_NO_PAYMENT',
                     icon: true
                 }
 
@@ -433,7 +422,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
             }
 
         } else {
-            $scope.setAlertMessage('warning', $filter('translate')('ERROR_MODAL_APPOINTMENT_REQUEST_EMPTY_TOPIC'));
+            $scope.setAlertMessage('warning', 'ERROR_MODAL_APPOINTMENT_REQUEST_EMPTY_TOPIC');
         }
 
     };
@@ -477,7 +466,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
                         $scope.resetMessage();
                         $scope.messageAlertMessagesParams = {
                             type: 'success',
-                            message: $filter('translate')('SUCCESS_MODAL_APPOINTMENT_REQUEST_MESSAGE_SENT'),
+                            message: 'SUCCESS_MODAL_APPOINTMENT_REQUEST_MESSAGE_SENT',
                             icon: true
                         };
                         $scope.setAlert($scope.messageAlertMessagesParams);

@@ -24,8 +24,8 @@
       <table ng-repeat="appointmentGroup in appointmentsGroups" class="week-list-day-row" ng-show="appointmentGroup.appointments.length">
         <thead>
             <tr class="history-list-day-title-row">
-              <td class="hidden-sm hidden-xs day-title" colspan="6">{{appointmentGroup.date | dateTranslateFilter}}</td>
-              <td class="hidden-md hidden-lg day-title" colspan="6">{{appointmentGroup.date | dateTranslateFilter}}</td>
+              <td class="hidden-sm hidden-xs day-title" colspan="6">{{appointmentGroup.date | dateTranslateFilter:this}}</td>
+              <td class="hidden-md hidden-lg day-title" colspan="6">{{appointmentGroup.date | dateTranslateFilter:this}}</td>
             </tr>
         </thead>
         <tbody>

@@ -255,7 +255,7 @@ Geek.controller('AppointmentHistoryController',['$scope','$rootScope', '$timeout
                         $scope.resetMessage();
                         $scope.messageAlertMessagesParams = {
                             type: 'success',
-                            message: 'El mensaje ha sido enviado con éxito',
+                            message: 'SUCCESS_MODAL_APPOINTMENT_REQUEST_MESSAGE_SENT',
                             icon: true
                         };
                         $scope.setAlert($scope.messageAlertMessagesParams);
@@ -265,7 +265,7 @@ Geek.controller('AppointmentHistoryController',['$scope','$rootScope', '$timeout
                 function(response){
                     $scope.messageAlertMessagesParams = {
                         type: 'danger',
-                        message: 'Ocurrió un error an guardar el mensaje. Por favor, intenta de nuevo',
+                        message: 'ERROR_MODAL_APPOINTMENT_REQUEST_MESSAGE_FAILED',
                         icon: true
                     };
                     $scope.setAlert($scope.messageAlertMessagesParams);

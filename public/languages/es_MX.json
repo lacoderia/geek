@@ -115,7 +115,7 @@
     "ERROR_CHANGE_APPOINTMENT_STATUS_CONFLICT_TUTOR": "El estatus de la cita no pudo actualizarse, pues ha sido modificado previamente por el tutor.",
     "ERROR_MODAL_APPOINTMENT_REQUEST_ONE_HOUR": "Las clases deben durar al menos 1 hora, por favor, intenta otro horario.",
     "ERROR_MODAL_APPOINTMENT_REQUEST_EXPIRED": "El horario de la clase expiró, por favor, selecciona otro horario.",
-    "ERROR_MODAL_APPOINTMENT_REQUEST_MESSAGE_FAILED": "Ocurrió un error al guardar el mensaje. Por favor, intenta de nuevo.",
+    "ERROR_MODAL_APPOINTMENT_REQUEST_MESSAGE_FAILED": "Ocurrió un error al enviar el mensaje. Por favor, intenta de nuevo.",
     "ERROR_MODAL_APPOINTMENT_REQUEST_FAILED": "Hubo un error al solicitar una cita, por favor, intenta de nuevo.",
     "ERROR_MODAL_APPOINTMENT_REQUEST_EMPTY_TOPIC": "Debes seleccionar un tema.",
     "ERROR_MODAL_APPOINTMENT_REQUEST_NO_PAYMENT": "Para poder agendar una clase primero debes dar de alta algún <a href='/student#/dashboard/payment-options'>método de pago</a>.",
