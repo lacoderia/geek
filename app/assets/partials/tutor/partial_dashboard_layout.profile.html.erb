@@ -50,7 +50,7 @@
           <label><span class="icon-help icon-pointer" data-placement="top-left" data-content="{{ 'HELP_FORMATION' | translate }}" data-trigger="click" data-auto-close="true" html="true" bs-popover ></span> {{ 'TUTOR_PROFILE_LABEL_BACKGROUND' | translate }}:</label>
         </div>
         <div class="right">
-          <textarea name="tutor_background" rows="10" ng-model="tutor.background" class="form-textarea form-control" placeholder="{{ 'TUTOR_PROFILE_PLACEHOLDER_BACKGROUND' | translate }}" popover-input-name="{{ 'TUTOR_PROFILE_LABEL_BACKGROUND' | translate }}" required></textarea>
+          <textarea name="tutor_background" rows="10" ng-model="tutor.background" ng-trim="false" class="form-textarea form-control" placeholder="{{ 'TUTOR_PROFILE_PLACEHOLDER_BACKGROUND' | translate }}" popover-input-name="{{ 'TUTOR_PROFILE_LABEL_BACKGROUND' | translate }}" required></textarea>
           <span class="popup-trigger" popover="{{tutorProfileForm.tutor_background.popoverMessage}}" popover-trigger="click" popover-animation="false">!</span>
         </div>
       </div>

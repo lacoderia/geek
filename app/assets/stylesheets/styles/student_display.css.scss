@@ -1000,7 +1000,10 @@
             }
 
             .resume {
+              background-color: transparent;
+              border: none;
               color: $color-medium-orange;
+              font-family: inherit;
               font-size: 14px;
               font-weight: 500;
               height: 49px;
