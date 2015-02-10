@@ -310,6 +310,7 @@
     "SHOW_ERRORS_FIELD_MAX_LENGTH": "can't be longer than ",
     "SHOW_ERRORS_FIELD_MIN_LENGTH": "has to be at least",
     "SHOW_ERRORS_FIELD_CHARACTERS": "characters",
+    "SHOW_ERRORS_FIELD_PW_MATCH": "Passwords do not match",
     "SIGN_IN": "Sign in",
     "SIGN_OUT": "Sign out",
     "SIGN_UP": "Register",

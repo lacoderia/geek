@@ -131,8 +131,10 @@
                                         formCtrl[inputName].popoverMessage = $filter('translate')('SHOW_ERRORS_FIELD') + ' ' + popoverInputName + ' ' + $filter('translate')('SHOW_ERRORS_FIELD_MIN_LENGTH') + ' ' + inputNgEl[0].attributes["ng-minlength"].value + ' ' + $filter('translate')('SHOW_ERRORS_FIELD_CHARACTERS');
                                     } else if (formCtrl[inputName].$error.maxlength == true) {
                                         formCtrl[inputName].popoverMessage = $filter('translate')('SHOW_ERRORS_FIELD') + ' ' + popoverInputName + ' ' + $filter('translate')('SHOW_ERRORS_FIELD_MAX_LENGTH') + ' ' + inputNgEl[0].attributes["ng-maxlength"].value + ' ' + $filter('translate')('SHOW_ERRORS_FIELD_CHARACTERS');
+                                    } else if (formCtrl[inputName].$error.pwmatch == true) {
+                                        formCtrl[inputName].popoverMessage = $filter('translate')('SHOW_ERRORS_FIELD_PW_MATCH');
                                     } else {
-                                        formCtrl[inputName].popoverMessage = ''
+                                        formCtrl[inputName].popoverMessage = '';
                                     }
                                 } else {
                                     formCtrl[inputName].popoverMessage = '';
