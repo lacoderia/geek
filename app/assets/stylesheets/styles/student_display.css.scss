@@ -788,7 +788,10 @@
             min-height: 60px;
 
             .reviews{
-              margin-top: 2rem;
+
+              .review:first-child {
+                margin-top: 2rem;
+              }
 
               .review{
                 background: none;
@@ -1166,7 +1169,10 @@
             }
 
             .reviews{
-              margin-top: 2rem;
+
+              .review:first-child {
+                margin-top: 2rem;
+              }
 
               .review{
                 background: none;

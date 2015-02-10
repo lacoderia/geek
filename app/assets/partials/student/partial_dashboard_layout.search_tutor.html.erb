@@ -102,8 +102,8 @@
                 <span class="icon-star1" ng-class="tutor.reviews.average >= 5 ? 'star-full': 'star-empty'"></span>
               </div>
             </div>
-            <div class="score-more" ng-show="!tutor.reviews.comments.length" translate="TUTOR_SEARCH_NO_COMMENTS"></div>
-            <div class="score-more pointer" ng-hide="tutor.showComments || !tutor.reviews.comments.length" ng-click="toggleComments(tutor)" translate="TUTOR_SEARCH_SHOW_COMMENTS"></div>
+            <div class="score-more" ng-show="!hasComments(tutor.reviews)" translate="TUTOR_SEARCH_NO_COMMENTS"></div>
+            <div class="score-more pointer" ng-hide="tutor.showComments || !hasComments(tutor.reviews)" ng-click="toggleComments(tutor)" translate="TUTOR_SEARCH_SHOW_COMMENTS"></div>
             <div class="score-more pointer" ng-show="tutor.showComments" ng-click="toggleComments(tutor)" translate="TUTOR_SEARCH_HIDE_COMMENTS"></div>
             <div class="given-classes">
               <div>{{ 'TUTOR_SEARCH_CLASS_COUNT' | translate }}: {{tutor.appointments.classes || 0}}</div>
@@ -111,7 +111,7 @@
             </div>
           </div>
           <div class="reviews" ng-show="tutor.showComments">
-            <div class="review" class="col-lg-12 col-md-12 col-sm-12" ng-repeat="review in tutor.reviews.comments" ng-image-adjustment image-container="user_picture" image-src="{{ review.student.picture_url }}">
+            <div class="review" class="col-lg-12 col-md-12 col-sm-12" ng-repeat="review in tutor.reviews.comments" ng-if="review.description" ng-image-adjustment image-container="user_picture" image-src="{{ review.student.picture_url }}">
               <h3>{{ 'TUTOR_SEARCH_COMMENTS' | translate }}</h3>
               <div class="user_picture_container">
                 <div class="user_picture">
@@ -188,8 +188,8 @@
                 <span class="icon-star1" ng-class="tutor.reviews.average >= 5 ? 'star-full': 'star-empty'"></span>
               </div>
             </div>
-            <div class="score-more" ng-show="!tutor.reviews.comments.length" translate="TUTOR_SEARCH_NO_COMMENTS"></div>
-            <div class="score-more pointer" ng-hide="tutor.showComments || !tutor.reviews.comments.length" ng-click="toggleComments(tutor)" translate="TUTOR_SEARCH_SHOW_COMMENTS"></div>
+            <div class="score-more" ng-show="!hasComments(tutor.reviews)" translate="TUTOR_SEARCH_NO_COMMENTS"></div>
+            <div class="score-more pointer" ng-hide="tutor.showComments || !hasComments(tutor.reviews)" ng-click="toggleComments(tutor)" translate="TUTOR_SEARCH_SHOW_COMMENTS"></div>
             <div class="score-more pointer" ng-show="tutor.showComments" ng-click="toggleComments(tutor)" translate="TUTOR_SEARCH_HIDE_COMMENTS"></div>
             <div class="given-classes">
               <div>{{ 'TUTOR_SEARCH_CLASS_COUNT' | translate }}: {{tutor.appointments.classes || 0}}</div>

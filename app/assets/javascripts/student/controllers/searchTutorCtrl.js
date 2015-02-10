@@ -266,6 +266,19 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
         tutor.showComments = !tutor.showComments;
     };
 
+    // Función que determina si hay al menos un review con comentario
+    $scope.hasComments = function(reviews) {
+        var hasComments = false;
+
+        for(var i=0; i<reviews.comments.length; i++){
+            if(reviews.comments[i].description) {
+                hasComments = true;
+                break;
+            }
+        }
+        return hasComments;
+    }
+
     $scope.setOrderByOption = function(orderOption){
         if(orderOption.code != $scope.orderByOption.code){
             $scope.orderByOption = orderOption;
