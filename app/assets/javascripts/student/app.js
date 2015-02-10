@@ -320,16 +320,8 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                     {
                         subtitle: 'FAQ_TUTORS_T_4',
                         questions: [
-                            {q:'FAQ_STUDENTS_T_4_Q_1', a:'FAQ_STUDENTS_T_4_A_1'},
-                            {q:'FAQ_STUDENTS_T_4_Q_2', a:'FAQ_STUDENTS_T_4_A_2'},
-                            {q:'FAQ_STUDENTS_T_4_Q_3', a:'FAQ_STUDENTS_T_4_A_3'},
-                            {q:'FAQ_STUDENTS_T_4_Q_4', a:'FAQ_STUDENTS_T_4_A_4'},
-                            {q:'FAQ_STUDENTS_T_4_Q_5', a:'FAQ_STUDENTS_T_4_A_5'},
-                            {q:'FAQ_STUDENTS_T_4_Q_6', a:'FAQ_STUDENTS_T_4_A_6'},
-                            {q:'FAQ_STUDENTS_T_4_Q_7', a:'FAQ_STUDENTS_T_4_A_7'},
-                            {q:'FAQ_STUDENTS_T_4_Q_8', a:'FAQ_STUDENTS_T_4_A_8'},
-                            {q:'FAQ_STUDENTS_T_4_Q_9', a:'FAQ_STUDENTS_T_4_A_9'},
-                            {q:'FAQ_STUDENTS_T_4_Q_10', a:'FAQ_STUDENTS_T_4_A_10'}
+                            {q:'FAQ_TUTORS_T_4_Q_1', a:'FAQ_TUTORS_T_4_A_1'},
+                            {q:'FAQ_TUTORS_T_4_Q_2', a:'FAQ_TUTORS_T_4_A_2'}
                         ]
                     },
                 ],

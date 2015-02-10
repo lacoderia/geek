@@ -687,7 +687,7 @@ class Tutor < ActiveRecord::Base
     balance = Tutor.get_balance(tutor.openpay_id)
     if balance > 9.28
       card = Card.get_active(tutor.user.id)
-      pay = Payment.pay_tutor tutor.openpay_id, card.openpay_id, (balance - 9.28), get_cashout_message
+      pay = Payment.pay_tutor tutor.openpay_id, card.openpay_id, (balance - 9.28).round(2), get_cashout_message
       if pay[:success]
         fee = Payment.charge_fee tutor.openpay_id, 9.28, get_cashout_fee_message
       else 
