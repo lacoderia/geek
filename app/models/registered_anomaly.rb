@@ -74,19 +74,23 @@ class RegisteredAnomaly < ActiveRecord::Base
   def assign_helper fee_student = nil, fee_tutor = nil, absolute_amount = false
     valid_anomaly_status = RegisteredAnomalyStatus.find_by_code("1")
     invalid_anomaly_status = RegisteredAnomalyStatus.find_by_code("2")
-    self.update_attributes({:registered_anomaly_status_id => valid_anomaly_status.id, :fee_student => fee_student, :fee_tutor => fee_tutor }) 
-
-    self.appointment.update_attribute(:resolved_anomaly, true)
 
     # Pagar el appointment
     if fee_student and fee_tutor
-    
-      if fee_student > 0 and fee_tutor > 0 and (not absolute_amount)
-        self.appointment.pay fee_student, fee_tutor
-      elsif absolute_amount
-        self.appointment.pay_student_penalty fee_student
+      if not (fee_student == 0)
+        if (fee_student > 0 and fee_student <= 100) and (fee_tutor >= 0 and fee_tutor <= 100) and (not absolute_amount)
+          self.appointment.pay fee_student, fee_tutor
+        elsif absolute_amount
+          self.appointment.pay_student_penalty fee_student
+        else
+          raise "Se intenta cobrar o pagar una comision incorrecta. Clase #{self.appointment_id} fee_student #{fee_student} fee_tutor #{fee_tutor} absolute_amount #{absolute_amount}"
+        end
       end
     end
+    
+    self.update_attributes({:registered_anomaly_status_id => valid_anomaly_status.id, :fee_student => fee_student, :fee_tutor => fee_tutor }) 
+    
+    self.appointment.update_attribute(:resolved_anomaly, true)
 
     #Invalida todas las otras anomalías registradas a ese mismo appointment
     self.appointment.registered_anomalies.where("id != ?", self.id).each do |ra|

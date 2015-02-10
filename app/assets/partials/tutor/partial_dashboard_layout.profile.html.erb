@@ -240,11 +240,11 @@
     <h3 class="section-subtitle" translate="TUTOR_PROFILE_LABEL_AVAILABILITY"></h3>
     <fieldset>
       <div class="calendar">
-        <ng-alert-message alert-params="calendarAlertMessagesParams"></ng-alert-message>
         <ul class="events">
           <li><span class="event appointment-status-available"></span> {{ 'APPOINTMENT_LEGEND_AVAILABLE' | translate }}</li>
           <li><span class="event appointment-status-free"></span> {{ 'APPOINTMENT_LEGEND_UNAVAILABLE' | translate }}</li>
         </ul>
+        <ng-alert-message alert-params="calendarAlertMessagesParams"></ng-alert-message>
         <div class="week-view tutor-calendar-section" ng-class="calendarErrorClass">
           <div class="week-row tutor-calendar-title-day">
             <table>

@@ -22,7 +22,7 @@
         <div class="content">
           <div class="user-personal-info-container">
             <h4 class="user-name">{{ conversation.student.first_name }} {{ conversation.student.last_name }}</h4>
-            <em class="timestamp">{{ conversation.created_at | timestampTranslateFilter}}</em>
+            <em class="timestamp">{{ conversation.created_at | timestampTranslateFilter:this}}</em>
           </div>
           <div class="message-button">
             <a class="action-button action-send-message" ng-click="selectConversation(conversation.student, conversation.tutor)" translate="SHOW_CONVERSATION"></a>
@@ -66,7 +66,7 @@
           <div class="user-info">
               <h4 ng-if="message.from_student" class="message-user-name">{{ selectedConversationStudent.first_name }} {{ selectedConversationStudent.last_name }}</h4>
               <h4 ng-if="!message.from_student" class="message-user-name">{{ selectedConversationTutor.first_name }} {{ selectedConversationTutor.last_name }}</h4>
-              <span class="message-status"><span class="timestamp">{{ message.timestamp | timestampTranslateFilter }}</span> <span class="icon-container" ng-show="message.read && message.from_student"><span class="icon-bubbles"></span> {{ 'SEEN' | translate }}</span></span>
+              <span class="message-status"><span class="timestamp">{{ message.timestamp | timestampTranslateFilter:this }}</span> <span class="icon-container" ng-show="message.read && message.from_student"><span class="icon-bubbles"></span> {{ 'SEEN' | translate }}</span></span>
           </div>
           <div>
             <p>{{ message.text }}</p>

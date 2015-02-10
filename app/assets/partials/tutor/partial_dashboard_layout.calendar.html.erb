@@ -83,7 +83,7 @@
         <table ng-repeat="day in selectedWeek" class="week-list-day-row" ng-show="day.appointments.length">
           <thead>
           <tr class="week-list-day-title-row">
-            <th class="hidden-sm hidden-xs day-title" colspan="6">{{ day.date | dateTranslateFilter }}</th>
+            <th class="hidden-sm hidden-xs day-title" colspan="6">{{ day.date | dateTranslateFilter:this }}</th>
             <th class="hidden-md hidden-lg day-title" colspan="6">{{ DAYS[day.day].minTitle }}, {{ day.numberDay }}</th>
           </tr>
           </thead>

@@ -122,7 +122,7 @@
                 <div class="content">
                   <h4 class="user-name">{{ review.student.first_name }} {{ review.student.last_name }}</h4>
                   <div class="review-info">
-                    <em class="timestamp">{{ review.timestamp | timestampTranslateFilter }}</em>
+                    <em class="timestamp">{{ review.timestamp | timestampTranslateFilter:this }}</em>
                   </div>
                   <p class="user-review">{{ review.description }}</p>
                 </div>
@@ -208,7 +208,7 @@
                 <div class="content">
                   <h4 class="user-name">{{ review.student.first_name }} {{ review.student.last_name }}</h4>
                   <div class="review-info">
-                    <em class="timestamp">{{ review.timestamp | timestampTranslateFilter }}</em>
+                    <em class="timestamp">{{ review.timestamp | timestampTranslateFilter:this }}</em>
                   </div>
                   <p class="user-review">{{ review.description }}</p>
                 </div>
@@ -296,7 +296,7 @@
     <ul>
       <li>{{'APPOINTMENT_REQUEST_FEEDBACK_DETAILS_TUTOR' | translate}}: {{ selectedTutor.first_name }} {{ selectedTutor.last_name }}</li>
       <li>{{'APPOINTMENT_REQUEST_FEEDBACK_DETAILS_CLASS' | translate}}: {{ selectedCategory.name }}</li>
-      <li>{{'APPOINTMENT_REQUEST_FEEDBACK_DETAILS_DATE' | translate}}: {{ selectedClass.dateTimeISO | dateTranslateFilter }}</li>
+      <li>{{'APPOINTMENT_REQUEST_FEEDBACK_DETAILS_DATE' | translate}}: {{ selectedClass.dateTimeISO | dateTranslateFilter:this }}</li>
       <li>{{'APPOINTMENT_REQUEST_FEEDBACK_DETAILS_TIME' | translate}}: {{ selectedClass.time }}</li>
       <li>{{'APPOINTMENT_REQUEST_FEEDBACK_DETAILS_COST' | translate}}: {{ selectedCategory.cost * 1.035 | currency:"$" }} ({{selectedCategory.cost | currency:"$"}} + {{ selectedCategory.cost * 0.035 | currency:"$" }} {{ 'APPOINTMENT_REQUEST_FEEDBACK_DETAILS_COST_DETAIL' | translate }})</li>
     </ul>

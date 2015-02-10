@@ -214,7 +214,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
 
                         $scope.tutorRequestAlertParams = {
                             type: 'success',
-                            message: $filter('translate')('SUCCESS_TUTOR_PROFILE_REQUEST'),
+                            message: 'SUCCESS_TUTOR_PROFILE_REQUEST',
                             icon: true
                         };
                     }
@@ -224,7 +224,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
                 function(response){
                     $scope.tutorRequestAlertParams = {
                         type: 'danger',
-                        message: $filter('translate')('ERROR_TUTOR_PROFILE_UPDATE'),
+                        message: 'ERROR_TUTOR_PROFILE_UPDATE',
                         icon: true
                     };
 
@@ -236,7 +236,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
         }else{
             $scope.tutorRequestAlertParams = {
                 type: 'danger',
-                message: $filter('translate')('ERROR_TUTOR_PROFILE_FORM_HAS_ERRORS'),
+                message: 'ERROR_TUTOR_PROFILE_FORM_HAS_ERRORS',
                 icon: true
             };
 
@@ -313,7 +313,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
             $scope.calendarErrorClass = 'border-error';
             $scope.calendarAlertMessagesParams = {
                 type: 'danger',
-                message: $filter('translate')('ERROR_TUTOR_PROFILE_MINIMUM_CLASS_DURATION'),
+                message: 'ERROR_TUTOR_PROFILE_MINIMUM_CLASS_DURATION',
                 icon: true
             };
 
@@ -332,7 +332,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
                     if(data) {
                         $scope.tutorProfileAlertParams = {
                             type: 'success',
-                            message: $filter('translate')('SUCCESS_TUTOR_PROFILE_CONGRATULATIONS'),
+                            message: 'SUCCESS_TUTOR_PROFILE_CONGRATULATIONS',
                             icon: true
                         };
                         $scope.calendarErrorClass = '';
@@ -344,7 +344,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
                 function(response){
                     $scope.tutorProfileCalendarAlertParams = {
                         type: 'danger',
-                        message: $filter('translate')('ERROR_TUTOR_PROFILE_UPDATE_CALENDAR'),
+                        message: 'ERROR_TUTOR_PROFILE_UPDATE_CALENDAR',
                         icon: true
                     };
                     $scope.calendarErrorClass = 'border-error';
@@ -398,7 +398,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
 
                         $scope.tutorProfileAlertParams = {
                             type: 'success',
-                            message: $filter('translate')('SUCCESS_TUTOR_PROFILE_CONGRATULATIONS'),
+                            message: 'SUCCESS_TUTOR_PROFILE_CONGRATULATIONS',
                             icon: true
                         };
 
@@ -409,7 +409,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
                 function(response){
                     $scope.tutorProfileAlertParams = {
                         type: 'danger',
-                        message: $filter('translate')('ERROR_TUTOR_PROFILE_UPDATE'),
+                        message: 'ERROR_TUTOR_PROFILE_UPDATE',
                         icon: true
                     };
 
@@ -428,7 +428,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
 
             $scope.tutorProfileAlertParams = {
                 type: 'danger',
-                message: $filter('translate')('ERROR_TUTOR_PROFILE_FORM_HAS_ERRORS'),
+                message: 'ERROR_TUTOR_PROFILE_FORM_HAS_ERRORS',
                 icon: true
             };
 

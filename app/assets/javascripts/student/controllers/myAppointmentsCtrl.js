@@ -217,7 +217,7 @@ Geek.controller('MyAppointmentsController',['$compile', '$filter', '$scope','$ro
 
                 switch (response.error_code){
                     case 409:
-                        var errorMessage = $filter('translate')('ERROR_CHANGE_APPOINTMENT_STATUS_CONFLICT_TUTOR');
+                        var errorMessage = 'ERROR_CHANGE_APPOINTMENT_STATUS_CONFLICT_TUTOR';
 
                         for(var i=0; i<DEFAULT_VALUES.APPOINTMENT_STATUS.length; i++) {
                             if(DEFAULT_VALUES.APPOINTMENT_STATUS[i].code == response.appointment_status_code){
@@ -229,7 +229,7 @@ Geek.controller('MyAppointmentsController',['$compile', '$filter', '$scope','$ro
 
                         break;
                     default :
-                        var errorMessage = $filter('translate')('ERROR_CHANGE_APPOINTMENT_STATUS');
+                        var errorMessage = 'ERROR_CHANGE_APPOINTMENT_STATUS';
                         break;
                 }
 

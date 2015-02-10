@@ -26,8 +26,8 @@ ActiveAdmin.register RegisteredAnomaly, :as => "Anomalias Registradas" do
         f.input :anomaly_id, :as => :hidden
         f.input :registered_anomaly_status_id, :as => :hidden
         f.input :description, :placeholder => "Describe the issue"
-        f.input :fee_student, :placeholder => "100"
-        f.input :fee_tutor, :placeholder => "80"
+        f.input :fee_student, :placeholder => "100", :as => :number, :input_html => { :min => 0, :max => 100 }
+        f.input :fee_tutor, :placeholder => "80", :as => :number, :input_html => {:min => 0, :max => 100}
       end
       f.actions
     end

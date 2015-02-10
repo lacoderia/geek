@@ -224,7 +224,7 @@ Geek.controller('PaymentController',['$filter', '$scope','$rootScope', '$timeout
 
                                     $scope.studentPaymentAlertParams = {
                                         type: 'success',
-                                        message: $filter('translate')('SUCCESS_STUDENT_PAYMENT_METHOD_SAVE'),
+                                        message: 'SUCCESS_STUDENT_PAYMENT_METHOD_SAVE',
                                         icon: true
                                     };
 
@@ -242,7 +242,7 @@ Geek.controller('PaymentController',['$filter', '$scope','$rootScope', '$timeout
 
                             $scope.studentPaymentAlertParams = {
                                 type: 'danger',
-                                message: (DEFAULT_VALUES.OPENPAY_ERROR_STATUS[response.error_code])? $filter('translate')(DEFAULT_VALUES.OPENPAY_ERROR_STATUS[response.error_code]): $filter('translate')(DEFAULT_VALUES.OPENPAY_ERROR_STATUS['default']),
+                                message: (DEFAULT_VALUES.OPENPAY_ERROR_STATUS[response.error_code])? DEFAULT_VALUES.OPENPAY_ERROR_STATUS[response.error_code]: DEFAULT_VALUES.OPENPAY_ERROR_STATUS['default'],
                                 icon: true
                             };
 
@@ -262,7 +262,7 @@ Geek.controller('PaymentController',['$filter', '$scope','$rootScope', '$timeout
 
                     $scope.studentPaymentAlertParams = {
                         type: 'danger',
-                        message: (DEFAULT_VALUES.OPENPAY_ERROR_STATUS[response.data.error_code])? $filter('translate')(DEFAULT_VALUES.OPENPAY_ERROR_STATUS[response.data.error_code]): $filter('translate')(DEFAULT_VALUES.OPENPAY_ERROR_STATUS['default']),
+                        message: (DEFAULT_VALUES.OPENPAY_ERROR_STATUS[response.data.error_code])? DEFAULT_VALUES.OPENPAY_ERROR_STATUS[response.data.error_code]: DEFAULT_VALUES.OPENPAY_ERROR_STATUS['default'],
                         icon: true
                     };
 

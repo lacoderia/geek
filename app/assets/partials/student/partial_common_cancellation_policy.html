@@ -8,24 +8,12 @@
                     <h2 class="section-title ng-scope" translate="CANCELLATION_POLICY_TITLE"></h2>
 
                     <p translate="CANCELLATION_POLICY_P_1"></p>
-                    <table class="cancellation-table">
-                        <thead>
-                        <tr>
-                            <th translate="CANCELLATION_TABLE_TH_1"></th>
-                            <th translate="CANCELLATION_TABLE_TH_2"></th>
-                            <th translate="CANCELLATION_TABLE_TH_3"></th>
-                            <th translate="CANCELLATION_TABLE_TH_4"></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td translate="CANCELLATION_TABLE_TD_1"></td>
-                            <td translate="CANCELLATION_TABLE_TD_2"></td>
-                            <td translate="CANCELLATION_TABLE_TD_3"></td>
-                            <td translate="CANCELLATION_TABLE_TD_4"></td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    <div ng-if="getCurrentLanguage() == 'es_MX'">
+                        <img src="/assets/site/cancellation-policy-es.svg">
+                    </div>
+                    <div ng-if="getCurrentLanguage() == 'en_US'">
+                        <img src="/assets/site/cancellation-policy-en.svg">
+                    </div>
                     <p translate="CANCELLATION_POLICY_P_2"></p>
 
                     <ul>

@@ -440,7 +440,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
                         $scope.resetMessage();
                         $scope.messageAlertMessagesParams = {
                             type: 'success',
-                            message: $filter('translate')('SUCCESS_MODAL_APPOINTMENT_REQUEST_MESSAGE_SENT'),
+                            message: 'SUCCESS_MODAL_APPOINTMENT_REQUEST_MESSAGE_SENT',
                             icon: true
                         };
                         $scope.setAlert($scope.messageAlertMessagesParams);
@@ -450,7 +450,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
                 function(response){
                     $scope.messageAlertMessagesParams = {
                         type: 'danger',
-                        message: $filter('translate')('ERROR_MODAL_APPOINTMENT_REQUEST_MESSAGE_FAILED'),
+                        message: 'ERROR_MODAL_APPOINTMENT_REQUEST_MESSAGE_FAILED',
                         icon: true
                     };
                     $scope.setAlert($scope.messageAlertMessagesParams);
@@ -501,7 +501,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
 
                 switch (response.error_code){
                     case 409:
-                        var errorMessage = $filter('translate')('ERROR_CHANGE_APPOINTMENT_STATUS_CONFLICT_STUDENT');
+                        var errorMessage = 'ERROR_CHANGE_APPOINTMENT_STATUS_CONFLICT_STUDENT';
 
                         for(var i=0; i<DEFAULT_VALUES.APPOINTMENT_STATUS.length; i++) {
                             if(DEFAULT_VALUES.APPOINTMENT_STATUS[i].code == response.appointment_status_code){
@@ -513,7 +513,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
 
                         break;
                     default :
-                        var errorMessage = $filter('translate')('ERROR_CHANGE_APPOINTMENT_STATUS');
+                        var errorMessage = 'ERROR_CHANGE_APPOINTMENT_STATUS';
                         break;
                 }
 
@@ -773,7 +773,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
                     for(var appointmentIndex=0; appointmentIndex<$scope.appointments.length; appointmentIndex++){
 
                         var appointment = $scope.appointments[appointmentIndex];
-                        console.log(startDate)
+                        console.log(appointment.start)
                         var startDate = new Date(appointment.start);
                         var endDate = new Date(appointment.end);
                         var startMintues = (startDate.getMinutes() < 10) ? '0' + startDate.getMinutes() : startDate.getMinutes();
@@ -950,7 +950,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
             if (!validCalendar) {
                 $scope.calendarAlertMessagesParams = {
                     type: 'danger',
-                    message: $filter('translate')('ERROR_TUTOR_SPECIFIC_AVAILABILITY_ONE_HOUR'),
+                    message: 'ERROR_TUTOR_SPECIFIC_AVAILABILITY_ONE_HOUR',
                     icon: true
                 };
 
@@ -984,7 +984,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
             function(data){
                 $scope.calendarAlertMessagesParams = {
                     type: 'success',
-                    message: $filter('translate')('SUCCESS_TUTOR_SPECIFIC_AVAILABILITY_UPDATE'),
+                    message: 'SUCCESS_TUTOR_SPECIFIC_AVAILABILITY_UPDATE',
                     icon: true
                 };
 
@@ -1001,7 +1001,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$filter
             function (response){
                 $scope.calendarAlertMessagesParams = {
                     type: 'danger',
-                    message: $filter('translate')('ERROR_TUTOR_SPECIFIC_AVAILABILITY_UPDATE'),
+                    message: 'ERROR_TUTOR_SPECIFIC_AVAILABILITY_UPDATE',
                     icon: true
                 };
 
