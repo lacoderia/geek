@@ -723,7 +723,7 @@ textarea{
 .alert-icon{
   display: inline-block;
   font-size: 12px;
-  margin-right: 1em;
+  margin-right: 0.5em;
   vertical-align: middle;
 }
 
@@ -3372,6 +3372,13 @@ footer{
 
   ul{
     margin: 0 0 2.5rem 0;
+  }
+
+  img{
+    display: block;
+    margin: 0 auto 3rem;
+    max-width: 800px;
+    width: 100%;
   }
 
   .cancellation-table{

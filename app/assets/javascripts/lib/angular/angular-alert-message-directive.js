@@ -19,7 +19,6 @@ Geek.directive('ngAlertMessage', ["$rootScope", function($rootScope){
                 }
             },true);
 
-
         },
         scope: {
             alertParams: '=alertParams'

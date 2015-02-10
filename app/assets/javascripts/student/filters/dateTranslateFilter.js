@@ -23,7 +23,7 @@ Geek.filter('dateTranslateFilter', function($filter, $translate, DEFAULT_VALUES)
         }
 
         if(scope){
-            scope.$on('toggleLanguage', function($event, language){
+            scope.$on('toggleLanguage', function($event){
                 chooseLanguage();
             });
         }

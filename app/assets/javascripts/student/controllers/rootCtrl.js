@@ -54,6 +54,8 @@ Geek.controller('RootController', ["$filter", "$scope", "$rootScope", "$state", 
             default:
                 break;
         }
+
+        $rootScope.$broadcast('toggleLanguage');
     };
 
     $scope.compareCurrentDate = function(date){

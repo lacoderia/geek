@@ -28,7 +28,7 @@ Geek.filter('timestampTranslateFilter', function($filter, $translate, DEFAULT_VA
         };
 
         if(scope){
-            scope.$on('toggleLanguage', function($event, language){
+            scope.$on('toggleLanguage', function($event){
                 chooseLanguage();
             });
         }

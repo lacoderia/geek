@@ -39,7 +39,9 @@ Geek.controller('RootController', ["$scope", "$rootScope", "$timeout", "$state",
                 break;
         }
 
-        $rootScope.$broadcast('toggleLanguage', $translate.use());
+        $timeout(function(){
+            $rootScope.$broadcast('toggleLanguage');
+        },0);
     };
 
     $scope.compareCurrentDate = function(date){
