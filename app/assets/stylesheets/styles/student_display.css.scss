@@ -1014,6 +1014,8 @@
               margin: 0.5em 0em 0em;
               overflow: hidden;
               padding: 0em;
+              text-align: justify;
+              word-break: break-word;
 
               span {
                 color: $color-dark-orange;
@@ -1391,6 +1393,8 @@
               margin: 0.5em 0em 0em;
               overflow: hidden;
               padding: 0em;
+              text-align: justify;
+              word-break: break-word;
 
               span {
                 color: $color-dark-orange;
