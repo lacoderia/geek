@@ -36,7 +36,7 @@ json.array!(@tutors) do |tutor|
         student_counter << appointment.student_id
       end
     end
-    json.classes = class_counter if class_counter > 0 
-    json.students = student_counter.uniq.count if student_counter.count > 0
+    json.classes class_counter if class_counter > 0 
+    json.students student_counter.uniq.count if student_counter.count > 0
   end
 end
