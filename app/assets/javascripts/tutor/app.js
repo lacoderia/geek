@@ -24,7 +24,9 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
             'OPENPAY_SAVE_BANK_ACCOUNT_SERVICE_URL': 'cards/register_bank_account.json',
             'OPENPAY_GET_BALANCE': '/tutors/balance.json',
             'OPENPAY_CASH_OUT': '/tutors/cash_out.json',
-            'RESUME_GET_DASHBOARD_SERVICE_URL': 'tutor_dashboard.json'
+            'RESUME_GET_DASHBOARD_SERVICE_URL': 'tutor_dashboard.json',
+            'FORGOT_PASSWORD': '/users/password.json',
+            'RESET_PASSWORD': '/users/password.json'
         },
         'HOURS': [  '00:00', '00:30', '01:00', '01:30', '02:00', '02:30', '03:00', '03:30',
                     '04:00', '04:30', '05:00', '05:30', '06:00', '06:30', '07:00', '07:30',
@@ -347,6 +349,9 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
                                 $state.go(toState.authenticatedState, toParams);
 
                             }else{
+                                if(toState.optionalParam == 'reset_password_token'){
+                                    $rootScope.resetToken = toParams.reset_password_token;
+                                }
                                 $state.go(toState.defaultState);
                             }
                         },
@@ -376,11 +381,12 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
                 defaultState: "tutor.landing"
             })
             .state('tutor.landing',{
-                url: "/landing",
+                url: "/landing?reset_password_token",
                 templateUrl: "/assets/tutor/partial_common_landing.html",
                 authenticate: true,
                 authenticatedState: "dashboard.resume",
-                defaultState: "tutor.landing"
+                defaultState: "tutor.landing",
+                optionalParam: "reset_password_token"
             })
             .state('tutor.faq', {
                 url: "/faq",

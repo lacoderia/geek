@@ -21,7 +21,9 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
             'MY_TUTORS_SERVICE_URL': '/tutors/by_student.json',
             'OPENPAY_GET_CARDS_SERVICE_URL': 'cards/by_user.json',
             'OPENPAY_PAYMENT_SAVE_SERVICE_URL': 'cards/register_card.json',
-            'RESUME_GET_DASHBOARD_SERVICE_URL': 'student_dashboard.json'
+            'RESUME_GET_DASHBOARD_SERVICE_URL': 'student_dashboard.json',
+            'FORGOT_PASSWORD': '/users/password.json',
+            'RESET_PASSWORD': '/users/password.json'
         },
         'HOURS': [  '00:00', '00:30', '01:00', '01:30', '02:00', '02:30', '03:00', '03:30',
             '04:00', '04:30', '05:00', '05:30', '06:00', '06:30', '07:00', '07:30',
@@ -346,6 +348,9 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                                 SessionService.createSession(data.id, data.active, data.email, data.first_name, data.last_name, data.gender, data.phone_number, data.picture_url, data.has_card);
                                 $state.go(toState.authenticatedState, toParams);
                             }else{
+                                if(toState.optionalParam == 'reset_password_token'){
+                                    $rootScope.resetToken = toParams.reset_password_token;
+                                }
                                 $state.go(toState.defaultState);
                             }
                         },
@@ -375,11 +380,12 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                 defaultState: "student.landing"
             })
             .state('student.landing',{
-                url: "/landing",
+                url: "/landing?reset_password_token",
                 templateUrl: "/assets/student/partial_common_landing.html",
                 authenticate: true,
                 authenticatedState: "dashboard.resume",
-                defaultState: "student.landing"
+                defaultState: "student.landing",
+                optionalParam: "reset_password_token"
             })
             .state('student.faq', {
                 url: "/faq",

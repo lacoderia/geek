@@ -267,6 +267,21 @@
         font-size: 14px;
         padding: 20px;
 
+        .spinner-overlay {
+          background-color: transparent !important;
+        }
+
+        .forgot-password-container {
+          .form-text {
+            text-align: left;
+          }
+        }
+
+        .forgot-password-link {
+          font-size: 11px;
+          cursor: pointer;
+        }
+
         .form-button-fb {
           background-color: #6A86C9;
           border-radius: 2px;

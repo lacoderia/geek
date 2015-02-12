@@ -102,6 +102,40 @@
                     <div translate="SIGN_IN"></div>
                   </div>
                 </form>
+                <a class="forgot-password-link" ng-click="showForgotPassword()" translate="FORGOT_PASSWORD"></a>
+              </div>
+              <div class="forgot-password-container" ng-show="selectedTab == 'forgotPassword'">
+                <span us-spinner spinner-key="forgot-password-spinner"></span>
+                <label ng-show='forgotPasswordMessage' ng-bind='forgotPasswordMessage'></label>
+                <label ng-show='forgotPasswordError' ng-bind='forgotPasswordError'></label>
+                <form name="forgotPasswordForm" id="forgot-password-form" accept-charset="UTF-8" action="/users/sign_in" method="post" ng-hide='forgotPasswordMessage'>
+                  <div class="form-text" translate="FORGOT_PASSWORD_INSTRUCTIONS"></div>
+                  <div class="form-group">
+                    <input type="text" name="forgotPasswordMail" ng-model="forgotPasswordEmail" class="form-input form-control" placeholder="{{ 'FORGOT_PASSWORD_EMAIL' | translate }}" required/>
+                  </div>
+                  <div class="form-submit" ng-click="sendForgotPasswordEmail()">
+                    <div translate="FORGOT_PASSWORD_SEND"></div>
+                  </div>
+                </form>
+              </div>
+              <div class="reset-password-container" ng-show="selectedTab == 'resetPassword'">
+                <span us-spinner spinner-key="reset-password-spinner"></span>
+                <label ng-show='resetPasswordMessage' ng-bind='resetPasswordMessage'></label>
+                <label ng-show='resetPasswordError' ng-bind='resetPasswordError'></label>
+                <form name="resetPasswordForm" id="reset-password-form" class="validation-form" accept-charset="UTF-8" action="/users/sign_in" method="post" ng-hide='resetPasswordMessage'>
+                  <div class="form-text" translate="RESET_PASSWORD_INSTRUCTIONS"></div>
+                  <div class="form-group" show-errors>
+                    <input type="password" id="reset-password-password" name="resetPasswordPassword" ng-model="resetPasswordPassword" class="form-input form-control" placeholder="{{ 'RESET_PASSWORD_PASSWORD' | translate }}" popover-input-name="{{ 'RESET_PASSWORD_PASSWORD' | translate }}" required/>
+                    <span class="popup-trigger" popover="{{resetPasswordForm.resetPasswordPassword.popoverMessage}}" popover-trigger="click" popover-animation="false">!</span>
+                  </div>
+                  <div class="form-group" show-errors>
+                    <input type="password" id="reset-password-confirmation" name="resetPasswordConfirmation" ng-model="resetPasswordConfirmation" class="form-input form-control" placeholder="{{ 'RESET_PASSWORD_CONFIRMATION' | translate }}" popover-input-name="{{ 'RESET_PASSWORD_CONFIRMATION' | translate }}" pw-check="reset-password-password" required/>
+                    <span class="popup-trigger" popover="{{resetPasswordForm.resetPasswordConfirmation.popoverMessage}}" popover-trigger="click" popover-animation="false">!</span>
+                  </div>
+                  <div class="form-submit" ng-click="sendResetPassword()">
+                    <div translate="RESET_PASSWORD_SEND"></div>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
