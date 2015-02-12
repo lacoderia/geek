@@ -120,7 +120,7 @@ Rails.application.routes.draw do
 
   resources :roles
 
-  devise_for :users, :controllers => {:registrations => "users/registrations", :sessions => 'users/sessions', :omniauth_callbacks => "users/omniauth_callbacks"}
+  devise_for :users, :controllers => {:registrations => "users/registrations", :sessions => 'users/sessions', :omniauth_callbacks => "users/omniauth_callbacks", :passwords => "users/passwords"}
   devise_scope :user do
     get 'logout', :to => "devise/sessions#destroy"
     get 'signin', :to => "devise/sessions#new"
