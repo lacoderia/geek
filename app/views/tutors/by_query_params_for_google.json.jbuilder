@@ -55,7 +55,7 @@ json.set! :tutors do
         completed_appointment = AppointmentStatus.find_by_code("6")
 
         tutor.appointments.each do |appointment|
-          if appointment.appoinment_status_id == completed_appointment.id
+          if appointment.appointment_status_id == completed_appointment.id
             class_counter += 1
             student_counter << appointment.student_id
           end
@@ -120,7 +120,7 @@ json.set! :suggested_tutors do
         completed_appointment = AppointmentStatus.find_by_code("6")
 
         tutor.appointments.each do |appointment|
-          if appointment.appoinment_status_id == completed_appointment.id
+          if appointment.appointment_status_id == completed_appointment.id
             class_counter += 1
             student_counter << appointment.student_id
           end
