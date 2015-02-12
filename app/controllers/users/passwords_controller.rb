@@ -1,5 +1,7 @@
 class Users::PasswordsController < Devise::PasswordsController
-	
+  
+  skip_before_filter :verify_authenticity_token, :only => [:create, :update]
+
 	def create
 		self.resource = resource_class.send_reset_password_instructions(resource_params)
     yield resource if block_given?
