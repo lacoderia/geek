@@ -148,7 +148,7 @@ class RegisteredAnomaly < ActiveRecord::Base
         # El tutor no llegó, no se cobra y se cambia a válida
         self.assign_helper 0, 0
       elsif self.source.client_type == "Tutor"
-        # El estudiante no llegó, se cobra todo, se asigna 50% al tutor y se cambia a válida
+        # El estudiante no llegó, se cobran 100 pesos, no se asigna nada al tutor y se cambia a válida
         self.assign_helper 100, 0, true
       end
       self.user.update_attribute(:no_shows, self.user.no_shows + 1)
@@ -160,6 +160,7 @@ class RegisteredAnomaly < ActiveRecord::Base
         # El estudiante canceló, se cobra el 25%, se asigna 50% al tutor y se cambia a válida
       #  self.assign_helper 25, 50
       #end   
+      self.assign_helper 0, 0
       self.user.update_attribute(:cancellations, self.user.cancellations + 1)
     when "3" #otro
       if fee_student and fee_tutor
@@ -176,6 +177,7 @@ class RegisteredAnomaly < ActiveRecord::Base
         #Este caso no debería de pasar
       #  raise "Caso de cancelado por estudiante donde el user no es él mismo"
       #end
+      self.assign_helper 0, 0
       self.user.update_attribute(:cancellations, self.user.cancellations + 1)
     end
   end

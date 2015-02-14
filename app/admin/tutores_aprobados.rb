@@ -50,7 +50,6 @@ ActiveAdmin.register Tutor, :as => "Tutores" do
       row :phone_number
       row :background
       row :grade
-      row :late_shows
       row :no_shows
       row :cancellations
       row 'Categories' do |tutor|
@@ -97,7 +96,6 @@ ActiveAdmin.register Tutor, :as => "Tutores" do
       f.input	:background, :as => :string
       #f.input :tier1_rate, :label => "Cost",:as => :string, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
       f.input :grade, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
-      f.input :late_shows
       f.input :no_shows
       f.input :cancellations
       f.input :categories, :collection => f.object.categories, :input_html => { :disabled => true, :style => "background-color: #d3d3d3;" }
