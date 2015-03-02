@@ -394,6 +394,13 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                 authenticatedState: "student.faq",
                 defaultState: "student.faq"
             })
+            .state('student.how', {
+                url: "/how",
+                templateUrl: "/assets/student/partial_common_how_it_works.html",
+                authenticate: true,
+                authenticatedState: "student.how",
+                defaultState: "student.how"
+            })
             .state('student.about-us', {
                 url: "/about-us",
                 templateUrl: "/assets/student/partial_common_about_us.html",
@@ -451,6 +458,13 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                 authenticate: true,
                 authenticatedState: "dashboard.about-us",
                 defaultState: "student.about-us"
+            })
+            .state('dashboard.how', {
+                url: "/how",
+                templateUrl: "/assets/student/partial_common_how_it_works.html",
+                authenticate: true,
+                authenticatedState: "dashboard.how",
+                defaultState: "student.how"
             })
             .state('dashboard.contact', {
                 url: "/contact",

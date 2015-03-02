@@ -395,6 +395,13 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
                 authenticatedState: "tutor.faq",
                 defaultState: "tutor.faq"
             })
+            .state('tutor.how', {
+                url: "/how",
+                templateUrl: "/assets/tutor/partial_common_how_it_works.html",
+                authenticate: true,
+                authenticatedState: "tutor.how",
+                defaultState: "tutor.how"
+            })
             .state('tutor.about-us', {
                 url: "/about-us",
                 templateUrl: "/assets/tutor/partial_common_about_us.html",
@@ -452,6 +459,13 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
                 authenticate: true,
                 authenticatedState: "dashboard.about-us",
                 defaultState: "tutor.about-us"
+            })
+            .state('dashboard.how', {
+                url: "/how",
+                templateUrl: "/assets/tutor/partial_common_how_it_works.html",
+                authenticate: true,
+                authenticatedState: "dashboard.how",
+                defaultState: "tutor.how"
             })
             .state('dashboard.contact', {
                 url: "/contact",
