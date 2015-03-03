@@ -396,7 +396,7 @@ Geek.controller('PaymentController',['$scope','$rootScope', '$timeout', '$locati
     angular.element(document).ready(function(){
         OpenPay.setId(DEFAULT_VALUES.MERCHANT_ID);
         OpenPay.setApiKey(DEFAULT_VALUES.PUBLIC_KEY);
-        OpenPay.setSandboxMode(false);
+        OpenPay.setSandboxMode(true);
 
     });
 
