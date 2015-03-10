@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       post 'register_card'
       post 'register_bank_account'
       get 'by_user'
+      post 'delete_card'
     end
     member do
       post 'activate'

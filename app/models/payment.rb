@@ -107,8 +107,8 @@ class Payment
 
   # Obtiene la información de una cuenta bancaria en Openpay
   # Recibe:
-  # user_openpay_id - el id de Openpay de la cuenta bancaria
-  # user_id - el id de Openpay del usuario
+  # account_id - el id de Openpay de la cuenta bancaria
+  # user_openpay_id - el id de Openpay del usuario
   # Regresa un hash:
   # success - true si la operación se realizó con éxito, false de lo contrario
   # result - un objeto con la información de la cuenta bancaria
@@ -127,6 +127,50 @@ class Payment
     return result
   end
 
+  # Borra una tarjeta en Openpay
+  # Recibe:
+  # card_id - el id de Openpay de la tarjeta
+  # user_openpay_id - el id de Openpay del usuario
+  # Regresa un hash:
+  # success - true si la operación se realizó con éxito, false de lo contrario
+  # result - un objeto tarjeta con la información
+  # error - el mensaje de error si la operación falló
+  def self.delete_card card_id, user_openpay_id
+    op = set_openpay
+    cards = op.create(:cards)
+    result = {:success => true, :result => nil, :error => nil}
+    begin
+      result_hash = cards.delete(card_id, user_openpay_id)
+      result[:result] = result_hash
+    rescue => error
+      result[:success] = false
+      result[:error] = error
+    end
+    return result
+  end
+
+  # Borra una cuenta bancaria en Openpay
+  # Recibe:
+  # account_id - el id de Openpay de la cuenta bancaria
+  # user_openpay_id - el id de Openpay del usuario
+  # Regresa un hash:
+  # success - true si la operación se realizó con éxito, false de lo contrario
+  # result - un objeto tarjeta con la información
+  # error - el mensaje de error si la operación falló
+  def self.delete_bank_account account_id, user_openpay_id
+    op = set_openpay
+    accounts = op.create(:bankaccounts)
+    result = {:success => true, :result => nil, :error => nil}
+    begin
+      result_hash = accounts.delete(user_openpay_id, account_id)
+      result[:result] = result_hash
+    rescue => error
+      result[:success] = false
+      result[:error] = error
+    end
+    return result
+  end
+  
   # Obtiene el saldo de una cuenta de Openpay
   # Recibe:
   # user_openpay_id - el id de Openpay de la cuenta bancaria

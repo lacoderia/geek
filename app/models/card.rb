@@ -26,6 +26,21 @@ class Card < ActiveRecord::Base
     {:card => card, :error => error}
   end
 
+  def self.delete_card user, card_id
+    user_openpay_id = user.get_openpay_id
+    card = Card.find(card_id)
+    if card.is_bank_account
+      result = Payment.delete_bank_account(card.openpay_id, user_openpay_id)
+    else
+      result = Payment.delete_card(card.openpay_id, user_openpay_id)
+    end
+    if result[:success] == true
+      card.delete
+      user.cards.last.update_attribute(:active, true) if user.cards.where("active = ?", true).size == 0
+    end
+    result
+  end
+
   def self.find_by_user user
   	result = []
   	cards = Card.where("user_id = ?", user.id).order(:id)

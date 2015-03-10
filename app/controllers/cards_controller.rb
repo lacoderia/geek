@@ -92,7 +92,26 @@ class CardsController < ApplicationController
     end
   end
 
-  # Obtiene los medios de oago de un usuario
+  # Borra un medio de pago
+  # Recibe:
+  # student_id - el id del estudiante 
+  # tutor_id - el id del tutor
+  # card_id - el id de la tarjeta o cuenta bancaria
+  def delete_card
+    if params[:tutor_id]
+      user = Tutor.find(params[:tutor_id]).user
+    elsif params[:student_id]
+      user = Student.find(params[:student_id]).user
+    end
+    result = Card.delete_card(user, params[:card_id])
+    if result[:success] == true
+      render json: "ok", status: 200
+    else
+      render json: result[:error], status: 500
+    end
+  end
+
+  # Obtiene los medios de pago de un usuario
   # Recibe:
   # student_id - el id del estudiante 
   # tutor_id - el id del tutor 
