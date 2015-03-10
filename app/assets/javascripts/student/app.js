@@ -21,6 +21,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
             'MY_TUTORS_SERVICE_URL': '/tutors/by_student.json',
             'OPENPAY_GET_CARDS_SERVICE_URL': 'cards/by_user.json',
             'OPENPAY_PAYMENT_SAVE_SERVICE_URL': 'cards/register_card.json',
+            'OPENPAY_DELETE_PAYMENT_SERVICE_URL': 'cards/delete_card.json',
             'RESUME_GET_DASHBOARD_SERVICE_URL': 'student_dashboard.json',
             'FORGOT_PASSWORD': '/users/password.json',
             'RESET_PASSWORD': '/users/password.json'

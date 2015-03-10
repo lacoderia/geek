@@ -57,10 +57,28 @@ Geek.factory('PaymentService', ["$http", "$q", "DEFAULT_VALUES", function($http,
         return promise;
     };
 
+    var deleteAccount = function(payment){
+
+        var deferred = $q.defer();
+        var promise = deferred.promise;
+
+        $http.post(DEFAULT_VALUES.URL_SERVICES.OPENPAY_DELETE_PAYMENT_SERVICE_URL, payment).
+            success(function(data){
+                deferred.resolve(data);
+            }).
+
+            error(function(response){
+                deferred.reject(response);
+            });
+
+        return promise;
+    };
+
     return{
         getPaymentMethodsList: getPaymentMethodsList,
         saveCard: saveCard,
-        activateAccount: activateAccount
+        activateAccount: activateAccount,
+        deleteAccount: deleteAccount
     }
 
 }]);
