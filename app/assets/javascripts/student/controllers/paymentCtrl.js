@@ -291,6 +291,28 @@ Geek.controller('PaymentController',['$filter', '$scope','$rootScope', '$timeout
                 );
                 break;
             case  'delete-account':
+                if($scope.paymentMethodsList.length > 1) {
+
+                    var account = {
+                        'student_id': SessionService.getId(),
+                        'card_id': paymentMethod.id
+                    };
+
+                    $timeout(function(){
+                        usSpinnerService.spin('payments-spinner');
+                    }, 0);
+
+                    PaymentService.deleteAccount(account).then(
+                        function(data){
+                            usSpinnerService.stop('payments-spinner');
+                            $scope.getPaymentMethodsList();
+                        },
+                        function(response){
+                            usSpinnerService.stop('payments-spinner');
+                            console.log('Error deleting account ' + response);
+                        }
+                    );
+                }
                 break;
         }
     };
@@ -299,12 +321,14 @@ Geek.controller('PaymentController',['$filter', '$scope','$rootScope', '$timeout
         var buttonVisibility = true;
         switch (action){
             case 'change-main-account':
-                if(active){
+                if (active) {
                     buttonVisibility = false;
                 }
                 break;
             case  'delete-account':
-                buttonVisibility =  false;
+                if ($scope.paymentMethodsList.length <= 1) {
+                    buttonVisibility =  false;
+                }
                 break;
         }
 

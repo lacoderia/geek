@@ -22,6 +22,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
             'OPENPAY_GET_CARDS_SERVICE_URL': 'cards/by_user.json',
             'OPENPAY_PAYMENT_SAVE_SERVICE_URL': 'cards/register_card.json',
             'OPENPAY_SAVE_BANK_ACCOUNT_SERVICE_URL': 'cards/register_bank_account.json',
+            'OPENPAY_DELETE_PAYMENT_SERVICE_URL': 'cards/delete_card.json',
             'OPENPAY_GET_BALANCE': '/tutors/balance.json',
             'OPENPAY_CASH_OUT': '/tutors/cash_out.json',
             'RESUME_GET_DASHBOARD_SERVICE_URL': 'tutor_dashboard.json',
