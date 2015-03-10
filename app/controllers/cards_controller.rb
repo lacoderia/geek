@@ -105,7 +105,7 @@ class CardsController < ApplicationController
     end
     result = Card.delete_card(user, params[:card_id])
     if result[:success] == true
-      render json: "ok", status: 200
+      render json: "", status: :ok
     else
       render json: result[:error], status: 500
     end
