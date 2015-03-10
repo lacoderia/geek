@@ -1,110 +1,12 @@
-Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$timeout", "$location", "$anchorScroll", "$translate", "TutorService", "AppointmentService", "AuthService", "SessionService", "usSpinnerService", "MessageService", "DEFAULT_VALUES", function($scope, $rootScope, $filter, $timeout, $location, $anchorScroll, $translate, TutorService, AppointmentService, AuthService, SessionService, usSpinnerService, MessageService, DEFAULT_VALUES){
-
-    //Inicializamos el controlador
-    $rootScope.$broadcast('initRoot');
-
-    $scope.orderOptions = [
-        {'code':0, 'title':'SEARCH_ORDER_BY_LABEL_HIGHEST_REVIEW'},
-        {'code':1, 'title':'SEARCH_ORDER_BY_LABEL_HIGHEST_PRICE'},
-        {'code':2, 'title':'SEARCH_ORDER_BY_LABEL_LOWEST_PRICE'}
-    ];
-
-    //Subject inputted by the user
-    $scope.subjectInput = undefined;
-
-    //County selected by the user
-    $scope.selectedCountyInput = undefined;
-
-    //Pagination
-    $scope.totalTutors = 0;
-    $scope.totalSuggestedTutors = 0;
-    $scope.tutorsPerPage = 10;
-    $scope.backToPageOne = false;
-    $scope.reset = false;
-
-    $scope.pagination_current = 1;
-    $scope.suggested_pagination_current = 1;
-
-    $scope.pageChanged = function(newPage) {
-      if($scope.reset) {
-        $scope.reset = false;
-        return;
-      }else if ($scope.backToPageOne) {
-        $scope.backToPageOne = false;
-        $scope.searchTutor(newPage, true, false);      
-      }else{
-        $scope.searchTutor(newPage, false, true);      
-      }
-    };
-
-    //Zona ingresada por el usuario
-    $scope.countyInput = '';
-
-    //Filtros de la búsqueda
-    $scope.filters = {
-        'online': false,
-        'office': false,
-        'student': false,
-        'public': false,
-        'order': $scope.orderOptions[0]
-    };
-
-    //Variable de ordenamiento
-    $scope.orderByOption = $scope.orderOptions[0];
-
-    $scope.tutorList = undefined;
-    $scope.suggestedTutorList = undefined;
+Geek.controller('TutorProfileController', ["$scope", "$rootScope", "$filter", "$timeout", "$location", "$anchorScroll", "$translate", "$stateParams", "TutorService", "AppointmentService", "AuthService", "SessionService", "usSpinnerService", "MessageService", "DEFAULT_VALUES", function($scope, $rootScope, $filter, $timeout, $location, $anchorScroll, $translate, $stateParams, TutorService, AppointmentService, AuthService, SessionService, usSpinnerService, MessageService, DEFAULT_VALUES){
 
     $scope.PROFILE_IMAGE = DEFAULT_VALUES.PROFILE_IMAGE;
-    $scope.selectedCategory = undefined;
+
+    $scope.tutor = undefined;
 
     $scope.appointmentAlertParams = undefined;
-
-    $scope.autocomplete = undefined;
-    $scope.components_address = undefined;
-    $scope.chosenPlaceDetails = '';
-    $scope.showTopSearchbar = false;
     $scope.validAppointmentDate = true;
-
     $scope.appointmentRequestSent = false;
-
-    $scope.onPlaceChanged = function(place){
-
-        if(place){
-
-            $scope.components_address = {
-                'neighborhood': undefined,
-                'locality': undefined,
-                'sublocality': undefined,
-                'postal_code': undefined
-            };
-
-            for(var componentIndex=0; componentIndex<place.address_components.length; componentIndex++){
-                var addressComponent = place.address_components[componentIndex];
-                for(var typeIndex=0; typeIndex<addressComponent.types.length; typeIndex++){
-                    var type = addressComponent.types[typeIndex];
-
-                    switch (type){
-                        case 'neighborhood':
-                            $scope.components_address.neighborhood = addressComponent.long_name;
-                            break;
-                        case 'locality':
-                            $scope.components_address.locality = addressComponent.long_name;
-                            break;
-                        case 'sublocality':
-                            $scope.components_address.sublocality = addressComponent.long_name;
-                            break;
-                        case 'postal_code':
-                            $scope.components_address.postal_code = addressComponent.postal_code;
-                            break;
-                    }
-                }
-            }
-        } else {
-            $scope.components_address = undefined;
-        }
-
-    };
 
     $scope.getTutorCostRange = function(tutor){
         tutor.show = true;
@@ -146,123 +48,6 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
         }
     };
 
-    //Find a tutor, by the inputted data by the user
-    $scope.searchTutor = function(pageNumber, firstSearch, pagination){
-        $scope.resetTutorSearch();
-        
-        $scope.showTopSearchbar = true;
-
-        if (!firstSearch){
-          if (pageNumber != 1 && pagination) {
-            $scope.backToPageOne = true;
-          }else{
-            return;
-          }
-        }
-        
-        if ( ($scope.pagination_current != pageNumber) && ($scope.suggested_pagination_current != pageNumber) ){
-          $scope.reset = true;
-        }
-        
-        $scope.pagination_current = pageNumber;
-        $scope.suggested_pagination_current = pageNumber;
-
-        var categoryId = undefined;
-        if($scope.subjectInput){
-            categoryId = $scope.subjectInput.originalObject.id;
-        }
-
-        $timeout(function(){
-            usSpinnerService.spin('search-tutor-spinner');
-        }, 0);
-
-        TutorService.getTutorByQueryParamsForGoogle($scope.components_address, categoryId, pageNumber, $scope.filters).then(
-            function(data){
-                if(data){
-
-                    $scope.tutorList = data.tutors.items;
-                    $scope.totalTutors = data.tutors.count;
-                    $scope.suggestedTutorList = data.suggested_tutors.items;
-                    $scope.totalSuggestedTutors = data.suggested_tutors.count;
-
-                    for(var tutorIndex in $scope.tutorList) {
-                        var tutor = $scope.tutorList[tutorIndex];
-                        $scope.getTutorCostRange(tutor);
-                    }
-
-                    for(var suggestedTutorIndex in $scope.suggestedTutorList){
-                        var suggestedTutor = $scope.suggestedTutorList[suggestedTutorIndex];
-                        $scope.getTutorCostRange(suggestedTutor);
-                    }
-
-                    $rootScope.$broadcast('showResultList');
-
-                    usSpinnerService.stop('search-tutor-spinner');
-
-                }
-            },
-            function(response){
-                console.log('Error retrieving the search results: ' + response);
-            }
-        );    
-
-    };
-
-    // Show tutor details popup
-    $scope.showTutorDetails = function(tutor) {
-        console.log(tutor)
-        if(!$scope.selectedTutor){
-            if(AuthService.isAuthenticated()){
-                for(var i in $scope.tutorList) {
-                    if($scope.tutorList[i].id != tutor.id){
-                        $scope.tutorList[i].show = false;
-                        $scope.tutorList[i].showComments = false;
-                    }
-                }
-                for(var i in $scope.suggestedTutorList) {
-                    if($scope.suggestedTutorList[i].id != tutor.id){
-                        $scope.suggestedTutorList[i].show = false;
-                        $scope.suggestedTutorList[i].showComments = false;
-                    }
-                }
-                $scope.selectedTutor = tutor;
-
-                //$scope.openTutorDetailModal(tutor);
-                $rootScope.$broadcast('initTutorCalendar', $scope.selectedTutor);
-
-                $timeout(function(){
-                    $rootScope.$broadcast('ellipsis-remove', tutor.id);
-                });
-            }else{
-                $rootScope.$broadcast('showSigInModal');
-            }
-        }
-    };
-
-    // Show all tutors found on tutor search
-    $scope.showSearchResults = function() {
-        $scope.resetTutorSearch();        
-
-        for(var i in $scope.tutorList) {
-            $scope.tutorList[i].show = true;
-            $scope.tutorList[i].showComments = false;
-        }
-
-        for(var i in $scope.suggestedTutorList) {
-            $scope.suggestedTutorList[i].show = true;
-            $scope.suggestedTutorList[i].showComments = false;
-        }
-
-        $timeout(function(){
-            $rootScope.$broadcast('ellipsis-add');
-        }, 0);
-    };
-
-    $scope.resetTutorSearch = function() {
-        $scope.selectedTutor = null;
-    };
-
-    // Function that toggles tutor's comments
     $scope.toggleComments = function(tutor) {
         tutor.showComments = !tutor.showComments;
     };
@@ -278,14 +63,6 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
             }
         }
         return hasComments;
-    }
-
-    $scope.setOrderByOption = function(orderOption){
-        if(orderOption.code != $scope.orderByOption.code){
-            $scope.orderByOption = orderOption;
-            $scope.filters.order = $scope.orderByOption;
-            $scope.searchTutor(1, true, false);
-        }
     };
 
     $scope.showAppointmentRequestModal = function(event, row, column, day){
@@ -353,10 +130,6 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
             },0);
 
         }
-    };
-
-    $scope.selectCategory = function(category){
-        $scope.selectedCategory = category;
     };
 
     $scope.sendAppointmentRequest = function() {
@@ -441,10 +214,6 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
 
     };
 
-    $scope.showSelectedTutorCalendar = function() {
-        $scope.appointmentRequestSent = false;
-    }
-
     $scope.openModalMessage = function($event,tutor){
 
         if(AuthService.isAuthenticated()){
@@ -527,5 +296,19 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
 
         return translatedTitle;
     };
+
+
+    function initController(){
+
+        var tutorId = $stateParams.id;
+        $scope.tutor = TutorService.getTutorById(tutorId);
+        $rootScope.$broadcast('initTutorCalendar', $scope.tutor);
+
+    };
+
+    initController();
+
+    //Inicializamos el controlador
+    $rootScope.$broadcast('initRoot');
 
 }]);

@@ -562,6 +562,13 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                 authenticatedState: "dashboard.payment-options",
                 defaultState: "student.landing"
             })
+            .state('dashboard.tutor-profile', {
+                url: "/:id/tutor-profile",
+                templateUrl: "/assets/student/partial_dashboard_layout.tutor_profile.html",
+                authenticate: true,
+                authenticatedState: "dashboard.tutor-profile",
+                defaultState: "student.landing"
+            })
     }])
 
     .config(['$translateProvider', function($translateProvider){

@@ -398,6 +398,7 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
         }
 
         $scope.selectedWeek = $scope.getWeekByDate($scope.currentDate);
+        console.log($scope.selectedWeek)
         $scope.getWeekAvailability();
     };
 
