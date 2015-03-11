@@ -92,14 +92,15 @@
 <div>
   <div class="tutor-mobile visible-sm visible-xs" dir-paginate="tutor in tutorList | itemsPerPage: tutorsPerPage" total-items="totalTutors" pagination-id="tutorsPagination" current-page="pagination_current" on-tutor-search-render>
     <div class="tutor-personal-info col-sm-12 col-xs-12">
-      <div class="content col-sm-12 col-xs-12">
+      <div class="content col-sm-12 col-xs-12" ng-class="{ 'no-background' : tutor.id == selectedTutor.id }">
         <div class="content-info col-sm-12 col-xs-12">
-          <div class="tutor_picture_container col-sm-3 col-xs-3" ng-click="showTutorDetails(tutor)">
+          <div class="tutor_picture_container col-sm-3 col-xs-3" ng-class="{ 'expanded' : tutor.id == selectedTutor.id }" ng-click="showTutorDetails(tutor)">
             <div class="tutor_picture">
               <img/>
             </div>
           </div>
-          <h4 class="tutor-name col-sm-9 col-xs-9" ng-click="showTutorDetails(tutor)">{{ tutor.first_name }} {{ tutor.last_name }}</h4>
+          <h4 class="tutor-name col-sm-9 col-xs-9" ng-if="tutor.id != selectedTutor.id" ng-click="showTutorDetails(tutor)">{{ tutor.first_name }} {{ tutor.last_name }}</h4>
+          <h4 class="tutor-name col-sm-9 col-xs-9 expanded" ng-if="tutor.id == selectedTutor.id">{{ tutor.first_name }} {{ tutor.last_name }}</h4>
           <div class="score-info">
             <div class="content-score">
               <div class="score">
@@ -123,7 +124,7 @@
             <span class="item-added" ng-if="tutor.preference.student_place" title="{{ 'TUTOR_PREFERENCE_STUDENT' | translate }}">{{ 'TUTOR_PREFERENCE_STUDENT' | translate }}</span>
             <span class="item-added" ng-if="tutor.preference.public" title="{{ 'TUTOR_PREFERENCE_PUBLIC' | translate }}">{{ 'TUTOR_PREFERENCE_PUBLIC' | translate }}</span>
           </div>
-          <p class="tutor-categories"><span ng-repeat="category in tutor.categories">{{ category.name }}{{ $last ? '' : ', ' }}</span></p>
+          <p class="tutor-categories" ng-class="{ 'expanded' : tutor.id == selectedTutor.id }"><span ng-repeat="category in tutor.categories">{{ category.name }}{{ $last ? '' : ', ' }}</span></p>
           <pre class="resume" ng-class="{ 'expanded' : tutor.id == selectedTutor.id }" ng-bind="tutor.background" ellipsis ellipsis-append="{{ 'MORE' | translate }}" ellipsis-symbol="... " ellipsis-append-click="showTutorDetails(tutor)" ellipsis-id="tutor.id"></pre>
         </div>
         <div class="clearfix"></div>
@@ -151,7 +152,7 @@
     </div>
     <div class="tutor-class-info col-lg-2 col-md-2 col-sm-12 col-xs-12">
       <div class="content">
-        <div class="content-price">
+        <div class="content-price" ng-class="{ 'no-background' : tutor.id == selectedTutor.id }">
           <h4 class="price">
             MXN {{ tutor.costRange }} {{ 'EACH_HOUR' | translate }}
           </h4>
@@ -165,16 +166,17 @@
     <div class="clearfix"></div>
   </div>
   <div class="tutor hidden-sm hidden-xs" dir-paginate="tutor in tutorList | itemsPerPage: tutorsPerPage" total-items="totalTutors" pagination-id="tutorsPagination" current-page="pagination_current" on-tutor-search-render>
-    <div class="tutor_picture_container col-lg-2 col-md-2 col-sm-12 col-xs-12" ng-click="showTutorDetails(tutor)">
+    <div class="tutor_picture_container col-lg-2 col-md-2 col-sm-12 col-xs-12" ng-class="{ 'expanded' : tutor.id == selectedTutor.id }" ng-click="showTutorDetails(tutor)">
       <div class="tutor_picture">
         <img/>
       </div>
     </div>
     <div class="tutor-personal-info col-lg-8 col-md-8 col-sm-12 col-xs-12">
-      <div class="content">
+      <div class="content" ng-class="{ 'no-background' : tutor.id == selectedTutor.id }">
         <div class="content-info">
-          <h4 class="tutor-name" ng-click="showTutorDetails(tutor)">{{ tutor.first_name }} {{ tutor.last_name }}</h4>
-          <p class="tutor-categories"><span ng-repeat="category in tutor.categories">{{ category.name }}{{ $last ? '' : ', ' }}</span></p>
+          <h4 class="tutor-name" ng-if="tutor.id != selectedTutor.id" ng-click="showTutorDetails(tutor)">{{ tutor.first_name }} {{ tutor.last_name }}</h4>
+          <h4 class="tutor-name expanded" ng-if="tutor.id == selectedTutor.id">{{ tutor.first_name }} {{ tutor.last_name }}</h4>
+          <p class="tutor-categories" ng-class="{ 'expanded' : tutor.id == selectedTutor.id }"><span ng-repeat="category in tutor.categories">{{ category.name }}{{ $last ? '' : ', ' }}</span></p>
           <div class="preferences">
             <span class="item-added" ng-if="tutor.preference.online" title="{{ 'TUTOR_PREFERENCE_ONLINE' | translate }}">{{ 'TUTOR_PREFERENCE_ONLINE' | translate }}</span>
             <span class="item-added" ng-if="tutor.preference.office" title="{{ 'TUTOR_PREFERENCE_OFFICE' | translate }}">{{ 'TUTOR_PREFERENCE_OFFICE' | translate }}</span>
@@ -225,7 +227,7 @@
     </div>
     <div class="tutor-class-info col-lg-2 col-md-2 col-sm-12 col-xs-12">
       <div class="content">
-        <div class="content-price">
+        <div class="content-price" ng-class="{ 'no-background' : tutor.id == selectedTutor.id }">
           <h4 class="price">
             MXN <br>
             {{ tutor.costRange }} <br>
@@ -251,15 +253,16 @@
 
 <div>
   <div class="tutor-mobile visible-sm visible-xs suggested-tutors" ng-show="suggestedTutorList.length > 0 && !selectedTutor" dir-paginate="tutor in suggestedTutorList | itemsPerPage: tutorsPerPage" total-items="totalSuggestedTutors" pagination-id="suggestedTutorsPagination" current-page="suggested_pagination_current" on-tutor-search-render>
-    <div class="tutor-personal-info col-sm-12 col-xs-12">
+    <div class="tutor-personal-info col-sm-12 col-xs-12" ng-class="{ 'no-background' : tutor.id == selectedTutor.id }">
       <div class="content col-sm-12 col-xs-12">
         <div class="content-info col-sm-12 col-xs-12">
-          <div class="tutor_picture_container col-sm-3 col-xs-3" ng-click="showTutorDetails(tutor)">
+          <div class="tutor_picture_container col-sm-3 col-xs-3" ng-class="{ 'expanded' : tutor.id == selectedTutor.id }" ng-click="showTutorDetails(tutor)">
             <div class="tutor_picture">
               <img/>
             </div>
           </div>
-          <h4 class="tutor-name col-sm-9 col-xs-9" ng-click="showTutorDetails(tutor)">{{ tutor.first_name }} {{ tutor.last_name }}</h4>
+          <h4 class="tutor-name col-sm-9 col-xs-9" ng-if="tutor.id != selectedTutor.id" ng-click="showTutorDetails(tutor)">{{ tutor.first_name }} {{ tutor.last_name }}</h4>
+          <h4 class="tutor-name col-sm-9 col-xs-9 expanded" ng-if="tutor.id == selectedTutor.id">{{ tutor.first_name }} {{ tutor.last_name }}</h4>
           <div class="score-info">
             <div class="content-score">
               <div class="score">
@@ -283,7 +286,7 @@
             <span class="item-added" ng-if="tutor.preference.student_place" title="{{ 'TUTOR_PREFERENCE_STUDENT' | translate }}">{{ 'TUTOR_PREFERENCE_STUDENT' | translate }}</span>
             <span class="item-added" ng-if="tutor.preference.public" title="{{ 'TUTOR_PREFERENCE_PUBLIC' | translate }}">{{ 'TUTOR_PREFERENCE_PUBLIC' | translate }}</span>
           </div>
-          <p class="tutor-categories"><span ng-repeat="category in tutor.categories">{{ category.name }}{{ $last ? '' : ', ' }}</span></p>
+          <p class="tutor-categories" ng-class="{ 'expanded' : tutor.id == selectedTutor.id }"><span ng-repeat="category in tutor.categories">{{ category.name }}{{ $last ? '' : ', ' }}</span></p>
           <p class="resume" ng-class="{ 'expanded' : tutor.id == selectedTutor.id }" ng-bind="tutor.background" ellipsis ellipsis-append="{{ 'MORE' | translate }}" ellipsis-symbol="... " ellipsis-append-click="showTutorDetails(tutor)" ellipsis-id="tutor.id"></p>
         </div>
         <div class="clearfix"></div>
@@ -311,7 +314,7 @@
     </div>
     <div class="tutor-class-info col-lg-2 col-md-2 col-sm-12 col-xs-12">
       <div class="content">
-        <div class="content-price">
+        <div class="content-price" ng-class="{ 'no-background' : tutor.id == selectedTutor.id }">
           <h4 class="price">
             MXN {{ tutor.costRange }} {{ 'EACH_HOUR' | translate }}
           </h4>
@@ -325,16 +328,17 @@
     <div class="clearfix"></div>
   </div>
   <div class="tutor hidden-sm hidden-xs suggested-tutors" ng-show="suggestedTutorList.length > 0 && !selectedTutor" dir-paginate="tutor in suggestedTutorList | itemsPerPage: tutorsPerPage" total-items="totalSuggestedTutors" pagination-id="suggestedTutorsPagination" current-page="suggested_pagination_current" on-tutor-search-render>
-    <div class="tutor_picture_container col-lg-2 col-md-2 col-sm-12 col-xs-12" ng-click="showTutorDetails(tutor)">
+    <div class="tutor_picture_container col-lg-2 col-md-2 col-sm-12 col-xs-12" ng-class="{ 'expanded' : tutor.id == selectedTutor.id }" ng-click="showTutorDetails(tutor)">
       <div class="tutor_picture">
         <img/>
       </div>
     </div>
     <div class="tutor-personal-info col-lg-8 col-md-8 col-sm-12 col-xs-12">
-      <div class="content">
+      <div class="content" ng-class="{ 'no-background' : tutor.id == selectedTutor.id }">
         <div class="content-info">
-          <h4 class="tutor-name" ng-click="showTutorDetails(tutor)">{{ tutor.first_name }} {{ tutor.last_name }}</h4>
-          <p class="tutor-categories"><span ng-repeat="category in tutor.categories">{{ category.name }}{{ $last ? '' : ', ' }}</span></p>
+          <h4 class="tutor-name" ng-if="tutor.id != selectedTutor.id" ng-click="showTutorDetails(tutor)">{{ tutor.first_name }} {{ tutor.last_name }}</h4>
+          <h4 class="tutor-name expanded" ng-if="tutor.id == selectedTutor.id">{{ tutor.first_name }} {{ tutor.last_name }}</h4>
+          <p class="tutor-categories" ng-class="{ 'expanded' : tutor.id == selectedTutor.id }"><span ng-repeat="category in tutor.categories">{{ category.name }}{{ $last ? '' : ', ' }}</span></p>
           <div class="preferences">
             <span class="item-added" ng-if="tutor.preference.online" title="{{ 'TUTOR_PREFERENCE_ONLINE' | translate }}">{{ 'TUTOR_PREFERENCE_ONLINE' | translate }}</span>
             <span class="item-added" ng-if="tutor.preference.office" title="{{ 'TUTOR_PREFERENCE_OFFICE' | translate }}">{{ 'TUTOR_PREFERENCE_OFFICE' | translate }}</span>
@@ -385,7 +389,7 @@
     </div>
     <div class="tutor-class-info col-lg-2 col-md-2 col-sm-12 col-xs-12">
       <div class="content">
-        <div class="content-price">
+        <div class="content-price" ng-class="{ 'no-background' : tutor.id == selectedTutor.id }">
           <h4 class="price">
             MXN <br>
             {{ tutor.costRange }} <br>
@@ -406,6 +410,51 @@
     {{totalSuggestedTutors}} <span ng-if="totalSuggestedTutors == 1">{{ 'SEARCH_TOTAL_TUTORS_SINGLE_LABEL' | translate }}</span><span ng-if="totalSuggestedTutors > 1">{{ 'SEARCH_TOTAL_TUTORS_LABEL' | translate }}</span>
   </p>
 </div>
+</div>
+
+  <div class="calendar" ng-show="selectedTutor">
+    <h3 class="section-title">{{ 'TUTOR_SEARCH_SCHEDULE_CLASS_WITH' | translate }} {{ selectedTutor.first_name }}</h3>
+    <ng-alert id="appointment-alert" alert-params="appointmentAlertParams"></ng-alert>
+    <ul class="events">
+      <li><span class="event appointment-status-available"></span> {{ 'APPOINTMENT_LEGEND_AVAILABLE' | translate }}</li>
+      <li><span class="event appointment-status-unavailable"></span> {{ 'APPOINTMENT_LEGEND_UNAVAILABLE' | translate }}</li>
+    </ul>
+    <div class="week-view tutor-calendar-section" ng-controller="CalendarController">
+      <div class="week-row tutor-calendar-title-day">
+        <table>
+          <tbody>
+          <tr class="week-title">
+            <td class="control"><span class="control-arrow control-left-arrow" ng-click="changeWeek('previous')" ng-show="showPreviousWeek"></span></td>
+            <td class="title">{{ translateWeeklyCalendarTitle(selectedWeek[0].numberDay, MONTHS[selectedWeek[0].month], selectedWeek[6].numberDay, MONTHS[selectedWeek[6].month]) }}</td>
+            <td class="control"><span class="control-arrow control-right-arrow" ng-click="changeWeek('next')"></span></td>
+          </tr>
+          </tbody>
+        </table>
+        <table>
+          <tbody>
+          <tr>
+            <td class="week-day-title"></td>
+            <td class="week-day-title" ng-repeat="day in DAYS">
+              <span class="hidden-sm hidden-xs">{{ day.title | translate }}</span>
+              <span class="hidden-md hidden-lg">{{ day.minTitle | translate }}</span>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tutor-calendar-hours week-row" calendar-scroll>
+        <table ng-repeat="row in weekRows" id="week-row-{{ HOURS[$index] }}">
+          <tbody>
+          <tr>
+            <td class="week-day"><span ng-hide="$index%2">{{ HOURS[$index] }}</span>&nbsp;</td>
+            <td class="week-day" ng-class="[{true:'highlighted', false: ''}[halfHour.highlight], {true:'available', false: 'unavailable'}[halfHour.available]]" ng-repeat="halfHour in row.halfHours" ng-click="showAppointmentRequestModal($event, $parent.$index, $index, selectedWeek[$index])"></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <span us-spinner spinner-key="request-appointment-spinner"></span>
+    </div>
+  </div>
 </div>
 
 </div>
@@ -439,6 +488,9 @@
 </div>
 
 </div>
+
+<div ng-modal-appointment-request></div>
+
 </div>
 
 <div class="bgcolor-separator-gray separator-slim" ng-hide="tutorResultListVisible"></div>

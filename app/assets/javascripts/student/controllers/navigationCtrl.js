@@ -4,7 +4,7 @@ Geek.controller('NavigationController', ["$filter", "$scope", "$rootScope", "$ti
 
     $scope.selectedTab = 'signUp';
 
-    $scope.$on('showSigInModal', function(){
+    $scope.$on('showSignInModal', function(){
        $scope.showSignInModal('signUp');
     });
 

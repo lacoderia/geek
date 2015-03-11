@@ -210,32 +210,27 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
 
     // Show tutor details popup
     $scope.showTutorDetails = function(tutor) {
-        console.log(tutor)
         if(!$scope.selectedTutor){
-            if(AuthService.isAuthenticated()){
-                for(var i in $scope.tutorList) {
-                    if($scope.tutorList[i].id != tutor.id){
-                        $scope.tutorList[i].show = false;
-                        $scope.tutorList[i].showComments = false;
-                    }
+            for(var i in $scope.tutorList) {
+                if($scope.tutorList[i].id != tutor.id){
+                    $scope.tutorList[i].show = false;
+                    $scope.tutorList[i].showComments = false;
                 }
-                for(var i in $scope.suggestedTutorList) {
-                    if($scope.suggestedTutorList[i].id != tutor.id){
-                        $scope.suggestedTutorList[i].show = false;
-                        $scope.suggestedTutorList[i].showComments = false;
-                    }
-                }
-                $scope.selectedTutor = tutor;
-
-                //$scope.openTutorDetailModal(tutor);
-                $rootScope.$broadcast('initTutorCalendar', $scope.selectedTutor);
-
-                $timeout(function(){
-                    $rootScope.$broadcast('ellipsis-remove', tutor.id);
-                });
-            }else{
-                $rootScope.$broadcast('showSigInModal');
             }
+            for(var i in $scope.suggestedTutorList) {
+                if($scope.suggestedTutorList[i].id != tutor.id){
+                    $scope.suggestedTutorList[i].show = false;
+                    $scope.suggestedTutorList[i].showComments = false;
+                }
+            }
+            $scope.selectedTutor = tutor;
+
+            //$scope.openTutorDetailModal(tutor);
+            $rootScope.$broadcast('initTutorCalendar', $scope.selectedTutor);
+
+            $timeout(function(){
+                $rootScope.$broadcast('ellipsis-remove', tutor.id);
+            });
         }
     };
 
@@ -290,69 +285,74 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
 
     $scope.showAppointmentRequestModal = function(event, row, column, day){
 
-        var halfHour = $scope.getHalfHour(row, column);
+        if(AuthService.isAuthenticated()){
+            var halfHour = $scope.getHalfHour(row, column);
 
-        if(halfHour && halfHour.available) {
-            $timeout(function(){
+            if(halfHour && halfHour.available) {
+                $timeout(function(){
 
-                $rootScope.$broadcast('closeAllModals');
+                    $rootScope.$broadcast('closeAllModals');
 
-                $scope.selectedClass = {
-                    'halfHours': new Array(),
-                    'title': $filter('translate')('POPUP_APPOINTMENT_REQUEST_TITLE')
-                };
+                    $scope.selectedClass = {
+                        'halfHours': new Array(),
+                        'title': $filter('translate')('POPUP_APPOINTMENT_REQUEST_TITLE')
+                    };
 
-                var currentHalfHour = $scope.getHalfHour(row, column);
-                var nextHalfHour = $scope.getHalfHour(row + 1, column);
-                var previousHalfHour = $scope.getHalfHour(row - 1, column);
+                    var currentHalfHour = $scope.getHalfHour(row, column);
+                    var nextHalfHour = $scope.getHalfHour(row + 1, column);
+                    var previousHalfHour = $scope.getHalfHour(row - 1, column);
 
-                if (nextHalfHour && nextHalfHour.available) {
-                    $scope.selectedClass.halfHours.push(currentHalfHour);
-                    $scope.selectedClass.halfHours.push(nextHalfHour);
-                } else if (previousHalfHour && previousHalfHour.available) {
-                    $scope.selectedClass.halfHours.push(previousHalfHour);
-                    $scope.selectedClass.halfHours.push(currentHalfHour);
-                } else {
-                    $scope.setAlertMessage('warning', 'ERROR_MODAL_APPOINTMENT_REQUEST_ONE_HOUR');
-                }
+                    if (nextHalfHour && nextHalfHour.available) {
+                        $scope.selectedClass.halfHours.push(currentHalfHour);
+                        $scope.selectedClass.halfHours.push(nextHalfHour);
+                    } else if (previousHalfHour && previousHalfHour.available) {
+                        $scope.selectedClass.halfHours.push(previousHalfHour);
+                        $scope.selectedClass.halfHours.push(currentHalfHour);
+                    } else {
+                        $scope.setAlertMessage('warning', 'ERROR_MODAL_APPOINTMENT_REQUEST_ONE_HOUR');
+                    }
 
-                var firstHalfhour = $scope.selectedClass.halfHours[0];
-                var lastHalfhour = $scope.selectedClass.halfHours[$scope.selectedClass.halfHours.length - 1];
+                    var firstHalfhour = $scope.selectedClass.halfHours[0];
+                    var lastHalfhour = $scope.selectedClass.halfHours[$scope.selectedClass.halfHours.length - 1];
 
-                $scope.selectedClass.time = $filter('translate')('FROM') + ' ' + firstHalfhour.startTime + ' ' + $filter('translate')('TO') + ' ' + lastHalfhour.endTime ;
-                $scope.selectedClass.dateTimeISO = new Date(day.year, day.month, day.numberDay, firstHalfhour.startTime.split(':')[0], firstHalfhour.startTime.split(':')[1]).toISOString();
+                    $scope.selectedClass.time = $filter('translate')('FROM') + ' ' + firstHalfhour.startTime + ' ' + $filter('translate')('TO') + ' ' + lastHalfhour.endTime ;
+                    $scope.selectedClass.dateTimeISO = new Date(day.year, day.month, day.numberDay, firstHalfhour.startTime.split(':')[0], firstHalfhour.startTime.split(':')[1]).toISOString();
 
-                $scope.selectedCategory = {
-                    'name' : $filter('translate')('POPUP_APPOINTMENT_REQUEST_CATEGORY_NAME'),
-                    'cost' : 0
-                };
+                    $scope.selectedCategory = {
+                        'name' : $filter('translate')('POPUP_APPOINTMENT_REQUEST_CATEGORY_NAME'),
+                        'cost' : 0
+                    };
 
-                var now = new Date();
-                var classDate = new Date($scope.selectedClass.dateTimeISO);
+                    var now = new Date();
+                    var classDate = new Date($scope.selectedClass.dateTimeISO);
 
-                if(now <= classDate){
-                    $scope.setAlertMessage();
-                    $scope.validAppointmentDate = true;
-                }else{
-                    $scope.setAlertMessage('warning', 'ERROR_MODAL_APPOINTMENT_REQUEST_EXPIRED');
-                    $scope.validAppointmentDate = false;
-                }
+                    if(now <= classDate){
+                        $scope.setAlertMessage();
+                        $scope.validAppointmentDate = true;
+                    }else{
+                        $scope.setAlertMessage('warning', 'ERROR_MODAL_APPOINTMENT_REQUEST_EXPIRED');
+                        $scope.validAppointmentDate = false;
+                    }
 
-                var options = {
-                    posX: event.pageX - $('#modal-parent').offset().left,
-                    posY: $(event.target).offset().top - $('#modal-parent').offset().top - 5,
-                    sendAppointmentRequest: $scope.sendAppointmentRequest,
-                    selectCategory: $scope.selectCategory,
-                    selectedClass: $scope.selectedClass,
-                    validAppointmentDate: $scope.validAppointmentDate,
-                    selectedCategory : $scope.selectedCategory,
-                    selectedTutor : $scope.selectedTutor
-                };
+                    var options = {
+                        posX: event.pageX - $('#modal-parent').offset().left,
+                        posY: $(event.target).offset().top - $('#modal-parent').offset().top - 5,
+                        sendAppointmentRequest: $scope.sendAppointmentRequest,
+                        selectCategory: $scope.selectCategory,
+                        selectedClass: $scope.selectedClass,
+                        validAppointmentDate: $scope.validAppointmentDate,
+                        selectedCategory : $scope.selectedCategory,
+                        selectedTutor : $scope.selectedTutor
+                    };
 
-                $scope.openAppointmentRequest(event, options);
-            },0);
+                    $scope.openAppointmentRequest(event, options);
+                },0);
 
+            }
+        } else {
+            $rootScope.$broadcast('showSignInModal');
         }
+
     };
 
     $scope.selectCategory = function(category){
@@ -456,7 +456,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
 
             $scope.openMessage($event, tutor, options, DEFAULT_VALUES);
         }else{
-            $rootScope.$broadcast('showSigInModal');
+            $rootScope.$broadcast('showSignInModal');
         }
 
     };
