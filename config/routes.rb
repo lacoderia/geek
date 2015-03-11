@@ -111,6 +111,7 @@ Rails.application.routes.draw do
       post 'cash_out'
     end
     member do
+      get 'info'
       get 'availability_list'
       get 'ranged_availability_list'
       match 'request_class', :via => [:get, :post]

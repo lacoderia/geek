@@ -1,5 +1,5 @@
 class TutorsController < ApplicationController
-  load_and_authorize_resource :except => [:update, :profile, :by_county_and_category_ids, :by_query_params_for_google, :availability_list, :ranged_availability_list, :request_class, :save_availabilities, :save_specific_availabilities, :status, :by_student, :balance, :cash_out]
+  load_and_authorize_resource :except => [:update, :profile, :by_county_and_category_ids, :by_query_params_for_google, :availability_list, :ranged_availability_list, :request_class, :save_availabilities, :save_specific_availabilities, :status, :by_student, :balance, :cash_out, :info]
 
   before_action :set_tutor, only: [:show, :edit, :update, :destroy]
 
@@ -230,6 +230,14 @@ class TutorsController < ApplicationController
         render json: cash_out[:error], status: 500
       end
     end
+  end
+
+  # Obtiene el perfil de un tutor
+  # Recibe:
+  # tutor_id = el id del tutor
+  # Regresa un json con la información completa del tutor
+  def info
+    @tutor = Tutor.get_tutor(params[:id])
   end
 
   private

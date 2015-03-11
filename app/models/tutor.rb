@@ -698,6 +698,10 @@ class Tutor < ActiveRecord::Base
     end    
   end
 
+  def self.get_tutor tutor_id
+    tutor = Tutor.includes(:preference, :counties, :appointments, :categories => :categories_tutors, :reviews => :student).find(tutor_id)
+  end
+
   private
 
   def self.detect_filter_flags options
