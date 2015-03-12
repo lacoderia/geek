@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('AppointmentHistoryController',['$filter', '$scope', '$rootScope', '$timeout', 'AppointmentService', 'AnomalyService', 'AuthService', 'SessionService', 'MessageService', 'usSpinnerService', 'DEFAULT_VALUES' ,function($filter, $scope, $rootScope, $timeout, AppointmentService, AnomalyService, AuthService, SessionService, MessageService, usSpinnerService, DEFAULT_VALUES){
+Geek.controller('AppointmentHistoryController',['$filter', '$scope', '$rootScope', '$timeout', '$state', 'AppointmentService', 'AnomalyService', 'AuthService', 'SessionService', 'MessageService', 'usSpinnerService', 'DEFAULT_VALUES' ,function($filter, $scope, $rootScope, $timeout, $state, AppointmentService, AnomalyService, AuthService, SessionService, MessageService, usSpinnerService, DEFAULT_VALUES){
 
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.MONTHS = DEFAULT_VALUES.MONTHS;
@@ -340,6 +340,14 @@ Geek.controller('AppointmentHistoryController',['$filter', '$scope', '$rootScope
             );
 
         }
+    };
+
+    $scope.openTutorProfile = function ($event,tutorId) {
+        $event.stopPropagation();
+        var params = {
+            id: tutorId
+        }
+        $state.go('dashboard.tutor-profile', params);
     };
 
     //Inicializamos el controlador
