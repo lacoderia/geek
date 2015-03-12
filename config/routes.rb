@@ -97,6 +97,7 @@ Rails.application.routes.draw do
   resources :students do
     collection do
       get 'profile'
+      post 'remember_tutor'
     end
   end
 

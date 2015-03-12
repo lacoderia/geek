@@ -351,6 +351,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
             }
         } else {
             $rootScope.$broadcast('showSignInModal');
+            $scope.$emit('tutorSelected', $scope.selectedTutor.id);
         }
 
     };
@@ -457,6 +458,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
             $scope.openMessage($event, tutor, options, DEFAULT_VALUES);
         }else{
             $rootScope.$broadcast('showSignInModal');
+            $scope.$emit('tutorSelected', tutor.id);
         }
 
     };

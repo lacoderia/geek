@@ -11,6 +11,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
             'TUTOR_SERVICE_URL': '/tutors/by_county_and_category_ids.json',
             'PROFILE_GET_SESSION_URL': '/students/profile.json',
             'TUTOR_BY_GOOGLE_SERVICE_URL': '/tutors/by_query_params_for_google.json',
+            'TUTOR_REMEMBER': '/students/remember_tutor.json',
             'ANOMALY_REPORT': 'registered_anomalies/from_student.json',
             'CONVERSATION_SERVICE_URL': 'messages/conversations.json',
             'MESSAGE_SAVE_SERVICE_URL': 'messages.json',
@@ -346,8 +347,13 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                     AuthService.getSession().then(
                         function(data){
                             if(data && data.id){
-                                SessionService.createSession(data.id, data.active, data.email, data.first_name, data.last_name, data.gender, data.phone_number, data.picture_url, data.has_card);
-                                $state.go(toState.authenticatedState, toParams);
+                                SessionService.createSession(data.id, data.active, data.email, data.first_name, data.last_name, data.gender, data.phone_number, data.picture_url, data.has_card, data.remember_tutor);
+                                if(SessionService.getTempTutorId()){
+                                    toParams.id = SessionService.getTempTutorId();
+                                    $state.go(toState.tutorProfileState, toParams);
+                                }else{
+                                    $state.go(toState.authenticatedState, toParams);
+                                }
                             }else{
                                 if(toState.optionalParam == 'reset_password_token'){
                                     $rootScope.resetToken = toParams.reset_password_token;
@@ -378,7 +384,8 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                 controller: "RootController",
                 authenticate: true,
                 authenticatedState: "dashboard.resume",
-                defaultState: "student.landing"
+                defaultState: "student.landing",
+                tutorProfileState: "dashboard.tutor-profile"
             })
             .state('student.landing',{
                 url: "/landing?reset_password_token",
@@ -386,118 +393,136 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                 authenticate: true,
                 authenticatedState: "dashboard.resume",
                 defaultState: "student.landing",
-                optionalParam: "reset_password_token"
+                optionalParam: "reset_password_token",
+                tutorProfileState: "dashboard.tutor-profile"
             })
             .state('student.faq', {
                 url: "/faq",
                 templateUrl: "/assets/student/partial_common_faq.html",
                 authenticate: true,
                 authenticatedState: "student.faq",
-                defaultState: "student.faq"
+                defaultState: "student.faq",
+                tutorProfileState: "dashboard.tutor-profile"
             })
             .state('student.how', {
                 url: "/how",
                 templateUrl: "/assets/student/partial_common_how_it_works.html",
                 authenticate: true,
                 authenticatedState: "student.how",
-                defaultState: "student.how"
+                defaultState: "student.how",
+                tutorProfileState: "dashboard.tutor-profile"
             })
             .state('student.about-us', {
                 url: "/about-us",
                 templateUrl: "/assets/student/partial_common_about_us.html",
                 authenticate: true,
                 authenticatedState: "student.about-us",
-                defaultState: "student.about-us"
+                defaultState: "student.about-us",
+                tutorProfileState: "dashboard.tutor-profile"
             })
             .state('student.contact', {
                 url: "/contact",
-                templateUrl: "/assets/student/partial_common_contact.html"
+                templateUrl: "/assets/student/partial_common_contact.html",
+                tutorProfileState: "dashboard.tutor-profile"
             })
             .state('student.help', {
                 url: "/help",
                 templateUrl: "/assets/student/partial_common_help.html",
                 authenticate: true,
                 authenticatedState: "student.help",
-                defaultState: "student.help"
+                defaultState: "student.help",
+                tutorProfileState: "dashboard.tutor-profile"
             })
             .state('student.cancellation-policy', {
                 url: "/cancellation_policy",
                 templateUrl: "/assets/student/partial_common_cancellation_policy.html",
                 authenticate: true,
                 authenticatedState: "student.cancellation-policy",
-                defaultState: "student.cancellation-policy"
+                defaultState: "student.cancellation-policy",
+                tutorProfileState: "dashboard.tutor-profile"
             })
             .state('student.terms', {
                 url: "/terms",
                 templateUrl: "/assets/student/partial_common_terms.html",
                 authenticate: true,
                 authenticatedState: "student.terms",
-                defaultState: "student.terms"
+                defaultState: "student.terms",
+                tutorProfileState: "dashboard.tutor-profile"
             })
             .state('student.privacy', {
                 url: "/privacy",
                 templateUrl: "/assets/student/partial_common_privacy.html",
                 authenticate: true,
                 authenticatedState: "student.privacy",
-                defaultState: "student.privacy"
+                defaultState: "student.privacy",
+                tutorProfileState: "dashboard.tutor-profile"
             })
             .state('dashboard', {
                 url: "/dashboard",
                 templateUrl: "/assets/student/partial_dashboard_layout.html",
-                controller: 'RootController'
+                controller: 'RootController',
+                tutorProfileState: "dashboard.tutor-profile"
             })
             .state('dashboard.faq', {
                 url: "/faq",
                 templateUrl: "/assets/student/partial_common_faq.html",
                 authenticate: true,
                 authenticatedState: "dashboard.faq",
-                defaultState: "student.faq"
+                defaultState: "student.faq",
+                tutorProfileState: "dashboard.tutor-profile"
             })
             .state('dashboard.about-us', {
                 url: "/about-us",
                 templateUrl: "/assets/student/partial_common_about_us.html",
                 authenticate: true,
                 authenticatedState: "dashboard.about-us",
-                defaultState: "student.about-us"
+                defaultState: "student.about-us",
+                tutorProfileState: "dashboard.tutor-profile"
             })
             .state('dashboard.how', {
                 url: "/how",
                 templateUrl: "/assets/student/partial_common_how_it_works.html",
                 authenticate: true,
                 authenticatedState: "dashboard.how",
-                defaultState: "student.how"
+                defaultState: "student.how",
+                tutorProfileState: "dashboard.tutor-profile"
             })
             .state('dashboard.contact', {
                 url: "/contact",
-                templateUrl: "/assets/student/partial_common_contact.html"
+                templateUrl: "/assets/student/partial_common_contact.html",
+                tutorProfileState: "dashboard.tutor-profile"
             })
             .state('dashboard.help', {
                 url: "/help",
                 templateUrl: "/assets/student/partial_common_help.html",
                 authenticate: true,
                 authenticatedState: "dashboard.help",
-                defaultState: "student.help"
+                defaultState: "student.help",
+                tutorProfileState: "dashboard.tutor-profile"
             })
             .state('dashboard.terms', {
                 url: "/terms",
                 templateUrl: "/assets/student/partial_common_terms.html",
                 authenticate: true,
                 authenticatedState: "dashboard.terms",
-                defaultState: "student.terms"
+                defaultState: "student.terms",
+                tutorProfileState: "dashboard.tutor-profile"
             })
             .state('dashboard.cancellation-policy', {
                 url: "/cancellation_policy",
                 templateUrl: "/assets/student/partial_common_cancellation_policy.html",
                 authenticate: true,
                 authenticatedState: "dashboard.cancellation-policy",
-                defaultState: "student.cancellation-policy"
+                defaultState: "student.cancellation-policy",
+                tutorProfileState: "dashboard.tutor-profile"
             })
             .state('dashboard.privacy', {
                 url: "/privacy",
                 templateUrl: "/assets/student/partial_common_privacy.html",
                 authenticate: true,
                 authenticatedState: "dashboard.privacy",
-                defaultState: "student.privacy"
+                defaultState: "student.privacy",
+                tutorProfileState: "dashboard.tutor-profile"
             })
             .state('dashboard.user-blocked', {
                 url: "/user-blocked",
@@ -505,70 +530,80 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                 authenticate: true,
                 authenticatedState: "dashboard.user-blocked",
                 defaultState: "student.landing",
-                defaultAuthenticatedState: 'dashboard.resume'
+                defaultAuthenticatedState: 'dashboard.resume',
+                tutorProfileState: "dashboard.tutor-profile"
             })
             .state('dashboard.resume', {
                 url: "/resume",
                 templateUrl: "/assets/student/partial_dashboard_layout.resume.html",
                 authenticate: true,
                 authenticatedState: "dashboard.resume",
-                defaultState: "student.landing"
+                defaultState: "student.landing",
+                tutorProfileState: "dashboard.tutor-profile"
             })
             .state('dashboard.search-tutor', {
                 url: "/search-tutor",
                 templateUrl: "/assets/student/partial_dashboard_layout.search_tutor.html",
                 authenticate: true,
                 authenticatedState: "dashboard.search-tutor",
-                defaultState: "student.landing"
+                defaultState: "student.landing",
+                tutorProfileState: "dashboard.tutor-profile"
             })
             .state('dashboard.my-classes', {
                 url: "/my-classes",
                 templateUrl: "/assets/student/partial_dashboard_layout.my_classes.html",
                 authenticate: true,
                 authenticatedState: "dashboard.my-classes",
-                defaultState: "student.landing"
+                defaultState: "student.landing",
+                tutorProfileState: "dashboard.tutor-profile"
             })
             .state('dashboard.history', {
                 url: "/history",
                 templateUrl: "/assets/student/partial_dashboard_layout.history.html",
                 authenticate: true,
                 authenticatedState: "dashboard.history",
-                defaultState: "student.landing"
+                defaultState: "student.landing",
+                tutorProfileState: "dashboard.tutor-profile"
             })
             .state('dashboard.my-tutors', {
                 url: "/tutors",
                 templateUrl: "/assets/student/partial_dashboard_layout.my_tutors.html",
                 authenticate: true,
                 authenticatedState: "dashboard.my-tutors",
-                defaultState: "student.landing"
+                defaultState: "student.landing",
+                tutorProfileState: "dashboard.tutor-profile"
             })
             .state('dashboard.profile', {
                 url: "/profile",
                 templateUrl: "/assets/student/partial_dashboard_layout.profile.html",
                 authenticate: true,
                 authenticatedState: "dashboard.profile",
-                defaultState: "student.landing"
+                defaultState: "student.landing",
+                tutorProfileState: "dashboard.tutor-profile"
             })
             .state('dashboard.messages', {
                 url: "/messages",
                 templateUrl: "/assets/student/partial_dashboard_layout.messages.html",
                 authenticate: true,
                 authenticatedState: "dashboard.messages",
-                defaultState: "student.landing"
+                defaultState: "student.landing",
+                tutorProfileState: "dashboard.tutor-profile"
             })
             .state('dashboard.payment-options', {
                 url: "/payment-options",
                 templateUrl: "/assets/student/partial_dashboard_layout.payment_options.html",
                 authenticate: true,
                 authenticatedState: "dashboard.payment-options",
-                defaultState: "student.landing"
+                defaultState: "student.landing",
+                tutorProfileState: "dashboard.tutor-profile"
             })
             .state('dashboard.tutor-profile', {
                 url: "/:id/tutor-profile",
                 templateUrl: "/assets/student/partial_dashboard_layout.tutor_profile.html",
                 authenticate: true,
                 authenticatedState: "dashboard.tutor-profile",
-                defaultState: "student.landing"
+                defaultState: "student.landing",
+                tutorProfileState: "dashboard.tutor-profile"
             })
     }])
 

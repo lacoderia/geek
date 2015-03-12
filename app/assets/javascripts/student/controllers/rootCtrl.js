@@ -76,6 +76,10 @@ Geek.controller('RootController', ["$filter", "$scope", "$rootScope", "$state", 
         $scope.tutorResultListVisible = true;
     });
 
+    $scope.$on('tutorSelected', function ($event, tempTutorId) {
+       $rootScope.$broadcast('saveTempTutorId', tempTutorId);
+    });
+
     $scope.$on('initRoot', function(){
         if (AuthService.isAuthenticated()) {
             $timeout(function () {
