@@ -27,6 +27,6 @@ module Geek
     # Precompile additional assets
     config.assets.precompile += %w( .svg .eot .woff .ttf otf )
 			
-    config.time_zone = "Central Time (US & Canada)"
+    config.time_zone = "Mexico City"
   end
 end

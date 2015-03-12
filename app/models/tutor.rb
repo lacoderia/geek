@@ -572,8 +572,8 @@ class Tutor < ActiveRecord::Base
 
       availabilities.each do |availability|
         day = WeekDay.find_by_day_number(availability["day_number"])
-        start_time = Time.zone.parse("0001-01-01T#{availability['start']}")
-        end_time = Time.zone.parse("0001-01-01T#{availability['end']}")
+        start_time = Time.zone.parse("2000-01-01T#{availability['start']}")
+        end_time = Time.zone.parse("2000-01-01T#{availability['end']}")
         preference.availabilities << Availability.create(week_day_id: day.id, preference_id: preference.id, start: start_time, end: end_time)
       end
 
