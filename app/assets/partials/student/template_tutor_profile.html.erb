@@ -1,7 +1,7 @@
 <div class="section-search-results">
-  <div class="search-results-list">
+  <div class="search-results-list" ng-hide="appointmentRequestSent || !selectedTutor">
     <div class="search-result-list">
-      <div class="tutor" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" on-tutor-search-render>
+      <div class="tutor" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-repeat="tutor in tutorList" on-tutor-search-render>
         <div class="tutor_picture_container col-lg-2 col-md-2 col-sm-12 col-xs-12" class="expanded">
           <div class="tutor_picture">
             <img/>
@@ -78,7 +78,7 @@
 
         <div class="clearfix"></div>
       </div>
-      <div class="calendar" ng-show="tutor">
+      <div class="calendar" ng-show="selectedTutor">
         <h3 class="section-title">{{ 'TUTOR_SEARCH_SCHEDULE_CLASS_WITH' | translate }} {{ selectedTutor.first_name }}</h3>
         <ng-alert id="appointment-alert" alert-params="appointmentAlertParams"></ng-alert>
         <ul class="events">
@@ -124,4 +124,26 @@
     </div>
   </div>
 
+  <div class="appointment-request-feedback" ng-show="appointmentRequestSent">
+    <h3 class="section-subtitle" ng-show="appointmentRequestSent">{{'APPOINTMENT_REQUEST_FEEDBACK_SUBTITLE' | translate}}</h3>
+    <div>
+      {{'APPOINTMENT_REQUEST_FEEDBACK_DETAILS' | translate}}
+      <ul>
+        <li>{{'APPOINTMENT_REQUEST_FEEDBACK_DETAILS_TUTOR' | translate}}: {{ selectedTutor.first_name }} {{ selectedTutor.last_name }}</li>
+        <li>{{'APPOINTMENT_REQUEST_FEEDBACK_DETAILS_CLASS' | translate}}: {{ selectedCategory.name }}</li>
+        <li>{{'APPOINTMENT_REQUEST_FEEDBACK_DETAILS_DATE' | translate}}: {{ selectedClass.dateTimeISO | dateTranslateFilter:this }}</li>
+        <li>{{'APPOINTMENT_REQUEST_FEEDBACK_DETAILS_TIME' | translate}}: {{ selectedClass.time }}</li>
+        <li>{{'APPOINTMENT_REQUEST_FEEDBACK_DETAILS_COST' | translate}}: {{ selectedCategory.cost * 1.035 | currency:"$" }} ({{selectedCategory.cost | currency:"$"}} + {{ selectedCategory.cost * 0.035 | currency:"$" }} {{ 'APPOINTMENT_REQUEST_FEEDBACK_DETAILS_COST_DETAIL' | translate }})</li>
+      </ul>
+      {{'APPOINTMENT_REQUEST_FEEDBACK_POLICIES' | translate}}
+      <a title="{{ 'APPOINTMENT_REQUEST_FEEDBACK_POLICIES_LINK' | translate}}" ng-click="redirectToURL('dashboard.cancellation-policy')">{{'APPOINTMENT_REQUEST_FEEDBACK_POLICIES_LINK' | translate}}</a>
+      <br/><br/>
+      <p translate="APPOINTMENT_REQUEST_FEEDBACK_PAYMENT_NOTE"></p>
+      <p class="uppercase" translate="APPOINTMENT_REQUEST_FEEDBACK_CONFIRMATION"></p>
+    </div>
+
+    <div class="action-buttons">
+      <a class="action-button action-accept" ng-click="showSelectedTutorCalendar()">Aceptar</a>
+    </div>
+  </div>
 </div>

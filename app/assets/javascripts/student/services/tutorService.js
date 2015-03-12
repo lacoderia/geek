@@ -73,35 +73,25 @@ Geek.factory('TutorService', ["$http", "$q", "DEFAULT_VALUES", function($http, $
 
     };
 
-    var getTutorById = function (tutorId) {
-
+    var getTutorById = function(tutorId) {
         var deferred = $q.defer();
         var promise = deferred.promise;
 
-        return {
-            background: "ITESM CEM",
-            categories: [{
-                category_id: 5, cost: 350, id: 7, name: "FRONT END", picture_url: null
-            }],
-            costRange: "$350.00",
-            counties: [],
-            details: null,
-            email: "luis@coderia.mx",
-            first_name: "Luis Antonio",
-            id: 2,
-            last_name: "Sánchez",
-            picture_url: "/assets/site/person.png",
-            preference: {
-                id: 3, office: null, online: null, public: null, student_place: null
-            },
-            references: null,
-            reviews: {
-                average: 0,
-                comments: []
-            },
-            show: true
-        }
-    }
+        $http.get('tutors/' + tutorId + '/info.json',{
+            params: {
+                'tutor_id':  tutorId
+            }
+        }).
+            success(function(data){
+                deferred.resolve(data);
+            }).
+
+            error(function(response){
+                deferred.reject(response);
+            });
+
+        return promise;
+    };
 
     return{
         getMyTutors: getMyTutors,

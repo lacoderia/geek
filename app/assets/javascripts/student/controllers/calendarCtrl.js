@@ -401,4 +401,6 @@ Geek.controller('CalendarController',['$scope','$rootScope','$compile', '$timeou
         $scope.getWeekAvailability();
     };
 
+    $rootScope.$broadcast('calendarControllerLoaded');
+
 }]);

@@ -1,12 +1,39 @@
 Geek.controller('TutorProfileController', ["$scope", "$rootScope", "$filter", "$timeout", "$location", "$anchorScroll", "$translate", "$stateParams", "TutorService", "AppointmentService", "AuthService", "SessionService", "usSpinnerService", "MessageService", "DEFAULT_VALUES", function($scope, $rootScope, $filter, $timeout, $location, $anchorScroll, $translate, $stateParams, TutorService, AppointmentService, AuthService, SessionService, usSpinnerService, MessageService, DEFAULT_VALUES){
 
+    //Inicializamos el controlador
+    $rootScope.$broadcast('initRoot');
+
     $scope.PROFILE_IMAGE = DEFAULT_VALUES.PROFILE_IMAGE;
 
-    $scope.tutor = undefined;
+    $scope.tutorList = [];
+    $scope.selectedTutor = undefined;
 
     $scope.appointmentAlertParams = undefined;
     $scope.validAppointmentDate = true;
     $scope.appointmentRequestSent = false;
+
+    // Inicializamos los broadcasts y listeners del controlador
+    $scope.$on('calendarControllerLoaded', function($event){
+        var tutorId = $stateParams.id;
+
+        TutorService.getTutorById(tutorId).then(
+            function(data){
+                if(data){
+                    $scope.selectedTutor = data;
+                    $scope.getTutorCostRange($scope.selectedTutor);
+
+                    $scope.tutorList.push($scope.selectedTutor);
+
+                    $rootScope.$broadcast('initTutorCalendar', $scope.selectedTutor);
+                }
+            },
+            function (response){
+                console.log('Error retrieving the tutor profile: ' + response);
+            }
+        ).finally(function(){
+
+            });
+    });
 
     $scope.getTutorCostRange = function(tutor){
         tutor.show = true;
@@ -132,6 +159,10 @@ Geek.controller('TutorProfileController', ["$scope", "$rootScope", "$filter", "$
         }
     };
 
+    $scope.selectCategory = function(category){
+        $scope.selectedCategory = category;
+    };
+
     $scope.sendAppointmentRequest = function() {
 
         if($scope.selectedCategory.id){
@@ -212,6 +243,10 @@ Geek.controller('TutorProfileController', ["$scope", "$rootScope", "$filter", "$
             $scope.setAlertMessage('warning', 'ERROR_MODAL_APPOINTMENT_REQUEST_EMPTY_TOPIC');
         }
 
+    };
+
+    $scope.showSelectedTutorCalendar = function() {
+        $scope.appointmentRequestSent = false;
     };
 
     $scope.openModalMessage = function($event,tutor){
@@ -296,19 +331,5 @@ Geek.controller('TutorProfileController', ["$scope", "$rootScope", "$filter", "$
 
         return translatedTitle;
     };
-
-
-    function initController(){
-
-        var tutorId = $stateParams.id;
-        $scope.tutor = TutorService.getTutorById(tutorId);
-        $rootScope.$broadcast('initTutorCalendar', $scope.tutor);
-
-    };
-
-    initController();
-
-    //Inicializamos el controlador
-    $rootScope.$broadcast('initRoot');
 
 }]);
