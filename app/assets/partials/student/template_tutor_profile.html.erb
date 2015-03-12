@@ -38,26 +38,25 @@
                 <div>{{ 'TUTOR_SEARCH_STUDENTS_COUNT' | translate }}: {{tutor.appointments.students || 0}}</div>
               </div>
             </div>
-          </div>
-
-          <div class="reviews" ng-show="tutor.showComments">
-            <div class="review" class="col-lg-12 col-md-12 col-sm-12" ng-repeat="review in tutor.reviews.comments" ng-if="review.description" ng-image-adjustment image-container="user_picture" image-src="{{ review.student.picture_url }}">
-              <h3>{{ 'TUTOR_SEARCH_COMMENTS' | translate }}</h3>
-              <div class="user_picture_container">
-                <div class="user_picture">
-                  <img/>
-                </div>
-              </div>
-              <div class="user-personal-info">
-                <div class="content">
-                  <h4 class="user-name">{{ review.student.first_name }} {{ review.student.last_name }}</h4>
-                  <div class="review-info">
-                    <em class="timestamp">{{ review.timestamp | timestampTranslateFilter:this }}</em>
+            <div class="reviews" ng-show="tutor.showComments">
+              <div class="review" class="col-lg-12 col-md-12 col-sm-12" ng-repeat="review in tutor.reviews.comments" ng-if="review.description" ng-image-adjustment image-container="user_picture" image-src="{{ review.student.picture_url }}">
+                <h3>{{ 'TUTOR_SEARCH_COMMENTS' | translate }}</h3>
+                <div class="user_picture_container">
+                  <div class="user_picture">
+                    <img/>
                   </div>
-                  <p class="user-review">{{ review.description }}</p>
                 </div>
+                <div class="user-personal-info">
+                  <div class="content">
+                    <h4 class="user-name">{{ review.student.first_name }} {{ review.student.last_name }}</h4>
+                    <div class="review-info">
+                      <em class="timestamp">{{ review.timestamp | timestampTranslateFilter:this }}</em>
+                    </div>
+                    <p class="user-review">{{ review.description }}</p>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
               </div>
-              <div class="clearfix"></div>
             </div>
           </div>
         </div>
