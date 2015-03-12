@@ -11,10 +11,11 @@ Geek.factory('SessionService', [function(){
         gender: undefined,
         phoneNumber: undefined,
         pictureUrl: undefined,
-        hasCard: undefined
+        hasCard: undefined,
+        tempTutorId: undefined
     };
 
-    var createSession = function(id, active, email, firstName, lastName, gender, phoneNumber, pictureUrl, hasCard){
+    var createSession = function(id, active, email, firstName, lastName, gender, phoneNumber, pictureUrl, hasCard, tempTutorId){
         this.setId(id);
         this.setActive(active);
         this.setEmail(email);
@@ -24,6 +25,7 @@ Geek.factory('SessionService', [function(){
         this.setPhoneNumber(phoneNumber);
         this.setPictureUrl(pictureUrl);
         this.setHasCard(hasCard);
+        this.setTempTutorId(tempTutorId);
     };
 
     var getId = function(){
@@ -98,6 +100,14 @@ Geek.factory('SessionService', [function(){
         session.hasCard = hasCard;
     };
 
+    var getTempTutorId = function () {
+        return session.setTempTutorId;
+    };
+
+    var setTempTutorId = function (tempTutorId) {
+        session.setTempTutorId = tempTutorId;
+    };
+
     var destroySession = function(){
         session = undefined;
     };
@@ -127,8 +137,9 @@ Geek.factory('SessionService', [function(){
         getPictureUrl: getPictureUrl,
         setPictureUrl: setPictureUrl,
         getHasCard: getHasCard,
-        setHasCard: setHasCard
-
+        setHasCard: setHasCard,
+        getTempTutorId: getTempTutorId,
+        setTempTutorId: setTempTutorId
     }
 
 }]);

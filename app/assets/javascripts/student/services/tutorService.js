@@ -101,13 +101,34 @@ Geek.factory('TutorService', ["$http", "$q", "DEFAULT_VALUES", function($http, $
             },
             show: true
         }
-    }
+    };
+
+    var saveTemporalTutor = function (tutorId) {
+
+        var deferred = $q.defer();
+        var promise = deferred.promise;
+
+        $http.post(DEFAULT_VALUES.URL_SERVICES.TUTOR_REMEMBER,{
+            tutor_id: tutorId
+        }).
+        success(function(data){
+            deferred.resolve(data);
+        }).
+
+        error(function(response){
+            deferred.reject(response);
+        });
+
+
+        return promise;
+    };
 
     return{
         getMyTutors: getMyTutors,
         getTutorByCategoryAndCountyIds: getTutorByCategoryAndCountyIds,
         getTutorByQueryParamsForGoogle: getTutorByQueryParamsForGoogle,
-        getTutorById: getTutorById
+        getTutorById: getTutorById,
+        saveTemporalTutor: saveTemporalTutor
     }
 
 }]);

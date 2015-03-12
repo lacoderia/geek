@@ -1,11 +1,20 @@
 'use strict';
 
-Geek.controller('NavigationController', ["$filter", "$scope", "$rootScope", "$timeout", "ForgotService", "DEFAULT_VALUES", "usSpinnerService", function($filter, $scope, $rootScope, $timeout, ForgotService, DEFAULT_VALUES, usSpinnerService){
+Geek.controller('NavigationController', ["$filter", "$scope", "$rootScope", "$timeout", "ForgotService", "TutorService", "DEFAULT_VALUES", "usSpinnerService", function($filter, $scope, $rootScope, $timeout, ForgotService, TutorService, DEFAULT_VALUES, usSpinnerService){
 
     $scope.selectedTab = 'signUp';
+    $scope.tempTutorId = undefined;
 
     $scope.$on('showSignInModal', function(){
        $scope.showSignInModal('signUp');
+    });
+
+    $scope.$on('saveTempTutorId', function($event, tempTutorId){
+        $scope.tempTutorId = tempTutorId;
+    });
+
+    $('#sign-in-modal').on('hidden.bs.modal', function(){
+        $scope.tempTutorId = undefined;
     });
 
     //Function that opens the landing modal with the sign in tab selected
@@ -24,7 +33,19 @@ Geek.controller('NavigationController', ["$filter", "$scope", "$rootScope", "$ti
         $scope.$broadcast('show-errors-check-validity', $scope.signUpForm);
 
         if ($scope.signUpForm.$valid) {
-            $("#student-form").submit();
+            if($scope.tempTutorId){
+                TutorService.saveTemporalTutor($scope.tempTutorId).then(
+                    function (data){
+                        $("#student-form").submit();
+                    },
+
+                    function (response) {
+                        console.log('Error retrieving the appointments: ' + response);
+                    }
+                );
+            }else{
+                $("#student-form").submit();
+            }
         }
     };
 
@@ -33,12 +54,37 @@ Geek.controller('NavigationController', ["$filter", "$scope", "$rootScope", "$ti
         $scope.$broadcast('show-errors-check-validity', $scope.studentLoginForm);
 
         if ($scope.studentLoginForm.$valid) {
-            $("#student-login-form").submit();
+            if($scope.tempTutorId){
+                TutorService.saveTemporalTutor($scope.tempTutorId).then(
+                    function (data){
+                        $("#student-login-form").submit();
+                    },
+
+                    function (response) {
+                        console.log('Error retrieving the appointments: ' + response);
+                    }
+                );
+            }else{
+                $("#student-login-form").submit();
+            }
         }
     };
 
     $scope.registerFacebook = function(){
-        window.location = "users/auth/facebook";
+
+        if($scope.tempTutorId){
+            TutorService.saveTemporalTutor($scope.tempTutorId).then(
+                function (data){
+                    window.location = "users/auth/facebook";
+                },
+
+                function (response) {
+                    console.log('Error retrieving the appointments: ' + response);
+                }
+            );
+        }else{
+            window.location = "users/auth/facebook";
+        }
     };
 
     $scope.showForgotPassword = function(){
