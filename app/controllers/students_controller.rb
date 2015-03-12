@@ -1,5 +1,5 @@
 class StudentsController < ApplicationController
-  load_and_authorize_resource :except => [:update, :profile]
+  load_and_authorize_resource :except => [:update, :profile, :remember_tutor]
   
   before_action :set_student, only: [:show, :edit, :update, :destroy]
 
@@ -78,7 +78,19 @@ class StudentsController < ApplicationController
   def profile
     if current_user
       @student = Student.where('email = ? ', current_user.email).first
+      if session[:remember]
+        @remember = session[:remember]
+        session[:remember] = nil
+      end
     end
+  end
+
+  # Almacena el id del tutor que se consultó antes de iniciar sesión
+  # Recibe:
+  # tutor_id - el id del tutor
+  def remember_tutor
+    session[:remember] = params[:tutor_id]
+    render json: "", status: :ok
   end
 
   private

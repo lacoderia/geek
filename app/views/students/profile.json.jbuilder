@@ -6,3 +6,6 @@ if @student
 	end
 	json.has_card has_card
 end
+if @remember
+	json.remember_tutor @remember
+end
