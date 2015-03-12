@@ -33,7 +33,7 @@
         <tbody>
         <tr ng-repeat="appointment in appointmentGroup.appointments" class="history-list-day-info-row" ng-click="showAppointmentDetail($event, appointment)">
           <td class="day-info">{{ 'FROM' | translate }} {{ appointment.startHour }} {{ 'TO' | translate }} {{ appointment.endHour }}</td>
-          <td class="day-info">{{ appointment.tutor.first_name }} {{ appointment.tutor.last_name }}</td>
+          <td class="day-info" ng-click="openTutorProfile($event,appointment.tutor.id)">{{ appointment.tutor.first_name }} {{ appointment.tutor.last_name }}</td>
           <td class="day-info">{{ appointment.subject }}</td>
           <td class="day-info"><span ng-class="[appointment.status.class]"><span ng-class="[appointment.status.icon_class]"></span> {{ appointment.status.name | translate }}</span></td>
           <td class="day-info buttons">

@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('MyAppointmentsController',['$compile', '$filter', '$scope','$rootScope', '$timeout', '$location', '$anchorScroll', 'AppointmentService', 'AuthService', 'SessionService', 'MessageService', 'usSpinnerService', 'DEFAULT_VALUES' ,function($compile, $filter, $scope, $rootScope, $timeout, $location, $anchorScroll, AppointmentService, AuthService, SessionService, MessageService, usSpinnerService, DEFAULT_VALUES){
+Geek.controller('MyAppointmentsController',['$compile', '$filter', '$scope','$rootScope', '$timeout', '$location', '$state', '$anchorScroll', 'AppointmentService', 'AuthService', 'SessionService', 'MessageService', 'usSpinnerService', 'DEFAULT_VALUES' ,function($compile, $filter, $scope, $rootScope, $timeout, $location, $state, $anchorScroll, AppointmentService, AuthService, SessionService, MessageService, usSpinnerService, DEFAULT_VALUES){
 
     $scope.DAYS = DEFAULT_VALUES.DAYS;
     $scope.MONTHS = DEFAULT_VALUES.MONTHS;
@@ -327,6 +327,14 @@ Geek.controller('MyAppointmentsController',['$compile', '$filter', '$scope','$ro
             );
 
         }
+    };
+
+    $scope.openTutorProfile = function ($event,tutorId) {
+        $event.stopPropagation();
+        var params = {
+            id: tutorId
+        }
+        $state.go('dashboard.tutor-profile', params);
     };
 
     //Inicializamos el controlador

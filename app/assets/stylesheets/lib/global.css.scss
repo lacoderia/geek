@@ -2770,6 +2770,11 @@ footer{
               margin: 0em;
               padding: 0em;
               text-transform: uppercase;
+
+              a{
+                color: $color-dark-green;
+                text-decoration: none;
+              }
             }
 
             .timestamp{

@@ -21,7 +21,7 @@
       <div class="user-personal-info">
         <div class="content">
           <div class="user-personal-info-container">
-            <h4 class="user-name">{{ conversation.tutor.first_name }} {{ conversation.tutor.last_name }}</h4>
+            <h4 class="user-name"><a ui-sref="dashboard.tutor-profile({ id:conversation.tutor.id })">{{ conversation.tutor.first_name }} {{ conversation.tutor.last_name }}</a></h4>
             <em class="timestamp">{{ conversation.created_at | timestampTranslateFilter:this }}</em>
           </div>
           <div class="message-button">

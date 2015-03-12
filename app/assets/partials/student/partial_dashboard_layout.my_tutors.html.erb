@@ -27,7 +27,7 @@
                       </div>
                     </div>
                     <div class="user_name">
-                      {{ tutor.first_name }} {{ tutor.last_name }}
+                      <a ui-sref="dashboard.tutor-profile({ id:tutor.id })">{{ tutor.first_name }} {{ tutor.last_name }}</a>
                     </div>
                 </td>
                 <td class="tutor-info">

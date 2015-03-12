@@ -1756,6 +1756,14 @@
           display: inline-block;
           margin-left: 1em;
           vertical-align: middle;
+
+          a{
+            color: $color-light-blue;
+            text-decoration: none;
+          }
+          a:hover{
+            color: $color-light-blue;
+          }
         }
       }
     }
