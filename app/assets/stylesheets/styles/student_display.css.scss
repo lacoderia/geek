@@ -120,12 +120,13 @@
       width: 100%;
 
       td.title{
-        font-size: 1.5rem;
+        font-size: 0.7rem;
         width: 80%;
       }
 
       td.control{
-        width: 8%;
+        padding-right: 2%;
+        width: 6%;
       }
     }
   }
@@ -1400,7 +1401,10 @@
             }
 
             .resume {
+              background: transparent;
+              border: none;
               color: $color-medium-orange;
+              font-family: inherit;
               font-size: 0.8em;
               font-weight: 500;
               height: 6.2em;
@@ -2251,6 +2255,25 @@
 }
 
 @media (min-width: $screen-lg-min) {
+
+  .tutor-calendar-section{
+
+    .tutor-calendar-title-day{
+
+
+      .week-title{
+
+        td.title{
+          font-size: 1.5rem;
+          width: 80%;
+        }
+
+        td.control{
+          width: 8%;
+        }
+      }
+    }
+  }
 
   .search-results-tools{
 

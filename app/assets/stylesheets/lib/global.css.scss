@@ -1689,7 +1689,7 @@ textarea{
         box-sizing: border-box;
         color: $color-dark-gray;
         cursor: pointer;
-        font-size: 1rem;
+        font-size: 0.6rem;
         font-weight: 400;
         padding: 0px;
         text-align: center;
@@ -4035,6 +4035,16 @@ footer{
 }
 
 @media (min-width: $screen-md-min) {
+
+  .calendar{
+    .week-config-view{
+      .week-row{
+        .week-day{
+          font-size: 1rem;
+        }
+      }
+    }
+  }
 
   .faq{
     box-sizing: border-box;
