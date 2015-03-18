@@ -3366,6 +3366,15 @@ footer{
   }
 }
 
+.select-enabled {
+  -webkit-touch-callout: text;
+  -webkit-user-select: text;
+  -khtml-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
 .terms_conditions{
   margin: 0 auto;
   max-width: $container-width-max;
