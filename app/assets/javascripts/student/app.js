@@ -338,8 +338,8 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
         $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
 
             $rootScope.$broadcast('closeAllModals');
-
             if(AuthService.getSessionAttempts() == 0) {
+
                 if (toState.authenticate && !AuthService.isAuthenticated()){
 
                     event.preventDefault();
@@ -347,6 +347,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                     AuthService.getSession().then(
                         function(data){
                             if(data && data.id){
+
                                 SessionService.createSession(data.id, data.active, data.email, data.first_name, data.last_name, data.gender, data.phone_number, data.picture_url, data.has_card, data.remember_tutor);
                                 if(SessionService.getTempTutorId()){
                                     toParams.id = SessionService.getTempTutorId();
@@ -358,6 +359,8 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                                 if(toState.optionalParam == 'reset_password_token'){
                                     $rootScope.resetToken = toParams.reset_password_token;
                                 }
+                                console.log(toParams)
+                                console.log(toState)
                                 $state.go(toState.defaultState);
                             }
                         },
@@ -395,6 +398,14 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                 defaultState: "student.landing",
                 optionalParam: "reset_password_token",
                 tutorProfileState: "dashboard.tutor-profile"
+            })
+            .state('student.tutor-profile', {
+                url: "/:id/tutor-profile",
+                templateUrl: "/assets/student/partial_common_tutor_profile.html",
+                authenticate: false,
+                authenticatedState: "student.tutor-profile",
+                defaultState: "student.landing",
+                tutorProfileState: "student.tutor-profile"
             })
             .state('student.faq', {
                 url: "/faq",
@@ -605,6 +616,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                 defaultState: "student.landing",
                 tutorProfileState: "dashboard.tutor-profile"
             })
+
     }])
 
     .config(['$translateProvider', function($translateProvider){

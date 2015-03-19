@@ -18,7 +18,7 @@
             <li ng-if="getStudentProperty('active')" role="presentation" ui-sref=".profile"><a role="menuitem"><span class="icon-user"></span> {{'PROFILE' | translate}}</a></li>
             <li ng-if="getStudentProperty('active')" role="presentation" ui-sref=".payment-options"><a role="menuitem" translate="PAYMENT_OPTIONS"></a></li>
             <li><a title="{{ 'CHOOSE_LANGUAGE' | translate }}" ng-click="toggleLanguage()" translate="CHOOSE_LANGUAGE"></a></li>
-            <li role="presentation"><a role="menuitem"  href="/logout" translate="SIGN_OUT"></a></li>
+            <li ng-if="getStudentProperty('active')" role="presentation"><a role="menuitem"  href="/logout" translate="SIGN_OUT"></a></li>
           </ul>
         </li>
       </ul>

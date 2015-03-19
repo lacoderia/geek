@@ -498,7 +498,7 @@ Geek.controller('ProfileController', ["$scope", "$rootScope", "$filter", "$timeo
     //Inicializamos el controlador
     $rootScope.$broadcast('initRoot');
     $scope.tutor = SessionService.getSession();
-    $scope.tutorProfileUrl = $location.absUrl().substring(0, $location.absUrl().indexOf('tutor')) + 'student#/dashboard/' + $scope.tutor.id + '/tutor-profile';
+    $scope.tutorProfileUrl = $location.absUrl().substring(0, $location.absUrl().indexOf('tutor')) + '#/home/' + $scope.tutor.id + '/tutor-profile';
 
     if(SessionService.getPreference()){
         $scope.setZonesAvailabilities();

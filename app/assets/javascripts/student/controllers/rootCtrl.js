@@ -80,6 +80,10 @@ Geek.controller('RootController', ["$filter", "$scope", "$rootScope", "$state", 
        $rootScope.$broadcast('saveTempTutorId', tempTutorId);
     });
 
+    $scope.$on('showSigInModal', function(){
+        $rootScope.$broadcast('showSignInModal');
+    });
+
     $scope.$on('initRoot', function(){
         if (AuthService.isAuthenticated()) {
             $timeout(function () {

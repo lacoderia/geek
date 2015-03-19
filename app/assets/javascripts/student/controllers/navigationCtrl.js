@@ -6,6 +6,7 @@ Geek.controller('NavigationController', ["$filter", "$scope", "$rootScope", "$ti
     $scope.tempTutorId = undefined;
 
     $scope.$on('showSignInModal', function(){
+        console.log('ENTRE AQUI')
        $scope.showSignInModal('signUp');
     });
 
