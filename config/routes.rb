@@ -143,9 +143,10 @@ Rails.application.routes.draw do
 
   get "student_dashboard" => "dashboard#by_student", :as => :student_dashboard
 
+  get "tutor_profile" => "student_display#profile", :as => :tutor_profile
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
-
+  #http://geek-test.herokuapp.com/#/home/70/tutor-profile
   # You can have the root of your site routed with "root"
   root 'student_display#landing'
 

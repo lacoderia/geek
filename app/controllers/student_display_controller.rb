@@ -19,4 +19,13 @@ class StudentDisplayController < ApplicationController
     render params[:id], layout: 'display'
   end
 
+  def profile
+    id = params[:tutor_id]
+    if current_user
+      redirect_to "/student#/dashboard/70/tutor-profile"
+    else
+      redirect_to "/#/home/70/tutor-profile"
+    end
+  end
+
 end
