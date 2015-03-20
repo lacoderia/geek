@@ -7,6 +7,7 @@ Geek.controller('TutorProfileController', ["$scope", "$rootScope", "$filter", "$
 
     $scope.tutorList = [];
     $scope.selectedTutor = undefined;
+    $scope.tutorProfileUrl = undefined;
 
     $scope.appointmentAlertParams = undefined;
     $scope.validAppointmentDate = true;
@@ -23,6 +24,13 @@ Geek.controller('TutorProfileController', ["$scope", "$rootScope", "$filter", "$
                     $scope.getTutorCostRange($scope.selectedTutor);
 
                     $scope.tutorList.push($scope.selectedTutor);
+                    $scope.tutorProfileUrl = $location.absUrl().substring(0, $location.absUrl().indexOf('#')) + 'tutor_profile?tutor_id=' + $scope.selectedTutor.id;
+
+                    if(AuthService.isAuthenticated()){
+                        $scope.tutorProfileUrl = $location.absUrl().substring(0, $location.absUrl().indexOf('student')) + 'tutor_profile?tutor_id=' + $scope.selectedTutor.id;
+                    }else{
+                        $scope.tutorProfileUrl = $location.absUrl().substring(0, $location.absUrl().indexOf('#')) + 'tutor_profile?tutor_id=' + $scope.selectedTutor.id;
+                    }
 
                     $rootScope.$broadcast('initTutorCalendar', $scope.selectedTutor);
                 }
@@ -93,7 +101,6 @@ Geek.controller('TutorProfileController', ["$scope", "$rootScope", "$filter", "$
     };
 
     $scope.showAppointmentRequestModal = function(event, row, column, day){
-
         if(AuthService.isAuthenticated()){
             var halfHour = $scope.getHalfHour(row, column);
 

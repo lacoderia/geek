@@ -54,6 +54,7 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
 
     $scope.tutorList = undefined;
     $scope.suggestedTutorList = undefined;
+    $scope.tutorProfileUrl = undefined;
 
     $scope.PROFILE_IMAGE = DEFAULT_VALUES.PROFILE_IMAGE;
     $scope.selectedCategory = undefined;
@@ -224,6 +225,13 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
                 }
             }
             $scope.selectedTutor = tutor;
+            $scope.tutorProfileUrl = $location.absUrl().substring(0, $location.absUrl().indexOf('#')) + 'tutor_profile?tutor_id=' + tutor.id;
+
+            if(AuthService.isAuthenticated()){
+                $scope.tutorProfileUrl = $location.absUrl().substring(0, $location.absUrl().indexOf('student')) + 'tutor_profile?tutor_id=' + $scope.selectedTutor.id;
+            }else{
+                $scope.tutorProfileUrl = $location.absUrl().substring(0, $location.absUrl().indexOf('#')) + 'tutor_profile?tutor_id=' + $scope.selectedTutor.id;
+            }
 
             //$scope.openTutorDetailModal(tutor);
             $rootScope.$broadcast('initTutorCalendar', $scope.selectedTutor);
