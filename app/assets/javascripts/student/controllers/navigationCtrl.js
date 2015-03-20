@@ -6,7 +6,6 @@ Geek.controller('NavigationController', ["$filter", "$scope", "$rootScope", "$ti
     $scope.tempTutorId = undefined;
 
     $scope.$on('showSignInModal', function(){
-        console.log('ENTRE AQUI')
        $scope.showSignInModal('signUp');
     });
 
@@ -22,6 +21,7 @@ Geek.controller('NavigationController', ["$filter", "$scope", "$rootScope", "$ti
     $scope.showSignInModal = function(selectedTab) {
         $scope.selectTab(selectedTab);
         $('#sign-in-modal').modal('show');
+
     };
 
     //Function that selects the sign in modal tab

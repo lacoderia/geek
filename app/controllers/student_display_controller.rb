@@ -22,9 +22,9 @@ class StudentDisplayController < ApplicationController
   def profile
     id = params[:tutor_id]
     if current_user
-      redirect_to "/student#/dashboard/70/tutor-profile"
+      redirect_to "/student#/dashboard/#{id}/tutor-profile"
     else
-      redirect_to "/#/home/70/tutor-profile"
+      redirect_to "/#/home/#{id}/tutor-profile"
     end
   end
 

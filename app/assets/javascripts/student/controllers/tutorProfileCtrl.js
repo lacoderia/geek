@@ -31,7 +31,7 @@ Geek.controller('TutorProfileController', ["$scope", "$rootScope", "$filter", "$
                 console.log('Error retrieving the tutor profile: ' + response);
             }
         ).finally(function(){
-
+                $scope.$emit('tutorSelected', $scope.selectedTutor.id);
             });
     });
 
@@ -93,6 +93,7 @@ Geek.controller('TutorProfileController', ["$scope", "$rootScope", "$filter", "$
     };
 
     $scope.showAppointmentRequestModal = function(event, row, column, day){
+
         if(AuthService.isAuthenticated()){
             var halfHour = $scope.getHalfHour(row, column);
 
@@ -155,10 +156,11 @@ Geek.controller('TutorProfileController', ["$scope", "$rootScope", "$filter", "$
 
                     $scope.openAppointmentRequest(event, options);
                 }, 0);
-            }else{
-                $rootScope.$broadcast('showSignInModal');
-                $scope.$emit('tutorSelected', $scope.selectedTutor.id);
             }
+        }else{
+
+            $rootScope.$broadcast('showSignInModal');
+            $scope.$emit('tutorSelected', $scope.selectedTutor.id);
         }
     };
 

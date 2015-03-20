@@ -403,7 +403,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                 url: "/:id/tutor-profile",
                 templateUrl: "/assets/student/partial_common_tutor_profile.html",
                 authenticate: false,
-                authenticatedState: "student.tutor-profile",
+                authenticatedState: "dashboard.tutor-profile",
                 defaultState: "student.landing",
                 tutorProfileState: "student.tutor-profile"
             })
