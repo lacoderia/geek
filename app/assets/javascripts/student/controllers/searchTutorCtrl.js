@@ -1,4 +1,4 @@
-Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$timeout", "$location", "$anchorScroll", "$translate", "TutorService", "AppointmentService", "AuthService", "SessionService", "usSpinnerService", "MessageService", "DEFAULT_VALUES", function($scope, $rootScope, $filter, $timeout, $location, $anchorScroll, $translate, TutorService, AppointmentService, AuthService, SessionService, usSpinnerService, MessageService, DEFAULT_VALUES){
+Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$timeout", "$location", "$anchorScroll", "$translate", "$analytics", "TutorService", "AppointmentService", "AuthService", "SessionService", "usSpinnerService", "MessageService", "DEFAULT_VALUES", function($scope, $rootScope, $filter, $timeout, $location, $anchorScroll, $translate, $analytics, TutorService, AppointmentService, AuthService, SessionService, usSpinnerService, MessageService, DEFAULT_VALUES){
 
     //Inicializamos el controlador
     $rootScope.$broadcast('initRoot');
@@ -171,6 +171,8 @@ Geek.controller('SearchTutorController', ["$scope", "$rootScope", "$filter", "$t
         var categoryId = undefined;
         if($scope.subjectInput){
             categoryId = $scope.subjectInput.originalObject.id;
+            //Evento de mixpanel para enviar categorias buscadas
+            $analytics.eventTrack('SearchCategories', {  alias: $scope.subjectInput.title , label: 'label' });
         }
 
         $timeout(function(){

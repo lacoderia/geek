@@ -11,6 +11,13 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <% end %>
   <meta name="google-site-verification" content="3jGmlew_VznFscH7ATmeQNvfsIK879R7M0WBxj9kPVs" />
+  <meta property="fb:app_id"          content="411792175660741" /> 
+  <meta property="og:title"           content="Geek Classroom acabo de encontrar un curso via geek" /> 
+  <meta property="og:url"             content="http://classroom.geek.education"/> 
+  <meta property="og:image"           content="http://res.cloudinary.com/hwgegjkad/image/upload/v1426023677/geek_wrl3bo.png" /> 
+  <meta property="og:description" content="{{ tutor.first_name }} {{ tutor.last_name }}" />
+  <meta property="article:author" content="Geek Education" />
+
   <link rel="icon" href="/assets/favicon.png" />
   <%= stylesheet_link_tag 'application', 'styles/student_display', media: 'all' %>
   <%= yield :head_style %>
@@ -57,9 +64,40 @@
                              'lib/angular/angular-image-adjustment',
                              'lib/angular/angular-onready-directive',
                              'lib/angular/angular-spinner',
+                             'lib/angulartics',
+                             'lib/angulartics-mixpanel',
                              'student/filters/dateTranslateFilter',
                              'student/filters/timestampTranslateFilter'%>
   <%= yield :head_script %>
+  <!-- start Mixpanel -->
+  <script type="text/javascript">(function(f,b){if(!b.__SV){var a,e,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" ");
+for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElement("script");a.type="text/javascript";a.async=!0;a.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?MIXPANEL_CUSTOM_LIB_URL:"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";e=f.getElementsByTagName("script")[0];e.parentNode.insertBefore(a,e)}})(document,window.mixpanel||[]);
+mixpanel.init("e7641688e25aad5ccaa8fd085b07a545");</script>
+<!-- end Mixpanel -->
+
+<!--Start of Zopim Live Chat Script-->
+<script type="text/javascript">
+window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
+d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
+_.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute("charset","utf-8");
+$.src="//v2.zopim.com/?2rABbea4fybzURDR8porASgQ5TJTMFZj";z.t=+new Date;$.
+type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
+</script>
+<!--End of Zopim Live Chat Script-->
+
+<!-- Hotjar Tracking Code for geek.education -->
+<script>
+    (function(f,b){
+        var c;
+        f.hj=f.hj||function(){(f.hj.q=f.hj.q||[]).push(arguments)};
+        f._hjSettings={hjid:26565, hjsv:3};
+        c=b.createElement("script");c.async=1;
+        c.src="//static.hotjar.com/c/hotjar-26565.js?sv=3";
+        b.getElementsByTagName("head")[0].appendChild(c); 
+    })(window,document);
+</script>
+
+
   <%= csrf_meta_tags %>
 </head>
 

@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('PaymentController',['$filter', '$scope','$rootScope', '$timeout', '$location', '$anchorScroll', 'PaymentService', 'AuthService', 'SessionService', 'usSpinnerService', 'DEFAULT_VALUES' ,function($filter, $scope, $rootScope, $timeout, $location, $anchorScroll, PaymentService, AuthService, SessionService, usSpinnerService, DEFAULT_VALUES){
+Geek.controller('PaymentController',['$filter', '$scope','$rootScope', '$timeout', '$location', '$anchorScroll', '$analytics', 'PaymentService', 'AuthService', 'SessionService', 'usSpinnerService', 'DEFAULT_VALUES' ,function($filter, $scope, $rootScope, $timeout, $location, $anchorScroll, $analytics, PaymentService, AuthService, SessionService, usSpinnerService, DEFAULT_VALUES){
 
     $scope.MONTHS = DEFAULT_VALUES.MONTHS;
     $scope.PAYMENT_METHODS = DEFAULT_VALUES.PAYMENT_METHODS;
@@ -230,6 +230,7 @@ Geek.controller('PaymentController',['$filter', '$scope','$rootScope', '$timeout
 
                                     $location.hash('student-payment-form');
                                     $anchorScroll();
+                                    $analytics.eventTrack('SavePayment');
 
                                     $scope.getPaymentMethodsList();
 

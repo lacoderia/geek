@@ -1,6 +1,6 @@
 'use strict';
 
-var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-geek', 'ui.router', 'ui.bootstrap.showErrors', 'ui.bootstrap', 'angular-ellipsis', 'pascalprecht.translate', 'mgcrea.ngStrap', 'angularSpinner', 'angularUtils.directives.dirPagination' ])
+var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-geek', 'ui.router', 'ui.bootstrap.showErrors', 'ui.bootstrap', 'angular-ellipsis', 'pascalprecht.translate', 'mgcrea.ngStrap', 'angularSpinner', 'angularUtils.directives.dirPagination', 'angulartics','angulartics.mixpanel' ])
 
     .constant('DEFAULT_VALUES',{
         'PROFILE_IMAGE': '/assets/site/person.png',
@@ -372,7 +372,7 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
         });
     })
 
-    .config(['$stateProvider','$urlRouterProvider', function($stateProvider, $urlRouterProvider){
+    .config(['$stateProvider','$urlRouterProvider', function($stateProvider, $urlRouterProvider, $analyticsProvider){
         $urlRouterProvider.otherwise(function($injector, $location){
             $injector.invoke(['$state', function($state) {
                 $state.go('student.landing');

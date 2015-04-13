@@ -1,6 +1,6 @@
 'use strict';
 
-Geek.controller('NavigationController', ["$filter", "$scope", "$rootScope", "$timeout", "ForgotService", "TutorService", "DEFAULT_VALUES", "usSpinnerService", function($filter, $scope, $rootScope, $timeout, ForgotService, TutorService, DEFAULT_VALUES, usSpinnerService){
+Geek.controller('NavigationController', ["$filter", "$scope", "$rootScope", "$timeout", "$analytics", "ForgotService", "TutorService", "DEFAULT_VALUES", "usSpinnerService", function($filter, $scope, $rootScope, $timeout, $analytics, ForgotService, TutorService, DEFAULT_VALUES, usSpinnerService){
 
     $scope.selectedTab = 'signUp';
     $scope.tempTutorId = undefined;
@@ -38,6 +38,7 @@ Geek.controller('NavigationController', ["$filter", "$scope", "$rootScope", "$ti
                 TutorService.saveTemporalTutor($scope.tempTutorId).then(
                     function (data){
                         $("#student-form").submit();
+                        $analytics.eventTrack('Registration-Form');
                     },
 
                     function (response) {

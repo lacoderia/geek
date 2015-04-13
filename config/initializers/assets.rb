@@ -56,6 +56,8 @@ Rails.application.config.assets.precompile += %w( lib/angular/angular-onready-di
 Rails.application.config.assets.precompile += %w( lib/angular/angular-spinner.js )
 Rails.application.config.assets.precompile += %w( lib/angular/ng-currency.js )
 Rails.application.config.assets.precompile += %w( lib/angular/dirPagination.js )
+Rails.application.config.assets.precompile += %w( lib/angulartics.js )
+Rails.application.config.assets.precompile += %w( lib/angulartics-mixpanel.js )
 
 Rails.application.config.assets.precompile += %w( student/directives/modalAnomalyDrctv.js )
 Rails.application.config.assets.precompile += %w( student/directives/modalAppointmentRequestDrctv.js )
