@@ -47,6 +47,8 @@ Geek.controller('NavigationController', ["$filter", "$scope", "$rootScope", "$ti
                 );
             }else{
                 $("#student-form").submit();
+                $analytics.eventTrack('Registration-Form');
+
             }
         }
     };
