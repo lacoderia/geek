@@ -403,6 +403,13 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
                 authenticatedState: "tutor.how",
                 defaultState: "tutor.how"
             })
+            .state('tutor.trust-safety', {
+                url: "/trust-safety",
+                templateUrl: "/assets/tutor/partial_common_trust_safety.html",
+                authenticate: true,
+                authenticatedState: "tutor.trust-safety",
+                defaultState: "tutor.trust-safety"
+            })
             .state('tutor.about-us', {
                 url: "/about-us",
                 templateUrl: "/assets/tutor/partial_common_about_us.html",
@@ -467,6 +474,13 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'ngSanitize', 'anguc
                 authenticate: true,
                 authenticatedState: "dashboard.how",
                 defaultState: "tutor.how"
+            })
+            .state('dashboard.trust-safety', {
+                url: "/trust-safety",
+                templateUrl: "/assets/tutor/partial_common_trust_safety.html",
+                authenticate: true,
+                authenticatedState: "dashboard.trust-safety",
+                defaultState: "tutor.trust-safety"
             })
             .state('dashboard.contact', {
                 url: "/contact",

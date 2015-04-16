@@ -421,6 +421,14 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                 defaultState: "student.how",
                 tutorProfileState: "dashboard.tutor-profile"
             })
+            .state('student.trust-safety', {
+                url: "/trust-safety",
+                templateUrl: "/assets/student/partial_common_trust_safety.html",
+                authenticate: true,
+                authenticatedState: "student.trust-safety",
+                defaultState: "student.trust-safety",
+                tutorProfileState: "dashboard.tutor-profile"
+            })
             .state('student.about-us', {
                 url: "/about-us",
                 templateUrl: "/assets/student/partial_common_about_us.html",
@@ -494,6 +502,14 @@ var Geek = angular.module('Geek', ['ngResource', 'ngRoute', 'angucomplete-alt-ge
                 authenticate: true,
                 authenticatedState: "dashboard.how",
                 defaultState: "student.how",
+                tutorProfileState: "dashboard.tutor-profile"
+            })
+            .state('dashboard.trust-safety', {
+                url: "/trust-safety",
+                templateUrl: "/assets/student/partial_common_trust_safety.html",
+                authenticate: true,
+                authenticatedState: "dashboard.trust-safety",
+                defaultState: "student.trust-safety",
                 tutorProfileState: "dashboard.tutor-profile"
             })
             .state('dashboard.contact', {
