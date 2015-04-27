@@ -350,13 +350,13 @@ class Tutor < ActiveRecord::Base
   def self.get_order_string order_options
     case order_options["code"]
     when 0
-      return "grade DESC"
+      return "index DESC"
     when 1
       return "categories_tutors.cost DESC"
     when 2
       return "categories_tutors.cost ASC"
     else
-      return "grade DESC"
+      return "index DESC"
     end
   end
 
