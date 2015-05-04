@@ -1126,6 +1126,8 @@ textarea{
     display: inline-block;
     text-align: center;
     vertical-align: text-bottom;
+    border-right: 1px #a6a8ab solid;
+    padding-right: 10px;
 
     span{
       color: $color-medium-gray;
@@ -1152,6 +1154,88 @@ textarea{
           display: inline-block;
           max-width: 50px;
           width: 100%;
+        }
+      }
+    }
+  }
+
+    .accepted-debit-credit-cards-message-right{
+    display: inline-block;
+    text-align: center;
+    vertical-align: text-bottom;
+    padding-left: 10px;
+
+    span{
+      color: $color-medium-gray;
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 0.4rem;
+      text-transform: uppercase;
+    }
+
+    ul{
+      margin: 0;
+      padding: 0;
+      list-style: none;
+
+      li{
+        background-color: white;
+        border: 1px solid $color-input-gray-bgcolor;
+        border-radius: 5px;
+        padding: 3px;
+        display: inline-block;
+
+        img{
+          display: inline-block;
+          max-width: 50px;
+          width: 100%;
+        }
+      }
+    }
+  }
+  
+  .accepted-debit-credit-cards-message-bottom{
+    display: inline-block;
+    /*
+    text-align: center;
+    vertical-align: text-bottom;
+    */
+    padding-left: 10px;
+    width: 299px;
+
+    span{
+      color: $color-medium-gray;
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 0.4rem;
+      text-transform: uppercase;
+    }
+
+    ul{
+      margin: 0;
+      padding: 0;
+      list-style: none;
+
+      li{
+        padding: 3px;
+        display: inline-block;
+        p{
+          text-align: center;
+        }
+
+        img{
+            float: left;
+            display: inline-block;
+            text-align: center;
+            /*
+            vertical-align: text-bottom;
+            */
+            padding-left: 10px;
+            max-width: 50px;
+            width: 100%;
+            margin: 0px 15px 10px 0px;
         }
       }
     }
