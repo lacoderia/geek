@@ -72,15 +72,15 @@
         <fieldset>
           <div>
             <div class="form-group">
-              <div class="left">&nbsp;</div>
-              <div class="right">
+              <!--div class="left">&nbsp;</div-->
+              <div class="left-cards">
                 <div class="accepted-debit-credit-cards">
-                  <div class="secure-logos">
-                    <!--ul>
+                  <!--<div class="secure-logos">
+                    <ul>
                       <li><img alt="Seguridad OpenPay" src="/assets/site/secure-logo-7.png"></li>
                       <li><img alt="MacAfee Secure" src="/assets/site/secure-logo-6.png"></li>
-                    </ul-->
-                  </div>
+                    </ul>
+                  </div>-->
                   <div class="accepted-debit-credit-cards-message">
                     <span translate="PAYMENT_LABEL_CREDIT_CARD_ACCEPTED"></span>
                     <ul>
@@ -88,6 +88,17 @@
                       <li><img alt="MasterCard" src="/assets/site/tarjetas/mastercard.png"></li>
                       <li><img alt="Carnet" src="/assets/site/tarjetas/carnet.png"></li>
                       <li><img alt="American Express" src="/assets/site/tarjetas/amex.png"></li>
+                    </ul>
+                  </div>
+                  <div class="accepted-debit-credit-cards-message-right">
+                    <span translate="PAYMENT_LABEL_DEBIT_CARD_ACCEPTED"></span>
+                    <ul>
+                      <li><img alt="Visa" src="/assets/site/tarjetas/banamex.png"></li>
+                      <li><img alt="MasterCard" src="/assets/site/tarjetas/santander.png"></li>
+                      <li><img alt="Carnet" src="/assets/site/tarjetas/scotiabank.png"></li>
+                      <li><img alt="American Express" src="/assets/site/tarjetas/hsbc.png"></li>
+                      <li><img alt="American Express" src="/assets/site/tarjetas/inbursa.png"></li>
+                      <li><img alt="ixe" src="/assets/site/tarjetas/ixe.png"></li>
                     </ul>
                   </div>
                 </div>
@@ -159,6 +170,12 @@
                   <input type="text" name="verification_number" ng-model="debitCardValidationNumber" ng-pattern="/^[0-9]+$/" ng-minlength="3" ng-maxlength="4" maxlength="4" class="form-input form-control" placeholder="{{ 'PAYMENT_PLACEHOLDER_VERIFICATION_NUMBER' | translate }}" popover-input-name="{{ 'PAYMENT_LABEL_VERIFICATION_NUMBER' | translate }}" required/>
                   <span class="popup-trigger" popover="{{studentPaymentOptionsForm.verification_number.popoverMessage}}" popover-trigger="click" popover-animation="false">!</span>
                 </div>
+                <div class="input-container-small">
+                  <img alt="cvv" src="/assets/site/tarjetas/cvv.png">
+                </div>
+                <div class="input-container-small">
+                  <img alt="cvv" src="/assets/site/tarjetas/cvv2.png">
+                </div>
               </div>
             </div>
             <!--div class="form-group" show-errors>
@@ -227,7 +244,33 @@
               <a class="action-button action-button-light-green" title="" ng-click="saveCard()">{{ 'SAVE' | translate }}</a>
             </div>
         </fieldset>
-
+          <div class="form-group">
+              <div class="left-cards">
+                <div class="accepted-debit-credit-cards">
+                  <div class="secure-logos">
+                      <!--ul>
+                        <li><img alt="Seguridad OpenPay" src="/assets/site/secure-logo-7.png"></li>
+                        <li><img alt="MacAfee Secure" src="/assets/site/secure-logo-6.png"></li>
+                      </ul-->
+                  </div>
+                  <div class="accepted-debit-credit-cards-message-bottom-left">
+                      <span translate="PAYMENT_LABEL_TRANSACTIONS"></span>
+                      <ul>
+                        <li><img alt="openpay" src="/assets/site/tarjetas/open-pay.png"></li>
+                      </ul>
+                  </div>
+                  <div class="accepted-debit-credit-cards-message-bottom">
+                    <ul>
+                      <li>
+                        <p><img src="/assets/site/tarjetas/shield.png" />
+                          <p translate="PAYMENT_LABEL_PROTECTED_TRANSACTIONS"/>                   
+                        </p>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+          </div> 
       </form>
     </div>
   </div>
