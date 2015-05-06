@@ -28,6 +28,9 @@ gem 'clockwork'
 gem 'will_paginate'
 gem 'momentjs-rails'
 
+#Puma server
+gem 'puma'
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 
