@@ -10,7 +10,7 @@ default: &default
   host: localhost
   username: postgres
   password: Dearprudence81828384$
-  pool: 25
+  pool: 20
 
 development:
   <<: *default
