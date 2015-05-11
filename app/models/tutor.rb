@@ -532,7 +532,7 @@ class Tutor < ActiveRecord::Base
       if has_options
         query_str.insert(0, Tutor.build_filter_query(options))
       end
-      tutors = Tutor.includes(:preference, :counties, :appointments, :categories => :categories_tutors, :reviews => :student).where(query_str, true, true).order(order_string)
+      tutors = Tutor.includes(:preference, :counties, :categories => :categories_tutors, :reviews => :student).where(query_str, true, true).order(order_string)
 
       if zone_obj
         message = "No se encontraron zonas asociadas a ese texto."
