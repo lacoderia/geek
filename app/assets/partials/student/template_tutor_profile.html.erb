@@ -18,7 +18,7 @@
                 <span class="item-added" ng-if="tutor.preference.student_place" title="{{ 'TUTOR_PREFERENCE_STUDENT' | translate }}">{{ 'TUTOR_PREFERENCE_STUDENT' | translate }}</span>
                 <span class="item-added" ng-if="tutor.preference.public" title="{{ 'TUTOR_PREFERENCE_PUBLIC' | translate }}">{{ 'TUTOR_PREFERENCE_PUBLIC' | translate }}</span>
               </div>
-              <pre class="resume" ng-class="expanded" ng-bind="tutor.background"></pre>
+              <pre class="resume" ng-class="{ 'expanded' : tutor.id == selectedTutor.id }" ng-bind="tutor.background"></pre>
             </div>
             <div class="score-info">
               <div class="content-score">
