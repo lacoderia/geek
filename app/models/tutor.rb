@@ -427,7 +427,7 @@ class Tutor < ActiveRecord::Base
       if has_options
         query_str.insert(0, Tutor.build_filter_query(options))
       end
-      tutors = Tutor.includes(:preference, :counties, :appointments, :categories => :categories_tutors, :reviews => :student).where(query_str, true, true).order(order_string)
+      tutors = Tutor.includes(:preference, :counties, :categories => :categories_tutors, :reviews => :student).where(query_str, true, true).order(order_string)
 
       if not zone_obj[:sublocality]
         if tutors.count < FALLBACK_NUMBER #fallback con locality si no trae sublocality
@@ -457,7 +457,7 @@ class Tutor < ActiveRecord::Base
             query_str.insert(0, Tutor.build_filter_query(options))
           end
           
-          suggested_tutors = Tutor.includes(:preference, :counties, :appointments, :categories => :categories_tutors, :reviews => :student).where(query_str, true, true).order(order_string)
+          suggested_tutors = Tutor.includes(:preference, :counties, :categories => :categories_tutors, :reviews => :student).where(query_str, true, true).order(order_string)
           suggested_tutors = suggested_tutors - tutors
           message += "Fallback con locality."
         end
@@ -481,7 +481,7 @@ class Tutor < ActiveRecord::Base
       if has_options
         query_str.insert(0, Tutor.build_filter_query(options))
       end
-      tutors = Tutor.includes(:preference, :counties, :appointments, :categories => :categories_tutors, :reviews => :student).where(query_str, true, true).order(order_string)
+      tutors = Tutor.includes(:preference, :counties, :categories => :categories_tutors, :reviews => :student).where(query_str, true, true).order(order_string)
 
 
       if not zone_obj[:sublocality]
@@ -501,7 +501,7 @@ class Tutor < ActiveRecord::Base
         if has_options
           query_str.insert(0, Tutor.build_filter_query(options))
         end
-        suggested_tutors = Tutor.includes(:preference, :counties, :appointments, :categories => :categories_tutors, :reviews => :student).where(query_str, true, true).order(order_string)
+        suggested_tutors = Tutor.includes(:preference, :counties, :categories => :categories_tutors, :reviews => :student).where(query_str, true, true).order(order_string)
 
         suggested_tutors = suggested_tutors - tutors
 
