@@ -350,13 +350,13 @@ class Tutor < ActiveRecord::Base
   def self.get_order_string order_options
     case order_options["code"]
     when 0
-      return "grade DESC"
+      return "rating DESC"
     when 1
       return "categories_tutors.cost DESC"
     when 2
       return "categories_tutors.cost ASC"
     else
-      return "grade DESC"
+      return "rating DESC"
     end
   end
 
@@ -427,7 +427,7 @@ class Tutor < ActiveRecord::Base
       if has_options
         query_str.insert(0, Tutor.build_filter_query(options))
       end
-      tutors = Tutor.includes(:preference, :counties, :appointments, :categories => :categories_tutors, :reviews => :student).where(query_str, true, true).order(order_string)
+      tutors = Tutor.includes(:preference, :counties, :categories => :categories_tutors, :reviews => :student).where(query_str, true, true).order(order_string)
 
       if not zone_obj[:sublocality]
         if tutors.count < FALLBACK_NUMBER #fallback con locality si no trae sublocality
@@ -446,7 +446,7 @@ class Tutor < ActiveRecord::Base
           query_str.insert(0, Tutor.build_filter_query(options))
         end
 
-        suggested_tutors = Tutor.includes(:preference, :counties, :appointments, :categories => :categories_tutors, :reviews => :student).where(query_str, true, true).order(order_string)
+        suggested_tutors = Tutor.includes(:preference, :counties, :categories => :categories_tutors, :reviews => :student).where(query_str, true, true).order(order_string)
         suggested_tutors = suggested_tutors - tutors
 
         if suggested_tutors.count < FALLBACK_NUMBER and zone_obj[:sublocality] #fallback a locality
@@ -457,7 +457,7 @@ class Tutor < ActiveRecord::Base
             query_str.insert(0, Tutor.build_filter_query(options))
           end
           
-          suggested_tutors = Tutor.includes(:preference, :counties, :appointments, :categories => :categories_tutors, :reviews => :student).where(query_str, true, true).order(order_string)
+          suggested_tutors = Tutor.includes(:preference, :counties, :categories => :categories_tutors, :reviews => :student).where(query_str, true, true).order(order_string)
           suggested_tutors = suggested_tutors - tutors
           message += "Fallback con locality."
         end
@@ -481,7 +481,7 @@ class Tutor < ActiveRecord::Base
       if has_options
         query_str.insert(0, Tutor.build_filter_query(options))
       end
-      tutors = Tutor.includes(:preference, :counties, :appointments, :categories => :categories_tutors, :reviews => :student).where(query_str, true, true).order(order_string)
+      tutors = Tutor.includes(:preference, :counties, :categories => :categories_tutors, :reviews => :student).where(query_str, true, true).order(order_string)
 
 
       if not zone_obj[:sublocality]
@@ -501,7 +501,7 @@ class Tutor < ActiveRecord::Base
         if has_options
           query_str.insert(0, Tutor.build_filter_query(options))
         end
-        suggested_tutors = Tutor.includes(:preference, :counties, :appointments, :categories => :categories_tutors, :reviews => :student).where(query_str, true, true).order(order_string)
+        suggested_tutors = Tutor.includes(:preference, :counties, :categories => :categories_tutors, :reviews => :student).where(query_str, true, true).order(order_string)
 
         suggested_tutors = suggested_tutors - tutors
 
@@ -532,7 +532,7 @@ class Tutor < ActiveRecord::Base
       if has_options
         query_str.insert(0, Tutor.build_filter_query(options))
       end
-      tutors = Tutor.includes(:preference, :counties, :appointments, :categories => :categories_tutors, :reviews => :student).where(query_str, true, true).order(order_string)
+      tutors = Tutor.includes(:preference, :counties, :categories => :categories_tutors, :reviews => :student).where(query_str, true, true).order(order_string)
 
       if zone_obj
         message = "No se encontraron zonas asociadas a ese texto."
@@ -699,7 +699,7 @@ class Tutor < ActiveRecord::Base
   end
 
   def self.get_tutor tutor_id
-    tutor = Tutor.includes(:preference, :counties, :appointments, :categories => :categories_tutors, :reviews => :student).find(tutor_id)
+    tutor = Tutor.includes(:preference, :counties, :categories => :categories_tutors, :reviews => :student).find(tutor_id)
   end
 
   private
