@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.2.1'
+
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.2.rc1'
@@ -29,7 +29,7 @@ gem 'clockwork'
 gem 'will_paginate'
 gem 'momentjs-rails'
 
-#Puma server
+# Puma server
 gem 'puma'
 
 # Use jquery as the JavaScript library

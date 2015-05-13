@@ -446,7 +446,7 @@ class Tutor < ActiveRecord::Base
           query_str.insert(0, Tutor.build_filter_query(options))
         end
 
-        suggested_tutors = Tutor.includes(:preference, :counties, :appointments, :categories => :categories_tutors, :reviews => :student).where(query_str, true, true).order(order_string)
+        suggested_tutors = Tutor.includes(:preference, :counties, :categories => :categories_tutors, :reviews => :student).where(query_str, true, true).order(order_string)
         suggested_tutors = suggested_tutors - tutors
 
         if suggested_tutors.count < FALLBACK_NUMBER and zone_obj[:sublocality] #fallback a locality
