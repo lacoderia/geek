@@ -574,8 +574,8 @@
 										<table align="left" border="0" cellpadding="0" cellspacing="0" width="600" class="mcnTextContentContainer">
 											<tbody><tr><td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
 												<h1><%= @student.first_name %>!</h1>
-												<span style="font-size:14px; line-height:135%;">Realizamos un cobro por $<%= (@appointment.cost*1.035).round(2) %> por tu clase con <%= @tutor.first_name %> el <%= @appointment.start.strftime("%d/%m/%Y  %I:%M %P") %>.</span><br><br>
-												<span style="font-size:14px; line-height:135%;">Desglose del cobro: $<%= @appointment.cost %> + $<%= (@appointment.cost*0.035).round(2) %> = $<%= (@appointment.cost*1.035).round(2) %>.</span><br><br>
+												<span style="font-size:14px; line-height:135%;">Realizamos un cobro por $<%= (@appointment.cost).round(2) %> por tu clase con <%= @tutor.first_name %> el <%= @appointment.start.strftime("%d/%m/%Y  %I:%M %P") %>.</span><br><br>
+												<span style="font-size:14px; line-height:135%;">Desglose del cobro: $<%= @appointment.cost %> .</span><br><br>
 												<span style="font-size:14px; line-height:135%;">¡Esperamos hayas aprendido mucho, gracias!</span><br><br>
 												<span style="font-size:14px; line-height:135%;">Si tienes alguna pregunta escríbenos a <a href="mailto:info@geek.education">info@geek.education</a> y con mucho gusto resolveremos tus dudas lo antes posible.<br><br>
 												Saludos,<br>

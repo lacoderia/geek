@@ -297,7 +297,7 @@
       <li>{{'APPOINTMENT_REQUEST_FEEDBACK_DETAILS_CLASS' | translate}}: {{ selectedCategory.name }}</li>
       <li>{{'APPOINTMENT_REQUEST_FEEDBACK_DETAILS_DATE' | translate}}: {{ selectedClass.dateTimeISO | dateTranslateFilter:this }}</li>
       <li>{{'APPOINTMENT_REQUEST_FEEDBACK_DETAILS_TIME' | translate}}: {{ selectedClass.time }}</li>
-      <li>{{'APPOINTMENT_REQUEST_FEEDBACK_DETAILS_COST' | translate}}: {{ selectedCategory.cost * 1.035 | currency:"$" }} ({{selectedCategory.cost | currency:"$"}} + {{ selectedCategory.cost * 0.035 | currency:"$" }} {{ 'APPOINTMENT_REQUEST_FEEDBACK_DETAILS_COST_DETAIL' | translate }})</li>
+      <li><div>{{'APPOINTMENT_REQUEST_FEEDBACK_DETAILS_COST' | translate}}: {{ selectedCategory.cost | currency:"$" }}</div> </li>
     </ul>
     {{'APPOINTMENT_REQUEST_FEEDBACK_POLICIES' | translate}}
     <a title="{{ 'APPOINTMENT_REQUEST_FEEDBACK_POLICIES_LINK' | translate}}" ng-click="redirectToURL('dashboard.cancellation-policy')">{{'APPOINTMENT_REQUEST_FEEDBACK_POLICIES_LINK' | translate}}</a>

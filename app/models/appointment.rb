@@ -57,12 +57,12 @@ class Appointment < ActiveRecord::Base
     card_id = self.student.cards.where("active = ?", true).first.openpay_id
     amount = (self.cost * (fee_student/100.0)).round(2)
 
-    chargestudent = Payment.charge_student student_openpay_id, card_id, (amount + (amount * GEEK_STUDENT_FEE)).round(2), get_charge_message
+    chargestudent = Payment.charge_student student_openpay_id, card_id, (amount).round(2), get_charge_message
     if chargestudent[:error]
       self.update_attribute(:log, chargestudent[:error].description)
     else
       self.update_attribute(:charged, true)
-      collectfee = Payment.charge_fee student_openpay_id, (amount * GEEK_STUDENT_FEE).round(2), get_student_fee_message # (comisión de GEEK estudiante)
+      #collectfee = Payment.charge_fee student_openpay_id, (amount * GEEK_STUDENT_FEE).round(2), get_student_fee_message # (comisión de GEEK estudiante)
       UserMailer.student_appointment_charged(self).deliver
     end
 
@@ -120,13 +120,13 @@ class Appointment < ActiveRecord::Base
     #account_id = self.tutor.cards.where("active = ?", true).first.openpay_id
     amount = (self.cost * (fee_student/100.0)).round(2) 
 
-    chargestudent = Payment.charge_student student_openpay_id, card_id, (amount + (amount * GEEK_STUDENT_FEE)).round(2), get_charge_message # (total a cobrar del estudiante, con operanciones con fee_student)
+    chargestudent = Payment.charge_student student_openpay_id, card_id, (amount).round(2), get_charge_message # (total a cobrar del estudiante, con operanciones con fee_student)
     #actualizar bandera de cobrado
     if chargestudent[:error]
       self.update_attribute(:log, chargestudent[:error].description)
     else
       self.update_attribute(:charged, true)
-      collectfee = Payment.charge_fee student_openpay_id, (amount * GEEK_STUDENT_FEE).round(2), get_student_fee_message # (comisión de GEEK estudiante)
+      #collectfee = Payment.charge_fee student_openpay_id, (amount * GEEK_STUDENT_FEE).round(2), get_student_fee_message # (comisión de GEEK estudiante)
       transferfunds = Payment.transfer_funds student_openpay_id, tutor_openpay_id, amount, get_transfer_message # (cantidad menos comisión de Openpay ?)
       collectfee = Payment.charge_fee tutor_openpay_id, (amount * ((100.0-fee_tutor)/100.0)).round(2), get_tutor_fee_message # (comisión de GEEK tutor)
       # actualizar bandera de pagado
