@@ -107,18 +107,18 @@ every(1.day, 'send_notifications', :at => '19:00') {
 
 
 #Clockwork process to calculate index number for sorting algorithm
-#every(1.week, 'calculate_index_tutor', :at => 'Sunday 23:30'){
+every(1.week, 'calculate_rating_tutor', :at => 'Sunday 23:30'){
 
- # Tutor.where("tutors.approved = ? ", true ).each do |tutor|
-  #  class_counter = 0
-   # completed_appointment = AppointmentStatus.find_by_code("6")
-    #grade = tutor.grade
-     # tutor.appointments.each do |appointment|
-      #  if appointment.appointment_status_id == completed_appointment.id
-       #   class_counter += 1
-        #end
-      #end
-    #index = class_counter + grade
-    #tutor.update_attribute(:index, index)
-  #end
-#}
+  Tutor.where("tutors.approved = ? ", true ).each do |tutor|
+    class_counter = 0
+    completed_appointment = AppointmentStatus.find_by_code("6")
+    grade = tutor.grade
+      tutor.appointments.each do |appointment|
+        if appointment.appointment_status_id == completed_appointment.id
+          class_counter += 1
+        end
+      end
+    rating = class_counter + grade
+    tutor.update_attribute(:rating, rating)
+  end
+}

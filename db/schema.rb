@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150511164536) do
+ActiveRecord::Schema.define(version: 20150514161639) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -286,7 +286,7 @@ ActiveRecord::Schema.define(version: 20150511164536) do
     t.datetime "updated_at"
     t.boolean  "approved",        default: false
     t.float    "grade",           default: 0.0
-    t.float    "rating"
+    t.float    "rating",          default: 0.0
   end
 
   add_index "tutors", ["grade"], name: "index_tutors_on_grade", using: :btree
