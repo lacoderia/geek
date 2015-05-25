@@ -14,6 +14,7 @@ ActiveAdmin.register Student, :as => "Estudiantes" do
   filter :user_cancellations, :as => :numeric
 
   index :title => "Estudiantes" do
+    column :id
     column "Picture", :picture_url, :class => "photo_thumb" do |student|
       #	link_to( (image_tag tutor.picture.url(:thumb)), tutor.picture.url(:original), :target=>"_blank" )
       link_to( (image_tag student.picture_url), student.picture_url, :target=>"_blank" )
@@ -62,6 +63,14 @@ ActiveAdmin.register Student, :as => "Estudiantes" do
       f.input :active, :as => :boolean
     end
     f.actions
+  end
+
+  csv do
+    column :id
+    column :first_name
+    column :last_name
+    column :email
+    column :created_at
   end
 
 end

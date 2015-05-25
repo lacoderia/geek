@@ -113,5 +113,14 @@ ActiveAdmin.register Tutor, :as => "Tutores" do
     f.actions
   end
 
+  csv do
+    column :id
+    column :first_name
+    column :last_name
+    column :email
+    column :background
+    column :created_at
+  end
+
 
 end

@@ -20,9 +20,9 @@
         </td>
       </tr>
       <tr ng-show="selectedCategory.id">
-        <td class="request-appointment-message">
-            {{ 'POPUP_APPOINTMENT_REQUEST_CHARGES_1' | translate }} {{ selectedCategory.cost * 1.035 | currency:"$" }} ({{selectedCategory.cost | currency:"$"}} + {{ selectedCategory.cost * 0.035 | currency:"$" }} {{ 'POPUP_APPOINTMENT_REQUEST_CHARGES_2' | translate }})
-        </td>
+        <!--td class="request-appointment-message">
+            {{ 'POPUP_APPOINTMENT_REQUEST_CHARGES_1' | translate }} {{ selectedCategory.cost | currency:"$" }}
+        </td-->
       </tr>
       <tr>
         <td class="appointment-detail-content">
